@@ -15,7 +15,7 @@ class Config:
     allowed_ids: set[int] = field(default_factory=set)
     models: tuple[str, ...] = ()
     show_model: bool = True
-    thinking_level: str = "low"
+    thinking_level: str = "medium"
     level: str = "A1–A2"
     tts_voice: str = "pl-PL-ZofiaNeural"
     tts_rate: str = "-10%"
@@ -31,7 +31,7 @@ def load() -> Config:
         allowed_ids=_ids(os.environ.get("ALLOWED_USER_IDS", "")),
         models=tuple(m for m in os.environ.get("GEMINI_MODELS", "").replace(" ", "").split(",") if m),
         show_model=os.environ.get("SHOW_MODEL", "1").strip().lower() not in ("0", "false", "no", ""),
-        thinking_level=os.environ.get("GEMINI_THINKING_LEVEL", "low"),
+        thinking_level=os.environ.get("GEMINI_THINKING_LEVEL", "medium"),
         level=os.environ.get("LEVEL", "A1–A2"),
         tts_voice=os.environ.get("TTS_VOICE", "pl-PL-ZofiaNeural"),
         tts_rate=os.environ.get("TTS_RATE", "-10%"),

@@ -3,16 +3,23 @@ from html import escape as e
 
 from .gemini import Turn
 
+KIND_ICON = {"word": "🔤", "grammar": "📝", "pronunciation": "🗣"}
+
+
+def _norm(s: str) -> str:
+    return "".join(ch for ch in s.lower() if ch.isalnum())
+
 
 def turn_message(t: Turn, from_voice: bool, show_model: bool = False) -> str:
     out: list[str] = []
     if from_voice and t.user_text:
-        out.append(f"🗣 <i>{e(t.user_text)}</i>")
+        out.append(f"🎙 <i>{e(t.user_text)}</i>")
 
     if t.corrections:
         lines = ["✏️ <b>Исправления</b>"]
         for c in t.corrections:
-            line = f"• {e(c.get('original', ''))} → <b>{e(c.get('correct', ''))}</b>"
+            icon = KIND_ICON.get(str(c.get("kind", "")).lower(), "•")
+            line = f"{icon} {e(c.get('original', ''))} → <b>{e(c.get('correct', ''))}</b>"
             if c.get("translit"):
                 line += f" [{e(c['translit'])}]"
             if c.get("ru"):
@@ -21,7 +28,17 @@ def turn_message(t: Turn, from_voice: bool, show_model: bool = False) -> str:
                 line += f"\n   <i>{e(c['why'])}</i>"
             lines.append(line)
         out.append("\n".join(lines))
-    elif t.user_text:
+
+    differs = t.corrected_pl and _norm(t.corrected_pl) != _norm(t.user_text)
+    if t.corrections or differs:
+        if t.corrected_pl:
+            block = f"✔️ <b>Правильно:</b> {e(t.corrected_pl)}"
+            if t.corrected_translit:
+                block += f"\n[{e(t.corrected_translit)}]"
+            if t.corrected_ru:
+                block += f"\n— {e(t.corrected_ru)}"
+            out.append(block)
+    elif t.user_text and not t.new_words:
         out.append("✅ Без явных ошибок")
 
     if t.new_words:

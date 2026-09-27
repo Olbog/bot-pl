@@ -69,6 +69,9 @@ class Turn:
     reply_translit: str
     reply_ru: str
     corrections: list[dict] = field(default_factory=list)
+    corrected_pl: str = ""
+    corrected_translit: str = ""
+    corrected_ru: str = ""
     new_words: list[dict] = field(default_factory=list)
     model: str = ""
 
@@ -155,6 +158,9 @@ def parse_turn(data: dict, model: str = "") -> Turn:
         reply_pl=str(obj.get("reply_pl", "")),
         reply_translit=str(obj.get("reply_translit", "")),
         reply_ru=str(obj.get("reply_ru", "")),
+        corrected_pl=str(obj.get("corrected_pl", "")),
+        corrected_translit=str(obj.get("corrected_translit", "")),
+        corrected_ru=str(obj.get("corrected_ru", "")),
         corrections=[c for c in obj.get("corrections") or [] if isinstance(c, dict)],
         new_words=[w for w in obj.get("new_words") or [] if isinstance(w, dict)],
         model=model,
@@ -213,7 +219,7 @@ class Gemini:
         }
         if with_thinking:
             if model.startswith("gemini-2.5"):
-                gen["thinkingConfig"] = {"thinkingBudget": 0 if "lite" in model else 512}
+                gen["thinkingConfig"] = {"thinkingBudget": 1024}
             elif self.thinking_level:
                 gen["thinkingConfig"] = {"thinkingLevel": self.thinking_level}
         return {

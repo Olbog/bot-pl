@@ -12,7 +12,10 @@ from bot.main import App
 
 TURN_JSON = {
     "user_text": "Wczoraj byłem w sklep i kupiłem хлеб",
-    "corrections": [{"original": "w sklep", "correct": "w sklepie", "translit": "в СКЛЕ-пе",
+    "corrected_pl": "Wczoraj byłem w sklepie i kupiłem chleb.",
+    "corrected_translit": "ВЧО-рай БЫ-уэм ф СКЛЕ-пе и ку-ПИ-уэм хлеп",
+    "corrected_ru": "Вчера я был в магазине и купил хлеб.",
+    "corrections": [{"kind": "grammar", "original": "w sklep", "correct": "w sklepie", "translit": "в СКЛЕ-пе",
                      "ru": "в магазине", "why": "после w — предложный падеж"}],
     "new_words": [{"ru": "хлеб", "pl": "chleb", "translit": "хлеб"}],
     "reply_pl": "Co jeszcze kupiłeś?",
@@ -234,7 +237,7 @@ def test_gemma_body_and_fenced_json():
 
 def test_thinking_config_per_family():
     g = Gemini("https://w", "t", ["x"], "low", "A1")
-    assert g._body("gemini-2.5-flash-lite", [], "x", None, True)["generationConfig"]["thinkingConfig"] == {"thinkingBudget": 0}
+    assert g._body("gemini-2.5-flash-lite", [], "x", None, True)["generationConfig"]["thinkingConfig"] == {"thinkingBudget": 1024}
     assert g._body("gemini-3.8-flash", [], "x", None, True)["generationConfig"]["thinkingConfig"] == {"thinkingLevel": "low"}
 
 
@@ -273,14 +276,36 @@ def test_db_sessions_history_summary():
 def test_turn_message_voice_and_escape():
     t = parse_turn(gemini_response({**TURN_JSON, "user_text": "a <b> & c"}))
     msg = turn_message(t, from_voice=True)
-    assert "🗣" in msg and "a &lt;b&gt; &amp; c" in msg
+    assert "🎙" in msg and "a &lt;b&gt; &amp; c" in msg
+    assert "📝 w sklep" in msg and "✔️" in msg and "w sklepie i kupiłem chleb" in msg
     assert "w sklepie" in msg and "chleb" in msg and "Co jeszcze kupiłeś?" in msg
 
 
 def test_turn_message_no_errors():
     t = Turn(user_text="Dzień dobry", reply_pl="Cześć!", reply_translit="чещчь", reply_ru="Привет!")
     msg = turn_message(t, from_voice=False)
-    assert "✅" in msg and "🗣" not in msg
+    assert "✅" in msg and "🎙" not in msg and "✔️" not in msg
+
+
+def test_corrected_same_as_user_means_no_errors():
+    t = Turn(user_text="Dzień dobry!", reply_pl="Cześć!", reply_translit="", reply_ru="",
+             corrected_pl="Dzień dobry.")
+    assert "✅" in turn_message(t, from_voice=False)
+
+
+def test_pronunciation_icon_and_unknown_kind():
+    t = Turn(user_text="tulke", reply_pl="Tak?", reply_translit="", reply_ru="", corrected_pl="tylko",
+             corrections=[{"kind": "pronunciation", "original": "tulke", "correct": "tylko"},
+                          {"kind": "???", "original": "a", "correct": "b"}])
+    msg = turn_message(t, from_voice=True)
+    assert "🗣 tulke" in msg and "• a" in msg
+
+
+def test_prompt_and_schema_consistent():
+    from bot.prompt import FIELDS, RESPONSE_SCHEMA, json_format_hint, system_prompt
+    assert set(FIELDS) == set(RESPONSE_SCHEMA["properties"])
+    assert all(f in json_format_hint() for f in FIELDS)
+    assert "ДОСЛОВНО" in system_prompt("A1")
 
 
 def test_summary_dedup_and_empty():
@@ -362,7 +387,7 @@ def test_voice_turn_passes_audio():
     app = make_app()
     run(app.handle(msg(voice={"file_id": "f1"})))
     assert app.gemini.calls[0][2] == b"OGG-IN" and app.gemini.calls[0][1] is None
-    assert "🗣" in app.tg.sent[0]
+    assert "🎙" in app.tg.sent[0]
 
 
 def test_gemini_error_is_reported_and_not_saved():
