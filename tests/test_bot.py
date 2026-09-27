@@ -6,7 +6,7 @@ import httpx
 from bot.config import Config
 from bot.db import DB
 from bot.fmt import summary_message, turn_message
-from bot.gemini import Gemini, GeminiError, Turn, build_contents, parse_turn
+from bot.gemini import Gemini, GeminiError, GeminiOverloaded, Turn, build_contents, parse_turn
 from bot.main import App
 
 TURN_JSON = {
@@ -95,6 +95,68 @@ def test_gemini_http_error():
         raise AssertionError
 
 
+async def _nosleep(_):
+    pass
+
+
+def scripted(responses, seen):
+    """Отдаёт ответы по очереди и запоминает, к какой модели был запрос."""
+    it = iter(responses)
+
+    def handler(req: httpx.Request):
+        seen.append(req.url.path.split("/")[-1].split(":")[0])
+        r = next(it)
+        if isinstance(r, Exception):
+            raise r
+        return r
+    return httpx.AsyncClient(transport=httpx.MockTransport(handler))
+
+
+def test_retry_503_then_ok():
+    seen = []
+    ok = httpx.Response(200, json=gemini_response(TURN_JSON))
+    busy = httpx.Response(503, text="high demand")
+    g = Gemini("https://w", "t", "main", "", "A1", client=scripted([busy, busy, ok], seen),
+               fallback_model="lite", sleep=_nosleep)
+    assert run(g.reply([], text="x")).reply_pl == "Co jeszcze kupiłeś?"
+    assert seen == ["main", "main", "main"]
+
+
+def test_fallback_after_retries_and_timeouts():
+    seen = []
+    busy = httpx.Response(503, text="high demand")
+    ok = httpx.Response(200, json=gemini_response(TURN_JSON))
+    g = Gemini("https://w", "t", "main", "", "A1",
+               client=scripted([busy, httpx.ReadTimeout("t"), busy, ok], seen),
+               fallback_model="lite", sleep=_nosleep)
+    assert run(g.reply([], text="x")).reply_pl == "Co jeszcze kupiłeś?"
+    assert seen == ["main", "main", "main", "lite"]
+
+
+def test_all_overloaded():
+    seen = []
+    busy = httpx.Response(429, text="quota")
+    g = Gemini("https://w", "t", "main", "", "A1", client=scripted([busy] * 6, seen),
+               fallback_model="lite", sleep=_nosleep)
+    try:
+        run(g.reply([], text="x"))
+    except GeminiOverloaded as e:
+        assert "lite" in str(e)
+    else:
+        raise AssertionError
+    assert seen == ["main"] * 3 + ["lite"] * 3
+
+
+def test_primary_404_switches_to_fallback():
+    seen = []
+    ok = httpx.Response(200, json=gemini_response(TURN_JSON))
+    g = Gemini("https://w", "t", "main", "", "A1",
+               client=scripted([httpx.Response(404, text="not found"), ok], seen),
+               fallback_model="lite", sleep=_nosleep)
+    assert run(g.reply([], text="x")).reply_pl
+    assert seen == ["main", "lite"]
+
+
 # ---------- db ----------
 
 def test_db_sessions_history_summary():
@@ -156,13 +218,15 @@ class FakeTG:
 
 
 class FakeGemini:
-    def __init__(self, fail=False):
-        self.calls, self.fail = [], fail
+    def __init__(self, fail=False, overloaded=False):
+        self.calls, self.fail, self.overloaded = [], fail, overloaded
 
     async def reply(self, history, text=None, audio=None):
         self.calls.append((history, text, audio))
+        if self.overloaded:
+            raise GeminiOverloaded("lite: HTTP 503")
         if self.fail:
-            raise GeminiError("HTTP 500")
+            raise GeminiError("HTTP 400")
         return parse_turn(gemini_response(TURN_JSON))
 
 
@@ -209,6 +273,12 @@ def test_gemini_error_is_reported_and_not_saved():
     run(app.handle(msg(text="x")))
     assert "Ошибка Gemini" in app.tg.sent[0]
     assert app.db.message_count(app.db.current_session(42)) == 0
+
+
+def test_overloaded_friendly_message():
+    app = make_app(gem=FakeGemini(overloaded=True))
+    run(app.handle(msg(text="x")))
+    assert "перегружен" in app.tg.sent[0] and "HTTP" not in app.tg.sent[0]
 
 
 def test_tts_failure_keeps_text():

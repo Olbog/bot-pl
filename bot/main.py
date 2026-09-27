@@ -6,7 +6,7 @@ from html import escape
 from . import config as cfg_mod
 from . import fmt
 from .db import DB
-from .gemini import Gemini, GeminiError
+from .gemini import Gemini, GeminiError, GeminiOverloaded
 from .telegram import Telegram
 from .tts import synthesize
 
@@ -40,6 +40,10 @@ class App:
         try:
             audio = await self.tg.download_file(voice["file_id"]) if voice else None
             turn = await self.gemini.reply(history, text=text or None, audio=audio)
+        except GeminiOverloaded as e:
+            log.error("Gemini перегружен: %s", e)
+            await self.tg.send_message(chat_id, "⏳ Gemini сейчас перегружен. Попробуй через минуту — сообщение можно просто переслать ещё раз.")
+            return
         except GeminiError as e:
             log.error("Gemini: %s", e)
             await self.tg.send_message(chat_id, f"⚠️ Ошибка Gemini, попробуй ещё раз.\n<code>{escape(str(e)[:300])}</code>")
@@ -103,7 +107,8 @@ def main() -> None:
     app = App(
         cfg,
         Telegram(cfg.telegram_token),
-        Gemini(cfg.worker_url, cfg.proxy_token, cfg.model, cfg.thinking_level, cfg.level),
+        Gemini(cfg.worker_url, cfg.proxy_token, cfg.model, cfg.thinking_level, cfg.level,
+               fallback_model=cfg.fallback_model),
         DB(cfg.db_path),
     )
     asyncio.run(app.run())

@@ -1,4 +1,5 @@
 """Запросы к Gemini через Cloudflare Worker."""
+import asyncio
 import base64
 import json
 import logging
@@ -60,14 +61,28 @@ def parse_turn(data: dict) -> Turn:
     )
 
 
+RETRY_STATUSES = {429, 500, 502, 503, 504}
+RETRY_DELAYS = (2, 5)  # паузы перед 2-й и 3-й попыткой
+
+
+class GeminiOverloaded(GeminiError):
+    """Все модели перегружены или недоступны — временная проблема Google."""
+
+
 class Gemini:
     def __init__(self, worker_url: str, proxy_token: str, model: str, thinking_level: str, level: str,
-                 client: httpx.AsyncClient | None = None):
-        self.url = f"{worker_url}/v1beta/models/{model}:generateContent"
+                 client: httpx.AsyncClient | None = None, fallback_model: str = "",
+                 sleep=asyncio.sleep):
+        self.worker_url = worker_url
+        self.models = [m for m in (model, fallback_model) if m]
         self.headers = {"x-proxy-token": proxy_token, "content-type": "application/json"}
         self.thinking_level = thinking_level
         self.system = system_prompt(level)
         self.client = client or httpx.AsyncClient(timeout=120)
+        self.sleep = sleep
+
+    def _url(self, model: str) -> str:
+        return f"{self.worker_url}/v1beta/models/{model}:generateContent"
 
     def _body(self, contents: list[dict], with_thinking: bool) -> dict:
         gen = {
@@ -83,14 +98,39 @@ class Gemini:
             "generationConfig": gen,
         }
 
+    async def _post(self, model: str, contents: list[dict]) -> httpx.Response:
+        url = self._url(model)
+        resp = await self.client.post(url, headers=self.headers, json=self._body(contents, True))
+        # Если модель не знает thinkingLevel — повторяем без него.
+        if resp.status_code == 400 and "thinking" in resp.text.lower():
+            log.warning("thinkingConfig отклонён (%s), повтор без него", model)
+            resp = await self.client.post(url, headers=self.headers, json=self._body(contents, False))
+        return resp
+
     async def reply(self, history: list[tuple[str, str]], text: str | None = None,
                     audio: bytes | None = None) -> Turn:
         contents = build_contents(history, text, audio)
-        resp = await self.client.post(self.url, headers=self.headers, json=self._body(contents, True))
-        # Если модель не знает thinkingLevel — повторяем без него.
-        if resp.status_code == 400 and "thinking" in resp.text.lower():
-            log.warning("thinkingConfig отклонён, повтор без него: %s", resp.text[:300])
-            resp = await self.client.post(self.url, headers=self.headers, json=self._body(contents, False))
-        if resp.status_code != 200:
-            raise GeminiError(f"HTTP {resp.status_code}: {resp.text[:500]}")
-        return parse_turn(resp.json())
+        last = ""
+        for model in self.models:
+            for attempt in range(len(RETRY_DELAYS) + 1):
+                if attempt:
+                    await self.sleep(RETRY_DELAYS[attempt - 1])
+                try:
+                    resp = await self._post(model, contents)
+                except httpx.TransportError as e:  # таймаут, обрыв соединения
+                    last = f"{model}: {type(e).__name__}"
+                    log.warning("Gemini %s, попытка %d: %s", model, attempt + 1, last)
+                    continue
+                if resp.status_code == 200:
+                    if model != self.models[0]:
+                        log.info("Ответила запасная модель %s", model)
+                    return parse_turn(resp.json())
+                last = f"{model}: HTTP {resp.status_code}"
+                if resp.status_code in RETRY_STATUSES:
+                    log.warning("Gemini %s, попытка %d: HTTP %d", model, attempt + 1, resp.status_code)
+                    continue
+                if resp.status_code == 404 and model != self.models[-1]:
+                    log.error("Модель %s не найдена, переключаюсь на запасную", model)
+                    break
+                raise GeminiError(f"HTTP {resp.status_code}: {resp.text[:500]}")
+        raise GeminiOverloaded(last)
