@@ -6,7 +6,8 @@ import httpx
 from bot.config import Config
 from bot.db import DB
 from bot.fmt import summary_message, turn_message
-from bot.gemini import Gemini, GeminiError, GeminiOverloaded, Turn, build_contents, parse_turn
+from bot.gemini import (DEFAULT_MODELS, Gemini, GeminiError, GeminiExhausted, GeminiOverloaded, Turn,
+                        build_contents, classify_429, next_quota_reset, parse_turn)
 from bot.main import App
 
 TURN_JSON = {
@@ -75,86 +76,177 @@ def test_gemini_request_and_thinking_fallback():
         return httpx.Response(200, json=gemini_response(TURN_JSON))
 
     client = httpx.AsyncClient(transport=httpx.MockTransport(handler))
-    g = Gemini("https://w.example", "tok", "m", "low", "A1", client=client)
+    g = Gemini("https://w.example", "tok", ["m"], "low", "A1", client=client)
     t = run(g.reply([], text="hej"))
-    assert t.reply_pl == "Co jeszcze kupiłeś?"
+    assert t.reply_pl == "Co jeszcze kupiłeś?" and t.model == "m"
     assert len(calls) == 2
     assert calls[0]["generationConfig"]["responseMimeType"] == "application/json"
     assert "systemInstruction" in calls[0]
 
 
-def test_gemini_http_error():
+def test_hard_error_only_model():
     client = httpx.AsyncClient(transport=httpx.MockTransport(
         lambda r: httpx.Response(400, text='{"error":"User location is not supported"}')))
-    g = Gemini("https://w", "t", "m", "", "A1", client=client)
+    g = Gemini("https://w", "t", ["m"], "", "A1", client=client)
     try:
         run(g.reply([], text="x"))
+    except GeminiOverloaded:
+        raise AssertionError("должна быть обычная ошибка")
     except GeminiError as e:
         assert "location" in str(e)
     else:
         raise AssertionError
 
 
-async def _nosleep(_):
-    pass
+class Clock:
+    def __init__(self, t=1_790_000_000.0):
+        self.t = t
+
+    def __call__(self):
+        return self.t
 
 
-def scripted(responses, seen):
-    """Отдаёт ответы по очереди и запоминает, к какой модели был запрос."""
-    it = iter(responses)
+def by_model(table, seen):
+    """table: модель -> список ответов по очереди (последний повторяется)."""
+    queues = {k: list(v) for k, v in table.items()}
 
     def handler(req: httpx.Request):
-        seen.append(req.url.path.split("/")[-1].split(":")[0])
-        r = next(it)
+        if req.method == "GET":
+            return httpx.Response(200, json={"models": [{"name": f"models/{m}"} for m in table]})
+        model = req.url.path.split("/")[-1].split(":")[0]
+        seen.append(model)
+        q = queues[model]
+        r = q.pop(0) if len(q) > 1 else q[0]
         if isinstance(r, Exception):
             raise r
         return r
     return httpx.AsyncClient(transport=httpx.MockTransport(handler))
 
 
-def test_retry_503_then_ok():
+OK = httpx.Response(200, json=gemini_response(TURN_JSON))
+BUSY = httpx.Response(503, text="high demand")
+DAY_429 = httpx.Response(429, text=json.dumps({"error": {"code": 429, "details": [
+    {"@type": "type.googleapis.com/google.rpc.QuotaFailure",
+     "violations": [{"quotaId": "GenerateRequestsPerDayPerProjectPerModel-FreeTier"}]},
+    {"@type": "type.googleapis.com/google.rpc.RetryInfo", "retryDelay": "50s"}]}}))
+MIN_429 = httpx.Response(429, text=json.dumps({"error": {"code": 429, "details": [
+    {"@type": "type.googleapis.com/google.rpc.QuotaFailure",
+     "violations": [{"quotaId": "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"}]},
+    {"@type": "type.googleapis.com/google.rpc.RetryInfo", "retryDelay": "17s"}]}}))
+
+
+def test_classify_429():
+    assert classify_429(DAY_429.text) == ("day", 50.0)
+    assert classify_429(MIN_429.text) == ("minute", 17.0)
+    assert classify_429("garbage")[0] == "minute"
+
+
+def test_next_quota_reset_is_pt_midnight():
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+    r = datetime.fromtimestamp(next_quota_reset(1_790_000_000.0), ZoneInfo("America/Los_Angeles"))
+    assert (r.hour, r.minute) == (0, 1)
+    assert 0 < next_quota_reset(1_790_000_000.0) - 1_790_000_000.0 <= 86400 + 60
+
+
+def test_chain_day_limit_skips_until_reset():
+    seen, clock = [], Clock()
+    g = Gemini("https://w", "t", ["a", "b"], "", "A1", client=by_model({"a": [DAY_429], "b": [OK]}, seen),
+               clock=clock)
+    assert run(g.reply([], text="x")).model == "b"
+    assert run(g.reply([], text="y")).model == "b"
+    assert seen == ["a", "b", "b"]          # во второй раз "a" уже не трогаем
+    clock.t = next_quota_reset(clock.t) + 1  # после сброса снова пробуем "a"
+    run(g.reply([], text="z"))
+    assert seen[-2:] == ["a", "b"]
+
+
+def test_chain_minute_limit_and_overload_short_block():
+    seen, clock = [], Clock()
+    g = Gemini("https://w", "t", ["a", "b", "c"], "", "A1",
+               client=by_model({"a": [MIN_429, OK], "b": [BUSY, OK], "c": [OK]}, seen), clock=clock)
+    assert run(g.reply([], text="x")).model == "c"
+    clock.t += 18                             # минутный лимит "a" (17 с) прошёл, "b" ещё на паузе (30 с)
+    assert run(g.reply([], text="y")).model == "a"
+    assert seen == ["a", "b", "c", "a"]
+
+
+def test_chain_timeout_and_garbage_go_next():
     seen = []
-    ok = httpx.Response(200, json=gemini_response(TURN_JSON))
-    busy = httpx.Response(503, text="high demand")
-    g = Gemini("https://w", "t", "main", "", "A1", client=scripted([busy, busy, ok], seen),
-               fallback_model="lite", sleep=_nosleep)
-    assert run(g.reply([], text="x")).reply_pl == "Co jeszcze kupiłeś?"
-    assert seen == ["main", "main", "main"]
+    garbage = httpx.Response(200, json={"candidates": [{"content": {"parts": [{"text": "не json"}]}}]})
+    g = Gemini("https://w", "t", ["a", "b", "c"], "", "A1",
+               client=by_model({"a": [httpx.ReadTimeout("t")], "b": [garbage], "c": [OK]}, seen))
+    assert run(g.reply([], text="x")).model == "c"
 
 
-def test_fallback_after_retries_and_timeouts():
+def test_all_day_exhausted():
     seen = []
-    busy = httpx.Response(503, text="high demand")
-    ok = httpx.Response(200, json=gemini_response(TURN_JSON))
-    g = Gemini("https://w", "t", "main", "", "A1",
-               client=scripted([busy, httpx.ReadTimeout("t"), busy, ok], seen),
-               fallback_model="lite", sleep=_nosleep)
-    assert run(g.reply([], text="x")).reply_pl == "Co jeszcze kupiłeś?"
-    assert seen == ["main", "main", "main", "lite"]
-
-
-def test_all_overloaded():
-    seen = []
-    busy = httpx.Response(429, text="quota")
-    g = Gemini("https://w", "t", "main", "", "A1", client=scripted([busy] * 6, seen),
-               fallback_model="lite", sleep=_nosleep)
+    g = Gemini("https://w", "t", ["a", "b"], "", "A1", client=by_model({"a": [DAY_429], "b": [DAY_429]}, seen))
     try:
         run(g.reply([], text="x"))
-    except GeminiOverloaded as e:
-        assert "lite" in str(e)
+    except GeminiExhausted as e:
+        assert e.reset_at > 0 and not e.text_still_ok
     else:
         raise AssertionError
-    assert seen == ["main"] * 3 + ["lite"] * 3
 
 
-def test_primary_404_switches_to_fallback():
+def test_voice_exhausted_but_text_ok():
     seen = []
-    ok = httpx.Response(200, json=gemini_response(TURN_JSON))
-    g = Gemini("https://w", "t", "main", "", "A1",
-               client=scripted([httpx.Response(404, text="not found"), ok], seen),
-               fallback_model="lite", sleep=_nosleep)
-    assert run(g.reply([], text="x")).reply_pl
-    assert seen == ["main", "lite"]
+    bad_audio = httpx.Response(400, text='{"error":"audio input not supported"}')
+    g = Gemini("https://w", "t", ["gemini-x", "gemma-4-31b-it"], "", "A1",
+               client=by_model({"gemini-x": [DAY_429], "gemma-4-31b-it": [bad_audio, OK]}, seen))
+    try:
+        run(g.reply([], audio=b"OGG"))
+    except GeminiExhausted as e:
+        assert e.text_still_ok
+    else:
+        raise AssertionError
+    assert run(g.reply([], text="x")).model == "gemma-4-31b-it"
+
+
+def test_overloaded_when_all_busy():
+    g = Gemini("https://w", "t", ["a", "b"], "", "A1", client=by_model({"a": [BUSY], "b": [MIN_429]}, []))
+    try:
+        run(g.reply([], text="x"))
+    except GeminiExhausted:
+        raise AssertionError
+    except GeminiOverloaded:
+        pass
+
+
+def test_gemma_body_and_fenced_json():
+    bodies = []
+    fenced = "Oto odpowiedź:\n```json\n" + json.dumps(TURN_JSON, ensure_ascii=False) + "\n```"
+
+    def handler(req):
+        bodies.append(json.loads(req.content))
+        return httpx.Response(200, json={"candidates": [{"content": {"parts": [{"text": fenced}]}}]})
+
+    g = Gemini("https://w", "t", ["gemma-4-31b-it"], "low", "A1",
+               client=httpx.AsyncClient(transport=httpx.MockTransport(handler)))
+    t = run(g.reply([("user", "u"), ("model", "m")], text="x"))
+    assert t.reply_pl == "Co jeszcze kupiłeś?"
+    b = bodies[0]
+    assert "systemInstruction" not in b and "responseSchema" not in b["generationConfig"]
+    assert "JSON" in b["contents"][0]["parts"][0]["text"]       # инструкция в первой реплике
+    assert b["contents"][0]["parts"][1]["text"] == "u"
+
+
+def test_thinking_config_per_family():
+    g = Gemini("https://w", "t", ["x"], "low", "A1")
+    assert g._body("gemini-2.5-flash-lite", [], "x", None, True)["generationConfig"]["thinkingConfig"] == {"thinkingBudget": 0}
+    assert g._body("gemini-3.8-flash", [], "x", None, True)["generationConfig"]["thinkingConfig"] == {"thinkingLevel": "low"}
+
+
+def test_check_models_drops_missing():
+    seen = []
+    g = Gemini("https://w", "t", ["a", "nope", "b"], "", "A1", client=by_model({"a": [OK], "b": [OK]}, seen))
+    run(g.check_models())
+    assert g.models == ["a", "b"]
+
+
+def test_default_chain_when_empty():
+    assert Gemini("https://w", "t", [], "", "A1").models == DEFAULT_MODELS
 
 
 # ---------- db ----------
@@ -218,16 +310,21 @@ class FakeTG:
 
 
 class FakeGemini:
-    def __init__(self, fail=False, overloaded=False):
-        self.calls, self.fail, self.overloaded = [], fail, overloaded
+    def __init__(self, fail=False, overloaded=False, exhausted=None):
+        self.calls, self.fail, self.overloaded, self.exhausted = [], fail, overloaded, exhausted
+
+    async def check_models(self):
+        pass
 
     async def reply(self, history, text=None, audio=None):
         self.calls.append((history, text, audio))
+        if self.exhausted is not None:
+            raise GeminiExhausted(1_790_000_000.0, text_still_ok=self.exhausted)
         if self.overloaded:
             raise GeminiOverloaded("lite: HTTP 503")
         if self.fail:
             raise GeminiError("HTTP 400")
-        return parse_turn(gemini_response(TURN_JSON))
+        return parse_turn(gemini_response(TURN_JSON), "gemini-3.5-flash-lite")
 
 
 def make_app(gem=None, tts_fail=False):
@@ -279,6 +376,23 @@ def test_overloaded_friendly_message():
     app = make_app(gem=FakeGemini(overloaded=True))
     run(app.handle(msg(text="x")))
     assert "перегружен" in app.tg.sent[0] and "HTTP" not in app.tg.sent[0]
+
+
+def test_exhausted_messages():
+    app = make_app(gem=FakeGemini(exhausted=False))
+    run(app.handle(msg(text="x")))
+    assert "Дневной лимит" in app.tg.sent[0]
+    app = make_app(gem=FakeGemini(exhausted=True))
+    run(app.handle(msg(voice={"file_id": "f"})))
+    assert "Голосовые" in app.tg.sent[0] and "Текстом" in app.tg.sent[0]
+
+
+def test_model_footer():
+    app = make_app()
+    run(app.handle(msg(text="x")))
+    assert "3.5-flash-lite" in app.tg.sent[0]
+    t = parse_turn(gemini_response(TURN_JSON), "gemini-3.8-flash")
+    assert "3.8-flash" not in turn_message(t, from_voice=False, show_model=False)
 
 
 def test_tts_failure_keeps_text():

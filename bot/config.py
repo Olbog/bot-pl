@@ -13,8 +13,8 @@ class Config:
     worker_url: str
     proxy_token: str
     allowed_ids: set[int] = field(default_factory=set)
-    model: str = "gemini-flash-latest"
-    fallback_model: str = "gemini-flash-lite-latest"
+    models: tuple[str, ...] = ()
+    show_model: bool = True
     thinking_level: str = "low"
     level: str = "A1–A2"
     tts_voice: str = "pl-PL-ZofiaNeural"
@@ -29,8 +29,8 @@ def load() -> Config:
         worker_url=os.environ["WORKER_URL"].rstrip("/"),
         proxy_token=os.environ["PROXY_TOKEN"],
         allowed_ids=_ids(os.environ.get("ALLOWED_USER_IDS", "")),
-        model=os.environ.get("GEMINI_MODEL", "gemini-flash-latest"),
-        fallback_model=os.environ.get("GEMINI_FALLBACK_MODEL", "gemini-flash-lite-latest"),
+        models=tuple(m for m in os.environ.get("GEMINI_MODELS", "").replace(" ", "").split(",") if m),
+        show_model=os.environ.get("SHOW_MODEL", "1").strip().lower() not in ("0", "false", "no", ""),
         thinking_level=os.environ.get("GEMINI_THINKING_LEVEL", "low"),
         level=os.environ.get("LEVEL", "A1–A2"),
         tts_voice=os.environ.get("TTS_VOICE", "pl-PL-ZofiaNeural"),

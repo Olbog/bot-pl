@@ -1,12 +1,13 @@
 """Точка входа: обработка сообщений и цикл long polling."""
 import asyncio
 import logging
+from datetime import datetime
 from html import escape
 
 from . import config as cfg_mod
 from . import fmt
 from .db import DB
-from .gemini import Gemini, GeminiError, GeminiOverloaded
+from .gemini import Gemini, GeminiError, GeminiExhausted, GeminiOverloaded
 from .telegram import Telegram
 from .tts import synthesize
 
@@ -40,6 +41,15 @@ class App:
         try:
             audio = await self.tg.download_file(voice["file_id"]) if voice else None
             turn = await self.gemini.reply(history, text=text or None, audio=audio)
+        except GeminiExhausted as e:
+            log.error("Gemini: %s", e)
+            reset = datetime.fromtimestamp(e.reset_at).strftime("%H:%M")
+            if e.text_still_ok:
+                note = f"🎙 Голосовые до {reset} (Мск) недоступны — дневной лимит исчерпан. Текстом пока можно писать."
+            else:
+                note = f"😴 Дневной лимит всех моделей исчерпан. Сброс около {reset} (Мск)."
+            await self.tg.send_message(chat_id, note)
+            return
         except GeminiOverloaded as e:
             log.error("Gemini перегружен: %s", e)
             await self.tg.send_message(chat_id, "⏳ Gemini сейчас перегружен. Попробуй через минуту — сообщение можно просто переслать ещё раз.")
@@ -55,7 +65,8 @@ class App:
 
         user_text = turn.user_text or text
         self.db.save_turn(session, user_id, user_text, turn.reply_pl, turn.corrections, turn.new_words)
-        await self.tg.send_message(chat_id, fmt.turn_message(turn, from_voice=bool(voice)))
+        await self.tg.send_message(chat_id, fmt.turn_message(turn, from_voice=bool(voice),
+                                                             show_model=self.cfg.show_model))
 
         if turn.reply_pl:
             await self.tg.send_action(chat_id, "record_voice")
@@ -78,6 +89,7 @@ class App:
             await self.tg.send_message(chat_id, fmt.HELP)
 
     async def run(self) -> None:
+        await self.gemini.check_models()
         try:
             await self.tg.set_commands()
         except Exception:
@@ -107,8 +119,7 @@ def main() -> None:
     app = App(
         cfg,
         Telegram(cfg.telegram_token),
-        Gemini(cfg.worker_url, cfg.proxy_token, cfg.model, cfg.thinking_level, cfg.level,
-               fallback_model=cfg.fallback_model),
+        Gemini(cfg.worker_url, cfg.proxy_token, list(cfg.models), cfg.thinking_level, cfg.level),
         DB(cfg.db_path),
     )
     asyncio.run(app.run())

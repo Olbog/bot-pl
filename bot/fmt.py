@@ -4,7 +4,7 @@ from html import escape as e
 from .gemini import Turn
 
 
-def turn_message(t: Turn, from_voice: bool) -> str:
+def turn_message(t: Turn, from_voice: bool, show_model: bool = False) -> str:
     out: list[str] = []
     if from_voice and t.user_text:
         out.append(f"🗣 <i>{e(t.user_text)}</i>")
@@ -36,6 +36,8 @@ def turn_message(t: Turn, from_voice: bool) -> str:
     if t.reply_ru:
         reply += f"\n— {e(t.reply_ru)}"
     out.append(reply)
+    if show_model and t.model:
+        out.append(f"<i>· {e(t.model.removeprefix('gemini-'))}</i>")
     return "\n\n".join(out)
 
 

@@ -68,3 +68,10 @@ RESPONSE_SCHEMA = {
     "required": ["user_text", "corrections", "new_words", "reply_pl", "reply_translit", "reply_ru"],
     "propertyOrdering": ["user_text", "corrections", "new_words", "reply_pl", "reply_translit", "reply_ru"],
 }
+
+
+def json_format_hint() -> str:
+    """Формат ответа для моделей без строгой схемы (Gemma)."""
+    return """Отвечай ТОЛЬКО одним JSON-объектом, без пояснений и без markdown, строго такого вида:
+{"user_text": "...", "corrections": [{"original": "...", "correct": "...", "translit": "...", "ru": "...", "why": "..."}], "new_words": [{"ru": "...", "pl": "...", "translit": "..."}], "reply_pl": "...", "reply_translit": "...", "reply_ru": "..."}
+Если исправлять нечего или новых слов нет — пустые списки []."""
