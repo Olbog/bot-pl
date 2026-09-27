@@ -28,15 +28,16 @@ docker compose logs -f   # должно быть «Бот запущен», вы
 docker compose up -d
 ```
 
-## Обновление после push
+## Порядок обновления
 
-```powershell
-cd E:\Bots\bot-pl
-git pull
-docker compose up -d --build
-```
+1. Claude правит код в `D:\Castro_2\Job\Bot\bot-pl` и кладёт описание коммита в `COMMIT_MSG.txt`.
+2. На ноуте: `.\ship.ps1` — коммит и push.
+3. На сервере: `cd E:\Bots\bot-pl; .\deploy.ps1` — pull, пересборка, тесты, лог.
 
-Код запекается в образ, поэтому нужен именно `--build`, простого restart недостаточно.
+Если PowerShell пишет, что выполнение скриптов отключено:
+`powershell -ExecutionPolicy Bypass -File .\deploy.ps1` (так же для ship.ps1).
+
+Код запекается в образ, поэтому deploy.ps1 делает `--build`, простого restart недостаточно.
 
 ## Тесты
 
