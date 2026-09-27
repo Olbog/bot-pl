@@ -1,0 +1,8 @@
+services:
+  bot:
+    build: .
+    container_name: bot-pl
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
