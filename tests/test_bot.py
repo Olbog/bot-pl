@@ -237,8 +237,9 @@ def test_gemma_body_and_fenced_json():
 
 def test_thinking_config_per_family():
     g = Gemini("https://w", "t", ["x"], "low", "A1")
-    assert g._body("gemini-2.5-flash-lite", [], "x", None, True)["generationConfig"]["thinkingConfig"] == {"thinkingBudget": 1024}
-    assert g._body("gemini-3.8-flash", [], "x", None, True)["generationConfig"]["thinkingConfig"] == {"thinkingLevel": "low"}
+    req = {"system": "S", "schema": {}, "hint": "H", "history": [], "text": "x", "audio": None}
+    assert g._body("gemini-2.5-flash-lite", req, True)["generationConfig"]["thinkingConfig"] == {"thinkingBudget": 1024}
+    assert g._body("gemini-3.8-flash", req, True)["generationConfig"]["thinkingConfig"] == {"thinkingLevel": "low"}
 
 
 def test_check_models_drops_missing():
@@ -319,10 +320,18 @@ def test_summary_dedup_and_empty():
 
 class FakeTG:
     def __init__(self):
-        self.sent, self.voices = [], []
+        self.sent, self.voices, self.buttons, self.edits = [], [], [], []
 
-    async def send_message(self, chat_id, text):
+    async def send_message(self, chat_id, text, buttons=None):
         self.sent.append(text)
+        self.buttons.append(buttons)
+        return {"message_id": len(self.sent)}
+
+    async def edit_message(self, chat_id, message_id, text, buttons=None):
+        self.edits.append((text, buttons))
+
+    async def answer_callback(self, cid, text=None):
+        pass
 
     async def send_voice(self, chat_id, ogg):
         self.voices.append(ogg)
@@ -335,24 +344,35 @@ class FakeTG:
 
 
 class FakeGemini:
-    def __init__(self, fail=False, overloaded=False, exhausted=None):
+    def __init__(self, fail=False, overloaded=False, exhausted=None, turn=None, words=None):
         self.calls, self.fail, self.overloaded, self.exhausted = [], fail, overloaded, exhausted
+        self.turn = turn or TURN_JSON
+        self.words = words or {"title": "Кафе", "words": [
+            {"pl": "ciasto", "translit": "ЧЬЯ-сто", "ru": "пирог", "pos": "сущ"},
+            {"pl": "piec", "translit": "пец", "ru": "печь", "pos": "глаг"},
+            {"pl": "kawa", "translit": "КА-ва", "ru": "кофе", "pos": "сущ"}]}
+        self.extras, self.prompts = [], []
+
+    async def ask_json(self, prompt, schema, hint):
+        self.prompts.append(prompt)
+        return self.words
 
     async def check_models(self):
         pass
 
-    async def reply(self, history, text=None, audio=None):
+    async def reply(self, history, text=None, audio=None, extra_system=""):
         self.calls.append((history, text, audio))
+        self.extras.append(extra_system)
         if self.exhausted is not None:
             raise GeminiExhausted(1_790_000_000.0, text_still_ok=self.exhausted)
         if self.overloaded:
             raise GeminiOverloaded("lite: HTTP 503")
         if self.fail:
             raise GeminiError("HTTP 400")
-        return parse_turn(gemini_response(TURN_JSON), "gemini-3.5-flash-lite")
+        return parse_turn(gemini_response(self.turn), "gemini-3.5-flash-lite")
 
 
-def make_app(gem=None, tts_fail=False):
+def make_app(gem=None, tts_fail=False, clock=None):
     cfg = Config(telegram_token="x", worker_url="w", proxy_token="p", allowed_ids={42})
 
     async def tts(text, voice, rate):
@@ -360,7 +380,7 @@ def make_app(gem=None, tts_fail=False):
             raise RuntimeError("no ffmpeg")
         return b"OGG:" + text.encode()
 
-    return App(cfg, FakeTG(), gem or FakeGemini(), DB(":memory:"), tts=tts)
+    return App(cfg, FakeTG(), gem or FakeGemini(), DB(":memory:"), tts=tts, clock=clock or Clock())
 
 
 def msg(**kw):
@@ -436,3 +456,179 @@ def test_commands_new_and_itog():
     assert "пока ничего" in app.tg.sent[-1]
     run(app.handle(msg(text="/start")))
     assert "/new" in app.tg.sent[-1]
+
+
+# ---------- тренировка наборов ----------
+
+from bot import training  # noqa: E402
+
+
+def use(form, ok, day):
+    return {"form": form, "correct": int(ok), "day": day}
+
+
+def test_stats_streak_resets_on_error():
+    uses = [use("piekę", 1, "d1"), use("pieczesz", 1, "d1"), use("piec", 0, "d2"),
+            use("piecze", 1, "d2"), use("Piecze", 1, "d3")]
+    st = training.stats(uses)
+    assert (st.total, st.correct, st.errors, st.streak) == (5, 4, 1, 2)
+    assert st.streak_forms == ["piecze"] and st.streak_days == 2
+    assert "piekę" in st.all_forms
+
+
+def test_meets_criteria():
+    c = training.Criteria(streak=4, forms=3, days=2)
+    good = [use("a", 1, "d1"), use("b", 1, "d1"), use("c", 1, "d2"), use("a", 1, "d2")]
+    assert training.meets(training.stats(good), c)
+    assert not training.meets(training.stats(good[:3]), c)                      # мало раз
+    assert not training.meets(training.stats([use("a", 1, "d1")] * 4), c)        # одна форма, один день
+    assert not training.meets(training.stats(good + [use("x", 0, "d3")]), c)     # ошибка сбросила серию
+
+
+def test_due_for_review():
+    w = {"mastered_at": 0.0, "review_stage": 0, "last_review_at": None}
+    assert not training.due_for_review(w, 2 * 86400)
+    assert training.due_for_review(w, 3 * 86400)
+    w2 = {"mastered_at": 0.0, "review_stage": 1, "last_review_at": 3 * 86400.0}
+    assert not training.due_for_review(w2, 9 * 86400) and training.due_for_review(w2, 10 * 86400)
+    assert not training.due_for_review({"mastered_at": None, "review_stage": 0, "last_review_at": None}, 1e9)
+
+
+def cb(data, mid=1):
+    return {"id": "c", "from": {"id": 42}, "message": {"chat": {"id": 42}, "message_id": mid}, "data": data}
+
+
+def start_set(app, topic="кафе"):
+    run(app.on_callback(cb("s:topic")))
+    run(app.handle(msg(text=topic)))
+    run(app.on_callback(cb("p:ok")))
+
+
+def test_topic_flow_preview_toggle_and_start():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    run(app.on_callback(cb("s:topic")))
+    assert app.db.get_state(42)["pending"] == {"step": "topic"}
+    run(app.handle(msg(text="кафе")))
+    assert "кафе" in gem.prompts[0] and not gem.calls        # тема ушла в составление, не в разговор
+    assert "ciasto" in app.tg.sent[-1] and any(d == "p:0" for row in app.tg.buttons[-1] for _, d in row)
+    run(app.on_callback(cb("p:2")))                            # убрать kawa
+    assert "<s>" in app.tg.edits[-1][0]
+    run(app.on_callback(cb("p:ok")))
+    active = app.db.active_set(42)
+    assert active["title"] == "Кафе"
+    assert [w["pl"] for w in app.db.set_words(active["id"])] == ["ciasto", "piec"]
+    assert app.db.get_state(42) == {"mode": "set", "pending": None}
+    assert gem.calls[-1][1] == "Zaczynajmy!" and "ТРЕНИРОВКА" in gem.extras[-1] and "ciasto" in gem.extras[-1]
+    assert "✅ Без" not in app.tg.sent[-1] and "Исправления" not in app.tg.sent[-1]
+
+
+def test_own_words_and_add_and_cancel():
+    gem = FakeGemini(words={"title": "Мои", "words": [{"pl": "dom", "translit": "дом", "ru": "дом", "pos": "сущ"}]})
+    app = make_app(gem=gem)
+    run(app.on_callback(cb("s:own")))
+    run(app.handle(msg(text="дом")))
+    assert "dom" in app.tg.sent[-1]
+    run(app.on_callback(cb("p:add")))
+    gem.words = {"title": "x", "words": [{"pl": "kot", "translit": "кот", "ru": "кот", "pos": "сущ"},
+                                         {"pl": "dom", "translit": "дом", "ru": "дом", "pos": "сущ"}]}
+    run(app.handle(msg(text="кот")))
+    p = app.db.get_state(42)["pending"]
+    assert [w["pl"] for w in p["words"]] == ["dom", "kot"] and p["title"] == "Мои"   # без дублей
+    run(app.handle(msg(text="/cancel")))
+    assert app.db.get_state(42)["pending"] is None
+
+
+def test_target_uses_progress_and_auto_mastered():
+    t = {**TURN_JSON, "target_uses": [{"lemma": "Piec", "form": "piekę", "correct": True},
+                                      {"lemma": "nieznane", "form": "x", "correct": True}]}
+    gem = FakeGemini(turn=t)
+    clock = Clock()
+    app = make_app(gem=gem, clock=clock)
+    app.criteria = training.Criteria(streak=3, forms=2, days=2)
+    start_set(app)
+    word = [w for w in app.db.set_words(app.db.active_set(42)["id"]) if w["pl"] == "piec"][0]
+    assert len(app.db.word_uses(word["id"])) == 1                # открывающая реплика тоже учитывается
+    assert "🎯 piekę ✓" in app.tg.sent[-1]
+    gem.turn = {**t, "target_uses": [{"lemma": "piec", "form": "pieczesz", "correct": True}]}
+    clock.t += 86400
+    run(app.handle(msg(text="x")))
+    assert app.db.word(word["id"])["mastered_at"] is None
+    run(app.handle(msg(text="y")))
+    assert app.db.word(word["id"])["mastered_by"] == "auto"
+    assert any("🎉 Освоено: <b>piec</b>" in m for m in app.tg.sent)
+
+
+def test_error_resets_streak_in_progress_view():
+    t = {**TURN_JSON, "target_uses": [{"lemma": "ciasto", "form": "czasta", "correct": False}]}
+    app = make_app(gem=FakeGemini(turn=t))
+    start_set(app)
+    run(app.handle(msg(text="/set")))
+    assert "🔴 <b>ciasto</b>" in app.tg.sent[-1] and "0/20" in app.tg.sent[-1]
+    assert any("🎯 czasta ✗" in m for m in app.tg.sent)
+
+
+def test_manual_mastered_toggle_and_suggest_next_and_carry():
+    app = make_app()
+    app.cfg = Config(telegram_token="x", worker_url="w", proxy_token="p", allowed_ids={42}, next_set_ratio=0.6)
+    start_set(app)
+    words = app.db.set_words(app.db.active_set(42)["id"])
+    run(app.on_callback(cb("m:list")))
+    run(app.on_callback(cb(f"m:{words[0]['id']}")))
+    run(app.on_callback(cb(f"m:{words[1]['id']}")))
+    assert app.db.word(words[0]["id"])["mastered_by"] == "user"
+    run(app.on_callback(cb(f"m:{words[1]['id']}")))                  # повторное нажатие снимает отметку
+    assert app.db.word(words[1]["id"])["mastered_at"] is None
+    run(app.on_callback(cb(f"m:{words[1]['id']}")))
+    run(app.handle(msg(text="x")))                                   # 2 из 3 = 67% ≥ 60% → предложение
+    assert any("почти освоен" in m for m in app.tg.sent)
+    n = sum("почти освоен" in m for m in app.tg.sent)
+    run(app.handle(msg(text="y")))
+    assert sum("почти освоен" in m for m in app.tg.sent) == n        # только один раз
+    old_left = [w for w in words if w["id"] == words[2]["id"]][0]
+    app.gemini.words = {"title": "Новый", "words": [{"pl": "herbata", "translit": "хер-БА-та", "ru": "чай", "pos": "сущ"}]}
+    start_set(app, "чай")
+    new_words = [w["pl"] for w in app.db.set_words(app.db.active_set(42)["id"])]
+    assert "herbata" in new_words and old_left["pl"] in new_words and words[0]["pl"] not in new_words
+
+
+def test_free_mode_review_block_and_advance():
+    t = {**TURN_JSON, "target_uses": [{"lemma": "ciasto", "form": "ciasta", "correct": True}]}
+    gem = FakeGemini(turn=t)
+    clock = Clock()
+    app = make_app(gem=gem, clock=clock)
+    start_set(app)
+    w = [x for x in app.db.set_words(app.db.active_set(42)["id"]) if x["pl"] == "ciasto"][0]
+    app.db.set_mastered(w["id"], "user")
+    app.db.conn.execute("UPDATE set_words SET mastered_at=? WHERE id=?", (clock.t, w["id"]))
+    run(app.handle(msg(text="/free")))
+    assert app.db.get_state(42)["mode"] == "free"
+    run(app.handle(msg(text="a")))
+    assert "ПОВТОРЕНИЕ" not in gem.extras[-1]                      # ещё рано
+    clock.t += 4 * 86400
+    run(app.handle(msg(text="b")))
+    assert "ПОВТОРЕНИЕ" in gem.extras[-1] and "ciasto" in gem.extras[-1]
+    assert app.db.word(w["id"])["review_stage"] == 1
+    run(app.handle(msg(text="c")))
+    assert "ПОВТОРЕНИЕ" not in gem.extras[-1]                      # следующий раз через 7 дней
+
+
+def test_mode_switch_buttons_and_set_view():
+    app = make_app()
+    run(app.handle(msg(text="/set")))
+    assert "Набора пока нет" in app.tg.sent[-1]
+    run(app.on_callback(cb("mode:set")))
+    assert "Сначала составь набор" in app.tg.sent[-1]
+    start_set(app)
+    run(app.on_callback(cb("mode:free")))
+    assert app.db.get_state(42)["mode"] == "free"
+    run(app.on_callback(cb("mode:set")))
+    assert app.db.get_state(42)["mode"] == "set" and app.gemini.calls[-1][1] == "Zaczynajmy!"
+
+
+def test_stale_preview_and_foreign_callback():
+    app = make_app()
+    run(app.on_callback(cb("p:ok")))
+    assert "неактуален" in app.tg.edits[-1][0]
+    run(app.on_callback({**cb("s:topic"), "from": {"id": 7}}))
+    assert app.db.get_state(7)["pending"] is None

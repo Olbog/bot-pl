@@ -24,16 +24,41 @@ class Telegram:
         return data["result"]
 
     async def get_updates(self, offset: int | None, timeout: int = 50) -> list[dict]:
-        params = {"timeout": timeout, "allowed_updates": ["message"]}
+        params = {"timeout": timeout, "allowed_updates": ["message", "callback_query"]}
         if offset is not None:
             params["offset"] = offset
         return await self.call("getUpdates", **params)
 
-    async def send_message(self, chat_id: int, text: str) -> None:
+    async def send_message(self, chat_id: int, text: str, buttons: list[list[tuple[str, str]]] | None = None):
+        """buttons — ряды инлайн-кнопок [(текст, callback_data)]; крепятся к последнему куску."""
         # Лимит Telegram — 4096 символов, режем с запасом.
-        for i in range(0, len(text), 4000):
-            await self.call("sendMessage", chat_id=chat_id, text=text[i:i + 4000],
-                            parse_mode="HTML", disable_web_page_preview=True)
+        chunks = [text[i:i + 4000] for i in range(0, len(text), 4000)] or [""]
+        result = None
+        for n, chunk in enumerate(chunks):
+            params = {"chat_id": chat_id, "text": chunk, "parse_mode": "HTML", "disable_web_page_preview": True}
+            if buttons and n == len(chunks) - 1:
+                params["reply_markup"] = markup(buttons)
+            result = await self.call("sendMessage", **params)
+        return result
+
+    async def edit_message(self, chat_id: int, message_id: int, text: str,
+                           buttons: list[list[tuple[str, str]]] | None = None) -> None:
+        params = {"chat_id": chat_id, "message_id": message_id, "text": text[:4000], "parse_mode": "HTML",
+                  "disable_web_page_preview": True, "reply_markup": markup(buttons or [])}
+        try:
+            await self.call("editMessageText", **params)
+        except TelegramError as e:
+            if "not modified" not in str(e):
+                raise
+
+    async def answer_callback(self, callback_id: str, text: str | None = None) -> None:
+        try:
+            params = {"callback_query_id": callback_id}
+            if text:
+                params["text"] = text
+            await self.call("answerCallbackQuery", **params)
+        except Exception:
+            pass
 
     async def send_voice(self, chat_id: int, ogg: bytes) -> None:
         await self.call("sendVoice", chat_id=str(chat_id),
@@ -53,7 +78,13 @@ class Telegram:
 
     async def set_commands(self) -> None:
         await self.call("setMyCommands", commands=[
+            {"command": "set", "description": "Набор слов: прогресс, новый набор"},
+            {"command": "free", "description": "Свободный разговор"},
             {"command": "new", "description": "Новая тема"},
             {"command": "itog", "description": "Новые слова и ошибки за разговор"},
             {"command": "help", "description": "Подсказка"},
         ])
+
+
+def markup(buttons: list[list[tuple[str, str]]]) -> dict:
+    return {"inline_keyboard": [[{"text": t, "callback_data": d} for t, d in row] for row in buttons]}

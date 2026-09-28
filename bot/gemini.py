@@ -73,6 +73,7 @@ class Turn:
     corrected_translit: str = ""
     corrected_ru: str = ""
     new_words: list[dict] = field(default_factory=list)
+    target_uses: list[dict] = field(default_factory=list)
     model: str = ""
 
 
@@ -139,6 +140,27 @@ def extract_json(raw: str) -> dict:
     return json.loads(raw)
 
 
+def _raw_text(data: dict) -> str:
+    try:
+        cand = data["candidates"][0]
+        return "".join(p.get("text", "") for p in cand["content"]["parts"] if not p.get("thought"))
+    except (KeyError, IndexError, TypeError) as e:
+        cands = data.get("candidates") or [{}]
+        reason = data.get("promptFeedback") or cands[0].get("finishReason")
+        raise GeminiError(f"Пустой ответ Gemini: {reason}") from e
+
+
+def parse_json(data: dict, model: str = "") -> dict:
+    raw = _raw_text(data)
+    try:
+        obj = extract_json(raw)
+    except (json.JSONDecodeError, ValueError) as e:
+        raise GeminiError(f"Модель вернула не JSON: {raw[:200]}") from e
+    if not isinstance(obj, dict):
+        raise GeminiError(f"Модель вернула не объект: {raw[:200]}")
+    return obj
+
+
 def parse_turn(data: dict, model: str = "") -> Turn:
     try:
         cand = data["candidates"][0]
@@ -162,6 +184,7 @@ def parse_turn(data: dict, model: str = "") -> Turn:
         corrected_translit=str(obj.get("corrected_translit", "")),
         corrected_ru=str(obj.get("corrected_ru", "")),
         corrections=[c for c in obj.get("corrections") or [] if isinstance(c, dict)],
+        target_uses=[u for u in obj.get("target_uses") or [] if isinstance(u, dict) and u.get("lemma")],
         new_words=[w for w in obj.get("new_words") or [] if isinstance(w, dict)],
         model=model,
     )
@@ -204,17 +227,18 @@ class Gemini:
     def _url(self, model: str) -> str:
         return f"{self.worker_url}/v1beta/models/{model}:generateContent"
 
-    def _body(self, model: str, history, text, audio, with_thinking: bool) -> dict:
+    def _body(self, model: str, req: dict, with_thinking: bool) -> dict:
+        """req: system, schema, hint, history, text, audio."""
         if is_gemma(model):
             # Gemma: без systemInstruction и строгой схемы — инструкция внутри реплики, JSON из текста.
             return {
-                "contents": build_contents(history, text, audio,
-                                           preamble=self.system + "\n\n" + json_format_hint()),
+                "contents": build_contents(req["history"], req["text"], req["audio"],
+                                           preamble=req["system"] + "\n\n" + req["hint"]),
                 "generationConfig": {"temperature": 0.7},
             }
         gen: dict = {
             "responseMimeType": "application/json",
-            "responseSchema": RESPONSE_SCHEMA,
+            "responseSchema": req["schema"],
             "temperature": 0.7,
         }
         if with_thinking:
@@ -223,19 +247,17 @@ class Gemini:
             elif self.thinking_level:
                 gen["thinkingConfig"] = {"thinkingLevel": self.thinking_level}
         return {
-            "systemInstruction": {"parts": [{"text": self.system}]},
-            "contents": build_contents(history, text, audio),
+            "systemInstruction": {"parts": [{"text": req["system"]}]},
+            "contents": build_contents(req["history"], req["text"], req["audio"]),
             "generationConfig": gen,
         }
 
-    async def _post(self, model: str, history, text, audio) -> httpx.Response:
+    async def _post(self, model: str, req: dict) -> httpx.Response:
         url = self._url(model)
-        resp = await self.client.post(url, headers=self.headers,
-                                      json=self._body(model, history, text, audio, True))
+        resp = await self.client.post(url, headers=self.headers, json=self._body(model, req, True))
         if resp.status_code == 400 and "thinking" in resp.text.lower():
             log.warning("thinkingConfig отклонён (%s), повтор без него", model)
-            resp = await self.client.post(url, headers=self.headers,
-                                          json=self._body(model, history, text, audio, False))
+            resp = await self.client.post(url, headers=self.headers, json=self._body(model, req, False))
         return resp
 
     def _block(self, model: str, seconds: float, reason: str) -> None:
@@ -250,21 +272,33 @@ class Gemini:
         return True
 
     async def reply(self, history: list[tuple[str, str]], text: str | None = None,
-                    audio: bytes | None = None) -> Turn:
+                    audio: bytes | None = None, extra_system: str = "") -> Turn:
+        system = self.system + ("\n\n" + extra_system if extra_system else "")
+        req = {"system": system, "schema": RESPONSE_SCHEMA, "hint": json_format_hint(),
+               "history": history, "text": text, "audio": audio}
+        return await self._run(req, parse_turn)
+
+    async def ask_json(self, prompt: str, schema: dict, hint: str) -> dict:
+        """Разовый запрос с JSON-ответом (например, составить набор слов)."""
+        req = {"system": "Ты помогаешь русскоязычному ученику учить польский. Отвечай строго в заданном JSON-формате.",
+               "schema": schema, "hint": hint, "history": [], "text": prompt, "audio": None}
+        return await self._run(req, parse_json)
+
+    async def _run(self, req: dict, parse):
         hard_errors: list[str] = []
         hard_failed: set[str] = set()
         for model in self.models:
             if not self._available(model):
                 continue
             try:
-                resp = await self._post(model, history, text, audio)
+                resp = await self._post(model, req)
             except httpx.TransportError as e:
                 self._block(model, TRANSIENT_COOLDOWN, type(e).__name__)
                 continue
 
             if resp.status_code == 200:
                 try:
-                    turn = parse_turn(resp.json(), model)
+                    result = parse(resp.json(), model)
                 except GeminiError as e:
                     # модель ответила мусором — пробуем следующую, эту не блокируем
                     log.warning("Модель %s: %s", model, e)
@@ -273,7 +307,7 @@ class Gemini:
                     continue
                 if model != self.models[0]:
                     log.info("Ответила модель %s", model)
-                return turn
+                return result
 
             code, body = resp.status_code, resp.text
             if code == 429:
@@ -292,7 +326,7 @@ class Gemini:
                 hard_errors.append(f"{model}: HTTP {code}: {body[:300]}")
                 hard_failed.add(model)
 
-        self._raise_all_failed(hard_errors, hard_failed, audio is not None)
+        self._raise_all_failed(hard_errors, hard_failed, req["audio"] is not None)
 
     def _raise_all_failed(self, hard_errors: list[str], hard_failed: set[str], was_audio: bool):
         now = self.clock()

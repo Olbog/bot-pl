@@ -21,6 +21,11 @@ class Config:
     tts_rate: str = "-10%"
     history_limit: int = 20
     db_path: str = "/app/data/bot.db"
+    set_size: int = 10
+    master_streak: int = 20
+    master_forms: int = 3
+    master_days: int = 3
+    next_set_ratio: float = 0.9
 
 
 def load() -> Config:
@@ -37,4 +42,9 @@ def load() -> Config:
         tts_rate=os.environ.get("TTS_RATE", "-10%"),
         history_limit=int(os.environ.get("HISTORY_LIMIT", "20")),
         db_path=os.environ.get("DB_PATH", "/app/data/bot.db"),
+        set_size=int(os.environ.get("SET_SIZE", "10")),
+        master_streak=int(os.environ.get("MASTER_STREAK", "20")),
+        master_forms=int(os.environ.get("MASTER_FORMS", "3")),
+        master_days=int(os.environ.get("MASTER_DAYS", "3")),
+        next_set_ratio=float(os.environ.get("NEXT_SET_RATIO", "0.9")),
     )

@@ -34,6 +34,45 @@ CREATE TABLE IF NOT EXISTS corrections (
     created_at REAL NOT NULL
 );
 CREATE INDEX IF NOT EXISTS ix_messages_session ON messages(session_id, id);
+
+-- Наборы слов для тренировки
+CREATE TABLE IF NOT EXISTS sets (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'active',   -- 'active' | 'done'
+    suggested_next INTEGER NOT NULL DEFAULT 0,
+    created_at REAL NOT NULL
+);
+CREATE TABLE IF NOT EXISTS set_words (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    set_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    pl TEXT NOT NULL,
+    translit TEXT NOT NULL DEFAULT '',
+    ru TEXT NOT NULL DEFAULT '',
+    pos TEXT NOT NULL DEFAULT '',
+    mastered_at REAL,                        -- NULL — не освоено
+    mastered_by TEXT,                        -- 'auto' | 'user'
+    review_stage INTEGER NOT NULL DEFAULT 0, -- для повторения в свободном режиме
+    last_review_at REAL,
+    created_at REAL NOT NULL
+);
+CREATE TABLE IF NOT EXISTS word_uses (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    word_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    form TEXT NOT NULL,
+    correct INTEGER NOT NULL,
+    day TEXT NOT NULL,                       -- YYYY-MM-DD по местному времени
+    created_at REAL NOT NULL
+);
+CREATE INDEX IF NOT EXISTS ix_word_uses_word ON word_uses(word_id, id);
+CREATE TABLE IF NOT EXISTS user_state (
+    user_id INTEGER PRIMARY KEY,
+    mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
+    pending TEXT                             -- JSON незавершённого шага (создание набора)
+);
 """
 
 
@@ -97,3 +136,89 @@ class DB:
         return self.conn.execute(
             "SELECT COUNT(*) FROM messages WHERE session_id=? AND role='user'", (session_id,)
         ).fetchone()[0]
+
+    # ---------- состояние пользователя ----------
+
+    def get_state(self, user_id: int) -> dict:
+        row = self.conn.execute("SELECT mode, pending FROM user_state WHERE user_id=?", (user_id,)).fetchone()
+        if not row:
+            return {"mode": "free", "pending": None}
+        return {"mode": row["mode"], "pending": json.loads(row["pending"]) if row["pending"] else None}
+
+    def _ensure_state(self, user_id: int) -> None:
+        self.conn.execute("INSERT OR IGNORE INTO user_state(user_id) VALUES (?)", (user_id,))
+
+    def set_mode(self, user_id: int, mode: str) -> None:
+        self._ensure_state(user_id)
+        self.conn.execute("UPDATE user_state SET mode=? WHERE user_id=?", (mode, user_id))
+        self.conn.commit()
+
+    def set_pending(self, user_id: int, pending: dict | None) -> None:
+        self._ensure_state(user_id)
+        self.conn.execute("UPDATE user_state SET pending=? WHERE user_id=?",
+                          (json.dumps(pending, ensure_ascii=False) if pending else None, user_id))
+        self.conn.commit()
+
+    # ---------- наборы ----------
+
+    def active_set(self, user_id: int):
+        return self.conn.execute(
+            "SELECT * FROM sets WHERE user_id=? AND status='active' ORDER BY id DESC LIMIT 1", (user_id,)
+        ).fetchone()
+
+    def create_set(self, user_id: int, title: str, words: list[dict], carry_ids: list[int]) -> int:
+        """Новый активный набор: старый закрывается, неосвоенные слова carry_ids переезжают в новый."""
+        now = time.time()
+        c = self.conn
+        c.execute("UPDATE sets SET status='done' WHERE user_id=? AND status='active'", (user_id,))
+        set_id = c.execute("INSERT INTO sets(user_id, title, created_at) VALUES (?,?,?)",
+                           (user_id, title, now)).lastrowid
+        for w in words:
+            c.execute("INSERT INTO set_words(set_id, user_id, pl, translit, ru, pos, created_at) "
+                      "VALUES (?,?,?,?,?,?,?)",
+                      (set_id, user_id, w.get("pl", "").strip(), w.get("translit", ""), w.get("ru", ""),
+                       w.get("pos", ""), now))
+        for wid in carry_ids:
+            c.execute("UPDATE set_words SET set_id=? WHERE id=? AND user_id=?", (set_id, wid, user_id))
+        c.commit()
+        return set_id
+
+    def set_words(self, set_id: int) -> list:
+        return self.conn.execute("SELECT * FROM set_words WHERE set_id=? ORDER BY id", (set_id,)).fetchall()
+
+    def word(self, word_id: int):
+        return self.conn.execute("SELECT * FROM set_words WHERE id=?", (word_id,)).fetchone()
+
+    def known_words(self, user_id: int) -> list[str]:
+        return [r["pl"] for r in self.conn.execute("SELECT pl FROM set_words WHERE user_id=?", (user_id,))]
+
+    def word_uses(self, word_id: int) -> list:
+        return self.conn.execute("SELECT * FROM word_uses WHERE word_id=? ORDER BY id", (word_id,)).fetchall()
+
+    def add_use(self, word_id: int, user_id: int, form: str, correct: bool, day: str) -> None:
+        self.conn.execute("INSERT INTO word_uses(word_id, user_id, form, correct, day, created_at) "
+                          "VALUES (?,?,?,?,?,?)", (word_id, user_id, form, int(correct), day, time.time()))
+        self.conn.commit()
+
+    def set_mastered(self, word_id: int, by: str | None) -> None:
+        """by=None — снять отметку «освоено»."""
+        if by:
+            self.conn.execute("UPDATE set_words SET mastered_at=?, mastered_by=?, review_stage=0, "
+                              "last_review_at=NULL WHERE id=?", (time.time(), by, word_id))
+        else:
+            self.conn.execute("UPDATE set_words SET mastered_at=NULL, mastered_by=NULL WHERE id=?", (word_id,))
+        self.conn.commit()
+
+    def mastered_words(self, user_id: int) -> list:
+        return self.conn.execute(
+            "SELECT * FROM set_words WHERE user_id=? AND mastered_at IS NOT NULL ORDER BY id", (user_id,)
+        ).fetchall()
+
+    def advance_review(self, word_id: int, at: float) -> None:
+        self.conn.execute("UPDATE set_words SET review_stage=review_stage+1, last_review_at=? WHERE id=?",
+                          (at, word_id))
+        self.conn.commit()
+
+    def mark_suggested(self, set_id: int, value: int = 1) -> None:
+        self.conn.execute("UPDATE sets SET suggested_next=? WHERE id=?", (value, set_id))
+        self.conn.commit()

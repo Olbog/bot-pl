@@ -22,6 +22,7 @@ def system_prompt(level: str) -> str:
 - Типы (kind): "word" — неверное или несуществующее слово, неверная форма глагола (pie вместо piekę); "grammar" — падеж, род, число, спряжение, порядок слов; "pronunciation" — только для голосового: слово узнаётся, но произнесено неправильно (cz вместо ć/ci, u вместо y, пропущено смягчение ki/gi/ni, пропущены носовые ą/ę, неверное ударение, если режет слух).
 - До 5 исправлений, самые грубые первыми: word, затем pronunciation, затем grammar. Мелочи стиля и пунктуацию не трогай.
 - original — фрагмент как сказал/написал ученик, correct — как правильно, translit — транскрипция правильного варианта русскими буквами, ru — перевод правильного варианта, why — очень коротко почему, по-русски.
+- rule — короткое название правила по-русски, единообразно для одинаковых ошибок (например: «Местный падеж после w/na», «Смягчение ki/gi», «Спряжение глаголов на -ować», «Род прилагательных»). Для ошибок-слов: «Лексика».
 - Не выдумывай ошибок, которых нет, но и не прощай их: если слово сказано неправильно — это ошибка.
 
 Русские слова (поле new_words):
@@ -30,6 +31,10 @@ def system_prompt(level: str) -> str:
 
 Транскрипция русскими буквами:
 - Передавай реальное польское произношение: sz → ш, cz → ч, rz/ż → ж, ś/si → щ/щи, ć/ci → чь/чи, dź → дь, ł → у (краткое, как английское w), ą → он/ом, ę → эн/эм или э в конце слова, y → ы, ó → у. Ударение — на предпоследний слог, выделяй его заглавными буквами: dziękuję → джен-КУ-е.
+
+Целевые слова (поле target_uses):
+- Если ниже есть блок ТРЕНИРОВКА или ПОВТОРЕНИЕ со списком слов — отметь каждое употребление учеником (в user_text) слова из этого списка: lemma — слово ровно как в списке, form — точная форма, которую ученик сказал (как правильно пишется), correct — true, если форма употреблена без ошибки, иначе false.
+- Свои реплики сюда не включай. Если блока нет или ученик слов из списка не употребил — пустой список.
 
 Остальные поля:
 - reply_pl — твоя реплика на польском, только польский текст, без транскрипции и перевода. Она будет озвучена.
@@ -40,7 +45,7 @@ def system_prompt(level: str) -> str:
 
 
 FIELDS = ["user_text", "corrected_pl", "corrected_translit", "corrected_ru",
-          "corrections", "new_words", "reply_pl", "reply_translit", "reply_ru"]
+          "corrections", "new_words", "target_uses", "reply_pl", "reply_translit", "reply_ru"]
 
 RESPONSE_SCHEMA = {
     "type": "OBJECT",
@@ -60,9 +65,10 @@ RESPONSE_SCHEMA = {
                     "translit": {"type": "STRING"},
                     "ru": {"type": "STRING"},
                     "why": {"type": "STRING"},
+                    "rule": {"type": "STRING"},
                 },
-                "required": ["kind", "original", "correct", "translit", "ru", "why"],
-                "propertyOrdering": ["kind", "original", "correct", "translit", "ru", "why"],
+                "required": ["kind", "original", "correct", "translit", "ru", "why", "rule"],
+                "propertyOrdering": ["kind", "original", "correct", "translit", "ru", "why", "rule"],
             },
         },
         "new_words": {
@@ -77,6 +83,18 @@ RESPONSE_SCHEMA = {
                 "required": ["ru", "pl", "translit"],
             },
         },
+        "target_uses": {
+            "type": "ARRAY",
+            "items": {
+                "type": "OBJECT",
+                "properties": {
+                    "lemma": {"type": "STRING"},
+                    "form": {"type": "STRING"},
+                    "correct": {"type": "BOOLEAN"},
+                },
+                "required": ["lemma", "form", "correct"],
+            },
+        },
         "reply_pl": {"type": "STRING"},
         "reply_translit": {"type": "STRING"},
         "reply_ru": {"type": "STRING"},
@@ -89,5 +107,58 @@ RESPONSE_SCHEMA = {
 def json_format_hint() -> str:
     """Формат ответа для моделей без строгой схемы (Gemma)."""
     return """Отвечай ТОЛЬКО одним JSON-объектом, без пояснений и без markdown, строго такого вида (поля в этом порядке):
-{"user_text": "...", "corrected_pl": "...", "corrected_translit": "...", "corrected_ru": "...", "corrections": [{"kind": "word|grammar|pronunciation", "original": "...", "correct": "...", "translit": "...", "ru": "...", "why": "..."}], "new_words": [{"ru": "...", "pl": "...", "translit": "..."}], "reply_pl": "...", "reply_translit": "...", "reply_ru": "..."}
+{"user_text": "...", "corrected_pl": "...", "corrected_translit": "...", "corrected_ru": "...", "corrections": [{"kind": "word|grammar|pronunciation", "original": "...", "correct": "...", "translit": "...", "ru": "...", "why": "...", "rule": "..."}], "new_words": [{"ru": "...", "pl": "...", "translit": "..."}], "target_uses": [{"lemma": "...", "form": "...", "correct": true}], "reply_pl": "...", "reply_translit": "...", "reply_ru": "..."}
 Если исправлять нечего или новых слов нет — пустые списки []."""
+
+
+# ---------- составление набора слов ----------
+
+WORDS_FIELDS = ["title", "words"]
+WORDS_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {
+        "title": {"type": "STRING"},
+        "words": {
+            "type": "ARRAY",
+            "items": {
+                "type": "OBJECT",
+                "properties": {
+                    "pl": {"type": "STRING"},
+                    "translit": {"type": "STRING"},
+                    "ru": {"type": "STRING"},
+                    "pos": {"type": "STRING"},
+                },
+                "required": ["pl", "translit", "ru", "pos"],
+            },
+        },
+    },
+    "required": WORDS_FIELDS,
+    "propertyOrdering": WORDS_FIELDS,
+}
+
+WORDS_HINT = """Отвечай ТОЛЬКО одним JSON-объектом без markdown:
+{"title": "...", "words": [{"pl": "...", "translit": "...", "ru": "...", "pos": "..."}]}"""
+
+_WORDS_RULES = """Правила для слов:
+- pl — словарная форма: существительное в им. падеже ед. ч., глагол в инфинитиве, прилагательное в муж. роде ед. ч.
+- translit — произношение русскими буквами, ударный слог заглавными (ciasto → ЧЬЯ-сто).
+- ru — перевод на русский, 1–3 слова.
+- pos — часть речи одним словом по-русски: сущ, глаг, прил, нареч, другое.
+- Слова должны быть полезными для разговора и давать разные формы: больше глаголов и существительных, немного прилагательных."""
+
+
+def topic_words_prompt(topic: str, n: int, level: str, exclude: list[str]) -> str:
+    ex = ", ".join(exclude) if exclude else "—"
+    return f"""Составь набор из {n} польских слов уровня {level} для разговорной тренировки на тему: «{topic}».
+title — короткое название набора по-русски (1–3 слова).
+Не включай эти слова (ученик их уже знает или они уже в наборе): {ex}.
+{_WORDS_RULES}"""
+
+
+def own_words_prompt(raw: str, level: str) -> str:
+    return f"""Ученик прислал слова, которые хочет тренировать (по-польски или по-русски, возможно с ошибками):
+{raw}
+
+Для каждого слова дай польское слово (если прислано русское — переведи на польский, если польское с ошибкой — исправь).
+title — короткое название набора по-русски (1–3 слова) по смыслу слов. Уровень ученика {level}.
+{_WORDS_RULES}"""
