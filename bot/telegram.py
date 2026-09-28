@@ -78,11 +78,12 @@ class Telegram:
 
     async def set_commands(self) -> None:
         await self.call("setMyCommands", commands=[
-            {"command": "set", "description": "Набор слов: прогресс, новый набор"},
-            {"command": "free", "description": "Свободный разговор"},
-            {"command": "new", "description": "Новая тема"},
-            {"command": "itog", "description": "Новые слова и ошибки за разговор"},
-            {"command": "help", "description": "Подсказка"},
+            {"command": "set", "description": "🎯 Набор слов: прогресс, новый набор"},
+            {"command": "free", "description": "🏁 Свободный разговор без набора"},
+            {"command": "new", "description": "🆕 Начать разговор заново"},
+            {"command": "itog", "description": "📋 Слова и ошибки этого разговора"},
+            {"command": "cancel", "description": "✖️ Отменить создание набора"},
+            {"command": "help", "description": "❓ Что умеет бот"},
         ])
 
 
