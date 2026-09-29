@@ -68,6 +68,22 @@ CREATE TABLE IF NOT EXISTS word_uses (
     created_at REAL NOT NULL
 );
 CREATE INDEX IF NOT EXISTS ix_word_uses_word ON word_uses(word_id, id);
+CREATE TABLE IF NOT EXISTS dict_items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    pl TEXT NOT NULL,
+    translit TEXT NOT NULL DEFAULT '',
+    ru TEXT NOT NULL DEFAULT '',
+    used_in_set INTEGER NOT NULL DEFAULT 0,
+    created_at REAL NOT NULL
+);
+-- Предложения выражений для ⭐ по конкретному ответу бота
+CREATE TABLE IF NOT EXISTS dict_offers (
+    msg_id INTEGER PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    phrases TEXT NOT NULL,                   -- JSON [{pl, translit, ru}]
+    saved TEXT NOT NULL DEFAULT '[]'         -- JSON индексы сохранённых
+);
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
     mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
@@ -77,13 +93,30 @@ CREATE TABLE IF NOT EXISTS user_state (
 
 
 class DB:
-    def __init__(self, path: str):
+    def __init__(self, path: str, clock=time.time):
+        self.clock = clock
         if path != ":memory:":
             Path(path).parent.mkdir(parents=True, exist_ok=True)
         self.conn = sqlite3.connect(path)
         self.conn.row_factory = sqlite3.Row
         self.conn.executescript(SCHEMA)
+        self._migrate()
         self.conn.commit()
+
+    def _columns(self, table: str) -> set[str]:
+        return {r["name"] for r in self.conn.execute(f"PRAGMA table_info({table})")}
+
+    def _migrate(self) -> None:
+        """Новые колонки для старой базы."""
+        adds = {
+            "corrections": [("rule", "TEXT"), ("msg_id", "INTEGER")],
+            "set_words": [("kind", "TEXT NOT NULL DEFAULT 'word'")],
+        }
+        for table, cols in adds.items():
+            have = self._columns(table)
+            for name, decl in cols:
+                if name not in have:
+                    self.conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {decl}")
 
     def current_session(self, user_id: int) -> int:
         row = self.conn.execute(
@@ -93,7 +126,7 @@ class DB:
 
     def new_session(self, user_id: int) -> int:
         cur = self.conn.execute(
-            "INSERT INTO sessions(user_id, started_at) VALUES (?, ?)", (user_id, time.time())
+            "INSERT INTO sessions(user_id, started_at) VALUES (?, ?)", (user_id, self.clock())
         )
         self.conn.commit()
         return cur.lastrowid
@@ -110,20 +143,23 @@ class DB:
         return hist
 
     def save_turn(self, session_id: int, user_id: int, user_text: str, reply_pl: str,
-                  corrections: list[dict], new_words: list[dict]) -> None:
-        now = time.time()
+                  corrections: list[dict], new_words: list[dict]) -> int:
+        """Возвращает id реплики модели — к ней привязаны кнопки под ответом."""
+        now = self.clock()
         c = self.conn
         c.execute("INSERT INTO messages(session_id, role, text, created_at) VALUES (?,?,?,?)",
                   (session_id, "user", user_text, now))
-        c.execute("INSERT INTO messages(session_id, role, text, created_at) VALUES (?,?,?,?)",
-                  (session_id, "model", reply_pl, now))
+        msg_id = c.execute("INSERT INTO messages(session_id, role, text, created_at) VALUES (?,?,?,?)",
+                           (session_id, "model", reply_pl, now)).lastrowid
         for w in new_words:
             c.execute("INSERT INTO words(session_id, user_id, ru, pl, translit, created_at) VALUES (?,?,?,?,?,?)",
                       (session_id, user_id, w.get("ru", ""), w.get("pl", ""), w.get("translit", ""), now))
         for k in corrections:
-            c.execute("INSERT INTO corrections(session_id, user_id, data, created_at) VALUES (?,?,?,?)",
-                      (session_id, user_id, json.dumps(k, ensure_ascii=False), now))
+            c.execute("INSERT INTO corrections(session_id, user_id, data, rule, msg_id, created_at) "
+                      "VALUES (?,?,?,?,?,?)",
+                      (session_id, user_id, json.dumps(k, ensure_ascii=False), k.get("rule"), msg_id, now))
         c.commit()
+        return msg_id
 
     def session_summary(self, session_id: int) -> tuple[list[dict], list[dict]]:
         words = [dict(r) for r in self.conn.execute(
@@ -168,16 +204,16 @@ class DB:
 
     def create_set(self, user_id: int, title: str, words: list[dict], carry_ids: list[int]) -> int:
         """Новый активный набор: старый закрывается, неосвоенные слова carry_ids переезжают в новый."""
-        now = time.time()
+        now = self.clock()
         c = self.conn
         c.execute("UPDATE sets SET status='done' WHERE user_id=? AND status='active'", (user_id,))
         set_id = c.execute("INSERT INTO sets(user_id, title, created_at) VALUES (?,?,?)",
                            (user_id, title, now)).lastrowid
         for w in words:
-            c.execute("INSERT INTO set_words(set_id, user_id, pl, translit, ru, pos, created_at) "
-                      "VALUES (?,?,?,?,?,?,?)",
+            c.execute("INSERT INTO set_words(set_id, user_id, pl, translit, ru, pos, kind, created_at) "
+                      "VALUES (?,?,?,?,?,?,?,?)",
                       (set_id, user_id, w.get("pl", "").strip(), w.get("translit", ""), w.get("ru", ""),
-                       w.get("pos", ""), now))
+                       w.get("pos", ""), w.get("kind", "word"), now))
         for wid in carry_ids:
             c.execute("UPDATE set_words SET set_id=? WHERE id=? AND user_id=?", (set_id, wid, user_id))
         c.commit()
@@ -190,21 +226,22 @@ class DB:
         return self.conn.execute("SELECT * FROM set_words WHERE id=?", (word_id,)).fetchone()
 
     def known_words(self, user_id: int) -> list[str]:
-        return [r["pl"] for r in self.conn.execute("SELECT pl FROM set_words WHERE user_id=?", (user_id,))]
+        return [r["pl"] for r in self.conn.execute(
+            "SELECT pl FROM set_words WHERE user_id=? AND kind!='rule'", (user_id,))]
 
     def word_uses(self, word_id: int) -> list:
         return self.conn.execute("SELECT * FROM word_uses WHERE word_id=? ORDER BY id", (word_id,)).fetchall()
 
     def add_use(self, word_id: int, user_id: int, form: str, correct: bool, day: str) -> None:
         self.conn.execute("INSERT INTO word_uses(word_id, user_id, form, correct, day, created_at) "
-                          "VALUES (?,?,?,?,?,?)", (word_id, user_id, form, int(correct), day, time.time()))
+                          "VALUES (?,?,?,?,?,?)", (word_id, user_id, form, int(correct), day, self.clock()))
         self.conn.commit()
 
     def set_mastered(self, word_id: int, by: str | None) -> None:
         """by=None — снять отметку «освоено»."""
         if by:
             self.conn.execute("UPDATE set_words SET mastered_at=?, mastered_by=?, review_stage=0, "
-                              "last_review_at=NULL WHERE id=?", (time.time(), by, word_id))
+                              "last_review_at=NULL WHERE id=?", (self.clock(), by, word_id))
         else:
             self.conn.execute("UPDATE set_words SET mastered_at=NULL, mastered_by=NULL WHERE id=?", (word_id,))
         self.conn.commit()
@@ -221,4 +258,100 @@ class DB:
 
     def mark_suggested(self, set_id: int, value: int = 1) -> None:
         self.conn.execute("UPDATE sets SET suggested_next=? WHERE id=?", (value, set_id))
+        self.conn.commit()
+
+    # ---------- ошибки ----------
+
+    def _corr_rows(self, where: str, params: tuple) -> list[dict]:
+        out = []
+        for r in self.conn.execute(f"SELECT id, data, rule, created_at FROM corrections WHERE {where} ORDER BY id",
+                                   params):
+            d = json.loads(r["data"])
+            d["rule"] = r["rule"] or d.get("rule")
+            d["_id"], d["_at"] = r["id"], r["created_at"]
+            out.append(d)
+        return out
+
+    def corrections_since(self, user_id: int, since: float) -> list[dict]:
+        return self._corr_rows("user_id=? AND created_at>=?", (user_id, since))
+
+    def corrections_session(self, session_id: int) -> list[dict]:
+        return self._corr_rows("session_id=?", (session_id,))
+
+    def corrections_for_msg(self, msg_id: int) -> list[dict]:
+        return self._corr_rows("msg_id=?", (msg_id,))
+
+    def corrections_unsorted(self, user_id: int | None = None) -> list[dict]:
+        if user_id is None:
+            return self._corr_rows("rule IS NULL", ())
+        return self._corr_rows("user_id=? AND rule IS NULL", (user_id,))
+
+    def set_correction_rule(self, corr_id: int, rule: str) -> None:
+        self.conn.execute("UPDATE corrections SET rule=? WHERE id=?", (rule, corr_id))
+        self.conn.commit()
+
+    def words_since(self, user_id: int, since: float) -> list[dict]:
+        return [dict(r) for r in self.conn.execute(
+            "SELECT ru, pl, translit, created_at FROM words WHERE user_id=? AND created_at>=? ORDER BY id",
+            (user_id, since))]
+
+    def words_session(self, session_id: int) -> list[dict]:
+        return [dict(r) for r in self.conn.execute(
+            "SELECT ru, pl, translit, created_at FROM words WHERE session_id=? ORDER BY id", (session_id,))]
+
+    def user_turns_since(self, user_id: int, since: float) -> int:
+        return self.conn.execute(
+            "SELECT COUNT(*) FROM messages m JOIN sessions s ON s.id=m.session_id "
+            "WHERE s.user_id=? AND m.role='user' AND m.created_at>=?", (user_id, since)).fetchone()[0]
+
+    def model_message(self, msg_id: int):
+        return self.conn.execute(
+            "SELECT m.*, s.user_id FROM messages m JOIN sessions s ON s.id=m.session_id WHERE m.id=?",
+            (msg_id,)).fetchone()
+
+    def all_user_ids(self) -> list[int]:
+        return [r[0] for r in self.conn.execute("SELECT DISTINCT user_id FROM sessions")]
+
+    # ---------- словарь ⭐ ----------
+
+    def dict_add(self, user_id: int, pl: str, translit: str, ru: str) -> bool:
+        """False — такое выражение уже есть."""
+        pl = pl.strip()
+        if not pl:
+            return False
+        exists = self.conn.execute("SELECT 1 FROM dict_items WHERE user_id=? AND lower(pl)=lower(?)",
+                                   (user_id, pl)).fetchone()
+        if exists:
+            return False
+        self.conn.execute("INSERT INTO dict_items(user_id, pl, translit, ru, created_at) VALUES (?,?,?,?,?)",
+                          (user_id, pl, translit, ru, self.clock()))
+        self.conn.commit()
+        return True
+
+    def dict_remove(self, user_id: int, pl: str) -> None:
+        self.conn.execute("DELETE FROM dict_items WHERE user_id=? AND lower(pl)=lower(?)", (user_id, pl.strip()))
+        self.conn.commit()
+
+    def dict_items(self, user_id: int, only_unused: bool = False) -> list:
+        q = "SELECT * FROM dict_items WHERE user_id=?" + (" AND used_in_set=0" if only_unused else "") + " ORDER BY id"
+        return self.conn.execute(q, (user_id,)).fetchall()
+
+    def dict_since(self, user_id: int, since: float) -> list:
+        return self.conn.execute("SELECT * FROM dict_items WHERE user_id=? AND created_at>=? ORDER BY id",
+                                 (user_id, since)).fetchall()
+
+    def dict_mark_used(self, ids: list[int]) -> None:
+        for i in ids:
+            self.conn.execute("UPDATE dict_items SET used_in_set=1 WHERE id=?", (i,))
+        self.conn.commit()
+
+    def offer_get(self, msg_id: int):
+        row = self.conn.execute("SELECT * FROM dict_offers WHERE msg_id=?", (msg_id,)).fetchone()
+        if not row:
+            return None
+        return {"user_id": row["user_id"], "phrases": json.loads(row["phrases"]), "saved": json.loads(row["saved"])}
+
+    def offer_save(self, msg_id: int, user_id: int, phrases: list[dict], saved: list[int]) -> None:
+        self.conn.execute("INSERT OR REPLACE INTO dict_offers(msg_id, user_id, phrases, saved) VALUES (?,?,?,?)",
+                          (msg_id, user_id, json.dumps(phrases, ensure_ascii=False), json.dumps(saved)))
         self.conn.commit()

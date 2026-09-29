@@ -1,6 +1,9 @@
 """Системная инструкция для Gemini и схема структурированного ответа."""
 
 
+from .rules import catalog_text
+
+
 def system_prompt(level: str) -> str:
     return f"""Ты — собеседник и внимательный преподаватель для разговорной практики польского языка. Ученик — русскоязычный взрослый, уровень {level}. Цель — чтобы он как можно больше говорил сам, переводил слова в активный запас и видел свои ошибки.
 
@@ -22,7 +25,7 @@ def system_prompt(level: str) -> str:
 - Типы (kind): "word" — неверное или несуществующее слово, неверная форма глагола (pie вместо piekę); "grammar" — падеж, род, число, спряжение, порядок слов; "pronunciation" — только для голосового: слово узнаётся, но произнесено неправильно (cz вместо ć/ci, u вместо y, пропущено смягчение ki/gi/ni, пропущены носовые ą/ę, неверное ударение, если режет слух).
 - До 5 исправлений, самые грубые первыми: word, затем pronunciation, затем grammar. Мелочи стиля и пунктуацию не трогай.
 - original — фрагмент как сказал/написал ученик, correct — как правильно, translit — транскрипция правильного варианта русскими буквами, ru — перевод правильного варианта, why — очень коротко почему, по-русски.
-- rule — короткое название правила по-русски, единообразно для одинаковых ошибок (например: «Местный падеж после w/na», «Смягчение ki/gi», «Спряжение глаголов на -ować», «Род прилагательных»). Для ошибок-слов: «Лексика».
+- rule — правило, к которому относится ошибка: СТРОГО одна строка из КАТАЛОГА ПРАВИЛ ниже, слово в слово. Если ничего не подходит — «Другое».
 - Не выдумывай ошибок, которых нет, но и не прощай их: если слово сказано неправильно — это ошибка.
 
 Русские слова (поле new_words):
@@ -41,6 +44,9 @@ def system_prompt(level: str) -> str:
 - reply_translit — транскрипция reply_pl русскими буквами.
 - reply_ru — перевод reply_pl на русский.
 - corrections и new_words — пустые списки, если исправлять нечего.
+
+КАТАЛОГ ПРАВИЛ (для поля rule):
+{catalog_text()}
 """
 
 
@@ -162,3 +168,136 @@ def own_words_prompt(raw: str, level: str) -> str:
 Для каждого слова дай польское слово (если прислано русское — переведи на польский, если польское с ошибкой — исправь).
 title — короткое название набора по-русски (1–3 слова) по смыслу слов. Уровень ученика {level}.
 {_WORDS_RULES}"""
+
+
+# ---------- объяснение правил ----------
+
+RULES_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {
+        "rules": {
+            "type": "ARRAY",
+            "items": {
+                "type": "OBJECT",
+                "properties": {
+                    "title": {"type": "STRING"},
+                    "explanation": {"type": "STRING"},
+                    "examples": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "OBJECT",
+                            "properties": {
+                                "pl": {"type": "STRING"},
+                                "translit": {"type": "STRING"},
+                                "ru": {"type": "STRING"},
+                            },
+                            "required": ["pl", "translit", "ru"],
+                        },
+                    },
+                },
+                "required": ["title", "explanation", "examples"],
+            },
+        },
+    },
+    "required": ["rules"],
+}
+RULES_HINT = """Отвечай ТОЛЬКО одним JSON-объектом без markdown:
+{"rules": [{"title": "...", "explanation": "...", "examples": [{"pl": "...", "translit": "...", "ru": "..."}]}]}"""
+
+_RULE_STYLE = """Как объяснять:
+- title — название правила по-русски.
+- explanation — 2–4 коротких предложения по-русски, простыми словами, без терминологической каши. Можно маленькую схему вида «nie + глагол → родительный (kogo? czego?)».
+- examples — 3–4 примера: сначала пример с ошибкой ученика в правильной форме, потом ещё 2–3 простых. pl — польская фраза, translit — транскрипция русскими буквами с ударным слогом заглавными, ru — перевод."""
+
+
+def rules_for_errors_prompt(corrections: list[dict], level: str) -> str:
+    lines = "\n".join(f"- {c.get('original', '')} → {c.get('correct', '')} (правило: {c.get('rule', '')})"
+                       for c in corrections)
+    return f"""Ученик (уровень {level}) сделал ошибки:
+{lines}
+
+Объясни правила, которые он нарушил: одно правило — один элемент rules (одинаковые правила объединяй).
+{_RULE_STYLE}"""
+
+
+def rules_by_name_prompt(rule_names: list[str], examples: dict[str, list[str]], level: str) -> str:
+    lines = "\n".join(f"- {r}: ошибки ученика — {'; '.join(examples.get(r, [])[:4]) or 'нет'}" for r in rule_names)
+    return f"""Коротко напомни ученику (уровень {level}) правила перед тренировкой:
+{lines}
+{_RULE_STYLE}"""
+
+
+def rule_question_prompt(question: str, level: str) -> str:
+    return f"""Ученик (уровень {level}) спрашивает про польскую грамматику: «{question}»
+Ответь как одно или несколько правил в поле rules.
+{_RULE_STYLE}"""
+
+
+# ---------- выражения для словаря ----------
+
+PHRASES_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {
+        "phrases": {
+            "type": "ARRAY",
+            "items": {
+                "type": "OBJECT",
+                "properties": {
+                    "pl": {"type": "STRING"},
+                    "translit": {"type": "STRING"},
+                    "ru": {"type": "STRING"},
+                },
+                "required": ["pl", "translit", "ru"],
+            },
+        },
+    },
+    "required": ["phrases"],
+}
+PHRASES_HINT = """Отвечай ТОЛЬКО одним JSON-объектом без markdown:
+{"phrases": [{"pl": "...", "translit": "...", "ru": "..."}]}"""
+
+
+def phrases_prompt(reply_pl: str, corrected_pl: str, corrections: list[dict], level: str) -> str:
+    corr = "; ".join(f"{c.get('original', '')} → {c.get('correct', '')}" for c in corrections) or "—"
+    return f"""Из этих польских фраз выбери 7–8 выражений, которые ученику (уровень {level}) полезно ввести в активную речь.
+Реплика собеседника: {reply_pl}
+Правильная версия фразы ученика: {corrected_pl or '—'}
+Исправления: {corr}
+
+Что брать в первую очередь: связки и вводные конструкции (tak jak mówię, najbardziej lubię, szczerze mówiąc, wydaje mi się, czy wolisz…?, po południu), устойчивые сочетания, полезные глагольные конструкции с управлением (czekać na kogoś). Отдельные очевидные слова (kawa, dom) — только если больше нечего взять.
+pl — выражение ровно в полезной форме (2–5 слов), translit — транскрипция русскими буквами с ударным слогом заглавными, ru — перевод."""
+
+
+def own_phrases_prompt(raw: str, level: str) -> str:
+    return f"""Ученик (уровень {level}) хочет сохранить в свой словарь выражения (по-польски или по-русски, возможно с ошибками):
+{raw}
+Для каждого дай правильное польское выражение (русское — переведи), транскрипцию русскими буквами с ударным слогом заглавными и перевод."""
+
+
+# ---------- раскладка старых ошибок по каталогу ----------
+
+CLASSIFY_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {
+        "items": {
+            "type": "ARRAY",
+            "items": {
+                "type": "OBJECT",
+                "properties": {"id": {"type": "INTEGER"}, "rule": {"type": "STRING"}},
+                "required": ["id", "rule"],
+            },
+        },
+    },
+    "required": ["items"],
+}
+CLASSIFY_HINT = """Отвечай ТОЛЬКО одним JSON-объектом без markdown: {"items": [{"id": 1, "rule": "..."}]}"""
+
+
+def classify_prompt(items: list[tuple[int, dict]]) -> str:
+    lines = "\n".join(f"{i}. {c.get('original', '')} → {c.get('correct', '')} ({c.get('why', '')})" for i, c in items)
+    return f"""Отнеси каждую ошибку ученика в польском к одному правилу из каталога. rule — строка из каталога слово в слово.
+КАТАЛОГ:
+{catalog_text()}
+
+ОШИБКИ (номер. было → стало (пояснение)):
+{lines}"""

@@ -2,7 +2,10 @@
 from html import escape as e
 
 from .gemini import Turn
-from .training import Criteria, WordStats, progress_bar
+from .config import local_dt
+
+from .rules import group
+from .training import Criteria, WordStats, kind_of, progress_bar
 
 KIND_ICON = {"word": "🔤", "grammar": "📝", "pronunciation": "🗣"}
 
@@ -101,7 +104,10 @@ HELP = (
     "/set — набор: прогресс, новый набор, отметить освоенные\n"
     "/free — свободный разговор\n"
     "/new — новая тема (начать разговор заново)\n"
-    "/itog — новые слова и ошибки за текущий разговор\n"
+    "/itog — итог: ошибки по правилам и новые слова за час / сутки / разговор, всё время — файлом\n"
+    "/dict — словарь ⭐: выражения, которые ты сохранил, чтобы ввести в речь\n"
+    "/rule вопрос — объяснить правило своими словами\n\n"
+    "Под ответами: 📖 Правило — разбор ошибок этого сообщения, ⭐ В словарь — сохранить выражения.\n\n"
     "/cancel — отменить создание набора\n"
     "/help — эта подсказка"
 )
@@ -118,10 +124,13 @@ def word_line(w, st: WordStats, c: Criteria) -> str:
         icon = "🔴"
     else:
         icon = "⚪"
-    line = f"{icon} <b>{e(w['pl'])}</b>"
-    if w["translit"]:
-        line += f" [{e(w['translit'])}]"
-    line += f" — {e(w['ru'])}"
+    if kind_of(w) == "rule":
+        line = f"{icon} 📐 <b>{e(w['pl'])}</b>"
+    else:
+        line = f"{icon} <b>{e(w['pl'])}</b>"
+        if w["translit"]:
+            line += f" [{e(w['translit'])}]"
+        line += f" — {e(w['ru'])}"
     if w["mastered_at"] is None:
         line += (f"\n     {progress_bar(st.streak, c.streak)} {st.streak}/{c.streak}"
                  f" · формы {len(st.streak_forms)}/{c.forms} · дни {st.streak_days}/{c.days}")
@@ -130,13 +139,17 @@ def word_line(w, st: WordStats, c: Criteria) -> str:
     return line
 
 
-def set_progress(title: str, rows: list[tuple], c: Criteria, mode: str) -> str:
+def set_progress(title: str, rows: list[tuple], c: Criteria, mode: str, rule_c: Criteria | None = None) -> str:
+    rule_c = rule_c or c
     done = sum(1 for w, _ in rows if w["mastered_at"] is not None)
     head = f"📚 <b>Набор «{e(title)}»</b> — освоено {done} из {len(rows)}"
     mode_line = "Режим: 🎯 тренировка набора" if mode == "set" else "Режим: 🏁 свободный разговор"
-    legend = (f"<i>Освоено = {c.streak} раз подряд без ошибок, минимум {c.forms} формы, в {c.days} разных дня. "
-              f"Или отметь сам.</i>")
-    return "\n".join([head, mode_line, ""] + [word_line(w, st, c) for w, st in rows] + ["", legend])
+    legend = (f"<i>Освоено: слово — {c.streak} раз подряд без ошибок, {c.forms} формы, {c.days} дня"
+              + (f"; 📐 правило — {rule_c.streak} раз, {rule_c.forms} ситуаций, {rule_c.days} дней"
+                 if any(kind_of(w) == "rule" for w, _ in rows) else "")
+              + ". Или отметь сам.</i>")
+    lines = [word_line(w, st, rule_c if kind_of(w) == "rule" else c) for w, st in rows]
+    return "\n".join([head, mode_line, ""] + lines + ["", legend])
 
 
 def set_buttons(mode: str, has_set: bool) -> list[list[tuple[str, str]]]:
@@ -145,6 +158,7 @@ def set_buttons(mode: str, has_set: bool) -> list[list[tuple[str, str]]]:
         rows.append([("🏁 Свободный разговор", "mode:free")] if mode == "set"
                     else [("🎯 Тренировать набор", "mode:set")])
     rows.append([("➕ Набор по теме", "s:topic"), ("✍️ Свои слова", "s:own")])
+    rows.append([("🧩 Из ошибок", "e:start"), ("⭐ Из словаря", "s:dict")])
     if has_set:
         rows.append([("✅ Отметить освоенные", "m:list")])
     return rows
@@ -155,7 +169,8 @@ def preview_message(p: dict, carry: list) -> str:
     off = set(p.get("off", []))
     for i, w in enumerate(p["words"]):
         mark = "❌" if i in off else "•"
-        txt = f"{mark} <b>{e(w['pl'])}</b> [{e(w.get('translit', ''))}] — {e(w.get('ru', ''))}"
+        tr = f" [{e(w.get('translit', ''))}]" if w.get("translit") else ""
+        txt = f"{mark} <b>{e(w['pl'])}</b>{tr} — {e(w.get('ru', ''))}"
         lines.append(f"<s>{txt}</s>" if i in off else txt)
     if carry:
         lines += ["", "<b>Переходят из прошлого набора:</b>"]
@@ -193,3 +208,179 @@ def target_line(uses: list[tuple[str, str, bool]]) -> str:
         return ""
     parts = [f"{e(form or lemma)} {'✓' if ok else '✗'}" for lemma, form, ok in uses]
     return "🎯 " + " · ".join(parts)
+
+
+# ---------- правила ----------
+
+def rules_message(data: dict, header: str = "📖") -> str:
+    blocks = []
+    for r in data.get("rules") or []:
+        if not isinstance(r, dict):
+            continue
+        lines = [f"{header} <b>{e(r.get('title', ''))}</b>", e(r.get("explanation", ""))]
+        for ex in r.get("examples") or []:
+            if isinstance(ex, dict):
+                lines.append(f"• <b>{e(ex.get('pl', ''))}</b> [{e(ex.get('translit', ''))}] — {e(ex.get('ru', ''))}")
+        blocks.append("\n".join(lines))
+    return "\n\n".join(blocks) or "Не получилось объяснить правило, попробуй ещё раз."
+
+
+def reply_buttons(msg_id: int, has_corrections: bool) -> list[list[tuple[str, str]]]:
+    row = [("📖 Правило", f"r:{msg_id}")] if has_corrections else []
+    row.append(("⭐ В словарь", f"d:{msg_id}"))
+    return [row]
+
+
+# ---------- словарь ⭐ ----------
+
+def offer_message(phrases: list[dict], saved: list[int]) -> str:
+    lines = ["⭐ <b>Что сохранить в словарь?</b> Нажимай на выражения.", ""]
+    for i, p in enumerate(phrases):
+        mark = "✅" if i in saved else "•"
+        lines.append(f"{mark} <b>{e(p.get('pl', ''))}</b> [{e(p.get('translit', ''))}] — {e(p.get('ru', ''))}")
+    return "\n".join(lines)
+
+
+def offer_buttons(msg_id: int, phrases: list[dict], saved: list[int]) -> list[list[tuple[str, str]]]:
+    rows = [[((("✅ " if i in saved else "") + p.get("pl", ""))[:40], f"ds:{msg_id}:{i}")] for i, p in enumerate(phrases)]
+    rows.append([("✍️ Своё", "dn:own"), ("✅ Готово", f"dx:{msg_id}")])
+    return rows
+
+
+def dict_message(items: list, limit: int = 40) -> str:
+    if not items:
+        return ("⭐ Словарь пока пуст.\n\nНажимай «⭐ В словарь» под ответами бота или пришли своё: "
+                "/dict add najbardziej lubię, szczerze mówiąc")
+    unused = sum(1 for i in items if not i["used_in_set"])
+    lines = [f"⭐ <b>Словарь</b> — {len(items)} выражений, ещё не тренировалось: {unused}", ""]
+    for i in items[-limit:]:
+        mark = "•" if not i["used_in_set"] else "✓"
+        tr = f" [{e(i['translit'])}]" if i["translit"] else ""
+        lines.append(f"{mark} <b>{e(i['pl'])}</b>{tr} — {e(i['ru'])}")
+    if len(items) > limit:
+        lines.append(f"\n<i>Показаны последние {limit}. Полный список — файлом.</i>")
+    lines.append("\n<i>✓ — уже было в наборе. Добавить своё: /dict add выражение</i>")
+    return "\n".join(lines)
+
+
+def dict_buttons() -> list[list[tuple[str, str]]]:
+    return [[("🎯 Набор из словаря", "s:dict"), ("📄 Файлом", "i:dict")]]
+
+
+# ---------- итоги ----------
+
+PERIODS = {"h": ("последний час", 3600), "d": ("сутки", 86400), "w": ("неделю", 7 * 86400),
+           "a": ("всё время", None), "s": ("этот разговор", None)}
+
+
+def itog_choice() -> tuple[str, list[list[tuple[str, str]]]]:
+    return ("📋 <b>Итог за…</b>",
+            [[("Последний час", "i:h"), ("Сутки", "i:d"), ("Этот разговор", "i:s")],
+             [("📄 Всё время — файлом", "i:fa")]])
+
+
+def itog_message(period: str, turns: int, corrections: list[dict], words: list[dict], dict_new: int,
+                 max_rules: int = 10, max_examples: int = 4) -> str:
+    label = PERIODS[period][0]
+    if not turns and not corrections:
+        return f"📋 За {label} разговоров не было."
+    out = [f"📋 <b>Итог за {label}</b> — реплик: {turns}"]
+    groups = group(corrections)
+    if groups:
+        lines = [f"✏️ <b>Ошибки — {len(corrections)}</b>, по правилам (сначала самые частые):"]
+        for rule, n, ex in groups[:max_rules]:
+            lines.append(f"• <b>{e(rule)}</b> ×{n}")
+            sample = " · ".join(f"{e(c.get('original', ''))}→{e(c.get('correct', ''))}" for c in ex[:max_examples])
+            more = f" <i>+{len(ex) - max_examples}</i>" if len(ex) > max_examples else ""
+            lines.append(f"   {sample}{more}")
+        if len(groups) > max_rules:
+            lines.append(f"<i>…и ещё правил: {len(groups) - max_rules} — полный список файлом</i>")
+        out.append("\n".join(lines))
+    else:
+        out.append("✏️ Ошибок нет 👍")
+    seen, uniq = set(), []
+    for w in words:
+        if w["pl"].lower() not in seen:
+            seen.add(w["pl"].lower())
+            uniq.append(w)
+    if uniq:
+        out.append(f"🆕 <b>Слова, которые ты сказал по-русски — {len(uniq)}</b>\n"
+                   + " · ".join(f"{e(w['pl'])} ({e(w['ru'])})" for w in uniq))
+    if dict_new:
+        out.append(f"⭐ Сохранено в словарь — {dict_new}")
+    return "\n\n".join(out)
+
+
+def itog_buttons(period: str, has_errors: bool) -> list[list[tuple[str, str]]]:
+    row = [("📄 Файлом", f"i:f{period}")]
+    if has_errors:
+        row.append(("🎯 Тренировать эти ошибки", f"e:p:{period}"))
+    return [row]
+
+
+def _dt(ts: float) -> str:
+    return local_dt(ts).strftime("%d.%m %H:%M")
+
+
+def export_text(title: str, corrections: list[dict], words: list[dict], dict_items: list) -> str:
+    """Выгрузка в текстовый файл — без HTML."""
+    out = [title, "=" * len(title), ""]
+    groups = group(corrections)
+    out.append(f"ОШИБКИ — {len(corrections)}, по правилам (сначала самые частые)")
+    out.append("")
+    for rule, n, ex in groups:
+        out.append(f"■ {rule} — ×{n}")
+        for c in ex:
+            line = f"   {c.get('original', '')} → {c.get('correct', '')}"
+            if c.get("translit"):
+                line += f" [{c['translit']}]"
+            if c.get("ru"):
+                line += f" — {c['ru']}"
+            if c.get("_at"):
+                line += f"   ({_dt(c['_at'])})"
+            out.append(line)
+            if c.get("why"):
+                out.append(f"      {c['why']}")
+        out.append("")
+    if not groups:
+        out += ["   нет", ""]
+    seen, uniq = set(), []
+    for w in words:
+        if w["pl"].lower() not in seen:
+            seen.add(w["pl"].lower())
+            uniq.append(w)
+    out.append(f"СЛОВА, СКАЗАННЫЕ ПО-РУССКИ — {len(uniq)}")
+    out += [f"   {w['pl']} [{w.get('translit', '')}] — {w['ru']}" for w in uniq] or ["   нет"]
+    out.append("")
+    out.append(f"СЛОВАРЬ ⭐ — {len(dict_items)}")
+    out += [f"   {d['pl']} [{d['translit']}] — {d['ru']}" for d in dict_items] or ["   пусто"]
+    return "\n".join(out) + "\n"
+
+
+# ---------- набор из ошибок ----------
+
+def errsel_message(p: dict) -> str:
+    label = PERIODS[p["period"]][0]
+    if not p["rules"]:
+        return f"🧩 За {label} ошибок нет. Выбери другой период."
+    lines = [f"🧩 <b>Набор из ошибок — за {label}</b>",
+             "Отметь правила для тренировки (сверху — где больше всего ошибок):", ""]
+    on = set(p.get("on", []))
+    for i, r in enumerate(p["rules"]):
+        lines.append(f"{'✅' if i in on else '⚪'} {e(r['rule'])} ×{r['n']}")
+        lines.append(f"     <i>{e(r['examples'])}</i>")
+    lines.append("")
+    lines.append(f"📖 Правило перед тренировкой: {'вкл' if p.get('rule_first', True) else 'выкл'}")
+    return "\n".join(lines)
+
+
+def errsel_buttons(p: dict) -> list[list[tuple[str, str]]]:
+    rows = [[("Час", "e:p:h"), ("Сутки", "e:p:d"), ("Неделя", "e:p:w"), ("Всё", "e:p:a")]]
+    on = set(p.get("on", []))
+    btns = [((("✅ " if i in on else "⚪ ") + r["rule"])[:40], f"e:t:{i}") for i, r in enumerate(p["rules"])]
+    rows += [[b] for b in btns]
+    if p["rules"]:
+        rows.append([("🎲 Случайные 3", "e:rand"),
+                     (f"📖 Правило: {'вкл' if p.get('rule_first', True) else 'выкл'}", "e:rule")])
+        rows.append([("▶️ Начать", "e:go"), ("✖️ Отмена", "p:cancel")])
+    return rows

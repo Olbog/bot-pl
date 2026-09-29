@@ -1,5 +1,7 @@
 """Настройки из переменных окружения (.env)."""
 import os
+from datetime import datetime
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from dataclasses import dataclass, field
 
 
@@ -48,3 +50,17 @@ def load() -> Config:
         master_days=int(os.environ.get("MASTER_DAYS", "3")),
         next_set_ratio=float(os.environ.get("NEXT_SET_RATIO", "0.9")),
     )
+
+
+def _local_tz():
+    try:
+        return ZoneInfo(os.environ.get("TZ") or "Europe/Moscow")
+    except (ZoneInfoNotFoundError, ValueError):
+        return ZoneInfo("Europe/Moscow")
+
+
+LOCAL_TZ = _local_tz()  # время для дат, автосохранения и отображения (Мск по умолчанию)
+
+
+def local_dt(ts: float) -> datetime:
+    return datetime.fromtimestamp(ts, LOCAL_TZ)

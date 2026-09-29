@@ -64,6 +64,13 @@ class Telegram:
         await self.call("sendVoice", chat_id=str(chat_id),
                         _files={"voice": ("reply.ogg", ogg, "audio/ogg")})
 
+    async def send_document(self, chat_id: int, filename: str, content: bytes, caption: str = "") -> None:
+        params = {"chat_id": str(chat_id), "_files": {"document": (filename, content, "text/plain")}}
+        if caption:
+            params["caption"] = caption[:1000]
+            params["parse_mode"] = "HTML"
+        await self.call("sendDocument", **params)
+
     async def send_action(self, chat_id: int, action: str) -> None:
         try:
             await self.call("sendChatAction", chat_id=chat_id, action=action)
@@ -81,7 +88,9 @@ class Telegram:
             {"command": "set", "description": "🎯 Набор слов: прогресс, новый набор"},
             {"command": "free", "description": "🏁 Свободный разговор без набора"},
             {"command": "new", "description": "🆕 Начать разговор заново"},
-            {"command": "itog", "description": "📋 Слова и ошибки этого разговора"},
+            {"command": "itog", "description": "📋 Итог: ошибки и слова за час / сутки / разговор"},
+            {"command": "dict", "description": "⭐ Мой словарь выражений"},
+            {"command": "rule", "description": "📖 Вопрос о правиле: /rule почему do niej?"},
             {"command": "cancel", "description": "✖️ Отменить создание набора"},
             {"command": "help", "description": "❓ Что умеет бот"},
         ])

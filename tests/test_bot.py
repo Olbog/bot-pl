@@ -320,7 +320,7 @@ def test_summary_dedup_and_empty():
 
 class FakeTG:
     def __init__(self):
-        self.sent, self.voices, self.buttons, self.edits = [], [], [], []
+        self.sent, self.voices, self.buttons, self.edits, self.docs = [], [], [], [], []
 
     async def send_message(self, chat_id, text, buttons=None):
         self.sent.append(text)
@@ -329,6 +329,9 @@ class FakeTG:
 
     async def edit_message(self, chat_id, message_id, text, buttons=None):
         self.edits.append((text, buttons))
+
+    async def send_document(self, chat_id, filename, content, caption=""):
+        self.docs.append((filename, content.decode("utf-8"), caption))
 
     async def answer_callback(self, cid, text=None):
         pass
@@ -355,6 +358,16 @@ class FakeGemini:
 
     async def ask_json(self, prompt, schema, hint):
         self.prompts.append(prompt)
+        props = schema.get("properties", {})
+        if "rules" in props:
+            return {"rules": [{"title": "Родительный после отрицания", "explanation": "nie + глагол → kogo? czego?",
+                               "examples": [{"pl": "Nie lubię cukru.", "translit": "не ЛЮ-бе ЦУ-кру",
+                                             "ru": "Не люблю сахар."}]}]}
+        if "phrases" in props:
+            return {"phrases": [{"pl": "najbardziej lubię", "translit": "най-бар-ДЗЕЙ ЛЮ-бе", "ru": "больше всего люблю"},
+                                {"pl": "tak jak mówię", "translit": "так як МУ-ве", "ru": "как я говорю"}]}
+        if "items" in props and "rule" in props["items"]["items"]["properties"]:
+            return {"items": [{"id": i, "rule": "Родительный падеж после отрицания"} for i in range(1, 50)]}
         return self.words
 
     async def check_models(self):
@@ -450,10 +463,12 @@ def test_commands_new_and_itog():
     app = make_app()
     run(app.handle(msg(text="hej")))
     run(app.handle(msg(text="/itog")))
-    assert "chleb" in app.tg.sent[-1] and "w sklepie" in app.tg.sent[-1]
+    assert "Итог за" in app.tg.sent[-1] and any(d == "i:h" for row in app.tg.buttons[-1] for _, d in row)
+    run(app.on_callback(cb("i:s")))
+    assert "chleb" in app.tg.sent[-1] and "w sklep→w sklepie" in app.tg.sent[-1]
     run(app.handle(msg(text="/new")))
-    run(app.handle(msg(text="/itog")))
-    assert "пока ничего" in app.tg.sent[-1]
+    run(app.on_callback(cb("i:s")))
+    assert "разговоров не было" in app.tg.sent[-1]
     run(app.handle(msg(text="/start")))
     assert "/new" in app.tg.sent[-1]
 
@@ -632,3 +647,220 @@ def test_stale_preview_and_foreign_callback():
     assert "неактуален" in app.tg.edits[-1][0]
     run(app.on_callback({**cb("s:topic"), "from": {"id": 7}}))
     assert app.db.get_state(7)["pending"] is None
+
+
+# ---------- правила, словарь, итоги, наборы из ошибок ----------
+
+from bot import rules as rules_mod  # noqa: E402
+from bot.db import DB as _DB  # noqa: E402
+
+
+def test_rules_normalize_and_group():
+    assert rules_mod.normalize("родительный падеж после отрицания") == "Родительный падеж после отрицания"
+    assert rules_mod.normalize("Лексика: неверное слово") == "Лексика: неверное слово или калька с русского"
+    assert rules_mod.normalize("что-то странное") == "Другое" and rules_mod.normalize(None) == "Другое"
+    assert rules_mod.normalize("падеж") == "Другое"            # слишком коротко для угадывания
+    g = rules_mod.group([
+        {"rule": "A", "original": "x", "correct": "y"}, {"rule": "A", "original": "X", "correct": "Y"},
+        {"rule": "A", "original": "z", "correct": "w"}, {"rule": "B", "original": "q", "correct": "r"}])
+    assert g[0][0] == "A" and g[0][1] == 3 and len(g[0][2]) == 2   # дубли примеров схлопнуты
+    assert g[1][0] == "B"
+
+
+def test_corrections_get_catalog_rule_and_buttons():
+    t = {**TURN_JSON, "corrections": [{**TURN_JSON["corrections"][0], "rule": "местный падеж после w / na / o / przy / po"}]}
+    app = make_app(gem=FakeGemini(turn=t))
+    run(app.handle(msg(text="x")))
+    c = app.db.corrections_session(app.db.current_session(42))[0]
+    assert c["rule"] == "Местный падеж после w / na / o / przy / po"
+    btns = [d for row in app.tg.buttons[0] for _, d in row]
+    assert btns[0].startswith("r:") and btns[1].startswith("d:")
+
+
+def test_no_rule_button_without_errors_and_opening_without_buttons():
+    t = {**TURN_JSON, "corrections": []}
+    app = make_app(gem=FakeGemini(turn=t))
+    run(app.handle(msg(text="x")))
+    assert [d for row in app.tg.buttons[0] for _, d in row] == [app.tg.buttons[0][0][0][1]]
+    assert app.tg.buttons[0][0][0][1].startswith("d:")
+    start_set(app)
+    assert app.tg.buttons[-1] is None                          # служебное открытие набора — без кнопок
+
+
+def test_rule_button_explains():
+    app = make_app()
+    run(app.handle(msg(text="x")))
+    rid = app.tg.buttons[0][0][0][1]
+    run(app.on_callback(cb(rid)))
+    assert "📖 <b>Родительный после отрицания</b>" in app.tg.sent[-1] and "ЦУ-кру" in app.tg.sent[-1]
+    assert "w sklep" in app.gemini.prompts[-1]
+
+
+def test_rule_question_command_and_pending():
+    app = make_app()
+    run(app.handle(msg(text="/rule почему do niej?")))
+    assert "почему do niej?" in app.gemini.prompts[-1] and "📖" in app.tg.sent[-1]
+    run(app.handle(msg(text="/rule")))
+    run(app.handle(msg(text="а почему cukru?")))
+    assert "а почему cukru?" in app.gemini.prompts[-1] and not app.gemini.calls
+
+
+def test_star_offer_toggle_and_dict():
+    app = make_app()
+    run(app.handle(msg(text="x")))
+    did = app.tg.buttons[0][0][1][1]
+    mid = int(did[2:])
+    run(app.on_callback(cb(did)))
+    assert "najbardziej lubię" in app.tg.sent[-1]
+    run(app.on_callback(cb(f"ds:{mid}:0")))
+    run(app.on_callback(cb(f"ds:{mid}:1")))
+    assert [i["pl"] for i in app.db.dict_items(42)] == ["najbardziej lubię", "tak jak mówię"]
+    run(app.on_callback(cb(f"ds:{mid}:1")))                    # повторное нажатие убирает
+    assert [i["pl"] for i in app.db.dict_items(42)] == ["najbardziej lubię"]
+    n = len(app.gemini.prompts)
+    run(app.on_callback(cb(did)))                              # повторное открытие — без нового запроса
+    assert len(app.gemini.prompts) == n and "✅" in app.tg.sent[-1]
+    run(app.on_callback(cb(f"dx:{mid}")))
+    assert "Сохранено в словарь: 1" in app.tg.edits[-1][0]
+    run(app.handle(msg(text="/dict")))
+    assert "najbardziej lubię" in app.tg.sent[-1]
+
+
+def test_dict_add_command_dedup():
+    app = make_app()
+    run(app.handle(msg(text="/dict add najbardziej lubię")))
+    assert "Добавлено" in app.tg.sent[-1]
+    run(app.handle(msg(text="/dict add najbardziej lubię")))
+    assert "уже в словаре" in app.tg.sent[-1]
+
+
+def test_set_from_dict_marks_used():
+    app = make_app()
+    app.db.dict_add(42, "tak jak mówię", "так як МУ-ве", "как я говорю")
+    app.db.dict_add(42, "po południu", "по по-ЎУ-дню", "после обеда")
+    run(app.on_callback(cb("s:dict")))
+    assert "tak jak mówię" in app.tg.sent[-1]
+    run(app.on_callback(cb("p:1")))                            # убрать po południu
+    run(app.on_callback(cb("p:ok")))
+    words = app.db.set_words(app.db.active_set(42)["id"])
+    assert [w["pl"] for w in words] == ["tak jak mówię"] and words[0]["kind"] == "phrase"
+    assert [i["pl"] for i in app.db.dict_items(42, only_unused=True)] == ["po południu"]
+
+
+def test_itog_periods_and_files():
+    clock = Clock()
+    app = make_app(clock=clock)
+    run(app.handle(msg(text="x")))
+    clock.t += 2 * 3600
+    run(app.on_callback(cb("i:h")))
+    assert "разговоров не было" in app.tg.sent[-1]
+    run(app.on_callback(cb("i:d")))
+    assert "Ошибки — 1" in app.tg.sent[-1] and "×1" in app.tg.sent[-1]
+    btns = [d for row in app.tg.buttons[-1] for _, d in row]
+    assert btns == ["i:fd", "e:p:d"]
+    run(app.on_callback(cb("i:fd")))
+    assert "за сутки" in app.tg.docs[-1][2] and "w sklepie" in app.tg.docs[-1][1]
+    app.db.dict_add(42, "po południu", "", "после обеда")
+    run(app.on_callback(cb("i:dict")))
+    assert app.tg.docs[-1][0] == "bot-pl_dict.txt" and "po południu" in app.tg.docs[-1][1]
+    run(app.on_callback(cb("i:fa")))
+    name, content, _ = app.tg.docs[-1]
+    assert name.endswith(".txt") and "ОШИБКИ — 1" in content and "w sklepie" in content and "<b>" not in content
+
+
+def test_autosave_writes_file_and_sends(tmp_path=None):
+    import tempfile
+    from pathlib import Path
+    app = make_app()
+    app.export_dir = Path(tempfile.mkdtemp()) / "exports"
+    run(app.handle(msg(text="x")))
+    run(app.autosave(42))
+    assert len(list(app.export_dir.glob("42_*.txt"))) == 1 and "автосохранение" in app.tg.docs[-1][2]
+
+
+def test_classify_old_errors():
+    app = make_app()
+    s = app.db.current_session(42)
+    app.db.conn.execute("INSERT INTO corrections(session_id, user_id, data, created_at) VALUES (?,?,?,?)",
+                        (s, 42, json.dumps({"original": "cukier", "correct": "cukru"}), 1.0))
+    app.db.conn.commit()
+    assert len(app.db.corrections_unsorted()) == 1
+    run(app.classify_old_errors())
+    assert app.db.corrections_unsorted() == []
+    assert app.db.corrections_session(s)[0]["rule"] == "Родительный падеж после отрицания"
+
+
+def test_error_set_flow_with_rule_first():
+    t = {**TURN_JSON, "corrections": [
+        {"kind": "grammar", "original": "cukier", "correct": "cukru", "rule": "Родительный падеж после отрицания"},
+        {"kind": "grammar", "original": "filmy", "correct": "filmu", "rule": "Родительный падеж после отрицания"},
+        {"kind": "grammar", "original": "w sklep", "correct": "w sklepie", "rule": "Местный падеж после w / na / o / przy / po"}]}
+    gem = FakeGemini(turn=t)
+    app = make_app(gem=gem)
+    run(app.handle(msg(text="x")))
+    run(app.on_callback(cb("e:start")))
+    p = app.db.get_state(42)["pending"]
+    assert p["step"] == "errsel" and p["rules"][0]["rule"] == "Родительный падеж после отрицания" and p["rules"][0]["n"] == 2
+    assert "cukier → cukru" in p["rules"][0]["examples"]
+    run(app.on_callback(cb("e:t:1")))                          # снять второе правило
+    assert app.db.get_state(42)["pending"]["on"] == [0]
+    run(app.on_callback(cb("e:go")))
+    items = app.db.set_words(app.db.active_set(42)["id"])
+    assert len(items) == 1 and items[0]["kind"] == "rule" and "cukru" in items[0]["ru"]
+    assert any("📖 <b>Родительный после отрицания</b>" in m for m in app.tg.sent)   # правило перед стартом
+    assert "Правила, на которых ученик ошибался" in gem.extras[-1]
+    assert gem.calls[-1][1] == "Zaczynajmy!"
+
+
+def test_error_set_rule_toggle_off_and_random_and_period():
+    app = make_app()
+    run(app.handle(msg(text="x")))
+    run(app.on_callback(cb("e:start")))
+    run(app.on_callback(cb("e:rule")))
+    assert app.db.get_state(42)["pending"]["rule_first"] is False
+    run(app.on_callback(cb("e:rand")))
+    assert len(app.db.get_state(42)["pending"]["on"]) == 1
+    run(app.on_callback(cb("e:p:a")))
+    assert app.db.get_state(42)["pending"]["period"] == "a" and app.db.get_state(42)["pending"]["rule_first"] is False
+    n = len(app.gemini.prompts)
+    run(app.on_callback(cb("e:go")))
+    assert len(app.gemini.prompts) == n                        # без правила перед стартом — без запроса
+
+
+def test_rule_items_need_double_criteria():
+    t = {**TURN_JSON, "corrections": [
+        {"kind": "grammar", "original": "cukier", "correct": "cukru", "rule": "Родительный падеж после отрицания"}],
+         "target_uses": [{"lemma": "Родительный падеж после отрицания", "form": "nie lubię cukru", "correct": True}]}
+    clock = Clock()
+    app = make_app(gem=FakeGemini(turn=t), clock=clock)
+    app.criteria = training.Criteria(streak=2, forms=1, days=1)
+    app.rule_criteria = training.scaled(app.criteria, 2)
+    run(app.handle(msg(text="x")))
+    run(app.on_callback(cb("e:start")))
+    run(app.on_callback(cb("e:rule")))
+    run(app.on_callback(cb("e:go")))                           # открытие: 1-е употребление
+    rule = app.db.set_words(app.db.active_set(42)["id"])[0]
+    run(app.handle(msg(text="y")))                             # 2 подряд — для слова хватило бы
+    assert app.db.word(rule["id"])["mastered_at"] is None
+    app.gemini.turn = {**t, "target_uses": [{"lemma": "Родительный падеж после отрицания",
+                                             "form": "nie mam czasu", "correct": True}]}
+    clock.t += 86400
+    run(app.handle(msg(text="z")))
+    run(app.handle(msg(text="w")))
+    assert app.db.word(rule["id"])["mastered_by"] == "auto"
+
+
+def test_db_migration_adds_columns():
+    import sqlite3
+    import tempfile
+    path = tempfile.mktemp(suffix=".db")
+    con = sqlite3.connect(path)
+    con.executescript("""CREATE TABLE corrections (id INTEGER PRIMARY KEY, session_id INTEGER, user_id INTEGER,
+                         data TEXT, created_at REAL);
+                         CREATE TABLE set_words (id INTEGER PRIMARY KEY, set_id INTEGER, user_id INTEGER, pl TEXT,
+                         translit TEXT, ru TEXT, pos TEXT, mastered_at REAL, mastered_by TEXT,
+                         review_stage INTEGER DEFAULT 0, last_review_at REAL, created_at REAL);""")
+    con.commit()
+    con.close()
+    d = _DB(path)
+    assert {"rule", "msg_id"} <= d._columns("corrections") and "kind" in d._columns("set_words")
