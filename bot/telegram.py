@@ -51,6 +51,12 @@ class Telegram:
             if "not modified" not in str(e):
                 raise
 
+    async def delete_message(self, chat_id: int, message_id: int) -> None:
+        try:
+            await self.call("deleteMessage", chat_id=chat_id, message_id=message_id)
+        except Exception:
+            pass
+
     async def answer_callback(self, callback_id: str, text: str | None = None) -> None:
         try:
             params = {"callback_query_id": callback_id}

@@ -437,7 +437,7 @@ def ex_count_prompt() -> tuple[str, list[list[tuple[str, str]]]]:
 
 
 def ex_message(ex: dict, idx: int, total: int, voice: bool) -> str:
-    lines = [f"🏋️ <b>Упражнение {idx}/{total}</b> — {e(ex['title'])}", ""]
+    lines = [f"🏋️ <b>Упражнение {idx}/{total}</b> · #{ex['id']} — {e(ex['title'])}", ""]
     for i, it in enumerate(ex["items"], 1):
         q = e(it.get("q", "")).replace("___", "<b>___</b>")
         hint = f" <i>({e(it['hint'])})</i>" if it.get("hint") else ""
@@ -453,6 +453,7 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool) -> str:
         lines.append("<i>Ответ одним сообщением: 1b 2a 3c … · не уверен — НУ или ?: «2a НУ»</i>")
     else:
         lines.append("<i>Ответ одним сообщением: 1 piję 2 lubi … · не уверен — НУ или ?: «3 kupuje НУ»</i>")
+    lines.append("<i>Ответ засчитается этому упражнению. Можно и через «Ответить» на это сообщение.</i>")
     if any(it.get("_reuse_id") for it in ex["items"]):
         lines.append("<i>🔁 — пункт на повтор: в прошлый раз была ошибка или сомнение.</i>")
     return "\n".join(lines)
@@ -463,7 +464,7 @@ STATUS_ICON = {"ok": "✅", "wrong": "❌", "unsure": "❓"}
 
 def ex_results(ex: dict, results: list[dict]) -> str:
     ok = sum(1 for r in results if r["final"] in ("ok", "unsure"))
-    lines = [f"📊 <b>{ok} из {len(results)}</b> — {e(ex['title'])}", ""]
+    lines = [f"📊 <b>{ok} из {len(results)}</b> · #{ex['id']} — {e(ex['title'])}", ""]
     for r in results:
         it = ex["items"][r["n"] - 1]
         right = it.get("answer", "")

@@ -321,6 +321,7 @@ def test_summary_dedup_and_empty():
 class FakeTG:
     def __init__(self):
         self.sent, self.voices, self.buttons, self.edits, self.docs = [], [], [], [], []
+        self.toasts, self.deleted = [], []
 
     async def send_message(self, chat_id, text, buttons=None):
         self.sent.append(text)
@@ -334,7 +335,10 @@ class FakeTG:
         self.docs.append((filename, content.decode("utf-8"), caption))
 
     async def answer_callback(self, cid, text=None):
-        pass
+        self.toasts.append(text)
+
+    async def delete_message(self, chat_id, message_id):
+        self.deleted.append(message_id)
 
     async def send_voice(self, chat_id, ogg):
         self.voices.append(ogg)
@@ -1085,3 +1089,66 @@ def test_ex_answer_step_survives_gemini_error_and_chat_after_review():
     assert app.db.get_state(42)["pending"]["step"] == "ex_review"
     run(app.handle(msg(text="Cześć, jak się masz?")))          # обычная фраза — в разговор
     assert gem.calls and app.db.get_state(42)["pending"]["step"] == "ex_review"
+
+
+# ---------- защита от двойных нажатий и ответов «не туда» ----------
+
+def test_wait_message_shown_and_deleted():
+    app = make_app()
+    ex_flow(app, "x:k:grammar", "x:f:gap")
+    run(app.on_callback(cb("x:n:1")))
+    waits = [m for m in app.tg.sent if m.startswith("⏳ Составляю упражнение 1/1")]
+    assert len(waits) == 1
+    assert app.tg.sent.index(waits[0]) + 1 in app.tg.deleted   # статус удалён после готовности
+    assert "#" in app.tg.sent[-1]
+
+
+def test_repeat_count_tap_does_not_create_second_exercise():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:gap")
+    run(app.on_callback(cb("x:n:1")))
+    n = gem.ex_batch
+    run(app.on_callback(cb("x:n:1")))                          # повторное нажатие — шаг уже другой
+    run(app.on_callback(cb("x:f:gap")))                        # кнопка с прошлого шага
+    assert gem.ex_batch == n
+    assert app.db.get_state(42)["pending"]["step"] == "ex_answer"
+
+
+def test_busy_user_gets_notice_instead_of_queue():
+    app = make_app()
+    app.busy.add(42)
+    run(app.dispatch({"update_id": 1, "message": msg(text="1")}))
+    assert "Ещё обрабатываю" in app.tg.sent[-1] and not app.gemini.calls
+    run(app.dispatch({"update_id": 2, "callback_query": cb("x:n:1")}))
+    assert "Ещё обрабатываю" in (app.tg.toasts[-1] or "")
+    app.busy.clear()
+    run(app.dispatch({"update_id": 3, "message": msg(text="hej")}))
+    assert app.gemini.calls and 42 not in app.busy
+
+
+def test_answer_sent_before_exercise_is_rejected():
+    clock = Clock()
+    app = make_app(clock=clock)
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:n:1")
+    ex_id = app.db.get_state(42)["pending"]["ex"]["ex_id"]
+    run(app.handle(msg(text="1 a 2 b", date=int(clock.t) - 30)))
+    assert f"раньше, чем пришло упражнение #{ex_id}" in app.tg.sent[-1]
+    assert app.db.get_state(42)["pending"]["step"] == "ex_answer"
+
+
+def test_reply_binds_answer_to_specific_exercise():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:n:2")
+    first = app.db.get_state(42)["pending"]["ex"]["ex_id"]
+    first_tg = app.db.ex_get(first)["tg_msg_id"]
+    run(app.handle(msg(text=answers_all(app))))
+    run(app.on_callback(cb("x:next")))
+    second = app.db.get_state(42)["pending"]["ex"]["ex_id"]
+    assert second != first
+    run(app.handle(msg(text="1 x", reply_to_message={"message_id": first_tg})))
+    assert f"#{first} уже проверено" in app.tg.sent[-1]
+    second_tg = app.db.ex_get(second)["tg_msg_id"]
+    run(app.handle(msg(text=answers_all(app), reply_to_message={"message_id": second_tg})))
+    assert app.db.ex_get(second)["results"] and f"#{second}" in app.tg.sent[-1]

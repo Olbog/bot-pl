@@ -135,6 +135,7 @@ class DB:
             "corrections": [("rule", "TEXT"), ("msg_id", "INTEGER")],
             "set_words": [("kind", "TEXT NOT NULL DEFAULT 'word'")],
             "word_uses": [("weight", "REAL NOT NULL DEFAULT 1")],
+            "exercises": [("tg_msg_id", "INTEGER")],
         }
         for table, cols in adds.items():
             have = self._columns(table)
@@ -419,6 +420,15 @@ class DB:
         for row, r in zip(rows, results):
             self.conn.execute("UPDATE ex_items SET status=? WHERE id=?", (r["final"], row["id"]))
         self.conn.commit()
+
+    def ex_set_tg_msg(self, ex_id: int, tg_msg_id: int) -> None:
+        self.conn.execute("UPDATE exercises SET tg_msg_id=? WHERE id=?", (tg_msg_id, ex_id))
+        self.conn.commit()
+
+    def ex_by_tg_msg(self, user_id: int, tg_msg_id: int):
+        row = self.conn.execute("SELECT id FROM exercises WHERE user_id=? AND tg_msg_id=?",
+                                (user_id, tg_msg_id)).fetchone()
+        return self.ex_get(row["id"]) if row else None
 
     def ex_seen_keys(self, user_id: int) -> set[str]:
         return {r[0] for r in self.conn.execute("SELECT key FROM ex_items WHERE user_id=?", (user_id,))}

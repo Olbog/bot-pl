@@ -41,6 +41,7 @@ class App:
         self.criteria = training.Criteria(cfg.master_streak, cfg.master_forms, cfg.master_days)
         self.rule_criteria = training.scaled(self.criteria, RULE_FACTOR)
         self.export_dir = Path(cfg.db_path).parent / "exports"
+        self.busy: set[int] = set()  # пользователи, чей запрос сейчас обрабатывается
 
     def criteria_for(self, item) -> training.Criteria:
         return self.rule_criteria if training.kind_of(item) == "rule" else self.criteria
@@ -70,8 +71,14 @@ class App:
             return
 
         voice = msg.get("voice") or msg.get("audio")
+        reply_to = (msg.get("reply_to_message") or {}).get("message_id")
+        if reply_to and (text or voice):
+            replied = self.db.ex_by_tg_msg(user_id, reply_to)
+            if replied:
+                await self.ex_answer_to(chat_id, user_id, replied, pending, text, voice)
+                return
         if pending and str(pending.get("step", "")).startswith("ex_"):
-            if await self.ex_input(chat_id, user_id, pending, text, voice):
+            if await self.ex_input(chat_id, user_id, pending, text, voice, msg.get("date")):
                 return
         if not text and not voice:
             await self.tg.send_message(chat_id, "Пришли текст или голосовое.")
@@ -260,13 +267,20 @@ class App:
 
     # ---------- правила ----------
 
-    async def ask(self, chat_id: int, prompt: str, schema: dict, hint: str) -> dict | None:
+    async def ask(self, chat_id: int, prompt: str, schema: dict, hint: str, wait: str = "⏳ Думаю…",
+                  audio: bytes | None = None) -> dict | None:
+        """Запрос к Gemini с видимым статусом: сообщение «⏳ …» удаляется, когда ответ готов."""
+        note = await self.tg.send_message(chat_id, wait) if wait else None
         await self.tg.send_action(chat_id, "typing")
         try:
-            return await self.gemini.ask_json(prompt, schema, hint)
+            return await self.gemini.ask_json(prompt, schema, hint, audio=audio) if audio else \
+                await self.gemini.ask_json(prompt, schema, hint)
         except GeminiError as e:
             await self.report_gemini_error(chat_id, e)
             return None
+        finally:
+            if note and note.get("message_id"):
+                await self.tg.delete_message(chat_id, note["message_id"])
 
     async def explain_message_rules(self, chat_id: int, user_id: int, msg_id: int) -> None:
         corrs = self.db.corrections_for_msg(msg_id)
@@ -674,6 +688,13 @@ class App:
     async def ex_callback(self, chat_id: int, user_id: int, message_id: int, pending: dict | None,
                           action: str) -> None:
         ex = dict((pending or {}).get("ex") or {})
+        step = (pending or {}).get("step")
+        need = {"s:": "ex_src", "f:": "ex_fmt", "n:": "ex_count", "next": "ex_review"}
+        for prefix, want in need.items():
+            if action.startswith(prefix) and step != want:
+                return  # кнопка из прошлого шага или повторное нажатие — игнорируем
+        if action.startswith("r:") and step not in ("ex_rules",):
+            return
         if action == "menu":
             await self.ex_menu(chat_id, user_id)
         elif action.startswith("k:"):
@@ -761,7 +782,20 @@ class App:
             if data is not None:
                 await self.tg.send_message(chat_id, fmt.rules_message(data))
 
-    async def ex_input(self, chat_id: int, user_id: int, pending: dict, text: str, voice: dict | None) -> bool:
+    async def ex_answer_to(self, chat_id: int, user_id: int, saved: dict, pending: dict | None, text: str,
+                           voice: dict | None) -> None:
+        """Ответ через «Ответить» на конкретное упражнение."""
+        if saved["results"]:
+            await self.tg.send_message(chat_id, f"Упражнение #{saved['id']} уже проверено. "
+                                                 "Вопрос по пункту — «5: почему…» обычным сообщением.")
+            return
+        ex = dict((pending or {}).get("ex") or {})
+        if ex.get("ex_id") != saved["id"]:
+            ex = {**ex, "ex_id": saved["id"]}
+        await self.ex_check(chat_id, user_id, ex, text, voice)
+
+    async def ex_input(self, chat_id: int, user_id: int, pending: dict, text: str, voice: dict | None,
+                       sent_at: int | None = None) -> bool:
         """Текст/голос во время упражнений. True — обработано здесь."""
         step, ex = pending["step"], dict(pending.get("ex") or {})
         if step == "ex_words" and text:
@@ -782,6 +816,11 @@ class App:
             await self.ex_start(chat_id, user_id, ex, int(text.strip()))
             return True
         if step == "ex_answer" and (text or voice):
+            saved = self.db.ex_get(ex.get("ex_id", 0))
+            if saved and sent_at and sent_at < saved["created_at"] - 1:
+                await self.tg.send_message(chat_id, f"Это сообщение ушло раньше, чем пришло упражнение "
+                                                     f"#{saved['id']}, — пришли ответ ещё раз.")
+                return True
             await self.ex_check(chat_id, user_id, ex, text, voice)
             return True
         if step == "ex_review" and text:
@@ -804,7 +843,9 @@ class App:
         prompt = ex_prompt(kind, f, self.cfg.level, rules.catalog_text(), self.db.ex_recent(user_id),
                            words=ex.get("words"), rules_list=ex.get("rules"), examples=ex.get("examples"),
                            confusing=ex.get("confusing", False), voice=kind == "voice")
-        data = await self.ask(chat_id, prompt, EX_SCHEMA, EX_HINT)
+        idx = ex["total"] - ex["left"] + 1
+        data = await self.ask(chat_id, prompt, EX_SCHEMA, EX_HINT,
+                              wait=f"⏳ Составляю упражнение {idx}/{ex['total']}… (10–20 секунд)")
         if data is None:
             return
         seen = self.db.ex_seen_keys(user_id)
@@ -835,11 +876,12 @@ class App:
             return
         title = str(data.get("title") or fmt.EX_KINDS.get(kind, "Упражнение"))
         ex_id = self.db.ex_create(user_id, kind, f, title, items)
-        idx = ex["total"] - ex["left"] + 1
         ex = {**ex, "ex_id": ex_id, "left": ex["left"] - 1}
         self.db.set_pending(user_id, {"step": "ex_answer", "ex": ex})
         saved = self.db.ex_get(ex_id)
-        await self.tg.send_message(chat_id, fmt.ex_message(saved, idx, ex["total"], kind == "voice"))
+        sent = await self.tg.send_message(chat_id, fmt.ex_message(saved, idx, ex["total"], kind == "voice"))
+        if sent and sent.get("message_id"):
+            self.db.ex_set_tg_msg(ex_id, sent["message_id"])
 
     async def ex_check(self, chat_id: int, user_id: int, ex: dict, text: str | None, voice: dict | None) -> None:
         saved = self.db.ex_get(ex["ex_id"])
@@ -857,14 +899,8 @@ class App:
         if todo:
             prompt = check_prompt([(r["n"], items[r["n"] - 1], r["user"], r["unsure"]) for r in todo],
                                   self.cfg.level, voice=bool(voice))
-            data = await self.ask(chat_id, prompt, CHECK_SCHEMA, CHECK_HINT) if not audio else None
-            if audio:
-                await self.tg.send_action(chat_id, "typing")
-                try:
-                    data = await self.gemini.ask_json(prompt, CHECK_SCHEMA, CHECK_HINT, audio=audio)
-                except GeminiError as e:
-                    await self.report_gemini_error(chat_id, e)
-                    data = None
+            data = await self.ask(chat_id, prompt, CHECK_SCHEMA, CHECK_HINT,
+                                  wait=f"⏳ Проверяю упражнение #{saved['id']}…", audio=audio)
             if data is None:
                 return  # шаг ex_answer сохраняется — можно прислать ответ ещё раз
             verdicts = {int(v.get("n", 0)): v for v in data.get("items") or [] if isinstance(v, dict)}
@@ -986,13 +1022,32 @@ class App:
                 continue
             for upd in updates:
                 offset = upd["update_id"] + 1
-                try:
-                    if "message" in upd:
-                        await self.handle(upd["message"])
-                    elif "callback_query" in upd:
-                        await self.on_callback(upd["callback_query"])
-                except Exception:
-                    log.exception("Необработанная ошибка")
+                asyncio.create_task(self.dispatch(upd))
+
+    async def dispatch(self, upd: dict) -> None:
+        """Обработка одного обновления. Пока запрос пользователя в работе, новые не встают в очередь,
+        а сразу получают ответ «ещё обрабатываю» — так не бывает двойных упражнений и ответов не туда."""
+        src = upd.get("message") or upd.get("callback_query") or {}
+        user_id = src.get("from", {}).get("id")
+        if user_id in self.busy:
+            if "callback_query" in upd:
+                await self.tg.answer_callback(upd["callback_query"]["id"], "⏳ Ещё обрабатываю прошлый запрос…")
+            else:
+                chat_id = src.get("chat", {}).get("id")
+                if chat_id is not None:
+                    await self.tg.send_message(chat_id, "⏳ Ещё обрабатываю прошлый запрос — подожди пару секунд "
+                                                        "и пришли это сообщение снова.")
+            return
+        self.busy.add(user_id)
+        try:
+            if "message" in upd:
+                await self.handle(upd["message"])
+            elif "callback_query" in upd:
+                await self.on_callback(upd["callback_query"])
+        except Exception:
+            log.exception("Необработанная ошибка")
+        finally:
+            self.busy.discard(user_id)
 
 
 def main() -> None:
