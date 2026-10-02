@@ -1,0 +1,8 @@
+﻿{
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#b85a0e",
+    "titleBar.activeForeground": "#ffffff",
+    "titleBar.inactiveBackground": "#7a3d0a"
+  },
+  "window.title": "🟠 BOT-PL — ${activeEditorShort}${separator}${rootName}"
+}
