@@ -354,11 +354,41 @@ class FakeGemini:
             {"pl": "ciasto", "translit": "ЧЬЯ-сто", "ru": "пирог", "pos": "сущ"},
             {"pl": "piec", "translit": "пец", "ru": "печь", "pos": "глаг"},
             {"pl": "kawa", "translit": "КА-ва", "ru": "кофе", "pos": "сущ"}]}
-        self.extras, self.prompts = [], []
+        self.extras, self.prompts, self.audios = [], [], []
+        self.ex_batch = 0
+        self.check_verdict = {}
 
-    async def ask_json(self, prompt, schema, hint):
+    def ex_data(self, prompt):
+        """10 пунктов; каждый новый вызов — новые предложения (кроме dup — повтор первого)."""
+        self.ex_batch += 1
+        test = "Формат ТЕСТ" in prompt
+        items = []
+        for i in range(10):
+            ans = f"forma{i}"
+            items.append({"q": f"Zdanie {self.ex_batch}-{i} ___ .", "hint": "baza",
+                          "options": [ans, f"zle{i}", f"inne{i}"] if test else [], "answer": ans, "accepted": [],
+                          "full_pl": f"Zdanie {self.ex_batch}-{i} {ans}.", "translit": "ЗДА-не", "ru": "Предложение",
+                          "grammar": "глагол, 1 л. ед. ч.", "rule": "Спряжение -am / -asz", "lemma": "ciasto" if i == 0 else f"w{i}"})
+        if getattr(self, "dup", False):
+            items[1] = dict(items[0])
+        return {"title": "Тест-упражнение", "items": items}
+
+    def check_data(self, prompt):
+        import re as _re
+        nums = [int(x) for x in _re.findall(r"^(\d+)\. Задание", prompt, _re.M)]
+        return {"items": [{"n": n, "heard": "", "correct": self.check_verdict.get(n, False),
+                           "explanation": f"объяснение {n}", "bridge": "как в русском"} for n in nums]}
+
+    async def ask_json(self, prompt, schema, hint, audio=None):
         self.prompts.append(prompt)
+        self.audios.append(audio)
         props = schema.get("properties", {})
+        item_props = props.get("items", {}).get("items", {}).get("properties", {})
+        if "q" in item_props:
+            self.ex_audio = None
+            return self.ex_data(prompt)
+        if "heard" in item_props:
+            return self.check_data(prompt)
         if "rules" in props:
             return {"rules": [{"title": "Родительный после отрицания", "explanation": "nie + глагол → kogo? czego?",
                                "examples": [{"pl": "Nie lubię cukru.", "translit": "не ЛЮ-бе ЦУ-кру",
@@ -877,3 +907,181 @@ def test_autosave_weekly_schedule_and_export_command():
     run(app.handle(msg(text="/export")))
     name, content, caption = app.tg.docs[-1]
     assert "всё время" in caption and "ОШИБКИ — 1" in content and "СЛОВАРЬ" in content
+
+
+# ---------- упражнения ----------
+
+from bot import exercises as exm  # noqa: E402
+
+
+def test_parse_answers_and_markers():
+    a = exm.parse_answers("1 piję 2 lubi НУ 3 kupuje? 4. nie mam czasu", 10)
+    assert a[1] == {"answer": "piję", "unsure": False}
+    assert a[2] == {"answer": "lubi", "unsure": True} and a[3]["unsure"] and a[4]["answer"] == "nie mam czasu"
+    b = exm.parse_answers("1b 2a НУ\n3 c?", 3)
+    assert b[1]["answer"] == "b" and b[2]["unsure"] and b[3] == {"answer": "c", "unsure": True}
+    assert exm.parse_answers("ну 1 nu", 1)[1]["unsure"] is False   # «ну» строчными — не маркер
+    c = exm.parse_answers("piję\nlubi НУ\nkupuje", 3)              # без номеров, по строкам
+    assert c[1]["answer"] == "piję" and c[2] == {"answer": "lubi", "unsure": True}
+    assert exm.parse_answers("piję, lubi", 3) == {}                  # не совпало число — не угадываем
+
+
+def test_quick_check_statuses():
+    items = [{"answer": "piję", "accepted": []}, {"answer": "lubi", "accepted": ["kocha"]},
+             {"answer": "czasu", "accepted": []}, {"answer": "x", "accepted": []}]
+    res = exm.quick_check(items, exm.parse_answers("1 pije 2 Kocha 3 czasem", 4), "gap")
+    assert [r["status"] for r in res] == ["diacritics", "ok", "check", "missing"]
+    t = [{"answer": "czasu", "options": ["czas", "czasu", "czasem"]}]
+    assert exm.quick_check(t, exm.parse_answers("1b", 1), "test")[0]["status"] == "ok"
+    assert exm.quick_check(t, exm.parse_answers("1a", 1), "test")[0]["status"] == "wrong"
+    assert [r["n"] for r in exm.needs_model(res)] == [1, 3, 4]
+
+
+def ex_flow(app, kind_cb, *pre):
+    run(app.handle(msg(text="/ex")))
+    run(app.on_callback(cb(kind_cb)))
+    for c in pre:
+        run(app.on_callback(cb(c)))
+
+
+def answers_all(app=None, wrong=(), unsure=(), test=False):
+    """Ответы по реальному (перемешанному) порядку пунктов текущего упражнения."""
+    ex = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+    parts = []
+    for i, it in enumerate(ex["items"], 1):
+        if test:
+            right = "abcd"[it["options"].index(it["answer"])]
+            a = ("c" if right != "c" else "b") if i in wrong else right
+        else:
+            a = f"zle{i}" if i in wrong else it["answer"]
+        parts.append(f"{i} {a}" + (" НУ" if i in unsure else ""))
+    return " ".join(parts)
+
+
+def test_grammar_test_flow_code_check_only():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:test")
+    run(app.on_callback(cb("x:n:2")))
+    assert "Упражнение 1/2" in app.tg.sent[-1] and "a) " in app.tg.sent[-1]
+    assert "Формат ТЕСТ" in gem.prompts[-1]
+    n_prompts = len(gem.prompts)
+    # варианты перемешаны не были — правильный всегда «a»
+    run(app.handle(msg(text=answers_all(app, test=True))))
+    assert len(gem.prompts) == n_prompts                       # всё верно и без сомнений — без запроса
+    assert "10 из 10" in app.tg.sent[-1] and "глагол, 1 л. ед. ч." in app.tg.sent[-1]
+    run(app.on_callback(cb("x:next")))
+    assert "Упражнение 2/2" in app.tg.sent[-1]
+    assert "Zdanie 1-0" in gem.prompts[-1]                     # прошлые предложения переданы как УЖЕ БЫЛО
+
+
+def test_gap_flow_with_errors_unsure_and_model():
+    gem = FakeGemini()
+    gem.check_verdict = {3: True}                              # 3: «другой верный вариант»
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:gap")
+    run(app.handle(msg(text="1")))                            # число текстом
+    text = answers_all(app, wrong=(2, 3), unsure=(5,))
+    run(app.handle(msg(text=text)))
+    res = app.tg.sent[-1]
+    ex = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+    assert "❌ 2." in res and f"→ <b>{ex['items'][1]['answer']}</b>" in res and "объяснение 2" in res
+    assert "🌉 как в русском" in res
+    assert "✅ 3." in res                                      # модель признала верным
+    assert "❓✅ 5." in res and "объяснение 5" in res            # сомневался, но прав — с объяснением
+    assert "8 из 10" not in res and "9 из 10" in res
+    errs = app.db.corrections_since(42, 0)
+    assert len(errs) == 1 and errs[0]["rule"] == "Спряжение -am / -asz" and errs[0]["original"] == "zle2"
+    assert app.db.history(app.db.current_session(42), 20) == []   # история разговора не засорена
+    run(app.handle(msg(text="2: почему так?")))
+    assert "почему так?" in gem.prompts[-1] and "📖" in app.tg.sent[-1]
+    assert not gem.calls                                       # вопрос не ушёл в разговор
+
+
+def test_uniqueness_and_reuse_of_wrong_items():
+    gem = FakeGemini()
+    gem.dup = True                                             # модель повторила предложение внутри пачки
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:gap")
+    run(app.on_callback(cb("x:n:2")))
+    ex1 = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+    assert len(ex1["items"]) == 9                              # дубль выкинут
+    first_wrong = ex1["items"][0]["answer"]
+    ans = " ".join(f"{i} {'BAD' if i == 1 else it['answer']}" for i, it in enumerate(ex1["items"], 1))
+    run(app.handle(msg(text=ans)))
+    gem.ex_batch = 0                                           # модель «повторила» прошлые предложения
+    gem.dup = False
+    run(app.on_callback(cb("x:next")))
+    ex2 = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+    reused = [it for it in ex2["items"] if it.get("_reuse_id")]
+    assert len(reused) == 1 and reused[0]["answer"] == first_wrong   # ошибочный пункт вернулся на повтор
+    keys = [it["_key"] for it in ex2["items"]]
+    assert len(set(keys)) == len(keys)
+    assert "🔁" in app.tg.sent[-1]
+
+
+def test_words_from_set_and_progress_weight():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    start_set(app)                                             # ciasto, piec, kawa
+    ex_flow(app, "x:k:words", "x:s:set")
+    assert "ciasto" in app.tg.sent[-2]
+    run(app.on_callback(cb("x:n:1")))
+    assert "ciasto" in gem.prompts[-1]
+    run(app.handle(msg(text=answers_all(app))))
+    w = [x for x in app.db.set_words(app.db.active_set(42)["id"]) if x["pl"] == "ciasto"][0]
+    st = training.stats(app.db.word_uses(w["id"]))
+    assert st.streak == 0.1 and st.streak_forms == []           # 0.1 и без форм/дней
+    assert "x:next" not in str(app.tg.buttons[-1]) and "x:menu" in str(app.tg.buttons[-1])
+
+
+def test_voice_exercise_sends_audio_to_check():
+    gem = FakeGemini()
+    gem.check_verdict = {i: True for i in range(1, 11)}
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:voice", "x:s:own")
+    run(app.handle(msg(text="ciasto, piec")))
+    run(app.on_callback(cb("x:n:1")))
+    assert "ПРОИЗНОСИТЬ" in gem.prompts[-1] and "🎙" in app.tg.sent[-1]
+    run(app.handle(msg(voice={"file_id": "v"})))
+    assert gem.audios[-1] == b"OGG-IN" and "голосовое" in gem.prompts[-1]
+    assert "10 из 10" in app.tg.sent[-1]
+
+
+def test_rule_picker_mix_and_errors_kind():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:rule")
+    run(app.on_callback(cb("x:r:go")))
+    assert "хотя бы одно" in app.tg.sent[-1]
+    run(app.on_callback(cb("x:r:0")))
+    run(app.on_callback(cb("x:r:4")))
+    run(app.on_callback(cb("x:r:go")))
+    run(app.on_callback(cb("x:f:gap")))
+    run(app.on_callback(cb("x:n:1")))
+    assert rules_mod.CATALOG[0] in gem.prompts[-1] and rules_mod.CATALOG[4] in gem.prompts[-1]
+    t = {**TURN_JSON, "corrections": [{**TURN_JSON["corrections"][0], "rule": "Местный падеж после w / na / o / przy / po"}]}
+    app2 = make_app(gem=FakeGemini(turn=t))
+    ex_flow(app2, "x:k:errors")
+    assert "пока нет" in app2.tg.sent[-1]
+    run(app2.handle(msg(text="x")))                            # появилась ошибка с правилом
+    ex_flow(app2, "x:k:errors")
+    assert "Местный падеж" in app2.tg.sent[-1]
+
+
+def test_ex_answer_step_survives_gemini_error_and_chat_after_review():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:n:1")
+    gem_ask = gem.ask_json
+
+    async def boom(*a, **k):
+        raise GeminiOverloaded("x")
+    gem.ask_json = boom
+    run(app.handle(msg(text=answers_all(app, wrong=(1,)))))
+    assert "перегружен" in app.tg.sent[-1] and app.db.get_state(42)["pending"]["step"] == "ex_answer"
+    gem.ask_json = gem_ask
+    run(app.handle(msg(text=answers_all(app, wrong=(1,)))))
+    assert app.db.get_state(42)["pending"]["step"] == "ex_review"
+    run(app.handle(msg(text="Cześć, jak się masz?")))          # обычная фраза — в разговор
+    assert gem.calls and app.db.get_state(42)["pending"]["step"] == "ex_review"

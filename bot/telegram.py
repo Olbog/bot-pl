@@ -87,6 +87,7 @@ class Telegram:
         await self.call("setMyCommands", commands=[
             {"command": "set", "description": "🎯 Набор слов: прогресс, новый набор"},
             {"command": "free", "description": "🏁 Свободный разговор без набора"},
+            {"command": "ex", "description": "🏋️ Упражнения: слова, грамматика, правила, голосом"},
             {"command": "new", "description": "🆕 Начать разговор заново"},
             {"command": "itog", "description": "📋 Итог: ошибки и слова за час / сутки / разговор"},
             {"command": "dict", "description": "⭐ Мой словарь выражений"},

@@ -278,10 +278,10 @@ class Gemini:
                "history": history, "text": text, "audio": audio}
         return await self._run(req, parse_turn)
 
-    async def ask_json(self, prompt: str, schema: dict, hint: str) -> dict:
-        """Разовый запрос с JSON-ответом (например, составить набор слов)."""
+    async def ask_json(self, prompt: str, schema: dict, hint: str, audio: bytes | None = None) -> dict:
+        """Разовый запрос с JSON-ответом (составить набор, упражнение, проверить ответы…)."""
         req = {"system": "Ты помогаешь русскоязычному ученику учить польский. Отвечай строго в заданном JSON-формате.",
-               "schema": schema, "hint": hint, "history": [], "text": prompt, "audio": None}
+               "schema": schema, "hint": hint, "history": [], "text": prompt, "audio": audio}
         return await self._run(req, parse_json)
 
     async def _run(self, req: dict, parse):

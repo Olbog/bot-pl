@@ -84,6 +84,29 @@ CREATE TABLE IF NOT EXISTS dict_offers (
     phrases TEXT NOT NULL,                   -- JSON [{pl, translit, ru}]
     saved TEXT NOT NULL DEFAULT '[]'         -- JSON индексы сохранённых
 );
+-- Упражнения
+CREATE TABLE IF NOT EXISTS exercises (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    kind TEXT NOT NULL,                      -- words / voice / grammar / rule / errors
+    fmt TEXT NOT NULL,                       -- gap / test
+    title TEXT NOT NULL,
+    items TEXT NOT NULL,                     -- JSON пунктов
+    results TEXT,                            -- JSON результатов проверки
+    created_at REAL NOT NULL
+);
+CREATE TABLE IF NOT EXISTS ex_items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    exercise_id INTEGER NOT NULL,
+    kind TEXT NOT NULL,
+    key TEXT NOT NULL,                       -- нормализованное предложение — для уникальности
+    data TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'new',      -- new / ok / wrong / unsure
+    reused INTEGER NOT NULL DEFAULT 0,       -- 1 — уже снова выдан на повтор
+    created_at REAL NOT NULL
+);
+CREATE INDEX IF NOT EXISTS ix_ex_items_user ON ex_items(user_id, key);
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
     mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
@@ -111,6 +134,7 @@ class DB:
         adds = {
             "corrections": [("rule", "TEXT"), ("msg_id", "INTEGER")],
             "set_words": [("kind", "TEXT NOT NULL DEFAULT 'word'")],
+            "word_uses": [("weight", "REAL NOT NULL DEFAULT 1")],
         }
         for table, cols in adds.items():
             have = self._columns(table)
@@ -232,9 +256,9 @@ class DB:
     def word_uses(self, word_id: int) -> list:
         return self.conn.execute("SELECT * FROM word_uses WHERE word_id=? ORDER BY id", (word_id,)).fetchall()
 
-    def add_use(self, word_id: int, user_id: int, form: str, correct: bool, day: str) -> None:
-        self.conn.execute("INSERT INTO word_uses(word_id, user_id, form, correct, day, created_at) "
-                          "VALUES (?,?,?,?,?,?)", (word_id, user_id, form, int(correct), day, self.clock()))
+    def add_use(self, word_id: int, user_id: int, form: str, correct: bool, day: str, weight: float = 1.0) -> None:
+        self.conn.execute("INSERT INTO word_uses(word_id, user_id, form, correct, day, weight, created_at) "
+                          "VALUES (?,?,?,?,?,?,?)", (word_id, user_id, form, int(correct), day, weight, self.clock()))
         self.conn.commit()
 
     def set_mastered(self, word_id: int, by: str | None) -> None:
@@ -355,3 +379,64 @@ class DB:
         self.conn.execute("INSERT OR REPLACE INTO dict_offers(msg_id, user_id, phrases, saved) VALUES (?,?,?,?)",
                           (msg_id, user_id, json.dumps(phrases, ensure_ascii=False), json.dumps(saved)))
         self.conn.commit()
+
+    def add_corrections(self, session_id: int, user_id: int, corrections: list[dict]) -> None:
+        now = self.clock()
+        for k in corrections:
+            self.conn.execute("INSERT INTO corrections(session_id, user_id, data, rule, created_at) VALUES (?,?,?,?,?)",
+                              (session_id, user_id, json.dumps(k, ensure_ascii=False), k.get("rule"), now))
+        self.conn.commit()
+
+    # ---------- упражнения ----------
+
+    def ex_create(self, user_id: int, kind: str, fmt: str, title: str, items: list[dict]) -> int:
+        now = self.clock()
+        ex_id = self.conn.execute(
+            "INSERT INTO exercises(user_id, kind, fmt, title, items, created_at) VALUES (?,?,?,?,?,?)",
+            (user_id, kind, fmt, title, json.dumps(items, ensure_ascii=False), now)).lastrowid
+        for it in items:
+            if it.get("_reuse_id"):
+                self.conn.execute("UPDATE ex_items SET reused=1 WHERE id=?", (it["_reuse_id"],))
+            self.conn.execute(
+                "INSERT INTO ex_items(user_id, exercise_id, kind, key, data, created_at) VALUES (?,?,?,?,?,?)",
+                (user_id, ex_id, kind, it["_key"], json.dumps(it, ensure_ascii=False), now))
+        self.conn.commit()
+        return ex_id
+
+    def ex_get(self, ex_id: int):
+        row = self.conn.execute("SELECT * FROM exercises WHERE id=?", (ex_id,)).fetchone()
+        if not row:
+            return None
+        d = dict(row)
+        d["items"] = json.loads(d["items"])
+        d["results"] = json.loads(d["results"]) if d["results"] else None
+        return d
+
+    def ex_save_results(self, ex_id: int, results: list[dict]) -> None:
+        self.conn.execute("UPDATE exercises SET results=? WHERE id=?",
+                          (json.dumps(results, ensure_ascii=False), ex_id))
+        rows = self.conn.execute("SELECT id FROM ex_items WHERE exercise_id=? ORDER BY id", (ex_id,)).fetchall()
+        for row, r in zip(rows, results):
+            self.conn.execute("UPDATE ex_items SET status=? WHERE id=?", (r["final"], row["id"]))
+        self.conn.commit()
+
+    def ex_seen_keys(self, user_id: int) -> set[str]:
+        return {r[0] for r in self.conn.execute("SELECT key FROM ex_items WHERE user_id=?", (user_id,))}
+
+    def ex_recent(self, user_id: int, limit: int = 60) -> list[str]:
+        return [json.loads(r[0]).get("full_pl", "") for r in self.conn.execute(
+            "SELECT data FROM ex_items WHERE user_id=? ORDER BY id DESC LIMIT ?", (user_id, limit))]
+
+    def ex_review_items(self, user_id: int, limit: int, rules_filter: list[str] | None = None) -> list[dict]:
+        """Пункты с ошибкой или сомнением, ещё не выданные на повтор."""
+        out = []
+        for r in self.conn.execute("SELECT id, data FROM ex_items WHERE user_id=? AND status IN ('wrong','unsure') "
+                                   "AND reused=0 ORDER BY id", (user_id,)):
+            d = json.loads(r["data"])
+            if rules_filter and d.get("rule") not in rules_filter:
+                continue
+            d["_reuse_id"] = r["id"]
+            out.append(d)
+            if len(out) >= limit:
+                break
+        return out

@@ -5,7 +5,7 @@ from .gemini import Turn
 from .config import local_dt
 
 from .rules import group
-from .training import Criteria, WordStats, kind_of, progress_bar
+from .training import Criteria, WordStats, kind_of, num, progress_bar
 
 KIND_ICON = {"word": "🔤", "grammar": "📝", "pronunciation": "🗣"}
 
@@ -103,6 +103,7 @@ HELP = (
     "🏁 Свободный — разговор на любую тему, иногда подмешиваю давно не звучавшие освоенные слова.\n\n"
     "/set — набор: прогресс, новый набор, отметить освоенные\n"
     "/free — свободный разговор\n"
+    "/ex — упражнения: слова, грамматика, правила, мои ошибки, голосом\n"
     "/new — новая тема (начать разговор заново)\n"
     "/itog — итог: ошибки по правилам и новые слова за час / сутки / разговор, всё время — файлом\n"
     "/dict — словарь ⭐: выражения, которые ты сохранил, чтобы ввести в речь\n"
@@ -133,7 +134,7 @@ def word_line(w, st: WordStats, c: Criteria) -> str:
             line += f" [{e(w['translit'])}]"
         line += f" — {e(w['ru'])}"
     if w["mastered_at"] is None:
-        line += (f"\n     {progress_bar(st.streak, c.streak)} {st.streak}/{c.streak}"
+        line += (f"\n     {progress_bar(st.streak, c.streak)} {num(st.streak)}/{c.streak}"
                  f" · формы {len(st.streak_forms)}/{c.forms} · дни {st.streak_days}/{c.days}")
         if st.streak_forms:
             line += f"\n     <i>{e(', '.join(st.streak_forms[:8]))}</i>"
@@ -384,4 +385,113 @@ def errsel_buttons(p: dict) -> list[list[tuple[str, str]]]:
         rows.append([("🎲 Случайные 3", "e:rand"),
                      (f"📖 Правило: {'вкл' if p.get('rule_first', True) else 'выкл'}", "e:rule")])
         rows.append([("▶️ Начать", "e:go"), ("✖️ Отмена", "p:cancel")])
+    return rows
+
+
+# ---------- упражнения ----------
+
+EX_KINDS = {
+    "words": "📝 Слова: пропуски",
+    "voice": "🎙 Упражнения голосом",
+    "grammar": "🧩 Грамматика",
+    "rule": "📐 Правило / микс правил",
+    "errors": "🔁 Мои частые ошибки",
+}
+
+
+def ex_menu() -> tuple[str, list[list[tuple[str, str]]]]:
+    return ("🏋️ <b>Упражнения</b> — что тренируем?\n\n"
+            "<i>В каждом упражнении 10 пунктов. Отвечаешь одним сообщением: «1 piję 2 lubi 3 kupuje». "
+            "Не уверен — допиши НУ (капсом) или ? к ответу: «3 kupuje НУ».</i>",
+            [[(EX_KINDS["words"], "x:k:words"), (EX_KINDS["voice"], "x:k:voice")],
+             [(EX_KINDS["grammar"], "x:k:grammar"), (EX_KINDS["rule"], "x:k:rule")],
+             [(EX_KINDS["errors"], "x:k:errors")]])
+
+
+def ex_source_buttons() -> list[list[tuple[str, str]]]:
+    return [[("🎯 Текущий набор", "x:s:set"), ("⭐ Словарь", "x:s:dict")],
+            [("✍️ Свои слова", "x:s:own"), ("🗂 Тема", "x:s:topic")]]
+
+
+def ex_format_buttons(kind: str) -> list[list[tuple[str, str]]]:
+    rows = [[("🔘 Тест (варианты)", "x:f:test"), ("⌨️ Свой ввод", "x:f:gap")]]
+    if kind == "grammar":
+        rows.append([("🔀 Что путают: тест", "x:f:ctest"), ("🔀 Что путают: ввод", "x:f:cgap")])
+    return rows
+
+
+def ex_rule_picker(catalog: list[str], chosen: list[int]) -> tuple[str, list[list[tuple[str, str]]]]:
+    on = set(chosen)
+    text = ("📐 <b>Выбери правило</b> — одно или несколько (тогда пункты перемешаются, и в каждом нужно понять, "
+            "какое правило работает). Можно написать своё: /cancel и снова, или кнопкой ниже.\n\n"
+            "Выбрано: " + (", ".join(catalog[i] for i in sorted(on)) or "—"))
+    btns = [((("✅ " if i in on else "") + r)[:40], f"x:r:{i}") for i, r in enumerate(catalog)]
+    rows = [btns[i:i + 2] for i in range(0, len(btns), 2)]
+    rows.append([("✍️ Своё правило", "x:r:own"), ("▶️ Дальше", "x:r:go")])
+    return text, rows
+
+
+def ex_count_prompt() -> tuple[str, list[list[tuple[str, str]]]]:
+    return ("Сколько упражнений? Нажми или напиши число (1–20).",
+            [[("1", "x:n:1"), ("2", "x:n:2"), ("3", "x:n:3"), ("5", "x:n:5"), ("10", "x:n:10")]])
+
+
+def ex_message(ex: dict, idx: int, total: int, voice: bool) -> str:
+    lines = [f"🏋️ <b>Упражнение {idx}/{total}</b> — {e(ex['title'])}", ""]
+    for i, it in enumerate(ex["items"], 1):
+        q = e(it.get("q", "")).replace("___", "<b>___</b>")
+        hint = f" <i>({e(it['hint'])})</i>" if it.get("hint") else ""
+        rep = " 🔁" if it.get("_reuse_id") else ""
+        lines.append(f"{i}. {q}{hint}{rep}")
+        if it.get("options"):
+            lines.append("    " + "   ".join(f"{'abcd'[j]}) {e(o)}" for j, o in enumerate(it["options"])))
+    lines.append("")
+    if voice:
+        lines.append("🎙 <i>Пришли голосовое: прочитай все предложения по порядку целиком, с заполненными пропусками. "
+                     "Номера говорить не обязательно.</i>")
+    elif ex["items"] and ex["items"][0].get("options"):
+        lines.append("<i>Ответ одним сообщением: 1b 2a 3c … · не уверен — НУ или ?: «2a НУ»</i>")
+    else:
+        lines.append("<i>Ответ одним сообщением: 1 piję 2 lubi … · не уверен — НУ или ?: «3 kupuje НУ»</i>")
+    if any(it.get("_reuse_id") for it in ex["items"]):
+        lines.append("<i>🔁 — пункт на повтор: в прошлый раз была ошибка или сомнение.</i>")
+    return "\n".join(lines)
+
+
+STATUS_ICON = {"ok": "✅", "wrong": "❌", "unsure": "❓"}
+
+
+def ex_results(ex: dict, results: list[dict]) -> str:
+    ok = sum(1 for r in results if r["final"] in ("ok", "unsure"))
+    lines = [f"📊 <b>{ok} из {len(results)}</b> — {e(ex['title'])}", ""]
+    for r in results:
+        it = ex["items"][r["n"] - 1]
+        right = it.get("answer", "")
+        user = r.get("heard") or r.get("user") or "—"
+        icon = "❓✅" if r["final"] == "unsure" else STATUS_ICON[r["final"]]
+        if r["final"] == "wrong":
+            head = f"{icon} {r['n']}. {e(user)} → <b>{e(right)}</b>"
+        else:
+            head = f"{icon} {r['n']}. <b>{e(user)}</b>"
+        lines.append(f"{head} — <i>{e(it.get('grammar', ''))}</i>")
+        if r["final"] != "ok":
+            lines.append(f"    {e(it.get('full_pl', ''))} [{e(it.get('translit', ''))}] — {e(it.get('ru', ''))}")
+            if r.get("explanation"):
+                lines.append(f"    {e(r['explanation'])}")
+            if r.get("bridge"):
+                lines.append(f"    🌉 {e(r['bridge'])}")
+            if it.get("rule"):
+                lines.append(f"    📐 {e(it['rule'])}")
+    lines.append("")
+    lines.append("<i>Вопрос по пункту — напиши: «5: почему не czasem?»</i>")
+    return "\n".join(lines)
+
+
+def ex_result_buttons(ex_id: int, left: int) -> list[list[tuple[str, str]]]:
+    row = [("📖 Правила по ошибкам", f"x:rr:{ex_id}")]
+    rows = [row]
+    if left > 0:
+        rows.append([(f"➡️ Следующее (осталось {left})", "x:next"), ("⏹ Закончить", "x:stop")])
+    else:
+        rows.append([("🏋️ Ещё упражнения", "x:menu")])
     return rows

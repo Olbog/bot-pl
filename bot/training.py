@@ -17,7 +17,7 @@ class WordStats:
     total: int = 0                 # всего употреблений
     correct: int = 0               # из них правильно
     errors: int = 0
-    streak: int = 0                # правильно подряд после последней ошибки
+    streak: float = 0              # правильно подряд после последней ошибки (упражнения — с весом 0.1)
     streak_forms: list[str] = field(default_factory=list)
     streak_days: int = 0
     all_forms: list[str] = field(default_factory=list)
@@ -32,12 +32,18 @@ def stats(uses) -> WordStats:
     for u in uses:
         s.total += 1
         form = (u["form"] or "").strip().lower()
+        try:
+            weight = float(u["weight"])
+        except (IndexError, KeyError, TypeError):
+            weight = 1.0
+        full = weight >= 1
         if u["correct"]:
             s.correct += 1
-            s.streak += 1
-            if form and form not in streak_forms:
-                streak_forms.append(form)
-            streak_days.add(u["day"])
+            s.streak = round(s.streak + weight, 2)
+            if full:  # формы и дни засчитываются только за живую речь
+                if form and form not in streak_forms:
+                    streak_forms.append(form)
+                streak_days.add(u["day"])
             if form and form not in all_forms:
                 all_forms.append(form)
         else:
@@ -119,3 +125,8 @@ def review_block(words: list) -> str:
 def progress_bar(value: int, total: int, width: int = 10) -> str:
     filled = min(width, round(width * value / total)) if total else 0
     return "▰" * filled + "▱" * (width - filled)
+
+
+def num(x: float) -> str:
+    """20 → «20», 3.4 → «3.4»."""
+    return str(int(x)) if float(x).is_integer() else f"{x:.1f}"
