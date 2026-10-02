@@ -22,7 +22,9 @@ log = logging.getLogger("bot-pl")
 
 START_TEXT = "Zaczynajmy!"  # реплика ученика, с которой бот открывает тренировку набора
 RULE_FACTOR = 2               # критерий «освоено» для правил строже, чем для слов, во столько раз
-AUTOSAVE_HOUR = 4             # автосохранение ошибок: 04:00 по времени сервера (Мск)
+AUTOSAVE_HOUR = 4             # автосохранение: 04:00 по Мск…
+AUTOSAVE_WEEKDAY = 0          # …раз в неделю, в понедельник (0 = пн, 6 = вс)
+WEEKDAYS = ["понедельник", "вторник", "среду", "четверг", "пятницу", "субботу", "воскресенье"]
 TEXT_STEPS = ("topic", "own", "add", "dict_own", "rule")
 
 
@@ -378,12 +380,16 @@ class App:
         await self.tg.send_document(chat_id, name, data, f"📄 Итог за {fmt.PERIODS[period][0]}")
 
     async def autosave(self, user_id: int) -> None:
-        """Ежедневно в 04:00: полная выгрузка на сервер и в чат."""
+        """Раз в неделю (пн, 04:00 Мск): полная выгрузка на сервер и в чат."""
         name, data = self.export_bytes(user_id, "a")
         self.export_dir.mkdir(parents=True, exist_ok=True)
         day = cfg_mod.local_dt(self.clock()).strftime("%Y-%m-%d")
         (self.export_dir / f"{user_id}_{day}.txt").write_bytes(data)
-        await self.tg.send_document(user_id, name, data, "🗂 Ежедневное автосохранение: все ошибки, слова и словарь")
+        await self.tg.send_document(user_id, name, data, "🗂 Еженедельное автосохранение: все ошибки, слова и словарь")
+
+    @staticmethod
+    def autosave_due(now) -> bool:
+        return now.weekday() == AUTOSAVE_WEEKDAY and now.hour == AUTOSAVE_HOUR
 
     async def scheduler(self) -> None:
         last_day = None
@@ -391,7 +397,7 @@ class App:
             try:
                 now = cfg_mod.local_dt(self.clock())
                 day = now.strftime("%Y-%m-%d")
-                if now.hour == AUTOSAVE_HOUR and last_day != day:
+                if self.autosave_due(now) and last_day != day:
                     last_day = day
                     for uid in self.cfg.allowed_ids:
                         try:
@@ -653,6 +659,8 @@ class App:
             else:
                 self.db.set_pending(user_id, {"step": "rule"})
                 await self.tg.send_message(chat_id, "Напиши вопрос о правиле — например: почему do niej, а не do nie?")
+        elif cmd == "/export":
+            await self.send_export(chat_id, user_id, "a")
         elif cmd == "/cancel":
             await self.tg.send_message(chat_id, "Отменено.")
         else:  # /start, /help и всё остальное

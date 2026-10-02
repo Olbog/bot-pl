@@ -864,3 +864,16 @@ def test_db_migration_adds_columns():
     con.close()
     d = _DB(path)
     assert {"rule", "msg_id"} <= d._columns("corrections") and "kind" in d._columns("set_words")
+
+
+def test_autosave_weekly_schedule_and_export_command():
+    from datetime import datetime
+    from bot.main import App as _App
+    assert _App.autosave_due(datetime(2026, 10, 5, 4, 30))        # понедельник 04:30
+    assert not _App.autosave_due(datetime(2026, 10, 6, 4, 30))    # вторник
+    assert not _App.autosave_due(datetime(2026, 10, 5, 5, 0))     # понедельник, но 05:00
+    app = make_app()
+    run(app.handle(msg(text="x")))
+    run(app.handle(msg(text="/export")))
+    name, content, caption = app.tg.docs[-1]
+    assert "всё время" in caption and "ОШИБКИ — 1" in content and "СЛОВАРЬ" in content

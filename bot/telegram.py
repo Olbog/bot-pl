@@ -91,6 +91,7 @@ class Telegram:
             {"command": "itog", "description": "📋 Итог: ошибки и слова за час / сутки / разговор"},
             {"command": "dict", "description": "⭐ Мой словарь выражений"},
             {"command": "rule", "description": "📖 Вопрос о правиле: /rule почему do niej?"},
+            {"command": "export", "description": "🗂 Выгрузить всё файлом: ошибки, слова, словарь"},
             {"command": "cancel", "description": "✖️ Отменить создание набора"},
             {"command": "help", "description": "❓ Что умеет бот"},
         ])
