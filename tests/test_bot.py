@@ -364,6 +364,8 @@ class FakeGemini:
         self.extras, self.prompts, self.audios = [], [], []
         self.ex_batch = 0
         self.check_verdict = {}
+        self.note_verdict = {}
+        self.voice_notes = {}
 
     def ex_data(self, prompt):
         """10 пунктов; каждый новый вызов — новые предложения (кроме dup — повтор первого)."""
@@ -382,9 +384,17 @@ class FakeGemini:
 
     def check_data(self, prompt):
         import re as _re
-        nums = [int(x) for x in _re.findall(r"^(\d+)\. Задание", prompt, _re.M)]
-        return {"items": [{"n": n, "heard": "", "correct": self.check_verdict.get(n, False),
-                           "explanation": f"объяснение {n}", "bridge": "как в русском"} for n in nums]}
+        lines = {int(m.group(1)): m.group(0) for m in _re.finditer(r"^(\d+)\. Задание.*$", prompt, _re.M)}
+        out = []
+        for n, line in lines.items():
+            note = _re.search(r"уточнение ученика: «(.*?)»", line)
+            if n in self.voice_notes:
+                note = _re.search("(.*)", self.voice_notes[n])
+            out.append({"n": n, "heard": "", "correct": self.check_verdict.get(n, False),
+                        "explanation": f"объяснение {n}", "bridge": "как в русском",
+                        "note": note.group(1) if note else "", "note_ok": self.note_verdict.get(n, True),
+                        "note_comment": f"комментарий {n}" if note else ""})
+        return {"items": out}
 
     async def ask_json(self, prompt, schema, hint, audio=None):
         self.prompts.append(prompt)
@@ -922,18 +932,22 @@ from bot import exercises as exm  # noqa: E402
 
 
 def test_parse_answers_and_markers():
-    a = exm.parse_answers("1 piję 2 lubi НУ 3 kupuje? 4. nie mam czasu", 10)
-    assert a[1] == {"answer": "piję", "unsure": False, "sure": False}
-    assert a[2] == {"answer": "lubi", "unsure": True, "sure": False} and a[3]["unsure"] and a[4]["answer"] == "nie mam czasu"
-    b = exm.parse_answers("1b 2a НУ\n3 c?", 3)
-    assert b[1]["answer"] == "b" and b[2]["unsure"] and b[3] == {"answer": "c", "unsure": True, "sure": False}
-    assert exm.parse_answers("ну 1 nu", 1)[1]["unsure"] is False   # «ну» строчными — не маркер
-    c = exm.parse_answers("piję\nlubi НУ\nkupuje", 3)              # без номеров, по строкам
-    assert c[1]["answer"] == "piję" and c[2] == {"answer": "lubi", "unsure": True, "sure": False}
+    a = exm.parse_answers("1 piję 2 lubi? 3 kupuje НУ 4. nie mam czasu", 10)
+    assert a[1] == {"answer": "piję", "unsure": False, "sure": False, "note": ""}
+    assert a[2]["answer"] == "lubi?" and not a[2]["unsure"]       # НУ и ? пока не маркеры
+    assert a[4]["answer"] == "nie mam czasu"
+    c = exm.parse_answers("piję\nlubi\nkupuje", 3)                 # без номеров, по строкам
+    assert c[2]["answer"] == "lubi"
     assert exm.parse_answers("piję, lubi", 3) == {}                  # не совпало число — не угадываем
-    d = exm.parse_answers("1 piję! 2 lubi !НУ 3b!", 3)                # ! — уверен; вместе с НУ — сомнение главнее
-    assert d[1] == {"answer": "piję", "unsure": False, "sure": True}
-    assert d[2]["unsure"] and not d[2]["sure"] and d[3]["answer"] == "b" and d[3]["sure"]
+    d = exm.parse_answers("1 piję! 2 lubi (почему не lubią? 3 л.) 3b!", 3)
+    assert d[1] == {"answer": "piję", "unsure": False, "sure": True, "note": ""}
+    assert d[2] == {"answer": "lubi", "unsure": False, "sure": False, "note": "почему не lubią? 3 л."}
+    assert d[3]["answer"] == "b" and d[3]["sure"]
+    e = exm.parse_answers("piję (ja), lubi", 2)                     # без номеров — запятые в скобках не мешают
+    assert e[1]["note"] == "ja" and e[2]["answer"] == "lubi"
+    f = exm.parse_answers("1 a 2 b (потому что", 2)                  # незакрытая скобка — до конца
+    assert f[2] == {"answer": "b", "unsure": False, "sure": False, "note": "потому что"}
+    assert exm.unclosed_note("1 a (x") and not exm.unclosed_note("1 a (x)")
 
 
 def test_quick_check_statuses():
@@ -957,7 +971,7 @@ def ex_flow(app, kind_cb, *pre):
         run(app.on_callback(cb(c)))
 
 
-def answers_all(app=None, wrong=(), unsure=(), test=False, sure=()):
+def answers_all(app=None, wrong=(), unsure=(), test=False, sure=(), notes=None):
     """Ответы по реальному (перемешанному) порядку пунктов текущего упражнения."""
     ex = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
     parts = []
@@ -967,7 +981,8 @@ def answers_all(app=None, wrong=(), unsure=(), test=False, sure=()):
             a = ("c" if right != "c" else "b") if i in wrong else right
         else:
             a = f"zle{i}" if i in wrong else it["answer"]
-        parts.append(f"{i} {a}" + (" НУ" if i in unsure else "") + ("!" if sure == "all" or i in sure else ""))
+        parts.append(f"{i} {a}" + (" НУ" if i in unsure else "") + ("!" if sure == "all" or i in sure else "")
+                     + (f" ({(notes or {})[i]})" if i in (notes or {}) else ""))
     return " ".join(parts)
 
 
@@ -988,25 +1003,29 @@ def test_grammar_test_flow_code_check_only():
     assert "Zdanie 1-0" in gem.prompts[-1]                     # прошлые предложения переданы как УЖЕ БЫЛО
 
 
-def test_gap_flow_with_errors_unsure_and_model():
+def test_gap_flow_with_errors_notes_and_model():
     gem = FakeGemini()
     gem.check_verdict = {3: True}                              # 3: «другой верный вариант»
+    gem.note_verdict = {5: False}                              # 5: ответ верный, рассуждение — нет
     app = make_app(gem=gem)
     ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix")
     run(app.handle(msg(text="1")))                            # число текстом
-    text = answers_all(app, wrong=(2, 3), unsure=(5,))
+    text = answers_all(app, wrong=(2, 3), notes={5: "3 л. ед. ч., -am", 6: "почему не -esz?"})
     run(app.handle(msg(text=text)))
     res = app.tg.sent[-1]
     ex = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
     assert "❌ 2." in res and f"→ <b>{ex['items'][1]['answer']}</b>" in res and "объяснение 2" in res
     assert "🌉 как в русском" in res
     assert "✅ 3." in res                                      # модель признала верным
-    assert "❓✅ 5." in res and "объяснение 5" in res            # сомневался, но прав — с объяснением
+    assert "❌ 5." in res and "ошибка в рассуждении" in res and "💭 «3 л. ед. ч., -am» — ❌ не так: комментарий 5" in res
+    assert "✅ 6." in res and "💭 «почему не -esz?» — ✅ верно: комментарий 6" in res
+    assert "уточнение ученика: «3 л. ед. ч., -am»" in gem.prompts[-1]   # «3» в скобках — не номер пункта
     assert "объяснение 1" in res                               # верный ответ без «!» — тоже объяснён
     assert "ТОЛЬКО в настоящем времени" in gem.prompts[0]
-    assert "8 из 10" not in res and "9 из 10" in res
+    assert "8 из 10" in res
     errs = app.db.corrections_since(42, 0)
-    assert len(errs) == 1 and errs[0]["rule"] == "Спряжение -am / -asz" and errs[0]["original"] == "zle2"
+    assert len(errs) == 2 and errs[0]["rule"] == "Спряжение -am / -asz" and errs[0]["original"] == "zle2"
+    assert errs[1]["original"].endswith("(3 л. ед. ч., -am)") and "ошибка в рассуждении" in errs[1]["why"]
     assert app.db.history(app.db.current_session(42), 20) == []   # история разговора не засорена
     run(app.handle(msg(text="2: почему так?")))
     assert "почему так?" in gem.prompts[-1] and "📖" in app.tg.sent[-1]
@@ -1331,3 +1350,19 @@ def test_exercise_finish_without_check():
     tg_id = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])["tg_msg_id"]
     run(app.handle(msg(text=answers_all(app))))
     assert app.tg.markups[-1] == (tg_id, None)
+
+
+def test_voice_note_after_word_utochnenie():
+    gem = FakeGemini()
+    gem.check_verdict = {i: True for i in range(1, 11)}
+    gem.voice_notes = {2: "это винительный, потому что widzę"}
+    gem.note_verdict = {2: False}
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:voice", "x:s:own")
+    run(app.handle(msg(text="ciasto, piec")))
+    run(app.on_callback(cb("x:n:1")))
+    assert "уточнение" in app.tg.sent[-1]                       # подсказка в упражнении
+    run(app.handle(msg(voice={"file_id": "v"})))
+    assert "«уточнение»" in gem.prompts[-1] and "пункт N" in gem.prompts[-1]
+    res = app.tg.sent[-1]
+    assert "9 из 10" in res and "💭 «это винительный, потому что widzę» — ❌ не так" in res

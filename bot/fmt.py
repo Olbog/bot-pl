@@ -409,8 +409,9 @@ EX_KINDS = {
 def ex_menu() -> tuple[str, list[list[tuple[str, str]]]]:
     return ("🏋️ <b>Упражнения</b> — что тренируем?\n\n"
             "<i>В каждом упражнении 10 пунктов. Отвечаешь одним сообщением: «1 piję 2 lubi 3 kupuje». "
-            "Не уверен — допиши НУ (капсом) или ? к ответу: «3 kupuje НУ». "
-            "Каждый пункт бот объясняет; уверен — поставь ! («3 kupuje!»), и этот пункт объяснять не будет.</i>",
+            "Каждый пункт бот объясняет; уверен — поставь ! («3 kupuje!»), и этот пункт объяснять не будет. "
+            "Уточнение или вопрос к пункту — в скобках: «2 lubi (3 л. ед. ч., почему не lubią?)» — "
+            "бот проверит и рассуждение.</i>",
             [[(EX_KINDS["words"], "x:k:words"), (EX_KINDS["voice"], "x:k:voice")],
              [(EX_KINDS["grammar"], "x:k:grammar"), (EX_KINDS["errors"], "x:k:errors")]])
 
@@ -493,13 +494,14 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool) -> str:
     lines.append("")
     if voice:
         lines.append("🎙 <i>Пришли голосовое: прочитай все предложения по порядку целиком, с заполненными пропусками. "
-                     "Номера говорить не обязательно.</i>")
+                     "Номера говорить не обязательно. Уточнение к пункту — скажи «уточнение» и дальше своими словами, "
+                     "до следующего предложения.</i>")
     elif ex["items"] and ex["items"][0].get("options"):
-        lines.append("<i>Ответ одним сообщением: 1b 2a 3c … · не уверен — НУ или ?: «2a НУ» · "
+        lines.append("<i>Ответ одним сообщением: 1b 2a 3c … · уточнение или вопрос — в скобках: «2a (винительный)» · "
                      "уверен, не объяснять — !: «3c!»</i>")
     else:
-        lines.append("<i>Ответ одним сообщением: 1 piję 2 lubi … · не уверен — НУ или ?: «3 kupuje НУ» · "
-                     "уверен, не объяснять — !: «2 lubi!»</i>")
+        lines.append("<i>Ответ одним сообщением: 1 piję 2 lubi … · уточнение или вопрос — в скобках: "
+                     "«1 piję (ja → -ę)» · уверен, не объяснять — !: «2 lubi!»</i>")
     lines.append("<i>Ответ засчитается этому упражнению. Можно и через «Ответить» на это сообщение.</i>")
     if any(it.get("_reuse_id") for it in ex["items"]):
         lines.append("<i>🔁 — пункт на повтор: в прошлый раз была ошибка или сомнение.</i>")
@@ -517,7 +519,9 @@ def ex_results(ex: dict, results: list[dict]) -> str:
         right = it.get("answer", "")
         user = r.get("heard") or r.get("user") or "—"
         icon = "❓✅" if r["final"] == "unsure" else STATUS_ICON[r["final"]]
-        if r["final"] == "wrong":
+        if r.get("logic_wrong"):
+            head = f"❌ {r['n']}. <b>{e(user)}</b> ✓ ответ верный, ошибка в рассуждении"
+        elif r["final"] == "wrong":
             head = f"{icon} {r['n']}. {e(user)} → <b>{e(right)}</b>"
         else:
             head = f"{icon} {r['n']}. <b>{e(user)}</b>"
@@ -532,6 +536,12 @@ def ex_results(ex: dict, results: list[dict]) -> str:
                 lines.append(f"    🌉 {e(r['bridge'])}")
             if it.get("rule"):
                 lines.append(f"    📐 {e(it['rule'])}")
+        if r.get("note"):
+            mark = "✅ верно" if r.get("note_ok", True) else "❌ не так"
+            line = f"    💭 «{e(r['note'])}» — {mark}"
+            if r.get("note_comment"):
+                line += f": {e(r['note_comment'])}"
+            lines.append(line)
     lines.append("")
     lines.append("<i>Вопрос по пункту — напиши: «5: почему не czasem?»</i>")
     return "\n".join(lines)

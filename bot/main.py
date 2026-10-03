@@ -1036,14 +1036,15 @@ class App:
         items, f = saved["items"], saved["fmt"]
         if voice:
             audio = await self.tg.download_file(voice["file_id"])
-            results = [{"n": i, "user": "", "unsure": False, "status": "check"} for i in range(1, len(items) + 1)]
+            results = [{"n": i, "user": "", "unsure": False, "note": "", "status": "check"}
+                       for i in range(1, len(items) + 1)]
         else:
             audio = None
             results = exercises.quick_check(items, exercises.parse_answers(text or "", len(items)), f)
         todo = exercises.needs_model(results, EX_EXPLAIN_ALL)
         verdicts: dict[int, dict] = {}
         if todo:
-            prompt = check_prompt([(r["n"], items[r["n"] - 1], r["user"], r["unsure"]) for r in todo],
+            prompt = check_prompt([(r["n"], items[r["n"] - 1], r["user"], r["unsure"], r.get("note", "")) for r in todo],
                                   self.cfg.level, voice=bool(voice), topics=saved.get("topics"))
             data = await self.ask(chat_id, prompt, CHECK_SCHEMA, CHECK_HINT,
                                   wait=f"⏳ Проверяю упражнение #{saved['id']}…", audio=audio)
@@ -1055,6 +1056,11 @@ class App:
             r["explanation"], r["bridge"] = v.get("explanation", ""), v.get("bridge", "")
             if v.get("heard"):
                 r["heard"] = v["heard"]
+            if voice and str(v.get("note") or "").strip():  # в голосовом уточнение выделяет модель
+                r["note"] = str(v["note"]).strip()
+            if r.get("note"):
+                r["note_ok"] = bool(v.get("note_ok", True))
+                r["note_comment"] = str(v.get("note_comment") or "")
             if r["status"] == "ok":
                 right = True
             elif r["status"] in ("diacritics", "wrong", "missing"):
@@ -1064,6 +1070,11 @@ class App:
             else:  # check
                 right = bool(v.get("correct"))
             r["final"] = ("unsure" if r["unsure"] else "ok") if right else "wrong"
+            if right and r.get("note") and not r["note_ok"]:  # ответ верный, а рассуждение — нет: это ошибка
+                r["final"], r["logic_wrong"] = "wrong", True
+        if text and exercises.unclosed_note(text):
+            await self.tg.send_message(chat_id, "⚠️ Не закрыта скобка — всё после «(» до конца сообщения "
+                                                 "я посчитал уточнением.")
         self.db.ex_save_results(saved["id"], results)
         if saved.get("tg_msg_id"):
             await self.tg.edit_markup(chat_id, saved["tg_msg_id"])  # кнопка «Закончить без проверки» больше не нужна
@@ -1079,9 +1090,14 @@ class App:
         for r in results:
             it = saved["items"][r["n"] - 1]
             if r["final"] == "wrong":
-                wrong.append({"kind": "grammar", "original": r.get("heard") or r.get("user") or "—",
+                original = r.get("heard") or r.get("user") or "—"
+                why = r.get("explanation") or it.get("grammar", "")
+                if r.get("logic_wrong"):  # ответ верный, ошибка в рассуждении
+                    original += f" ({r.get('note', '')})"
+                    why = "Ответ верный, ошибка в рассуждении: " + (r.get("note_comment") or why)
+                wrong.append({"kind": "grammar", "original": original,
                               "correct": it.get("answer", ""), "translit": it.get("translit", ""),
-                              "ru": it.get("ru", ""), "why": r.get("explanation") or it.get("grammar", ""),
+                              "ru": it.get("ru", ""), "why": why,
                               "rule": rules.normalize(it.get("rule")), "source": "упражнение"})
         if wrong:
             self.db.add_corrections(session, user_id, wrong)
