@@ -440,9 +440,10 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool) -> str:
     lines = [f"🏋️ <b>Упражнение {idx}/{total}</b> · #{ex['id']} — {e(ex['title'])}", ""]
     for i, it in enumerate(ex["items"], 1):
         q = e(it.get("q", "")).replace("___", "<b>___</b>")
-        hint = f" <i>({e(it['hint'])})</i>" if it.get("hint") else ""
         rep = " 🔁" if it.get("_reuse_id") else ""
-        lines.append(f"{i}. {q}{hint}{rep}")
+        lines.append(f"{i}. {q}{rep}")
+        if it.get("ru"):  # перевод вместо подсказки: по нему понятно, что вставить, но форму не выдаёт
+            lines.append(f"    <i>— {e(it['ru'])}</i>")
         if it.get("options"):
             lines.append("    " + "   ".join(f"{'abcd'[j]}) {e(o)}" for j, o in enumerate(it["options"])))
     lines.append("")
