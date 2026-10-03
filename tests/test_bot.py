@@ -920,14 +920,17 @@ from bot import exercises as exm  # noqa: E402
 
 def test_parse_answers_and_markers():
     a = exm.parse_answers("1 piję 2 lubi НУ 3 kupuje? 4. nie mam czasu", 10)
-    assert a[1] == {"answer": "piję", "unsure": False}
-    assert a[2] == {"answer": "lubi", "unsure": True} and a[3]["unsure"] and a[4]["answer"] == "nie mam czasu"
+    assert a[1] == {"answer": "piję", "unsure": False, "sure": False}
+    assert a[2] == {"answer": "lubi", "unsure": True, "sure": False} and a[3]["unsure"] and a[4]["answer"] == "nie mam czasu"
     b = exm.parse_answers("1b 2a НУ\n3 c?", 3)
-    assert b[1]["answer"] == "b" and b[2]["unsure"] and b[3] == {"answer": "c", "unsure": True}
+    assert b[1]["answer"] == "b" and b[2]["unsure"] and b[3] == {"answer": "c", "unsure": True, "sure": False}
     assert exm.parse_answers("ну 1 nu", 1)[1]["unsure"] is False   # «ну» строчными — не маркер
     c = exm.parse_answers("piję\nlubi НУ\nkupuje", 3)              # без номеров, по строкам
-    assert c[1]["answer"] == "piję" and c[2] == {"answer": "lubi", "unsure": True}
+    assert c[1]["answer"] == "piję" and c[2] == {"answer": "lubi", "unsure": True, "sure": False}
     assert exm.parse_answers("piję, lubi", 3) == {}                  # не совпало число — не угадываем
+    d = exm.parse_answers("1 piję! 2 lubi !НУ 3b!", 3)                # ! — уверен; вместе с НУ — сомнение главнее
+    assert d[1] == {"answer": "piję", "unsure": False, "sure": True}
+    assert d[2]["unsure"] and not d[2]["sure"] and d[3]["answer"] == "b" and d[3]["sure"]
 
 
 def test_quick_check_statuses():
@@ -938,7 +941,10 @@ def test_quick_check_statuses():
     t = [{"answer": "czasu", "options": ["czas", "czasu", "czasem"]}]
     assert exm.quick_check(t, exm.parse_answers("1b", 1), "test")[0]["status"] == "ok"
     assert exm.quick_check(t, exm.parse_answers("1a", 1), "test")[0]["status"] == "wrong"
-    assert [r["n"] for r in exm.needs_model(res)] == [1, 3, 4]
+    assert [r["n"] for r in exm.needs_model(res, explain_all=False)] == [1, 3, 4]
+    assert [r["n"] for r in exm.needs_model(res)] == [1, 2, 3, 4]          # объяснять и верные
+    sure = exm.quick_check(items, exm.parse_answers("1 piję! 2 lubi! 3 czasu! 4 x", 4), "gap")
+    assert [r["n"] for r in exm.needs_model(sure)] == [4]                   # «!» — без объяснения
 
 
 def ex_flow(app, kind_cb, *pre):
@@ -948,7 +954,7 @@ def ex_flow(app, kind_cb, *pre):
         run(app.on_callback(cb(c)))
 
 
-def answers_all(app=None, wrong=(), unsure=(), test=False):
+def answers_all(app=None, wrong=(), unsure=(), test=False, sure=()):
     """Ответы по реальному (перемешанному) порядку пунктов текущего упражнения."""
     ex = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
     parts = []
@@ -958,22 +964,22 @@ def answers_all(app=None, wrong=(), unsure=(), test=False):
             a = ("c" if right != "c" else "b") if i in wrong else right
         else:
             a = f"zle{i}" if i in wrong else it["answer"]
-        parts.append(f"{i} {a}" + (" НУ" if i in unsure else ""))
+        parts.append(f"{i} {a}" + (" НУ" if i in unsure else "") + ("!" if sure == "all" or i in sure else ""))
     return " ".join(parts)
 
 
 def test_grammar_test_flow_code_check_only():
     gem = FakeGemini()
     app = make_app(gem=gem)
-    ex_flow(app, "x:k:grammar", "x:f:test")
+    ex_flow(app, "x:k:grammar", "x:f:test", "x:t:mix")
     run(app.on_callback(cb("x:n:2")))
     assert "Упражнение 1/2" in app.tg.sent[-1] and "a) " in app.tg.sent[-1]
     assert "Формат ТЕСТ" in gem.prompts[-1]
     n_prompts = len(gem.prompts)
-    # варианты перемешаны не были — правильный всегда «a»
-    run(app.handle(msg(text=answers_all(app, test=True))))
-    assert len(gem.prompts) == n_prompts                       # всё верно и без сомнений — без запроса
+    run(app.handle(msg(text=answers_all(app, test=True, sure="all"))))
+    assert len(gem.prompts) == n_prompts                       # всё верно и везде «!» — без запроса
     assert "10 из 10" in app.tg.sent[-1] and "глагол, 1 л. ед. ч." in app.tg.sent[-1]
+    assert "объяснение" not in app.tg.sent[-1]
     run(app.on_callback(cb("x:next")))
     assert "Упражнение 2/2" in app.tg.sent[-1]
     assert "Zdanie 1-0" in gem.prompts[-1]                     # прошлые предложения переданы как УЖЕ БЫЛО
@@ -983,7 +989,7 @@ def test_gap_flow_with_errors_unsure_and_model():
     gem = FakeGemini()
     gem.check_verdict = {3: True}                              # 3: «другой верный вариант»
     app = make_app(gem=gem)
-    ex_flow(app, "x:k:grammar", "x:f:gap")
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix")
     run(app.handle(msg(text="1")))                            # число текстом
     text = answers_all(app, wrong=(2, 3), unsure=(5,))
     run(app.handle(msg(text=text)))
@@ -993,6 +999,8 @@ def test_gap_flow_with_errors_unsure_and_model():
     assert "🌉 как в русском" in res
     assert "✅ 3." in res                                      # модель признала верным
     assert "❓✅ 5." in res and "объяснение 5" in res            # сомневался, но прав — с объяснением
+    assert "объяснение 1" in res                               # верный ответ без «!» — тоже объяснён
+    assert "ТОЛЬКО в настоящем времени" in gem.prompts[0]
     assert "8 из 10" not in res and "9 из 10" in res
     errs = app.db.corrections_since(42, 0)
     assert len(errs) == 1 and errs[0]["rule"] == "Спряжение -am / -asz" and errs[0]["original"] == "zle2"
@@ -1006,7 +1014,7 @@ def test_uniqueness_and_reuse_of_wrong_items():
     gem = FakeGemini()
     gem.dup = True                                             # модель повторила предложение внутри пачки
     app = make_app(gem=gem)
-    ex_flow(app, "x:k:grammar", "x:f:gap")
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix")
     run(app.on_callback(cb("x:n:2")))
     ex1 = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
     assert len(ex1["items"]) == 9                              # дубль выкинут
@@ -1052,31 +1060,72 @@ def test_voice_exercise_sends_audio_to_check():
     assert "10 из 10" in app.tg.sent[-1]
 
 
-def test_rule_picker_mix_and_errors_kind():
+def test_grammar_topics_from_catalog_contrast():
     gem = FakeGemini()
     app = make_app(gem=gem)
-    ex_flow(app, "x:k:rule")
+    ex_flow(app, "x:k:grammar", "x:f:gap")
+    assert "Что тренируем?" in app.tg.sent[-1]
+    run(app.on_callback(cb("x:t:cat")))
     run(app.on_callback(cb("x:r:go")))
     assert "хотя бы одно" in app.tg.sent[-1]
-    run(app.on_callback(cb("x:r:0")))
+    run(app.on_callback(cb("x:r:2")))
     run(app.on_callback(cb("x:r:4")))
     run(app.on_callback(cb("x:r:go")))
-    run(app.on_callback(cb("x:f:gap")))
+    assert "на различение" in app.tg.sent[-1]
+    run(app.on_callback(cb("x:c:go")))
     run(app.on_callback(cb("x:n:1")))
-    assert rules_mod.CATALOG[0] in gem.prompts[-1] and rules_mod.CATALOG[4] in gem.prompts[-1]
+    p = gem.prompts[-1]
+    assert "РАЗЛИЧЕНИЕ" in p and rules_mod.CATALOG[2] in p and rules_mod.CATALOG[4] in p
+    ex = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+    assert ex["topics"] == [rules_mod.CATALOG[2], rules_mod.CATALOG[4]]
+    run(app.handle(msg(text=answers_all(app))))
+    assert "а НЕ другая" in gem.prompts[-1]                     # проверка: почему эта тема, а не другая
+    # недавние темы — это сочетание и предлагается
+    ex_flow(app, "x:k:grammar", "x:f:test", "x:t:recent")
+    assert "Винительный падеж / Творительный падеж" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("x:p:0")))
+    run(app.on_callback(cb("x:p:go")))
+    assert app.db.get_state(42)["pending"]["ex"]["rules"] == [rules_mod.CATALOG[2], rules_mod.CATALOG[4]]
+
+
+def test_grammar_own_topic_and_rule_card():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:own")
+    run(app.handle(msg(text="творительный падеж (z kim, być kim)")))
+    assert app.db.get_state(42)["pending"]["ex"]["rules"] == [rules_mod.CATALOG[4]]   # узнал правило каталога
+    run(app.on_callback(cb("x:c:rule")))
+    assert "📖" in app.tg.sent[-2] and "Сколько упражнений" in app.tg.sent[-1]
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:own")
+    run(app.handle(msg(text="разница ile и wiele")))
+    assert app.db.get_state(42)["pending"]["ex"]["rules"] == ["разница ile и wiele"]
+    run(app.on_callback(cb("x:c:go")))
+    run(app.on_callback(cb("x:n:1")))
+    assert "СТРОГО на одну тему: «разница ile и wiele»" in gem.prompts[-1]
+
+
+def test_grammar_topics_from_errors_and_errors_kind():
     t = {**TURN_JSON, "corrections": [{**TURN_JSON["corrections"][0], "rule": "Местный падеж после w / na / o / przy / po"}]}
-    app2 = make_app(gem=FakeGemini(turn=t))
-    ex_flow(app2, "x:k:errors")
-    assert "пока нет" in app2.tg.sent[-1]
-    run(app2.handle(msg(text="x")))                            # появилась ошибка с правилом
-    ex_flow(app2, "x:k:errors")
-    assert "Местный падеж" in app2.tg.sent[-1]
+    app = make_app(gem=FakeGemini(turn=t))
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:err")
+    assert "пока нет" in app.tg.sent[-1]
+    assert app.db.get_state(42)["pending"]["step"] == "ex_gtopic"   # можно нажать другой вариант
+    run(app.handle(msg(text="x")))                             # появилась ошибка с правилом
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:err")
+    assert "Местный падеж после w / na / o / przy / po — 1" in str(app.tg.buttons[-1]) and "✅" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("x:p:per")))                        # период → всё время
+    assert "всё время" in app.tg.edits[-1][0]
+    run(app.on_callback(cb("x:p:go")))
+    assert app.db.get_state(42)["pending"]["ex"]["rules"] == ["Местный падеж после w / na / o / przy / po"]
+    ex_flow(app, "x:k:errors")
+    assert "Местный падеж" in app.tg.sent[-1]
+    assert "x:k:rule" not in str(app.tg.buttons)                # пункт «Правило / микс» убран
 
 
 def test_ex_answer_step_survives_gemini_error_and_chat_after_review():
     gem = FakeGemini()
     app = make_app(gem=gem)
-    ex_flow(app, "x:k:grammar", "x:f:gap", "x:n:1")
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix", "x:n:1")
     gem_ask = gem.ask_json
 
     async def boom(*a, **k):
@@ -1095,7 +1144,7 @@ def test_ex_answer_step_survives_gemini_error_and_chat_after_review():
 
 def test_wait_message_shown_and_deleted():
     app = make_app()
-    ex_flow(app, "x:k:grammar", "x:f:gap")
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix")
     run(app.on_callback(cb("x:n:1")))
     waits = [m for m in app.tg.sent if m.startswith("⏳ Составляю упражнение 1/1")]
     assert len(waits) == 1
@@ -1106,7 +1155,7 @@ def test_wait_message_shown_and_deleted():
 def test_repeat_count_tap_does_not_create_second_exercise():
     gem = FakeGemini()
     app = make_app(gem=gem)
-    ex_flow(app, "x:k:grammar", "x:f:gap")
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix")
     run(app.on_callback(cb("x:n:1")))
     n = gem.ex_batch
     run(app.on_callback(cb("x:n:1")))                          # повторное нажатие — шаг уже другой
@@ -1130,7 +1179,7 @@ def test_busy_user_gets_notice_instead_of_queue():
 def test_answer_sent_before_exercise_is_rejected():
     clock = Clock()
     app = make_app(clock=clock)
-    ex_flow(app, "x:k:grammar", "x:f:gap", "x:n:1")
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix", "x:n:1")
     ex_id = app.db.get_state(42)["pending"]["ex"]["ex_id"]
     run(app.handle(msg(text="1 a 2 b", date=int(clock.t) - 30)))
     assert f"раньше, чем пришло упражнение #{ex_id}" in app.tg.sent[-1]
@@ -1140,7 +1189,7 @@ def test_answer_sent_before_exercise_is_rejected():
 def test_reply_binds_answer_to_specific_exercise():
     gem = FakeGemini()
     app = make_app(gem=gem)
-    ex_flow(app, "x:k:grammar", "x:f:gap", "x:n:2")
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix", "x:n:2")
     first = app.db.get_state(42)["pending"]["ex"]["ex_id"]
     first_tg = app.db.ex_get(first)["tg_msg_id"]
     run(app.handle(msg(text=answers_all(app))))
@@ -1156,7 +1205,39 @@ def test_reply_binds_answer_to_specific_exercise():
 
 def test_exercise_shows_translation_not_polish_hint():
     app = make_app()
-    ex_flow(app, "x:k:grammar", "x:f:gap", "x:n:1")
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix", "x:n:1")
     msg_text = app.tg.sent[-1]
     assert "(baza)" not in msg_text                           # подсказка-ключ не показывается
     assert "<i>— Предложение</i>" in msg_text                 # перевод под каждым пунктом
+
+
+# ---------- глагол: инфинитив и спряжение ----------
+
+from bot import verbs as verbs_mod  # noqa: E402
+
+
+def test_verb_line_and_conj_type():
+    assert verbs_mod.conj_type("płacić", "-ę / -isz") == "-ę / -isz / -ysz"
+    assert verbs_mod.conj_type("mieć", "-am / -asz") == "неправильный"        # известный — решает код
+    assert verbs_mod.conj_type("pracować", "-ę / -esz") == "-uję / -ujesz"    # -ować → -uję
+    assert verbs_mod.conj_type("umieć", "-em/-esz") == "-em / -esz"
+    assert verbs_mod.verb_line({"verb_inf": ""}) == ""
+    line = verbs_mod.verb_line({"verb_inf": "płacić", "verb_translit": "ПЛА-чичь", "verb_ru": "платить",
+                                "verb_conj": "-ę / -isz / -ysz", "verb_forms": "płacę, płacisz, płacą"})
+    assert line == ("🔤 <b>płacić</b> [ПЛА-чичь] — платить · спряжение -ę / -isz / -ysz: "
+                    "płacę, płacisz, płacą")
+
+
+def test_verb_shown_in_turn_and_exercise_results():
+    verb = {"verb_inf": "piec", "verb_translit": "ПЕЦ", "verb_ru": "печь", "verb_conj": "-ę / -esz",
+            "verb_forms": "piekę, pieczesz, pieką"}
+    t = {**TURN_JSON, "corrections": [{**TURN_JSON["corrections"][0], **verb}]}
+    app = make_app(gem=FakeGemini(turn=t))
+    run(app.handle(msg(text="x")))
+    assert "🔤 <b>piec</b> [ПЕЦ] — печь · спряжение -ę / -esz: piekę, pieczesz, pieką" in "\n".join(app.tg.sent)
+    from bot import prompt as pr
+    assert "verb_conj" in pr.system_prompt("A1") and "verb_conj" in pr.ex_prompt("grammar", "gap", "A1", "", [])
+    ex = {"id": 1, "title": "t", "items": [{"answer": "piekę", "grammar": "глагол", **verb}, {"answer": "kot"}]}
+    from bot import fmt
+    res = fmt.ex_results(ex, [{"n": 1, "user": "piekę", "final": "ok"}, {"n": 2, "user": "kot", "final": "ok"}])
+    assert res.count("🔤") == 1 and "спряжение -ę / -esz" in res      # и у пункта с «!» без разбора

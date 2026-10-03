@@ -4,6 +4,7 @@ import unicodedata
 
 LETTERS = "abcd"
 UNSURE_RE = re.compile(r"(?<![A-Za-zА-Яа-яЁё])НУ(?![A-Za-zА-Яа-яЁё])")
+SURE_MARK = "!"   # «уверен» — пункт можно не объяснять
 # Номер пункта в начале строки или после пробела: «1 », «1.», «1)», «1:», «1-»
 NUM_RE = re.compile(r"(?:(?<=\s)|^)(\d{1,2})\s*[.):\-]?\s*")
 
@@ -29,8 +30,16 @@ def diacritics_only(user: str, right: str) -> bool:
     return u != r and u.translate(POLISH_STRIP) == r.translate(POLISH_STRIP)
 
 
+def _one(raw: str) -> dict:
+    """Ответ на пункт: маркеры НУ / ? — не уверен, ! — уверен."""
+    unsure = bool(UNSURE_RE.search(raw)) or raw.rstrip().endswith("?")
+    sure = SURE_MARK in raw and not unsure
+    ans = UNSURE_RE.sub(" ", raw).replace(SURE_MARK, " ").strip().rstrip("?").strip()
+    return {"answer": re.sub(r"\s+", " ", ans), "unsure": unsure, "sure": sure}
+
+
 def parse_answers(text: str, n: int) -> dict[int, dict]:
-    """«1 piję 2 lubi НУ 3 kupuje?» → {1: {answer, unsure}, ...}.
+    """«1 piję 2 lubi НУ 3 kupuje? 4 mam!» → {1: {answer, unsure, sure}, ...}.
     Номера должны идти по возрастанию и быть в пределах 1..n; всё между номерами — ответ."""
     text = (text or "").replace("\n", " \n ")
     marks = []
@@ -45,16 +54,11 @@ def parse_answers(text: str, n: int) -> dict[int, dict]:
         parts = [p.strip() for p in re.split(r"\n|,|;", text) if p.strip()]
         if len(parts) == n:
             for i, raw in enumerate(parts, 1):
-                unsure = bool(UNSURE_RE.search(raw)) or raw.endswith("?")
-                out[i] = {"answer": re.sub(r"\s+", " ", UNSURE_RE.sub(" ", raw)).strip().rstrip("?").strip(),
-                          "unsure": unsure}
+                out[i] = _one(raw)
         return out
     for i, (num, _, end) in enumerate(marks):
         stop = marks[i + 1][1] if i + 1 < len(marks) else len(text)
-        raw = text[end:stop].strip()
-        unsure = bool(UNSURE_RE.search(raw)) or raw.rstrip().endswith("?")
-        ans = UNSURE_RE.sub(" ", raw).strip().rstrip("?").strip()
-        out[num] = {"answer": re.sub(r"\s+", " ", ans), "unsure": unsure}
+        out[num] = _one(text[end:stop].strip())
     return out
 
 
@@ -72,10 +76,10 @@ def quick_check(items: list[dict], answers: dict[int, dict], fmt: str) -> list[d
     out = []
     for i, it in enumerate(items, 1):
         a = answers.get(i)
-        res = {"n": i, "user": "", "unsure": False, "status": "missing"}
+        res = {"n": i, "user": "", "unsure": False, "sure": False, "status": "missing"}
         if a and a["answer"]:
             user = option_text(it, a["answer"]) if fmt == "test" else a["answer"]
-            res.update(user=user, unsure=a["unsure"])
+            res.update(user=user, unsure=a["unsure"], sure=a.get("sure", False))
             accepted = [it.get("answer", "")] + list(it.get("accepted") or [])
             if any(norm(user) == norm(x) for x in accepted if x):
                 res["status"] = "ok"
@@ -89,6 +93,11 @@ def quick_check(items: list[dict], answers: dict[int, dict], fmt: str) -> list[d
     return out
 
 
-def needs_model(results: list[dict]) -> list[dict]:
-    """Пункты, которым нужно объяснение моделью: ошибки, сомнения, неоднозначные."""
-    return [r for r in results if r["status"] in ("wrong", "diacritics", "check", "missing") or r["unsure"]]
+def needs_model(results: list[dict], explain_all: bool = True) -> list[dict]:
+    """Пункты, которым нужно объяснение моделью.
+    explain_all — объяснять и верные ответы, кроме помеченных «!»; иначе только ошибки, сомнения, неоднозначные."""
+    def need(r: dict) -> bool:
+        if r["status"] != "ok" or r["unsure"]:
+            return True
+        return explain_all and not r.get("sure")
+    return [r for r in results if need(r)]

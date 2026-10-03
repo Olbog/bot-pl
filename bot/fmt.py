@@ -5,6 +5,7 @@ from .gemini import Turn
 from .config import local_dt
 
 from .rules import group
+from .verbs import verb_line
 from .training import Criteria, WordStats, kind_of, num, progress_bar
 
 KIND_ICON = {"word": "🔤", "grammar": "📝", "pronunciation": "🗣"}
@@ -30,6 +31,8 @@ def turn_message(t: Turn, from_voice: bool, show_model: bool = False, target_lin
                 line += f" — {e(c['ru'])}"
             if c.get("why"):
                 line += f"\n   <i>{e(c['why'])}</i>"
+            if verb_line(c):
+                line += f"\n   {verb_line(c)}"
             lines.append(line)
         out.append("\n".join(lines))
 
@@ -394,7 +397,6 @@ EX_KINDS = {
     "words": "📝 Слова: пропуски",
     "voice": "🎙 Упражнения голосом",
     "grammar": "🧩 Грамматика",
-    "rule": "📐 Правило / микс правил",
     "errors": "🔁 Мои частые ошибки",
 }
 
@@ -402,10 +404,10 @@ EX_KINDS = {
 def ex_menu() -> tuple[str, list[list[tuple[str, str]]]]:
     return ("🏋️ <b>Упражнения</b> — что тренируем?\n\n"
             "<i>В каждом упражнении 10 пунктов. Отвечаешь одним сообщением: «1 piję 2 lubi 3 kupuje». "
-            "Не уверен — допиши НУ (капсом) или ? к ответу: «3 kupuje НУ».</i>",
+            "Не уверен — допиши НУ (капсом) или ? к ответу: «3 kupuje НУ». "
+            "Каждый пункт бот объясняет; уверен — поставь ! («3 kupuje!»), и этот пункт объяснять не будет.</i>",
             [[(EX_KINDS["words"], "x:k:words"), (EX_KINDS["voice"], "x:k:voice")],
-             [(EX_KINDS["grammar"], "x:k:grammar"), (EX_KINDS["rule"], "x:k:rule")],
-             [(EX_KINDS["errors"], "x:k:errors")]])
+             [(EX_KINDS["grammar"], "x:k:grammar"), (EX_KINDS["errors"], "x:k:errors")]])
 
 
 def ex_source_buttons() -> list[list[tuple[str, str]]]:
@@ -413,11 +415,48 @@ def ex_source_buttons() -> list[list[tuple[str, str]]]:
             [("✍️ Свои слова", "x:s:own"), ("🗂 Тема", "x:s:topic")]]
 
 
-def ex_format_buttons(kind: str) -> list[list[tuple[str, str]]]:
-    rows = [[("🔘 Тест (варианты)", "x:f:test"), ("⌨️ Свой ввод", "x:f:gap")]]
-    if kind == "grammar":
-        rows.append([("🔀 Что путают: тест", "x:f:ctest"), ("🔀 Что путают: ввод", "x:f:cgap")])
-    return rows
+def ex_format_buttons(kind: str = "") -> list[list[tuple[str, str]]]:
+    return [[("🔘 Тест (варианты)", "x:f:test"), ("⌨️ Свой ввод", "x:f:gap")]]
+
+
+def ex_topic_sources() -> tuple[str, list[list[tuple[str, str]]]]:
+    return ("🧩 <b>Что тренируем?</b>\n<i>Одна тема — все пункты на неё. Несколько — пункты вперемешку, "
+            "и в каждом нужно понять, какое правило работает.</i>",
+            [[("🔁 Из моих ошибок", "x:t:err")],
+             [("🕘 Недавние темы", "x:t:recent")],
+             [("📐 Выбрать из списка правил", "x:t:cat")],
+             [("✍️ Своя тема", "x:t:own")],
+             [("🎲 Случайный микс", "x:t:mix")]])
+
+
+def short_rule(r: str) -> str:
+    """«Творительный падеж (z kim, być kim)» → «Творительный падеж» — для кнопок."""
+    return r.split(" (")[0]
+
+
+def ago(ts: float, now: float) -> str:
+    days = int((now - ts) // 86400)
+    if days <= 0:
+        return "сегодня"
+    if days == 1:
+        return "вчера"
+    word = "дней" if 11 <= days % 100 <= 14 else {1: "день", 2: "дня", 3: "дня", 4: "дня"}.get(days % 10, "дней")
+    return f"{days} {word} назад"
+
+
+def ex_pick(title: str, labels: list[str], chosen: list[int],
+            extra: list[tuple[str, str]] | None = None) -> tuple[str, list[list[tuple[str, str]]]]:
+    """Выбор тем галочками: x:p:<i> — переключить, x:p:go — дальше."""
+    on = set(chosen)
+    rows = [[((("✅ " if i in on else "☐ ") + lab)[:60], f"x:p:{i}")] for i, lab in enumerate(labels)]
+    rows.append((extra or []) + [("▶️ Дальше", "x:p:go")])
+    return f"{title}\n<i>Нажми, чтобы отметить или снять.</i>", rows
+
+
+def ex_card_prompt(topics: list[str]) -> tuple[str, list[list[tuple[str, str]]]]:
+    text = ("🧩 <b>Тема:</b> " + e(topics[0]) if len(topics) == 1 else
+            "🧩 <b>Темы</b> (вперемешку, на различение):\n" + "\n".join(f"• {e(t)}" for t in topics))
+    return text, [[("📖 Сначала кратко правило", "x:c:rule"), ("▶️ Сразу упражнения", "x:c:go")]]
 
 
 def ex_rule_picker(catalog: list[str], chosen: list[int]) -> tuple[str, list[list[tuple[str, str]]]]:
@@ -451,9 +490,11 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool) -> str:
         lines.append("🎙 <i>Пришли голосовое: прочитай все предложения по порядку целиком, с заполненными пропусками. "
                      "Номера говорить не обязательно.</i>")
     elif ex["items"] and ex["items"][0].get("options"):
-        lines.append("<i>Ответ одним сообщением: 1b 2a 3c … · не уверен — НУ или ?: «2a НУ»</i>")
+        lines.append("<i>Ответ одним сообщением: 1b 2a 3c … · не уверен — НУ или ?: «2a НУ» · "
+                     "уверен, не объяснять — !: «3c!»</i>")
     else:
-        lines.append("<i>Ответ одним сообщением: 1 piję 2 lubi … · не уверен — НУ или ?: «3 kupuje НУ»</i>")
+        lines.append("<i>Ответ одним сообщением: 1 piję 2 lubi … · не уверен — НУ или ?: «3 kupuje НУ» · "
+                     "уверен, не объяснять — !: «2 lubi!»</i>")
     lines.append("<i>Ответ засчитается этому упражнению. Можно и через «Ответить» на это сообщение.</i>")
     if any(it.get("_reuse_id") for it in ex["items"]):
         lines.append("<i>🔁 — пункт на повтор: в прошлый раз была ошибка или сомнение.</i>")
@@ -476,7 +517,9 @@ def ex_results(ex: dict, results: list[dict]) -> str:
         else:
             head = f"{icon} {r['n']}. <b>{e(user)}</b>"
         lines.append(f"{head} — <i>{e(it.get('grammar', ''))}</i>")
-        if r["final"] != "ok":
+        if verb_line(it):
+            lines.append(f"    {verb_line(it)}")
+        if r["final"] != "ok" or r.get("explanation"):  # верный ответ с «!» — без разбора
             lines.append(f"    {e(it.get('full_pl', ''))} [{e(it.get('translit', ''))}] — {e(it.get('ru', ''))}")
             if r.get("explanation"):
                 lines.append(f"    {e(r['explanation'])}")

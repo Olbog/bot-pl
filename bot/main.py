@@ -30,6 +30,10 @@ WEEKDAYS = ["понедельник", "вторник", "среду", "четв�
 TEXT_STEPS = ("topic", "own", "add", "dict_own", "rule")
 EX_WEIGHT = 0.1               # вес правильного ответа в упражнении для прогресса «освоено»
 EX_REUSE = 3                  # сколько пунктов с прошлыми ошибками/сомнениями добавлять в упражнение
+EX_PRESENT_ONLY = True        # упражнения только в настоящем времени (пока ученик знает только его)
+EX_EXPLAIN_ALL = True         # объяснять каждый пункт, кроме помеченных «!» (уверен)
+EX_TOP_ERRORS = 8             # сколько правил показывать в «Из моих ошибок»
+EX_ERR_DAYS = 14              # период «Из моих ошибок» по умолчанию
 QUESTION_RE = re.compile(r"^\s*(\d{1,2})\s*[:.)\-]\s*(.+)$", re.S)
 
 
@@ -671,6 +675,45 @@ class App:
         return ([g[0] for g in groups],
                 {g[0]: [f"{c.get('original', '')} → {c.get('correct', '')}" for c in g[2]] for g in groups})
 
+    def ex_error_groups(self, user_id: int, days: int | None) -> list[tuple[str, int, list[dict]]]:
+        since = self.clock() - days * 86400 if days else 0
+        return [g for g in rules.group(self.db.corrections_since(user_id, since))
+                if g[0] not in (rules.UNSORTED, rules.OTHER)][:EX_TOP_ERRORS]
+
+    def ex_examples(self, user_id: int, topics: list[str]) -> dict[str, list[str]]:
+        """Мои ошибки по выбранным правилам — для короткого правила перед стартом."""
+        return {g[0]: [f"{c.get('original', '')} → {c.get('correct', '')}" for c in g[2]]
+                for g in rules.group(self.db.corrections_since(user_id, 0)) if g[0] in topics}
+
+    async def ex_show_errors_pick(self, chat_id: int, user_id: int, ex: dict, message_id: int | None = None) -> bool:
+        days = ex.get("days", EX_ERR_DAYS)
+        groups = self.ex_error_groups(user_id, days)
+        if not groups and days:  # за период пусто — берём всё время
+            days, groups = None, self.ex_error_groups(user_id, None)
+        if not groups:
+            await self.tg.send_message(chat_id, "Ошибок с правилами пока нет — выбери другой вариант выше "
+                                                 "или сначала поговори с ботом 🙂")
+            return False
+        ex.update(src="err", days=days, opts=[[g[0]] for g in groups],
+                  labels=[f"{fmt.short_rule(g[0])} — {g[1]}" for g in groups], chosen=list(range(min(3, len(groups)))))
+        self.db.set_pending(user_id, {"step": "ex_pick", "ex": ex})
+        period = f"{days} дней" if days else "всё время"
+        text, buttons = fmt.ex_pick(f"🔁 <b>Твои частые ошибки</b> ({period}), сколько раз ошибался:",
+                                    ex["labels"], ex["chosen"],
+                                    [(f"📅 {'Всё время' if days else f'{EX_ERR_DAYS} дней'}", "x:p:per")])
+        if message_id:
+            await self.tg.edit_message(chat_id, message_id, text, buttons)
+        else:
+            await self.tg.send_message(chat_id, text, buttons)
+        return True
+
+    async def ex_topics_chosen(self, chat_id: int, user_id: int, ex: dict, topics: list[str]) -> None:
+        ex = {k: v for k, v in ex.items() if k not in ("opts", "labels", "chosen", "src", "days")}
+        ex["rules"] = list(dict.fromkeys(t for t in topics if t))
+        self.db.set_pending(user_id, {"step": "ex_card", "ex": ex})
+        text, buttons = fmt.ex_card_prompt(ex["rules"])
+        await self.tg.send_message(chat_id, text, buttons)
+
     async def ex_ask_count(self, chat_id: int, user_id: int, ex: dict) -> None:
         self.db.set_pending(user_id, {"step": "ex_count", "ex": ex})
         text, buttons = fmt.ex_count_prompt()
@@ -689,7 +732,8 @@ class App:
                           action: str) -> None:
         ex = dict((pending or {}).get("ex") or {})
         step = (pending or {}).get("step")
-        need = {"s:": "ex_src", "f:": "ex_fmt", "n:": "ex_count", "next": "ex_review"}
+        need = {"s:": "ex_src", "f:": "ex_fmt", "n:": "ex_count", "next": "ex_review", "t:": "ex_gtopic",
+                "p:": "ex_pick", "c:": "ex_card"}
         for prefix, want in need.items():
             if action.startswith(prefix) and step != want:
                 return  # кнопка из прошлого шага или повторное нажатие — игнорируем
@@ -699,6 +743,8 @@ class App:
             await self.ex_menu(chat_id, user_id)
         elif action.startswith("k:"):
             kind = action[2:]
+            if kind == "rule":  # старая кнопка «Правило / микс правил» — теперь это «Грамматика»
+                kind = "grammar"
             ex = {"kind": kind}
             if kind in ("words", "voice"):
                 self.db.set_pending(user_id, {"step": "ex_src", "ex": ex})
@@ -706,11 +752,6 @@ class App:
             elif kind == "grammar":
                 self.db.set_pending(user_id, {"step": "ex_fmt", "ex": ex})
                 await self.tg.send_message(chat_id, "🧩 Грамматика — какой формат?", fmt.ex_format_buttons(kind))
-            elif kind == "rule":
-                ex["chosen"] = []
-                self.db.set_pending(user_id, {"step": "ex_rules", "ex": ex})
-                text, buttons = fmt.ex_rule_picker(rules.CATALOG, [])
-                await self.tg.send_message(chat_id, text, buttons)
             elif kind == "errors":
                 top, examples = self.ex_top_rules(user_id)
                 if not top:
@@ -736,7 +777,67 @@ class App:
                 await self.tg.send_message(chat_id, "Напиши тему — подберу 10 слов уровня A1–A2.")
         elif action.startswith("f:"):
             f = action[2:]
-            ex.update(fmt="test" if f in ("test", "ctest") else "gap", confusing=f in ("ctest", "cgap"))
+            ex.update(fmt="test" if f in ("test", "ctest") else "gap")
+            if ex.get("kind") == "grammar":
+                self.db.set_pending(user_id, {"step": "ex_gtopic", "ex": ex})
+                text, buttons = fmt.ex_topic_sources()
+                await self.tg.send_message(chat_id, text, buttons)
+            else:
+                await self.ex_ask_count(chat_id, user_id, ex)
+        elif action.startswith("t:"):
+            src = action[2:]
+            if src == "err":
+                await self.ex_show_errors_pick(chat_id, user_id, ex)
+            elif src == "recent":
+                recent = self.db.ex_recent_topics(user_id, 6, skip=(rules.OTHER, rules.UNSORTED))
+                if not recent:
+                    await self.tg.send_message(chat_id, "Недавних тем пока нет — выбери другой вариант выше.")
+                    return
+                now = self.clock()
+                ex.update(src="recent", opts=[t for t, _ in recent], chosen=[],
+                          labels=[" / ".join(fmt.short_rule(x) for x in t) + f" — {fmt.ago(ts, now)}"
+                                  for t, ts in recent])
+                self.db.set_pending(user_id, {"step": "ex_pick", "ex": ex})
+                text, buttons = fmt.ex_pick("🕘 <b>Недавние темы</b> — можно несколько:", ex["labels"], [])
+                await self.tg.send_message(chat_id, text, buttons)
+            elif src == "cat":
+                ex["chosen"] = []
+                self.db.set_pending(user_id, {"step": "ex_rules", "ex": ex})
+                text, buttons = fmt.ex_rule_picker(rules.CATALOG, [])
+                await self.tg.send_message(chat_id, text, buttons)
+            elif src == "own":
+                self.db.set_pending(user_id, {"step": "ex_rule_text", "ex": ex})
+                await self.tg.send_message(chat_id, "Напиши тему — например: «творительный падеж» или "
+                                                     "«разница родительного, винительного и творительного».")
+            elif src == "mix":
+                await self.ex_ask_count(chat_id, user_id, {**ex, "rules": []})
+        elif action.startswith("p:"):
+            arg = action[2:]
+            if arg == "per":
+                ex["days"] = None if ex.get("days") else EX_ERR_DAYS
+                await self.ex_show_errors_pick(chat_id, user_id, ex, message_id)
+            elif arg == "go":
+                opts = ex.get("opts") or []
+                topics = [t for i in sorted(ex.get("chosen") or []) if i < len(opts) for t in opts[i]]
+                if not topics:
+                    await self.tg.send_message(chat_id, "Отметь хотя бы одну тему.")
+                    return
+                await self.ex_topics_chosen(chat_id, user_id, ex, topics)
+            elif arg.isdigit():
+                ex["chosen"] = sorted(set(ex.get("chosen") or []) ^ {int(arg)})
+                self.db.set_pending(user_id, {"step": "ex_pick", "ex": ex})
+                title = ("🔁 <b>Твои частые ошибки</b>, сколько раз ошибался:" if ex.get("src") == "err"
+                         else "🕘 <b>Недавние темы</b> — можно несколько:")
+                extra = ([(f"📅 {'Всё время' if ex.get('days') else f'{EX_ERR_DAYS} дней'}", "x:p:per")]
+                         if ex.get("src") == "err" else None)
+                text, buttons = fmt.ex_pick(title, ex.get("labels") or [], ex["chosen"], extra)
+                await self.tg.edit_message(chat_id, message_id, text, buttons)
+        elif action.startswith("c:"):
+            if action == "c:rule" and ex.get("rules"):
+                data = await self.ask(chat_id, rules_by_name_prompt(ex["rules"], self.ex_examples(user_id, ex["rules"]),
+                                                                    self.cfg.level), RULES_SCHEMA, RULES_HINT)
+                if data is not None:
+                    await self.tg.send_message(chat_id, fmt.rules_message(data))
             await self.ex_ask_count(chat_id, user_id, ex)
         elif action.startswith("r:"):
             arg = action[2:]
@@ -749,9 +850,7 @@ class App:
                 if not chosen:
                     await self.tg.send_message(chat_id, "Отметь хотя бы одно правило или напиши своё.")
                     return
-                ex["rules"] = [rules.CATALOG[i] for i in chosen]
-                self.db.set_pending(user_id, {"step": "ex_fmt", "ex": ex})
-                await self.tg.send_message(chat_id, "📐 Какой формат?", fmt.ex_format_buttons("rule"))
+                await self.ex_topics_chosen(chat_id, user_id, ex, [rules.CATALOG[i] for i in chosen])
             else:
                 chosen = set(ex.get("chosen") or []) ^ {int(arg)}
                 ex["chosen"] = sorted(chosen)
@@ -808,9 +907,9 @@ class App:
                                                                  if isinstance(w, dict)])
             return True
         if step == "ex_rule_text" and text:
-            ex["rules"] = [text.strip()]
-            self.db.set_pending(user_id, {"step": "ex_fmt", "ex": ex})
-            await self.tg.send_message(chat_id, "📐 Какой формат?", fmt.ex_format_buttons("rule"))
+            own = text.strip()
+            known = rules.normalize(own)  # совпало с каталогом — берём его название, иначе тема как написана
+            await self.ex_topics_chosen(chat_id, user_id, ex, [known if known != rules.OTHER else own])
             return True
         if step == "ex_count" and text and text.strip().isdigit():
             await self.ex_start(chat_id, user_id, ex, int(text.strip()))
@@ -836,13 +935,13 @@ class App:
 
     async def ex_make(self, chat_id: int, user_id: int, ex: dict) -> None:
         kind, f = ex.get("kind", "grammar"), ex.get("fmt", "gap")
-        rule_filter = ex.get("rules") if kind in ("rule", "errors") else None
+        rule_filter = ex.get("rules") or None
         reuse = [it for it in self.db.ex_review_items(user_id, 20, rule_filter)
                  if bool(it.get("options")) == (f == "test")
                  and (kind not in ("words", "voice") or it.get("lemma") in (ex.get("words") or []))][:EX_REUSE]
         prompt = ex_prompt(kind, f, self.cfg.level, rules.catalog_text(), self.db.ex_recent(user_id),
                            words=ex.get("words"), rules_list=ex.get("rules"), examples=ex.get("examples"),
-                           confusing=ex.get("confusing", False), voice=kind == "voice")
+                           voice=kind == "voice", present_only=EX_PRESENT_ONLY)
         idx = ex["total"] - ex["left"] + 1
         data = await self.ask(chat_id, prompt, EX_SCHEMA, EX_HINT,
                               wait=f"⏳ Составляю упражнение {idx}/{ex['total']}… (10–20 секунд)")
@@ -875,7 +974,7 @@ class App:
             await self.tg.send_message(chat_id, "Не получилось составить упражнение — попробуй ещё раз.")
             return
         title = str(data.get("title") or fmt.EX_KINDS.get(kind, "Упражнение"))
-        ex_id = self.db.ex_create(user_id, kind, f, title, items)
+        ex_id = self.db.ex_create(user_id, kind, f, title, items, ex.get("rules") or [])
         ex = {**ex, "ex_id": ex_id, "left": ex["left"] - 1}
         self.db.set_pending(user_id, {"step": "ex_answer", "ex": ex})
         saved = self.db.ex_get(ex_id)
@@ -894,11 +993,11 @@ class App:
         else:
             audio = None
             results = exercises.quick_check(items, exercises.parse_answers(text or "", len(items)), f)
-        todo = exercises.needs_model(results)
+        todo = exercises.needs_model(results, EX_EXPLAIN_ALL)
         verdicts: dict[int, dict] = {}
         if todo:
             prompt = check_prompt([(r["n"], items[r["n"] - 1], r["user"], r["unsure"]) for r in todo],
-                                  self.cfg.level, voice=bool(voice))
+                                  self.cfg.level, voice=bool(voice), topics=saved.get("topics"))
             data = await self.ask(chat_id, prompt, CHECK_SCHEMA, CHECK_HINT,
                                   wait=f"⏳ Проверяю упражнение #{saved['id']}…", audio=audio)
             if data is None:

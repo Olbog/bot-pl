@@ -1,6 +1,7 @@
 """Системная инструкция для Gemini и схема структурированного ответа."""
 
 
+from . import verbs
 from .rules import catalog_text
 
 
@@ -26,6 +27,7 @@ def system_prompt(level: str) -> str:
 - До 5 исправлений, самые грубые первыми: word, затем pronunciation, затем grammar. Мелочи стиля и пунктуацию не трогай.
 - original — фрагмент как сказал/написал ученик, correct — как правильно, translit — транскрипция правильного варианта русскими буквами, ru — перевод правильного варианта, why — очень коротко почему, по-русски.
 - rule — правило, к которому относится ошибка: СТРОГО одна строка из КАТАЛОГА ПРАВИЛ ниже, слово в слово. Если ничего не подходит — «Другое».
+- verb_* — если ошибка в глаголе (неверная форма, спряжение, не тот глагол): {verbs.PROMPT_RULE}
 - Не выдумывай ошибок, которых нет, но и не прощай их: если слово сказано неправильно — это ошибка.
 
 Русские слова (поле new_words):
@@ -72,9 +74,10 @@ RESPONSE_SCHEMA = {
                     "ru": {"type": "STRING"},
                     "why": {"type": "STRING"},
                     "rule": {"type": "STRING"},
+                    **verbs.SCHEMA_PROPS,
                 },
-                "required": ["kind", "original", "correct", "translit", "ru", "why", "rule"],
-                "propertyOrdering": ["kind", "original", "correct", "translit", "ru", "why", "rule"],
+                "required": ["kind", "original", "correct", "translit", "ru", "why", "rule", *verbs.FIELDS],
+                "propertyOrdering": ["kind", "original", "correct", "translit", "ru", "why", "rule", *verbs.FIELDS],
             },
         },
         "new_words": {
@@ -113,7 +116,7 @@ RESPONSE_SCHEMA = {
 def json_format_hint() -> str:
     """Формат ответа для моделей без строгой схемы (Gemma)."""
     return """Отвечай ТОЛЬКО одним JSON-объектом, без пояснений и без markdown, строго такого вида (поля в этом порядке):
-{"user_text": "...", "corrected_pl": "...", "corrected_translit": "...", "corrected_ru": "...", "corrections": [{"kind": "word|grammar|pronunciation", "original": "...", "correct": "...", "translit": "...", "ru": "...", "why": "...", "rule": "..."}], "new_words": [{"ru": "...", "pl": "...", "translit": "..."}], "target_uses": [{"lemma": "...", "form": "...", "correct": true}], "reply_pl": "...", "reply_translit": "...", "reply_ru": "..."}
+{"user_text": "...", "corrected_pl": "...", "corrected_translit": "...", "corrected_ru": "...", "corrections": [{"kind": "word|grammar|pronunciation", "original": "...", "correct": "...", "translit": "...", "ru": "...", "why": "...", "rule": "...", "verb_inf": "", "verb_translit": "", "verb_ru": "", "verb_conj": "", "verb_forms": ""}], "new_words": [{"ru": "...", "pl": "...", "translit": "..."}], "target_uses": [{"lemma": "...", "form": "...", "correct": true}], "reply_pl": "...", "reply_translit": "...", "reply_ru": "..."}
 Если исправлять нечего или новых слов нет — пустые списки []."""
 
 
@@ -319,8 +322,10 @@ EX_ITEM = {
         "grammar": {"type": "STRING"},
         "rule": {"type": "STRING"},
         "lemma": {"type": "STRING"},
+        **verbs.SCHEMA_PROPS,
     },
-    "required": ["q", "hint", "options", "answer", "accepted", "full_pl", "translit", "ru", "grammar", "rule", "lemma"],
+    "required": ["q", "hint", "options", "answer", "accepted", "full_pl", "translit", "ru", "grammar", "rule", "lemma",
+                 *verbs.FIELDS],
 }
 EX_SCHEMA = {
     "type": "OBJECT",
@@ -328,7 +333,7 @@ EX_SCHEMA = {
     "required": ["title", "items"],
 }
 EX_HINT = """Отвечай ТОЛЬКО одним JSON-объектом без markdown:
-{"title": "...", "items": [{"q": "...", "hint": "...", "options": [], "answer": "...", "accepted": [], "full_pl": "...", "translit": "...", "ru": "...", "grammar": "...", "rule": "...", "lemma": "..."}]}"""
+{"title": "...", "items": [{"q": "...", "hint": "...", "options": [], "answer": "...", "accepted": [], "full_pl": "...", "translit": "...", "ru": "...", "grammar": "...", "rule": "...", "lemma": "...", "verb_inf": "", "verb_translit": "", "verb_ru": "", "verb_conj": "", "verb_forms": ""}]}"""
 
 _EX_COMMON = """Общие требования к каждому пункту:
 - q — польское предложение или словосочетание с ОДНИМ пропуском, обозначенным ___ (три подчёркивания). Пропуск — это проверяемое слово или короткая форма (1–3 слова).
@@ -339,31 +344,48 @@ _EX_COMMON = """Общие требования к каждому пункту:
 - grammar — ВСЕГДА грамматика ответа по-русски кратко: часть речи и форма — род, число, падеж, лицо, время, вид, где применимо (например: «глагол, 3 л. ед. ч., наст. вр., ona» или «сущ., ж. р., ед. ч., родительный»).
 - rule — правило из КАТАЛОГА ПРАВИЛ слово в слово.
 - lemma — словарная форма проверяемого слова.
+- verb_* — если в пропуске глагол, {verb_rule}
 - Предложения простые, жизненные, уровня {level}, 10 штук, все разные по ситуациям и формам; не повторяй предложения из списка УЖЕ БЫЛО.
-- Варьируй формы: разные лица (ja/ty/on/ona/my/wy/oni), числа, роды, падежи, времена.
-КАТАЛОГ ПРАВИЛ:
+- Варьируй формы: разные лица (ja/ty/on/ona/my/wy/oni), числа, роды, падежи{tenses}.
+{tense_rule}КАТАЛОГ ПРАВИЛ:
 {catalog}
 УЖЕ БЫЛО (не повторять, даже близко):
 {exclude}"""
 
 
+PRESENT_ONLY_RULE = ("- ВРЕМЯ: ВСЕ предложения и все ответы — ТОЛЬКО в настоящем времени (ученик пока знает только "
+                     "его). Никакого прошедшего, будущего, условного наклонения — ни в пропуске, ни в остальной части "
+                     "предложения.\n")
+
+
+def grammar_task(topics: list[str] | None) -> str:
+    """Грамматика на выбранные темы: одна — все пункты на неё; несколько — поровну вперемешку, на различение."""
+    topics = [t for t in topics or [] if t and t.strip()]
+    if not topics:
+        return ("Составь упражнение на базовую грамматику: падежи, числа, окончания, спряжение по лицам и родам. "
+                "Смешай темы.")
+    if len(topics) == 1:
+        return (f"Составь упражнение СТРОГО на одну тему: «{topics[0]}». Все 10 пунктов — на неё, в разных "
+                "ситуациях и с разными словами, чтобы покрыть основные случаи этого правила (разные предлоги, "
+                "вопросы, роды и числа, где применимо). Если темы нет в каталоге, в rule всё равно выбери ближайшее "
+                "правило каталога.")
+    return ("Составь упражнение на РАЗЛИЧЕНИЕ этих тем: " + "; ".join(f"«{t}»" for t in topics) + ". Раздели 10 "
+            "пунктов между темами примерно поровну и перемешай. Каждый пункт однозначно требует одну из тем, и "
+            "ученику нужно сначала понять, какая здесь работает (например, по глаголу, предлогу, вопросу). "
+            "Подбирай пары ситуаций, где ученики-русскоязычные путают эти формы. В rule — правило каталога, "
+            "которое работает именно в этом пункте.")
+
+
 def ex_prompt(kind: str, fmt: str, level: str, catalog: str, exclude: list[str], *, words: list[str] | None = None,
               rules_list: list[str] | None = None, examples: dict[str, list[str]] | None = None,
-              confusing: bool = False, voice: bool = False) -> str:
+              confusing: bool = False, voice: bool = False, present_only: bool = False) -> str:
     if kind in ("words", "voice"):
         task = (f"Составь упражнение «вставь слово в нужной форме» на эти слова (каждое минимум раз, по кругу): "
                 f"{', '.join(words or [])}. В lemma — словарная форма слова; в hint ничего не пиши.")
         if voice:
             task += " Ученик будет ПРОИЗНОСИТЬ всё предложение целиком вслух, поэтому предложения короткие (до 8 слов)."
-    elif kind == "grammar":
-        if confusing:
-            task = ("Составь упражнение на то, что ученики-русскоязычные часто путают: близкие падежи, wiedzieć/znać, "
-                    "iść/jechać, ile/wiele, w/na/do, u/przy, похожие слова и формы. Смешай 3–5 разных тем.")
-        else:
-            task = "Составь упражнение на базовую грамматику: падежи, числа, окончания, спряжение по лицам и родам. Смешай темы."
-    elif kind == "rule":
-        task = ("Составь упражнение строго на эти правила, перемешав пункты между ними (если правил несколько, ученик "
-                "должен в каждом пункте понять, какое правило здесь работает): " + "; ".join(rules_list or []))
+    elif kind in ("grammar", "rule"):  # «rule» — старый пункт меню, теперь это «Грамматика» с темами
+        task = grammar_task(rules_list)
     else:  # errors
         ex = "\n".join(f"- {r}: ошибки ученика — {'; '.join((examples or {}).get(r, [])[:4])}" for r in rules_list or [])
         task = ("Составь упражнение на правила, в которых ученик чаще всего ошибается. Похожие ситуации, но ДРУГИЕ слова, "
@@ -374,7 +396,9 @@ def ex_prompt(kind: str, fmt: str, level: str, catalog: str, exclude: list[str],
                  "Порядок вариантов случайный.")
     else:
         task += "\nФормат СВОЙ ВВОД: options — пустой список."
-    common = _EX_COMMON.format(level=level, catalog=catalog, exclude="\n".join(f"- {e}" for e in exclude) or "—")
+    common = _EX_COMMON.format(level=level, catalog=catalog, exclude="\n".join(f"- {e}" for e in exclude) or "—",
+                               tenses="" if present_only else ", времена", verb_rule=verbs.PROMPT_RULE,
+                               tense_rule=PRESENT_ONLY_RULE if present_only else "")
     return f"{task}\n\ntitle — короткое название упражнения по-русски.\n\n{common}"
 
 
@@ -402,8 +426,9 @@ CHECK_HINT = """Отвечай ТОЛЬКО одним JSON-объектом б�
 {"items": [{"n": 1, "heard": "...", "correct": true, "explanation": "...", "bridge": "..."}]}"""
 
 
-def check_prompt(items: list[tuple[int, dict, str, bool]], level: str, voice: bool) -> str:
-    """items: (номер, пункт, ответ ученика, сомневался)."""
+def check_prompt(items: list[tuple[int, dict, str, bool]], level: str, voice: bool,
+                 topics: list[str] | None = None) -> str:
+    """items: (номер, пункт, ответ ученика, сомневался). topics — темы упражнения: 2+ — упражнение на различение."""
     lines = []
     for n, it, user, unsure in items:
         lines.append(f"{n}. Задание: {it.get('q', '')} — {it.get('ru', '')} | эталон: {it.get('answer', '')}"
@@ -412,10 +437,14 @@ def check_prompt(items: list[tuple[int, dict, str, bool]], level: str, voice: bo
     src = ("Ученик прислал голосовое: прочитал вслух предложения с заполненными пропусками по порядку. Сначала "
            "расшифруй, что он сказал в каждом пункте, — в heard запиши дословно, как прозвучало, с ошибками. "
            "Оцени заполнение пропуска и грубые ошибки произношения в этом слове.\n" if voice else "")
+    topics = [t for t in topics or [] if t]
+    contrast = ("\n  Упражнение на различение тем: " + "; ".join(topics) + ". В каждом пункте скажи, почему здесь "
+                "эта тема, а НЕ другая из списка (например: «widzę + винительный, а не творительный — это прямое "
+                "дополнение, вопрос kogo? co?»).") if len(topics) > 1 else ""
     return f"""{src}Проверь ответы ученика (уровень {level}) в упражнении по польскому. Объясняй по-русски.
 Для каждого пункта ниже:
 - correct — true, если ответ ученика правильный (в т.ч. другой допустимый вариант, отличный от эталона), иначе false. Без польских букв (pije вместо piję) — это ОШИБКА.
-- explanation — 1–3 коротких предложения: почему так. ВСЕГДА назови форму: род, число, падеж, лицо, время — что применимо. Если ученик не уверен, но прав — объясни, почему его ответ верный.
+- explanation — ДЛЯ КАЖДОГО пункта, и для верных тоже, 1–3 коротких предложения: почему здесь именно эта форма. ВСЕГДА назови форму (род, число, падеж, лицо, время — что применимо) и что её требует (глагол, предлог, вопрос kogo? czego? kim? czym? и т.п.). Если ответ неверный — ещё чем вариант ученика отличается от нужного.{contrast}
 - bridge — если помогает, короткая аналогия с русским или белорусским языком (или разница с ними); иначе пусто.
 - heard — для голосового: что прозвучало; для текста — повтори ответ ученика.
 

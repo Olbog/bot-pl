@@ -135,7 +135,7 @@ class DB:
             "corrections": [("rule", "TEXT"), ("msg_id", "INTEGER")],
             "set_words": [("kind", "TEXT NOT NULL DEFAULT 'word'")],
             "word_uses": [("weight", "REAL NOT NULL DEFAULT 1")],
-            "exercises": [("tg_msg_id", "INTEGER")],
+            "exercises": [("tg_msg_id", "INTEGER"), ("topics", "TEXT")],
         }
         for table, cols in adds.items():
             have = self._columns(table)
@@ -390,11 +390,13 @@ class DB:
 
     # ---------- упражнения ----------
 
-    def ex_create(self, user_id: int, kind: str, fmt: str, title: str, items: list[dict]) -> int:
+    def ex_create(self, user_id: int, kind: str, fmt: str, title: str, items: list[dict],
+                  topics: list[str] | None = None) -> int:
         now = self.clock()
         ex_id = self.conn.execute(
-            "INSERT INTO exercises(user_id, kind, fmt, title, items, created_at) VALUES (?,?,?,?,?,?)",
-            (user_id, kind, fmt, title, json.dumps(items, ensure_ascii=False), now)).lastrowid
+            "INSERT INTO exercises(user_id, kind, fmt, title, items, created_at, topics) VALUES (?,?,?,?,?,?,?)",
+            (user_id, kind, fmt, title, json.dumps(items, ensure_ascii=False), now,
+             json.dumps(topics or [], ensure_ascii=False))).lastrowid
         for it in items:
             if it.get("_reuse_id"):
                 self.conn.execute("UPDATE ex_items SET reused=1 WHERE id=?", (it["_reuse_id"],))
@@ -411,6 +413,7 @@ class DB:
         d = dict(row)
         d["items"] = json.loads(d["items"])
         d["results"] = json.loads(d["results"]) if d["results"] else None
+        d["topics"] = json.loads(d["topics"]) if d.get("topics") else []
         return d
 
     def ex_save_results(self, ex_id: int, results: list[dict]) -> None:
@@ -436,6 +439,29 @@ class DB:
     def ex_recent(self, user_id: int, limit: int = 60) -> list[str]:
         return [json.loads(r[0]).get("full_pl", "") for r in self.conn.execute(
             "SELECT data FROM ex_items WHERE user_id=? ORDER BY id DESC LIMIT ?", (user_id, limit))]
+
+    def ex_recent_topics(self, user_id: int, limit: int = 6, skip: tuple[str, ...] = ()) -> list[tuple[list[str], float]]:
+        """Недавние темы: [(темы одного упражнения, когда)] — без повторов, новые первыми.
+        У старых упражнений без сохранённых тем берутся правила их пунктов."""
+        out, seen = [], set()
+        for r in self.conn.execute("SELECT items, topics, created_at FROM exercises WHERE user_id=? "
+                                   "ORDER BY id DESC LIMIT 200", (user_id,)):
+            topics = json.loads(r["topics"]) if r["topics"] else []
+            if not topics:
+                counts: dict[str, int] = {}
+                for it in json.loads(r["items"]):
+                    rule = it.get("rule")
+                    if rule and rule not in skip:
+                        counts[rule] = counts.get(rule, 0) + 1
+                topics = sorted(counts, key=lambda k: -counts[k])[:4]
+            key = tuple(sorted(topics))
+            if not topics or key in seen:
+                continue
+            seen.add(key)
+            out.append((topics, r["created_at"]))
+            if len(out) >= limit:
+                break
+        return out
 
     def ex_review_items(self, user_id: int, limit: int, rules_filter: list[str] | None = None) -> list[dict]:
         """Пункты с ошибкой или сомнением, ещё не выданные на повтор."""
