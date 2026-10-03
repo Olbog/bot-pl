@@ -51,6 +51,15 @@ class Telegram:
             if "not modified" not in str(e):
                 raise
 
+    async def edit_markup(self, chat_id: int, message_id: int,
+                          buttons: list[list[tuple[str, str]]] | None = None) -> None:
+        """Заменить или убрать кнопки под сообщением, не трогая текст."""
+        try:
+            await self.call("editMessageReplyMarkup", chat_id=chat_id, message_id=message_id,
+                            reply_markup=markup(buttons or []))
+        except TelegramError:
+            pass
+
     async def delete_message(self, chat_id: int, message_id: int) -> None:
         try:
             await self.call("deleteMessage", chat_id=chat_id, message_id=message_id)

@@ -190,8 +190,13 @@ def preview_buttons(p: dict) -> list[list[tuple[str, str]]]:
     rows = [word_btns[i:i + 3] for i in range(0, len(word_btns), 3)]
     extra = [("🔄 Другие слова", "p:regen")] if p.get("topic") else []
     rows.append([("✅ Начать", "p:ok")] + extra)
-    rows.append([("✍️ Добавить свои", "p:add"), ("✖️ Отмена", "p:cancel")])
+    rows.append([("✍️ Добавить свои", "p:add")])
     return rows
+
+
+def nav_row(step: str, back: bool) -> list[tuple[str, str]]:
+    """Ряд «⬅️ Назад / ✖️ Отмена» под шагом выбора; шаг в данных — чтобы старые кнопки не срабатывали."""
+    return ([("⬅️ Назад", f"nav:b:{step}")] if back else []) + [("✖️ Отмена", f"nav:c:{step}")]
 
 
 def mastered_message(title: str) -> str:
@@ -387,7 +392,7 @@ def errsel_buttons(p: dict) -> list[list[tuple[str, str]]]:
     if p["rules"]:
         rows.append([("🎲 Случайные 3", "e:rand"),
                      (f"📖 Правило: {'вкл' if p.get('rule_first', True) else 'выкл'}", "e:rule")])
-        rows.append([("▶️ Начать", "e:go"), ("✖️ Отмена", "p:cancel")])
+        rows.append([("▶️ Начать", "e:go")])
     return rows
 
 
@@ -462,7 +467,7 @@ def ex_card_prompt(topics: list[str]) -> tuple[str, list[list[tuple[str, str]]]]
 def ex_rule_picker(catalog: list[str], chosen: list[int]) -> tuple[str, list[list[tuple[str, str]]]]:
     on = set(chosen)
     text = ("📐 <b>Выбери правило</b> — одно или несколько (тогда пункты перемешаются, и в каждом нужно понять, "
-            "какое правило работает). Можно написать своё: /cancel и снова, или кнопкой ниже.\n\n"
+            "какое правило работает). Можно написать своё — кнопкой ниже.\n\n"
             "Выбрано: " + (", ".join(catalog[i] for i in sorted(on)) or "—"))
     btns = [((("✅ " if i in on else "") + r)[:40], f"x:r:{i}") for i, r in enumerate(catalog)]
     rows = [btns[i:i + 2] for i in range(0, len(btns), 2)]

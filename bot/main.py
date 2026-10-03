@@ -30,6 +30,9 @@ WEEKDAYS = ["понедельник", "вторник", "среду", "четв�
 TEXT_STEPS = ("topic", "own", "add", "dict_own", "rule")
 EX_WEIGHT = 0.1               # вес правильного ответа в упражнении для прогресса «освоено»
 EX_REUSE = 3                  # сколько пунктов с прошлыми ошибками/сомнениями добавлять в упражнение
+AUTO = object()               # show(): предыдущий шаг определить автоматически
+SET_MENU = {"step": "set_menu"}   # «Назад» → меню /set
+DICT_MENU = {"step": "dict_menu"}  # «Назад» → словарь /dict
 EX_PRESENT_ONLY = True        # упражнения только в настоящем времени (пока ученик знает только его)
 EX_EXPLAIN_ALL = True         # объяснять каждый пункт, кроме помеченных «!» (уверен)
 EX_TOP_ERRORS = 8             # сколько правил показывать в «Из моих ошибок»
@@ -243,12 +246,12 @@ class App:
         if not new and not pending.get("words"):
             await self.tg.send_message(chat_id, "Не получилось составить слова, попробуй ещё раз или другую тему.")
             return
+        pending = {k: v for k, v in pending.items() if k not in ("prev", "screen")}
         pending = {**pending, "step": "preview", "words": pending.get("words", []) + new}
         pending.setdefault("title", str(data.get("title") or "Свои слова"))
         pending.setdefault("off", [])
-        self.db.set_pending(user_id, pending)
-        await self.tg.send_message(chat_id, fmt.preview_message(pending, self.carry_words(user_id)),
-                                   fmt.preview_buttons(pending))
+        await self.show(chat_id, user_id, pending, fmt.preview_message(pending, self.carry_words(user_id)),
+                        fmt.preview_buttons(pending))
 
     async def pending_text(self, chat_id: int, user_id: int, pending: dict, text: str) -> None:
         step = pending["step"]
@@ -352,7 +355,7 @@ class App:
         else:
             await self.tg.send_message(chat_id, "Ничего нового — эти выражения уже в словаре.")
 
-    async def preview_from_dict(self, chat_id: int, user_id: int) -> None:
+    async def preview_from_dict(self, chat_id: int, user_id: int, prev=AUTO) -> None:
         carry = self.carry_words(user_id)
         n = max(3, self.cfg.set_size - len(carry))
         items = self.db.dict_items(user_id, only_unused=True)[:n]
@@ -363,8 +366,8 @@ class App:
         pending = {"step": "preview", "title": "Из словаря", "off": [], "dict_ids": [i["id"] for i in items],
                    "words": [{"pl": i["pl"], "translit": i["translit"], "ru": i["ru"], "pos": "выраж",
                               "kind": "phrase"} for i in items]}
-        self.db.set_pending(user_id, pending)
-        await self.tg.send_message(chat_id, fmt.preview_message(pending, carry), fmt.preview_buttons(pending))
+        await self.show(chat_id, user_id, pending, fmt.preview_message(pending, carry), fmt.preview_buttons(pending),
+                        prev=prev)
 
     # ---------- итоги и выгрузки ----------
 
@@ -465,13 +468,11 @@ class App:
             out.append({"rule": rule, "n": n, "examples": examples})
         return out
 
-    async def errsel_show(self, chat_id: int, user_id: int, pending: dict, message_id: int | None = None) -> None:
-        self.db.set_pending(user_id, pending)
-        text, buttons = fmt.errsel_message(pending), fmt.errsel_buttons(pending)
-        if message_id:
-            await self.tg.edit_message(chat_id, message_id, text, buttons)
-        else:
-            await self.tg.send_message(chat_id, text, buttons)
+    async def errsel_show(self, chat_id: int, user_id: int, pending: dict, message_id: int | None = None,
+                          prev=AUTO) -> None:
+        pending = {k: v for k, v in pending.items() if k not in ("prev", "screen")}
+        await self.show(chat_id, user_id, pending, fmt.errsel_message(pending), fmt.errsel_buttons(pending),
+                        message_id, prev=prev)
 
     async def errsel_action(self, chat_id: int, user_id: int, message_id: int, pending: dict | None,
                             action: str) -> None:
@@ -480,8 +481,9 @@ class App:
             rs = self.errsel_rules(user_id, period)
             p = {"step": "errsel", "period": period, "rules": rs, "on": list(range(min(3, len(rs)))),
                  "rule_first": (pending or {}).get("rule_first", True)}
-            await self.errsel_show(chat_id, user_id, p, message_id if action.startswith("p:") and
-                                   pending and pending.get("step") == "errsel" else None)
+            same = action.startswith("p:") and pending and pending.get("step") == "errsel"
+            await self.errsel_show(chat_id, user_id, p, message_id if same else None,
+                                   prev=AUTO if same else SET_MENU)
             return
         if not pending or pending.get("step") != "errsel":
             await self.tg.edit_message(chat_id, message_id, "Этот выбор уже неактуален. /set → «🧩 Из ошибок»")
@@ -521,6 +523,58 @@ class App:
                     await self.tg.send_message(chat_id, fmt.rules_message(data))
             await self.converse(chat_id, user_id, text=START_TEXT)
 
+    # ---------- навигация: ⬅️ Назад / ✖️ Отмена ----------
+
+    async def show(self, chat_id: int, user_id: int, pending: dict, text: str,
+                   buttons: list[list[tuple[str, str]]] | None = None, message_id: int | None = None,
+                   prev=AUTO) -> None:
+        """Показать шаг выбора с рядом «⬅️ Назад / ✖️ Отмена».
+        Экран (текст и кнопки) сохраняется в pending — «Назад» показывает его снова с прежним выбором.
+        prev: AUTO — предыдущий шаг из базы (тот же шаг — тот же prev), None — первый шаг, dict — явный."""
+        if prev is AUTO:
+            cur = self.db.get_state(user_id)["pending"]
+            if cur and cur.get("step") == pending["step"]:
+                prev = cur.get("prev")
+            else:
+                prev = cur if cur and cur.get("screen") else None
+        pending = {**pending, "prev": prev, "screen": [text, buttons or []]}
+        self.db.set_pending(user_id, pending)
+        rows = (buttons or []) + [fmt.nav_row(pending["step"], bool(prev))]
+        if message_id:
+            await self.tg.edit_message(chat_id, message_id, text, rows)
+        else:
+            await self.tg.send_message(chat_id, text, rows)
+
+    async def nav(self, chat_id: int, user_id: int, message_id: int, pending: dict | None, action: str) -> str | None:
+        """nav:b:<шаг> — назад, nav:c:<шаг> — отмена. Возвращает текст всплывашки, если кнопка устарела."""
+        kind, _, step = action.partition(":")
+        if not pending or pending.get("step") != step:
+            return "Этот выбор уже неактуален"
+        if kind == "c":
+            self.db.set_pending(user_id, None)
+            if step == "ex_answer":
+                await self.tg.edit_markup(chat_id, message_id)
+                ex_id = (pending.get("ex") or {}).get("ex_id")
+                await self.tg.send_message(chat_id, f"⏹ Упражнения закончены, #{ex_id} — без проверки. Ещё — /ex")
+            else:
+                await self.tg.edit_message(chat_id, message_id, "✖️ Отменено.")
+            return None
+        prev = pending.get("prev")
+        if not prev:
+            return "Это первый шаг"
+        if prev.get("step") == "set_menu":
+            self.db.set_pending(user_id, None)
+            await self.show_set(chat_id, user_id, message_id)
+        elif prev.get("step") == "dict_menu":
+            self.db.set_pending(user_id, None)
+            await self.tg.edit_message(chat_id, message_id, fmt.dict_message(list(self.db.dict_items(user_id))),
+                                       fmt.dict_buttons())
+        else:
+            text, buttons = prev["screen"]
+            buttons = [[tuple(b) for b in row] for row in buttons]
+            await self.show(chat_id, user_id, prev, text, buttons, message_id, prev=prev.get("prev"))
+        return None
+
     # ---------- кнопки ----------
 
     async def on_callback(self, cq: dict) -> None:
@@ -532,20 +586,21 @@ class App:
         if user_id not in self.cfg.allowed_ids or chat_id is None:
             await self.tg.answer_callback(cq["id"])
             return
-        await self.tg.answer_callback(cq["id"])
         state = self.db.get_state(user_id)
         pending = state["pending"]
+        if data.startswith("nav:"):
+            await self.tg.answer_callback(cq["id"], await self.nav(chat_id, user_id, message_id, pending, data[4:]))
+            return
+        await self.tg.answer_callback(cq["id"])
 
         if data == "s:show":
             await self.show_set(chat_id, user_id, message_id)
         elif data == "s:topic":
-            self.db.set_pending(user_id, {"step": "topic"})
-            await self.tg.send_message(chat_id, "Напиши тему — по-русски или по-польски "
-                                                 "(например: кафе, у врача, выходные). /cancel — отмена.")
+            await self.show(chat_id, user_id, {"step": "topic"}, "Напиши тему — по-русски или по-польски "
+                            "(например: кафе, у врача, выходные).", prev=SET_MENU)
         elif data == "s:own":
-            self.db.set_pending(user_id, {"step": "own"})
-            await self.tg.send_message(chat_id, "Пришли слова через запятую или столбиком — по-польски или "
-                                                 "по-русски, я переведу. /cancel — отмена.")
+            await self.show(chat_id, user_id, {"step": "own"}, "Пришли слова через запятую или столбиком — "
+                            "по-польски или по-русски, я переведу.", prev=SET_MENU)
         elif data.startswith("mode:"):
             mode = data.split(":", 1)[1]
             if mode == "set" and not self.db.active_set(user_id):
@@ -572,7 +627,7 @@ class App:
                 await self.tg.edit_message(chat_id, message_id, fmt.mastered_message(active["title"]),
                                            fmt.mastered_buttons(self.db.set_words(active["id"])))
         elif data == "s:dict":
-            await self.preview_from_dict(chat_id, user_id)
+            await self.preview_from_dict(chat_id, user_id, prev=SET_MENU)
         elif data.startswith("p:"):
             if data == "p:cancel" and pending and pending.get("step") == "errsel":
                 self.db.set_pending(user_id, None)
@@ -595,9 +650,8 @@ class App:
             n = len(offer["saved"]) if offer else 0
             await self.tg.edit_message(chat_id, message_id, f"⭐ Сохранено в словарь: {n}. Весь словарь — /dict")
         elif data == "dn:own":
-            self.db.set_pending(user_id, {"step": "dict_own"})
-            await self.tg.send_message(chat_id, "Пришли выражения через запятую — по-польски или по-русски. "
-                                                 "/cancel — отмена.")
+            await self.show(chat_id, user_id, {"step": "dict_own"},
+                            "Пришли выражения через запятую — по-польски или по-русски.", prev=DICT_MENU)
         elif data.startswith("i:"):
             code = data[2:]
             if code == "dict":
@@ -617,15 +671,16 @@ class App:
             self.db.set_pending(user_id, None)
             await self.tg.edit_message(chat_id, message_id, "✖️ Создание набора отменено.")
         elif action == "add":
-            self.db.set_pending(user_id, {**pending, "step": "add"})
-            await self.tg.send_message(chat_id, "Пришли слова, которые добавить (через запятую или столбиком).")
+            await self.show(chat_id, user_id, {**pending, "step": "add"},
+                            "Пришли слова, которые добавить (через запятую или столбиком).")
         elif action == "regen":
             n = max(3, self.cfg.set_size - len(carry) - len(pending["words"]) + len(pending.get("off", [])))
             exclude = self.db.known_words(user_id)[-80:] + [w["pl"] for w in pending["words"]]
             kept = [w for i, w in enumerate(pending["words"]) if i not in set(pending.get("off", []))]
             await self.tg.edit_message(chat_id, message_id, "🔄 Подбираю другие слова…")
             await self.build_preview(chat_id, user_id,
-                                     {"topic": pending.get("topic"), "title": pending.get("title"), "words": kept},
+                                     {"topic": pending.get("topic"), "title": pending.get("title"), "words": kept,
+                                      "step": "preview"},
                                      topic_words_prompt(pending.get("topic") or "", n, self.cfg.level, exclude))
         elif action == "ok":
             off = set(pending.get("off", []))
@@ -650,16 +705,14 @@ class App:
             off = set(pending.get("off", []))
             off ^= {i}
             pending = {**pending, "off": sorted(off)}
-            self.db.set_pending(user_id, pending)
-            await self.tg.edit_message(chat_id, message_id, fmt.preview_message(pending, carry),
-                                       fmt.preview_buttons(pending))
+            await self.show(chat_id, user_id, pending, fmt.preview_message(pending, carry),
+                            fmt.preview_buttons(pending), message_id)
 
     # ---------- упражнения ----------
 
-    async def ex_menu(self, chat_id: int, user_id: int) -> None:
-        self.db.set_pending(user_id, {"step": "ex_menu", "ex": {}})
+    async def ex_menu(self, chat_id: int, user_id: int, message_id: int | None = None) -> None:
         text, buttons = fmt.ex_menu()
-        await self.tg.send_message(chat_id, text, buttons)
+        await self.show(chat_id, user_id, {"step": "ex_menu", "ex": {}}, text, buttons, message_id, prev=None)
 
     def ex_words_from_set(self, user_id: int) -> list[str]:
         active = self.db.active_set(user_id)
@@ -685,6 +738,16 @@ class App:
         return {g[0]: [f"{c.get('original', '')} → {c.get('correct', '')}" for c in g[2]]
                 for g in rules.group(self.db.corrections_since(user_id, 0)) if g[0] in topics}
 
+    def ex_pick_screen(self, ex: dict) -> tuple[str, list[list[tuple[str, str]]]]:
+        if ex.get("src") == "err":
+            days = ex.get("days")
+            period = f"{days} дней" if days else "всё время"
+            return fmt.ex_pick(f"🔁 <b>Твои частые ошибки</b> ({period}), сколько раз ошибался:",
+                               ex.get("labels") or [], ex.get("chosen") or [],
+                               [(f"📅 {'Всё время' if days else f'{EX_ERR_DAYS} дней'}", "x:p:per")])
+        return fmt.ex_pick("🕘 <b>Недавние темы</b> — можно несколько:", ex.get("labels") or [],
+                           ex.get("chosen") or [])
+
     async def ex_show_errors_pick(self, chat_id: int, user_id: int, ex: dict, message_id: int | None = None) -> bool:
         days = ex.get("days", EX_ERR_DAYS)
         groups = self.ex_error_groups(user_id, days)
@@ -696,37 +759,28 @@ class App:
             return False
         ex.update(src="err", days=days, opts=[[g[0]] for g in groups],
                   labels=[f"{fmt.short_rule(g[0])} — {g[1]}" for g in groups], chosen=list(range(min(3, len(groups)))))
-        self.db.set_pending(user_id, {"step": "ex_pick", "ex": ex})
-        period = f"{days} дней" if days else "всё время"
-        text, buttons = fmt.ex_pick(f"🔁 <b>Твои частые ошибки</b> ({period}), сколько раз ошибался:",
-                                    ex["labels"], ex["chosen"],
-                                    [(f"📅 {'Всё время' if days else f'{EX_ERR_DAYS} дней'}", "x:p:per")])
-        if message_id:
-            await self.tg.edit_message(chat_id, message_id, text, buttons)
-        else:
-            await self.tg.send_message(chat_id, text, buttons)
+        text, buttons = self.ex_pick_screen(ex)
+        await self.show(chat_id, user_id, {"step": "ex_pick", "ex": ex}, text, buttons, message_id)
         return True
 
     async def ex_topics_chosen(self, chat_id: int, user_id: int, ex: dict, topics: list[str]) -> None:
         ex = {k: v for k, v in ex.items() if k not in ("opts", "labels", "chosen", "src", "days")}
         ex["rules"] = list(dict.fromkeys(t for t in topics if t))
-        self.db.set_pending(user_id, {"step": "ex_card", "ex": ex})
         text, buttons = fmt.ex_card_prompt(ex["rules"])
-        await self.tg.send_message(chat_id, text, buttons)
+        await self.show(chat_id, user_id, {"step": "ex_card", "ex": ex}, text, buttons)
 
-    async def ex_ask_count(self, chat_id: int, user_id: int, ex: dict) -> None:
-        self.db.set_pending(user_id, {"step": "ex_count", "ex": ex})
+    async def ex_ask_count(self, chat_id: int, user_id: int, ex: dict, intro: str = "") -> None:
         text, buttons = fmt.ex_count_prompt()
-        await self.tg.send_message(chat_id, text, buttons)
+        await self.show(chat_id, user_id, {"step": "ex_count", "ex": ex}, (intro + "\n\n" if intro else "") + text,
+                        buttons)
 
     async def ex_after_words(self, chat_id: int, user_id: int, ex: dict, words: list[str]) -> None:
         words = [w.strip() for w in words if w and w.strip()][:15]
         if not words:
-            await self.tg.send_message(chat_id, "Не нашёл слов для упражнения. Попробуй другой источник: /ex")
+            await self.tg.send_message(chat_id, "Не нашёл слов для упражнения. Выбери другой источник выше.")
             return
         ex = {**ex, "words": words, "fmt": "gap"}
-        await self.tg.send_message(chat_id, "Слова: " + ", ".join(f"<b>{escape(w)}</b>" for w in words))
-        await self.ex_ask_count(chat_id, user_id, ex)
+        await self.ex_ask_count(chat_id, user_id, ex, "Слова: " + ", ".join(f"<b>{escape(w)}</b>" for w in words))
 
     async def ex_callback(self, chat_id: int, user_id: int, message_id: int, pending: dict | None,
                           action: str) -> None:
@@ -746,21 +800,23 @@ class App:
             if kind == "rule":  # старая кнопка «Правило / микс правил» — теперь это «Грамматика»
                 kind = "grammar"
             ex = {"kind": kind}
+            menu_text, menu_buttons = fmt.ex_menu()
+            menu = {"step": "ex_menu", "ex": {}, "prev": None, "screen": [menu_text, menu_buttons]}
             if kind in ("words", "voice"):
-                self.db.set_pending(user_id, {"step": "ex_src", "ex": ex})
-                await self.tg.send_message(chat_id, f"{fmt.EX_KINDS[kind]} — откуда взять слова?", fmt.ex_source_buttons())
+                await self.show(chat_id, user_id, {"step": "ex_src", "ex": ex},
+                                f"{fmt.EX_KINDS[kind]} — откуда взять слова?", fmt.ex_source_buttons(), prev=menu)
             elif kind == "grammar":
-                self.db.set_pending(user_id, {"step": "ex_fmt", "ex": ex})
-                await self.tg.send_message(chat_id, "🧩 Грамматика — какой формат?", fmt.ex_format_buttons(kind))
+                await self.show(chat_id, user_id, {"step": "ex_fmt", "ex": ex}, "🧩 Грамматика — какой формат?",
+                                fmt.ex_format_buttons(kind), prev=menu)
             elif kind == "errors":
                 top, examples = self.ex_top_rules(user_id)
                 if not top:
                     await self.tg.send_message(chat_id, "Ошибок с правилами пока нет — сначала поговори с ботом 🙂")
                     return
                 ex.update(rules=top, examples=examples)
-                self.db.set_pending(user_id, {"step": "ex_fmt", "ex": ex})
-                await self.tg.send_message(chat_id, "🔁 Твои самые частые ошибки:\n" + "\n".join(
-                    f"• {escape(r)}" for r in top) + "\n\nКакой формат?", fmt.ex_format_buttons(kind))
+                await self.show(chat_id, user_id, {"step": "ex_fmt", "ex": ex}, "🔁 Твои самые частые ошибки:\n"
+                                + "\n".join(f"• {escape(r)}" for r in top) + "\n\nКакой формат?",
+                                fmt.ex_format_buttons(kind), prev=menu)
         elif action.startswith("s:"):
             src = action[2:]
             if src == "set":
@@ -770,18 +826,17 @@ class App:
                 items.sort(key=lambda i: i["used_in_set"])
                 await self.ex_after_words(chat_id, user_id, ex, [i["pl"] for i in items[:12]])
             elif src == "own":
-                self.db.set_pending(user_id, {"step": "ex_words", "ex": ex})
-                await self.tg.send_message(chat_id, "Пришли слова через запятую — по-польски (лучше) или по-русски.")
+                await self.show(chat_id, user_id, {"step": "ex_words", "ex": ex},
+                                "Пришли слова через запятую — по-польски (лучше) или по-русски.")
             elif src == "topic":
-                self.db.set_pending(user_id, {"step": "ex_topic", "ex": ex})
-                await self.tg.send_message(chat_id, "Напиши тему — подберу 10 слов уровня A1–A2.")
+                await self.show(chat_id, user_id, {"step": "ex_topic", "ex": ex},
+                                "Напиши тему — подберу 10 слов уровня A1–A2.")
         elif action.startswith("f:"):
             f = action[2:]
             ex.update(fmt="test" if f in ("test", "ctest") else "gap")
             if ex.get("kind") == "grammar":
-                self.db.set_pending(user_id, {"step": "ex_gtopic", "ex": ex})
                 text, buttons = fmt.ex_topic_sources()
-                await self.tg.send_message(chat_id, text, buttons)
+                await self.show(chat_id, user_id, {"step": "ex_gtopic", "ex": ex}, text, buttons)
             else:
                 await self.ex_ask_count(chat_id, user_id, ex)
         elif action.startswith("t:"):
@@ -797,18 +852,16 @@ class App:
                 ex.update(src="recent", opts=[t for t, _ in recent], chosen=[],
                           labels=[" / ".join(fmt.short_rule(x) for x in t) + f" — {fmt.ago(ts, now)}"
                                   for t, ts in recent])
-                self.db.set_pending(user_id, {"step": "ex_pick", "ex": ex})
-                text, buttons = fmt.ex_pick("🕘 <b>Недавние темы</b> — можно несколько:", ex["labels"], [])
-                await self.tg.send_message(chat_id, text, buttons)
+                text, buttons = self.ex_pick_screen(ex)
+                await self.show(chat_id, user_id, {"step": "ex_pick", "ex": ex}, text, buttons)
             elif src == "cat":
                 ex["chosen"] = []
-                self.db.set_pending(user_id, {"step": "ex_rules", "ex": ex})
                 text, buttons = fmt.ex_rule_picker(rules.CATALOG, [])
-                await self.tg.send_message(chat_id, text, buttons)
+                await self.show(chat_id, user_id, {"step": "ex_rules", "ex": ex}, text, buttons)
             elif src == "own":
-                self.db.set_pending(user_id, {"step": "ex_rule_text", "ex": ex})
-                await self.tg.send_message(chat_id, "Напиши тему — например: «творительный падеж» или "
-                                                     "«разница родительного, винительного и творительного».")
+                await self.show(chat_id, user_id, {"step": "ex_rule_text", "ex": ex},
+                                "Напиши тему — например: «творительный падеж» или "
+                                "«разница родительного, винительного и творительного».")
             elif src == "mix":
                 await self.ex_ask_count(chat_id, user_id, {**ex, "rules": []})
         elif action.startswith("p:"):
@@ -825,13 +878,8 @@ class App:
                 await self.ex_topics_chosen(chat_id, user_id, ex, topics)
             elif arg.isdigit():
                 ex["chosen"] = sorted(set(ex.get("chosen") or []) ^ {int(arg)})
-                self.db.set_pending(user_id, {"step": "ex_pick", "ex": ex})
-                title = ("🔁 <b>Твои частые ошибки</b>, сколько раз ошибался:" if ex.get("src") == "err"
-                         else "🕘 <b>Недавние темы</b> — можно несколько:")
-                extra = ([(f"📅 {'Всё время' if ex.get('days') else f'{EX_ERR_DAYS} дней'}", "x:p:per")]
-                         if ex.get("src") == "err" else None)
-                text, buttons = fmt.ex_pick(title, ex.get("labels") or [], ex["chosen"], extra)
-                await self.tg.edit_message(chat_id, message_id, text, buttons)
+                text, buttons = self.ex_pick_screen(ex)
+                await self.show(chat_id, user_id, {"step": "ex_pick", "ex": ex}, text, buttons, message_id)
         elif action.startswith("c:"):
             if action == "c:rule" and ex.get("rules"):
                 data = await self.ask(chat_id, rules_by_name_prompt(ex["rules"], self.ex_examples(user_id, ex["rules"]),
@@ -842,9 +890,9 @@ class App:
         elif action.startswith("r:"):
             arg = action[2:]
             if arg == "own":
-                self.db.set_pending(user_id, {"step": "ex_rule_text", "ex": ex})
-                await self.tg.send_message(chat_id, "Напиши правило или смесь правил своими словами — например: "
-                                                     "«творительный и винительный падеж» или «прошедшее время, род».")
+                await self.show(chat_id, user_id, {"step": "ex_rule_text", "ex": ex},
+                                "Напиши тему — например: «творительный падеж» или "
+                                "«разница родительного, винительного и творительного».")
             elif arg == "go":
                 chosen = ex.get("chosen") or []
                 if not chosen:
@@ -852,11 +900,9 @@ class App:
                     return
                 await self.ex_topics_chosen(chat_id, user_id, ex, [rules.CATALOG[i] for i in chosen])
             else:
-                chosen = set(ex.get("chosen") or []) ^ {int(arg)}
-                ex["chosen"] = sorted(chosen)
-                self.db.set_pending(user_id, {"step": "ex_rules", "ex": ex})
+                ex["chosen"] = sorted(set(ex.get("chosen") or []) ^ {int(arg)})
                 text, buttons = fmt.ex_rule_picker(rules.CATALOG, ex["chosen"])
-                await self.tg.edit_message(chat_id, message_id, text, buttons)
+                await self.show(chat_id, user_id, {"step": "ex_rules", "ex": ex}, text, buttons, message_id)
         elif action.startswith("n:"):
             await self.ex_start(chat_id, user_id, ex, int(action[2:]))
         elif action == "next":
@@ -978,7 +1024,8 @@ class App:
         ex = {**ex, "ex_id": ex_id, "left": ex["left"] - 1}
         self.db.set_pending(user_id, {"step": "ex_answer", "ex": ex})
         saved = self.db.ex_get(ex_id)
-        sent = await self.tg.send_message(chat_id, fmt.ex_message(saved, idx, ex["total"], kind == "voice"))
+        sent = await self.tg.send_message(chat_id, fmt.ex_message(saved, idx, ex["total"], kind == "voice"),
+                                          [[("✖️ Закончить без проверки", "nav:c:ex_answer")]])
         if sent and sent.get("message_id"):
             self.db.ex_set_tg_msg(ex_id, sent["message_id"])
 
@@ -1018,6 +1065,8 @@ class App:
                 right = bool(v.get("correct"))
             r["final"] = ("unsure" if r["unsure"] else "ok") if right else "wrong"
         self.db.ex_save_results(saved["id"], results)
+        if saved.get("tg_msg_id"):
+            await self.tg.edit_markup(chat_id, saved["tg_msg_id"])  # кнопка «Закончить без проверки» больше не нужна
         self.ex_record(user_id, saved, results)
         self.db.set_pending(user_id, {"step": "ex_review", "ex": ex})
         await self.tg.send_message(chat_id, fmt.ex_results(saved, results),
@@ -1089,8 +1138,8 @@ class App:
             if arg:
                 await self.rule_question(chat_id, arg)
             else:
-                self.db.set_pending(user_id, {"step": "rule"})
-                await self.tg.send_message(chat_id, "Напиши вопрос о правиле — например: почему do niej, а не do nie?")
+                await self.show(chat_id, user_id, {"step": "rule"},
+                                "Напиши вопрос о правиле — например: почему do niej, а не do nie?", prev=None)
         elif cmd == "/ex":
             await self.ex_menu(chat_id, user_id)
         elif cmd == "/export":

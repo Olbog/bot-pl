@@ -321,7 +321,7 @@ def test_summary_dedup_and_empty():
 class FakeTG:
     def __init__(self):
         self.sent, self.voices, self.buttons, self.edits, self.docs = [], [], [], [], []
-        self.toasts, self.deleted = [], []
+        self.toasts, self.deleted, self.markups = [], [], []
 
     async def send_message(self, chat_id, text, buttons=None):
         self.sent.append(text)
@@ -339,6 +339,9 @@ class FakeTG:
 
     async def delete_message(self, chat_id, message_id):
         self.deleted.append(message_id)
+
+    async def edit_markup(self, chat_id, message_id, buttons=None):
+        self.markups.append((message_id, buttons))
 
     async def send_voice(self, chat_id, ogg):
         self.voices.append(ogg)
@@ -557,7 +560,7 @@ def test_topic_flow_preview_toggle_and_start():
     gem = FakeGemini()
     app = make_app(gem=gem)
     run(app.on_callback(cb("s:topic")))
-    assert app.db.get_state(42)["pending"] == {"step": "topic"}
+    assert app.db.get_state(42)["pending"]["step"] == "topic"
     run(app.handle(msg(text="кафе")))
     assert "кафе" in gem.prompts[0] and not gem.calls        # тема ушла в составление, не в разговор
     assert "ciasto" in app.tg.sent[-1] and any(d == "p:0" for row in app.tg.buttons[-1] for _, d in row)
@@ -1037,7 +1040,7 @@ def test_words_from_set_and_progress_weight():
     app = make_app(gem=gem)
     start_set(app)                                             # ciasto, piec, kawa
     ex_flow(app, "x:k:words", "x:s:set")
-    assert "ciasto" in app.tg.sent[-2]
+    assert "ciasto" in app.tg.sent[-1]
     run(app.on_callback(cb("x:n:1")))
     assert "ciasto" in gem.prompts[-1]
     run(app.handle(msg(text=answers_all(app))))
@@ -1241,3 +1244,90 @@ def test_verb_shown_in_turn_and_exercise_results():
     from bot import fmt
     res = fmt.ex_results(ex, [{"n": 1, "user": "piekę", "final": "ok"}, {"n": 2, "user": "kot", "final": "ok"}])
     assert res.count("🔤") == 1 and "спряжение -ę / -esz" in res      # и у пункта с «!» без разбора
+
+
+# ---------- ⬅️ Назад / ✖️ Отмена ----------
+
+def step_of(app):
+    p = app.db.get_state(42)["pending"]
+    return p and p["step"]
+
+
+def test_nav_back_keeps_choices_and_first_step_has_no_back():
+    app = make_app()
+    run(app.handle(msg(text="/ex")))
+    assert str(app.tg.buttons[-1][-1]) == str([("✖️ Отмена", "nav:c:ex_menu")])     # первый шаг — без «Назад»
+    for c in ("x:k:grammar", "x:f:test", "x:t:cat", "x:r:2", "x:r:4", "x:r:go"):
+        run(app.on_callback(cb(c)))
+    assert step_of(app) == "ex_card"
+    run(app.on_callback(cb("nav:b:ex_card")))                    # назад к списку правил — галочки на месте
+    text, buttons = app.tg.edits[-1]
+    assert step_of(app) == "ex_rules" and "✅" in str(buttons) and rules_mod.CATALOG[2] in text
+    assert app.db.get_state(42)["pending"]["ex"]["chosen"] == [2, 4]
+    run(app.on_callback(cb("nav:b:ex_rules")))
+    assert step_of(app) == "ex_gtopic" and "Что тренируем?" in app.tg.edits[-1][0]
+    run(app.on_callback(cb("nav:b:ex_gtopic")))
+    assert step_of(app) == "ex_fmt" and "формат" in app.tg.edits[-1][0]
+    assert app.db.get_state(42)["pending"]["ex"] == {"kind": "grammar"}   # формат ещё не выбран
+    run(app.on_callback(cb("nav:b:ex_fmt")))
+    assert step_of(app) == "ex_menu" and "nav:b:" not in str(app.tg.edits[-1][1])
+    run(app.on_callback(cb("nav:b:ex_rules")))                   # кнопка со старого шага
+    assert app.tg.toasts[-1] == "Этот выбор уже неактуален" and step_of(app) == "ex_menu"
+    # снова вперёд по тем же кнопкам
+    run(app.on_callback(cb("x:k:grammar")))
+    run(app.on_callback(cb("x:f:gap")))
+    assert step_of(app) == "ex_gtopic" and app.db.get_state(42)["pending"]["ex"]["fmt"] == "gap"
+
+
+def test_nav_cancel_and_text_step_back():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:own")
+    run(app.on_callback(cb("nav:b:ex_rule_text")))
+    assert step_of(app) == "ex_gtopic"
+    run(app.handle(msg(text="творительный падеж")))             # текст больше не ждём — это разговор
+    assert gem.calls and step_of(app) == "ex_gtopic"
+    run(app.on_callback(cb("nav:c:ex_gtopic")))
+    assert step_of(app) is None and app.tg.edits[-1][0] == "✖️ Отменено."
+
+
+def test_nav_in_set_dict_and_rule():
+    app = make_app()
+    run(app.handle(msg(text="/set")))
+    run(app.on_callback(cb("s:topic")))
+    assert "nav:b:topic" in str(app.tg.buttons[-1])
+    run(app.handle(msg(text="кафе")))
+    assert step_of(app) == "preview" and "nav:b:preview" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("p:0")))                               # убрал слово
+    run(app.on_callback(cb("nav:b:preview")))
+    assert step_of(app) == "topic"
+    run(app.on_callback(cb("nav:b:topic")))                       # → меню /set
+    assert step_of(app) is None and "Набор" in app.tg.edits[-1][0]
+    run(app.on_callback(cb("e:start")))
+    assert step_of(app) == "errsel"
+    run(app.on_callback(cb("e:p:a")))                             # смена периода — тот же шаг
+    run(app.on_callback(cb("nav:b:errsel")))
+    assert step_of(app) is None
+    run(app.on_callback(cb("dn:own")))
+    run(app.on_callback(cb("nav:b:dict_own")))
+    assert step_of(app) is None and "Словарь" in app.tg.edits[-1][0]
+    run(app.handle(msg(text="/rule")))
+    assert str(app.tg.buttons[-1]) == str([[("✖️ Отмена", "nav:c:rule")]])
+    run(app.on_callback(cb("nav:c:rule")))
+    assert step_of(app) is None
+
+
+def test_exercise_finish_without_check():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix", "x:n:3")
+    ex_id = app.db.get_state(42)["pending"]["ex"]["ex_id"]
+    assert "nav:c:ex_answer" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("nav:c:ex_answer")))
+    assert step_of(app) is None and f"#{ex_id} — без проверки" in app.tg.sent[-1]
+    assert app.tg.markups and app.tg.markups[-1][1] is None and not app.db.ex_get(ex_id)["results"]
+    # после проверки кнопка «Закончить без проверки» убирается
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix", "x:n:1")
+    tg_id = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])["tg_msg_id"]
+    run(app.handle(msg(text=answers_all(app))))
+    assert app.tg.markups[-1] == (tg_id, None)
