@@ -1152,3 +1152,11 @@ def test_reply_binds_answer_to_specific_exercise():
     second_tg = app.db.ex_get(second)["tg_msg_id"]
     run(app.handle(msg(text=answers_all(app), reply_to_message={"message_id": second_tg})))
     assert app.db.ex_get(second)["results"] and f"#{second}" in app.tg.sent[-1]
+
+
+def test_exercise_shows_translation_not_polish_hint():
+    app = make_app()
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:n:1")
+    msg_text = app.tg.sent[-1]
+    assert "(baza)" not in msg_text                           # подсказка-ключ не показывается
+    assert "<i>— Предложение</i>" in msg_text                 # перевод под каждым пунктом
