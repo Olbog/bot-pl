@@ -238,7 +238,62 @@ def rules_message(data: dict, header: str = "📖") -> str:
 def reply_buttons(msg_id: int, has_corrections: bool) -> list[list[tuple[str, str]]]:
     row = [("📖 Правило", f"r:{msg_id}")] if has_corrections else []
     row.append(("⭐ В словарь", f"d:{msg_id}"))
+    if has_corrections:
+        row.append(("🙅 Не ошибка", f"nd:{msg_id}"))
     return [row]
+
+
+# ---------- 🙅 Не ошибка ----------
+
+def dispute_screen(corrs: list[dict], msg_id: int) -> tuple[str, list[list[tuple[str, str]]]]:
+    text = ("🙅 <b>Какие исправления неверные?</b>\n"
+            "<i>Отмеченное уберу из ошибок, а такую же замену дальше не буду считать ошибкой. "
+            "Нажми ещё раз, чтобы вернуть.</i>")
+    rows = [[((("✅ " if c["_disputed"] else "☐ ") + f"{c.get('original', '')} → {c.get('correct', '')}")[:60],
+              f"nd:t:{c['_id']}")] for c in corrs]
+    rows.append([("✅ Готово", f"nd:ok:{msg_id}")])
+    return text, rows
+
+
+def dispute_done(n: int) -> str:
+    if not n:
+        return "🙅 Ничего не отмечено — исправления остались ошибками."
+    return (f"🙅 Не ошибка: {n} — убрано из ошибок и добавлено в исключения.\n"
+            "<i>Список исключений — /dict → «🙅 Исключения».</i>")
+
+
+def ex_dispute_screen(ex: dict) -> tuple[str, list[list[tuple[str, str]]]]:
+    text = ("🙅 <b>Какие пункты бот засчитал ошибкой зря?</b>\n"
+            "<i>Отмеченные станут ✅, уйдут из ошибок и с повтора. Нажми ещё раз, чтобы вернуть.</i>")
+    rows = []
+    for r in ex["results"]:
+        if r["final"] != "wrong" and not r.get("disputed"):
+            continue
+        it = ex["items"][r["n"] - 1]
+        user = r.get("heard") or r.get("user") or "—"
+        label = (("✅ " if r.get("disputed") else "☐ ") + f"{r['n']}. {user} → {it.get('answer', '')}")[:60]
+        rows.append([(label, f"x:dt:{ex['id']}:{r['n']}")])
+    rows.append([("✅ Готово", f"x:dok:{ex['id']}")])
+    return text, rows
+
+
+def ex_dispute_done(ex: dict) -> str:
+    res = ex["results"]
+    disputed = [str(r["n"]) for r in res if r.get("disputed")]
+    ok = sum(1 for r in res if r["final"] in ("ok", "unsure"))
+    if not disputed:
+        return f"🙅 Ничего не оспорено. #{ex['id']}: {ok} из {len(res)}."
+    return f"🙅 Оспорено: пункты {', '.join(disputed)}. #{ex['id']}: теперь {ok} из {len(res)}."
+
+
+def ignores_screen(rows: list) -> tuple[str, list[list[tuple[str, str]]]]:
+    if not rows:
+        return ("🙅 <b>Исключения</b>\n\nСписок пуст. Добавляется кнопкой «🙅 Не ошибка» под ответом бота "
+                "или «🙅 Оспорить» под проверкой упражнения.", [])
+    text = ("🙅 <b>Исключения</b> — эти замены бот не считает ошибкой:\n\n"
+            + "\n".join(f"• {e(r['original'])} → {e(r['correct'])}" for r in rows)
+            + "\n\n<i>Нажми на пару, чтобы убрать её из списка (уже оспоренные ошибки в пул не вернутся).</i>")
+    return text, [[(f"✖️ {r['original']} → {r['correct']}"[:60], f"ig:rm:{r['id']}")] for r in rows]
 
 
 # ---------- словарь ⭐ ----------
@@ -274,7 +329,7 @@ def dict_message(items: list, limit: int = 40) -> str:
 
 
 def dict_buttons() -> list[list[tuple[str, str]]]:
-    return [[("🎯 Набор из словаря", "s:dict"), ("📄 Файлом", "i:dict")]]
+    return [[("🎯 Набор из словаря", "s:dict"), ("📄 Файлом", "i:dict")], [("🙅 Исключения", "ig:list")]]
 
 
 # ---------- итоги ----------
@@ -550,7 +605,7 @@ def ex_results(ex: dict, results: list[dict]) -> str:
 
 
 def ex_result_buttons(ex_id: int, left: int) -> list[list[tuple[str, str]]]:
-    row = [("📖 Правила по ошибкам", f"x:rr:{ex_id}")]
+    row = [("📖 Правила по ошибкам", f"x:rr:{ex_id}"), ("🙅 Оспорить", f"x:dp:{ex_id}")]
     rows = [row]
     if left > 0:
         rows.append([(f"➡️ Следующее (осталось {left})", "x:next"), ("⏹ Закончить", "x:stop")])

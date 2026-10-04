@@ -107,6 +107,14 @@ CREATE TABLE IF NOT EXISTS ex_items (
     created_at REAL NOT NULL
 );
 CREATE INDEX IF NOT EXISTS ix_ex_items_user ON ex_items(user_id, key);
+-- Исключения: исправления, которые ученик отметил как неверные («🙅 Не ошибка»)
+CREATE TABLE IF NOT EXISTS ignores (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    original TEXT NOT NULL,
+    correct TEXT NOT NULL,
+    created_at REAL NOT NULL
+);
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
     mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
@@ -132,9 +140,9 @@ class DB:
     def _migrate(self) -> None:
         """Новые колонки для старой базы."""
         adds = {
-            "corrections": [("rule", "TEXT"), ("msg_id", "INTEGER")],
+            "corrections": [("rule", "TEXT"), ("msg_id", "INTEGER"), ("disputed", "INTEGER NOT NULL DEFAULT 0")],
             "set_words": [("kind", "TEXT NOT NULL DEFAULT 'word'")],
-            "word_uses": [("weight", "REAL NOT NULL DEFAULT 1")],
+            "word_uses": [("weight", "REAL NOT NULL DEFAULT 1"), ("msg_id", "INTEGER")],
             "exercises": [("tg_msg_id", "INTEGER"), ("topics", "TEXT")],
         }
         for table, cols in adds.items():
@@ -190,7 +198,7 @@ class DB:
         words = [dict(r) for r in self.conn.execute(
             "SELECT ru, pl, translit FROM words WHERE session_id=? ORDER BY id", (session_id,))]
         corrs = [json.loads(r["data"]) for r in self.conn.execute(
-            "SELECT data FROM corrections WHERE session_id=? ORDER BY id", (session_id,))]
+            "SELECT data FROM corrections WHERE session_id=? AND disputed=0 ORDER BY id", (session_id,))]
         return words, corrs
 
     def message_count(self, session_id: int) -> int:
@@ -257,9 +265,18 @@ class DB:
     def word_uses(self, word_id: int) -> list:
         return self.conn.execute("SELECT * FROM word_uses WHERE word_id=? ORDER BY id", (word_id,)).fetchall()
 
-    def add_use(self, word_id: int, user_id: int, form: str, correct: bool, day: str, weight: float = 1.0) -> None:
-        self.conn.execute("INSERT INTO word_uses(word_id, user_id, form, correct, day, weight, created_at) "
-                          "VALUES (?,?,?,?,?,?,?)", (word_id, user_id, form, int(correct), day, weight, self.clock()))
+    def add_use(self, word_id: int, user_id: int, form: str, correct: bool, day: str, weight: float = 1.0,
+                msg_id: int | None = None) -> None:
+        self.conn.execute("INSERT INTO word_uses(word_id, user_id, form, correct, day, weight, created_at, msg_id) "
+                          "VALUES (?,?,?,?,?,?,?,?)",
+                          (word_id, user_id, form, int(correct), day, weight, self.clock(), msg_id))
+        self.conn.commit()
+
+    def uses_for_msg(self, msg_id: int) -> list:
+        return self.conn.execute("SELECT * FROM word_uses WHERE msg_id=? ORDER BY id", (msg_id,)).fetchall()
+
+    def set_use_correct(self, use_id: int, correct: bool) -> None:
+        self.conn.execute("UPDATE word_uses SET correct=? WHERE id=?", (int(correct), use_id))
         self.conn.commit()
 
     def set_mastered(self, word_id: int, by: str | None) -> None:
@@ -287,15 +304,62 @@ class DB:
 
     # ---------- ошибки ----------
 
-    def _corr_rows(self, where: str, params: tuple) -> list[dict]:
+    def _corr_rows(self, where: str, params: tuple, with_disputed: bool = False) -> list[dict]:
+        """Ошибки; оспоренные («🙅 Не ошибка») не считаются — только при with_disputed."""
         out = []
-        for r in self.conn.execute(f"SELECT id, data, rule, created_at FROM corrections WHERE {where} ORDER BY id",
-                                   params):
+        if not with_disputed:
+            where = f"({where}) AND disputed=0"
+        for r in self.conn.execute(f"SELECT id, data, rule, created_at, user_id, msg_id, disputed FROM corrections "
+                                   f"WHERE {where} ORDER BY id", params):
             d = json.loads(r["data"])
             d["rule"] = r["rule"] or d.get("rule")
-            d["_id"], d["_at"] = r["id"], r["created_at"]
+            d["_id"], d["_at"], d["_user"] = r["id"], r["created_at"], r["user_id"]
+            d["_msg"], d["_disputed"] = r["msg_id"], bool(r["disputed"])
             out.append(d)
         return out
+
+    def correction(self, corr_id: int) -> dict | None:
+        rows = self._corr_rows("id=?", (corr_id,), with_disputed=True)
+        return rows[0] if rows else None
+
+    def corrections_for_msg_all(self, msg_id: int) -> list[dict]:
+        return self._corr_rows("msg_id=?", (msg_id,), with_disputed=True)
+
+    def corrections_for_ex(self, user_id: int, ex_id: int, n: int) -> list[dict]:
+        return [c for c in self._corr_rows("user_id=? AND msg_id IS NULL", (user_id,), with_disputed=True)
+                if c.get("ex_id") == ex_id and c.get("n") == n]
+
+    def set_disputed(self, corr_id: int, disputed: bool, data: dict | None = None) -> None:
+        if data is not None:
+            clean = {k: v for k, v in data.items() if not k.startswith("_") or k == "_restored"}
+            self.conn.execute("UPDATE corrections SET disputed=?, data=? WHERE id=?",
+                              (int(disputed), json.dumps(clean, ensure_ascii=False), corr_id))
+        else:
+            self.conn.execute("UPDATE corrections SET disputed=? WHERE id=?", (int(disputed), corr_id))
+        self.conn.commit()
+
+    # ---------- исключения («🙅 Не ошибка») ----------
+
+    def ignores(self, user_id: int) -> list:
+        return self.conn.execute("SELECT * FROM ignores WHERE user_id=? ORDER BY id", (user_id,)).fetchall()
+
+    def ignore_add(self, user_id: int, original: str, correct: str) -> None:
+        o, c = original.strip(), correct.strip()
+        if not o or not c:
+            return
+        have = {(r["original"].lower(), r["correct"].lower()) for r in self.ignores(user_id)}
+        if (o.lower(), c.lower()) not in have:
+            self.conn.execute("INSERT INTO ignores(user_id, original, correct, created_at) VALUES (?,?,?,?)",
+                              (user_id, o, c, self.clock()))
+            self.conn.commit()
+
+    def ignore_remove(self, user_id: int, ignore_id: int | None = None, pair: tuple[str, str] | None = None) -> None:
+        if ignore_id is not None:
+            self.conn.execute("DELETE FROM ignores WHERE user_id=? AND id=?", (user_id, ignore_id))
+        elif pair:
+            self.conn.execute("DELETE FROM ignores WHERE user_id=? AND lower(original)=? AND lower(correct)=?",
+                              (user_id, pair[0].strip().lower(), pair[1].strip().lower()))
+        self.conn.commit()
 
     def corrections_since(self, user_id: int, since: float) -> list[dict]:
         return self._corr_rows("user_id=? AND created_at>=?", (user_id, since))

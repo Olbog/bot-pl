@@ -33,6 +33,7 @@ EX_REUSE = 3                  # сколько пунктов с прошлым�
 AUTO = object()               # show(): предыдущий шаг определить автоматически
 SET_MENU = {"step": "set_menu"}   # «Назад» → меню /set
 DICT_MENU = {"step": "dict_menu"}  # «Назад» → словарь /dict
+IGNORE_PROMPT = 30            # сколько последних исключений «🙅 Не ошибка» подсказывать модели
 EX_PRESENT_ONLY = True        # упражнения только в настоящем времени (пока ученик знает только его)
 EX_EXPLAIN_ALL = True         # объяснять каждый пункт, кроме помеченных «!» (уверен)
 EX_TOP_ERRORS = 8             # сколько правил показывать в «Из моих ошибок»
@@ -96,6 +97,7 @@ class App:
         session = self.db.current_session(user_id)
         history = self.db.history(session, self.cfg.history_limit)
         extra, targets = self.training_context(user_id)
+        extra = (extra + "\n\n" + self.ignore_block(user_id)).strip()
         await self.tg.send_action(chat_id, "typing")
         try:
             audio = await self.tg.download_file(voice["file_id"]) if voice else None
@@ -113,10 +115,11 @@ class App:
         if opening:
             turn.user_text = turn.corrected_pl = ""
             turn.corrections, turn.new_words = [], []
+        turn.corrections = self.drop_ignored(user_id, turn.corrections)
         for c in turn.corrections:
             c["rule"] = rules.normalize(c.get("rule"))
         msg_id = self.db.save_turn(session, user_id, user_text, turn.reply_pl, turn.corrections, turn.new_words)
-        uses, newly_mastered = self.apply_target_uses(user_id, targets, turn.target_uses)
+        uses, newly_mastered = self.apply_target_uses(user_id, targets, turn.target_uses, msg_id)
         await self.tg.send_message(
             chat_id,
             fmt.turn_message(turn, from_voice=bool(voice), show_model=self.cfg.show_model,
@@ -172,7 +175,8 @@ class App:
         due = [w for w in self.db.mastered_words(user_id) if training.due_for_review(w, now)][:5]
         return training.review_block(due), {w["pl"].lower(): w for w in due}
 
-    def apply_target_uses(self, user_id: int, targets: dict, uses: list[dict]) -> tuple[list, list]:
+    def apply_target_uses(self, user_id: int, targets: dict, uses: list[dict],
+                          msg_id: int | None = None) -> tuple[list, list]:
         shown, newly = [], []
         day, now = self.today(), self.clock()
         seen: set[tuple] = set()
@@ -184,7 +188,7 @@ class App:
             if not w or key in seen:
                 continue
             seen.add(key)
-            self.db.add_use(w["id"], user_id, form, ok, day)
+            self.db.add_use(w["id"], user_id, form, ok, day, msg_id=msg_id)
             shown.append((w["pl"], form, ok))
             if w["mastered_at"] is not None:  # повторение освоенного слова
                 if ok:
@@ -523,6 +527,113 @@ class App:
                     await self.tg.send_message(chat_id, fmt.rules_message(data))
             await self.converse(chat_id, user_id, text=START_TEXT)
 
+    # ---------- 🙅 Не ошибка: оспоренные исправления и исключения ----------
+
+    def ignore_block(self, user_id: int) -> str:
+        rows = self.db.ignores(user_id)[-IGNORE_PROMPT:]
+        if not rows:
+            return ""
+        return ("ИСКЛЮЧЕНИЯ: ученик подтвердил, что эти слова говорит и пишет правильно, а раньше их ошибочно "
+                "записали или исправили. Не записывай их в искажённом виде и не считай ошибкой:\n"
+                + "\n".join(f"- он говорит «{r['correct']}» (не «{r['original']}»)" for r in rows))
+
+    def drop_ignored(self, user_id: int, corrections: list[dict]) -> list[dict]:
+        """Убирает исправления, которые ученик раньше отметил «🙅 Не ошибка» (та же пара «было → стало»)."""
+        pairs = {(exercises.norm(r["original"]), exercises.norm(r["correct"])) for r in self.db.ignores(user_id)}
+        return [c for c in corrections
+                if (exercises.norm(c.get("original", "")), exercises.norm(c.get("correct", ""))) not in pairs]
+
+    async def dispute_show(self, chat_id: int, user_id: int, msg_id: int, message_id: int | None = None) -> None:
+        corrs = self.db.corrections_for_msg_all(msg_id)
+        if not corrs or corrs[0]["_user"] != user_id:
+            await self.tg.send_message(chat_id, "В этом сообщении нет исправлений.")
+            return
+        text, buttons = fmt.dispute_screen(corrs, msg_id)
+        if message_id:
+            await self.tg.edit_message(chat_id, message_id, text, buttons)
+        else:
+            await self.tg.send_message(chat_id, text, buttons)
+
+    def dispute_toggle(self, user_id: int, c: dict) -> None:
+        """Оспорить исправление разговора или вернуть его. Серия слов набора, сброшенная этим сообщением,
+        восстанавливается (только для сообщений, где отметки слов привязаны к сообщению)."""
+        on = not c["_disputed"]
+        pair = (c.get("original", ""), c.get("correct", ""))
+        if on:
+            restored = []
+            if c.get("_msg"):
+                others_left = [x for x in self.db.corrections_for_msg_all(c["_msg"])
+                               if not x["_disputed"] and x["_id"] != c["_id"]]
+                keys = {exercises.norm(pair[0]), exercises.norm(pair[1])}
+                for u in self.db.uses_for_msg(c["_msg"]):
+                    if not u["correct"] and (exercises.norm(u["form"]) in keys or not others_left):
+                        self.db.set_use_correct(u["id"], True)
+                        restored.append(u["id"])
+            self.db.set_disputed(c["_id"], True, {**c, "_restored": restored})
+            self.db.ignore_add(user_id, *pair)
+        else:
+            for uid in c.get("_restored") or []:
+                self.db.set_use_correct(uid, False)
+            self.db.set_disputed(c["_id"], False, {**c, "_restored": []})
+            self.db.ignore_remove(user_id, pair=pair)
+
+    async def dispute_callback(self, chat_id: int, user_id: int, message_id: int, arg: str) -> None:
+        if arg.startswith("t:"):
+            c = self.db.correction(int(arg[2:]))
+            if not c or c["_user"] != user_id or not c.get("_msg"):
+                return
+            self.dispute_toggle(user_id, c)
+            await self.dispute_show(chat_id, user_id, c["_msg"], message_id)
+        elif arg.startswith("ok:"):
+            corrs = [c for c in self.db.corrections_for_msg_all(int(arg[3:])) if c["_user"] == user_id]
+            n = sum(c["_disputed"] for c in corrs)
+            await self.tg.edit_message(chat_id, message_id, fmt.dispute_done(n))
+        elif arg.isdigit():
+            await self.dispute_show(chat_id, user_id, int(arg))
+
+    async def ex_dispute(self, chat_id: int, user_id: int, message_id: int, action: str) -> None:
+        """Оспорить пункт упражнения: x:dp:<ex> — список, x:dt:<ex>:<n> — переключить, x:dok:<ex> — готово."""
+        kind, _, rest = action.partition(":")
+        ex_id, _, n = rest.partition(":")
+        saved = self.db.ex_get(int(ex_id))
+        if not saved or saved["user_id"] != user_id or not saved["results"]:
+            return
+        results = saved["results"]
+        if kind == "dt":
+            r = results[int(n) - 1]
+            it = saved["items"][r["n"] - 1]
+            pair = (r.get("heard") or r.get("user") or "", it.get("answer", ""))
+            if exercises.norm(pair[0]) == exercises.norm(pair[1]):  # ответ верный (спорили о рассуждении)
+                pair = ("", "")
+            on = not r.get("disputed")
+            if on and r["final"] != "wrong":
+                return
+            r["disputed"] = on
+            if on:
+                r["final_before"], r["final"] = r["final"], "ok"
+                self.db.ignore_add(user_id, *pair)
+            else:
+                r["final"] = r.pop("final_before", "wrong")
+                self.db.ignore_remove(user_id, pair=pair)
+            for c in self.db.corrections_for_ex(user_id, saved["id"], r["n"]):
+                self.db.set_disputed(c["_id"], on)
+            self.db.ex_save_results(saved["id"], results)
+        if kind == "dok":
+            await self.tg.edit_message(chat_id, message_id, fmt.ex_dispute_done(saved))
+            return
+        text, buttons = fmt.ex_dispute_screen(saved)
+        if kind == "dp":
+            await self.tg.send_message(chat_id, text, buttons)
+        else:
+            await self.tg.edit_message(chat_id, message_id, text, buttons)
+
+    async def ignores_show(self, chat_id: int, user_id: int, message_id: int | None = None) -> None:
+        text, buttons = fmt.ignores_screen(self.db.ignores(user_id))
+        if message_id:
+            await self.tg.edit_message(chat_id, message_id, text, buttons)
+        else:
+            await self.tg.send_message(chat_id, text, buttons)
+
     # ---------- навигация: ⬅️ Назад / ✖️ Отмена ----------
 
     async def show(self, chat_id: int, user_id: int, pending: dict, text: str,
@@ -652,6 +763,13 @@ class App:
         elif data == "dn:own":
             await self.show(chat_id, user_id, {"step": "dict_own"},
                             "Пришли выражения через запятую — по-польски или по-русски.", prev=DICT_MENU)
+        elif data.startswith("nd:"):
+            await self.dispute_callback(chat_id, user_id, message_id, data[3:])
+        elif data == "ig:list":
+            await self.ignores_show(chat_id, user_id)
+        elif data.startswith("ig:rm:"):
+            self.db.ignore_remove(user_id, int(data[6:]))
+            await self.ignores_show(chat_id, user_id, message_id)
         elif data.startswith("i:"):
             code = data[2:]
             if code == "dict":
@@ -793,7 +911,9 @@ class App:
                 return  # кнопка из прошлого шага или повторное нажатие — игнорируем
         if action.startswith("r:") and step not in ("ex_rules",):
             return
-        if action == "menu":
+        if action.startswith(("dp:", "dt:", "dok:")):
+            await self.ex_dispute(chat_id, user_id, message_id, action)
+        elif action == "menu":
             await self.ex_menu(chat_id, user_id)
         elif action.startswith("k:"):
             kind = action[2:]
@@ -1049,6 +1169,8 @@ class App:
         if todo:
             prompt = check_prompt([(r["n"], items[r["n"] - 1], r["user"], r["unsure"], r.get("note", "")) for r in todo],
                                   self.cfg.level, voice=bool(voice), topics=saved.get("topics"))
+            if voice and self.ignore_block(user_id):
+                prompt = self.ignore_block(user_id) + "\n\n" + prompt
             data = await self.ask(chat_id, prompt, CHECK_SCHEMA, CHECK_HINT,
                                   wait=f"⏳ Проверяю упражнение #{saved['id']}…", audio=audio)
             if data is None:
@@ -1101,7 +1223,8 @@ class App:
                 wrong.append({"kind": "grammar", "original": original,
                               "correct": it.get("answer", ""), "translit": it.get("translit", ""),
                               "ru": it.get("ru", ""), "why": why,
-                              "rule": rules.normalize(it.get("rule")), "source": "упражнение"})
+                              "rule": rules.normalize(it.get("rule")), "source": "упражнение",
+                              "ex_id": saved["id"], "n": r["n"]})
         if wrong:
             self.db.add_corrections(session, user_id, wrong)
         active = self.db.active_set(user_id)

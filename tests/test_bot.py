@@ -1416,3 +1416,68 @@ def test_test_options_shuffled_in_code():
     assert len(set(pos)) > 1                                    # правильный ответ не всегда под «a»
     run(app.handle(msg(text=answers_all(app, test=True, sure="all"))))
     assert "10 из 10" in app.tg.sent[-1]                        # проверка идёт по тексту варианта
+
+
+# ---------- 🙅 Не ошибка ----------
+
+def test_dispute_conversation_correction_and_ignore_list():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    run(app.handle(msg(text="x")))
+    assert "nd:" in str(app.tg.buttons[-1])
+    msg_id = app.db.corrections_since(42, 0)[0]["_msg"]
+    run(app.on_callback(cb(f"nd:{msg_id}")))
+    assert "☐ w sklep → w sklepie" in str(app.tg.buttons[-1])
+    cid = app.db.corrections_for_msg_all(msg_id)[0]["_id"]
+    run(app.on_callback(cb(f"nd:t:{cid}")))
+    assert "✅ w sklep → w sklepie" in str(app.tg.edits[-1][1])
+    assert app.db.corrections_since(42, 0) == []                  # ушло из пула (итоги, наборы, упражнения)
+    assert [(r["original"], r["correct"]) for r in app.db.ignores(42)] == [("w sklep", "w sklepie")]
+    run(app.on_callback(cb(f"nd:ok:{msg_id}")))
+    assert "Не ошибка: 1" in app.tg.edits[-1][0]
+    run(app.handle(msg(text="y")))                               # модель снова «исправила» так же
+    assert "ИСКЛЮЧЕНИЯ" in gem.extras[-1] and "«w sklepie» (не «w sklep»)" in gem.extras[-1]
+    assert "w sklep" not in app.tg.sent[-1].split("✔️")[0] and app.db.corrections_since(42, 0) == []
+    # список исключений в /dict и удаление пары
+    run(app.handle(msg(text="/dict")))
+    run(app.on_callback(cb("ig:list")))
+    assert "w sklep → w sklepie" in app.tg.sent[-1]
+    run(app.on_callback(cb(f"ig:rm:{app.db.ignores(42)[0]['id']}")))
+    assert app.db.ignores(42) == [] and "пуст" in app.tg.edits[-1][0]
+
+
+def test_dispute_undo_and_set_streak_restored():
+    t = {**TURN_JSON, "corrections": [{**TURN_JSON["corrections"][0], "original": "czasta", "correct": "ciasta"}],
+         "target_uses": [{"lemma": "ciasto", "form": "ciasta", "correct": False}]}
+    gem = FakeGemini(turn=t)
+    app = make_app(gem=gem)
+    start_set(app)
+    run(app.handle(msg(text="Lubię czasta")))
+    w = [x for x in app.db.set_words(app.db.active_set(42)["id"]) if x["pl"] == "ciasto"][0]
+    before = len([u for u in app.db.word_uses(w["id"]) if not u["correct"]])
+    assert before >= 1
+    msg_id = app.db.corrections_since(42, 0)[-1]["_msg"]
+    cid = app.db.corrections_for_msg_all(msg_id)[0]["_id"]
+    run(app.on_callback(cb(f"nd:t:{cid}")))
+    assert len([u for u in app.db.word_uses(w["id"]) if not u["correct"]]) == before - 1   # серия восстановлена
+    run(app.on_callback(cb(f"nd:t:{cid}")))                      # передумал — всё как было
+    assert len([u for u in app.db.word_uses(w["id"]) if not u["correct"]]) == before
+    assert app.db.ignores(42) == [] and len(app.db.corrections_for_msg(msg_id)) == 1
+
+
+def test_dispute_exercise_item():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix", "x:n:1")
+    ex_id = app.db.get_state(42)["pending"]["ex"]["ex_id"]
+    run(app.handle(msg(text=answers_all(app, wrong=(2,)))))
+    assert "9 из 10" in app.tg.sent[-1] and f"x:dp:{ex_id}" in str(app.tg.buttons[-1])
+    assert len(app.db.corrections_since(42, 0)) == 1
+    run(app.on_callback(cb(f"x:dp:{ex_id}")))
+    assert "☐ 2. zle2" in str(app.tg.buttons[-1]) and "x:dt" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb(f"x:dt:{ex_id}:2")))
+    assert app.db.corrections_since(42, 0) == []                 # ушло из ошибок
+    assert app.db.ex_review_items(42, 10) == []                  # и с повтора
+    assert app.db.ignores(42)[0]["original"] == "zle2"
+    run(app.on_callback(cb(f"x:dok:{ex_id}")))
+    assert "пункты 2" in app.tg.edits[-1][0] and "10 из 10" in app.tg.edits[-1][0]
