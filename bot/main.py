@@ -1014,6 +1014,9 @@ class App:
             fresh.append(it)
         items = (fresh[:10 - len(reuse)] + reuse)
         random.shuffle(items)
+        if f == "test":  # модель почти всегда ставит правильный вариант первым — перемешиваем сами
+            for it in items:
+                it["options"] = random.sample(it["options"], len(it["options"]))
         for it in items:
             it.setdefault("_key", exercises.norm_sentence(it.get("full_pl") or it.get("q", "")))
         if not items:

@@ -1406,3 +1406,13 @@ def test_send_message_falls_back_to_plain_and_keeps_buttons_on_last():
     assert len(plain_sent) == 1 and plain_sent[0].endswith("BAD x\n\nend") and "<" not in plain_sent[0]
     assert "reply_markup" in calls[-1] and "end" in calls[-1]["text"]
     assert "reply_markup" not in calls[0]                        # кнопки — только под последним куском
+
+
+def test_test_options_shuffled_in_code():
+    app = make_app()
+    ex_flow(app, "x:k:grammar", "x:f:test", "x:t:mix", "x:n:1")
+    ex = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+    pos = [it["options"].index(it["answer"]) for it in ex["items"]]
+    assert len(set(pos)) > 1                                    # правильный ответ не всегда под «a»
+    run(app.handle(msg(text=answers_all(app, test=True, sure="all"))))
+    assert "10 из 10" in app.tg.sent[-1]                        # проверка идёт по тексту варианта
