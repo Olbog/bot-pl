@@ -515,6 +515,8 @@ def ex_results(ex: dict, results: list[dict]) -> str:
     ok = sum(1 for r in results if r["final"] in ("ok", "unsure"))
     lines = [f"📊 <b>{ok} из {len(results)}</b> · #{ex['id']} — {e(ex['title'])}", ""]
     for r in results:
+        if r["n"] > 1:
+            lines.append("")  # пустая строка между пунктами: длинный разбор режется по пунктам, а не посреди
         it = ex["items"][r["n"] - 1]
         right = it.get("answer", "")
         user = r.get("heard") or r.get("user") or "—"

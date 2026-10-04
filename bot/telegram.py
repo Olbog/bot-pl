@@ -1,5 +1,55 @@
 """Минимальный клиент Telegram Bot API на httpx (long polling)."""
+import html
+import re
+
 import httpx
+
+LIMIT = 3500  # лимит Telegram — 4096 символов (эмодзи считаются за 2), берём с запасом
+TAG_RE = re.compile(r"<[^>]+>")
+
+
+def plain(text: str) -> str:
+    """HTML → обычный текст: без тегов, сущности раскрыты."""
+    return html.unescape(TAG_RE.sub("", text))
+
+
+def split_html(text: str, limit: int = LIMIT) -> list[tuple[str, bool]]:
+    """Режет длинный текст на куски ≤ limit, не разрывая HTML-теги: сначала по пустым строкам (абзацы,
+    пункты разбора), потом по строкам. Строку длиннее limit режет по пробелам и отправляет без оформления.
+    Возвращает [(кусок, это_html)]."""
+    if len(text) <= limit:
+        return [(text, True)]
+    pieces: list[tuple[str, bool, str]] = []  # (текст, html, разделитель перед ним)
+    for para in text.split("\n\n"):
+        if len(para) <= limit:
+            pieces.append((para, True, "\n\n"))
+            continue
+        for k, line in enumerate(para.split("\n")):
+            sep = "\n\n" if k == 0 else "\n"
+            if len(line) <= limit:
+                pieces.append((line, True, sep))
+                continue
+            rest = plain(line)
+            while rest:
+                cut = len(rest) if len(rest) <= limit else (rest.rfind(" ", 0, limit) if rest.rfind(" ", 0, limit) > 0 else limit)
+                pieces.append((rest[:cut], False, sep))
+                sep = " "
+                rest = rest[cut:].lstrip()
+    chunks: list[tuple[str, bool]] = []
+    for piece, is_html, sep in pieces:
+        if chunks and chunks[-1][1] == is_html and len(chunks[-1][0]) + len(sep) + len(piece) <= limit:
+            chunks[-1] = (chunks[-1][0] + sep + piece, is_html)
+        else:
+            chunks.append((piece, is_html))
+    return [(c, h) for c, h in chunks if c.strip()]
+
+
+def fit(text: str, limit: int = LIMIT) -> str:
+    """Для редактирования (одно сообщение): обрезать по целой строке."""
+    if len(text) <= limit:
+        return text
+    cut = text.rfind("\n", 0, limit - 2)
+    return text[:cut if cut > 0 else 0].rstrip() + "\n…"
 
 
 class TelegramError(Exception):
@@ -30,26 +80,38 @@ class Telegram:
         return await self.call("getUpdates", **params)
 
     async def send_message(self, chat_id: int, text: str, buttons: list[list[tuple[str, str]]] | None = None):
-        """buttons — ряды инлайн-кнопок [(текст, callback_data)]; крепятся к последнему куску."""
-        # Лимит Telegram — 4096 символов, режем с запасом.
-        chunks = [text[i:i + 4000] for i in range(0, len(text), 4000)] or [""]
+        """buttons — ряды инлайн-кнопок [(текст, callback_data)]; крепятся к последнему куску.
+        Длинный текст режется по абзацам и строкам; кусок, который Telegram не принял из-за разметки,
+        уходит обычным текстом — ничего не теряется."""
+        chunks = split_html(text or "") or [("", True)]
         result = None
-        for n, chunk in enumerate(chunks):
-            params = {"chat_id": chat_id, "text": chunk, "parse_mode": "HTML", "disable_web_page_preview": True}
+        for n, (chunk, is_html) in enumerate(chunks):
+            params = {"chat_id": chat_id, "disable_web_page_preview": True}
             if buttons and n == len(chunks) - 1:
                 params["reply_markup"] = markup(buttons)
-            result = await self.call("sendMessage", **params)
+            try:
+                if not is_html:
+                    raise TelegramError("plain")
+                result = await self.call("sendMessage", text=chunk, parse_mode="HTML", **params)
+            except TelegramError as e:
+                if is_html and "parse" not in str(e).lower() and "entit" not in str(e).lower():
+                    raise
+                result = await self.call("sendMessage", text=plain(chunk) if is_html else chunk, **params)
         return result
 
     async def edit_message(self, chat_id: int, message_id: int, text: str,
                            buttons: list[list[tuple[str, str]]] | None = None) -> None:
-        params = {"chat_id": chat_id, "message_id": message_id, "text": text[:4000], "parse_mode": "HTML",
+        params = {"chat_id": chat_id, "message_id": message_id, "text": fit(text), "parse_mode": "HTML",
                   "disable_web_page_preview": True, "reply_markup": markup(buttons or [])}
         try:
             await self.call("editMessageText", **params)
         except TelegramError as e:
-            if "not modified" not in str(e):
+            if "not modified" in str(e):
+                return
+            if "parse" not in str(e).lower() and "entit" not in str(e).lower():
                 raise
+            params.pop("parse_mode")
+            await self.call("editMessageText", **{**params, "text": plain(params["text"])})
 
     async def edit_markup(self, chat_id: int, message_id: int,
                           buttons: list[list[tuple[str, str]]] | None = None) -> None:

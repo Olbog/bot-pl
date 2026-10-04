@@ -1366,3 +1366,43 @@ def test_voice_note_after_word_utochnenie():
     assert "«уточнение»" in gem.prompts[-1] and "пункт N" in gem.prompts[-1]
     res = app.tg.sent[-1]
     assert "9 из 10" in res and "💭 «это винительный, потому что widzę» — ❌ не так" in res
+
+
+# ---------- длинные сообщения ----------
+
+from bot import telegram as tg_mod  # noqa: E402
+
+
+def test_split_html_keeps_tags_and_items_whole():
+    items = [f"✅ {i}. <b>słowo{i}</b> — <i>{'объяснение ' * 40}</i>\n    🔤 <b>x</b>" for i in range(1, 11)]
+    text = "📊 <b>9 из 10</b>\n\n" + "\n\n".join(items)
+    chunks = tg_mod.split_html(text, 1500)
+    assert len(chunks) > 1 and all(len(c) <= 1500 and h for c, h in chunks)
+    for c, _ in chunks:
+        assert c.count("<i>") == c.count("</i>") and c.count("<b>") == c.count("</b>")
+    joined = "\n\n".join(c for c, _ in chunks)
+    assert all(it in joined for it in items)                      # ни один пункт не потерян и не разрезан
+    huge = "<i>" + "слово " * 1000 + "</i>"                       # одна строка длиннее лимита — без разметки
+    parts = tg_mod.split_html(huge, 1500)
+    assert all(not h and "<i>" not in c and len(c) <= 1500 for c, h in parts)
+    assert sum(len(c.split()) for c, _ in parts) == 1000
+    assert tg_mod.fit("a\n" * 3000, 100).endswith("…") and len(tg_mod.fit("a\n" * 3000, 100)) <= 100
+
+
+def test_send_message_falls_back_to_plain_and_keeps_buttons_on_last():
+    t = tg_mod.Telegram("x")
+    calls = []
+
+    async def fake_call(method, **params):
+        calls.append(params)
+        if params.get("parse_mode") and "BAD" in params["text"]:
+            raise tg_mod.TelegramError("sendMessage: Bad Request: can't parse entities")
+        return {"message_id": len(calls)}
+    t.call = fake_call
+    text = "<b>start</b>\n\n" + "\n\n".join(["<i>" + "a" * 2000 + "</i>", "<i>" + "b" * 2000 + "</i>", "BAD <i>x", "<b>end</b>"])
+    run(t.send_message(1, text, [[("ok", "x")]]))
+    assert any(c["text"].startswith("<b>start</b>") and c.get("parse_mode") for c in calls)   # первый — с разметкой
+    plain_sent = [c["text"] for c in calls if not c.get("parse_mode")]
+    assert len(plain_sent) == 1 and plain_sent[0].endswith("BAD x\n\nend") and "<" not in plain_sent[0]
+    assert "reply_markup" in calls[-1] and "end" in calls[-1]["text"]
+    assert "reply_markup" not in calls[0]                        # кнопки — только под последним куском
