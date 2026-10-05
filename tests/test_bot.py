@@ -1481,3 +1481,62 @@ def test_dispute_exercise_item():
     assert app.db.ignores(42)[0]["original"] == "zle2"
     run(app.on_callback(cb(f"x:dok:{ex_id}")))
     assert "пункты 2" in app.tg.edits[-1][0] and "10 из 10" in app.tg.edits[-1][0]
+
+
+
+# ---------- интерактивный тест: кнопки a / b / c ----------
+
+def quiz_state(app):
+    return app.db.get_state(42)["pending"]["ex"]
+
+
+def test_quiz_buttons_pick_notes_and_check():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:test", "x:t:mix", "x:n:1")
+    ex = quiz_state(app)
+    ex_id, msg_id = ex["ex_id"], ex["quiz"]["msg"]
+    assert "Упражнение 1/1" in app.tg.sent[-1] and "a) " in app.tg.sent[-1]       # одно сообщение
+    kb = app.tg.buttons[-1]
+    assert kb[0] == [("1 a", f"x:a:{ex_id}:1:a"), ("1 b", f"x:a:{ex_id}:1:b"), ("1 c", f"x:a:{ex_id}:1:c"),
+                     ("1 !", f"x:a:{ex_id}:1:!")]
+    assert len(kb) == 12 and "Проверить (0/10)" in str(kb[10])
+    saved = app.db.ex_get(ex_id)
+    run(app.on_callback(cb(f"x:go:{ex_id}")))
+    assert app.tg.toasts[-1] == "Отмечено 0 из 10 — выбери остальные" and not app.db.ex_get(ex_id)["results"]
+    right = ["abcd"[it["options"].index(it["answer"])] for it in saved["items"]]
+    wrong2 = "a" if right[1] != "a" else "b"
+    run(app.on_callback(cb(f"x:a:{ex_id}:2:{wrong2}")))
+    assert app.tg.markups[-1][0] == msg_id and f"✅2{wrong2}" in str(app.tg.markups[-1][1])
+    for n, L in enumerate(right, 1):                             # передумал по пункту 2 — выбрал верный
+        run(app.on_callback(cb(f"x:a:{ex_id}:{n}:{L}")))
+    assert f"✅2{right[1]}" in str(app.tg.markups[-1][1]) and "Проверить (10/10)" in str(app.tg.markups[-1][1])
+    run(app.on_callback(cb(f"x:a:{ex_id}:3:!")))                 # уверен — не объяснять
+    assert "❗3" in str(app.tg.markups[-1][1])
+    run(app.handle(msg(text="4 (почему тут винительный?)")))     # уточнение текстом до проверки
+    assert "Уточнение к пункту 4" in app.tg.sent[-1] and "💭 <i>почему тут винительный?</i>" in app.tg.edits[-1][0]
+    n_before = len(gem.prompts)
+    run(app.on_callback(cb(f"x:go:{ex_id}")))
+    res = app.db.ex_get(ex_id)["results"]
+    assert res and all(r["final"] == "ok" for r in res)
+    p = gem.prompts[-1]
+    assert len(gem.prompts) == n_before + 1 and "уточнение ученика: «почему тут винительный?»" in p
+    assert "\n3. Задание" not in p                               # «!» — без объяснения
+    assert "10 из 10" in app.tg.sent[-1]
+    assert "Проверить" not in str(app.tg.markups[-1][1]) and "✅1" in str(app.tg.markups[-1][1])   # выбор виден
+    run(app.on_callback(cb(f"x:a:{ex_id}:1:a")))                 # кнопки после проверки не работают
+    assert "уже проверено" in app.tg.toasts[-1]
+
+
+def test_quiz_text_answer_merges_with_buttons():
+    app = make_app()
+    ex_flow(app, "x:k:grammar", "x:f:test", "x:t:mix", "x:n:1")
+    ex_id = quiz_state(app)["ex_id"]
+    saved = app.db.ex_get(ex_id)
+    right = ["abcd"[it["options"].index(it["answer"])] for it in saved["items"]]
+    for n, L in enumerate(right[:9], 1):
+        run(app.on_callback(cb(f"x:a:{ex_id}:{n}:{L}")))
+    run(app.handle(msg(text="непонятно что")))                   # без номера — не проверяем полтеста
+    assert "Не понял" in app.tg.sent[-1] and not app.db.ex_get(ex_id)["results"]
+    run(app.handle(msg(text=f"10{right[9]}")))                    # последний пункт текстом
+    assert "10 из 10" in app.tg.sent[-1]

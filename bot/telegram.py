@@ -1,4 +1,5 @@
 """Минимальный клиент Telegram Bot API на httpx (long polling)."""
+import asyncio
 import html
 import re
 
@@ -63,15 +64,24 @@ class Telegram:
         self.client = client or httpx.AsyncClient(timeout=70)
 
     async def call(self, method: str, **params):
+        """Запрос к Bot API. Если Telegram просит подождать (429 — много сообщений подряд), ждём и повторяем."""
+        for _ in range(4):
+            data = await self._call_once(method, dict(params))
+            retry = (data.get("parameters") or {}).get("retry_after")
+            if data.get("ok") or not retry:
+                break
+            await asyncio.sleep(min(float(retry), 30) + 0.5)
+        if not data.get("ok"):
+            raise TelegramError(f"{method}: {data.get('description')}")
+        return data["result"]
+
+    async def _call_once(self, method: str, params: dict) -> dict:
         files = params.pop("_files", None)
         if files:
             resp = await self.client.post(f"{self.base}/{method}", data=params, files=files)
         else:
             resp = await self.client.post(f"{self.base}/{method}", json=params)
-        data = resp.json()
-        if not data.get("ok"):
-            raise TelegramError(f"{method}: {data.get('description')}")
-        return data["result"]
+        return resp.json()
 
     async def get_updates(self, offset: int | None, timeout: int = 50) -> list[dict]:
         params = {"timeout": timeout, "allowed_updates": ["message", "callback_query"]}

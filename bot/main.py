@@ -34,6 +34,7 @@ AUTO = object()               # show(): предыдущий шаг опреде
 SET_MENU = {"step": "set_menu"}   # «Назад» → меню /set
 DICT_MENU = {"step": "dict_menu"}  # «Назад» → словарь /dict
 IGNORE_PROMPT = 30            # сколько последних исключений «🙅 Не ошибка» подсказывать модели
+EX_QUIZ_BUTTONS = True        # тест: кнопки a / b / c под сообщением упражнения, по строке на пункт
 EX_PRESENT_ONLY = True        # упражнения только в настоящем времени (пока ученик знает только его)
 EX_EXPLAIN_ALL = True         # объяснять каждый пункт, кроме помеченных «!» (уверен)
 EX_TOP_ERRORS = 8             # сколько правил показывать в «Из моих ошибок»
@@ -699,6 +700,9 @@ class App:
             return
         state = self.db.get_state(user_id)
         pending = state["pending"]
+        if data.startswith(("x:a:", "x:go:")):  # интерактивный тест: всплывашка вместо сообщения
+            await self.tg.answer_callback(cq["id"], await self.ex_quiz_tap(chat_id, user_id, pending, data))
+            return
         if data.startswith("nav:"):
             await self.tg.answer_callback(cq["id"], await self.nav(chat_id, user_id, message_id, pending, data[4:]))
             return
@@ -1056,7 +1060,11 @@ class App:
             return
         ex = dict((pending or {}).get("ex") or {})
         if ex.get("ex_id") != saved["id"]:
-            ex = {**ex, "ex_id": saved["id"]}
+            ex = {k: v for k, v in ex.items() if k != "quiz"}
+            ex["ex_id"] = saved["id"]
+        elif ex.get("quiz") and text:  # «Ответить» на шапку интерактивного теста — как обычный текст
+            if await self.ex_input(chat_id, user_id, {"step": "ex_answer", "ex": ex}, text, None):
+                return
         await self.ex_check(chat_id, user_id, ex, text, voice)
 
     async def ex_input(self, chat_id: int, user_id: int, pending: dict, text: str, voice: dict | None,
@@ -1080,6 +1088,15 @@ class App:
         if step == "ex_count" and text and text.strip().isdigit():
             await self.ex_start(chat_id, user_id, ex, int(text.strip()))
             return True
+        if step == "ex_answer" and text and ex.get("quiz"):
+            parsed = exercises.parse_answers(text, 10)
+            if parsed and all(not a["answer"] and a.get("note") for a in parsed.values()):
+                await self.ex_quiz_notes(chat_id, user_id, ex, {n: a["note"] for n, a in parsed.items()})
+                return True
+            if not parsed:  # ни номеров, ни ответов — не проверяем наполовину нажатый тест
+                await self.tg.send_message(chat_id, "Не понял, к какому пункту. Уточнение — с номером: "
+                                                     "«2 (почему не …?)», ответы — кнопками a / b / c.")
+                return True
         if step == "ex_answer" and (text or voice):
             saved = self.db.ex_get(ex.get("ex_id", 0))
             if saved and sent_at and sent_at < saved["created_at"] - 1:
@@ -1147,23 +1164,97 @@ class App:
         ex = {**ex, "ex_id": ex_id, "left": ex["left"] - 1}
         self.db.set_pending(user_id, {"step": "ex_answer", "ex": ex})
         saved = self.db.ex_get(ex_id)
+        if f == "test" and kind != "voice" and EX_QUIZ_BUTTONS:
+            await self.ex_send_quiz(chat_id, user_id, ex, saved, idx)
+            return
         sent = await self.tg.send_message(chat_id, fmt.ex_message(saved, idx, ex["total"], kind == "voice"),
                                           [[("✖️ Закончить без проверки", "nav:c:ex_answer")]])
         if sent and sent.get("message_id"):
             self.db.ex_set_tg_msg(ex_id, sent["message_id"])
 
-    async def ex_check(self, chat_id: int, user_id: int, ex: dict, text: str | None, voice: dict | None) -> None:
+    # ---------- интерактивный тест: кнопки a / b / c под каждым пунктом ----------
+
+    async def ex_send_quiz(self, chat_id: int, user_id: int, ex: dict, saved: dict, idx: int) -> None:
+        """Одно сообщение с упражнением, под ним кнопки a / b / c по строке на пункт. Выбор хранится в pending."""
+        sent = await self.tg.send_message(chat_id, fmt.ex_message(saved, idx, ex["total"], False, quiz=True),
+                                          fmt.ex_quiz_keyboard(saved, {}, []))
+        msg = (sent or {}).get("message_id")
+        if msg:
+            self.db.ex_set_tg_msg(saved["id"], msg)
+        ex = {**ex, "quiz": {"msg": msg, "idx": idx, "pick": {}, "sure": [], "notes": {}}}
+        self.db.set_pending(user_id, {"step": "ex_answer", "ex": ex})
+
+    async def ex_quiz_tap(self, chat_id: int, user_id: int, pending: dict | None, data: str) -> str | None:
+        """x:a:<ex>:<n>:<a|b|c|!> — выбрать вариант / «уверен»; x:go:<ex> — проверить. Возвращает всплывашку."""
+        ex = dict((pending or {}).get("ex") or {})
+        parts = data.split(":")
+        ex_id = int(parts[2])
+        quiz = ex.get("quiz")
+        if (pending or {}).get("step") != "ex_answer" or ex.get("ex_id") != ex_id or not quiz:
+            return "Это упражнение уже проверено или закрыто"
+        saved = self.db.ex_get(ex_id)
+        total = len(saved["items"])
+        if parts[1] == "go":
+            picked = len(quiz["pick"])
+            if picked < total:
+                return f"Отмечено {picked} из {total} — выбери остальные"
+            answers = {int(n): {"answer": L, "unsure": False, "sure": int(n) in quiz["sure"],
+                                "note": quiz["notes"].get(n, "")} for n, L in quiz["pick"].items()}
+            await self.ex_check(chat_id, user_id, ex, None, None, answers=answers)
+            return None
+        n, choice = int(parts[3]), parts[4]
+        if not 1 <= n <= total:
+            return None
+        if choice == "!":
+            quiz["sure"] = sorted(set(quiz["sure"]) ^ {n})
+        elif quiz["pick"].get(str(n)) == choice:
+            return None  # то же самое — ничего не меняем
+        else:
+            quiz["pick"][str(n)] = choice
+        self.db.set_pending(user_id, {"step": "ex_answer", "ex": {**ex, "quiz": quiz}})
+        if quiz.get("msg"):
+            await self.tg.edit_markup(chat_id, quiz["msg"], fmt.ex_quiz_keyboard(saved, quiz["pick"], quiz["sure"]))
+        return None
+
+    async def ex_quiz_notes(self, chat_id: int, user_id: int, ex: dict, notes: dict[int, str]) -> None:
+        """Уточнения текстом «2 (почему …?)» до проверки — прикрепляем к пунктам (💭 в тексте упражнения)."""
+        quiz = ex["quiz"]
+        saved = self.db.ex_get(ex["ex_id"])
+        notes = {n: t for n, t in notes.items() if 1 <= n <= len(saved["items"])}
+        for n, note in notes.items():
+            quiz["notes"][str(n)] = note
+        self.db.set_pending(user_id, {"step": "ex_answer", "ex": {**ex, "quiz": quiz}})
+        if quiz.get("msg"):
+            await self.tg.edit_message(chat_id, quiz["msg"],
+                                       fmt.ex_message(saved, quiz.get("idx", 1), ex.get("total", 1), False,
+                                                      quiz=True, notes=quiz["notes"]),
+                                       fmt.ex_quiz_keyboard(saved, quiz["pick"], quiz["sure"]))
+        await self.tg.send_message(chat_id, "💭 Уточнение к пункту " + ", ".join(str(n) for n in notes)
+                                   + " добавлено — уйдёт на проверку вместе с ответами.")
+
+    async def ex_check(self, chat_id: int, user_id: int, ex: dict, text: str | None, voice: dict | None,
+                       answers: dict[int, dict] | None = None) -> None:
         saved = self.db.ex_get(ex["ex_id"])
         if not saved:
             return
         items, f = saved["items"], saved["fmt"]
+        quiz = ex.get("quiz") if ex.get("ex_id") == saved["id"] else None
+        if answers is None and not voice:
+            answers = exercises.parse_answers(text or "", len(items))
+            if quiz:  # ответ текстом поверх нажатых кнопок: чего нет в тексте — берём из кнопок
+                for n, L in quiz["pick"].items():
+                    answers.setdefault(int(n), {"answer": L, "unsure": False, "sure": int(n) in quiz["sure"],
+                                                "note": quiz["notes"].get(n, "")})
+                for n, note in quiz["notes"].items():
+                    if int(n) in answers and not answers[int(n)].get("note"):
+                        answers[int(n)]["note"] = note
         if voice:
             audio = await self.tg.download_file(voice["file_id"])
             results = [{"n": i, "user": "", "unsure": False, "note": "", "status": "check"}
                        for i in range(1, len(items) + 1)]
         else:
             audio = None
-            results = exercises.quick_check(items, exercises.parse_answers(text or "", len(items)), f)
+            results = exercises.quick_check(items, answers, f)
         todo = exercises.needs_model(results, EX_EXPLAIN_ALL)
         verdicts: dict[int, dict] = {}
         if todo:
@@ -1201,7 +1292,10 @@ class App:
             await self.tg.send_message(chat_id, "⚠️ Не закрыта скобка — всё после «(» до конца сообщения "
                                                  "я посчитал уточнением.")
         self.db.ex_save_results(saved["id"], results)
-        if saved.get("tg_msg_id"):
+        if quiz and saved.get("tg_msg_id"):  # выбор остаётся виден, «Проверить» и «Закончить» убираем
+            await self.tg.edit_markup(chat_id, saved["tg_msg_id"],
+                                      fmt.ex_quiz_keyboard(saved, quiz["pick"], quiz["sure"], check=False))
+        elif saved.get("tg_msg_id"):
             await self.tg.edit_markup(chat_id, saved["tg_msg_id"])  # кнопка «Закончить без проверки» больше не нужна
         self.ex_record(user_id, saved, results)
         self.db.set_pending(user_id, {"step": "ex_review", "ex": ex})

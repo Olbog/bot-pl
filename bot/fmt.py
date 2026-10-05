@@ -536,7 +536,8 @@ def ex_count_prompt() -> tuple[str, list[list[tuple[str, str]]]]:
             [[("1", "x:n:1"), ("2", "x:n:2"), ("3", "x:n:3"), ("5", "x:n:5"), ("10", "x:n:10")]])
 
 
-def ex_message(ex: dict, idx: int, total: int, voice: bool) -> str:
+def ex_message(ex: dict, idx: int, total: int, voice: bool, quiz: bool = False,
+               notes: dict | None = None) -> str:
     lines = [f"🏋️ <b>Упражнение {idx}/{total}</b> · #{ex['id']} — {e(ex['title'])}", ""]
     for i, it in enumerate(ex["items"], 1):
         q = e(it.get("q", "")).replace("___", "<b>___</b>")
@@ -546,11 +547,17 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool) -> str:
             lines.append(f"    <i>— {e(it['ru'])}</i>")
         if it.get("options"):
             lines.append("    " + "   ".join(f"{'abcd'[j]}) {e(o)}" for j, o in enumerate(it["options"])))
+        if (notes or {}).get(str(i)):
+            lines.append(f"    💭 <i>{e(notes[str(i)])}</i>")
     lines.append("")
     if voice:
         lines.append("🎙 <i>Пришли голосовое: прочитай все предложения по порядку целиком, с заполненными пропусками. "
                      "Номера говорить не обязательно. Уточнение к пункту — скажи «уточнение» и дальше своими словами, "
                      "до следующего предложения.</i>")
+    elif quiz:
+        lines.append("<i>Жми ответ кнопками ниже: строка «1 a · 1 b · 1 c» — пункт 1 (выбор можно менять), "
+                     "«1 !» — уверен, не объяснять. Уточнение или вопрос — текстом: «2 (почему не …?)». "
+                     "Когда отмечены все — «📨 Проверить». Можно и текстом: 1b 2a 3c …</i>")
     elif ex["items"] and ex["items"][0].get("options"):
         lines.append("<i>Ответ одним сообщением: 1b 2a 3c … · уточнение или вопрос — в скобках: «2a (винительный)» · "
                      "уверен, не объяснять — !: «3c!»</i>")
@@ -561,6 +568,24 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool) -> str:
     if any(it.get("_reuse_id") for it in ex["items"]):
         lines.append("<i>🔁 — пункт на повтор: в прошлый раз была ошибка или сомнение.</i>")
     return "\n".join(lines)
+
+
+# ---------- интерактивный тест: одно сообщение, под ним кнопки a / b / c по строке на пункт ----------
+
+def ex_quiz_keyboard(ex: dict, pick: dict, sure: list, check: bool = True) -> list[list[tuple[str, str]]]:
+    """Строка на пункт: «1 a» «1 b» «1 c» «1 !»; выбранное — ✅, «уверен» — ❗. Внизу «📨 Проверить (N/10)»."""
+    rows = []
+    for n, it in enumerate(ex["items"], 1):
+        chosen = pick.get(str(n))
+        row = [((f"✅{n}{L}" if chosen == L else f"{n} {L}"), f"x:a:{ex['id']}:{n}:{L}")
+               for L in "abcd"[:len(it.get("options") or [])]]
+        row.append((f"❗{n}" if n in sure else f"{n} !", f"x:a:{ex['id']}:{n}:!"))
+        rows.append(row)
+    if check:
+        total = len(ex["items"])
+        rows.append([(f"📨 Проверить ({len(pick)}/{total})", f"x:go:{ex['id']}")])
+        rows.append([("✖️ Закончить без проверки", "nav:c:ex_answer")])
+    return rows
 
 
 STATUS_ICON = {"ok": "✅", "wrong": "❌", "unsure": "❓"}
