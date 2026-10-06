@@ -1639,6 +1639,7 @@ def test_book_test_close_options_and_gap_spoiler():
     for c in ("x:k:book", "x:b:u:2", "x:b:m:gap", "x:n:1"):
         run(app.on_callback(cb(c)))
     assert "⟪ ⟫" in gem.prompts[-1] and ("brat" in gem.prompts[-1] or "siostra" in gem.prompts[-1])
+    assert "ТОЛЬКО эти" in gem.prompts[-1] and "творительный" in gem.prompts[-1] and "дательный" not in gem.prompts[-1]
     assert "<tg-spoiler>слово</tg-spoiler>" in app.tg.sent[-1]
     gap = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
     assert gap["items"][0]["ru"] == "Предложение слово"          # в разборе — без скобок
@@ -1651,3 +1652,14 @@ def test_book_no_units_message():
     run(app.handle(msg(text="/ex")))
     run(app.on_callback(cb("x:k:book")))
     assert "Юнитов пока нет" in app.tg.sent[-1]
+
+
+
+def test_real_textbook_units_are_valid():
+    real = Path(__file__).resolve().parent.parent / "bot" / "textbook"
+    units = tb.load_units(real)
+    assert [u["unit"] for u in units][:2] == ["7", "8"]
+    for u in units:
+        assert u["title"] and u["summary"]
+        for w in u["words"]:
+            assert w["pl"] and w["ru"] and w["translit"] and w["pos"], w

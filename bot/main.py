@@ -35,6 +35,7 @@ SET_MENU = {"step": "set_menu"}   # «Назад» → меню /set
 DICT_MENU = {"step": "dict_menu"}  # «Назад» → словарь /dict
 IGNORE_PROMPT = 30            # сколько последних исключений «🙅 Не ошибка» подсказывать модели
 EX_QUIZ_BUTTONS = True        # тест: кнопки a / b / c под сообщением упражнения, по строке на пункт
+EX_CASES = ["именительный", "винительный", "творительный"]  # падежи, которые уже знаю: слова в упражнениях — только в них
 EX_PRESENT_ONLY = True        # упражнения только в настоящем времени (пока ученик знает только его)
 EX_EXPLAIN_ALL = True         # объяснять каждый пункт, кроме помеченных «!» (уверен)
 EX_TOP_ERRORS = 8             # сколько правил показывать в «Из моих ошибок»
@@ -1163,7 +1164,7 @@ class App:
             reuse = []  # слова с ошибками и так идут первыми (статистика юнита)
         prompt = ex_prompt(kind, f, self.cfg.level, rules.catalog_text(), self.db.ex_recent(user_id),
                            words=ex.get("words"), rules_list=ex.get("rules"), examples=ex.get("examples"),
-                           voice=kind == "voice", present_only=EX_PRESENT_ONLY)
+                           voice=kind == "voice", present_only=EX_PRESENT_ONLY, cases=EX_CASES)
         data = await self.ask(chat_id, prompt, EX_SCHEMA, EX_HINT,
                               wait=f"⏳ Составляю упражнение {idx}/{ex['total']}… (10–20 секунд)")
         if data is None:

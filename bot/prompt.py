@@ -378,13 +378,19 @@ def grammar_task(topics: list[str] | None) -> str:
 
 def ex_prompt(kind: str, fmt: str, level: str, catalog: str, exclude: list[str], *, words: list[str] | None = None,
               rules_list: list[str] | None = None, examples: dict[str, list[str]] | None = None,
-              confusing: bool = False, voice: bool = False, present_only: bool = False) -> str:
+              confusing: bool = False, voice: bool = False, present_only: bool = False,
+              cases: list[str] | None = None) -> str:
     if kind in ("words", "voice", "book_gap"):
         task = (f"Составь упражнение «вставь слово в нужной форме» на эти слова (каждое минимум раз, по кругу): "
                 f"{', '.join(words or [])}. В lemma — словарная форма слова; в hint ничего не пиши.\n"
                 "В ru оберни русский перевод ИМЕННО пропущенного слова (или слов) в двойные угловые скобки ⟪ ⟫ — "
                 "ровно одна пара на предложение, например: «Мы смотрим на эту ⟪карту⟫». Это подсказка, которую "
                 "ученик откроет, если не вспомнит слово.")
+        task += ("\nСтавь эти слова в РАЗНЫЕ формы: глаголы — в разных лицах (ja/ty/on/ona/my/wy/oni) и числах, "
+                 "существительные и прилагательные — в разных числах и падежах.")
+        if cases:
+            task += (" Падежи — ТОЛЬКО эти (ученик пока знает только их): " + ", ".join(cases) + ". В пропуске "
+                     "других падежей не должно быть; в остальной части предложения — по возможности тоже.")
         if voice:
             task += " Ученик будет ПРОИЗНОСИТЬ всё предложение целиком вслух, поэтому предложения короткие (до 8 слов)."
     elif kind in ("grammar", "rule"):  # «rule» — старый пункт меню, теперь это «Грамматика» с темами
