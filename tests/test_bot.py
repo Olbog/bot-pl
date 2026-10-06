@@ -662,7 +662,8 @@ def test_manual_mastered_toggle_and_suggest_next_and_carry():
     start_set(app, "чай")
     new_words = [w["pl"] for w in app.db.set_words(app.db.active_set(42)["id"])]
     assert new_words == ["herbata"]                                  # хвост старого набора не тянется
-    assert [w["pl"] for w in app.db.leftovers(42)] == [old_left["pl"]]   # а ждёт в «🧳 Недоученные»
+    arch = app.db.sets_archive(42)
+    assert len(arch) == 1 and arch[0]["total"] == 3 and arch[0]["done"] == 2   # старый набор цел — в архиве
 
 
 def test_free_mode_review_block_and_advance():
@@ -1739,25 +1740,36 @@ def test_set_from_unit_counts_to_unit_progress():
     assert app.db.book_stats(42, "2")[("brat", "ru")]["right"] >= 1   # употребление в разговоре → прогресс юнита
 
 
-def test_leftovers_collect_and_take_back_with_progress():
+def test_archive_resume_set_with_progress():
     t = {**TURN_JSON, "target_uses": [{"lemma": "ciasto", "form": "ciasta", "correct": True}]}
     gem = FakeGemini(turn=t)
-    app = make_app(gem=gem)
-    start_set(app)                                              # ciasto, piec, kawa
-    old = {w["pl"]: w["id"] for w in app.db.set_words(app.db.active_set(42)["id"])}
+    clock = Clock()
+    app = make_app(gem=gem, clock=clock)
+    start_set(app)                                              # «кафе»: ciasto, piec, kawa
+    cafe = app.db.active_set(42)
+    old = {w["pl"]: w["id"] for w in app.db.set_words(cafe["id"])}
+    app.db.set_mastered(old["kawa"], "user")
     uses_before = len(app.db.word_uses(old["ciasto"]))
+    clock.t += 3 * 86400
     app.gemini.words = {"title": "Чай", "words": [{"pl": "herbata", "translit": "хер-БА-та", "ru": "чай", "pos": "сущ"}]}
     start_set(app, "чай")
     assert [w["pl"] for w in app.db.set_words(app.db.active_set(42)["id"])] == ["herbata"]
-    assert {w["pl"] for w in app.db.leftovers(42)} == {"ciasto", "piec", "kawa"}
     run(app.handle(msg(text="/set")))
-    assert "Недоученных из прошлых наборов: 3" in app.tg.sent[-1] and "s:left" in str(app.tg.buttons[-1])
-    run(app.on_callback(cb("s:left")))
-    assert step_of(app) == "leftovers" and len(app.db.get_state(42)["pending"]["chosen"]) == 3
-    run(app.on_callback(cb(f"lf:{old['kawa']}")))               # kawa не берём
-    run(app.on_callback(cb("lf:go")))
+    assert "ar:list" in str(app.tg.buttons[-1]) and "Архив наборов (1)" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("ar:list")))
+    assert "Незавершённые: 1" in app.tg.sent[-1] and f"ar:{cafe['id']}" in str(app.tg.buttons[-1])
+    assert "1/3 · 3 дн. назад" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb(f"ar:{cafe['id']}")))
+    assert "В архиве" in app.tg.edits[-1][0] and "ciasto" in app.tg.edits[-1][0]
+    run(app.on_callback(cb("nav:b:arch_set")))                 # назад к списку
+    assert step_of(app) == "archive"
+    run(app.on_callback(cb(f"ar:{cafe['id']}")))
+    run(app.on_callback(cb(f"ar:go:{cafe['id']}")))            # продолжить
     active = app.db.active_set(42)
+    assert active["id"] == cafe["id"] and app.db.get_state(42)["mode"] == "set"
     words = {w["pl"]: w["id"] for w in app.db.set_words(active["id"])}
-    assert active["title"] == "Недоученные" and set(words) == {"ciasto", "piec"}
-    assert words["ciasto"] == old["ciasto"] and len(app.db.word_uses(old["ciasto"])) >= uses_before   # прогресс сохранён
-    assert {w["pl"] for w in app.db.leftovers(42)} == {"kawa", "herbata"}
+    assert words == old and len(app.db.word_uses(old["ciasto"])) > uses_before   # то же место, прогресс цел
+    assert [a["title"] for a in app.db.sets_archive(42)] == ["Чай"]               # «Чай» ушёл в архив
+    run(app.handle(msg(text="/new")))
+    run(app.on_callback(cb("nw:arch")))
+    assert step_of(app) == "archive" and "Чай" in str(app.tg.buttons[-1])

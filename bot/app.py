@@ -215,10 +215,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         elif data.startswith("su:"):
             if pending and pending.get("step") == "set_unit":
                 await self.preview_from_unit(chat_id, user_id, data[3:])
-        elif data == "s:left":
-            await self.show_leftovers(chat_id, user_id)
-        elif data.startswith("lf:"):
-            await self.leftovers_action(chat_id, user_id, message_id, pending, data[3:])
+        elif data.startswith("ar:"):
+            await self.archive_action(chat_id, user_id, message_id, pending, data[3:])
         elif data.startswith("mode:"):  # кнопки со старых сообщений
             if data == "mode:set":
                 await self.start_set_conversation(chat_id, user_id)

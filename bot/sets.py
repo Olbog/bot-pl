@@ -1,7 +1,7 @@
-"""Наборы слов: экран /set, создание (тема, свои слова, юнит, ошибки, словарь, 🧳 недоученные), предпросмотр.
+"""Наборы слов: экран /set, создание (тема, свои слова, юнит, ошибки, словарь), 📚 архив, предпросмотр.
 
 Набор — 10 слов или правил, к которым бот подводит в разговоре. Активный набор один. Когда берёшь новый,
-неосвоенное из старого не переезжает, а копится в «🧳 Недоученные» — оттуда его можно взять в любой момент."""
+старый уходит в 📚 архив целиком, с прогрессом; из архива его можно вернуть и продолжить с того же места."""
 import random
 from html import escape
 
@@ -19,7 +19,7 @@ class SetsMixin:
     async def show_set(self, chat_id: int, user_id: int, message_id: int | None = None) -> None:
         mode = self.db.get_state(user_id)["mode"]
         active = self.db.active_set(user_id)
-        left = len(self.db.leftovers(user_id))
+        archived = len(self.db.sets_archive(user_id))
         if not active:
             text = ("📚 Набора пока нет.\n\nСоставь его по теме (я подберу 10 слов), из своих слов, из юнита "
                     "учебника, из своих ошибок или из словаря ⭐ — и я буду строить разговор так, чтобы ты "
@@ -27,9 +27,7 @@ class SetsMixin:
         else:
             text = fmt.set_progress(active["title"], self.set_rows(active["id"]), self.criteria, mode,
                                     self.rule_criteria)
-        if left:
-            text += f"\n\n🧳 Недоученных из прошлых наборов: {left}."
-        buttons = fmt.set_buttons(bool(active), left)
+        buttons = fmt.set_buttons(bool(active), archived)
         if message_id:
             await self.tg.edit_message(chat_id, message_id, text, buttons)
         else:
@@ -105,37 +103,34 @@ class SetsMixin:
                    "off": [], "words": words}
         await self.show(chat_id, user_id, pending, fmt.preview_message(pending), fmt.preview_buttons(pending))
 
-    # ---------- 🧳 недоученные ----------
+    # ---------- 📚 архив наборов ----------
 
-    async def show_leftovers(self, chat_id: int, user_id: int, message_id: int | None = None,
-                             chosen: list[int] | None = None) -> None:
-        rows = self.db.leftovers(user_id)
+    async def show_archive(self, chat_id: int, user_id: int, message_id: int | None = None, prev=AUTO) -> None:
+        rows = self.db.sets_archive(user_id)
         if not rows:
-            await self.tg.send_message(chat_id, "🧳 Недоученных нет — всё из прошлых наборов освоено.")
+            await self.tg.send_message(chat_id, "📚 Архив пуст — сюда попадают прошлые наборы, когда берёшь новый.")
             return
-        ids = [r["id"] for r in rows]
-        chosen = [i for i in (chosen if chosen is not None else ids[:self.cfg.set_size]) if i in ids]
-        text, buttons = fmt.leftovers_screen(rows, chosen)
-        prev = AUTO if message_id else self.set_src_prev(user_id)
-        await self.show(chat_id, user_id, {"step": "leftovers", "chosen": chosen}, text, buttons, message_id,
-                        prev=prev)
+        text, buttons = fmt.archive_screen(rows, self.cfg.next_set_ratio, self.clock())
+        await self.show(chat_id, user_id, {"step": "archive"}, text, buttons, message_id, prev=prev)
 
-    async def leftovers_action(self, chat_id: int, user_id: int, message_id: int, pending: dict | None,
-                               arg: str) -> None:
-        if not pending or pending.get("step") != "leftovers":
-            return
-        chosen = list(pending.get("chosen") or [])
-        if arg == "go":
-            if not chosen:
-                await self.tg.send_message(chat_id, "Отметь хотя бы одно слово.")
+    async def archive_action(self, chat_id: int, user_id: int, message_id: int, pending: dict | None,
+                             arg: str) -> None:
+        if arg == "list":
+            await self.show_archive(chat_id, user_id, prev=SET_MENU)
+        elif arg.startswith("go:"):
+            st = self.db.get_set(int(arg[3:]))
+            if not st or st["user_id"] != user_id:
                 return
-            self.db.create_set(user_id, "Недоученные", [], chosen)
-            self.db.set_pending(user_id, None)
-            await self.tg.edit_message(chat_id, message_id, f"✅ <b>Набор «Недоученные» — {len(chosen)}.</b> "
-                                                            "Прогресс по словам сохранён. Начинаем!")
-            await self.start_set_conversation(chat_id, user_id)
+            self.db.activate_set(user_id, st["id"])
+            await self.start_set_conversation(chat_id, user_id, message_id)
         elif arg.isdigit():
-            await self.show_leftovers(chat_id, user_id, message_id, sorted(set(chosen) ^ {int(arg)}))
+            st = self.db.get_set(int(arg))
+            if not st or st["user_id"] != user_id or not pending or pending.get("step") != "archive":
+                return
+            text = fmt.set_progress(st["title"], self.set_rows(st["id"]), self.criteria, "archive",
+                                    self.rule_criteria)
+            await self.show(chat_id, user_id, {"step": "arch_set"}, text,
+                            [[("▶️ Продолжить тренировку", f"ar:go:{st['id']}")]], message_id)
 
     async def preview_action(self, chat_id: int, user_id: int, message_id: int, pending: dict | None,
                              action: str) -> None:

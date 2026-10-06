@@ -117,7 +117,7 @@ class ConversationMixin:
         if done / len(words) >= self.cfg.next_set_ratio:
             self.db.mark_suggested(active["id"])
             left = len(words) - done
-            tail = (f" Оставшиеся {left} будут ждать в «🧳 Недоученные» — доучишь, когда захочешь."
+            tail = (f" Оставшиеся {left} останутся в наборе — он будет в 📚 архиве, вернёшься к нему, когда захочешь."
                     if left else "")
             await self.tg.send_message(
                 chat_id, f"🏆 Набор «{escape(active['title'])}» почти освоен: {done} из {len(words)}.{tail}\n"
@@ -162,10 +162,11 @@ class ConversationMixin:
         if arg == "set":
             await self.start_set_conversation(chat_id, user_id, message_id)
         elif arg == "newset":
-            left = len(self.db.leftovers(user_id))
             await self.show(chat_id, user_id, {"step": "new_src"}, "➕ <b>Новый набор</b> — откуда взять слова?\n"
-                            "<i>Старый набор закроется, его неосвоенное уйдёт в «🧳 Недоученные».</i>",
-                            fmt.set_source_rows(left), prev=AUTO if step == "new_menu" else None)
+                            "<i>Текущий набор уйдёт в 📚 архив с прогрессом — вернёшься к нему, когда захочешь.</i>",
+                            fmt.set_source_rows(), prev=AUTO if step == "new_menu" else None)
+        elif arg == "arch":
+            await self.show_archive(chat_id, user_id)
         elif arg == "free":
             await self.show(chat_id, user_id, {"step": "new_free"}, "🏁 <b>Без набора</b> — тема разговора?",
                             fmt.new_free_buttons())

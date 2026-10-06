@@ -175,7 +175,7 @@ class Telegram:
             {"command": "menu", "description": "🏠 Главное меню"},
             {"command": "new", "description": "💬 Новый разговор: по набору, новый набор, без набора"},
             {"command": "ex", "description": "🏋️ Упражнения: слова, грамматика, ошибки, голосом, учебник"},
-            {"command": "set", "description": "🎯 Наборы слов: прогресс, новый, 🧳 недоученные"},
+            {"command": "set", "description": "🎯 Наборы слов: прогресс, новый, 📚 архив"},
             {"command": "itog", "description": "📋 Итог: ошибки и слова за час / сутки / разговор"},
             {"command": "dict", "description": "⭐ Мой словарь выражений"},
             {"command": "rule", "description": "📖 Вопрос о правиле: /rule почему do niej?"},

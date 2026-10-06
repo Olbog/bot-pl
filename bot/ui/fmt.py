@@ -102,10 +102,10 @@ HELP = (
     "Пиши или говори голосом по-польски. Не знаешь слово — вставь его по-русски.\n"
     "Я исправлю ошибки, подскажу польские слова и отвечу — текстом и голосом.\n\n"
     "/menu — 🏠 главное меню\n"
-    "/new — 💬 новый разговор: по набору, новый набор (тема, свои слова, юнит, ошибки, словарь, недоученные) "
+    "/new — 💬 новый разговор: по набору, набор из 📚 архива, новый набор (тема, свои слова, юнит, ошибки, словарь) "
     "или без набора (без темы, своя, случайная)\n"
     "/ex — 🏋️ упражнения: слова, грамматика, мои ошибки, голосом, учебник\n"
-    "/set — 🎯 наборы слов: прогресс, новый набор, 🧳 недоученные, отметить освоенные\n"
+    "/set — 🎯 наборы слов: прогресс, новый набор, 📚 архив, отметить освоенные\n"
     "/itog — 📋 итог: ошибки и слова за час / сутки / разговор, всё время — файлом\n"
     "/dict — ⭐ словарь выражений; 🙅 исключения\n"
     "/rule вопрос — 📖 объяснить правило\n"
@@ -147,6 +147,7 @@ def set_progress(title: str, rows: list[tuple], c: Criteria, mode: str, rule_c: 
     done = sum(1 for w, _ in rows if w["mastered_at"] is not None)
     head = f"📚 <b>Набор «{e(title)}»</b> — освоено {done} из {len(rows)}"
     mode_line = ("Сейчас: 🎯 разговор по этому набору" if mode == "set"
+                 else "📚 В архиве — прогресс сохранён, можно продолжить с того же места." if mode == "archive"
                  else "Сейчас разговор без набора. Тренировать набор — /new → 🎯")
     legend = (f"<i>Освоено: слово — {c.streak} раз подряд без ошибок, {c.forms} формы, {c.days} дня"
               + (f"; 📐 правило — {rule_c.streak} раз, {rule_c.forms} ситуаций, {rule_c.days} дней"
@@ -156,18 +157,17 @@ def set_progress(title: str, rows: list[tuple], c: Criteria, mode: str, rule_c: 
     return "\n".join([head, mode_line, ""] + lines + ["", legend])
 
 
-def set_source_rows(leftovers: int) -> list[list[tuple[str, str]]]:
+def set_source_rows() -> list[list[tuple[str, str]]]:
     """Откуда взять новый набор — одинаково в /set и в /new → «➕ Новый набор»."""
-    rows = [[("➕ По теме", "s:topic"), ("✍️ Свои слова", "s:own")],
+    return [[("➕ По теме", "s:topic"), ("✍️ Свои слова", "s:own")],
             [("📘 Из юнита", "s:unit"), ("🧩 Из ошибок", "e:start")],
             [("⭐ Из словаря", "s:dict")]]
-    if leftovers:
-        rows[-1].append((f"🧳 Недоученные ({leftovers})", "s:left"))
-    return rows
 
 
-def set_buttons(has_set: bool, leftovers: int = 0) -> list[list[tuple[str, str]]]:
-    rows = set_source_rows(leftovers)
+def set_buttons(has_set: bool, archived: int = 0) -> list[list[tuple[str, str]]]:
+    rows = set_source_rows()
+    if archived:
+        rows.append([(f"📚 Архив наборов ({archived})", "ar:list")])
     if has_set:
         rows.append([("✅ Отметить освоенные", "m:list")])
     return rows
@@ -195,6 +195,7 @@ def new_menu(status: str, active: dict | None, done: int, total: int) -> tuple[s
     rows = []
     if active:
         rows.append([(f"🎯 Тренировать набор «{active['title']}» ({done}/{total})"[:60], "nw:set")])
+    rows.append([("📚 Вернуться к набору из архива", "nw:arch")])
     rows.append([("➕ Новый набор…", "nw:newset")])
     rows.append([("🏁 Без набора…", "nw:free")])
     return (f"💬 <b>Новый разговор</b> — о чём?\nСейчас: {status}\n\n"
@@ -206,17 +207,38 @@ def new_free_buttons() -> list[list[tuple[str, str]]]:
     return [[("💬 Без темы", "nw:f:none")], [("🗂 Своя тема", "nw:f:own")], [("🎲 Случайная тема", "nw:f:rnd")]]
 
 
-def leftovers_screen(rows: list, chosen: list[int]) -> tuple[str, list[list[tuple[str, str]]]]:
-    on = set(chosen)
-    text = (f"🧳 <b>Недоученные</b> — {len(rows)} из прошлых наборов (прогресс сохранён).\n"
-            f"Выбрано: {len(on)}. <i>Нажми, чтобы отметить или снять, потом «▶️ Начать».</i>")
-    btns = [[((("✅ " if r["id"] in on else "☐ ") + f"{r['pl']} — {r['ru']}")[:60], f"lf:{r['id']}")]
-            for r in rows[:30]]
-    btns.append([("▶️ Начать", "lf:go")])
-    return text, btns
+def ago_text(ts: float, now: float) -> str:
+    days = int((now - ts) // 86400)
+    if days <= 0:
+        return "сегодня"
+    if days == 1:
+        return "вчера"
+    if days < 7:
+        return f"{days} дн. назад"
+    if days < 30:
+        return f"{days // 7} нед. назад"
+    return f"{days // 30} мес. назад"
 
 
-def preview_message(p: dict, carry: list | None = None) -> str:
+def archive_screen(rows: list[dict], ratio: float, now: float) -> tuple[str, list[list[tuple[str, str]]]]:
+    """📚 Архив: незавершённые сверху, завершённые (освоено ≥ ratio) ниже."""
+    def finished(r):
+        return r["total"] and r["done"] / r["total"] >= ratio
+    todo = [r for r in rows if not finished(r)]
+    done = [r for r in rows if finished(r)]
+    lines = ["📚 <b>Архив наборов</b> — нажми на набор, чтобы посмотреть прогресс и продолжить.", ""]
+    btns = []
+    if todo:
+        lines.append(f"Незавершённые: {len(todo)}")
+        btns += [[(f"▶️ {r['title']} — {r['done']}/{r['total']} · {ago_text(r['last_at'], now)}"[:60],
+                   f"ar:{r['id']}")] for r in todo]
+    if done:
+        lines.append(f"Завершённые: {len(done)}")
+        btns += [[(f"✅ {r['title']} — {r['done']}/{r['total']}"[:60], f"ar:{r['id']}")] for r in done]
+    return "\n".join(lines), btns
+
+
+def preview_message(p: dict) -> str:
     lines = [f"📝 <b>Новый набор «{e(p['title'])}»</b>", ""]
     off = set(p.get("off", []))
     for i, w in enumerate(p["words"]):
@@ -224,9 +246,6 @@ def preview_message(p: dict, carry: list | None = None) -> str:
         tr = f" [{e(w.get('translit', ''))}]" if w.get("translit") else ""
         txt = f"{mark} <b>{e(w['pl'])}</b>{tr} — {e(w.get('ru', ''))}"
         lines.append(f"<s>{txt}</s>" if i in off else txt)
-    if carry:
-        lines += ["", "<b>Из «Недоученных»:</b>"]
-        lines += [f"↪ <b>{e(w['pl'])}</b> — {e(w['ru'])}" for w in carry]
     lines += ["", "<i>Нажми на слово, чтобы убрать или вернуть его.</i>"]
     return "\n".join(lines)
 

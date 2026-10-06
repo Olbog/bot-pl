@@ -256,8 +256,8 @@ class DB:
         ).fetchone()
 
     def create_set(self, user_id: int, title: str, words: list[dict], carry_ids: list[int] | None = None) -> int:
-        """Новый активный набор: старый закрывается (его неосвоенное уходит в «🧳 Недоученные»).
-        carry_ids — слова, взятые из «Недоученных»: переезжают в новый набор вместе со своим прогрессом."""
+        """Новый активный набор: старый уходит в 📚 архив со всем прогрессом (оттуда его можно вернуть).
+        carry_ids — перенести существующие слова в новый набор (сейчас не используется)."""
         now = self.clock()
         c = self.conn
         c.execute("UPDATE sets SET status='done' WHERE user_id=? AND status='active'", (user_id,))
@@ -273,12 +273,25 @@ class DB:
         c.commit()
         return set_id
 
-    def leftovers(self, user_id: int) -> list:
-        """«🧳 Недоученные»: неосвоенные слова и правила из закрытых наборов, новые сверху."""
-        return self.conn.execute(
-            "SELECT w.*, s.title AS set_title FROM set_words w JOIN sets s ON s.id = w.set_id "
-            "WHERE w.user_id=? AND s.status='done' AND w.mastered_at IS NULL ORDER BY w.id DESC", (user_id,)
+    def sets_archive(self, user_id: int) -> list[dict]:
+        """📚 Архив: все наборы, кроме активного, с прогрессом и временем последней тренировки, новые сверху."""
+        rows = self.conn.execute(
+            "SELECT s.id, s.title, s.created_at, COUNT(w.id) AS total, "
+            "SUM(CASE WHEN w.mastered_at IS NOT NULL THEN 1 ELSE 0 END) AS done, "
+            "MAX(COALESCE((SELECT MAX(u.created_at) FROM word_uses u WHERE u.word_id = w.id), s.created_at)) AS last_at "
+            "FROM sets s LEFT JOIN set_words w ON w.set_id = s.id "
+            "WHERE s.user_id=? AND s.status!='active' GROUP BY s.id ORDER BY last_at DESC, s.id DESC", (user_id,)
         ).fetchall()
+        return [dict(r, done=r["done"] or 0, last_at=r["last_at"] or r["created_at"]) for r in rows]
+
+    def get_set(self, set_id: int):
+        return self.conn.execute("SELECT * FROM sets WHERE id=?", (set_id,)).fetchone()
+
+    def activate_set(self, user_id: int, set_id: int) -> None:
+        """Вернуть набор из архива: текущий уходит в архив, ничего никуда не переезжает."""
+        self.conn.execute("UPDATE sets SET status='done' WHERE user_id=? AND status='active'", (user_id,))
+        self.conn.execute("UPDATE sets SET status='active' WHERE id=? AND user_id=?", (set_id, user_id))
+        self.conn.commit()
 
     def set_words(self, set_id: int) -> list:
         return self.conn.execute("SELECT * FROM set_words WHERE set_id=? ORDER BY id", (set_id,)).fetchall()
