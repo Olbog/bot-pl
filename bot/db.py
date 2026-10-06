@@ -115,6 +115,18 @@ CREATE TABLE IF NOT EXISTS ignores (
     correct TEXT NOT NULL,
     created_at REAL NOT NULL
 );
+-- Лексика из учебника: прогресс по словам юнита (в общий пул ошибок не идёт)
+CREATE TABLE IF NOT EXISTS book_stats (
+    user_id INTEGER NOT NULL,
+    unit TEXT NOT NULL,
+    pl TEXT NOT NULL,
+    dir TEXT NOT NULL,                       -- pl (PL→RU) / ru (RU→PL)
+    streak INTEGER NOT NULL DEFAULT 0,
+    right INTEGER NOT NULL DEFAULT 0,
+    wrong INTEGER NOT NULL DEFAULT 0,
+    last_at REAL,
+    PRIMARY KEY (user_id, unit, pl, dir)
+);
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
     mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
@@ -336,6 +348,21 @@ class DB:
                               (int(disputed), json.dumps(clean, ensure_ascii=False), corr_id))
         else:
             self.conn.execute("UPDATE corrections SET disputed=? WHERE id=?", (int(disputed), corr_id))
+        self.conn.commit()
+
+    # ---------- лексика из учебника ----------
+
+    def book_stats(self, user_id: int, unit: str) -> dict:
+        return {(r["pl"], r["dir"]): dict(r) for r in self.conn.execute(
+            "SELECT * FROM book_stats WHERE user_id=? AND unit=?", (user_id, str(unit)))}
+
+    def book_record(self, user_id: int, unit: str, pl: str, d: str, ok: bool) -> None:
+        self.conn.execute(
+            "INSERT INTO book_stats(user_id, unit, pl, dir, streak, right, wrong, last_at) VALUES (?,?,?,?,?,?,?,?) "
+            "ON CONFLICT(user_id, unit, pl, dir) DO UPDATE SET "
+            "streak = CASE WHEN excluded.right=1 THEN streak+1 ELSE 0 END, "
+            "right = right + excluded.right, wrong = wrong + excluded.wrong, last_at = excluded.last_at",
+            (user_id, str(unit), pl, d, int(ok), int(ok), int(not ok), self.clock()))
         self.conn.commit()
 
     # ---------- исключения («🙅 Не ошибка») ----------

@@ -376,7 +376,8 @@ class FakeGemini:
             ans = f"forma{i}"
             items.append({"q": f"Zdanie {self.ex_batch}-{i} ___ .", "hint": "baza",
                           "options": [ans, f"zle{i}", f"inne{i}"] if test else [], "answer": ans, "accepted": [],
-                          "full_pl": f"Zdanie {self.ex_batch}-{i} {ans}.", "translit": "ЗДА-не", "ru": "Предложение",
+                          "full_pl": f"Zdanie {self.ex_batch}-{i} {ans}.", "translit": "ЗДА-не",
+                          "ru": "Предложение ⟪слово⟫" if getattr(self, "spoiler", False) else "Предложение",
                           "grammar": "глагол, 1 л. ед. ч.", "rule": "Спряжение -am / -asz", "lemma": "ciasto" if i == 0 else f"w{i}"})
         if getattr(self, "dup", False):
             items[1] = dict(items[0])
@@ -406,6 +407,10 @@ class FakeGemini:
             return self.ex_data(prompt)
         if "heard" in item_props:
             return self.check_data(prompt)
+        if "wrong" in item_props:                                # учебник: 2 близких неверных варианта
+            import re as _re
+            nums = [int(x) for x in _re.findall(r"^(\d+)\. ", prompt, _re.M)]
+            return {"items": [{"n": n, "wrong": [f"blisko{n}a", f"blisko{n}b"]} for n in nums]}
         if "rules" in props:
             return {"rules": [{"title": "Родительный после отрицания", "explanation": "nie + глагол → kogo? czego?",
                                "examples": [{"pl": "Nie lubię cukru.", "translit": "не ЛЮ-бе ЦУ-кру",
@@ -1540,3 +1545,109 @@ def test_quiz_text_answer_merges_with_buttons():
     assert "Не понял" in app.tg.sent[-1] and not app.db.ex_get(ex_id)["results"]
     run(app.handle(msg(text=f"10{right[9]}")))                    # последний пункт текстом
     assert "10 из 10" in app.tg.sent[-1]
+
+
+
+# ---------- 📘 учебник ----------
+
+from pathlib import Path  # noqa: E402
+from bot import textbook as tb  # noqa: E402
+
+UNIT = {"unit": "2", "title": "Rodzina", "summary": "семья, mieć",
+        "words": [{"pl": "brat", "translit": "БРАТ", "ru": "брат", "pos": "сущ., м. р."},
+                  {"pl": "siostra", "translit": "ЩЁС-тра", "ru": "сестра", "pos": "сущ., ж. р."},
+                  {"pl": "rodzeństwo", "translit": "ро-ДЗЕНЬ-ство", "ru": "братья и сёстры",
+                   "ru_alt": ["брат и сестра"], "pos": "сущ., ср. р."}]}
+
+
+def with_unit(tmp_path_factory=None):
+    import json as _json
+    import tempfile
+    d = Path(tempfile.mkdtemp())
+    (d / "unit_02.json").write_text(_json.dumps(UNIT, ensure_ascii=False), encoding="utf-8")
+    tb.UNITS_DIR = d
+    return d
+
+
+def test_textbook_pick_and_cards():
+    with_unit()
+    unit = tb.get_unit("2")
+    assert unit and len(unit["words"]) == 3 and tb.load_units()[0]["title"] == "Rodzina"
+    stats = {("siostra", "pl"): {"streak": 0, "wrong": 1, "right": 2}}
+    picked = tb.pick_words(unit, stats, 3, "pl")
+    assert picked[0][0]["pl"] == "siostra"                       # с ошибкой — первым
+    c = tb.card_item(unit["words"][2], "pl")
+    assert c["q"] == "rodzeństwo [ро-ДЗЕНЬ-ство]" and c["answer"] == "братья и сёстры" and "брат и сестра" in c["accepted"]
+    r = tb.card_item(unit["words"][0], "ru")
+    assert r["q"] == "брат" and r["answer"] == "brat"
+
+
+def test_book_cards_flow_stats_not_in_pool():
+    with_unit()
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    run(app.handle(msg(text="/ex")))
+    run(app.on_callback(cb("x:k:book")))
+    assert "Unit 2 — Rodzina" in app.tg.sent[-1] and "семья, mieć" in app.tg.sent[-1]
+    run(app.on_callback(cb("x:b:u:2")))
+    assert "выучено 0" in app.tg.sent[-1]
+    run(app.on_callback(cb("x:b:m:card")))
+    run(app.on_callback(cb("x:b:d:pl")))
+    n_prompts = len(gem.prompts)
+    run(app.on_callback(cb("x:n:1")))
+    assert len(gem.prompts) == n_prompts                         # карточки — без Gemini
+    ex = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+    text = app.tg.sent[-1]
+    assert "rodzeństwo [ро-ДЗЕНЬ-ство]" in text and "братья и сёстры" not in text   # перевод не подсказан
+    ans = " ".join(f"{i} {'неверно' if it['lemma'] == 'siostra' else it['answer']}"
+                   for i, it in enumerate(ex["items"], 1))
+    run(app.handle(msg(text=ans)))
+    p = gem.prompts[-1]
+    assert "КАРТОЧКИ" in p and p.count(". Задание") == 1        # верные не объясняем, только ошибку
+    assert "2 из 3" in app.tg.sent[-1]
+    st = app.db.book_stats(42, "2")
+    assert st[("brat", "pl")]["streak"] == 1 and st[("siostra", "pl")]["wrong"] == 1
+    assert app.db.corrections_since(42, 0) == []                 # в общий пул ошибок не идёт
+    run(app.on_callback(cb("x:menu")))
+    run(app.on_callback(cb("x:k:book")))
+    run(app.on_callback(cb("x:b:u:2")))
+    run(app.on_callback(cb("x:b:m:card")))
+    run(app.on_callback(cb("x:b:d:pl")))
+    run(app.on_callback(cb("x:n:1")))
+    ex2 = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+    assert ex2["items"][0]["lemma"] == "siostra"                 # слово с ошибкой — первым
+
+
+def test_book_test_close_options_and_gap_spoiler():
+    with_unit()
+    gem = FakeGemini()
+    gem.spoiler = True
+    app = make_app(gem=gem)
+    for c in ("x:k:book", "x:b:u:2", "x:b:m:test", "x:b:d:ru"):
+        if c == "x:k:book":
+            run(app.handle(msg(text="/ex")))
+        run(app.on_callback(cb(c)))
+    run(app.on_callback(cb("x:n:1")))
+    assert "БЛИЗКИХ ПО СМЫСЛУ" in gem.prompts[-1]
+    ex = app.db.get_state(42)["pending"]["ex"]
+    saved = app.db.ex_get(ex["ex_id"])
+    it = saved["items"][0]
+    assert len(it["options"]) == 3 and it["answer"] in it["options"] and any("blisko" in o for o in it["options"])
+    assert ex.get("quiz") and "1 a" in str(app.tg.buttons[-1])  # кнопки a / b / c
+    # пропуски: перевод пропущенного слова — под спойлером
+    run(app.handle(msg(text="/ex")))
+    for c in ("x:k:book", "x:b:u:2", "x:b:m:gap", "x:n:1"):
+        run(app.on_callback(cb(c)))
+    assert "⟪ ⟫" in gem.prompts[-1] and ("brat" in gem.prompts[-1] or "siostra" in gem.prompts[-1])
+    assert "<tg-spoiler>слово</tg-spoiler>" in app.tg.sent[-1]
+    gap = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+    assert gap["items"][0]["ru"] == "Предложение слово"          # в разборе — без скобок
+
+
+def test_book_no_units_message():
+    import tempfile
+    tb.UNITS_DIR = Path(tempfile.mkdtemp())
+    app = make_app()
+    run(app.handle(msg(text="/ex")))
+    run(app.on_callback(cb("x:k:book")))
+    assert "Юнитов пока нет" in app.tg.sent[-1]

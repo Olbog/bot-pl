@@ -1,4 +1,5 @@
 """Оформление сообщений (Telegram HTML)."""
+import re
 from html import escape as e
 
 from .gemini import Turn
@@ -458,6 +459,10 @@ EX_KINDS = {
     "voice": "🎙 Упражнения голосом",
     "grammar": "🧩 Грамматика",
     "errors": "🔁 Мои частые ошибки",
+    "book": "📘 Учебник",
+    "book_gap": "📘 Учебник: пропуски",
+    "book_card": "📘 Учебник: карточки",
+    "book_test": "📘 Учебник: тест",
 }
 
 
@@ -468,7 +473,8 @@ def ex_menu() -> tuple[str, list[list[tuple[str, str]]]]:
             "Уточнение или вопрос к пункту — в скобках: «2 lubi (3 л. ед. ч., почему не lubią?)» — "
             "бот проверит и рассуждение.</i>",
             [[(EX_KINDS["words"], "x:k:words"), (EX_KINDS["voice"], "x:k:voice")],
-             [(EX_KINDS["grammar"], "x:k:grammar"), (EX_KINDS["errors"], "x:k:errors")]])
+             [(EX_KINDS["grammar"], "x:k:grammar"), (EX_KINDS["errors"], "x:k:errors")],
+             [(EX_KINDS["book"], "x:k:book")]])
 
 
 def ex_source_buttons() -> list[list[tuple[str, str]]]:
@@ -531,6 +537,36 @@ def ex_rule_picker(catalog: list[str], chosen: list[int]) -> tuple[str, list[lis
     return text, rows
 
 
+def book_units_screen(units: list[dict]) -> tuple[str, list[list[tuple[str, str]]]]:
+    lines = ["📘 <b>Учебник</b> — какой юнит тренируем?", ""]
+    for u in units:
+        lines.append(f"<b>Unit {e(u['unit'])} — {e(u['title'])}</b> · {len(u['words'])} слов")
+        if u.get("summary"):
+            lines.append(f"<i>{e(u['summary'])}</i>")
+    return "\n".join(lines), [[(f"Unit {u['unit']} — {u['title']}"[:60], f"x:b:u:{u['unit']}")] for u in units]
+
+
+def book_unit_screen(unit: dict, done: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
+    text = (f"📘 <b>Unit {e(unit['unit'])} — {e(unit['title'])}</b> · {total} слов · выучено {done}\n"
+            + (f"<i>{e(unit['summary'])}</i>\n" if unit.get("summary") else "")
+            + "\n<i>Выучено — 3 верных ответа подряд в обе стороны. Сначала идут слова с ошибками, "
+              "потом те, что тренировались реже.</i>")
+    return text, [[("✍️ Пропуски в предложениях", "x:b:m:gap")],
+                  [("🃏 Карточки — пишу перевод", "x:b:m:card")],
+                  [("🔘 Тест — выбираю перевод", "x:b:m:test")]]
+
+
+def book_dir_buttons() -> list[list[tuple[str, str]]]:
+    return [[("🇵🇱→🇷🇺", "x:b:d:pl"), ("🇷🇺→🇵🇱", "x:b:d:ru"), ("🔀 Вперемешку", "x:b:d:mix")]]
+
+
+def _ru_line(it: dict) -> str:
+    """Перевод под пунктом; перевод пропущенного слова — под спойлером (открывается нажатием)."""
+    if it.get("ru_spoiler"):
+        return re.sub(r"⟪(.*?)⟫", lambda m: f"<tg-spoiler>{m.group(1)}</tg-spoiler>", e(it["ru_spoiler"]))
+    return e(it["ru"])
+
+
 def ex_count_prompt() -> tuple[str, list[list[tuple[str, str]]]]:
     return ("Сколько упражнений? Нажми или напиши число (1–20).",
             [[("1", "x:n:1"), ("2", "x:n:2"), ("3", "x:n:3"), ("5", "x:n:5"), ("10", "x:n:10")]])
@@ -543,8 +579,8 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool, quiz: bool = False,
         q = e(it.get("q", "")).replace("___", "<b>___</b>")
         rep = " 🔁" if it.get("_reuse_id") else ""
         lines.append(f"{i}. {q}{rep}")
-        if it.get("ru"):  # перевод вместо подсказки: по нему понятно, что вставить, но форму не выдаёт
-            lines.append(f"    <i>— {e(it['ru'])}</i>")
+        if it.get("ru") and not it.get("card"):  # перевод вместо подсказки; у карточек перевод — это ответ
+            lines.append(f"    <i>— {_ru_line(it)}</i>")
         if it.get("options"):
             lines.append("    " + "   ".join(f"{'abcd'[j]}) {e(o)}" for j, o in enumerate(it["options"])))
         if (notes or {}).get(str(i)):
@@ -558,6 +594,9 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool, quiz: bool = False,
         lines.append("<i>Жми ответ кнопками ниже: строка «1 a · 1 b · 1 c» — пункт 1 (выбор можно менять), "
                      "«1 !» — уверен, не объяснять. Уточнение или вопрос — текстом: «2 (почему не …?)». "
                      "Когда отмечены все — «📨 Проверить». Можно и текстом: 1b 2a 3c …</i>")
+    elif ex["items"] and ex["items"][0].get("card") and not ex["items"][0].get("options"):
+        lines.append("<i>Ответ одним сообщением: 1 перевод 2 перевод … · уточнение — в скобках · "
+                     "уверен — !</i>")
     elif ex["items"] and ex["items"][0].get("options"):
         lines.append("<i>Ответ одним сообщением: 1b 2a 3c … · уточнение или вопрос — в скобках: «2a (винительный)» · "
                      "уверен, не объяснять — !: «3c!»</i>")

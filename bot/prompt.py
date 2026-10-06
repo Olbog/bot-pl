@@ -379,9 +379,12 @@ def grammar_task(topics: list[str] | None) -> str:
 def ex_prompt(kind: str, fmt: str, level: str, catalog: str, exclude: list[str], *, words: list[str] | None = None,
               rules_list: list[str] | None = None, examples: dict[str, list[str]] | None = None,
               confusing: bool = False, voice: bool = False, present_only: bool = False) -> str:
-    if kind in ("words", "voice"):
+    if kind in ("words", "voice", "book_gap"):
         task = (f"Составь упражнение «вставь слово в нужной форме» на эти слова (каждое минимум раз, по кругу): "
-                f"{', '.join(words or [])}. В lemma — словарная форма слова; в hint ничего не пиши.")
+                f"{', '.join(words or [])}. В lemma — словарная форма слова; в hint ничего не пиши.\n"
+                "В ru оберни русский перевод ИМЕННО пропущенного слова (или слов) в двойные угловые скобки ⟪ ⟫ — "
+                "ровно одна пара на предложение, например: «Мы смотрим на эту ⟪карту⟫». Это подсказка, которую "
+                "ученик откроет, если не вспомнит слово.")
         if voice:
             task += " Ученик будет ПРОИЗНОСИТЬ всё предложение целиком вслух, поэтому предложения короткие (до 8 слов)."
     elif kind in ("grammar", "rule"):  # «rule» — старый пункт меню, теперь это «Грамматика» с темами
@@ -429,7 +432,32 @@ CHECK_HINT = """Отвечай ТОЛЬКО одним JSON-объектом б�
 {"items": [{"n": 1, "heard": "...", "correct": true, "explanation": "...", "bridge": "...", "note": "", "note_ok": true, "note_comment": ""}]}"""
 
 
-def check_prompt(items: list[tuple], level: str, voice: bool, topics: list[str] | None = None) -> str:
+BOOK_OPTS_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {"items": {"type": "ARRAY", "items": {
+        "type": "OBJECT",
+        "properties": {"n": {"type": "INTEGER"}, "wrong": {"type": "ARRAY", "items": {"type": "STRING"}}},
+        "required": ["n", "wrong"]}}},
+    "required": ["items"],
+}
+BOOK_OPTS_HINT = """Отвечай ТОЛЬКО одним JSON-объектом без markdown:
+{"items": [{"n": 1, "wrong": ["...", "..."]}]}"""
+
+
+def book_options_prompt(items: list[tuple[int, str, str, str]]) -> str:
+    """items: (номер, слово-вопрос, правильный перевод, язык перевода «ru»/«pl»)."""
+    lines = "\n".join(f"{n}. {q} → правильно: «{a}» (неверные варианты — на {'русском' if lang == 'ru' else 'польском'})"
+                      for n, q, a, lang in items)
+    return f"""Тест на перевод слов для ученика A1–A2. Для каждого слова придумай ровно 2 НЕВЕРНЫХ варианта перевода,
+БЛИЗКИХ ПО СМЫСЛУ к правильному: из той же темы, та же часть речи и форма (род, число), чтобы нужно было
+действительно знать слово (для «teść — тесть» — «свёкор», «зять»; для «tani — дешёвый» — «дорогой», «бесплатный»).
+Неверные варианты не должны быть синонимами правильного и не должны совпадать с ним. Польские — с польскими буквами.
+
+{lines}"""
+
+
+def check_prompt(items: list[tuple], level: str, voice: bool, topics: list[str] | None = None,
+                 cards: bool = False) -> str:
     """items: (номер, пункт, ответ ученика, сомневался[, уточнение]). topics — темы упражнения: 2+ — на различение."""
     lines = []
     for n, it, user, unsure, *rest in items:
@@ -448,6 +476,11 @@ def check_prompt(items: list[tuple], level: str, voice: bool, topics: list[str] 
     contrast = ("\n  Упражнение на различение тем: " + "; ".join(topics) + ". В каждом пункте скажи, почему здесь "
                 "эта тема, а НЕ другая из списка (например: «widzę + винительный, а не творительный — это прямое "
                 "дополнение, вопрос kogo? co?»).") if len(topics) > 1 else ""
+    if cards:
+        src += ("Это КАРТОЧКИ: дано слово, ученик пишет перевод. correct — true, если перевод верен по смыслу "
+                "(синоним или близкий перевод того же значения тоже верен; другое значение — неверно). Польский "
+                "ответ без польских букв — ошибка. explanation — коротко: верный перевод, чем отличается вариант "
+                "ученика; для глагола — инфинитив и спряжение. Не объясняй грамматику предложения — его нет.\n")
     return f"""{src}Проверь ответы ученика (уровень {level}) в упражнении по польскому. Объясняй по-русски.
 Для каждого пункта ниже:
 - correct — true, если ответ ученика правильный (в т.ч. другой допустимый вариант, отличный от эталона), иначе false. Без польских букв (pije вместо piję) — это ОШИБКА.

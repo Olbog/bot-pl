@@ -9,10 +9,10 @@ from html import escape
 from pathlib import Path
 
 from . import config as cfg_mod
-from . import exercises, fmt, rules, training
+from . import exercises, fmt, rules, textbook, training
 from .db import DB
 from .gemini import Gemini, GeminiError, GeminiExhausted, GeminiOverloaded
-from .prompt import (CHECK_HINT, CHECK_SCHEMA, EX_HINT, EX_SCHEMA, check_prompt, ex_prompt, ex_question_prompt,
+from .prompt import (BOOK_OPTS_HINT, BOOK_OPTS_SCHEMA, book_options_prompt, CHECK_HINT, CHECK_SCHEMA, EX_HINT, EX_SCHEMA, check_prompt, ex_prompt, ex_question_prompt,
                      CLASSIFY_HINT, CLASSIFY_SCHEMA, PHRASES_HINT, PHRASES_SCHEMA, RULES_HINT, RULES_SCHEMA,
                      WORDS_HINT, WORDS_SCHEMA, classify_prompt, own_phrases_prompt, own_words_prompt,
                      phrases_prompt, rule_question_prompt, rules_by_name_prompt, rules_for_errors_prompt,
@@ -909,7 +909,7 @@ class App:
         ex = dict((pending or {}).get("ex") or {})
         step = (pending or {}).get("step")
         need = {"s:": "ex_src", "f:": "ex_fmt", "n:": "ex_count", "next": "ex_review", "t:": "ex_gtopic",
-                "p:": "ex_pick", "c:": "ex_card"}
+                "p:": "ex_pick", "c:": "ex_card", "b:u:": "ex_book", "b:m:": "ex_bunit", "b:d:": "ex_bdir"}
         for prefix, want in need.items():
             if action.startswith(prefix) and step != want:
                 return  # кнопка из прошлого шага или повторное нажатие — игнорируем
@@ -932,6 +932,14 @@ class App:
             elif kind == "grammar":
                 await self.show(chat_id, user_id, {"step": "ex_fmt", "ex": ex}, "🧩 Грамматика — какой формат?",
                                 fmt.ex_format_buttons(kind), prev=menu)
+            elif kind == "book":
+                units = textbook.load_units()
+                if not units:
+                    await self.tg.send_message(chat_id, "📘 Юнитов пока нет. Пришли скрины юнита в чат с Claude — "
+                                                         "он добавит слова, и после обновления бота они появятся здесь.")
+                    return
+                text, buttons = fmt.book_units_screen(units)
+                await self.show(chat_id, user_id, {"step": "ex_book", "ex": ex}, text, buttons, prev=menu)
             elif kind == "errors":
                 top, examples = self.ex_top_rules(user_id)
                 if not top:
@@ -941,6 +949,22 @@ class App:
                 await self.show(chat_id, user_id, {"step": "ex_fmt", "ex": ex}, "🔁 Твои самые частые ошибки:\n"
                                 + "\n".join(f"• {escape(r)}" for r in top) + "\n\nКакой формат?",
                                 fmt.ex_format_buttons(kind), prev=menu)
+        elif action.startswith("b:u:"):
+            unit = textbook.get_unit(action[4:])
+            if unit:
+                await self.book_unit_screen(chat_id, user_id, ex, unit)
+        elif action.startswith("b:m:"):
+            mode = action[4:]
+            if mode == "gap":
+                await self.ex_ask_count(chat_id, user_id, {**ex, "kind": "book_gap", "fmt": "gap"})
+            else:
+                await self.show(chat_id, user_id, {"step": "ex_bdir", "ex": {**ex, "mode": mode}},
+                                "Направление:", fmt.book_dir_buttons())
+        elif action.startswith("b:d:"):
+            d = action[4:]
+            kind = "book_card" if ex.get("mode") == "card" else "book_test"
+            await self.ex_ask_count(chat_id, user_id, {**ex, "kind": kind, "dir": d,
+                                                       "fmt": "test" if kind == "book_test" else "gap"})
         elif action.startswith("s:"):
             src = action[2:]
             if src == "set":
@@ -1118,14 +1142,28 @@ class App:
 
     async def ex_make(self, chat_id: int, user_id: int, ex: dict) -> None:
         kind, f = ex.get("kind", "grammar"), ex.get("fmt", "gap")
+        idx = ex["total"] - ex["left"] + 1
+        if kind in ("book_card", "book_test"):
+            built = await self.book_items(chat_id, user_id, ex, idx)
+            if built:
+                await self.ex_publish(chat_id, user_id, ex, built[0], built[1], idx)
+            return
+        if kind == "book_gap":
+            unit = textbook.get_unit(ex.get("unit", ""))
+            if not unit:
+                await self.tg.send_message(chat_id, "Юнит не найден. /ex → 📘 Учебник")
+                return
+            stats = self.db.book_stats(user_id, unit["unit"])
+            ex = {**ex, "words": [w["pl"] for w, _ in textbook.pick_words(unit, stats, 10, "gap")]}
         rule_filter = ex.get("rules") or None
         reuse = [it for it in self.db.ex_review_items(user_id, 20, rule_filter)
-                 if bool(it.get("options")) == (f == "test")
+                 if bool(it.get("options")) == (f == "test") and not it.get("card") and not it.get("unit")
                  and (kind not in ("words", "voice") or it.get("lemma") in (ex.get("words") or []))][:EX_REUSE]
+        if kind == "book_gap":
+            reuse = []  # слова с ошибками и так идут первыми (статистика юнита)
         prompt = ex_prompt(kind, f, self.cfg.level, rules.catalog_text(), self.db.ex_recent(user_id),
                            words=ex.get("words"), rules_list=ex.get("rules"), examples=ex.get("examples"),
                            voice=kind == "voice", present_only=EX_PRESENT_ONLY)
-        idx = ex["total"] - ex["left"] + 1
         data = await self.ask(chat_id, prompt, EX_SCHEMA, EX_HINT,
                               wait=f"⏳ Составляю упражнение {idx}/{ex['total']}… (10–20 секунд)")
         if data is None:
@@ -1143,6 +1181,11 @@ class App:
             else:
                 it["options"] = []
             it["rule"] = rules.normalize(it.get("rule"))
+            ru = str(it.get("ru") or "")
+            if "⟪" in ru and "⟫" in ru:  # перевод пропущенного слова — под спойлер
+                it["ru_spoiler"], it["ru"] = ru, ru.replace("⟪", "").replace("⟫", "")
+            if kind == "book_gap":
+                it["unit"] = ex.get("unit")
             key = exercises.norm_sentence(it.get("full_pl") or it["q"])
             if key in seen:
                 continue
@@ -1160,6 +1203,10 @@ class App:
             await self.tg.send_message(chat_id, "Не получилось составить упражнение — попробуй ещё раз.")
             return
         title = str(data.get("title") or fmt.EX_KINDS.get(kind, "Упражнение"))
+        await self.ex_publish(chat_id, user_id, ex, items, title, idx)
+
+    async def ex_publish(self, chat_id: int, user_id: int, ex: dict, items: list[dict], title: str, idx: int) -> None:
+        kind, f = ex.get("kind", "grammar"), ex.get("fmt", "gap")
         ex_id = self.db.ex_create(user_id, kind, f, title, items, ex.get("rules") or [])
         ex = {**ex, "ex_id": ex_id, "left": ex["left"] - 1}
         self.db.set_pending(user_id, {"step": "ex_answer", "ex": ex})
@@ -1171,6 +1218,70 @@ class App:
                                           [[("✖️ Закончить без проверки", "nav:c:ex_answer")]])
         if sent and sent.get("message_id"):
             self.db.ex_set_tg_msg(ex_id, sent["message_id"])
+
+    # ---------- 📘 лексика из учебника ----------
+
+    async def book_items(self, chat_id: int, user_id: int, ex: dict, idx: int) -> tuple[list, str] | None:
+        """Карточки и тест по словам юнита. Карточки — без Gemini; для теста Gemini подбирает
+        2 неверных варианта, близких по смыслу."""
+        unit = textbook.get_unit(ex.get("unit", ""))
+        if not unit:
+            await self.tg.send_message(chat_id, "Юнит не найден. /ex → 📘 Учебник")
+            return None
+        stats = self.db.book_stats(user_id, unit["unit"])
+        items = [textbook.card_item(w, d) for w, d in textbook.pick_words(unit, stats, 10, ex.get("dir", "mix"))]
+        for it in items:
+            it["unit"] = unit["unit"]
+            it["_key"] = f"card:{unit['unit']}:{it['dir']}:{it['lemma']}:{self.clock()}"
+        mode = "Карточки" if ex["kind"] == "book_card" else "Тест"
+        title = f"Unit {unit['unit']} «{unit['title']}» — {mode}, {textbook.DIRS.get(ex.get('dir', 'mix'), '')}"
+        if ex["kind"] == "book_test":
+            prompt = book_options_prompt([(n, it["q"], it["answer"], "ru" if it["dir"] == "pl" else "pl")
+                                          for n, it in enumerate(items, 1)])
+            data = await self.ask(chat_id, prompt, BOOK_OPTS_SCHEMA, BOOK_OPTS_HINT,
+                                  wait=f"⏳ Подбираю близкие варианты {idx}/{ex['total']}…")
+            if data is None:
+                return None
+            wrong = {int(x.get("n", 0)): [str(o) for o in x.get("wrong") or []]
+                     for x in data.get("items") or [] if isinstance(x, dict)}
+            keep = []
+            for n, it in enumerate(items, 1):
+                bad = [o for o in wrong.get(n, []) if o.strip() and exercises.norm(o) != exercises.norm(it["answer"])]
+                bad = list(dict.fromkeys(bad))[:2]
+                if len(bad) < 2:
+                    continue  # модель не дала два варианта — пункт пропускаем
+                it["options"] = random.sample([it["answer"]] + bad, 3)
+                keep.append(it)
+            items = keep
+            if not items:
+                await self.tg.send_message(chat_id, "Не получилось подобрать варианты — попробуй ещё раз.")
+                return None
+        return items, title
+
+    def book_record_results(self, user_id: int, saved: dict, results: list[dict]) -> None:
+        """Ответы по словам учебника — только в статистику юнита, не в общий пул ошибок."""
+        for r in results:
+            it = saved["items"][r["n"] - 1]
+            unit = it.get("unit")
+            if not unit:
+                continue
+            if it.get("card"):
+                pl, d = it["lemma"], it["dir"]
+            else:  # пропуски: найти слово юнита по словарной форме
+                u = textbook.get_unit(unit)
+                lemma = str(it.get("lemma", "")).strip().lower()
+                w = next((w for w in (u or {}).get("words", []) if w["pl"].lower() == lemma), None)
+                if not w:
+                    continue
+                pl, d = w["pl"], "ru"
+            self.db.book_record(user_id, unit, pl, d, r["final"] != "wrong")
+
+    async def book_unit_screen(self, chat_id: int, user_id: int, ex: dict, unit: dict,
+                               message_id: int | None = None) -> None:
+        done, total = textbook.unit_progress(unit, self.db.book_stats(user_id, unit["unit"]))
+        text, buttons = fmt.book_unit_screen(unit, done, total)
+        await self.show(chat_id, user_id, {"step": "ex_bunit", "ex": {**ex, "unit": unit["unit"]}}, text, buttons,
+                        message_id)
 
     # ---------- интерактивный тест: кнопки a / b / c под каждым пунктом ----------
 
@@ -1255,11 +1366,12 @@ class App:
         else:
             audio = None
             results = exercises.quick_check(items, answers, f)
-        todo = exercises.needs_model(results, EX_EXPLAIN_ALL)
+        cards = any(it.get("card") for it in items)
+        todo = exercises.needs_model(results, EX_EXPLAIN_ALL and not cards)  # карточки: объясняем только ошибки
         verdicts: dict[int, dict] = {}
         if todo:
             prompt = check_prompt([(r["n"], items[r["n"] - 1], r["user"], r["unsure"], r.get("note", "")) for r in todo],
-                                  self.cfg.level, voice=bool(voice), topics=saved.get("topics"))
+                                  self.cfg.level, voice=bool(voice), topics=saved.get("topics"), cards=cards)
             if voice and self.ignore_block(user_id):
                 prompt = self.ignore_block(user_id) + "\n\n" + prompt
             data = await self.ask(chat_id, prompt, CHECK_SCHEMA, CHECK_HINT,
@@ -1303,7 +1415,11 @@ class App:
                                    fmt.ex_result_buttons(saved["id"], ex.get("left", 0)))
 
     def ex_record(self, user_id: int, saved: dict, results: list[dict]) -> None:
-        """Ошибки — в общий пул; ответы по словам и правилам набора — в прогресс с весом 0.1."""
+        """Ошибки — в общий пул; ответы по словам и правилам набора — в прогресс с весом 0.1.
+        Учебник — только в статистику юнита."""
+        if str(saved.get("kind", "")).startswith("book_"):
+            self.book_record_results(user_id, saved, results)
+            return
         session = self.db.current_session(user_id)
         wrong = []
         for r in results:
