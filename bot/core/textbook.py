@@ -13,9 +13,10 @@
 """
 import json
 import random
+import re
 from pathlib import Path
 
-UNITS_DIR = Path(__file__).parent / "textbook"
+UNITS_DIR = Path(__file__).resolve().parent.parent / "textbook"  # bot/textbook/unit_NN.json
 DIRS = {"pl": "🇵🇱→🇷🇺", "ru": "🇷🇺→🇵🇱", "mix": "🔀 Вперемешку"}
 KNOW_STREAK = 3   # слово выучено: столько верных ответов подряд в каждую сторону
 
@@ -32,8 +33,14 @@ def load_units(path: Path | None = None) -> list[dict]:
         u["words"] = [w for w in u.get("words") or [] if w.get("pl") and w.get("ru")]
         if u["words"]:
             units.append(u)
-    units.sort(key=lambda u: (len(u["unit"]), u["unit"]))
+    units.sort(key=_order)
     return units
+
+
+def _order(u: dict) -> tuple:
+    """«7» < «7a» < «8» < «10»: сначала номер урока, потом буква мини-юнита."""
+    m = re.match(r"(\d+)(.*)", u["unit"])
+    return (int(m.group(1)), m.group(2)) if m else (10**6, u["unit"])
 
 
 def get_unit(unit_id: str, path: Path | None = None) -> dict | None:

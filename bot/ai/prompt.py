@@ -1,8 +1,8 @@
 """Системная инструкция для Gemini и схема структурированного ответа."""
 
 
-from . import verbs
-from .rules import catalog_text
+from ..core import verbs
+from ..core.rules import catalog_text
 
 
 def system_prompt(level: str) -> str:

@@ -6,7 +6,6 @@
   - минутный лимит -> на время из ответа Google (обычно до минуты);
   - перегрузка/таймаут -> на короткое время.
 """
-import asyncio
 import base64
 import json
 import logging

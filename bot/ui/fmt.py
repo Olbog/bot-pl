@@ -2,12 +2,12 @@
 import re
 from html import escape as e
 
-from .gemini import Turn
-from .config import local_dt
+from ..ai.gemini import Turn
+from ..core.config import local_dt
 
-from .rules import group
-from .verbs import verb_line
-from .training import Criteria, WordStats, kind_of, num, progress_bar
+from ..core.rules import group
+from ..core.verbs import verb_line
+from ..core.training import Criteria, WordStats, kind_of, num, progress_bar
 
 KIND_ICON = {"word": "🔤", "grammar": "📝", "pronunciation": "🗣"}
 
@@ -99,22 +99,19 @@ def summary_message(words: list[dict], corrections: list[dict], turns: int) -> s
 
 
 HELP = (
-    "Пиши или говори голосом по-польски. Не знаешь слово — вставь его по-русски.\n\n"
+    "Пиши или говори голосом по-польски. Не знаешь слово — вставь его по-русски.\n"
     "Я исправлю ошибки, подскажу польские слова и отвечу — текстом и голосом.\n\n"
-    "<b>Режимы</b>\n"
-    "🎯 Набор — тренируем 10 слов, пока не освоишь: я строю разговор так, чтобы ты говорил их "
-    "в разных формах.\n"
-    "🏁 Свободный — разговор на любую тему, иногда подмешиваю давно не звучавшие освоенные слова.\n\n"
-    "/set — набор: прогресс, новый набор, отметить освоенные\n"
-    "/free — свободный разговор\n"
-    "/ex — упражнения: слова, грамматика, правила, мои ошибки, голосом\n"
-    "/new — новая тема (начать разговор заново)\n"
-    "/itog — итог: ошибки по правилам и новые слова за час / сутки / разговор, всё время — файлом\n"
-    "/dict — словарь ⭐: выражения, которые ты сохранил, чтобы ввести в речь\n"
-    "/rule вопрос — объяснить правило своими словами\n"
-    "/export — выгрузить всё файлом: ошибки по правилам, слова и словарь (сам — раз в неделю, пн 04:00)\n\n"
-    "Под ответами: 📖 Правило — разбор ошибок этого сообщения, ⭐ В словарь — сохранить выражения.\n\n"
-    "/cancel — отменить создание набора\n"
+    "/menu — 🏠 главное меню\n"
+    "/new — 💬 новый разговор: по набору, новый набор (тема, свои слова, юнит, ошибки, словарь, недоученные) "
+    "или без набора (без темы, своя, случайная)\n"
+    "/ex — 🏋️ упражнения: слова, грамматика, мои ошибки, голосом, учебник\n"
+    "/set — 🎯 наборы слов: прогресс, новый набор, 🧳 недоученные, отметить освоенные\n"
+    "/itog — 📋 итог: ошибки и слова за час / сутки / разговор, всё время — файлом\n"
+    "/dict — ⭐ словарь выражений; 🙅 исключения\n"
+    "/rule вопрос — 📖 объяснить правило\n"
+    "/export — 🗂 выгрузить всё файлом (сам — раз в неделю, пн 04:00)\n\n"
+    "Под ответами: 📖 Правило · ⭐ В словарь · 🙅 Не ошибка.\n"
+    "На любом шаге: ⬅️ Назад и ✖️ Отмена — отмена ничего не сбрасывает, разговор и набор остаются.\n"
     "/help — эта подсказка"
 )
 
@@ -149,7 +146,8 @@ def set_progress(title: str, rows: list[tuple], c: Criteria, mode: str, rule_c: 
     rule_c = rule_c or c
     done = sum(1 for w, _ in rows if w["mastered_at"] is not None)
     head = f"📚 <b>Набор «{e(title)}»</b> — освоено {done} из {len(rows)}"
-    mode_line = "Режим: 🎯 тренировка набора" if mode == "set" else "Режим: 🏁 свободный разговор"
+    mode_line = ("Сейчас: 🎯 разговор по этому набору" if mode == "set"
+                 else "Сейчас разговор без набора. Тренировать набор — /new → 🎯")
     legend = (f"<i>Освоено: слово — {c.streak} раз подряд без ошибок, {c.forms} формы, {c.days} дня"
               + (f"; 📐 правило — {rule_c.streak} раз, {rule_c.forms} ситуаций, {rule_c.days} дней"
                  if any(kind_of(w) == "rule" for w, _ in rows) else "")
@@ -158,19 +156,67 @@ def set_progress(title: str, rows: list[tuple], c: Criteria, mode: str, rule_c: 
     return "\n".join([head, mode_line, ""] + lines + ["", legend])
 
 
-def set_buttons(mode: str, has_set: bool) -> list[list[tuple[str, str]]]:
-    rows = []
-    if has_set:
-        rows.append([("🏁 Свободный разговор", "mode:free")] if mode == "set"
-                    else [("🎯 Тренировать набор", "mode:set")])
-    rows.append([("➕ Набор по теме", "s:topic"), ("✍️ Свои слова", "s:own")])
-    rows.append([("🧩 Из ошибок", "e:start"), ("⭐ Из словаря", "s:dict")])
+def set_source_rows(leftovers: int) -> list[list[tuple[str, str]]]:
+    """Откуда взять новый набор — одинаково в /set и в /new → «➕ Новый набор»."""
+    rows = [[("➕ По теме", "s:topic"), ("✍️ Свои слова", "s:own")],
+            [("📘 Из юнита", "s:unit"), ("🧩 Из ошибок", "e:start")],
+            [("⭐ Из словаря", "s:dict")]]
+    if leftovers:
+        rows[-1].append((f"🧳 Недоученные ({leftovers})", "s:left"))
+    return rows
+
+
+def set_buttons(has_set: bool, leftovers: int = 0) -> list[list[tuple[str, str]]]:
+    rows = set_source_rows(leftovers)
     if has_set:
         rows.append([("✅ Отметить освоенные", "m:list")])
     return rows
 
 
-def preview_message(p: dict, carry: list) -> str:
+# ---------- главное меню и /new ----------
+
+def status_line(mode: str, topic: str | None, active: dict | None, done: int = 0, total: int = 0) -> str:
+    if mode == "set" and active:
+        return f"🎯 набор «{e(active['title'])}», освоено {done}/{total}"
+    if topic:
+        return f"🗂 разговор на тему «{e(topic)}»"
+    return "🏁 разговор без темы"
+
+
+def main_menu(status: str) -> tuple[str, list[list[tuple[str, str]]]]:
+    return (f"🏠 <b>Главное меню</b>\nСейчас: {status}\n\n<i>Можно просто писать или говорить — "
+            "разговор продолжается.</i>",
+            [[("💬 Новый разговор", "go:new"), ("🏋️ Упражнения", "go:ex")],
+             [("🎯 Наборы слов", "go:set"), ("📋 Итог", "go:itog")],
+             [("⭐ Словарь", "go:dict"), ("🗂 Выгрузка", "go:export")]])
+
+
+def new_menu(status: str, active: dict | None, done: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
+    rows = []
+    if active:
+        rows.append([(f"🎯 Тренировать набор «{active['title']}» ({done}/{total})"[:60], "nw:set")])
+    rows.append([("➕ Новый набор…", "nw:newset")])
+    rows.append([("🏁 Без набора…", "nw:free")])
+    return (f"💬 <b>Новый разговор</b> — о чём?\nСейчас: {status}\n\n"
+            "<i>🎯 Набор — бот строит разговор так, чтобы ты употреблял слова набора в разных формах. "
+            "Без набора — просто разговор с исправлениями.</i>", rows)
+
+
+def new_free_buttons() -> list[list[tuple[str, str]]]:
+    return [[("💬 Без темы", "nw:f:none")], [("🗂 Своя тема", "nw:f:own")], [("🎲 Случайная тема", "nw:f:rnd")]]
+
+
+def leftovers_screen(rows: list, chosen: list[int]) -> tuple[str, list[list[tuple[str, str]]]]:
+    on = set(chosen)
+    text = (f"🧳 <b>Недоученные</b> — {len(rows)} из прошлых наборов (прогресс сохранён).\n"
+            f"Выбрано: {len(on)}. <i>Нажми, чтобы отметить или снять, потом «▶️ Начать».</i>")
+    btns = [[((("✅ " if r["id"] in on else "☐ ") + f"{r['pl']} — {r['ru']}")[:60], f"lf:{r['id']}")]
+            for r in rows[:30]]
+    btns.append([("▶️ Начать", "lf:go")])
+    return text, btns
+
+
+def preview_message(p: dict, carry: list | None = None) -> str:
     lines = [f"📝 <b>Новый набор «{e(p['title'])}»</b>", ""]
     off = set(p.get("off", []))
     for i, w in enumerate(p["words"]):
@@ -179,7 +225,7 @@ def preview_message(p: dict, carry: list) -> str:
         txt = f"{mark} <b>{e(w['pl'])}</b>{tr} — {e(w.get('ru', ''))}"
         lines.append(f"<s>{txt}</s>" if i in off else txt)
     if carry:
-        lines += ["", "<b>Переходят из прошлого набора:</b>"]
+        lines += ["", "<b>Из «Недоученных»:</b>"]
         lines += [f"↪ <b>{e(w['pl'])}</b> — {e(w['ru'])}" for w in carry]
     lines += ["", "<i>Нажми на слово, чтобы убрать или вернуть его.</i>"]
     return "\n".join(lines)
@@ -189,7 +235,7 @@ def preview_buttons(p: dict) -> list[list[tuple[str, str]]]:
     off = set(p.get("off", []))
     word_btns = [((("❌ " if i in off else "") + w["pl"])[:30], f"p:{i}") for i, w in enumerate(p["words"])]
     rows = [word_btns[i:i + 3] for i in range(0, len(word_btns), 3)]
-    extra = [("🔄 Другие слова", "p:regen")] if p.get("topic") else []
+    extra = [("🔄 Другие слова", "p:regen")] if p.get("topic") or p.get("unit") else []
     rows.append([("✅ Начать", "p:ok")] + extra)
     rows.append([("✍️ Добавить свои", "p:add")])
     return rows
@@ -537,13 +583,14 @@ def ex_rule_picker(catalog: list[str], chosen: list[int]) -> tuple[str, list[lis
     return text, rows
 
 
-def book_units_screen(units: list[dict]) -> tuple[str, list[list[tuple[str, str]]]]:
-    lines = ["📘 <b>Учебник</b> — какой юнит тренируем?", ""]
+def book_units_screen(units: list[dict], prefix: str = "x:b:u:",
+                      title: str = "📘 <b>Учебник</b> — какой юнит тренируем?") -> tuple[str, list[list[tuple[str, str]]]]:
+    lines = [title, ""]
     for u in units:
         lines.append(f"<b>Unit {e(u['unit'])} — {e(u['title'])}</b> · {len(u['words'])} слов")
         if u.get("summary"):
             lines.append(f"<i>{e(u['summary'])}</i>")
-    return "\n".join(lines), [[(f"Unit {u['unit']} — {u['title']}"[:60], f"x:b:u:{u['unit']}")] for u in units]
+    return "\n".join(lines), [[(f"Unit {u['unit']} — {u['title']}"[:60], f"{prefix}{u['unit']}")] for u in units]
 
 
 def book_unit_screen(unit: dict, done: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:

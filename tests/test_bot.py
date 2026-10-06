@@ -3,10 +3,10 @@ import json
 
 import httpx
 
-from bot.config import Config
-from bot.db import DB
-from bot.fmt import summary_message, turn_message
-from bot.gemini import (DEFAULT_MODELS, Gemini, GeminiError, GeminiExhausted, GeminiOverloaded, Turn,
+from bot.core.config import Config
+from bot.core.db import DB
+from bot.ui.fmt import summary_message, turn_message
+from bot.ai.gemini import (DEFAULT_MODELS, Gemini, GeminiError, GeminiExhausted, GeminiOverloaded, Turn,
                         build_contents, classify_429, next_quota_reset, parse_turn)
 from bot.main import App
 
@@ -303,7 +303,7 @@ def test_pronunciation_icon_and_unknown_kind():
 
 
 def test_prompt_and_schema_consistent():
-    from bot.prompt import FIELDS, RESPONSE_SCHEMA, json_format_hint, system_prompt
+    from bot.ai.prompt import FIELDS, RESPONSE_SCHEMA, json_format_hint, system_prompt
     assert set(FIELDS) == set(RESPONSE_SCHEMA["properties"])
     assert all(f in json_format_hint() for f in FIELDS)
     assert "ДОСЛОВНО" in system_prompt("A1")
@@ -519,15 +519,20 @@ def test_commands_new_and_itog():
     run(app.on_callback(cb("i:s")))
     assert "chleb" in app.tg.sent[-1] and "w sklep→w sklepie" in app.tg.sent[-1]
     run(app.handle(msg(text="/new")))
+    assert "Новый разговор" in app.tg.sent[-1]
+    run(app.on_callback(cb("i:s")))
+    assert "chleb" in app.tg.sent[-1]                          # меню /new ещё ничего не сбросило
+    run(app.handle(msg(text="/new")))
+    run(app.on_callback(cb("nw:f:none")))
     run(app.on_callback(cb("i:s")))
     assert "разговоров не было" in app.tg.sent[-1]
     run(app.handle(msg(text="/start")))
-    assert "/new" in app.tg.sent[-1]
+    assert "Главное меню" in app.tg.sent[-1] and "go:new" in str(app.tg.buttons[-1])
 
 
 # ---------- тренировка наборов ----------
 
-from bot import training  # noqa: E402
+from bot.core import training  # noqa: E402
 
 
 def use(form, ok, day):
@@ -585,7 +590,7 @@ def test_topic_flow_preview_toggle_and_start():
     active = app.db.active_set(42)
     assert active["title"] == "Кафе"
     assert [w["pl"] for w in app.db.set_words(active["id"])] == ["ciasto", "piec"]
-    assert app.db.get_state(42) == {"mode": "set", "pending": None}
+    assert app.db.get_state(42) == {"mode": "set", "pending": None, "topic": None}
     assert gem.calls[-1][1] == "Zaczynajmy!" and "ТРЕНИРОВКА" in gem.extras[-1] and "ciasto" in gem.extras[-1]
     assert "✅ Без" not in app.tg.sent[-1] and "Исправления" not in app.tg.sent[-1]
 
@@ -656,7 +661,8 @@ def test_manual_mastered_toggle_and_suggest_next_and_carry():
     app.gemini.words = {"title": "Новый", "words": [{"pl": "herbata", "translit": "хер-БА-та", "ru": "чай", "pos": "сущ"}]}
     start_set(app, "чай")
     new_words = [w["pl"] for w in app.db.set_words(app.db.active_set(42)["id"])]
-    assert "herbata" in new_words and old_left["pl"] in new_words and words[0]["pl"] not in new_words
+    assert new_words == ["herbata"]                                  # хвост старого набора не тянется
+    assert [w["pl"] for w in app.db.leftovers(42)] == [old_left["pl"]]   # а ждёт в «🧳 Недоученные»
 
 
 def test_free_mode_review_block_and_advance():
@@ -668,7 +674,8 @@ def test_free_mode_review_block_and_advance():
     w = [x for x in app.db.set_words(app.db.active_set(42)["id"]) if x["pl"] == "ciasto"][0]
     app.db.set_mastered(w["id"], "user")
     app.db.conn.execute("UPDATE set_words SET mastered_at=? WHERE id=?", (clock.t, w["id"]))
-    run(app.handle(msg(text="/free")))
+    run(app.handle(msg(text="/free")))                             # старая команда → меню /new
+    run(app.on_callback(cb("nw:f:none")))
     assert app.db.get_state(42)["mode"] == "free"
     run(app.handle(msg(text="a")))
     assert "ПОВТОРЕНИЕ" not in gem.extras[-1]                      # ещё рано
@@ -685,7 +692,7 @@ def test_mode_switch_buttons_and_set_view():
     run(app.handle(msg(text="/set")))
     assert "Набора пока нет" in app.tg.sent[-1]
     run(app.on_callback(cb("mode:set")))
-    assert "Сначала составь набор" in app.tg.sent[-1]
+    assert "Набора пока нет" in app.tg.sent[-1]
     start_set(app)
     run(app.on_callback(cb("mode:free")))
     assert app.db.get_state(42)["mode"] == "free"
@@ -703,8 +710,8 @@ def test_stale_preview_and_foreign_callback():
 
 # ---------- правила, словарь, итоги, наборы из ошибок ----------
 
-from bot import rules as rules_mod  # noqa: E402
-from bot.db import DB as _DB  # noqa: E402
+from bot.core import rules as rules_mod  # noqa: E402
+from bot.core.db import DB as _DB  # noqa: E402
 
 
 def test_rules_normalize_and_group():
@@ -933,7 +940,7 @@ def test_autosave_weekly_schedule_and_export_command():
 
 # ---------- упражнения ----------
 
-from bot import exercises as exm  # noqa: E402
+from bot.exercises import logic as exm  # noqa: E402
 
 
 def test_parse_answers_and_markers():
@@ -1240,7 +1247,7 @@ def test_exercise_shows_translation_not_polish_hint():
 
 # ---------- глагол: инфинитив и спряжение ----------
 
-from bot import verbs as verbs_mod  # noqa: E402
+from bot.core import verbs as verbs_mod  # noqa: E402
 
 
 def test_verb_line_and_conj_type():
@@ -1262,10 +1269,10 @@ def test_verb_shown_in_turn_and_exercise_results():
     app = make_app(gem=FakeGemini(turn=t))
     run(app.handle(msg(text="x")))
     assert "🔤 <b>piec</b> [ПЕЦ] — печь · спряжение -ę / -esz: piekę, pieczesz, pieką" in "\n".join(app.tg.sent)
-    from bot import prompt as pr
+    from bot.ai import prompt as pr
     assert "verb_conj" in pr.system_prompt("A1") and "verb_conj" in pr.ex_prompt("grammar", "gap", "A1", "", [])
     ex = {"id": 1, "title": "t", "items": [{"answer": "piekę", "grammar": "глагол", **verb}, {"answer": "kot"}]}
-    from bot import fmt
+    from bot.ui import fmt
     res = fmt.ex_results(ex, [{"n": 1, "user": "piekę", "final": "ok"}, {"n": 2, "user": "kot", "final": "ok"}])
     assert res.count("🔤") == 1 and "спряжение -ę / -esz" in res      # и у пункта с «!» без разбора
 
@@ -1348,7 +1355,8 @@ def test_exercise_finish_without_check():
     ex_id = app.db.get_state(42)["pending"]["ex"]["ex_id"]
     assert "nav:c:ex_answer" in str(app.tg.buttons[-1])
     run(app.on_callback(cb("nav:c:ex_answer")))
-    assert step_of(app) is None and f"#{ex_id} — без проверки" in app.tg.sent[-1]
+    assert step_of(app) is None and f"#{ex_id} — без проверки" in app.tg.sent[-2]
+    assert "Главное меню" in app.tg.sent[-1]                    # после отмены — главное меню
     assert app.tg.markups and app.tg.markups[-1][1] is None and not app.db.ex_get(ex_id)["results"]
     # после проверки кнопка «Закончить без проверки» убирается
     ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix", "x:n:1")
@@ -1375,7 +1383,7 @@ def test_voice_note_after_word_utochnenie():
 
 # ---------- длинные сообщения ----------
 
-from bot import telegram as tg_mod  # noqa: E402
+from bot.core import telegram as tg_mod  # noqa: E402
 
 
 def test_split_html_keeps_tags_and_items_whole():
@@ -1551,7 +1559,7 @@ def test_quiz_text_answer_merges_with_buttons():
 # ---------- 📘 учебник ----------
 
 from pathlib import Path  # noqa: E402
-from bot import textbook as tb  # noqa: E402
+from bot.core import textbook as tb  # noqa: E402
 
 UNIT = {"unit": "2", "title": "Rodzina", "summary": "семья, mieć",
         "words": [{"pl": "brat", "translit": "БРАТ", "ru": "брат", "pos": "сущ., м. р."},
@@ -1658,8 +1666,98 @@ def test_book_no_units_message():
 def test_real_textbook_units_are_valid():
     real = Path(__file__).resolve().parent.parent / "bot" / "textbook"
     units = tb.load_units(real)
-    assert [u["unit"] for u in units][:2] == ["7", "8"]
+    assert [u["unit"] for u in units][:3] == ["7", "7a", "8"]
     for u in units:
         assert u["title"] and u["summary"]
         for w in u["words"]:
             assert w["pl"] and w["ru"] and w["translit"] and w["pos"], w
+
+
+# ---------- 🏠 меню, /new, наборы из юнита и 🧳 недоученные ----------
+
+def test_main_menu_buttons_and_cancel_keeps_conversation():
+    app = make_app()
+    start_set(app)                                              # режим набора, разговор идёт
+    session = app.db.current_session(42)
+    run(app.handle(msg(text="/menu")))
+    assert "Главное меню" in app.tg.sent[-1] and "🎯 набор «" in app.tg.sent[-1]
+    run(app.on_callback(cb("go:new")))
+    assert "Новый разговор" in app.tg.sent[-1] and "nw:set" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("nw:free")))
+    run(app.on_callback(cb("nav:b:new_free")))                  # назад к выбору
+    assert step_of(app) == "new_menu"
+    run(app.on_callback(cb("nav:c:new_menu")))                  # отмена
+    st = app.db.get_state(42)
+    assert st["mode"] == "set" and app.db.current_session(42) == session and st["pending"] is None
+    assert "Главное меню" in app.tg.sent[-1]
+    run(app.on_callback(cb("go:ex")))
+    assert "Упражнения" in app.tg.sent[-1]
+
+
+def test_new_free_topic_own_and_random():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    run(app.handle(msg(text="/new")))
+    run(app.on_callback(cb("nw:free")))
+    run(app.on_callback(cb("nw:f:own")))
+    run(app.handle(msg(text="у врача")))
+    st = app.db.get_state(42)
+    assert st["mode"] == "free" and st["topic"] == "у врача"
+    assert "ТЕМА РАЗГОВОРА: «у врача»" in gem.extras[-1] and gem.calls[-1][1] == "Zaczynajmy!"
+    run(app.handle(msg(text="/new")))
+    run(app.on_callback(cb("nw:free")))
+    run(app.on_callback(cb("nw:f:rnd")))
+    assert app.db.get_state(42)["topic"] in __import__("bot.settings", fromlist=["x"]).RANDOM_TOPICS
+    run(app.handle(msg(text="/new")))
+    run(app.on_callback(cb("nw:free")))
+    run(app.on_callback(cb("nw:f:none")))
+    assert app.db.get_state(42)["topic"] is None
+    run(app.handle(msg(text="hej")))
+    assert "ТЕМА РАЗГОВОРА" not in gem.extras[-1]
+
+
+def test_set_from_unit_counts_to_unit_progress():
+    with_unit()
+    t = {**TURN_JSON, "target_uses": [{"lemma": "brat", "form": "brata", "correct": True}]}
+    gem = FakeGemini(turn=t)
+    app = make_app(gem=gem)
+    run(app.handle(msg(text="/new")))
+    run(app.on_callback(cb("nw:newset")))
+    assert "s:unit" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("s:unit")))
+    run(app.on_callback(cb("nav:b:set_unit")))                  # назад — к источникам набора из /new
+    assert step_of(app) == "new_src"
+    run(app.on_callback(cb("s:unit")))
+    run(app.on_callback(cb("su:2")))
+    p = app.db.get_state(42)["pending"]
+    assert p["step"] == "preview" and p["unit"] == "2" and len(p["words"]) == 3
+    assert all(w["unit"] == "2" for w in p["words"])
+    run(app.on_callback(cb("p:ok")))
+    active = app.db.active_set(42)
+    assert active["title"].startswith("Unit 2") and app.db.get_state(42)["mode"] == "set"
+    assert all(w["unit"] == "2" for w in app.db.set_words(active["id"]))
+    assert app.db.book_stats(42, "2")[("brat", "ru")]["right"] >= 1   # употребление в разговоре → прогресс юнита
+
+
+def test_leftovers_collect_and_take_back_with_progress():
+    t = {**TURN_JSON, "target_uses": [{"lemma": "ciasto", "form": "ciasta", "correct": True}]}
+    gem = FakeGemini(turn=t)
+    app = make_app(gem=gem)
+    start_set(app)                                              # ciasto, piec, kawa
+    old = {w["pl"]: w["id"] for w in app.db.set_words(app.db.active_set(42)["id"])}
+    uses_before = len(app.db.word_uses(old["ciasto"]))
+    app.gemini.words = {"title": "Чай", "words": [{"pl": "herbata", "translit": "хер-БА-та", "ru": "чай", "pos": "сущ"}]}
+    start_set(app, "чай")
+    assert [w["pl"] for w in app.db.set_words(app.db.active_set(42)["id"])] == ["herbata"]
+    assert {w["pl"] for w in app.db.leftovers(42)} == {"ciasto", "piec", "kawa"}
+    run(app.handle(msg(text="/set")))
+    assert "Недоученных из прошлых наборов: 3" in app.tg.sent[-1] and "s:left" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("s:left")))
+    assert step_of(app) == "leftovers" and len(app.db.get_state(42)["pending"]["chosen"]) == 3
+    run(app.on_callback(cb(f"lf:{old['kawa']}")))               # kawa не берём
+    run(app.on_callback(cb("lf:go")))
+    active = app.db.active_set(42)
+    words = {w["pl"]: w["id"] for w in app.db.set_words(active["id"])}
+    assert active["title"] == "Недоученные" and set(words) == {"ciasto", "piec"}
+    assert words["ciasto"] == old["ciasto"] and len(app.db.word_uses(old["ciasto"])) >= uses_before   # прогресс сохранён
+    assert {w["pl"] for w in app.db.leftovers(42)} == {"kawa", "herbata"}

@@ -172,15 +172,15 @@ class Telegram:
 
     async def set_commands(self) -> None:
         await self.call("setMyCommands", commands=[
-            {"command": "set", "description": "🎯 Набор слов: прогресс, новый набор"},
-            {"command": "free", "description": "🏁 Свободный разговор без набора"},
-            {"command": "ex", "description": "🏋️ Упражнения: слова, грамматика, правила, голосом"},
-            {"command": "new", "description": "🆕 Начать разговор заново"},
+            {"command": "menu", "description": "🏠 Главное меню"},
+            {"command": "new", "description": "💬 Новый разговор: по набору, новый набор, без набора"},
+            {"command": "ex", "description": "🏋️ Упражнения: слова, грамматика, ошибки, голосом, учебник"},
+            {"command": "set", "description": "🎯 Наборы слов: прогресс, новый, 🧳 недоученные"},
             {"command": "itog", "description": "📋 Итог: ошибки и слова за час / сутки / разговор"},
             {"command": "dict", "description": "⭐ Мой словарь выражений"},
             {"command": "rule", "description": "📖 Вопрос о правиле: /rule почему do niej?"},
             {"command": "export", "description": "🗂 Выгрузить всё файлом: ошибки, слова, словарь"},
-            {"command": "cancel", "description": "✖️ Отменить создание набора"},
+            {"command": "cancel", "description": "✖️ Отменить текущий выбор (разговор и набор остаются)"},
             {"command": "help", "description": "❓ Что умеет бот"},
         ])
 

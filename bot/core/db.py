@@ -153,7 +153,8 @@ class DB:
         """Новые колонки для старой базы."""
         adds = {
             "corrections": [("rule", "TEXT"), ("msg_id", "INTEGER"), ("disputed", "INTEGER NOT NULL DEFAULT 0")],
-            "set_words": [("kind", "TEXT NOT NULL DEFAULT 'word'")],
+            "set_words": [("kind", "TEXT NOT NULL DEFAULT 'word'"), ("unit", "TEXT")],
+            "user_state": [("topic", "TEXT")],
             "word_uses": [("weight", "REAL NOT NULL DEFAULT 1"), ("msg_id", "INTEGER")],
             "exercises": [("tg_msg_id", "INTEGER"), ("topics", "TEXT")],
         }
@@ -221,10 +222,11 @@ class DB:
     # ---------- состояние пользователя ----------
 
     def get_state(self, user_id: int) -> dict:
-        row = self.conn.execute("SELECT mode, pending FROM user_state WHERE user_id=?", (user_id,)).fetchone()
+        row = self.conn.execute("SELECT mode, pending, topic FROM user_state WHERE user_id=?", (user_id,)).fetchone()
         if not row:
-            return {"mode": "free", "pending": None}
-        return {"mode": row["mode"], "pending": json.loads(row["pending"]) if row["pending"] else None}
+            return {"mode": "free", "pending": None, "topic": None}
+        return {"mode": row["mode"], "pending": json.loads(row["pending"]) if row["pending"] else None,
+                "topic": row["topic"]}
 
     def _ensure_state(self, user_id: int) -> None:
         self.conn.execute("INSERT OR IGNORE INTO user_state(user_id) VALUES (?)", (user_id,))
@@ -232,6 +234,12 @@ class DB:
     def set_mode(self, user_id: int, mode: str) -> None:
         self._ensure_state(user_id)
         self.conn.execute("UPDATE user_state SET mode=? WHERE user_id=?", (mode, user_id))
+        self.conn.commit()
+
+    def set_topic(self, user_id: int, topic: str | None) -> None:
+        """Тема свободного разговора (None — без темы)."""
+        self._ensure_state(user_id)
+        self.conn.execute("UPDATE user_state SET topic=? WHERE user_id=?", (topic, user_id))
         self.conn.commit()
 
     def set_pending(self, user_id: int, pending: dict | None) -> None:
@@ -247,22 +255,30 @@ class DB:
             "SELECT * FROM sets WHERE user_id=? AND status='active' ORDER BY id DESC LIMIT 1", (user_id,)
         ).fetchone()
 
-    def create_set(self, user_id: int, title: str, words: list[dict], carry_ids: list[int]) -> int:
-        """Новый активный набор: старый закрывается, неосвоенные слова carry_ids переезжают в новый."""
+    def create_set(self, user_id: int, title: str, words: list[dict], carry_ids: list[int] | None = None) -> int:
+        """Новый активный набор: старый закрывается (его неосвоенное уходит в «🧳 Недоученные»).
+        carry_ids — слова, взятые из «Недоученных»: переезжают в новый набор вместе со своим прогрессом."""
         now = self.clock()
         c = self.conn
         c.execute("UPDATE sets SET status='done' WHERE user_id=? AND status='active'", (user_id,))
         set_id = c.execute("INSERT INTO sets(user_id, title, created_at) VALUES (?,?,?)",
                            (user_id, title, now)).lastrowid
         for w in words:
-            c.execute("INSERT INTO set_words(set_id, user_id, pl, translit, ru, pos, kind, created_at) "
-                      "VALUES (?,?,?,?,?,?,?,?)",
+            c.execute("INSERT INTO set_words(set_id, user_id, pl, translit, ru, pos, kind, unit, created_at) "
+                      "VALUES (?,?,?,?,?,?,?,?,?)",
                       (set_id, user_id, w.get("pl", "").strip(), w.get("translit", ""), w.get("ru", ""),
-                       w.get("pos", ""), w.get("kind", "word"), now))
-        for wid in carry_ids:
+                       w.get("pos", ""), w.get("kind", "word"), w.get("unit"), now))
+        for wid in carry_ids or []:
             c.execute("UPDATE set_words SET set_id=? WHERE id=? AND user_id=?", (set_id, wid, user_id))
         c.commit()
         return set_id
+
+    def leftovers(self, user_id: int) -> list:
+        """«🧳 Недоученные»: неосвоенные слова и правила из закрытых наборов, новые сверху."""
+        return self.conn.execute(
+            "SELECT w.*, s.title AS set_title FROM set_words w JOIN sets s ON s.id = w.set_id "
+            "WHERE w.user_id=? AND s.status='done' AND w.mastered_at IS NULL ORDER BY w.id DESC", (user_id,)
+        ).fetchall()
 
     def set_words(self, set_id: int) -> list:
         return self.conn.execute("SELECT * FROM set_words WHERE set_id=? ORDER BY id", (set_id,)).fetchall()
