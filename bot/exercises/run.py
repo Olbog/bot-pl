@@ -85,9 +85,18 @@ class ExerciseRunMixin:
             await self.ex_send_quiz(chat_id, user_id, ex, saved, idx)
             return
         sent = await self.tg.send_message(chat_id, fmt.ex_message(saved, idx, ex["total"], kind == "voice"),
-                                          [[("✖️ Закончить без проверки", "nav:c:ex_answer")]])
+                                          fmt.ex_hint_rows(saved) + [[("✖️ Закончить без проверки", "nav:c:ex_answer")]])
         if sent and sent.get("message_id"):
             self.db.ex_set_tg_msg(ex_id, sent["message_id"])
+
+    def ex_hint(self, user_id: int, data: str) -> str:
+        """x:h:<ex>:<n> — перевод пропущенного слова пункта n (всплывашка только для этого пункта)."""
+        _, _, ex_id, n = data.split(":")
+        saved = self.db.ex_get(int(ex_id))
+        if not saved or saved["user_id"] != user_id or not 1 <= int(n) <= len(saved["items"]):
+            return "Упражнение не найдено"
+        hint = fmt.hint_of(saved["items"][int(n) - 1])
+        return f"💡{n}: {hint}" if hint else "Для этого пункта подсказки нет"
 
     async def ex_send_quiz(self, chat_id: int, user_id: int, ex: dict, saved: dict, idx: int) -> None:
         """Одно сообщение с упражнением, под ним кнопки a / b / c по строке на пункт. Выбор хранится в pending."""

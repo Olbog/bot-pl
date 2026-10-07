@@ -334,7 +334,7 @@ class FakeTG:
     async def send_document(self, chat_id, filename, content, caption=""):
         self.docs.append((filename, content.decode("utf-8"), caption))
 
-    async def answer_callback(self, cid, text=None):
+    async def answer_callback(self, cid, text=None, alert=False):
         self.toasts.append(text)
 
     async def delete_message(self, chat_id, message_id):
@@ -1649,9 +1649,12 @@ def test_book_test_close_options_and_gap_spoiler():
         run(app.on_callback(cb(c)))
     assert "⟪ ⟫" in gem.prompts[-1] and ("brat" in gem.prompts[-1] or "siostra" in gem.prompts[-1])
     assert "ТОЛЬКО эти" in gem.prompts[-1] and "творительный" in gem.prompts[-1] and "дательный" not in gem.prompts[-1]
-    assert "<tg-spoiler>слово</tg-spoiler>" in app.tg.sent[-1]
+    assert "<b>[💡1]</b>" in app.tg.sent[-1] and "слово" not in app.tg.sent[-1]   # перевод слова спрятан
     gap = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
     assert gap["items"][0]["ru"] == "Предложение слово"          # в разборе — без скобок
+    assert f"x:h:{gap['id']}:3" in str(app.tg.buttons[-1])      # кнопки 💡 под упражнением
+    run(app.on_callback(cb(f"x:h:{gap['id']}:3")))
+    assert app.tg.toasts[-1] == "💡3: слово"                     # подсказка только по пункту 3
 
 
 def test_book_no_units_message():
@@ -1773,3 +1776,40 @@ def test_archive_resume_set_with_progress():
     run(app.handle(msg(text="/new")))
     run(app.on_callback(cb("nw:arch")))
     assert step_of(app) == "archive" and "Чай" in str(app.tg.buttons[-1])
+
+
+
+# ---------- 📖 /words ----------
+
+def test_words_list_hidden_file_voice():
+    with_unit()
+    app = make_app()
+    app.db.book_record(42, "2", "brat", "pl", True)
+    for _ in range(3):
+        app.db.book_record(42, "2", "siostra", "pl", True)
+        app.db.book_record(42, "2", "siostra", "ru", True)
+    run(app.handle(msg(text="/words")))
+    assert "Слова юнита" in app.tg.sent[-1] and "wd:u:2" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("wd:u:2")))
+    t = app.tg.sent[-1]
+    assert "rodzeństwo</b> [ро-ДЗЕНЬ-ство] — братья и сёстры" in t and "выучено 1" in t
+    assert "✅ 2. <b>siostra</b>" in t and "✅ 1." not in t
+    assert "wd:h:2" in str(app.tg.buttons[-1]) and "wd:v:2" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("wd:h:2")))
+    assert "братья" not in app.tg.sent[-1] and "rodzeństwo" in app.tg.sent[-1]
+    assert ("3", "wd:s:2:3") in app.tg.buttons[-1][0]
+    run(app.on_callback(cb("wd:s:2:3")))
+    assert app.tg.toasts[-1] == "3. rodzeństwo — братья и сёстры · сущ., ср. р."
+    run(app.on_callback(cb("wd:f:2")))
+    name, content, _ = app.tg.docs[-1]
+    assert name == "unit_2_slova.txt" and "1. brat [БРАТ] — брат (сущ., м. р.)" in content
+    run(app.on_callback(cb("wd:v:2")))
+    assert app.tg.voices[-1] == b"OGG:brat ... siostra ... rodze\u0144stwo.".decode("unicode_escape").encode()
+    run(app.handle(msg(text="/menu")))
+    run(app.on_callback(cb("go:words")))
+    assert "Слова юнита" in app.tg.sent[-1]
+    run(app.on_callback(cb("x:k:book")))                         # кнопка «📖 Слова юнита» в /ex → учебник
+    run(app.handle(msg(text="/ex")))
+    run(app.on_callback(cb("x:k:book")))
+    run(app.on_callback(cb("x:b:u:2")))
+    assert "wd:u:2" in str(app.tg.buttons[-1])

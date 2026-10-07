@@ -105,6 +105,7 @@ HELP = (
     "/new — 💬 новый разговор: по набору, набор из 📚 архива, новый набор (тема, свои слова, юнит, ошибки, словарь) "
     "или без набора (без темы, своя, случайная)\n"
     "/ex — 🏋️ упражнения: слова, грамматика, мои ошибки, голосом, учебник\n"
+    "/words — 📖 слова юнита: список с переводом, 🙈 скрытый перевод, 📄 файлом, 🔊 озвучка\n"
     "/set — 🎯 наборы слов: прогресс, новый набор, 📚 архив, отметить освоенные\n"
     "/itog — 📋 итог: ошибки и слова за час / сутки / разговор, всё время — файлом\n"
     "/dict — ⭐ словарь выражений; 🙅 исключения\n"
@@ -188,7 +189,8 @@ def main_menu(status: str) -> tuple[str, list[list[tuple[str, str]]]]:
             "разговор продолжается.</i>",
             [[("💬 Новый разговор", "go:new"), ("🏋️ Упражнения", "go:ex")],
              [("🎯 Наборы слов", "go:set"), ("📋 Итог", "go:itog")],
-             [("⭐ Словарь", "go:dict"), ("🗂 Выгрузка", "go:export")]])
+             [("⭐ Словарь", "go:dict"), ("📖 Слова учебника", "go:words")],
+             [("🗂 Выгрузка", "go:export")]])
 
 
 def new_menu(status: str, active: dict | None, done: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
@@ -617,7 +619,8 @@ def book_unit_screen(unit: dict, done: int, total: int) -> tuple[str, list[list[
             + (f"<i>{e(unit['summary'])}</i>\n" if unit.get("summary") else "")
             + "\n<i>Выучено — 3 верных ответа подряд в обе стороны. Сначала идут слова с ошибками, "
               "потом те, что тренировались реже.</i>")
-    return text, [[("✍️ Пропуски в предложениях", "x:b:m:gap")],
+    return text, [[("📖 Слова юнита — список с переводом", f"wd:u:{unit['unit']}")],
+                  [("✍️ Пропуски в предложениях", "x:b:m:gap")],
                   [("🃏 Карточки — пишу перевод", "x:b:m:card")],
                   [("🔘 Тест — выбираю перевод", "x:b:m:test")]]
 
@@ -626,11 +629,77 @@ def book_dir_buttons() -> list[list[tuple[str, str]]]:
     return [[("🇵🇱→🇷🇺", "x:b:d:pl"), ("🇷🇺→🇵🇱", "x:b:d:ru"), ("🔀 Вперемешку", "x:b:d:mix")]]
 
 
-def _ru_line(it: dict) -> str:
-    """Перевод под пунктом; перевод пропущенного слова — под спойлером (открывается нажатием)."""
+def _ru_line(it: dict, n: int | None = None) -> str:
+    """Перевод под пунктом; перевод пропущенного слова спрятан — открывается кнопкой 💡n под упражнением.
+    (Спойлер Telegram не подходит: нажатие на один открывает все спойлеры сообщения.)"""
     if it.get("ru_spoiler"):
-        return re.sub(r"⟪(.*?)⟫", lambda m: f"<tg-spoiler>{m.group(1)}</tg-spoiler>", e(it["ru_spoiler"]))
+        mark = f"💡{n}" if n else "💡"
+        return re.sub(r"⟪(.*?)⟫", f"<b>[{mark}]</b>", e(it["ru_spoiler"]))
     return e(it["ru"])
+
+
+def hint_of(it: dict) -> str:
+    """Русский перевод пропущенного слова — для подсказки 💡."""
+    m = re.search(r"⟪(.*?)⟫", it.get("ru_spoiler") or "")
+    return m.group(1) if m else ""
+
+
+def ex_hint_rows(ex: dict) -> list[list[tuple[str, str]]]:
+    """Кнопки 💡1…💡10: перевод пропущенного слова только этого пункта — всплывающей подсказкой."""
+    btns = [(f"💡{n}", f"x:h:{ex['id']}:{n}") for n, it in enumerate(ex["items"], 1) if hint_of(it)]
+    return [btns[i:i + 5] for i in range(0, len(btns), 5)]
+
+
+# ---------- 📖 слова юнита (/words) ----------
+
+WORDS_CHUNK = 25   # «🙈 Скрыть перевод»: слов в одном сообщении (кнопки-номера 5×5)
+
+
+def _word_line(n: int, w: dict, known: bool, with_ru: bool = True) -> str:
+    tr = f" [{e(w['translit'])}]" if w.get("translit") else ""
+    head = f"{'✅ ' if known else ''}{n}. <b>{e(w['pl'])}</b>{tr}"
+    if not with_ru:
+        return head
+    pos = f" · <i>{e(w['pos'])}</i>" if w.get("pos") else ""
+    return f"{head} — {e(w['ru'])}{pos}"
+
+
+def words_header(unit: dict, done: int, total: int) -> str:
+    return (f"📖 <b>Unit {e(unit['unit'])} — {e(unit['title'])}</b> · {total} слов, выучено {done}\n"
+            + (f"<i>{e(unit['summary'])}</i>" if unit.get("summary") else ""))
+
+
+def words_list(unit: dict, known: set[str], done: int) -> tuple[str, list[list[tuple[str, str]]]]:
+    lines = [words_header(unit, done, len(unit["words"])), ""]
+    lines += [_word_line(n, w, w["pl"] in known) for n, w in enumerate(unit["words"], 1)]
+    lines += ["", "<i>✅ — уже выучено (3 верных ответа подряд в обе стороны).</i>"]
+    u = unit["unit"]
+    return "\n".join(lines), [[("🙈 Скрыть перевод", f"wd:h:{u}"), ("📄 Файлом", f"wd:f:{u}"),
+                                ("🔊 Озвучить", f"wd:v:{u}")]]
+
+
+def words_hidden(unit: dict, known: set[str]) -> list[tuple[str, list[list[tuple[str, str]]]]]:
+    """Скрытый перевод: куски по WORDS_CHUNK слов, под каждым — кнопки-номера; нажал — перевод всплывает."""
+    out, words, u = [], unit["words"], unit["unit"]
+    for start in range(0, len(words), WORDS_CHUNK):
+        part = list(enumerate(words[start:start + WORDS_CHUNK], start + 1))
+        head = (f"🙈 <b>Unit {e(u)} — {e(unit['title'])}</b> · {start + 1}–{part[-1][0]} из {len(words)}\n"
+                "<i>Вспомни перевод, потом нажми номер — подскажу.</i>\n\n")
+        text = head + "\n".join(_word_line(n, w, w["pl"] in known, with_ru=False) for n, w in part)
+        btns = [(str(n), f"wd:s:{u}:{n}") for n, _ in part]
+        out.append((text, [btns[i:i + 5] for i in range(0, len(btns), 5)]))
+    return out
+
+
+def word_hint(w: dict) -> str:
+    return f"{w['pl']} — {w['ru']}" + (f" · {w['pos']}" if w.get("pos") else "")
+
+
+def words_file(unit: dict) -> str:
+    lines = [f"Unit {unit['unit']} — {unit['title']}", unit.get("summary", ""), ""]
+    lines += [f"{n}. {w['pl']} [{w.get('translit', '')}] — {w['ru']}" + (f" ({w['pos']})" if w.get("pos") else "")
+              for n, w in enumerate(unit["words"], 1)]
+    return "\n".join(lines) + "\n"
 
 
 def ex_count_prompt() -> tuple[str, list[list[tuple[str, str]]]]:
@@ -646,7 +715,7 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool, quiz: bool = False,
         rep = " 🔁" if it.get("_reuse_id") else ""
         lines.append(f"{i}. {q}{rep}")
         if it.get("ru") and not it.get("card"):  # перевод вместо подсказки; у карточек перевод — это ответ
-            lines.append(f"    <i>— {_ru_line(it)}</i>")
+            lines.append(f"    <i>— {_ru_line(it, i)}</i>")
         if it.get("options"):
             lines.append("    " + "   ".join(f"{'abcd'[j]}) {e(o)}" for j, o in enumerate(it["options"])))
         if (notes or {}).get(str(i)):

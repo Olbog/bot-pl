@@ -190,6 +190,12 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             return
         state = self.db.get_state(user_id)
         pending = state["pending"]
+        if data.startswith("x:h:"):  # 💡 подсказка к пункту упражнения
+            await self.tg.answer_callback(cq["id"], self.ex_hint(user_id, data), alert=True)
+            return
+        if data.startswith("wd:s:"):  # 📖 /words, скрытый перевод: перевод одного слова
+            await self.tg.answer_callback(cq["id"], self.words_hint(data), alert=True)
+            return
         if data.startswith(("x:a:", "x:go:")):  # интерактивный тест: всплывашка вместо сообщения
             await self.tg.answer_callback(cq["id"], await self.ex_quiz_tap(chat_id, user_id, pending, data))
             return
@@ -215,6 +221,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         elif data.startswith("su:"):
             if pending and pending.get("step") == "set_unit":
                 await self.preview_from_unit(chat_id, user_id, data[3:])
+        elif data.startswith("wd:"):
+            await self.words_callback(chat_id, user_id, data[3:])
         elif data.startswith("ar:"):
             await self.archive_action(chat_id, user_id, message_id, pending, data[3:])
         elif data.startswith("mode:"):  # кнопки со старых сообщений
@@ -306,6 +314,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
                                 "Напиши вопрос о правиле — например: почему do niej, а не do nie?", prev=None)
         elif cmd == "/ex":
             await self.ex_menu(chat_id, user_id)
+        elif cmd == "/words":
+            await self.words_menu(chat_id, user_id)
         elif cmd == "/export":
             await self.send_export(chat_id, user_id, "a")
         elif cmd == "/cancel":
@@ -326,7 +336,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
     async def menu_go(self, chat_id: int, user_id: int, where: str) -> None:
         """Кнопки главного меню — как соответствующие команды (незаконченный выбор отменяется)."""
         self.db.set_pending(user_id, None)
-        cmd = {"new": "/new", "ex": "/ex", "set": "/set", "itog": "/itog", "dict": "/dict", "export": "/export"}
+        cmd = {"new": "/new", "ex": "/ex", "set": "/set", "itog": "/itog", "dict": "/dict", "export": "/export",
+               "words": "/words"}
         if where in cmd:
             await self.command(chat_id, user_id, cmd[where])
 

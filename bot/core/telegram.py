@@ -138,11 +138,14 @@ class Telegram:
         except Exception:
             pass
 
-    async def answer_callback(self, callback_id: str, text: str | None = None) -> None:
+    async def answer_callback(self, callback_id: str, text: str | None = None, alert: bool = False) -> None:
+        """Ответ на нажатие кнопки; text — всплывашка (alert=True — окно с «OK», пока не закроешь)."""
         try:
             params = {"callback_query_id": callback_id}
             if text:
-                params["text"] = text
+                params["text"] = text[:200]
+                if alert:
+                    params["show_alert"] = True
             await self.call("answerCallbackQuery", **params)
         except Exception:
             pass
@@ -175,6 +178,7 @@ class Telegram:
             {"command": "menu", "description": "🏠 Главное меню"},
             {"command": "new", "description": "💬 Новый разговор: по набору, новый набор, без набора"},
             {"command": "ex", "description": "🏋️ Упражнения: слова, грамматика, ошибки, голосом, учебник"},
+            {"command": "words", "description": "📖 Слова юнита: список с переводом, скрытый перевод, озвучка"},
             {"command": "set", "description": "🎯 Наборы слов: прогресс, новый, 📚 архив"},
             {"command": "itog", "description": "📋 Итог: ошибки и слова за час / сутки / разговор"},
             {"command": "dict", "description": "⭐ Мой словарь выражений"},
