@@ -1582,7 +1582,7 @@ def test_textbook_pick_and_cards():
     with_unit()
     unit = tb.get_unit("2")
     assert unit and len(unit["words"]) == 3 and tb.load_units()[0]["title"] == "Rodzina"
-    stats = {("siostra", "pl"): {"streak": 0, "wrong": 1, "right": 2}}
+    stats = {("siostra", "pl"): {"typed_streak": 0, "test_streak": 0, "wrong": 1, "right": 2, "last_ok": 0}}
     picked = tb.pick_words(unit, stats, 3, "pl")
     assert picked[0][0]["pl"] == "siostra"                       # с ошибкой — первым
     c = tb.card_item(unit["words"][2], "pl")
@@ -1599,7 +1599,7 @@ def test_book_cards_flow_stats_not_in_pool():
     run(app.on_callback(cb("x:k:book")))
     assert "Unit 2 — Rodzina" in app.tg.sent[-1] and "семья, mieć" in app.tg.sent[-1]
     run(app.on_callback(cb("x:b:u:2")))
-    assert "выучено 0" in app.tg.sent[-1]
+    assert "знаю 0 · узнаю 0 · из 3" in app.tg.sent[-1]
     run(app.on_callback(cb("x:b:m:card")))
     run(app.on_callback(cb("x:b:d:pl")))
     n_prompts = len(gem.prompts)
@@ -1784,7 +1784,8 @@ def test_archive_resume_set_with_progress():
 def test_words_list_hidden_file_voice():
     with_unit()
     app = make_app()
-    app.db.book_record(42, "2", "brat", "pl", True)
+    for _ in range(3):
+        app.db.book_record(42, "2", "brat", "pl", True, typed=False)   # тест → «узнаю»
     for _ in range(3):
         app.db.book_record(42, "2", "siostra", "pl", True)
         app.db.book_record(42, "2", "siostra", "ru", True)
@@ -1792,8 +1793,8 @@ def test_words_list_hidden_file_voice():
     assert "Слова юнита" in app.tg.sent[-1] and "wd:u:2" in str(app.tg.buttons[-1])
     run(app.on_callback(cb("wd:u:2")))
     t = app.tg.sent[-1]
-    assert "rodzeństwo</b> [ро-ДЗЕНЬ-ство] — братья и сёстры" in t and "выучено 1" in t
-    assert "✅ 2. <b>siostra</b>" in t and "✅ 1." not in t
+    assert "rodzeństwo</b> [ро-ДЗЕНЬ-ство] — братья и сёстры" in t and "знаю 1 · узнаю 1 · из 3" in t
+    assert "✅ 2. <b>siostra</b>" in t and "🟡 1. <b>brat</b>" in t
     assert "wd:h:2" in str(app.tg.buttons[-1]) and "wd:v:2" in str(app.tg.buttons[-1])
     run(app.on_callback(cb("wd:h:2")))
     assert "братья" not in app.tg.sent[-1] and "rodzeństwo" in app.tg.sent[-1]
@@ -1813,3 +1814,102 @@ def test_words_list_hidden_file_voice():
     run(app.on_callback(cb("x:k:book")))
     run(app.on_callback(cb("x:b:u:2")))
     assert "wd:u:2" in str(app.tg.buttons[-1])
+
+
+# ---------- 🔁 Повторить, два уровня выученности, сочетания ----------
+
+from bot.ui import fmt as fmt_mod  # noqa: E402
+
+def test_repeat_grammar_new_sentences_for_wrong_rules():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:cat", "x:r:4", "x:r:go", "x:c:go", "x:n:2")
+    first = app.db.get_state(42)["pending"]["ex"]["ex_id"]
+    saved = app.db.ex_get(first)
+    run(app.handle(msg(text=answers_all(app, wrong=(2,)))))
+    assert f"x:rp:{first}" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb(f"x:rp:{first}")))
+    p = gem.prompts[-1]
+    assert "ПОВТОР ОШИБОК" in p and saved["items"][1]["q"] in p and rules_mod.CATALOG[4] in p
+    ex = app.db.get_state(42)["pending"]["ex"]
+    assert ex["total"] == 2 and ex["left"] == 1 and ex["rules"] == [rules_mod.CATALOG[4]] and "redo" not in ex
+    new = app.db.ex_get(ex["ex_id"])
+    assert not any(it.get("_reuse_id") for it in new["items"])  # не старое предложение, а новое
+    run(app.handle(msg(text=answers_all(app))))
+    run(app.on_callback(cb("x:next")))
+    assert "ПОВТОР ОШИБОК" not in gem.prompts[-1]               # повтор — только в первом упражнении серии
+
+
+def test_repeat_book_cards_wrong_words_first_and_two_levels():
+    with_unit()
+    app = make_app()
+    for c in ("x:k:book", "x:b:u:2", "x:b:m:card", "x:b:d:ru"):
+        if c == "x:k:book":
+            run(app.handle(msg(text="/ex")))
+        run(app.on_callback(cb(c)))
+    run(app.on_callback(cb("x:n:1")))
+    ex = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+    last = ex["items"][-1]["lemma"]
+    ans = " ".join(f"{i} {'zle' if it['lemma'] == last else it['answer']}" for i, it in enumerate(ex["items"], 1))
+    run(app.handle(msg(text=ans)))
+    st = app.db.book_stats(42, "2")
+    assert st[(last, "ru")]["typed_streak"] == 0 and st[(last, "ru")]["last_ok"] == 0
+    ok_word = ex["items"][0]["lemma"]
+    assert st[(ok_word, "ru")]["typed_streak"] == 1 and st[(ok_word, "ru")]["test_streak"] == 1
+    run(app.on_callback(cb(f"x:rp:{ex['id']}")))
+    ex2 = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+    assert ex2["items"][0]["lemma"] == last and ex2["items"][0]["dir"] == "ru"
+    assert "Карточки" in ex2["title"]
+
+
+def test_test_answers_count_less_for_set_and_only_recognize_in_book():
+    app = make_app()
+    start_set(app)                                              # ciasto в наборе; пункт 1 фейка — lemma ciasto
+    ex_flow(app, "x:k:grammar", "x:f:test", "x:t:mix", "x:n:1")
+    run(app.handle(msg(text=answers_all(app, test=True, sure="all"))))
+    w = [x for x in app.db.set_words(app.db.active_set(42)["id"]) if x["pl"] == "ciasto"][0]
+    uses = [u for u in app.db.word_uses(w["id"]) if u["weight"] < 1]
+    assert uses and uses[-1]["weight"] == 0.05                  # тест весит меньше, чем написанное (0.1)
+    from bot.core.textbook import known, recognized
+    d = app.db
+    for _ in range(3):
+        d.book_record(42, "9", "kot", "pl", True, typed=False)
+        d.book_record(42, "9", "kot", "ru", True, typed=False)
+    st = d.book_stats(42, "9")
+    assert recognized(st, "kot") and not known(st, "kot")       # тест → только «узнаю»
+    d.book_record(42, "9", "kot", "pl", False, typed=True)     # ошибка в написании «узнаю» не сбрасывает
+    assert recognized(d.book_stats(42, "9"), "kot")
+    d.book_record(42, "9", "kot", "pl", False, typed=False)    # ошибка в тесте — сбрасывает
+    d.book_record(42, "9", "kot", "ru", False, typed=False)
+    assert not recognized(d.book_stats(42, "9"), "kot")
+
+
+def test_book_stats_migration_old_progress_becomes_recognize():
+    import sqlite3
+    import tempfile
+    path = Path(tempfile.mkdtemp()) / "old.db"
+    c = sqlite3.connect(path)
+    c.execute("CREATE TABLE book_stats (user_id INTEGER NOT NULL, unit TEXT NOT NULL, pl TEXT NOT NULL, "
+              "dir TEXT NOT NULL, streak INTEGER NOT NULL DEFAULT 0, right INTEGER NOT NULL DEFAULT 0, "
+              "wrong INTEGER NOT NULL DEFAULT 0, last_at REAL, PRIMARY KEY (user_id, unit, pl, dir))")
+    c.execute("INSERT INTO book_stats VALUES (42, '8', 'kawa', 'pl', 3, 3, 0, 1)")
+    c.execute("INSERT INTO book_stats VALUES (42, '8', 'herbata', 'pl', 0, 1, 2, 1)")
+    c.commit()
+    c.close()
+    d = DB(str(path))
+    st = d.book_stats(42, "8")
+    assert st[("kawa", "pl")]["test_streak"] == 3 and st[("kawa", "pl")]["typed_streak"] == 0
+    assert st[("herbata", "pl")]["last_ok"] == 0
+
+
+def test_real_units_have_collocations_with_known_cases():
+    real = Path(__file__).resolve().parent.parent / "bot" / "textbook"
+    u8 = tb.get_unit("8", real)
+    col = [w for w in u8["words"] if w.get("of")]
+    assert len(col) >= 20 and all(w["pos"] == "🔗 сочетание" for w in col)
+    bases = {w["pl"] for w in u8["words"] if not w.get("of")}
+    assert all(w["of"] in bases for w in col)
+    idx = {w["pl"]: i for i, w in enumerate(u8["words"])}
+    assert idx["chleb z masłem"] == idx["chleb"] + 1            # сразу под своим словом
+    text, _ = fmt_mod.words_list(u8, set(), set())
+    assert "🔗" in text and "chleb z masłem" in text

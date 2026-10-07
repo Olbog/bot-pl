@@ -614,11 +614,10 @@ def book_units_screen(units: list[dict], prefix: str = "x:b:u:",
     return "\n".join(lines), [[(f"Unit {u['unit']} — {u['title']}"[:60], f"{prefix}{u['unit']}")] for u in units]
 
 
-def book_unit_screen(unit: dict, done: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
-    text = (f"📘 <b>Unit {e(unit['unit'])} — {e(unit['title'])}</b> · {total} слов · выучено {done}\n"
+def book_unit_screen(unit: dict, done: int, recog: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
+    text = (f"📘 <b>Unit {e(unit['unit'])} — {e(unit['title'])}</b> · знаю {done} · узнаю {recog} · из {total}\n"
             + (f"<i>{e(unit['summary'])}</i>\n" if unit.get("summary") else "")
-            + "\n<i>Выучено — 3 верных ответа подряд в обе стороны. Сначала идут слова с ошибками, "
-              "потом те, что тренировались реже.</i>")
+            + "\n" + KNOW_LEGEND + "\n<i>Сначала идут слова с ошибками, потом ещё не «знаю», потом редкие.</i>")
     return text, [[("📖 Слова юнита — список с переводом", f"wd:u:{unit['unit']}")],
                   [("✍️ Пропуски в предложениях", "x:b:m:gap")],
                   [("🃏 Карточки — пишу перевод", "x:b:m:card")],
@@ -655,37 +654,47 @@ def ex_hint_rows(ex: dict) -> list[list[tuple[str, str]]]:
 WORDS_CHUNK = 25   # «🙈 Скрыть перевод»: слов в одном сообщении (кнопки-номера 5×5)
 
 
-def _word_line(n: int, w: dict, known: bool, with_ru: bool = True) -> str:
+def _word_line(n: int, w: dict, mark: str, with_ru: bool = True) -> str:
+    """mark: ✅ знаю / 🟡 узнаю / пусто. 🔗 сочетание — с отступом под своим словом."""
     tr = f" [{e(w['translit'])}]" if w.get("translit") else ""
-    head = f"{'✅ ' if known else ''}{n}. <b>{e(w['pl'])}</b>{tr}"
+    pre = "      🔗 " if w.get("of") else ""
+    head = f"{pre}{mark + ' ' if mark else ''}{n}. <b>{e(w['pl'])}</b>{tr}"
     if not with_ru:
         return head
-    pos = f" · <i>{e(w['pos'])}</i>" if w.get("pos") else ""
+    pos = f" · <i>{e(w['pos'])}</i>" if w.get("pos") and not w.get("of") else ""
     return f"{head} — {e(w['ru'])}{pos}"
 
 
-def words_header(unit: dict, done: int, total: int) -> str:
-    return (f"📖 <b>Unit {e(unit['unit'])} — {e(unit['title'])}</b> · {total} слов, выучено {done}\n"
+def _mark(w: dict, known: set[str], recog: set[str]) -> str:
+    return "✅" if w["pl"] in known else "🟡" if w["pl"] in recog else ""
+
+
+def words_header(unit: dict, known: int, recog: int, total: int) -> str:
+    return (f"📖 <b>Unit {e(unit['unit'])} — {e(unit['title'])}</b> · знаю {known} · узнаю {recog} · из {total}\n"
             + (f"<i>{e(unit['summary'])}</i>" if unit.get("summary") else ""))
 
 
-def words_list(unit: dict, known: set[str], done: int) -> tuple[str, list[list[tuple[str, str]]]]:
-    lines = [words_header(unit, done, len(unit["words"])), ""]
-    lines += [_word_line(n, w, w["pl"] in known) for n, w in enumerate(unit["words"], 1)]
-    lines += ["", "<i>✅ — уже выучено (3 верных ответа подряд в обе стороны).</i>"]
+KNOW_LEGEND = ("<i>✅ знаю — 3 раза подряд написал сам верно, в обе стороны (карточки, пропуски, разговор). "
+               "🟡 узнаю — 3 раза подряд верно выбрал в тесте. 🔗 — сочетание с предлогом / устойчивое.</i>")
+
+
+def words_list(unit: dict, known: set[str], recog: set[str]) -> tuple[str, list[list[tuple[str, str]]]]:
+    lines = [words_header(unit, len(known), len(recog), len(unit["words"])), ""]
+    lines += [_word_line(n, w, _mark(w, known, recog)) for n, w in enumerate(unit["words"], 1)]
+    lines += ["", KNOW_LEGEND]
     u = unit["unit"]
     return "\n".join(lines), [[("🙈 Скрыть перевод", f"wd:h:{u}"), ("📄 Файлом", f"wd:f:{u}"),
                                 ("🔊 Озвучить", f"wd:v:{u}")]]
 
 
-def words_hidden(unit: dict, known: set[str]) -> list[tuple[str, list[list[tuple[str, str]]]]]:
+def words_hidden(unit: dict, known: set[str], recog: set[str]) -> list[tuple[str, list[list[tuple[str, str]]]]]:
     """Скрытый перевод: куски по WORDS_CHUNK слов, под каждым — кнопки-номера; нажал — перевод всплывает."""
     out, words, u = [], unit["words"], unit["unit"]
     for start in range(0, len(words), WORDS_CHUNK):
         part = list(enumerate(words[start:start + WORDS_CHUNK], start + 1))
         head = (f"🙈 <b>Unit {e(u)} — {e(unit['title'])}</b> · {start + 1}–{part[-1][0]} из {len(words)}\n"
                 "<i>Вспомни перевод, потом нажми номер — подскажу.</i>\n\n")
-        text = head + "\n".join(_word_line(n, w, w["pl"] in known, with_ru=False) for n, w in part)
+        text = head + "\n".join(_word_line(n, w, _mark(w, known, recog), with_ru=False) for n, w in part)
         btns = [(str(n), f"wd:s:{u}:{n}") for n, _ in part]
         out.append((text, [btns[i:i + 5] for i in range(0, len(btns), 5)]))
     return out
@@ -804,10 +813,10 @@ def ex_results(ex: dict, results: list[dict]) -> str:
 
 
 def ex_result_buttons(ex_id: int, left: int) -> list[list[tuple[str, str]]]:
-    row = [("📖 Правила по ошибкам", f"x:rr:{ex_id}"), ("🙅 Оспорить", f"x:dp:{ex_id}")]
-    rows = [row]
+    rows = [[("📖 Правила по ошибкам", f"x:rr:{ex_id}"), ("🙅 Оспорить", f"x:dp:{ex_id}")]]
     if left > 0:
         rows.append([(f"➡️ Следующее (осталось {left})", "x:next"), ("⏹ Закончить", "x:stop")])
+        rows.append([("🔁 Повторить серию", f"x:rp:{ex_id}")])
     else:
-        rows.append([("🏋️ Ещё упражнения", "x:menu")])
+        rows.append([("🔁 Повторить", f"x:rp:{ex_id}"), ("🏋️ Другие упражнения", "x:menu")])
     return rows

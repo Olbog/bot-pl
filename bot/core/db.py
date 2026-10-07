@@ -156,13 +156,20 @@ class DB:
             "set_words": [("kind", "TEXT NOT NULL DEFAULT 'word'"), ("unit", "TEXT")],
             "user_state": [("topic", "TEXT")],
             "word_uses": [("weight", "REAL NOT NULL DEFAULT 1"), ("msg_id", "INTEGER")],
-            "exercises": [("tg_msg_id", "INTEGER"), ("topics", "TEXT")],
+            "exercises": [("tg_msg_id", "INTEGER"), ("topics", "TEXT"), ("cfg", "TEXT")],
+            # выученность в учебнике в два уровня: test — узнаю (выбор из вариантов), typed — знаю (написал сам)
+            "book_stats": [("test_streak", "INTEGER NOT NULL DEFAULT 0"), ("typed_streak", "INTEGER NOT NULL DEFAULT 0"),
+                           ("last_ok", "INTEGER NOT NULL DEFAULT 1")],
         }
+        two_level = "test_streak" not in self._columns("book_stats")
         for table, cols in adds.items():
             have = self._columns(table)
             for name, decl in cols:
                 if name not in have:
                     self.conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {decl}")
+        if two_level:  # прошлый прогресс по учебнику засчитываем как «узнаю», «знаю» копится заново
+            self.conn.execute("UPDATE book_stats SET test_streak = streak, "
+                              "last_ok = CASE WHEN streak = 0 AND wrong > 0 THEN 0 ELSE 1 END")
 
     def current_session(self, user_id: int) -> int:
         row = self.conn.execute(
@@ -385,13 +392,23 @@ class DB:
         return {(r["pl"], r["dir"]): dict(r) for r in self.conn.execute(
             "SELECT * FROM book_stats WHERE user_id=? AND unit=?", (user_id, str(unit)))}
 
-    def book_record(self, user_id: int, unit: str, pl: str, d: str, ok: bool) -> None:
+    def book_record(self, user_id: int, unit: str, pl: str, d: str, ok: bool, typed: bool = True) -> None:
+        """Ответ по слову юнита. typed — написал сам (карточки, пропуски, разговор), иначе выбрал в тесте.
+        Верно написанное засчитывается в обе серии; ошибка в тесте сбрасывает обе (раз не узнал — не знаешь);
+        ошибка в написании сбрасывает только «знаю»."""
+        t_ok, w_ok = int(ok), int(ok and typed)
+        reset_test = int(not ok and not typed)
         self.conn.execute(
-            "INSERT INTO book_stats(user_id, unit, pl, dir, streak, right, wrong, last_at) VALUES (?,?,?,?,?,?,?,?) "
+            "INSERT INTO book_stats(user_id, unit, pl, dir, streak, right, wrong, last_at, test_streak, typed_streak, "
+            "last_ok) VALUES (?,?,?,?,?,?,?,?,?,?,?) "
             "ON CONFLICT(user_id, unit, pl, dir) DO UPDATE SET "
-            "streak = CASE WHEN excluded.right=1 THEN streak+1 ELSE 0 END, "
-            "right = right + excluded.right, wrong = wrong + excluded.wrong, last_at = excluded.last_at",
-            (user_id, str(unit), pl, d, int(ok), int(ok), int(not ok), self.clock()))
+            "test_streak = CASE WHEN ?=1 THEN test_streak+1 WHEN ?=1 THEN 0 ELSE test_streak END, "
+            "typed_streak = CASE WHEN ?=1 THEN typed_streak+1 WHEN ?=1 THEN typed_streak ELSE 0 END, "
+            "streak = CASE WHEN ?=1 THEN streak+1 ELSE 0 END, "
+            "right = right + excluded.right, wrong = wrong + excluded.wrong, last_at = excluded.last_at, "
+            "last_ok = excluded.last_ok",
+            (user_id, str(unit), pl, d, t_ok, int(ok), int(not ok), self.clock(), t_ok, w_ok, int(ok),
+             t_ok, reset_test, w_ok, int(ok and not typed), t_ok))
         self.conn.commit()
 
     # ---------- исключения («🙅 Не ошибка») ----------
@@ -511,12 +528,13 @@ class DB:
     # ---------- упражнения ----------
 
     def ex_create(self, user_id: int, kind: str, fmt: str, title: str, items: list[dict],
-                  topics: list[str] | None = None) -> int:
+                  topics: list[str] | None = None, cfg: dict | None = None) -> int:
+        """cfg — настройки серии (вид, формат, юнит, направление, темы, слова, количество) — для «🔁 Повторить»."""
         now = self.clock()
         ex_id = self.conn.execute(
-            "INSERT INTO exercises(user_id, kind, fmt, title, items, created_at, topics) VALUES (?,?,?,?,?,?,?)",
+            "INSERT INTO exercises(user_id, kind, fmt, title, items, created_at, topics, cfg) VALUES (?,?,?,?,?,?,?,?)",
             (user_id, kind, fmt, title, json.dumps(items, ensure_ascii=False), now,
-             json.dumps(topics or [], ensure_ascii=False))).lastrowid
+             json.dumps(topics or [], ensure_ascii=False), json.dumps(cfg or {}, ensure_ascii=False))).lastrowid
         for it in items:
             if it.get("_reuse_id"):
                 self.conn.execute("UPDATE ex_items SET reused=1 WHERE id=?", (it["_reuse_id"],))
@@ -534,6 +552,7 @@ class DB:
         d["items"] = json.loads(d["items"])
         d["results"] = json.loads(d["results"]) if d["results"] else None
         d["topics"] = json.loads(d["topics"]) if d.get("topics") else []
+        d["cfg"] = json.loads(d["cfg"]) if d.get("cfg") else {}
         return d
 
     def ex_save_results(self, ex_id: int, results: list[dict]) -> None:

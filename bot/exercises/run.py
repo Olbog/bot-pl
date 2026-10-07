@@ -6,7 +6,8 @@ from ..ai.prompt import (CHECK_HINT, CHECK_SCHEMA, EX_HINT, EX_SCHEMA, RULES_HIN
                          ex_prompt, ex_question_prompt)
 from ..ui import fmt
 from ..exercises import logic as exercises
-from ..settings import EX_CASES, EX_EXPLAIN_ALL, EX_PRESENT_ONLY, EX_QUIZ_BUTTONS, EX_REUSE, EX_WEIGHT
+from ..settings import (EX_CASES, EX_EXPLAIN_ALL, EX_PRESENT_ONLY, EX_QUIZ_BUTTONS, EX_REUSE, EX_WEIGHT_TEST,
+                        EX_WEIGHT_TYPED)
 
 
 class ExerciseRunMixin:
@@ -24,16 +25,21 @@ class ExerciseRunMixin:
                 await self.tg.send_message(chat_id, "Юнит не найден. /ex → 📘 Учебник")
                 return
             stats = self.db.book_stats(user_id, unit["unit"])
-            ex = {**ex, "words": [w["pl"] for w, _ in textbook.pick_words(unit, stats, 10, "gap")]}
+            first = [(r["lemma"], "ru") for r in ex.get("redo") or [] if r.get("lemma")]
+            ex = {**ex, "words": [w["pl"] for w, _ in textbook.pick_words(unit, stats, 10, "gap", first=first)]}
+        elif kind in ("words", "voice") and ex.get("redo"):  # слова с ошибками — первыми
+            wrong = [r["lemma"] for r in ex["redo"] if r.get("lemma")]
+            ex = {**ex, "words": wrong + [w for w in ex.get("words") or [] if w not in wrong]}
         rule_filter = ex.get("rules") or None
         reuse = [it for it in self.db.ex_review_items(user_id, 20, rule_filter)
                  if bool(it.get("options")) == (f == "test") and not it.get("card") and not it.get("unit")
                  and (kind not in ("words", "voice") or it.get("lemma") in (ex.get("words") or []))][:EX_REUSE]
-        if kind == "book_gap":
-            reuse = []  # слова с ошибками и так идут первыми (статистика юнита)
+        if kind == "book_gap" or ex.get("redo"):
+            reuse = []  # учебник: ошибки и так первыми; «🔁 Повторить»: вместо старых — новые предложения
         prompt = ex_prompt(kind, f, self.cfg.level, rules.catalog_text(), self.db.ex_recent(user_id),
                            words=ex.get("words"), rules_list=ex.get("rules"), examples=ex.get("examples"),
-                           voice=kind == "voice", present_only=EX_PRESENT_ONLY, cases=EX_CASES)
+                           voice=kind == "voice", present_only=EX_PRESENT_ONLY, cases=EX_CASES,
+                           redo=ex.get("redo"))
         data = await self.ask(chat_id, prompt, EX_SCHEMA, EX_HINT,
                               wait=f"⏳ Составляю упражнение {idx}/{ex['total']}… (10–20 секунд)")
         if data is None:
@@ -77,7 +83,9 @@ class ExerciseRunMixin:
 
     async def ex_publish(self, chat_id: int, user_id: int, ex: dict, items: list[dict], title: str, idx: int) -> None:
         kind, f = ex.get("kind", "grammar"), ex.get("fmt", "gap")
-        ex_id = self.db.ex_create(user_id, kind, f, title, items, ex.get("rules") or [])
+        ex = {k: v for k, v in ex.items() if k not in ("redo", "redo_words", "quiz")}  # повтор — только в первом
+        cfg = {k: v for k, v in ex.items() if k not in ("ex_id", "left")}             # для «🔁 Повторить»
+        ex_id = self.db.ex_create(user_id, kind, f, title, items, ex.get("rules") or [], cfg)
         ex = {**ex, "ex_id": ex_id, "left": ex["left"] - 1}
         self.db.set_pending(user_id, {"step": "ex_answer", "ex": ex})
         saved = self.db.ex_get(ex_id)
@@ -88,6 +96,30 @@ class ExerciseRunMixin:
                                           fmt.ex_hint_rows(saved) + [[("✖️ Закончить без проверки", "nav:c:ex_answer")]])
         if sent and sent.get("message_id"):
             self.db.ex_set_tg_msg(ex_id, sent["message_id"])
+
+    async def ex_repeat(self, chat_id: int, user_id: int, ex_id: int) -> None:
+        """🔁 Повторить: та же серия (вид, формат, юнит, направление, темы, слова, количество).
+        В первое упражнение — ошибки только что проверенного: в учебнике те же слова, в остальном — новые
+        предложения на то же правило; остальное — новое."""
+        saved = self.db.ex_get(ex_id)
+        if not saved or saved["user_id"] != user_id or not saved["results"]:
+            return
+        cfg = dict(saved.get("cfg") or {})
+        if not cfg.get("kind"):
+            await self.tg.send_message(chat_id, "Это упражнение старое — повторить его настройки нельзя. /ex")
+            return
+        wrong = [(r, saved["items"][r["n"] - 1]) for r in saved["results"] if r["final"] == "wrong"]
+        total = int(cfg.get("total") or 1)
+        ex = {**cfg, "total": total, "left": total}
+        if cfg["kind"] in ("book_card", "book_test"):
+            ex["redo_words"] = [[it["lemma"], it["dir"]] for _, it in wrong if it.get("lemma")]
+        elif wrong:
+            ex["redo"] = [{"rule": it.get("rule", ""), "q": it.get("q", ""), "answer": it.get("answer", ""),
+                           "lemma": it.get("lemma", "") if cfg["kind"] in ("words", "voice", "book_gap") else ""}
+                          for _, it in wrong]
+        await self.tg.send_message(chat_id, f"🔁 Повторяем: {total} {'упражнение' if total == 1 else 'упр.'}, "
+                                            f"ошибок на повтор — {len(wrong)}.")
+        await self.ex_make(chat_id, user_id, ex)
 
     def ex_hint(self, user_id: int, data: str) -> str:
         """x:h:<ex>:<n> — перевод пропущенного слова пункта n (всплывашка только для этого пункта)."""
@@ -259,7 +291,8 @@ class ExerciseRunMixin:
             it = saved["items"][r["n"] - 1]
             w = by_name.get(str(it.get("lemma", "")).lower()) or by_name.get(str(it.get("rule", "")).lower())
             if w:
-                self.db.add_use(w["id"], user_id, it.get("answer", ""), r["final"] != "wrong", day, EX_WEIGHT)
+                weight = EX_WEIGHT_TEST if saved.get("fmt") == "test" else EX_WEIGHT_TYPED
+                self.db.add_use(w["id"], user_id, it.get("answer", ""), r["final"] != "wrong", day, weight)
 
     async def ex_question(self, chat_id: int, user_id: int, ex: dict, n: int, question: str) -> None:
         saved = self.db.ex_get(ex.get("ex_id", 0))

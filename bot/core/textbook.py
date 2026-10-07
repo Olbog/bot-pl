@@ -7,9 +7,16 @@
   "summary": "семья и родственники, mieć, мой/твой/его",
   "words": [
     {"pl": "rodzeństwo", "translit": "ро-ДЗЕНЬ-ство", "ru": "братья и сёстры",
-     "ru_alt": ["брат и сестра"], "pl_alt": [], "pos": "сущ., ср. р."}
+     "ru_alt": ["брат и сестра"], "pl_alt": [], "pos": "сущ., ср. р."},
+    {"pl": "mieć rodzeństwo", "translit": "...", "ru": "иметь братьев и сестёр", "pos": "🔗 сочетание",
+     "of": "rodzeństwo"}
   ]
 }
+"of" — 🔗 сочетание (с предлогом или коллокация) к слову; стоит сразу после него и тренируется как отдельный пункт.
+
+Выученность — два уровня (по каждому направлению PL→RU / RU→PL):
+  🟡 узнаю — KNOW_STREAK верных подряд в тесте (выбор из вариантов) хотя бы в одну сторону;
+  ✅ знаю  — KNOW_STREAK верных подряд, написанных самому (карточки, пропуски, разговор), в обе стороны.
 """
 import json
 import random
@@ -18,7 +25,7 @@ from pathlib import Path
 
 UNITS_DIR = Path(__file__).resolve().parent.parent / "textbook"  # bot/textbook/unit_NN.json
 DIRS = {"pl": "🇵🇱→🇷🇺", "ru": "🇷🇺→🇵🇱", "mix": "🔀 Вперемешку"}
-KNOW_STREAK = 3   # слово выучено: столько верных ответов подряд в каждую сторону
+KNOW_STREAK = 3   # столько верных ответов подряд нужно для «знаю» / «узнаю»
 
 
 def load_units(path: Path | None = None) -> list[dict]:
@@ -48,23 +55,35 @@ def get_unit(unit_id: str, path: Path | None = None) -> dict | None:
 
 
 def known(stats: dict, pl: str) -> bool:
-    """stats: {(pl, dir): {"streak", "right", "wrong"}}; dir — "pl" (PL→RU) или "ru" (RU→PL)."""
-    return all(stats.get((pl, d), {}).get("streak", 0) >= KNOW_STREAK for d in ("pl", "ru"))
+    """✅ Знаю: написал сам верно KNOW_STREAK раз подряд в обе стороны.
+    stats: {(pl, dir): {"typed_streak", "test_streak", ...}}; dir — "pl" (PL→RU) или "ru" (RU→PL)."""
+    return all(stats.get((pl, d), {}).get("typed_streak", 0) >= KNOW_STREAK for d in ("pl", "ru"))
 
 
-def pick_words(unit: dict, stats: dict, n: int, direction: str) -> list[tuple[dict, str]]:
-    """Слова для упражнения: сначала с последней ошибкой (🔁), потом реже всего тренированные.
+def recognized(stats: dict, pl: str) -> bool:
+    """🟡 Узнаю: в тесте верно KNOW_STREAK раз подряд хотя бы в одну сторону (и ещё не «знаю»)."""
+    return not known(stats, pl) and any(stats.get((pl, d), {}).get("test_streak", 0) >= KNOW_STREAK
+                                        for d in ("pl", "ru"))
+
+
+def pick_words(unit: dict, stats: dict, n: int, direction: str,
+               first: list[tuple[str, str]] | None = None) -> list[tuple[dict, str]]:
+    """Слова для упражнения: first — обязательно (ошибки прошлого упражнения при «🔁 Повторить»),
+    дальше с последней ошибкой, потом ещё не «знаю», потом реже всего тренированные.
     direction: pl / ru / mix / gap (пропуски считаются тренировкой RU→PL — вспомнить польское слово)."""
+    by_pl = {w["pl"]: w for w in unit["words"]}
+    forced = [(by_pl[pl], d) for pl, d in (first or []) if pl in by_pl][:n]
+    taken = {w["pl"] for w, _ in forced}
     out = []
-    words = list(unit["words"])
+    words = [w for w in unit["words"] if w["pl"] not in taken]
     random.shuffle(words)
     for w in words:
         d = random.choice(("pl", "ru")) if direction == "mix" else ("ru" if direction == "gap" else direction)
         st = stats.get((w["pl"], d), {})
-        failed = st.get("wrong", 0) > 0 and st.get("streak", 0) == 0
-        out.append((0 if failed else 1, st.get("right", 0) + st.get("wrong", 0), w, d))
-    out.sort(key=lambda x: (x[0], x[1]))
-    return [(w, d) for _, _, w, d in out[:n]]
+        failed = (st.get("right", 0) + st.get("wrong", 0)) > 0 and not st.get("last_ok", 1)
+        out.append((0 if failed else 1, int(known(stats, w["pl"])), st.get("right", 0) + st.get("wrong", 0), w, d))
+    out.sort(key=lambda x: (x[0], x[1], x[2]))
+    return forced + [(w, d) for *_, w, d in out[:n - len(forced)]]
 
 
 def card_item(w: dict, d: str) -> dict:
@@ -79,5 +98,7 @@ def card_item(w: dict, d: str) -> dict:
             "lemma": w["pl"], "dir": d, "card": True}
 
 
-def unit_progress(unit: dict, stats: dict) -> tuple[int, int]:
-    return sum(known(stats, w["pl"]) for w in unit["words"]), len(unit["words"])
+def unit_progress(unit: dict, stats: dict) -> tuple[int, int, int]:
+    """(✅ знаю, 🟡 узнаю, всего)."""
+    return (sum(known(stats, w["pl"]) for w in unit["words"]),
+            sum(recognized(stats, w["pl"]) for w in unit["words"]), len(unit["words"]))

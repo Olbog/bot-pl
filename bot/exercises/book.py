@@ -17,7 +17,9 @@ class BookMixin:
             await self.tg.send_message(chat_id, "Юнит не найден. /ex → 📘 Учебник")
             return None
         stats = self.db.book_stats(user_id, unit["unit"])
-        items = [textbook.card_item(w, d) for w, d in textbook.pick_words(unit, stats, 10, ex.get("dir", "mix"))]
+        first = [tuple(x) for x in ex.get("redo_words") or []]   # «🔁 Повторить»: ошибки прошлого упражнения
+        items = [textbook.card_item(w, d)
+                 for w, d in textbook.pick_words(unit, stats, 10, ex.get("dir", "mix"), first=first)]
         for it in items:
             it["unit"] = unit["unit"]
             it["_key"] = f"card:{unit['unit']}:{it['dir']}:{it['lemma']}:{self.clock()}"
@@ -47,7 +49,9 @@ class BookMixin:
         return items, title
 
     def book_record_results(self, user_id: int, saved: dict, results: list[dict]) -> None:
-        """Ответы по словам учебника — только в статистику юнита, не в общий пул ошибок."""
+        """Ответы по словам учебника — только в статистику юнита, не в общий пул ошибок.
+        Тест (выбор из вариантов) идёт в «🟡 узнаю», написанное самому — и в «✅ знаю»."""
+        typed = saved.get("fmt") != "test"
         for r in results:
             it = saved["items"][r["n"] - 1]
             unit = it.get("unit")
@@ -62,20 +66,22 @@ class BookMixin:
                 if not w:
                     continue
                 pl, d = w["pl"], "ru"
-            self.db.book_record(user_id, unit, pl, d, r["final"] != "wrong")
+            self.db.book_record(user_id, unit, pl, d, r["final"] != "wrong", typed)
 
     async def book_unit_screen(self, chat_id: int, user_id: int, ex: dict, unit: dict,
                                message_id: int | None = None) -> None:
-        done, total = textbook.unit_progress(unit, self.db.book_stats(user_id, unit["unit"]))
-        text, buttons = fmt.book_unit_screen(unit, done, total)
+        done, recog, total = textbook.unit_progress(unit, self.db.book_stats(user_id, unit["unit"]))
+        text, buttons = fmt.book_unit_screen(unit, done, recog, total)
         await self.show(chat_id, user_id, {"step": "ex_bunit", "ex": {**ex, "unit": unit["unit"]}}, text, buttons,
                         message_id)
 
     # ---------- 📖 /words: слова юнита ----------
 
-    def unit_known(self, user_id: int, unit: dict) -> set[str]:
+    def unit_known(self, user_id: int, unit: dict) -> tuple[set[str], set[str]]:
+        """(✅ знаю, 🟡 узнаю) — множества слов юнита."""
         stats = self.db.book_stats(user_id, unit["unit"])
-        return {w["pl"] for w in unit["words"] if textbook.known(stats, w["pl"])}
+        return ({w["pl"] for w in unit["words"] if textbook.known(stats, w["pl"])},
+                {w["pl"] for w in unit["words"] if textbook.recognized(stats, w["pl"])})
 
     async def words_menu(self, chat_id: int, user_id: int) -> None:
         units = textbook.load_units()
@@ -90,13 +96,13 @@ class BookMixin:
         unit = textbook.get_unit(unit_id)
         if not unit:
             return
-        known = self.unit_known(user_id, unit)
+        known, recog = self.unit_known(user_id, unit)
         if kind == "u":  # список с переводом
             self.db.set_pending(user_id, None)
-            text, buttons = fmt.words_list(unit, known, len(known))
+            text, buttons = fmt.words_list(unit, known, recog)
             await self.tg.send_message(chat_id, text, buttons)
         elif kind == "h":  # скрытый перевод: номера-кнопки
-            for text, buttons in fmt.words_hidden(unit, known):
+            for text, buttons in fmt.words_hidden(unit, known, recog):
                 await self.tg.send_message(chat_id, text, buttons)
         elif kind == "f":
             await self.tg.send_document(chat_id, f"unit_{unit['unit']}_slova.txt",

@@ -242,6 +242,8 @@ class ExerciseMenuMixin:
             self.db.set_pending(user_id, None)
             await self.tg.send_message(chat_id, "⏹ Упражнения закончены.")
             await self.main_menu(chat_id, user_id)
+        elif action.startswith("rp:"):
+            await self.ex_repeat(chat_id, user_id, int(action[3:]))
         elif action.startswith("rr:"):
             saved = self.db.ex_get(int(action[3:]))
             if not saved or saved["user_id"] != user_id or not saved["results"]:

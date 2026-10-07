@@ -379,7 +379,7 @@ def grammar_task(topics: list[str] | None) -> str:
 def ex_prompt(kind: str, fmt: str, level: str, catalog: str, exclude: list[str], *, words: list[str] | None = None,
               rules_list: list[str] | None = None, examples: dict[str, list[str]] | None = None,
               confusing: bool = False, voice: bool = False, present_only: bool = False,
-              cases: list[str] | None = None) -> str:
+              cases: list[str] | None = None, redo: list[dict] | None = None) -> str:
     if kind in ("words", "voice", "book_gap"):
         task = (f"Составь упражнение «вставь слово в нужной форме» на эти слова (каждое минимум раз, по кругу): "
                 f"{', '.join(words or [])}. В lemma — словарная форма слова; в hint ничего не пиши.\n"
@@ -405,6 +405,12 @@ def ex_prompt(kind: str, fmt: str, level: str, catalog: str, exclude: list[str],
                  "Порядок вариантов случайный.")
     else:
         task += "\nФормат СВОЙ ВВОД: options — пустой список."
+    if redo:  # «🔁 Повторить»: пункты с ошибками — новыми предложениями на то же правило
+        task += ("\nПОВТОР ОШИБОК: в прошлом упражнении ученик ошибся в пунктах ниже. ПЕРВЫМИ поставь по одному "
+                 "НОВОМУ пункту на каждый: то же правило и та же форма (падеж, лицо, число), но другие слова и "
+                 "другая ситуация — не копируй старое предложение. Остальные пункты — как обычно.\n"
+                 + "\n".join(f"- правило: {r.get('rule') or '—'}; было: «{r.get('q', '')}» → верно «{r.get('answer', '')}»"
+                              + (f" (слово: {r['lemma']})" if r.get("lemma") else "") for r in redo))
     common = _EX_COMMON.format(level=level, catalog=catalog, exclude="\n".join(f"- {e}" for e in exclude) or "—",
                                tenses="" if present_only else ", времена", verb_rule=verbs.PROMPT_RULE,
                                tense_rule=PRESENT_ONLY_RULE if present_only else "")
