@@ -2,7 +2,7 @@
 import re
 import unicodedata
 
-LETTERS = "abcd"
+LETTERS = "abcdefgh"   # варианты ответа; больше четырёх — в упражнениях «соедини» из книги
 UNSURE_RE = re.compile(r"(?<![A-Za-zА-Яа-яЁё])НУ(?![A-Za-zА-Яа-яЁё])")
 UNSURE_MARKERS = False   # НУ / ? — «не уверен». Выключено: объясняются все пункты, кроме помеченных «!»
 SURE_MARK = "!"   # «уверен» — пункт можно не объяснять
@@ -87,6 +87,14 @@ def parse_answers(text: str, n: int) -> dict[int, dict]:
         stop = marks[i + 1][1] if i + 1 < len(marks) else len(text)
         out[num] = _one(text[end:stop].strip(), notes)
     return out
+
+
+CHOICE_TYPES = ("choice", "match", "tf")   # упражнения из книги с ответом кнопками
+
+
+def book_options(ex: dict, item: dict) -> list[str]:
+    """Варианты ответа пункта упражнения из книги: свои, общие («соедини») или prawda / nieprawda."""
+    return item.get("options") or ex.get("options") or (["prawda", "nieprawda"] if ex.get("type") == "tf" else [])
 
 
 def option_text(item: dict, answer: str) -> str:

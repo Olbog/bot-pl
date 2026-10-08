@@ -1,0 +1,12 @@
+{
+ "id": "kpk",
+ "title": "Krok po kroku. Polski A1",
+ "short": "KpK",
+ "unit_label": "Unit",
+ "audio_dir": "Krok_po_kroku/Audio (A1)",
+ "files": {
+  "tb": "Krok_po_kroku/Iwona Stempek - Krok po Kroku Polski A1 - 2010.pdf",
+  "wb": "Krok_po_kroku/Krok_po_kroku_1_tetrad.pdf"
+ },
+ "order": 1
+}

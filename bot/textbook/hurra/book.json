@@ -1,0 +1,12 @@
+{
+ "id": "hurra",
+ "title": "Hurra!!! Po polsku 1",
+ "short": "Hurra",
+ "unit_label": "Lekcja",
+ "audio_dir": "Hurra",
+ "files": {
+  "tb": "Hurra/HURRA 1 Podręcznik studenta. Nowa Edycja.pdf",
+  "wb": "Hurra/HURRA 1 Zeszyt ćwiczeń. Nowa Edycja.pdf"
+ },
+ "order": 2
+}

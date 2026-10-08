@@ -1,18 +1,20 @@
-"""Лексика из учебника: юниты лежат файлами bot/textbook/unit_NN.json (их добавляет Claude по скринам).
+"""Учебники: bot/textbook/<книга>/book.json + unit_NN.json (их добавляет Claude по страницам учебника и тетради).
 
-Формат файла:
+book.json: {"id": "kpk", "title": "Krok po kroku. Polski A1", "short": "KpK", "unit_label": "Unit",
+            "audio_dir": "Krok_po_kroku/Audio (A1)"}   — аудио ищется в BOOKS_DIR/<audio_dir>
+
+unit_NN.json:
 {
-  "unit": "2",
-  "title": "Rodzina",
-  "summary": "семья и родственники, mieć, мой/твой/его",
+  "unit": "8", "title": "Mami, jesteś głodna?", "summary": "суть юнита по-русски",
   "words": [
-    {"pl": "rodzeństwo", "translit": "ро-ДЗЕНЬ-ство", "ru": "братья и сёстры",
-     "ru_alt": ["брат и сестра"], "pl_alt": [], "pos": "сущ., ср. р."},
-    {"pl": "mieć rodzeństwo", "translit": "...", "ru": "иметь братьев и сестёр", "pos": "🔗 сочетание",
-     "of": "rodzeństwo"}
-  ]
+    {"pl": "rodzeństwo", "translit": "ро-ДЗЕНЬ-ство", "ru": "братья и сёстры", "ru_alt": ["брат и сестра"],
+     "pos": "сущ., ср. р.", "src": "wb"},
+    {"pl": "mieć rodzeństwo", "translit": "...", "ru": "...", "pos": "🔗 сочетание", "of": "rodzeństwo"}
+  ],
+  "exercises": [ ... ]   — упражнения из книги, см. exercises/bookex.py
 }
-"of" — 🔗 сочетание (с предлогом или коллокация) к слову; стоит сразу после него и тренируется как отдельный пункт.
+"of" — 🔗 сочетание к слову (стоит сразу после него); "src": "wb" — слово из рабочей тетради (иначе учебник).
+Ключ юнита везде — «<книга>:<номер>», например «kpk:8»; старое «8» понимается как kpk.
 
 Выученность — два уровня (по каждому направлению PL→RU / RU→PL):
   🟡 узнаю — KNOW_STREAK верных подряд в тесте (выбор из вариантов) хотя бы в одну сторону;
@@ -23,35 +25,61 @@ import random
 import re
 from pathlib import Path
 
-UNITS_DIR = Path(__file__).resolve().parent.parent / "textbook"  # bot/textbook/unit_NN.json
+UNITS_DIR = Path(__file__).resolve().parent.parent / "textbook"  # bot/textbook/<книга>/unit_NN.json
+DEFAULT_BOOK = "kpk"     # старые ключи юнитов без книги («8») — это Krok po kroku
 DIRS = {"pl": "🇵🇱→🇷🇺", "ru": "🇷🇺→🇵🇱", "mix": "🔀 Вперемешку"}
 KNOW_STREAK = 3   # столько верных ответов подряд нужно для «знаю» / «узнаю»
 
 
-def load_units(path: Path | None = None) -> list[dict]:
+def load_books(path: Path | None = None) -> list[dict]:
+    """Книги (папки с book.json) с их юнитами: [{id, title, short, unit_label, audio_dir, units: [...]}]."""
     path = path or UNITS_DIR
-    units = []
-    for f in sorted(path.glob("unit_*.json")):
+    books = []
+    for d in sorted(p for p in path.iterdir() if p.is_dir()) if path.exists() else []:
         try:
-            u = json.loads(f.read_text(encoding="utf-8"))
+            meta = json.loads((d / "book.json").read_text(encoding="utf-8"))
         except (OSError, ValueError):
             continue
-        u["unit"] = str(u.get("unit") or f.stem.removeprefix("unit_").lstrip("0") or "0")
-        u["words"] = [w for w in u.get("words") or [] if w.get("pl") and w.get("ru")]
-        if u["words"]:
-            units.append(u)
-    units.sort(key=_order)
-    return units
+        meta.setdefault("id", d.name)
+        meta.setdefault("short", meta.get("title", d.name))
+        meta.setdefault("unit_label", "Unit")
+        units = []
+        for f in sorted(d.glob("unit_*.json")):
+            try:
+                u = json.loads(f.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+            num = str(u.get("unit") or f.stem.removeprefix("unit_").lstrip("0") or "0")
+            u.update(num=num, unit=f"{meta['id']}:{num}", book=meta["id"], book_title=meta.get("title", ""),
+                     book_short=meta["short"], name=f"{meta['unit_label']} {num}",
+                     audio_dir=meta.get("audio_dir", ""))
+            u["words"] = [w for w in u.get("words") or [] if w.get("pl") and w.get("ru")]
+            u["exercises"] = [x for x in u.get("exercises") or [] if x.get("id") and x.get("items")]
+            if u["words"] or u["exercises"]:
+                units.append(u)
+        units.sort(key=_order)
+        meta["units"] = units
+        books.append(meta)
+    books.sort(key=lambda b: (b.get("order", 99), b["id"]))
+    return books
+
+
+def load_units(path: Path | None = None, book: str | None = None) -> list[dict]:
+    return [u for b in load_books(path) if book in (None, b["id"]) for u in b["units"]]
 
 
 def _order(u: dict) -> tuple:
     """«7» < «7a» < «8» < «10»: сначала номер урока, потом буква мини-юнита."""
-    m = re.match(r"(\d+)(.*)", u["unit"])
-    return (int(m.group(1)), m.group(2)) if m else (10**6, u["unit"])
+    m = re.match(r"(\d+)(.*)", u["num"])
+    return (int(m.group(1)), m.group(2)) if m else (10**6, u["num"])
 
 
 def get_unit(unit_id: str, path: Path | None = None) -> dict | None:
-    return next((u for u in load_units(path) if u["unit"] == str(unit_id)), None)
+    """«kpk:8» → юнит; старое «8» (без книги) — юнит Krok po kroku."""
+    unit_id = str(unit_id or "")
+    if ":" not in unit_id:
+        unit_id = f"{DEFAULT_BOOK}:{unit_id}"
+    return next((u for u in load_units(path) if u["unit"] == unit_id), None)
 
 
 def known(stats: dict, pl: str) -> bool:

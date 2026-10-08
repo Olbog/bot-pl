@@ -23,10 +23,11 @@ from .reports import ReportsMixin
 from .exercises.menu import ExerciseMenuMixin
 from .exercises.run import ExerciseRunMixin
 from .exercises.book import BookMixin
+from .exercises.bookex import BookExMixin
 
 
 class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
-          ExerciseMenuMixin, ExerciseRunMixin, BookMixin):
+          ExerciseMenuMixin, ExerciseRunMixin, BookMixin, BookExMixin):
     """Бот целиком: ядро здесь, остальное — в модулях-миксинах."""
     def __init__(self, cfg: cfg_mod.Config, tg: Telegram, gemini: Gemini, db: DB, tts=synthesize,
                  clock=time.time):
@@ -63,6 +64,9 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             return
 
         voice = msg.get("voice") or msg.get("audio")
+        if pending and pending.get("step") == "bex" and (text or voice):
+            await self.bex_text(chat_id, user_id, pending, text, voice)
+            return
         reply_to = (msg.get("reply_to_message") or {}).get("message_id")
         if reply_to and (text or voice):
             replied = self.db.ex_by_tg_msg(user_id, reply_to)
@@ -199,6 +203,9 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         if data.startswith(("x:a:", "x:go:")):  # интерактивный тест: всплывашка вместо сообщения
             await self.tg.answer_callback(cq["id"], await self.ex_quiz_tap(chat_id, user_id, pending, data))
             return
+        if data.startswith(("bx:a:", "bx:go", "bx:h:")):  # 📝 упражнение из книги: всплывашка вместо сообщения
+            await self.tg.answer_callback(cq["id"], *await self.bex_tap(chat_id, user_id, pending, data[3:]))
+            return
         if data.startswith("nav:"):
             await self.tg.answer_callback(cq["id"], await self.nav(chat_id, user_id, message_id, pending, data[4:]))
             return
@@ -221,6 +228,10 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         elif data.startswith("su:"):
             if pending and pending.get("step") == "set_unit":
                 await self.preview_from_unit(chat_id, user_id, data[3:])
+        elif data.startswith("bk:"):
+            await self.book_chosen(chat_id, user_id, message_id, pending, data[3:])
+        elif data.startswith("bx:"):
+            await self.bex_callback(chat_id, user_id, message_id, pending, data[3:])
         elif data.startswith("wd:"):
             await self.words_callback(chat_id, user_id, data[3:])
         elif data.startswith("ar:"):

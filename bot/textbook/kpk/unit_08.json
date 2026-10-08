@@ -1,0 +1,3192 @@
+{
+ "unit": "8",
+ "title": "Mami, jesteś głodna?",
+ "summary": "Еда и приёмы пищи: завтрак, обед, ужин, продукты, посуда; «Co lubisz jeść?», «wolę… niż…». Грамматика: jeść/pić + винительный, творительный мн. ч. (z masłem, z pomidorami), прилагательные от существительных (malina → malinowy).",
+ "source": "Krok po kroku. Polski A1 (I. Stempek), Lekcja 08, с. 52–57",
+ "words": [
+  {
+   "pl": "głodny",
+   "translit": "ГУОД-ны",
+   "ru": "голодный",
+   "pos": "прил."
+  },
+  {
+   "pl": "jestem głodny",
+   "translit": "ЕС-тэм ГУОД-ны",
+   "ru": "я голоден",
+   "pos": "🔗 сочетание",
+   "of": "głodny",
+   "ru_alt": [
+    "я голодна",
+    "я голодный"
+   ],
+   "pl_alt": [
+    "jestem głodna"
+   ]
+  },
+  {
+   "pl": "zaspany",
+   "translit": "за-СПА-ны",
+   "ru": "сонный",
+   "pos": "прил.",
+   "ru_alt": [
+    "заспанный"
+   ]
+  },
+  {
+   "pl": "smacznego",
+   "translit": "смач-НЕ-го",
+   "ru": "приятного аппетита",
+   "pos": "фраза"
+  },
+  {
+   "pl": "spać",
+   "translit": "СПАЧЬ",
+   "ru": "спать",
+   "pos": "глагол, -ę / -isz: śpię, śpisz, śpią"
+  },
+  {
+   "pl": "spać długo",
+   "translit": "СПАЧЬ ДУ-го",
+   "ru": "долго спать",
+   "pos": "🔗 сочетание",
+   "of": "spać"
+  },
+  {
+   "pl": "jeszcze",
+   "translit": "ЕЩ-че",
+   "ru": "ещё",
+   "pos": "нареч."
+  },
+  {
+   "pl": "już",
+   "translit": "ЮЖ",
+   "ru": "уже",
+   "pos": "нареч."
+  },
+  {
+   "pl": "chętnie",
+   "translit": "ХЕНТ-не",
+   "ru": "охотно",
+   "pos": "нареч.",
+   "ru_alt": [
+    "с удовольствием"
+   ]
+  },
+  {
+   "pl": "mieć ochotę na",
+   "translit": "мечь о-ХО-тэ на",
+   "ru": "хотеть (чего-то)",
+   "pos": "фраза + винительный",
+   "ru_alt": [
+    "иметь желание",
+    "хочется"
+   ]
+  },
+  {
+   "pl": "mieć ochotę na kawę",
+   "translit": "мечь о-ХО-тэ на КА-вэ",
+   "ru": "хотеть кофе",
+   "pos": "🔗 сочетание",
+   "of": "mieć ochotę na",
+   "ru_alt": [
+    "хочется кофе"
+   ]
+  },
+  {
+   "pl": "woleć",
+   "translit": "ВО-лечь",
+   "ru": "предпочитать",
+   "pos": "глагол, -ę / -isz: wolę, wolisz, wolą",
+   "ru_alt": [
+    "больше любить"
+   ]
+  },
+  {
+   "pl": "woleć kawę niż herbatę",
+   "translit": "ВО-лечь КА-вэ нишь хер-БА-тэ",
+   "ru": "предпочитать кофе чаю",
+   "pos": "🔗 сочетание",
+   "of": "woleć",
+   "ru_alt": [
+    "больше любить кофе, чем чай"
+   ]
+  },
+  {
+   "pl": "jeść",
+   "translit": "ЕЩЧЬ",
+   "ru": "есть",
+   "pos": "глагол, неправильный: jem, jesz, jedzą",
+   "ru_alt": [
+    "кушать"
+   ]
+  },
+  {
+   "pl": "jeść widelcem",
+   "translit": "ЕЩЧЬ ви-ДЕЛЬ-цэм",
+   "ru": "есть вилкой",
+   "pos": "🔗 сочетание",
+   "of": "jeść"
+  },
+  {
+   "pl": "pić",
+   "translit": "ПИЧЬ",
+   "ru": "пить",
+   "pos": "глагол, -ę / -esz: piję, pijesz, piją"
+  },
+  {
+   "pl": "pić kawę z mlekiem",
+   "translit": "ПИЧЬ КА-вэ з МЛЕ-кем",
+   "ru": "пить кофе с молоком",
+   "pos": "🔗 сочетание",
+   "of": "pić"
+  },
+  {
+   "pl": "posiłek",
+   "translit": "по-ЩИ-уэк",
+   "ru": "приём пищи",
+   "pos": "сущ., м. р.",
+   "ru_alt": [
+    "еда"
+   ]
+  },
+  {
+   "pl": "śniadanie",
+   "translit": "щня-ДА-не",
+   "ru": "завтрак",
+   "pos": "сущ., ср. р."
+  },
+  {
+   "pl": "jeść śniadanie",
+   "translit": "ЕЩЧЬ щня-ДА-не",
+   "ru": "завтракать",
+   "pos": "🔗 сочетание",
+   "of": "śniadanie",
+   "ru_alt": [
+    "есть завтрак"
+   ]
+  },
+  {
+   "pl": "na śniadanie",
+   "translit": "на щня-ДА-не",
+   "ru": "на завтрак",
+   "pos": "🔗 сочетание",
+   "of": "śniadanie"
+  },
+  {
+   "pl": "obiad",
+   "translit": "О-бьят",
+   "ru": "обед",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "jeść obiad",
+   "translit": "ЕЩЧЬ О-бьят",
+   "ru": "обедать",
+   "pos": "🔗 сочетание",
+   "of": "obiad",
+   "ru_alt": [
+    "есть обед"
+   ]
+  },
+  {
+   "pl": "kolacja",
+   "translit": "ко-ЛЯ-цья",
+   "ru": "ужин",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "jeść kolację",
+   "translit": "ЕЩЧЬ ко-ЛЯ-цьэ",
+   "ru": "ужинать",
+   "pos": "🔗 сочетание",
+   "of": "kolacja",
+   "ru_alt": [
+    "есть ужин"
+   ]
+  },
+  {
+   "pl": "chleb",
+   "translit": "ХЛЕП",
+   "ru": "хлеб",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "chleb z masłem",
+   "translit": "ХЛЕП з МАС-уэм",
+   "ru": "хлеб с маслом",
+   "pos": "🔗 сочетание",
+   "of": "chleb"
+  },
+  {
+   "pl": "ciemny chleb",
+   "translit": "ЧЕМ-ны ХЛЕП",
+   "ru": "тёмный хлеб",
+   "pos": "🔗 сочетание",
+   "of": "chleb",
+   "ru_alt": [
+    "чёрный хлеб"
+   ]
+  },
+  {
+   "pl": "bułka",
+   "translit": "БУУ-ка",
+   "ru": "булочка",
+   "pos": "сущ., ж. р.",
+   "ru_alt": [
+    "булка"
+   ]
+  },
+  {
+   "pl": "bułka z dżemem",
+   "translit": "БУУ-ка з ДЖЕ-мэм",
+   "ru": "булочка с джемом",
+   "pos": "🔗 сочетание",
+   "of": "bułka",
+   "ru_alt": [
+    "булочка с вареньем"
+   ]
+  },
+  {
+   "pl": "biały ser",
+   "translit": "БЯ-уы СЕР",
+   "ru": "творог",
+   "pos": "сущ., м. р. + прил.",
+   "ru_alt": [
+    "белый сыр"
+   ]
+  },
+  {
+   "pl": "żółty ser",
+   "translit": "ЖУУ-ты СЕР",
+   "ru": "сыр",
+   "pos": "сущ., м. р. + прил.",
+   "ru_alt": [
+    "твёрдый сыр",
+    "жёлтый сыр"
+   ]
+  },
+  {
+   "pl": "jogurt",
+   "translit": "ЙО-гурт",
+   "ru": "йогурт",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "jogurt truskawkowy",
+   "translit": "ЙО-гурт трус-каф-КО-вы",
+   "ru": "клубничный йогурт",
+   "pos": "🔗 сочетание",
+   "of": "jogurt"
+  },
+  {
+   "pl": "mleko",
+   "translit": "МЛЕ-ко",
+   "ru": "молоко",
+   "pos": "сущ., ср. р."
+  },
+  {
+   "pl": "masło",
+   "translit": "МА-суо",
+   "ru": "сливочное масло",
+   "pos": "сущ., ср. р.",
+   "ru_alt": [
+    "масло"
+   ]
+  },
+  {
+   "pl": "margaryna",
+   "translit": "мар-га-РЫ-на",
+   "ru": "маргарин",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "dżem",
+   "translit": "ДЖЕМ",
+   "ru": "джем",
+   "pos": "сущ., м. р.",
+   "ru_alt": [
+    "варенье",
+    "конфитюр"
+   ]
+  },
+  {
+   "pl": "dżem malinowy",
+   "translit": "ДЖЕМ ма-ли-НО-вы",
+   "ru": "малиновый джем",
+   "pos": "🔗 сочетание",
+   "of": "dżem",
+   "ru_alt": [
+    "малиновое варенье"
+   ]
+  },
+  {
+   "pl": "miód",
+   "translit": "МЮТ",
+   "ru": "мёд",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "jajko",
+   "translit": "ЯЙ-ко",
+   "ru": "яйцо",
+   "pos": "сущ., ср. р."
+  },
+  {
+   "pl": "jajko na twardo",
+   "translit": "ЯЙ-ко на ТФАР-до",
+   "ru": "яйцо вкрутую",
+   "pos": "🔗 сочетание",
+   "of": "jajko"
+  },
+  {
+   "pl": "szynka",
+   "translit": "ШЫН-ка",
+   "ru": "ветчина",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "chuda szynka",
+   "translit": "ХУ-да ШЫН-ка",
+   "ru": "нежирная ветчина",
+   "pos": "🔗 сочетание",
+   "of": "szynka",
+   "ru_alt": [
+    "постная ветчина"
+   ]
+  },
+  {
+   "pl": "kiełbasa",
+   "translit": "кеу-БА-са",
+   "ru": "колбаса",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "tłusta kiełbasa",
+   "translit": "ТУУС-та кеу-БА-са",
+   "ru": "жирная колбаса",
+   "pos": "🔗 сочетание",
+   "of": "kiełbasa"
+  },
+  {
+   "pl": "wędlina",
+   "translit": "вэн-ДЛИ-на",
+   "ru": "мясная нарезка",
+   "pos": "сущ., ж. р.",
+   "ru_alt": [
+    "колбасные изделия",
+    "колбаса и ветчина"
+   ]
+  },
+  {
+   "pl": "płatki śniadaniowe",
+   "translit": "ПУАТ-ки щня-да-НЁ-ве",
+   "ru": "хлопья для завтрака",
+   "pos": "сущ., мн. ч.",
+   "ru_alt": [
+    "хлопья"
+   ]
+  },
+  {
+   "pl": "pomidor",
+   "translit": "по-МИ-дор",
+   "ru": "помидор",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "ogórek",
+   "translit": "о-ГУ-рек",
+   "ru": "огурец",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "kawa",
+   "translit": "КА-ва",
+   "ru": "кофе",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "mocna kawa",
+   "translit": "МОЦ-на КА-ва",
+   "ru": "крепкий кофе",
+   "pos": "🔗 сочетание",
+   "of": "kawa"
+  },
+  {
+   "pl": "kawa z cukrem",
+   "translit": "КА-ва с ЦУК-рэм",
+   "ru": "кофе с сахаром",
+   "pos": "🔗 сочетание",
+   "of": "kawa"
+  },
+  {
+   "pl": "herbata",
+   "translit": "хер-БА-та",
+   "ru": "чай",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "herbata z cytryną",
+   "translit": "хер-БА-та с цы-ТРЫ-нон",
+   "ru": "чай с лимоном",
+   "pos": "🔗 сочетание",
+   "of": "herbata"
+  },
+  {
+   "pl": "sok",
+   "translit": "СОК",
+   "ru": "сок",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "sok pomarańczowy",
+   "translit": "СОК по-ма-рань-ЧО-вы",
+   "ru": "апельсиновый сок",
+   "pos": "🔗 сочетание",
+   "of": "sok"
+  },
+  {
+   "pl": "kakao",
+   "translit": "ка-КА-о",
+   "ru": "какао",
+   "pos": "сущ., ср. р."
+  },
+  {
+   "pl": "cukier",
+   "translit": "ЦУ-кер",
+   "ru": "сахар",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "sól",
+   "translit": "СУЛЬ",
+   "ru": "соль",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "pieprz",
+   "translit": "ПЕПШ",
+   "ru": "перец",
+   "pos": "сущ., м. р.",
+   "ru_alt": [
+    "чёрный перец"
+   ]
+  },
+  {
+   "pl": "cytryna",
+   "translit": "цы-ТРЫ-на",
+   "ru": "лимон",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "woda",
+   "translit": "ВО-да",
+   "ru": "вода",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "widelec",
+   "translit": "ви-ДЕ-лец",
+   "ru": "вилка",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "nóż",
+   "translit": "НУЖ",
+   "ru": "нож",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "kroić chleb nożem",
+   "translit": "КРО-ичь ХЛЕП НО-жэм",
+   "ru": "резать хлеб ножом",
+   "pos": "🔗 сочетание",
+   "of": "nóż"
+  },
+  {
+   "pl": "łyżka",
+   "translit": "УЫЖ-ка",
+   "ru": "ложка",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "jeść łyżką",
+   "translit": "ЕЩЧЬ УЫЖ-кон",
+   "ru": "есть ложкой",
+   "pos": "🔗 сочетание",
+   "of": "łyżka"
+  },
+  {
+   "pl": "talerz",
+   "translit": "ТА-леж",
+   "ru": "тарелка",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "kubek",
+   "translit": "КУ-бек",
+   "ru": "кружка",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "patelnia",
+   "translit": "па-ТЕЛЬ-ня",
+   "ru": "сковорода",
+   "pos": "сущ., ж. р.",
+   "ru_alt": [
+    "сковородка"
+   ]
+  },
+  {
+   "pl": "jajecznica",
+   "translit": "я-еч-НИ-ца",
+   "ru": "яичница",
+   "pos": "сущ., ж. р.",
+   "ru_alt": [
+    "яичница-болтунья"
+   ]
+  },
+  {
+   "pl": "omlet",
+   "translit": "ОМ-лет",
+   "ru": "омлет",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "na miękko",
+   "translit": "на МЕНК-ко",
+   "ru": "всмятку",
+   "pos": "нареч."
+  },
+  {
+   "pl": "na twardo",
+   "translit": "на ТФАР-до",
+   "ru": "вкрутую",
+   "pos": "нареч."
+  },
+  {
+   "pl": "jasny",
+   "translit": "ЯС-ны",
+   "ru": "светлый",
+   "pos": "прил."
+  },
+  {
+   "pl": "ciemny",
+   "translit": "ЧЕМ-ны",
+   "ru": "тёмный",
+   "pos": "прил."
+  },
+  {
+   "pl": "mocny",
+   "translit": "МОЦ-ны",
+   "ru": "крепкий",
+   "pos": "прил.",
+   "ru_alt": [
+    "сильный"
+   ]
+  },
+  {
+   "pl": "słaby",
+   "translit": "СУА-бы",
+   "ru": "слабый",
+   "pos": "прил.",
+   "ru_alt": [
+    "некрепкий"
+   ]
+  },
+  {
+   "pl": "tłusty",
+   "translit": "ТУУС-ты",
+   "ru": "жирный",
+   "pos": "прил."
+  },
+  {
+   "pl": "chudy",
+   "translit": "ХУ-ды",
+   "ru": "нежирный",
+   "pos": "прил.",
+   "ru_alt": [
+    "постный",
+    "худой"
+   ]
+  },
+  {
+   "pl": "lód",
+   "translit": "ЛЮТ",
+   "ru": "лёд",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "truskawka",
+   "translit": "трус-КАФ-ка",
+   "ru": "клубника",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "malina",
+   "translit": "ма-ЛИ-на",
+   "ru": "малина",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "jabłko",
+   "translit": "ЯП-ко",
+   "ru": "яблоко",
+   "pos": "сущ., ср. р."
+  },
+  {
+   "pl": "śliwka",
+   "translit": "ЩЛИФ-ка",
+   "ru": "слива",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "pomarańcza",
+   "translit": "по-ма-РАНЬ-ча",
+   "ru": "апельсин",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "ananas",
+   "translit": "а-НА-нас",
+   "ru": "ананас",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "malinowy",
+   "translit": "ма-ли-НО-вы",
+   "ru": "малиновый",
+   "pos": "прил."
+  },
+  {
+   "pl": "truskawkowy",
+   "translit": "трус-каф-КО-вы",
+   "ru": "клубничный",
+   "pos": "прил."
+  },
+  {
+   "pl": "pomarańczowy",
+   "translit": "по-ма-рань-ЧО-вы",
+   "ru": "апельсиновый",
+   "pos": "прил."
+  },
+  {
+   "pl": "owocowy",
+   "translit": "о-во-ЦО-вы",
+   "ru": "фруктовый",
+   "pos": "прил."
+  },
+  {
+   "pl": "zupa",
+   "translit": "ЗУ-па",
+   "ru": "суп",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "zupa pomidorowa",
+   "translit": "ЗУ-па по-ми-до-РО-ва",
+   "ru": "томатный суп",
+   "pos": "🔗 сочетание",
+   "of": "zupa",
+   "ru_alt": [
+    "помидорный суп"
+   ]
+  },
+  {
+   "pl": "mięso",
+   "translit": "МЕН-со",
+   "ru": "мясо",
+   "pos": "сущ., ср. р."
+  },
+  {
+   "pl": "mięso z sosem",
+   "translit": "МЕН-со с СО-сэм",
+   "ru": "мясо с соусом",
+   "pos": "🔗 сочетание",
+   "of": "mięso"
+  },
+  {
+   "pl": "ryba",
+   "translit": "РЫ-ба",
+   "ru": "рыба",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "ryba z frytkami",
+   "translit": "РЫ-ба с ФРЫТ-ка-ми",
+   "ru": "рыба с картошкой фри",
+   "pos": "🔗 сочетание",
+   "of": "ryba"
+  },
+  {
+   "pl": "kurczak",
+   "translit": "КУР-чак",
+   "ru": "курица",
+   "pos": "сущ., м. р.",
+   "ru_alt": [
+    "цыплёнок"
+   ]
+  },
+  {
+   "pl": "kotlet",
+   "translit": "КОТ-лет",
+   "ru": "котлета",
+   "pos": "сущ., м. р.",
+   "ru_alt": [
+    "отбивная"
+   ]
+  },
+  {
+   "pl": "kotlet z ziemniakami",
+   "translit": "КОТ-лет з зем-ня-КА-ми",
+   "ru": "котлета с картофелем",
+   "pos": "🔗 сочетание",
+   "of": "kotlet",
+   "ru_alt": [
+    "котлета с картошкой"
+   ]
+  },
+  {
+   "pl": "frytki",
+   "translit": "ФРЫТ-ки",
+   "ru": "картошка фри",
+   "pos": "сущ., мн. ч.",
+   "ru_alt": [
+    "картофель фри"
+   ]
+  },
+  {
+   "pl": "ziemniaki",
+   "translit": "зем-НЯ-ки",
+   "ru": "картофель",
+   "pos": "сущ., мн. ч.",
+   "ru_alt": [
+    "картошка"
+   ]
+  },
+  {
+   "pl": "kasza",
+   "translit": "КА-ша",
+   "ru": "каша",
+   "pos": "сущ., ж. р.",
+   "ru_alt": [
+    "крупа"
+   ]
+  },
+  {
+   "pl": "ryż",
+   "translit": "РЫЖ",
+   "ru": "рис",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "makaron",
+   "translit": "ма-КА-рон",
+   "ru": "макароны",
+   "pos": "сущ., м. р.",
+   "ru_alt": [
+    "паста"
+   ]
+  },
+  {
+   "pl": "sałata",
+   "translit": "са-УА-та",
+   "ru": "листовой салат",
+   "pos": "сущ., ж. р.",
+   "ru_alt": [
+    "салат (листья)"
+   ]
+  },
+  {
+   "pl": "sałatka",
+   "translit": "са-УАТ-ка",
+   "ru": "салат (блюдо)",
+   "pos": "сущ., ж. р.",
+   "ru_alt": [
+    "салат"
+   ]
+  },
+  {
+   "pl": "sałatka z pomidorami",
+   "translit": "са-УАТ-ка с по-ми-до-РА-ми",
+   "ru": "салат с помидорами",
+   "pos": "🔗 сочетание",
+   "of": "sałatka"
+  },
+  {
+   "pl": "surówka",
+   "translit": "су-РУФ-ка",
+   "ru": "салат из сырых овощей",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "pierogi",
+   "translit": "пье-РО-ги",
+   "ru": "вареники",
+   "pos": "сущ., мн. ч.",
+   "ru_alt": [
+    "пироги"
+   ]
+  },
+  {
+   "pl": "pierogi ze śmietaną",
+   "translit": "пье-РО-ги зэ щме-ТА-нон",
+   "ru": "вареники со сметаной",
+   "pos": "🔗 сочетание",
+   "of": "pierogi"
+  },
+  {
+   "pl": "śmietana",
+   "translit": "щме-ТА-на",
+   "ru": "сметана",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "sos",
+   "translit": "СОС",
+   "ru": "соус",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "owoce morza",
+   "translit": "о-ВО-це МО-жа",
+   "ru": "морепродукты",
+   "pos": "сущ., мн. ч."
+  },
+  {
+   "pl": "potrawa",
+   "translit": "по-ТРА-ва",
+   "ru": "блюдо",
+   "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "pyszny",
+   "translit": "ПЫШ-ны",
+   "ru": "очень вкусный",
+   "pos": "прил.",
+   "ru_alt": [
+    "вкуснейший"
+   ]
+  },
+  {
+   "pl": "zdrowy",
+   "translit": "ЗДРО-вы",
+   "ru": "полезный",
+   "pos": "прил.",
+   "ru_alt": [
+    "здоровый"
+   ]
+  },
+  {
+   "pl": "marchewka",
+   "translit": "мар-ХЕФ-ка",
+   "ru": "морковь",
+   "pos": "сущ., ж. р.",
+   "ru_alt": [
+    "морковка"
+   ]
+  },
+  {
+   "pl": "cebula",
+   "translit": "це-БУ-ля",
+   "ru": "лук",
+   "pos": "сущ., ж. р.",
+   "ru_alt": [
+    "репчатый лук"
+   ]
+  },
+  {
+   "pl": "majonez",
+   "translit": "ма-ЙО-нез",
+   "ru": "майонез",
+   "pos": "сущ., м. р."
+  },
+  {
+   "pl": "gotowy",
+   "translit": "го-ТО-вы",
+   "ru": "готовый",
+   "pos": "прил."
+  },
+  {
+   "pl": "naczynia",
+   "translit": "на-ЧЫ-ня",
+   "ru": "посуда",
+   "pos": "сущ., мн. ч.",
+   "src": "wb"
+  },
+  {
+   "pl": "sztućce",
+   "translit": "ШТУЧЬ-цэ",
+   "ru": "столовые приборы",
+   "pos": "сущ., мн. ч.",
+   "src": "wb"
+  },
+  {
+   "pl": "łyżeczka",
+   "translit": "ўы-ЖЭЧ-ка",
+   "ru": "чайная ложка",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "serwetka",
+   "translit": "сэр-ВЭТ-ка",
+   "ru": "салфетка",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "miska",
+   "translit": "МИС-ка",
+   "ru": "миска",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "talerzyk",
+   "translit": "та-ЛЭ-жык",
+   "ru": "блюдце, тарелочка",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "filiżanka",
+   "translit": "фи-ли-ЖАН-ка",
+   "ru": "чашка",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "kieliszek",
+   "translit": "ке-ЛИ-шэк",
+   "ru": "рюмка, бокал",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "szklanka",
+   "translit": "ШКЛЯН-ка",
+   "ru": "стакан",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "czajnik",
+   "translit": "ЧАЙ-ник",
+   "ru": "чайник",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "garnek",
+   "translit": "ГАР-нэк",
+   "ru": "кастрюля",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "dzbanek",
+   "translit": "ДЗБА-нэк",
+   "ru": "кувшин",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "otwieracz do butelek",
+   "translit": "от-ВЕ-рач до бу-ТЭ-лэк",
+   "ru": "открывалка для бутылок",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "pieczarka",
+   "translit": "пе-ЧАР-ка",
+   "ru": "шампиньон",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "pizza z pieczarkami",
+   "translit": "ПИ-ца с пе-чар-КА-ми",
+   "ru": "пицца с шампиньонами",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "pieczarka"
+  },
+  {
+   "pl": "grzyb",
+   "translit": "гжып",
+   "ru": "гриб",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "pierogi z grzybami",
+   "translit": "пе-РО-ги з гжы-БА-ми",
+   "ru": "вареники с грибами",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "grzyb"
+  },
+  {
+   "pl": "krewetka",
+   "translit": "крэ-ВЭТ-ка",
+   "ru": "креветка",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "oliwka",
+   "translit": "о-ЛИФ-ка",
+   "ru": "оливка",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "zielone oliwki",
+   "translit": "же-ЛЁ-нэ о-ЛИФ-ки",
+   "ru": "зелёные оливки",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "oliwka"
+  },
+  {
+   "pl": "owoc",
+   "translit": "О-воц",
+   "ru": "фрукт",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "bakalie",
+   "translit": "ба-КА-лье",
+   "ru": "орехи и сухофрукты",
+   "pos": "сущ., мн. ч.",
+   "src": "wb"
+  },
+  {
+   "pl": "lody",
+   "translit": "ЛЁ-ды",
+   "ru": "мороженое",
+   "pos": "сущ., мн. ч.",
+   "src": "wb"
+  },
+  {
+   "pl": "lody z owocami",
+   "translit": "ЛЁ-ды з о-во-ЦА-ми",
+   "ru": "мороженое с фруктами",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "lody"
+  },
+  {
+   "pl": "rodzynki",
+   "translit": "ро-ДЗЫН-ки",
+   "ru": "изюм",
+   "pos": "сущ., мн. ч.",
+   "src": "wb"
+  },
+  {
+   "pl": "ciasto z rodzynkami",
+   "translit": "ЧЯС-то з ро-дзын-КА-ми",
+   "ru": "пирог с изюмом",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "rodzynki"
+  },
+  {
+   "pl": "jagoda",
+   "translit": "я-ГО-да",
+   "ru": "черника, ягода",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "ciasto",
+   "translit": "ЧЯС-то",
+   "ru": "пирог, пирожное",
+   "pos": "сущ., ср. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "suszony",
+   "translit": "су-ШО-ны",
+   "ru": "сушёный",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "pieczony",
+   "translit": "пе-ЧО-ны",
+   "ru": "печёный, запечённый",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "pieczone ziemniaki",
+   "translit": "пе-ЧО-нэ жем-НЯ-ки",
+   "ru": "печёная картошка",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "pieczony"
+  },
+  {
+   "pl": "kiszony",
+   "translit": "ки-ШО-ны",
+   "ru": "квашеный, солёный",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "kiszone ogórki",
+   "translit": "ки-ШО-нэ о-ГУР-ки",
+   "ru": "солёные огурцы",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "kiszony"
+  },
+  {
+   "pl": "kukurydziany",
+   "translit": "ку-ку-ры-ДЖЯ-ны",
+   "ru": "кукурузный",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "bananowy",
+   "translit": "ба-на-НО-вы",
+   "ru": "банановый",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "ananasowy",
+   "translit": "а-на-на-СО-вы",
+   "ru": "ананасовый",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "pomidorowy",
+   "translit": "по-ми-до-РО-вы",
+   "ru": "томатный",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "waniliowy",
+   "translit": "ва-ни-ЛЁ-вы",
+   "ru": "ванильный",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "jabłkowy",
+   "translit": "яп-КО-вы",
+   "ru": "яблочный",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "śliwkowy",
+   "translit": "шлиф-КО-вы",
+   "ru": "сливовый",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "koktajl",
+   "translit": "КОК-тайль",
+   "ru": "коктейль",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "wino",
+   "translit": "ВИ-но",
+   "ru": "вино",
+   "pos": "сущ., ср. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "piwo",
+   "translit": "ПИ-во",
+   "ru": "пиво",
+   "pos": "сущ., ср. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "kanapka",
+   "translit": "ка-НАП-ка",
+   "ru": "бутерброд",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "kanapka z serem",
+   "translit": "ка-НАП-ка с СЭ-рэм",
+   "ru": "бутерброд с сыром",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "kanapka"
+  },
+  {
+   "pl": "grzanka",
+   "translit": "ГЖАН-ка",
+   "ru": "гренка, тост",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "tost",
+   "translit": "тост",
+   "ru": "тост",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "masło orzechowe",
+   "translit": "МАС-ўо о-жэ-ХО-вэ",
+   "ru": "арахисовая паста",
+   "pos": "сущ., ср. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "delikatny",
+   "translit": "дэ-ли-КАТ-ны",
+   "ru": "нежный, лёгкий",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "zupa ogórkowa",
+   "translit": "ЗУ-па о-гур-КО-ва",
+   "ru": "огуречный суп (с солёными огурцами)",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "szwedzki stół",
+   "translit": "ШВЭЦ-ки стуў",
+   "ru": "шведский стол",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "zapraszam",
+   "translit": "за-ПРА-шам",
+   "ru": "приглашаю (прошу к столу)",
+   "pos": "глаг.",
+   "src": "wb"
+  },
+  {
+   "pl": "wybierać",
+   "translit": "вы-БЕ-рач",
+   "ru": "выбирать",
+   "pos": "глаг.",
+   "src": "wb"
+  }
+ ],
+ "exercises": [
+  {
+   "id": "tb-8-a1",
+   "src": "tb",
+   "ref": "A · Ćw. 1, s. 52",
+   "title": "Co to jest?",
+   "title_ru": "Что это? Завтрак",
+   "task_ru": "Картинка из учебника — здесь эмодзи и русское слово. Напиши по-польски: «1 chleb 2 bułka …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "🍞 хлеб",
+     "answer": "chleb",
+     "ru": "хлеб",
+     "translit": "хлеп"
+    },
+    {
+     "q": "🥐 булочка",
+     "answer": "bułka",
+     "ru": "булочка",
+     "translit": "БУЎ-ка"
+    },
+    {
+     "q": "⬜🧀 творог (белый сыр)",
+     "answer": "biały ser",
+     "ru": "творог",
+     "translit": "БЯ-ўы сэр"
+    },
+    {
+     "q": "🧀 жёлтый сыр",
+     "answer": "żółty ser",
+     "ru": "сыр",
+     "translit": "ЖУЎ-ты сэр"
+    },
+    {
+     "q": "🥛🍓 йогурт",
+     "answer": "jogurt",
+     "ru": "йогурт",
+     "translit": "ЁГ-урт"
+    },
+    {
+     "q": "🥛 молоко",
+     "answer": "mleko",
+     "ru": "молоко",
+     "translit": "МЛЭ-ко"
+    },
+    {
+     "q": "🧈 сливочное масло",
+     "answer": "masło",
+     "ru": "масло",
+     "translit": "МАС-ўо"
+    },
+    {
+     "q": "🧈 маргарин",
+     "answer": "margaryna",
+     "ru": "маргарин",
+     "translit": "мар-га-РЫ-на"
+    },
+    {
+     "q": "🍓🫙 джем, варенье",
+     "answer": "dżem",
+     "ru": "джем",
+     "translit": "джэм"
+    },
+    {
+     "q": "🍯 мёд",
+     "answer": "miód",
+     "ru": "мёд",
+     "translit": "мют"
+    },
+    {
+     "q": "🥚 яйцо",
+     "answer": "jajko",
+     "ru": "яйцо",
+     "translit": "ЯЙ-ко"
+    },
+    {
+     "q": "🍖 ветчина",
+     "answer": "szynka",
+     "ru": "ветчина",
+     "translit": "ШЫН-ка"
+    },
+    {
+     "q": "🌭 колбаса",
+     "answer": "kiełbasa",
+     "ru": "колбаса",
+     "translit": "кеў-БА-са"
+    },
+    {
+     "q": "🥣 хлопья (для завтрака)",
+     "answer": "płatki śniadaniowe",
+     "ru": "хлопья для завтрака",
+     "translit": "ПЎАТ-ки шня-да-НЁ-вэ",
+     "accepted": [
+      "płatki"
+     ]
+    },
+    {
+     "q": "🍅 помидор",
+     "answer": "pomidor",
+     "ru": "помидор",
+     "translit": "по-МИ-дор"
+    },
+    {
+     "q": "🥒 огурец",
+     "answer": "ogórek",
+     "ru": "огурец",
+     "translit": "о-ГУ-рэк"
+    },
+    {
+     "q": "☕ кофе",
+     "answer": "kawa",
+     "ru": "кофе",
+     "translit": "КА-ва"
+    },
+    {
+     "q": "🍵 чай",
+     "answer": "herbata",
+     "ru": "чай",
+     "translit": "хэр-БА-та"
+    },
+    {
+     "q": "🍊🧃 апельсиновый сок",
+     "answer": "sok pomarańczowy",
+     "ru": "апельсиновый сок",
+     "translit": "сок по-ма-рань-ЧО-вы"
+    },
+    {
+     "q": "🍫🥛 какао",
+     "answer": "kakao",
+     "ru": "какао",
+     "translit": "ка-КА-о"
+    },
+    {
+     "q": "🍬 сахар",
+     "answer": "cukier",
+     "ru": "сахар",
+     "translit": "ЦУ-кер"
+    },
+    {
+     "q": "🧂 соль",
+     "answer": "sól",
+     "ru": "соль",
+     "translit": "суль",
+     "hint": "ta sól — женский род!"
+    },
+    {
+     "q": "🌶️ перец (молотый)",
+     "answer": "pieprz",
+     "ru": "перец",
+     "translit": "пепш"
+    },
+    {
+     "q": "🍋 лимон",
+     "answer": "cytryna",
+     "ru": "лимон",
+     "translit": "цы-ТРЫ-на"
+    }
+   ],
+   "audio": "108a2.mp3"
+  },
+  {
+   "id": "tb-8-a4",
+   "src": "tb",
+   "ref": "A · Ćw. 4, s. 54",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Wolę… niż… — предпочитаю",
+   "task_ru": "woleć + винительный … niż + винительный. Напиши обе формы через запятую: «1 czarną herbatę, zieloną».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Wolę ___ niż ___. (czarna herbata, zielona)",
+     "answer": "czarną herbatę, zieloną",
+     "ru": "Я предпочитаю чёрный чай зелёному.",
+     "full_pl": "Wolę czarną herbatę niż zieloną.",
+     "grammar": "винительный, ж. р.: -a → -ą, -ę",
+     "accepted": [
+      "czarną herbatę niż zieloną"
+     ]
+    },
+    {
+     "q": "Wolę ___ niż ___. (ciemny chleb, bułka)",
+     "answer": "ciemny chleb, bułkę",
+     "ru": "Я предпочитаю тёмный хлеб булочке.",
+     "full_pl": "Wolę ciemny chleb niż bułkę.",
+     "grammar": "винительный: м. р. неодуш. = именительный; ж. р. -a → -ę",
+     "accepted": [
+      "ciemny chleb niż bułkę"
+     ]
+    },
+    {
+     "q": "Angela woli ___ niż ___. (gorąca herbata, zimny sok)",
+     "answer": "gorącą herbatę, zimny sok",
+     "ru": "Анджела предпочитает горячий чай холодному соку.",
+     "full_pl": "Angela woli gorącą herbatę niż zimny sok.",
+     "grammar": "винительный: ж. р. -ą -ę; м. р. неодуш. без изменений",
+     "accepted": [
+      "gorącą herbatę niż zimny sok"
+     ]
+    },
+    {
+     "q": "Mami woli ___ niż ___. (kiełbasa, żółty ser)",
+     "answer": "kiełbasę, żółty ser",
+     "ru": "Мами предпочитает колбасу жёлтому сыру.",
+     "full_pl": "Mami woli kiełbasę niż żółty ser.",
+     "grammar": "винительный: kiełbasa → kiełbasę; ser не меняется",
+     "accepted": [
+      "kiełbasę niż żółty ser"
+     ]
+    },
+    {
+     "q": "Wolimy ___ niż ___. (czarna kawa, biała)",
+     "answer": "czarną kawę, białą",
+     "ru": "Мы предпочитаем чёрный кофе белому (с молоком).",
+     "full_pl": "Wolimy czarną kawę niż białą.",
+     "grammar": "винительный, ж. р.: -a → -ą (прил.), -ę (сущ.)",
+     "accepted": [
+      "czarną kawę niż białą"
+     ]
+    },
+    {
+     "q": "Mami woli ___ niż ___. (jajko na twardo, jajecznica)",
+     "answer": "jajko na twardo, jajecznicę",
+     "ru": "Мами предпочитает яйцо вкрутую яичнице.",
+     "full_pl": "Mami woli jajko na twardo niż jajecznicę.",
+     "grammar": "винительный: ср. р. = именительный; ж. р. -a → -ę",
+     "accepted": [
+      "jajko na twardo niż jajecznicę"
+     ]
+    },
+    {
+     "q": "Uwe woli ___ niż ___. (tłusta kiełbasa, chuda)",
+     "answer": "tłustą kiełbasę, chudą",
+     "ru": "Уве предпочитает жирную колбасу постной.",
+     "full_pl": "Uwe woli tłustą kiełbasę niż chudą.",
+     "grammar": "винительный, ж. р.: -a → -ą, -ę",
+     "accepted": [
+      "tłustą kiełbasę niż chudą"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-8-a5",
+   "src": "tb",
+   "ref": "A · Ćw. 5, s. 54",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Jem… z… — ем что с чем",
+   "task_ru": "jem / piję + винительный, z + творительный. Напиши всю часть после Jem / Piję: «1 chleb z chudą szynką i ogórkiem».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Jem ___ (chleb, chuda szynka, ogórek)",
+     "answer": "chleb z chudą szynką i ogórkiem",
+     "ru": "Я ем хлеб с постной ветчиной и огурцом.",
+     "full_pl": "Jem chleb z chudą szynką i ogórkiem.",
+     "grammar": "z + творительный: ж. р. -ą, м. р. -em",
+     "accepted": [
+      "chleb z chudą szynką i z ogórkiem"
+     ]
+    },
+    {
+     "q": "Piję ___ (herbata, cukier, cytryna)",
+     "answer": "herbatę z cukrem i cytryną",
+     "ru": "Я пью чай с сахаром и лимоном.",
+     "full_pl": "Piję herbatę z cukrem i cytryną.",
+     "grammar": "винительный herbatę; творительный cukrem, cytryną",
+     "accepted": [
+      "herbatę z cukrem i z cytryną"
+     ]
+    },
+    {
+     "q": "Jem ___ (chleb, żółty ser, pomidor)",
+     "answer": "chleb z żółtym serem i pomidorem",
+     "ru": "Я ем хлеб с жёлтым сыром и помидором.",
+     "full_pl": "Jem chleb z żółtym serem i pomidorem.",
+     "grammar": "творительный м. р.: прил. -ym, сущ. -em",
+     "accepted": [
+      "chleb z żółtym serem i z pomidorem"
+     ]
+    },
+    {
+     "q": "Jem ___ (bułka, dżem truskawkowy)",
+     "answer": "bułkę z dżemem truskawkowym",
+     "ru": "Я ем булочку с клубничным джемом.",
+     "full_pl": "Jem bułkę z dżemem truskawkowym.",
+     "grammar": "винительный bułkę; творительный м. р. -em, -ym"
+    },
+    {
+     "q": "Piję ___ (kawa, mleko)",
+     "answer": "kawę z mlekiem",
+     "ru": "Я пью кофе с молоком.",
+     "full_pl": "Piję kawę z mlekiem.",
+     "grammar": "творительный ср. р.: mleko → mlekiem"
+    },
+    {
+     "q": "Jem ___ (chleb, biały ser, sól)",
+     "answer": "chleb z białym serem i solą",
+     "ru": "Я ем хлеб с творогом и солью.",
+     "full_pl": "Jem chleb z białym serem i solą.",
+     "grammar": "sól — ж. р., творительный solą",
+     "accepted": [
+      "chleb z białym serem i z solą"
+     ]
+    },
+    {
+     "q": "Piję ___ (woda, sok malinowy, cytryna)",
+     "answer": "wodę z sokiem malinowym i cytryną",
+     "ru": "Я пью воду с малиновым соком и лимоном.",
+     "full_pl": "Piję wodę z sokiem malinowym i cytryną.",
+     "grammar": "винительный wodę; творительный sokiem malinowym, cytryną",
+     "accepted": [
+      "wodę z sokiem malinowym i z cytryną"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-8-a6",
+   "src": "tb",
+   "ref": "A · Ćw. 6, s. 55",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Malina → malinowy",
+   "task_ru": "Прилагательное от названия фрукта: -owy (м. р.), -owa (ж. р.), -owe (ср. р.). Пиши только прилагательное.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "🍅 pomidor → sok ___",
+     "answer": "pomidorowy",
+     "ru": "томатный сок",
+     "full_pl": "sok pomidorowy",
+     "translit": "сок по-ми-до-РО-вы",
+     "grammar": "sok — м. р. → -owy"
+    },
+    {
+     "q": "🍅 pomidor → sos ___",
+     "answer": "pomidorowy",
+     "ru": "томатный соус",
+     "full_pl": "sos pomidorowy",
+     "translit": "сос по-ми-до-РО-вы",
+     "grammar": "sos — м. р. → -owy"
+    },
+    {
+     "q": "🫐 śliwka → dżem ___",
+     "answer": "śliwkowy",
+     "ru": "сливовый джем",
+     "full_pl": "dżem śliwkowy",
+     "translit": "джэм шлиф-КО-вы",
+     "grammar": "śliwk-a → śliwk + owy"
+    },
+    {
+     "q": "🫐 śliwka → ciasto ___",
+     "answer": "śliwkowe",
+     "ru": "сливовый пирог",
+     "full_pl": "ciasto śliwkowe",
+     "translit": "ЧЯС-то шлиф-КО-вэ",
+     "grammar": "ciasto — ср. р. → -owe"
+    },
+    {
+     "q": "🍓 truskawka → jogurt ___",
+     "answer": "truskawkowy",
+     "ru": "клубничный йогурт",
+     "full_pl": "jogurt truskawkowy",
+     "translit": "ЁГ-урт трус-каф-КО-вы",
+     "grammar": "jogurt — м. р."
+    },
+    {
+     "q": "🍓 truskawka → herbata ___",
+     "answer": "truskawkowa",
+     "ru": "клубничный чай",
+     "full_pl": "herbata truskawkowa",
+     "translit": "хэр-БА-та трус-каф-КО-ва",
+     "grammar": "herbata — ж. р."
+    },
+    {
+     "q": "🍓 truskawka → ciasto ___",
+     "answer": "truskawkowe",
+     "ru": "клубничный пирог",
+     "full_pl": "ciasto truskawkowe",
+     "translit": "ЧЯС-то трус-каф-КО-вэ",
+     "grammar": "ciasto — ср. р."
+    },
+    {
+     "q": "🍏 jabłko → sok ___",
+     "answer": "jabłkowy",
+     "ru": "яблочный сок",
+     "full_pl": "sok jabłkowy",
+     "translit": "сок яп-КО-вы",
+     "grammar": "jabłk-o → jabłk + owy"
+    },
+    {
+     "q": "🍏 jabłko → herbata ___",
+     "answer": "jabłkowa",
+     "ru": "яблочный чай",
+     "full_pl": "herbata jabłkowa",
+     "translit": "хэр-БА-та яп-КО-ва",
+     "grammar": "ж. р."
+    },
+    {
+     "q": "🍏 jabłko → ciasto ___",
+     "answer": "jabłkowe",
+     "ru": "яблочный пирог",
+     "full_pl": "ciasto jabłkowe",
+     "translit": "ЧЯС-то яп-КО-вэ",
+     "grammar": "ср. р."
+    },
+    {
+     "q": "🍇 malina → sok ___",
+     "answer": "malinowy",
+     "ru": "малиновый сок",
+     "full_pl": "sok malinowy",
+     "translit": "сок ма-ли-НО-вы",
+     "grammar": "malin-a → malin + owy"
+    },
+    {
+     "q": "🍇 malina → dżem ___",
+     "answer": "malinowy",
+     "ru": "малиновый джем",
+     "full_pl": "dżem malinowy",
+     "translit": "джэм ма-ли-НО-вы",
+     "grammar": "м. р."
+    },
+    {
+     "q": "🍇 malina → herbata ___",
+     "answer": "malinowa",
+     "ru": "малиновый чай",
+     "full_pl": "herbata malinowa",
+     "translit": "хэр-БА-та ма-ли-НО-ва",
+     "grammar": "ж. р."
+    },
+    {
+     "q": "🍇 malina → ciasto ___",
+     "answer": "malinowe",
+     "ru": "малиновый пирог",
+     "full_pl": "ciasto malinowe",
+     "translit": "ЧЯС-то ма-ли-НО-вэ",
+     "grammar": "ср. р."
+    },
+    {
+     "q": "🍊 pomarańcza → sok ___",
+     "answer": "pomarańczowy",
+     "ru": "апельсиновый сок",
+     "full_pl": "sok pomarańczowy",
+     "translit": "сок по-ма-рань-ЧО-вы",
+     "grammar": "pomarańcz-a → pomarańcz + owy"
+    },
+    {
+     "q": "🍊 pomarańcza → dżem ___",
+     "answer": "pomarańczowy",
+     "ru": "апельсиновый джем",
+     "full_pl": "dżem pomarańczowy",
+     "translit": "джэм по-ма-рань-ЧО-вы",
+     "grammar": "м. р."
+    },
+    {
+     "q": "🍊 pomarańcza → herbata ___",
+     "answer": "pomarańczowa",
+     "ru": "апельсиновый чай",
+     "full_pl": "herbata pomarańczowa",
+     "translit": "хэр-БА-та по-ма-рань-ЧО-ва",
+     "grammar": "ж. р."
+    },
+    {
+     "q": "🍊 pomarańcza → ciasto ___",
+     "answer": "pomarańczowe",
+     "ru": "апельсиновый пирог",
+     "full_pl": "ciasto pomarańczowe",
+     "translit": "ЧЯС-то по-ма-рань-ЧО-вэ",
+     "grammar": "ср. р."
+    }
+   ]
+  },
+  {
+   "id": "tb-8-a7",
+   "src": "tb",
+   "ref": "A · Ćw. 7, s. 55",
+   "title": "Prawda czy nieprawda?",
+   "title_ru": "Правда или нет? (по диалогам)",
+   "task_ru": "Послушай ćw. 3 и диалоги 2 и 3 (аудио выше). Правда (P) или неправда (N)?",
+   "type": "tf",
+   "items": [
+    {
+     "q": "Karolina je bułkę z serem.",
+     "answer": "nieprawda",
+     "ru": "Каролина ест булочку с сыром.",
+     "full_pl": "Karolina je ciemny chleb, nie bułkę z serem.",
+     "grammar": "ćw. 3"
+    },
+    {
+     "q": "Mami je ciemny chleb z masłem.",
+     "answer": "nieprawda",
+     "ru": "Мами ест тёмный хлеб с маслом.",
+     "full_pl": "Mami je bułkę, nie ciemny chleb.",
+     "grammar": "ćw. 3: «Tak, proszę bułkę»"
+    },
+    {
+     "q": "Mami je bułkę z wędliną.",
+     "answer": "prawda",
+     "ru": "Мами ест булочку с колбасой (вэндлиной).",
+     "full_pl": "Mami je bułkę z kiełbasą — kiełbasa to wędlina.",
+     "grammar": "ćw. 3: kiełbasa = wędlina"
+    },
+    {
+     "q": "Karol je omlet.",
+     "answer": "nieprawda",
+     "ru": "Кароль ест омлет.",
+     "full_pl": "Karol woli jogurt z płatkami.",
+     "grammar": "диалог 2"
+    },
+    {
+     "q": "Mami pije białą herbatę.",
+     "answer": "nieprawda",
+     "ru": "Мами пьёт белый чай.",
+     "full_pl": "Mami pije białą kawę z cukrem.",
+     "grammar": "диалог 3"
+    },
+    {
+     "q": "Karolina pije herbatę z mlekiem.",
+     "answer": "nieprawda",
+     "ru": "Каролина пьёт чай с молоком.",
+     "full_pl": "Karolina pije herbatę z cytryną.",
+     "grammar": "диалог 3"
+    },
+    {
+     "q": "Karol pije kakao.",
+     "answer": "prawda",
+     "ru": "Кароль пьёт какао.",
+     "full_pl": "Karol: «Ja dziś piję kakao.»",
+     "grammar": "диалог 3"
+    }
+   ],
+   "audio": [
+    "108a4.mp3",
+    "108a7mp3.mp3",
+    "108a9.mp3"
+   ]
+  },
+  {
+   "id": "tb-8-b2",
+   "src": "tb",
+   "ref": "B · Ćw. 2, s. 55",
+   "title": "Proszę uzupełnić tabele.",
+   "title_ru": "Jeść и pić — спряжение",
+   "task_ru": "Напиши форму глагола: «1 jem 2 jesz …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "jeść: (ja) ___",
+     "answer": "jem",
+     "ru": "я ем",
+     "translit": "ем",
+     "grammar": "jeść — неправильный: jem, jesz, je, jemy, jecie, jedzą"
+    },
+    {
+     "q": "jeść: (ty) ___",
+     "answer": "jesz",
+     "ru": "ты ешь",
+     "translit": "еш",
+     "grammar": "jeść, 2 л. ед. ч."
+    },
+    {
+     "q": "jeść: (on / ona / ono) ___",
+     "answer": "je",
+     "ru": "он / она ест",
+     "translit": "е",
+     "grammar": "jeść, 3 л. ед. ч."
+    },
+    {
+     "q": "jeść: (my) ___",
+     "answer": "jemy",
+     "ru": "мы едим",
+     "translit": "Е-мы",
+     "grammar": "jeść, 1 л. мн. ч."
+    },
+    {
+     "q": "jeść: (wy) ___",
+     "answer": "jecie",
+     "ru": "вы едите",
+     "translit": "ЕЧ-е",
+     "grammar": "jeść, 2 л. мн. ч."
+    },
+    {
+     "q": "pić: (ja) ___",
+     "answer": "piję",
+     "ru": "я пью",
+     "translit": "ПИ-е",
+     "grammar": "pić — I спряжение (-ę, -esz): piję, pijesz, pije…"
+    },
+    {
+     "q": "pić: (ty) ___",
+     "answer": "pijesz",
+     "ru": "ты пьёшь",
+     "translit": "ПИ-еш",
+     "grammar": "pić, 2 л. ед. ч."
+    },
+    {
+     "q": "pić: (on / ona / ono) ___",
+     "answer": "pije",
+     "ru": "он / она пьёт",
+     "translit": "ПИ-е",
+     "grammar": "pić, 3 л. ед. ч."
+    },
+    {
+     "q": "pić: (my) ___",
+     "answer": "pijemy",
+     "ru": "мы пьём",
+     "translit": "пи-Е-мы",
+     "grammar": "pić, 1 л. мн. ч."
+    },
+    {
+     "q": "pić: (oni / one) ___",
+     "answer": "piją",
+     "ru": "они пьют",
+     "translit": "ПИ-ён",
+     "grammar": "pić, 3 л. мн. ч."
+    }
+   ]
+  },
+  {
+   "id": "tb-8-b3",
+   "src": "tb",
+   "ref": "B · Ćw. 3, s. 56",
+   "title": "jem? jesz? piję? pijesz?",
+   "title_ru": "Jeść или pić?",
+   "task_ru": "Поставь jeść или pić в нужной форме. Два пропуска — через запятую: «5 jemy, pijemy».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Oni jedzą chleb z szynką i ___ mocną herbatę.",
+     "answer": "piją",
+     "ru": "Они едят хлеб с ветчиной и пьют крепкий чай.",
+     "full_pl": "Oni jedzą chleb z szynką i piją mocną herbatę.",
+     "grammar": "pić, 3 л. мн. ч. (oni)"
+    },
+    {
+     "q": "Karolina ___ bułkę z masłem.",
+     "answer": "je",
+     "ru": "Каролина ест булочку с маслом.",
+     "full_pl": "Karolina je bułkę z masłem.",
+     "grammar": "jeść, 3 л. ед. ч."
+    },
+    {
+     "q": "Mami ___ jogurt z płatkami.",
+     "answer": "je",
+     "ru": "Мами ест йогурт с хлопьями.",
+     "full_pl": "Mami je jogurt z płatkami.",
+     "grammar": "jeść, 3 л. ед. ч."
+    },
+    {
+     "q": "Ja ___ tylko czarną kawę.",
+     "answer": "piję",
+     "ru": "Я пью только чёрный кофе.",
+     "full_pl": "Ja piję tylko czarną kawę.",
+     "grammar": "pić, 1 л. ед. ч."
+    },
+    {
+     "q": "Czy wy ___ jajecznicę?",
+     "answer": "jecie",
+     "ru": "Вы едите яичницу?",
+     "full_pl": "Czy wy jecie jajecznicę?",
+     "grammar": "jeść, 2 л. мн. ч."
+    },
+    {
+     "q": "Tak, (my) ___ jajecznicę i ___ gorącą herbatę.",
+     "answer": "jemy, pijemy",
+     "ru": "Да, мы едим яичницу и пьём горячий чай.",
+     "full_pl": "Tak, jemy jajecznicę i pijemy gorącą herbatę.",
+     "grammar": "1 л. мн. ч.: jemy, pijemy"
+    },
+    {
+     "q": "Karol ___ kakao.",
+     "answer": "pije",
+     "ru": "Кароль пьёт какао.",
+     "full_pl": "Karol pije kakao.",
+     "grammar": "pić, 3 л. ед. ч."
+    },
+    {
+     "q": "Co ___ (wy)? Sok pomarańczowy.",
+     "answer": "pijecie",
+     "ru": "Что вы пьёте? Апельсиновый сок.",
+     "full_pl": "Co pijecie? Sok pomarańczowy.",
+     "grammar": "pić, 2 л. мн. ч."
+    },
+    {
+     "q": "Czy ty ___ kawę? Nie, herbatę.",
+     "answer": "pijesz",
+     "ru": "Ты пьёшь кофе? Нет, чай.",
+     "full_pl": "Czy ty pijesz kawę? Nie, herbatę.",
+     "grammar": "pić, 2 л. ед. ч."
+    }
+   ]
+  },
+  {
+   "id": "tb-8-b4",
+   "src": "tb",
+   "ref": "B · Ćw. 4, s. 56",
+   "title": "Z czym oni jedzą kanapkę?",
+   "title_ru": "С чем бутерброд?",
+   "task_ru": "Картинки из учебника — здесь продукты эмодзи. Напиши предложение целиком: «1 Uwe je chleb z …». Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Uwe: 🍞 хлеб + 🌭 колбаса + 🧈 масло + горчица и кетчуп",
+     "answer": "Uwe je chleb z kiełbasą, masłem, musztardą i keczupem.",
+     "ru": "Уве ест хлеб с колбасой, маслом, горчицей и кетчупом.",
+     "grammar": "je + винительный, z + творительный"
+    },
+    {
+     "q": "Angela: 🍞 хлеб + 🍖 ветчина + 🧀 жёлтый сыр + 🍅 помидоры",
+     "answer": "Angela je chleb z szynką, żółtym serem i pomidorami.",
+     "ru": "Анджела ест хлеб с ветчиной, жёлтым сыром и помидорами.",
+     "grammar": "pomidory → z pomidorami (мн. ч.)"
+    },
+    {
+     "q": "Karolina: 🥐 булочка + ⬜ творог + 🧈 масло + 🍯 мёд",
+     "answer": "Karolina je bułkę z białym serem, masłem i miodem.",
+     "ru": "Каролина ест булочку с творогом, маслом и мёдом.",
+     "grammar": "bułka → bułkę; miód → miodem"
+    },
+    {
+     "q": "Ja: 🥐 булочка + 🍖 ветчина + 🥚 яйцо + горчица",
+     "answer": "Ja jem bułkę z szynką, jajkiem i musztardą.",
+     "ru": "Я ем булочку с ветчиной, яйцом и горчицей.",
+     "grammar": "jajko → jajkiem"
+    }
+   ]
+  },
+  {
+   "id": "tb-8-c1",
+   "src": "tb",
+   "ref": "C · Ćw. 1, s. 56",
+   "title": "Proszę wpisać słowa do schematu.",
+   "title_ru": "Первое или второе блюдо?",
+   "task_ru": "Куда относится блюдо: первое (суп) или второе — мясо/рыба, гарнир, салат.",
+   "type": "match",
+   "items": [
+    {
+     "q": "zupa",
+     "answer": "pierwsze danie",
+     "ru": "суп"
+    },
+    {
+     "q": "kurczak",
+     "answer": "drugie danie: mięso / ryba",
+     "ru": "курица"
+    },
+    {
+     "q": "frytki",
+     "answer": "drugie danie: dodatek",
+     "ru": "картофель фри"
+    },
+    {
+     "q": "ryba",
+     "answer": "drugie danie: mięso / ryba",
+     "ru": "рыба"
+    },
+    {
+     "q": "ryż",
+     "answer": "drugie danie: dodatek",
+     "ru": "рис"
+    },
+    {
+     "q": "makaron",
+     "answer": "drugie danie: dodatek",
+     "ru": "макароны"
+    },
+    {
+     "q": "kotlet",
+     "answer": "drugie danie: mięso / ryba",
+     "ru": "котлета"
+    },
+    {
+     "q": "sałata",
+     "answer": "drugie danie: sałatka / surówka",
+     "ru": "салат (листья)"
+    },
+    {
+     "q": "surówka",
+     "answer": "drugie danie: sałatka / surówka",
+     "ru": "салат из сырых овощей"
+    }
+   ],
+   "options": [
+    "pierwsze danie",
+    "drugie danie: mięso / ryba",
+    "drugie danie: dodatek",
+    "drugie danie: sałatka / surówka"
+   ]
+  },
+  {
+   "id": "tb-8-c3",
+   "src": "tb",
+   "ref": "C · Ćw. 3, s. 57",
+   "title": "Biernik czy narzędnik?",
+   "title_ru": "Винительный или творительный?",
+   "task_ru": "После jem / piję / lubię — винительный, после z — творительный. Пиши форму: «1 chudą szynką».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Na śniadanie jem chleb z masłem i z ___ (chuda szynka).",
+     "answer": "chudą szynką",
+     "ru": "На завтрак я ем хлеб с маслом и постной ветчиной.",
+     "grammar": "z + творительный, ж. р."
+    },
+    {
+     "q": "Jem też ___ (żółty ser).",
+     "answer": "żółty ser",
+     "ru": "Ещё я ем жёлтый сыр.",
+     "grammar": "jem + винительный, м. р. неодуш. = им."
+    },
+    {
+     "q": "Często piję ___ (biała kawa)…",
+     "answer": "białą kawę",
+     "ru": "Я часто пью белый кофе…",
+     "grammar": "piję + винительный, ж. р."
+    },
+    {
+     "q": "…z ___ (cukier).",
+     "answer": "cukrem",
+     "ru": "…с сахаром.",
+     "grammar": "z + творительный, м. р. (cukier → cukrem, e выпадает)"
+    },
+    {
+     "q": "Na obiad jem ___ (zupa pomidorowa)…",
+     "answer": "zupę pomidorową",
+     "ru": "На обед я ем томатный суп…",
+     "grammar": "jem + винительный, ж. р."
+    },
+    {
+     "q": "…z ___ (ryż)…",
+     "answer": "ryżem",
+     "ru": "…с рисом…",
+     "grammar": "z + творительный, м. р."
+    },
+    {
+     "q": "…albo ___ (rosół)…",
+     "answer": "rosół",
+     "ru": "…или бульон…",
+     "grammar": "винительный, м. р. неодуш. = им."
+    },
+    {
+     "q": "…z ___ (makaron).",
+     "answer": "makaronem",
+     "ru": "…с лапшой.",
+     "grammar": "z + творительный"
+    },
+    {
+     "q": "Lubię ___ (mięso)…",
+     "answer": "mięso",
+     "ru": "Я люблю мясо…",
+     "grammar": "lubię + винительный, ср. р. = им."
+    },
+    {
+     "q": "…z ___ (pieczone ziemniaki)…",
+     "answer": "pieczonymi ziemniakami",
+     "ru": "…с печёной картошкой…",
+     "grammar": "z + творительный мн. ч.: -ymi, -ami"
+    },
+    {
+     "q": "…i z ___ (zielona sałata).",
+     "answer": "zieloną sałatą",
+     "ru": "…и с зелёным салатом.",
+     "grammar": "z + творительный, ж. р."
+    },
+    {
+     "q": "Na kolację piję ___ (herbata)…",
+     "answer": "herbatę",
+     "ru": "На ужин я пью чай…",
+     "grammar": "piję + винительный"
+    },
+    {
+     "q": "…z ___ (cytryna).",
+     "answer": "cytryną",
+     "ru": "…с лимоном.",
+     "grammar": "z + творительный, ж. р."
+    }
+   ]
+  },
+  {
+   "id": "tb-8-c4",
+   "src": "tb",
+   "ref": "C · Ćw. 4, s. 57",
+   "title": "Proszę uzupełnić (l. mn.)",
+   "title_ru": "Творительный мн. ч.: -ami, -ymi",
+   "task_ru": "z + творительный множественного числа: сущ. -ami, прил. -ymi (после k, g — -imi).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "ryba z ___ (frytka)",
+     "answer": "frytkami",
+     "ru": "рыба с картошкой фри",
+     "full_pl": "ryba z frytkami",
+     "grammar": "frytk-a → frytkami"
+    },
+    {
+     "q": "kotlet z ___ (ziemniak)…",
+     "answer": "ziemniakami",
+     "ru": "котлета с картошкой…",
+     "grammar": "ziemniak → ziemniakami"
+    },
+    {
+     "q": "…i ___ (kiszony ogórek)",
+     "answer": "kiszonymi ogórkami",
+     "ru": "…и солёными огурцами",
+     "full_pl": "kotlet z ziemniakami i kiszonymi ogórkami",
+     "grammar": "прил. -ymi, сущ. -ami; ogórek → ogórkami (e выпадает)"
+    },
+    {
+     "q": "sałatka z ___ (pomidor)…",
+     "answer": "pomidorami",
+     "ru": "салат с помидорами…",
+     "grammar": "pomidor → pomidorami"
+    },
+    {
+     "q": "…___ (czarna oliwka)…",
+     "answer": "czarnymi oliwkami",
+     "ru": "…чёрными оливками…",
+     "grammar": "прил. -ymi, сущ. -ami"
+    },
+    {
+     "q": "…i ___ (gotowane jajko)",
+     "answer": "gotowanymi jajkami",
+     "ru": "…и варёными яйцами",
+     "full_pl": "sałatka z pomidorami, czarnymi oliwkami i gotowanymi jajkami",
+     "grammar": "jajk-o → jajkami"
+    },
+    {
+     "q": "ciasto z ___ (jabłko)…",
+     "answer": "jabłkami",
+     "ru": "пирог с яблоками…",
+     "grammar": "jabłk-o → jabłkami"
+    },
+    {
+     "q": "…i ___ (malina)",
+     "answer": "malinami",
+     "ru": "…и малиной",
+     "full_pl": "ciasto z jabłkami i malinami",
+     "grammar": "malin-a → malinami"
+    }
+   ]
+  },
+  {
+   "id": "tb-8-d1",
+   "src": "tb",
+   "ref": "D · Ćw. 1, s. 57",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Что на ужин? (слова из рамки)",
+   "task_ru": "Выбери слово из рамки: robią, sałatka, herbatę, idę, na.",
+   "type": "match",
+   "items": [
+    {
+     "q": "Pani Maj: ___ jarzynowa.",
+     "answer": "sałatka",
+     "ru": "Пани Май: Овощной салат.",
+     "full_pl": "Sałatka jarzynowa.",
+     "grammar": "именительный"
+    },
+    {
+     "q": "Pani Maj: ___ tosty…",
+     "answer": "robią",
+     "ru": "Пани Май: Они делают тосты…",
+     "full_pl": "Robią tosty i herbatę.",
+     "grammar": "robić, 3 л. мн. ч."
+    },
+    {
+     "q": "…tosty i ___.",
+     "answer": "herbatę",
+     "ru": "…тосты и чай.",
+     "grammar": "robią + винительный"
+    },
+    {
+     "q": "Karol: Gotowe! Mami, zapraszamy ___ kolację.",
+     "answer": "na",
+     "ru": "Кароль: Готово! Мами, приглашаем на ужин.",
+     "grammar": "zapraszać na + винительный"
+    },
+    {
+     "q": "Mami: Dziękuję bardzo, już ___.",
+     "answer": "idę",
+     "ru": "Мами: Большое спасибо, уже иду.",
+     "grammar": "iść, 1 л. ед. ч."
+    }
+   ],
+   "options": [
+    "robią",
+    "sałatka",
+    "herbatę",
+    "idę",
+    "na"
+   ]
+  },
+  {
+   "id": "tb-8-d2",
+   "src": "tb",
+   "ref": "D · Ćw. 2, s. 57",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Sałatka jarzynowa — с чем?",
+   "task_ru": "Творительный: «Z czym?» — z + творительный (мн. ч. -ami, -ymi).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Z ___ (co) ona jest?",
+     "answer": "czym",
+     "ru": "С чем он (салат)?",
+     "full_pl": "Z czym ona jest?",
+     "grammar": "co → czym (творительный)"
+    },
+    {
+     "q": "Z ___ (ziemniak — l. mn.)",
+     "answer": "ziemniakami",
+     "ru": "С картошкой",
+     "grammar": "мн. ч. -ami"
+    },
+    {
+     "q": "z ___ (marchewka)",
+     "answer": "marchewką",
+     "ru": "с морковью",
+     "grammar": "ед. ч., ж. р. -ą"
+    },
+    {
+     "q": "z ___ (jajko — l. mn.)",
+     "answer": "jajkami",
+     "ru": "с яйцами",
+     "grammar": "мн. ч. -ami"
+    },
+    {
+     "q": "___ (kiszony ogórek — l. mn.)",
+     "answer": "kiszonymi ogórkami",
+     "ru": "солёными огурцами",
+     "grammar": "прил. -ymi, сущ. -ami"
+    },
+    {
+     "q": "___ (jabłko — l. mn.)",
+     "answer": "jabłkami",
+     "ru": "яблоками",
+     "grammar": "мн. ч. -ami"
+    },
+    {
+     "q": "i oczywiście z ___ (majonez).",
+     "answer": "majonezem",
+     "ru": "и, конечно, с майонезом.",
+     "grammar": "м. р. -em"
+    }
+   ]
+  },
+  {
+   "id": "tb-8-e1",
+   "src": "tb",
+   "ref": "E · Powtórzenie, s. 57",
+   "title": "Produkt czy potrawa?",
+   "title_ru": "Продукт или блюдо?",
+   "task_ru": "Продукт — то, что покупаем; блюдо (potrawa) — то, что готовим.",
+   "type": "match",
+   "items": [
+    {
+     "q": "spaghetti",
+     "answer": "potrawa",
+     "ru": "спагетти (блюдо)"
+    },
+    {
+     "q": "szynka",
+     "answer": "produkt",
+     "ru": "ветчина"
+    },
+    {
+     "q": "zupa",
+     "answer": "potrawa",
+     "ru": "суп"
+    },
+    {
+     "q": "kotlet schabowy",
+     "answer": "potrawa",
+     "ru": "свиная отбивная"
+    },
+    {
+     "q": "frytki",
+     "answer": "potrawa",
+     "ru": "картофель фри",
+     "accepted": [
+      "produkt"
+     ]
+    },
+    {
+     "q": "jajko",
+     "answer": "produkt",
+     "ru": "яйцо"
+    },
+    {
+     "q": "omlet",
+     "answer": "potrawa",
+     "ru": "омлет"
+    },
+    {
+     "q": "jogurt",
+     "answer": "produkt",
+     "ru": "йогурт"
+    },
+    {
+     "q": "pizza",
+     "answer": "potrawa",
+     "ru": "пицца"
+    },
+    {
+     "q": "jajecznica",
+     "answer": "potrawa",
+     "ru": "яичница"
+    },
+    {
+     "q": "kebab",
+     "answer": "potrawa",
+     "ru": "кебаб"
+    },
+    {
+     "q": "mięso",
+     "answer": "produkt",
+     "ru": "мясо"
+    },
+    {
+     "q": "pierogi",
+     "answer": "potrawa",
+     "ru": "вареники"
+    },
+    {
+     "q": "ryba",
+     "answer": "produkt",
+     "ru": "рыба",
+     "accepted": [
+      "potrawa"
+     ]
+    }
+   ],
+   "options": [
+    "produkt",
+    "potrawa"
+   ]
+  },
+  {
+   "id": "wb-8-2",
+   "src": "wb",
+   "ref": "Ćw. 2, s. 30",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Шведский стол (слова из рамки)",
+   "task_ru": "Диалог Каролины и Мами. Выбери слово из рамки.",
+   "type": "match",
+   "items": [
+    {
+     "q": "Karolina: Proszę Mami, ___.",
+     "answer": "zapraszam",
+     "ru": "Пожалуйста, Мами, приглашаю (к столу).",
+     "grammar": "zapraszać, 1 л. ед. ч."
+    },
+    {
+     "q": "Dziś ___ szwedzki stół.",
+     "answer": "jest",
+     "ru": "Сегодня шведский стол."
+    },
+    {
+     "q": "Mami: Szwedzki ___?",
+     "answer": "stół",
+     "ru": "Шведский стол?"
+    },
+    {
+     "q": "Ze ___? IKEA, tak?",
+     "answer": "Szwecji",
+     "ru": "Из Швеции? ИКЕА, да?",
+     "grammar": "z(e) + родительный"
+    },
+    {
+     "q": "Karolina: …kiedy jest wszystko i ty ___ sama wybierać.",
+     "answer": "możesz",
+     "ru": "…когда есть всё и ты можешь сама выбирать.",
+     "grammar": "móc, 2 л. ед. ч."
+    },
+    {
+     "q": "Mami: ___ nie…",
+     "answer": "dlaczego",
+     "ru": "Почему не…"
+    },
+    {
+     "q": "…nie ___ stół?",
+     "answer": "polski",
+     "ru": "…не польский стол?"
+    },
+    {
+     "q": "Mami: Dziękuję. ___.",
+     "answer": "smacznego",
+     "ru": "Спасибо. Приятного аппетита."
+    }
+   ],
+   "options": [
+    "smacznego",
+    "jest",
+    "możesz",
+    "Szwecji",
+    "dlaczego",
+    "stół",
+    "zapraszam",
+    "polski"
+   ]
+  },
+  {
+   "id": "wb-8-3",
+   "src": "wb",
+   "ref": "Ćw. 3, s. 30",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Wolisz… czy…?",
+   "task_ru": "woleć + винительный. Обе формы через запятую: «1 ser, wędlinę». Для фруктов и овощей годится и форма на -a (pomidora).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Wolę ___ niż ___ (ser, wędlina).",
+     "answer": "ser, wędlinę",
+     "ru": "Я предпочитаю сыр колбасе.",
+     "full_pl": "Wolę ser niż wędlinę.",
+     "grammar": "винительный: ser = им.; wędlina → wędlinę"
+    },
+    {
+     "q": "Anka i Sylwia wolą ___ niż ___ (biała kawa, czarna).",
+     "answer": "białą kawę, czarną",
+     "ru": "Анка и Сильвия предпочитают кофе с молоком чёрному.",
+     "full_pl": "Anka i Sylwia wolą białą kawę niż czarną.",
+     "grammar": "винительный ж. р.: -ą, -ę"
+    },
+    {
+     "q": "Wolisz ___ czy ___ (ananas, banan)?",
+     "answer": "ananasa, banana",
+     "ru": "Ты предпочитаешь ананас или банан?",
+     "full_pl": "Wolisz ananasa czy banana?",
+     "grammar": "фрукты часто как одуш.: ananasa, banana (можно ananas, banan)",
+     "accepted": [
+      "ananas, banan",
+      "ananas, banana",
+      "ananasa, banan"
+     ]
+    },
+    {
+     "q": "Wolimy ___ niż ___ (ryba, mięso).",
+     "answer": "rybę, mięso",
+     "ru": "Мы предпочитаем рыбу мясу.",
+     "full_pl": "Wolimy rybę niż mięso.",
+     "grammar": "ryba → rybę; mięso = им."
+    },
+    {
+     "q": "Michał woli ___ niż ___ (sok, woda).",
+     "answer": "sok, wodę",
+     "ru": "Михал предпочитает сок воде.",
+     "full_pl": "Michał woli sok niż wodę.",
+     "grammar": "sok = им.; woda → wodę"
+    },
+    {
+     "q": "Marta woli ___ niż ___ (pomidor, ogórek).",
+     "answer": "pomidora, ogórka",
+     "ru": "Марта предпочитает помидор огурцу.",
+     "full_pl": "Marta woli pomidora niż ogórka.",
+     "grammar": "овощи часто как одуш.: pomidora, ogórka (можно pomidor, ogórek)",
+     "accepted": [
+      "pomidor, ogórek",
+      "pomidor, ogórka",
+      "pomidora, ogórek"
+     ]
+    },
+    {
+     "q": "Wolicie ___ czy ___ (jasny chleb, ciemny chleb)?",
+     "answer": "jasny chleb, ciemny chleb",
+     "ru": "Вы предпочитаете светлый хлеб или тёмный?",
+     "full_pl": "Wolicie jasny chleb czy ciemny chleb?",
+     "grammar": "м. р. неодуш.: винительный = им.",
+     "accepted": [
+      "jasny chleb, ciemny"
+     ]
+    },
+    {
+     "q": "Dzieci wolą ___ niż ___ (woda mineralna, czarna herbata).",
+     "answer": "wodę mineralną, czarną herbatę",
+     "ru": "Дети предпочитают минеральную воду чёрному чаю.",
+     "full_pl": "Dzieci wolą wodę mineralną niż czarną herbatę.",
+     "grammar": "винительный ж. р.: -ę, -ą"
+    }
+   ]
+  },
+  {
+   "id": "wb-8-4",
+   "src": "wb",
+   "ref": "Ćw. 4, s. 31",
+   "title": "Co pasuje?",
+   "title_ru": "Какое окончание подходит?",
+   "task_ru": "Прилагательное согласуется с родом: м. р. -owy, ж. р. -owa, ср. р. -owe.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Jogurt ___",
+     "answer": "truskawkowy",
+     "ru": "клубничный йогурт",
+     "grammar": "jogurt — м. р.",
+     "options": [
+      "truskawkowy",
+      "truskawkowa",
+      "truskawkowe"
+     ]
+    },
+    {
+     "q": "Ciasto ___",
+     "answer": "ananasowe",
+     "ru": "ананасовый пирог",
+     "grammar": "ciasto — ср. р.",
+     "options": [
+      "ananasowa",
+      "ananasowy",
+      "ananasowe"
+     ]
+    },
+    {
+     "q": "Sos ___",
+     "answer": "pomidorowy",
+     "ru": "томатный соус",
+     "grammar": "sos — м. р.",
+     "options": [
+      "pomidorowy",
+      "pomidorowa",
+      "pomidorowe"
+     ]
+    },
+    {
+     "q": "Zupa ___",
+     "answer": "pomidorowa",
+     "ru": "томатный суп",
+     "grammar": "zupa — ж. р.",
+     "options": [
+      "pomidorowy",
+      "pomidorowa",
+      "pomidorowe"
+     ]
+    },
+    {
+     "q": "Mleko ___",
+     "answer": "waniliowe",
+     "ru": "ванильное молоко",
+     "grammar": "mleko — ср. р.",
+     "options": [
+      "waniliowy",
+      "waniliowa",
+      "waniliowe"
+     ]
+    },
+    {
+     "q": "Herbata ___",
+     "answer": "malinowa",
+     "ru": "малиновый чай",
+     "grammar": "herbata — ж. р.",
+     "options": [
+      "malinowy",
+      "malinowa",
+      "malinowe"
+     ]
+    },
+    {
+     "q": "Koktajl ___",
+     "answer": "bananowy",
+     "ru": "банановый коктейль",
+     "grammar": "koktajl — м. р.",
+     "options": [
+      "bananowy",
+      "bananowa",
+      "bananowe"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-8-5",
+   "src": "wb",
+   "ref": "Ćw. 5, s. 31",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Woleć — спряжение",
+   "task_ru": "woleć (-ę, -isz): wolę, wolisz, woli, wolimy, wolicie, wolą.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Dziewczyny ___ (woleć) wino niż piwo.",
+     "answer": "wolą",
+     "ru": "Девушки предпочитают вино пиву.",
+     "full_pl": "Dziewczyny wolą wino niż piwo.",
+     "grammar": "woleć, 3 л. мн. ч."
+    },
+    {
+     "q": "___ (ty / woleć) jabłko czy śliwkę?",
+     "answer": "wolisz",
+     "ru": "Ты предпочитаешь яблоко или сливу?",
+     "full_pl": "Wolisz jabłko czy śliwkę?",
+     "grammar": "woleć, 2 л. ед. ч."
+    },
+    {
+     "q": "___ (my / woleć) mocną herbatę niż słabą.",
+     "answer": "wolimy",
+     "ru": "Мы предпочитаем крепкий чай слабому.",
+     "full_pl": "Wolimy mocną herbatę niż słabą.",
+     "grammar": "woleć, 1 л. мн. ч."
+    },
+    {
+     "q": "Kubuś ___ (woleć) frytki niż ziemniaki.",
+     "answer": "woli",
+     "ru": "Кубусь предпочитает картошку фри обычной картошке.",
+     "full_pl": "Kubuś woli frytki niż ziemniaki.",
+     "grammar": "woleć, 3 л. ед. ч."
+    },
+    {
+     "q": "Iwona i Tomek ___ (woleć) ser niż wędlinę.",
+     "answer": "wolą",
+     "ru": "Ивона и Томек предпочитают сыр колбасе.",
+     "full_pl": "Iwona i Tomek wolą ser niż wędlinę.",
+     "grammar": "woleć, 3 л. мн. ч."
+    },
+    {
+     "q": "___ (wy / woleć) bułkę czy chleb?",
+     "answer": "wolicie",
+     "ru": "Вы предпочитаете булочку или хлеб?",
+     "full_pl": "Wolicie bułkę czy chleb?",
+     "grammar": "woleć, 2 л. мн. ч."
+    }
+   ]
+  },
+  {
+   "id": "wb-8-6",
+   "src": "wb",
+   "ref": "Ćw. 6, s. 31",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Ем / пью что с чем",
+   "task_ru": "jeść / pić + винительный, z + творительный; «+» — прилагательное: sok + banan = sok bananowy. Пиши всё, что в пропусках.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Karol pije ___ (mocna kawa, cukier).",
+     "answer": "mocną kawę z cukrem",
+     "ru": "Кароль пьёт крепкий кофе с сахаром.",
+     "full_pl": "Karol pije mocną kawę z cukrem.",
+     "grammar": "винительный + z + творительный"
+    },
+    {
+     "q": "Czy lubicie jeść ___ (bułka, masło, dżem + truskawka)?",
+     "answer": "bułkę z masłem i dżemem truskawkowym",
+     "ru": "Вы любите есть булочку с маслом и клубничным джемом?",
+     "full_pl": "Czy lubicie jeść bułkę z masłem i dżemem truskawkowym?",
+     "grammar": "dżem + truskawka = dżem truskawkowy"
+    },
+    {
+     "q": "My pijemy ___ (herbata, mleko).",
+     "answer": "herbatę z mlekiem",
+     "ru": "Мы пьём чай с молоком.",
+     "full_pl": "My pijemy herbatę z mlekiem."
+    },
+    {
+     "q": "Asia je ___ (bułka, żółty ser, pomidor).",
+     "answer": "bułkę z żółtym serem i pomidorem",
+     "ru": "Ася ест булочку с жёлтым сыром и помидором.",
+     "full_pl": "Asia je bułkę z żółtym serem i pomidorem."
+    },
+    {
+     "q": "Paulina i Piotrek piją ___ i jedzą ___ (sok + jabłko, ciasto + malina).",
+     "answer": "sok jabłkowy, ciasto malinowe",
+     "ru": "Паулина и Пётрек пьют яблочный сок и едят малиновый пирог.",
+     "full_pl": "Paulina i Piotrek piją sok jabłkowy i jedzą ciasto malinowe.",
+     "grammar": "прилагательные от фруктов"
+    },
+    {
+     "q": "Czy lubisz pić ___ (sok + pomidor)?",
+     "answer": "sok pomidorowy",
+     "ru": "Ты любишь пить томатный сок?",
+     "full_pl": "Czy lubisz pić sok pomidorowy?"
+    },
+    {
+     "q": "Piję ___ (woda mineralna, lód, cytryna).",
+     "answer": "wodę mineralną z lodem i cytryną",
+     "ru": "Я пью минеральную воду со льдом и лимоном.",
+     "full_pl": "Piję wodę mineralną z lodem i cytryną.",
+     "grammar": "lód → lodem (ó → o)"
+    },
+    {
+     "q": "Adam i Wojtek jedzą ___ (ciemny chleb, margaryna, wędlina).",
+     "answer": "ciemny chleb z margaryną i wędliną",
+     "ru": "Адам и Войтек едят тёмный хлеб с маргарином и колбасой.",
+     "full_pl": "Adam i Wojtek jedzą ciemny chleb z margaryną i wędliną."
+    },
+    {
+     "q": "Kasia je ___ (jogurt, płatki).",
+     "answer": "jogurt z płatkami",
+     "ru": "Кася ест йогурт с хлопьями.",
+     "full_pl": "Kasia je jogurt z płatkami.",
+     "grammar": "płatki — мн. ч. → płatkami"
+    },
+    {
+     "q": "Tomek pije ___ (czarna herbata, miód).",
+     "answer": "czarną herbatę z miodem",
+     "ru": "Томек пьёт чёрный чай с мёдом.",
+     "full_pl": "Tomek pije czarną herbatę z miodem.",
+     "grammar": "miód → miodem (ó → o)"
+    }
+   ]
+  },
+  {
+   "id": "wb-8-8",
+   "src": "wb",
+   "ref": "Ćw. 8, s. 32",
+   "title": "Proszę napisać przeciwieństwa.",
+   "title_ru": "Противоположности",
+   "task_ru": "Напиши противоположное: «1 mocny 2 z cukrem …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "słaby ↔ ___",
+     "answer": "mocny",
+     "ru": "слабый ↔ крепкий",
+     "translit": "МОЦ-ны"
+    },
+    {
+     "q": "bez cukru ↔ ___",
+     "answer": "z cukrem",
+     "ru": "без сахара ↔ с сахаром",
+     "translit": "с ЦУК-рэм",
+     "grammar": "bez + родительный, z + творительный"
+    },
+    {
+     "q": "chudy ↔ ___",
+     "answer": "tłusty",
+     "ru": "постный ↔ жирный",
+     "translit": "ТЎУС-ты"
+    },
+    {
+     "q": "ciemny ↔ ___",
+     "answer": "jasny",
+     "ru": "тёмный ↔ светлый",
+     "translit": "ЯС-ны"
+    },
+    {
+     "q": "bez cytryny ↔ ___",
+     "answer": "z cytryną",
+     "ru": "без лимона ↔ с лимоном",
+     "translit": "с цы-ТРЫ-нон"
+    },
+    {
+     "q": "bez mleka ↔ ___",
+     "answer": "z mlekiem",
+     "ru": "без молока ↔ с молоком",
+     "translit": "з МЛЭ-кем"
+    }
+   ]
+  },
+  {
+   "id": "wb-8-9",
+   "src": "wb",
+   "ref": "Ćw. 9, s. 32",
+   "title": "Jeść czy pić?",
+   "title_ru": "Jeść или pić? Спряжение",
+   "task_ru": "Два пропуска — через запятую: «6 jemy, pijemy».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Łucja i Julia ___ płatki z mlekiem.",
+     "answer": "jedzą",
+     "ru": "Луция и Юля едят хлопья с молоком.",
+     "grammar": "jeść, 3 л. мн. ч."
+    },
+    {
+     "q": "Co wy ___? Pizzę.",
+     "answer": "jecie",
+     "ru": "Что вы едите? Пиццу.",
+     "grammar": "jeść, 2 л. мн. ч."
+    },
+    {
+     "q": "Co oni ___? Herbatę.",
+     "answer": "piją",
+     "ru": "Что они пьют? Чай.",
+     "grammar": "pić, 3 л. мн. ч."
+    },
+    {
+     "q": "Dziecko ___ banana.",
+     "answer": "je",
+     "ru": "Ребёнок ест банан.",
+     "grammar": "jeść, 3 л. ед. ч."
+    },
+    {
+     "q": "Javier bardzo lubi ___ polską kiełbasę.",
+     "answer": "jeść",
+     "ru": "Хавьер очень любит есть польскую колбасу.",
+     "grammar": "lubić + инфинитив"
+    },
+    {
+     "q": "(my) ___ spaghetti i ___ czerwone wino.",
+     "answer": "jemy, pijemy",
+     "ru": "Мы едим спагетти и пьём красное вино.",
+     "grammar": "1 л. мн. ч."
+    },
+    {
+     "q": "Co wy ___? Kawę czy herbatę?",
+     "answer": "pijecie",
+     "ru": "Что вы пьёте? Кофе или чай?",
+     "grammar": "pić, 2 л. мн. ч."
+    },
+    {
+     "q": "Oni ___ risotto.",
+     "answer": "jedzą",
+     "ru": "Они едят ризотто.",
+     "grammar": "jeść, 3 л. мн. ч."
+    },
+    {
+     "q": "Co ty ___ na śniadanie?",
+     "answer": "jesz",
+     "ru": "Что ты ешь на завтрак?",
+     "grammar": "jeść, 2 л. ед. ч."
+    },
+    {
+     "q": "(ja) ___ bułkę z szynką i ___ sok pomarańczowy.",
+     "answer": "jem, piję",
+     "ru": "Я ем булочку с ветчиной и пью апельсиновый сок.",
+     "grammar": "1 л. ед. ч."
+    },
+    {
+     "q": "Co ty ___? Sok czy wodę?",
+     "answer": "pijesz",
+     "ru": "Что ты пьёшь? Сок или воду?",
+     "grammar": "pić, 2 л. ед. ч."
+    }
+   ]
+  },
+  {
+   "id": "wb-8-10",
+   "src": "wb",
+   "ref": "Ćw. 10, s. 32",
+   "title": "Co jemy na obiad?",
+   "title_ru": "Что на обед? Вставь буквы",
+   "task_ru": "Напиши слово целиком: «1 ziemniaki».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "z _ e _ n i _ k i",
+     "answer": "ziemniaki",
+     "ru": "картошка",
+     "translit": "жем-НЯ-ки"
+    },
+    {
+     "q": "p i _ _ o _ i",
+     "answer": "pierogi",
+     "ru": "вареники",
+     "translit": "пе-РО-ги"
+    },
+    {
+     "q": "r _ b _",
+     "answer": "ryba",
+     "ru": "рыба",
+     "translit": "РЫ-ба"
+    },
+    {
+     "q": "_ i ę _ o",
+     "answer": "mięso",
+     "ru": "мясо",
+     "translit": "МЕН-со"
+    },
+    {
+     "q": "s _ _ ó w _ a",
+     "answer": "surówka",
+     "ru": "салат из сырых овощей",
+     "translit": "су-РУФ-ка"
+    },
+    {
+     "q": "_ _ z z _",
+     "answer": "pizza",
+     "ru": "пицца",
+     "translit": "ПИ-ца"
+    },
+    {
+     "q": "_ a ł _ _ k a",
+     "answer": "sałatka",
+     "ru": "салат (блюдо)",
+     "translit": "са-ЎАТ-ка"
+    },
+    {
+     "q": "m _ k _ r _ _",
+     "answer": "makaron",
+     "ru": "макароны",
+     "translit": "ма-КА-рон"
+    },
+    {
+     "q": "k _ s _ a",
+     "answer": "kasza",
+     "ru": "каша (гречка и др.)",
+     "translit": "КА-ша"
+    }
+   ]
+  },
+  {
+   "id": "wb-8-11",
+   "src": "wb",
+   "ref": "Ćw. 11, s. 32",
+   "title": "Proszę uzupełnić. Narzędnik l. mn.",
+   "title_ru": "Творительный мн. ч.",
+   "task_ru": "z + творительный мн. ч.: сущ. -ami, прил. -ymi.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Ryba z ___ (pieczony ziemniak).",
+     "answer": "pieczonymi ziemniakami",
+     "ru": "Рыба с печёной картошкой.",
+     "grammar": "-ymi, -ami"
+    },
+    {
+     "q": "Ciasto z ___ (rodzynki).",
+     "answer": "rodzynkami",
+     "ru": "Пирог с изюмом.",
+     "grammar": "rodzynki — мн. ч. → rodzynkami"
+    },
+    {
+     "q": "Pizza z ___ (krewetka)…",
+     "answer": "krewetkami",
+     "ru": "Пицца с креветками…",
+     "grammar": "krewetk-a → krewetkami"
+    },
+    {
+     "q": "…i ___ (zielona oliwka).",
+     "answer": "zielonymi oliwkami",
+     "ru": "…и зелёными оливками.",
+     "grammar": "-ymi, -ami"
+    },
+    {
+     "q": "Lody z ___ (owoc)…",
+     "answer": "owocami",
+     "ru": "Мороженое с фруктами…",
+     "grammar": "owoc → owocami"
+    },
+    {
+     "q": "…i ___ (bakalia).",
+     "answer": "bakaliami",
+     "ru": "…и орехами с сухофруктами.",
+     "grammar": "bakalie → bakaliami"
+    },
+    {
+     "q": "Pierogi z ___ (grzyb)…",
+     "answer": "grzybami",
+     "ru": "Вареники с грибами…",
+     "grammar": "grzyb → grzybami"
+    },
+    {
+     "q": "…albo z ___ (truskawka).",
+     "answer": "truskawkami",
+     "ru": "…или с клубникой.",
+     "grammar": "truskawk-a → truskawkami"
+    },
+    {
+     "q": "Mleko z ___ (suszony banan)…",
+     "answer": "suszonymi bananami",
+     "ru": "Молоко с сушёными бананами…",
+     "grammar": "-ymi, -ami"
+    },
+    {
+     "q": "…i ___ (płatki kukurydziane).",
+     "answer": "płatkami kukurydzianymi",
+     "ru": "…и кукурузными хлопьями.",
+     "grammar": "сущ. -ami, прил. -ymi (стоит после)"
+    },
+    {
+     "q": "Bułka z ___ (jagoda).",
+     "answer": "jagodami",
+     "ru": "Булочка с черникой.",
+     "grammar": "jagod-a → jagodami"
+    }
+   ]
+  },
+  {
+   "id": "wb-8-12",
+   "src": "wb",
+   "ref": "Ćw. 12, s. 32",
+   "title": "Proszę posłuchać i uzupełnić.",
+   "title_ru": "Посуда: вставь буквы",
+   "task_ru": "Аудио к тетради пока нет — подсказка по-русски. Напиши слово целиком: «1 nóż».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "_ ó ż",
+     "answer": "nóż",
+     "ru": "🔪 нож",
+     "translit": "нуж"
+    },
+    {
+     "q": "w _ d _ _ e _",
+     "answer": "widelec",
+     "ru": "🍴 вилка",
+     "translit": "ви-ДЭ-лэц"
+    },
+    {
+     "q": "ł _ _ e _ _ k a",
+     "answer": "łyżeczka",
+     "ru": "🥄 маленькая ложка",
+     "translit": "ўы-ЖЭЧ-ка"
+    },
+    {
+     "q": "_ e _ w _ _ k a",
+     "answer": "serwetka",
+     "ru": "🧻 салфетка",
+     "translit": "сэр-ВЭТ-ка"
+    },
+    {
+     "q": "_ a _ _ r z",
+     "answer": "talerz",
+     "ru": "🍽️ тарелка",
+     "translit": "ТА-лэж"
+    },
+    {
+     "q": "m _ _ k _",
+     "answer": "miska",
+     "ru": "🥣 миска",
+     "translit": "МИС-ка"
+    },
+    {
+     "q": "t _ l e _ _ y _",
+     "answer": "talerzyk",
+     "ru": "маленькая тарелка",
+     "translit": "та-ЛЭ-жык"
+    },
+    {
+     "q": "k _ _ _ k",
+     "answer": "kubek",
+     "ru": "☕ кружка",
+     "translit": "КУ-бэк"
+    },
+    {
+     "q": "_ i l _ ż a _ _ a",
+     "answer": "filiżanka",
+     "ru": "☕ чашечка",
+     "translit": "фи-ли-ЖАН-ка"
+    },
+    {
+     "q": "k _ _ l i _ _ e k",
+     "answer": "kieliszek",
+     "ru": "🍷 бокал",
+     "translit": "ке-ЛИ-шэк"
+    },
+    {
+     "q": "_ _ k l a _ _ a",
+     "answer": "szklanka",
+     "ru": "🥛 стакан",
+     "translit": "ШКЛЯН-ка"
+    },
+    {
+     "q": "_ _ a j _ _ k",
+     "answer": "czajnik",
+     "ru": "🫖 чайник",
+     "translit": "ЧАЙ-ник"
+    },
+    {
+     "q": "_ _ r n _ k",
+     "answer": "garnek",
+     "ru": "🍲 кастрюля",
+     "translit": "ГАР-нэк"
+    },
+    {
+     "q": "_ _ t e _ n _ a",
+     "answer": "patelnia",
+     "ru": "🍳 сковородка",
+     "translit": "па-ТЭЛЬ-ня"
+    },
+    {
+     "q": "_ _ b a n _ _",
+     "answer": "dzbanek",
+     "ru": "кувшин",
+     "translit": "ДЗБА-нэк"
+    },
+    {
+     "q": "o t w i _ r a _ _   _ _   b _ _ e l _ k",
+     "answer": "otwieracz do butelek",
+     "ru": "🍾 открывалка",
+     "translit": "от-ВЕ-рач до бу-ТЭ-лэк"
+    }
+   ]
+  },
+  {
+   "id": "wb-8-14",
+   "src": "wb",
+   "ref": "Ćw. 14, s. 33",
+   "title": "Proszę napisać, co oni jedzą i piją.",
+   "title_ru": "Кто что ест и пьёт",
+   "task_ru": "Напиши текст по плану (можно по одному пункту): «1 Na śniadanie Kamila je …». Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "🍳 śniadanie (Kamila): тёмный хлеб, масло · творог, джем + малина · кофе с молоком, сахар",
+     "answer": "Na śniadanie Kamila je ciemny chleb z masłem i z białym serem, je też dżem malinowy. Zwykle pije białą kawę z cukrem.",
+     "ru": "На завтрак Камила ест тёмный хлеб с маслом и творогом, ещё ест малиновый джем. Обычно пьёт кофе с молоком и сахаром.",
+     "grammar": "je + винительный, z + творительный"
+    },
+    {
+     "q": "🍲 obiad (Gosia i Arek): суп + огурец · курица, салат из овощей; Гося — фри, Арек — печёная картошка · минеральная вода, лимон",
+     "answer": "Gosia i Arek jedzą dziś na pierwsze danie zupę ogórkową. Na drugie danie jedzą kurczaka z surówką. Gosia je drugie danie z frytkami, a Arek z pieczonymi ziemniakami. Oni piją wodę mineralną z cytryną.",
+     "ru": "Гося и Арек едят сегодня на первое огуречный суп. На второе едят курицу с салатом. Гося — с картошкой фри, а Арек — с печёной картошкой. Они пьют минеральную воду с лимоном.",
+     "grammar": "kurczak — одуш.: jem kurczaka; zupa + ogórek = zupa ogórkowa"
+    },
+    {
+     "q": "🌙 kolacja (ja i Zosia): тосты (сыр, ветчина) · салат: помидоры, огурцы, лук, зелёные оливки · слабый чай",
+     "answer": "Na kolację, ja i Zosia, jemy tosty z serem i z szynką. Jemy też sałatkę z pomidorami, ogórkami, cebulą i z zielonymi oliwkami. Pijemy słabą herbatę.",
+     "ru": "На ужин мы с Зосей едим тосты с сыром и ветчиной. Ещё едим салат с помидорами, огурцами, луком и зелёными оливками. Пьём некрепкий чай.",
+     "grammar": "мн. ч.: pomidorami, ogórkami, oliwkami; ед. ч.: cebulą"
+    }
+   ]
+  }
+ ]
+}

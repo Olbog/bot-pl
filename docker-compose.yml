@@ -5,4 +5,5 @@ services:
     env_file: .env
     volumes:
       - ./data:/app/data
+      - ./Books:/app/Books:ro   # учебники и аудио (лежат только на сервере, в git не попадают)
     restart: unless-stopped

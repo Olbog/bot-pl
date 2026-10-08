@@ -127,12 +127,30 @@ CREATE TABLE IF NOT EXISTS book_stats (
     last_at REAL,
     PRIMARY KEY (user_id, unit, pl, dir)
 );
+-- Упражнения из книги (учебник / рабочая тетрадь): результат по каждому пункту, можно делать частями
+CREATE TABLE IF NOT EXISTS book_ex (
+    user_id INTEGER NOT NULL,
+    unit TEXT NOT NULL,                      -- «kpk:8»
+    ex_id TEXT NOT NULL,                     -- id упражнения в файле юнита
+    n INTEGER NOT NULL,                      -- номер пункта
+    ok INTEGER NOT NULL,
+    answer TEXT NOT NULL DEFAULT '',
+    explanation TEXT NOT NULL DEFAULT '',
+    at REAL NOT NULL,
+    PRIMARY KEY (user_id, unit, ex_id, n)
+);
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
     mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
     pending TEXT                             -- JSON незавершённого шага (создание набора)
 );
 """
+
+
+def unit_key(unit) -> str:
+    """Ключ юнита «книга:номер»; старое «8» (без книги) — Krok po kroku."""
+    unit = str(unit)
+    return unit if ":" in unit else f"kpk:{unit}"
 
 
 class DB:
@@ -167,6 +185,9 @@ class DB:
             for name, decl in cols:
                 if name not in have:
                     self.conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {decl}")
+        # ключи юнитов стали «книга:номер»: старые «8» — это Krok po kroku
+        self.conn.execute("UPDATE book_stats SET unit = 'kpk:' || unit WHERE unit NOT LIKE '%:%'")
+        self.conn.execute("UPDATE set_words SET unit = 'kpk:' || unit WHERE unit IS NOT NULL AND unit NOT LIKE '%:%'")
         if two_level:  # прошлый прогресс по учебнику засчитываем как «узнаю», «знаю» копится заново
             self.conn.execute("UPDATE book_stats SET test_streak = streak, "
                               "last_ok = CASE WHEN streak = 0 AND wrong > 0 THEN 0 ELSE 1 END")
@@ -390,7 +411,7 @@ class DB:
 
     def book_stats(self, user_id: int, unit: str) -> dict:
         return {(r["pl"], r["dir"]): dict(r) for r in self.conn.execute(
-            "SELECT * FROM book_stats WHERE user_id=? AND unit=?", (user_id, str(unit)))}
+            "SELECT * FROM book_stats WHERE user_id=? AND unit=?", (user_id, unit_key(unit)))}
 
     def book_record(self, user_id: int, unit: str, pl: str, d: str, ok: bool, typed: bool = True) -> None:
         """Ответ по слову юнита. typed — написал сам (карточки, пропуски, разговор), иначе выбрал в тесте.
@@ -407,8 +428,26 @@ class DB:
             "streak = CASE WHEN ?=1 THEN streak+1 ELSE 0 END, "
             "right = right + excluded.right, wrong = wrong + excluded.wrong, last_at = excluded.last_at, "
             "last_ok = excluded.last_ok",
-            (user_id, str(unit), pl, d, t_ok, int(ok), int(not ok), self.clock(), t_ok, w_ok, int(ok),
+            (user_id, unit_key(unit), pl, d, t_ok, int(ok), int(not ok), self.clock(), t_ok, w_ok, int(ok),
              t_ok, reset_test, w_ok, int(ok and not typed), t_ok))
+        self.conn.commit()
+
+    # ---------- 📝 упражнения из книги ----------
+
+    def bex_results(self, user_id: int, unit: str) -> dict:
+        """{(ex_id, n): row} — что уже сделано в упражнениях юнита."""
+        return {(r["ex_id"], r["n"]): dict(r) for r in self.conn.execute(
+            "SELECT * FROM book_ex WHERE user_id=? AND unit=?", (user_id, unit_key(unit)))}
+
+    def bex_save(self, user_id: int, unit: str, ex_id: str, n: int, ok: bool, answer: str, explanation: str) -> None:
+        self.conn.execute(
+            "INSERT OR REPLACE INTO book_ex(user_id, unit, ex_id, n, ok, answer, explanation, at) VALUES (?,?,?,?,?,?,?,?)",
+            (user_id, unit_key(unit), ex_id, n, int(ok), answer, explanation, self.clock()))
+        self.conn.commit()
+
+    def bex_reset(self, user_id: int, unit: str, ex_id: str) -> None:
+        self.conn.execute("DELETE FROM book_ex WHERE user_id=? AND unit=? AND ex_id=?",
+                          (user_id, unit_key(unit), ex_id))
         self.conn.commit()
 
     # ---------- исключения («🙅 Не ошибка») ----------

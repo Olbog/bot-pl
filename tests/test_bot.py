@@ -321,7 +321,7 @@ def test_summary_dedup_and_empty():
 class FakeTG:
     def __init__(self):
         self.sent, self.voices, self.buttons, self.edits, self.docs = [], [], [], [], []
-        self.toasts, self.deleted, self.markups = [], [], []
+        self.toasts, self.deleted, self.markups, self.audios = [], [], [], []
 
     async def send_message(self, chat_id, text, buttons=None):
         self.sent.append(text)
@@ -345,6 +345,9 @@ class FakeTG:
 
     async def send_voice(self, chat_id, ogg):
         self.voices.append(ogg)
+
+    async def send_audio(self, chat_id, filename, content, caption=""):
+        self.audios.append((filename, content))
 
     async def send_action(self, chat_id, action):
         pass
@@ -1573,9 +1576,14 @@ def with_unit(tmp_path_factory=None):
     import json as _json
     import tempfile
     d = Path(tempfile.mkdtemp())
-    (d / "unit_02.json").write_text(_json.dumps(UNIT, ensure_ascii=False), encoding="utf-8")
+    (d / "kpk").mkdir()
+    (d / "kpk" / "book.json").write_text(_json.dumps(KPK_META), encoding="utf-8")
+    (d / "kpk" / "unit_02.json").write_text(_json.dumps(UNIT, ensure_ascii=False), encoding="utf-8")
     tb.UNITS_DIR = d
     return d
+
+
+KPK_META = {"id": "kpk", "title": "Krok po kroku", "short": "KpK", "unit_label": "Unit", "audio_dir": "kpk_audio"}
 
 
 def test_textbook_pick_and_cards():
@@ -1670,7 +1678,7 @@ def test_book_no_units_message():
 def test_real_textbook_units_are_valid():
     real = Path(__file__).resolve().parent.parent / "bot" / "textbook"
     units = tb.load_units(real)
-    assert [u["unit"] for u in units][:3] == ["7", "7a", "8"]
+    assert [u["unit"] for u in units][:3] == ["kpk:7", "kpk:7a", "kpk:8"]
     for u in units:
         assert u["title"] and u["summary"]
         for w in u["words"]:
@@ -1734,12 +1742,12 @@ def test_set_from_unit_counts_to_unit_progress():
     run(app.on_callback(cb("s:unit")))
     run(app.on_callback(cb("su:2")))
     p = app.db.get_state(42)["pending"]
-    assert p["step"] == "preview" and p["unit"] == "2" and len(p["words"]) == 3
-    assert all(w["unit"] == "2" for w in p["words"])
+    assert p["step"] == "preview" and p["unit"] == "kpk:2" and len(p["words"]) == 3
+    assert all(w["unit"] == "kpk:2" for w in p["words"])
     run(app.on_callback(cb("p:ok")))
     active = app.db.active_set(42)
-    assert active["title"].startswith("Unit 2") and app.db.get_state(42)["mode"] == "set"
-    assert all(w["unit"] == "2" for w in app.db.set_words(active["id"]))
+    assert active["title"].startswith("KpK Unit 2") and app.db.get_state(42)["mode"] == "set"
+    assert all(w["unit"] == "kpk:2" for w in app.db.set_words(active["id"]))
     assert app.db.book_stats(42, "2")[("brat", "ru")]["right"] >= 1   # употребление в разговоре → прогресс юнита
 
 
@@ -1790,20 +1798,20 @@ def test_words_list_hidden_file_voice():
         app.db.book_record(42, "2", "siostra", "pl", True)
         app.db.book_record(42, "2", "siostra", "ru", True)
     run(app.handle(msg(text="/words")))
-    assert "Слова юнита" in app.tg.sent[-1] and "wd:u:2" in str(app.tg.buttons[-1])
+    assert "Слова юнита" in app.tg.sent[-1] and "wd:u:kpk:2" in str(app.tg.buttons[-1])
     run(app.on_callback(cb("wd:u:2")))
     t = app.tg.sent[-1]
     assert "rodzeństwo</b> [ро-ДЗЕНЬ-ство] — братья и сёстры" in t and "знаю 1 · узнаю 1 · из 3" in t
     assert "✅ 2. <b>siostra</b>" in t and "🟡 1. <b>brat</b>" in t
-    assert "wd:h:2" in str(app.tg.buttons[-1]) and "wd:v:2" in str(app.tg.buttons[-1])
+    assert "wd:h:kpk:2" in str(app.tg.buttons[-1]) and "wd:v:kpk:2" in str(app.tg.buttons[-1])
     run(app.on_callback(cb("wd:h:2")))
     assert "братья" not in app.tg.sent[-1] and "rodzeństwo" in app.tg.sent[-1]
-    assert ("3", "wd:s:2:3") in app.tg.buttons[-1][0]
-    run(app.on_callback(cb("wd:s:2:3")))
+    assert ("3", "wd:s:kpk:2|3") in app.tg.buttons[-1][0]
+    run(app.on_callback(cb("wd:s:kpk:2|3")))
     assert app.tg.toasts[-1] == "3. rodzeństwo — братья и сёстры · сущ., ср. р."
     run(app.on_callback(cb("wd:f:2")))
     name, content, _ = app.tg.docs[-1]
-    assert name == "unit_2_slova.txt" and "1. brat [БРАТ] — брат (сущ., м. р.)" in content
+    assert name == "kpk_2_slova.txt" and "1. brat [БРАТ] — брат (сущ., м. р.)" in content
     run(app.on_callback(cb("wd:v:2")))
     assert app.tg.voices[-1] == b"OGG:brat ... siostra ... rodze\u0144stwo.".decode("unicode_escape").encode()
     run(app.handle(msg(text="/menu")))
@@ -1813,7 +1821,7 @@ def test_words_list_hidden_file_voice():
     run(app.handle(msg(text="/ex")))
     run(app.on_callback(cb("x:k:book")))
     run(app.on_callback(cb("x:b:u:2")))
-    assert "wd:u:2" in str(app.tg.buttons[-1])
+    assert "wd:u:kpk:2" in str(app.tg.buttons[-1])
 
 
 # ---------- 🔁 Повторить, два уровня выученности, сочетания ----------
@@ -1913,3 +1921,142 @@ def test_real_units_have_collocations_with_known_cases():
     assert idx["chleb z masłem"] == idx["chleb"] + 1            # сразу под своим словом
     text, _ = fmt_mod.words_list(u8, set(), set())
     assert "🔗" in text and "chleb z masłem" in text
+
+
+# ---------- 📚 несколько учебников и 📝 упражнения из книги ----------
+
+BOOK_EX = [
+    {"id": "tb-2-1", "src": "tb", "ref": "Ćw. 1, s. 20", "title": "Uzupełnij.", "title_ru": "Вставь глагол",
+     "task_ru": "Поставь глагол в нужную форму.", "type": "gap", "audio": "02a.mp3",
+     "items": [{"q": "Ja ___ (mieć) brata.", "ru": "У меня есть брат.", "answer": "mam", "hint": "mieć, 1 л."},
+               {"q": "Ty ___ (mieć) siostrę.", "ru": "У тебя есть сестра.", "answer": "masz"},
+               {"q": "On ___ (mieć) psa.", "ru": "У него есть собака.", "answer": "ma"}]},
+    {"id": "wb-2-1", "src": "wb", "ref": "Ćw. 1, s. 8", "title": "Prawda czy nieprawda?", "type": "tf",
+     "text": "Ala ma brata.", "items": [{"q": "Ala ma brata.", "answer": "prawda"},
+                                        {"q": "Ala ma siostrę.", "answer": "nieprawda"}]},
+    {"id": "wb-2-2", "src": "wb", "ref": "Ćw. 2, s. 8", "title": "Połącz.", "type": "match",
+     "options": ["siostra", "brat", "pies"], "items": [{"q": "🐶", "answer": "pies"}, {"q": "👦", "answer": "brat"}]},
+]
+
+
+def with_exercises():
+    import json as _json
+    d = with_unit()
+    unit = {**UNIT, "exercises": BOOK_EX}
+    (d / "kpk" / "unit_02.json").write_text(_json.dumps(unit, ensure_ascii=False), encoding="utf-8")
+    return d
+
+
+def bex_app():
+    import tempfile
+    with_exercises()
+    app = make_app()
+    root = Path(tempfile.mkdtemp())
+    (root / "kpk_audio" / "CD1").mkdir(parents=True)
+    (root / "kpk_audio" / "CD1" / "02A.mp3").write_bytes(b"MP3")
+    app.books_root = root
+    return app
+
+
+def test_book_picker_only_when_two_books():
+    import json as _json
+    d = with_unit()
+    app = make_app()
+    run(app.handle(msg(text="/words")))
+    assert "wd:u:kpk:2" in str(app.tg.buttons[-1]) and "bk:" not in str(app.tg.buttons[-1])   # одна книга — сразу юниты
+    (d / "hurra").mkdir()
+    (d / "hurra" / "book.json").write_text(_json.dumps({"id": "hurra", "title": "Hurra", "short": "Hurra",
+                                                        "unit_label": "Lekcja", "order": 2}), encoding="utf-8")
+    (d / "hurra" / "unit_01.json").write_text(_json.dumps({**UNIT, "unit": "1", "title": "Cześć"}), encoding="utf-8")
+    run(app.handle(msg(text="/words")))
+    assert "bk:wd:kpk" in str(app.tg.buttons[-1]) and "bk:wd:hurra" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("bk:wd:hurra")))
+    text, buttons = app.tg.edits[-1]
+    assert "Lekcja 1" in text and "wd:u:hurra:1" in str(buttons)
+    run(app.on_callback(cb("nav:b:words_units")))                  # назад — к выбору учебника
+    assert "bk:wd:kpk" in str(app.tg.edits[-1][1])
+    run(app.on_callback(cb("x:k:book")))                            # /ex → 📘 — тоже через выбор учебника
+    assert "bk:ex:hurra" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("bk:ex:kpk")))
+    assert "x:b:u:kpk:2" in str(app.tg.edits[-1][1])
+    run(app.on_callback(cb("x:b:u:kpk:2")))
+    assert app.db.get_state(42)["pending"]["ex"]["unit"] == "kpk:2"
+
+
+def test_book_exercise_list_open_audio_partial_and_continue():
+    app = bex_app()
+    for c in ("x:k:book", "x:b:u:kpk:2"):
+        run(app.on_callback(cb(c)))
+    assert "bx:l:kpk:2" in str(app.tg.buttons[-1])                  # «📝 Упражнения из книги (3)»
+    run(app.on_callback(cb("bx:l:kpk:2")))
+    assert "○" in app.tg.sent[-1] and "bx:o:kpk:2|tb-2-1" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    assert app.tg.audios == [("02A.mp3", b"MP3")]                   # аудио нашлось в подпапке, без учёта регистра
+    assert "Ja <b>___</b> (mieć) brata." in app.tg.sent[-1] and "💡1" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("bx:h:1")))
+    assert app.tg.toasts[-1] == "💡1: mieć, 1 л."
+    app.gemini.check_verdict = {3: False}
+    run(app.handle(msg(text="1 mam 3 maja")))                       # ответ только на 1 и 3
+    assert "1 из 2" in app.tg.sent[-1] and "верно 1 из 3" in app.tg.sent[-1]
+    assert "Ty ___" not in app.gemini.prompts[-1]                   # неотвеченный пункт 2 не проверяется
+    assert app.db.get_state(42)["pending"] is None
+    assert "bx:o:kpk:2|tb-2-1" in str(app.tg.buttons[-1])           # ▶️ Продолжить
+    run(app.handle(msg(text="hej")))                                 # после проверки текст — снова разговор
+    assert app.gemini.calls
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))                   # продолжить позже
+    assert "✅ 1. Ja" in app.tg.sent[-1] and "❌ 3." in app.tg.sent[-1]
+    run(app.handle(msg(text="2 masz! 3 ma!")))
+    assert "верно 3 из 3" in app.tg.sent[-1]
+    run(app.on_callback(cb("bx:l:kpk:2")))
+    assert "✅ 📗 Ćw. 1, s. 20" in app.tg.sent[-1]
+    run(app.on_callback(cb("bx:r:kpk:2|tb-2-1")))                   # 🔄 заново
+    assert app.db.bex_results(42, "kpk:2") == {}
+
+
+def test_book_exercise_buttons_tf_and_match():
+    app = bex_app()
+    run(app.on_callback(cb("bx:o:kpk:2|wb-2-1")))
+    assert "<blockquote>Ala ma brata.</blockquote>" in app.tg.sent[-1]
+    assert ("1 P", "bx:a:1:a") in app.tg.buttons[-1][0]
+    run(app.on_callback(cb("bx:go")))
+    assert app.tg.toasts[-1].startswith("Ничего не отмечено")
+    run(app.on_callback(cb("bx:a:1:a")))
+    assert ("✅1P", "bx:a:1:a") in app.tg.markups[-1][1][0]
+    run(app.on_callback(cb("bx:a:1:!")))
+    run(app.on_callback(cb("bx:go")))                                # проверяем только отмеченный пункт 1
+    assert "1 из 1" in app.tg.sent[-1] and "верно 1 из 2" in app.tg.sent[-1]
+    run(app.on_callback(cb("bx:a:2:b")))
+    assert "закрыто" in app.tg.toasts[-1]                            # старые кнопки после проверки
+    run(app.on_callback(cb("bx:o:kpk:2|wb-2-1")))
+    assert all("bx:a:1:" not in str(r) for r in app.tg.buttons[-1])  # верный пункт 1 больше не спрашиваем
+    run(app.handle(msg(text="2 n")))                                 # текстом: n → nieprawda
+    assert "верно 2 из 2" in app.tg.sent[-1]
+    run(app.on_callback(cb("bx:o:kpk:2|wb-2-2")))
+    assert "<b>c)</b> pies" in app.tg.sent[-1] and ("1 c", "bx:a:1:c") in app.tg.buttons[-1][0]
+    run(app.handle(msg(text="1c 2a")))
+    assert "1 из 2" in app.tg.sent[-1] and "<b>brat</b>" in app.tg.sent[-1]
+
+
+def test_free_answers_go_to_model_and_db_legacy_unit_key():
+    from bot.ai.prompt import check_prompt
+    p = check_prompt([(1, {"q": "Opisz rodzinę", "answer": "Mam brata."}, "Mam siostra.", False)], "A1",
+                     voice=False, free=True, task="Расскажи о семье")
+    assert "СВОБОДНЫЕ" in p and "Расскажи о семье" in p
+    d = DB(":memory:")
+    d.bex_save(42, "8", "x", 1, True, "a", "")
+    assert d.bex_results(42, "kpk:8")[("x", 1)]["ok"] == 1
+
+
+def test_real_book_exercises_are_valid():
+    from bot.exercises.logic import CHOICE_TYPES, book_options
+    real = Path(__file__).resolve().parent.parent / "bot" / "textbook"
+    for u in tb.load_units(real):
+        ids = [x["id"] for x in u["exercises"]]
+        assert len(ids) == len(set(ids)), u["unit"]
+        for x in u["exercises"]:
+            assert x["type"] in ("gap", "choice", "match", "tf", "open", "free") and x["src"] in ("tb", "wb"), x["id"]
+            assert len(fmt_mod.bex_message(u, x, {})) < 4000 and sum(map(len, fmt_mod.bex_keyboard(u, x, {}, {}, []))) <= 100
+            for it in x["items"]:
+                assert it["q"] and it["answer"] and it["ru"], (x["id"], it)
+                if x["type"] in CHOICE_TYPES:
+                    assert it["answer"] in book_options(x, it), (x["id"], it)

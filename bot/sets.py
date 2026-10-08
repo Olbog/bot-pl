@@ -84,12 +84,7 @@ class SetsMixin:
         return out
 
     async def set_units(self, chat_id: int, user_id: int) -> None:
-        units = textbook.load_units()
-        if not units:
-            await self.tg.send_message(chat_id, "📘 Юнитов пока нет — пришли страницы учебника Claude.")
-            return
-        text, buttons = fmt.book_units_screen(units, "su:", "📘 <b>Набор из юнита</b> — какой юнит?")
-        await self.show(chat_id, user_id, {"step": "set_unit"}, text, buttons, prev=self.set_src_prev(user_id))
+        await self.pick_unit(chat_id, user_id, "su", prev=self.set_src_prev(user_id))
 
     async def preview_from_unit(self, chat_id: int, user_id: int, unit_id: str) -> None:
         unit = textbook.get_unit(unit_id)
@@ -97,9 +92,9 @@ class SetsMixin:
             return
         words = self.unit_candidates(user_id, unit, set())[:self.cfg.set_size]
         if not words:
-            await self.tg.send_message(chat_id, f"🎉 В Unit {escape(unit['unit'])} все слова уже выучены.")
+            await self.tg.send_message(chat_id, f"🎉 В {escape(unit['name'])} все слова уже выучены.")
             return
-        pending = {"step": "preview", "title": f"Unit {unit['unit']} — {unit['title']}", "unit": unit["unit"],
+        pending = {"step": "preview", "title": f"{unit['book_short']} {unit['name']} — {unit['title']}", "unit": unit["unit"],
                    "off": [], "words": words}
         await self.show(chat_id, user_id, pending, fmt.preview_message(pending), fmt.preview_buttons(pending))
 

@@ -1,11 +1,19 @@
 """📘 Учебник: карточки и тест по словам юнита, статистика юнита; 📖 /words — список слов юнита."""
 import random
+from html import escape
 
+from ..common import AUTO
 from ..core import textbook
 from ..ai.prompt import BOOK_OPTS_HINT, BOOK_OPTS_SCHEMA, book_options_prompt
 from ..ui import fmt
 from ..exercises import logic as exercises
 from ..settings import WORDS_VOICE_CHUNK
+
+
+# purpose → (шаг, префикс кнопок юнита, заголовок)
+UNIT_PICK = {"ex": ("ex_book", "x:b:u:", "📘 <b>Учебник</b> — какой юнит тренируем?"),
+             "wd": ("words_units", "wd:u:", "📖 <b>Слова юнита</b> — какой юнит?"),
+             "su": ("set_unit", "su:", "📘 <b>Набор из юнита</b> — какой юнит?")}
 
 
 class BookMixin:
@@ -24,7 +32,7 @@ class BookMixin:
             it["unit"] = unit["unit"]
             it["_key"] = f"card:{unit['unit']}:{it['dir']}:{it['lemma']}:{self.clock()}"
         mode = "Карточки" if ex["kind"] == "book_card" else "Тест"
-        title = f"Unit {unit['unit']} «{unit['title']}» — {mode}, {textbook.DIRS.get(ex.get('dir', 'mix'), '')}"
+        title = f"{unit['name']} «{unit['title']}» — {mode}, {textbook.DIRS.get(ex.get('dir', 'mix'), '')}"
         if ex["kind"] == "book_test":
             prompt = book_options_prompt([(n, it["q"], it["answer"], "ru" if it["dir"] == "pl" else "pl")
                                           for n, it in enumerate(items, 1)])
@@ -57,10 +65,13 @@ class BookMixin:
             unit = it.get("unit")
             if not unit:
                 continue
+            if ":" not in str(unit):  # упражнение до перехода на «книга:номер»
+                unit = (textbook.get_unit(unit) or {}).get("unit", unit)
             if it.get("card"):
                 pl, d = it["lemma"], it["dir"]
             else:  # пропуски: найти слово юнита по словарной форме
                 u = textbook.get_unit(unit)
+                unit = (u or {}).get("unit", unit)
                 lemma = str(it.get("lemma", "")).strip().lower()
                 w = next((w for w in (u or {}).get("words", []) if w["pl"].lower() == lemma), None)
                 if not w:
@@ -84,12 +95,36 @@ class BookMixin:
                 {w["pl"] for w in unit["words"] if textbook.recognized(stats, w["pl"])})
 
     async def words_menu(self, chat_id: int, user_id: int) -> None:
-        units = textbook.load_units()
-        if not units:
-            await self.tg.send_message(chat_id, "📖 Юнитов пока нет — пришли страницы учебника Claude.")
+        await self.pick_unit(chat_id, user_id, "wd", prev=None)
+
+    # ---------- выбор учебника → юнита (общий для 📘 упражнений, /words и набора из юнита) ----------
+
+    async def pick_unit(self, chat_id: int, user_id: int, purpose: str, extra: dict | None = None, prev=AUTO,
+                        book_id: str | None = None, message_id: int | None = None) -> None:
+        """Список юнитов; если учебников с юнитами несколько — сначала выбор учебника (кнопки bk:<purpose>:<книга>)."""
+        step, prefix, title = UNIT_PICK[purpose]
+        books = [b for b in textbook.load_books() if b["units"] and book_id in (None, b["id"])]
+        if not books:
+            await self.tg.send_message(chat_id, "📘 Юнитов пока нет. Пришли страницы учебника в чат с Claude — "
+                                                 "он добавит слова, и после обновления бота они появятся здесь.")
             return
-        text, buttons = fmt.book_units_screen(units, "wd:u:", "📖 <b>Слова юнита</b> — какой юнит?")
-        await self.show(chat_id, user_id, {"step": "words_units"}, text, buttons, prev=None)
+        extra = extra or {}
+        if len(books) == 1:
+            b = books[0]
+            text, buttons = fmt.book_units_screen(b["units"], prefix, f"{title}\n📚 {escape(b['title'])}")
+            await self.show(chat_id, user_id, {"step": step, **extra}, text, buttons, message_id, prev=prev)
+        else:
+            text, buttons = fmt.books_screen(books, purpose, f"{title.split(' — ')[0]} — какой учебник?")
+            await self.show(chat_id, user_id, {"step": f"books_{purpose}", **extra}, text, buttons, message_id,
+                            prev=prev)
+
+    async def book_chosen(self, chat_id: int, user_id: int, message_id: int, pending: dict | None, arg: str) -> None:
+        """bk:<purpose>:<книга> — учебник выбран, показать его юниты (тем же сообщением)."""
+        purpose, _, book_id = arg.partition(":")
+        if purpose not in UNIT_PICK or (pending or {}).get("step") != f"books_{purpose}":
+            return
+        extra = {k: v for k, v in pending.items() if k not in ("step", "prev", "screen")}
+        await self.pick_unit(chat_id, user_id, purpose, extra, book_id=book_id, message_id=message_id)
 
     async def words_callback(self, chat_id: int, user_id: int, arg: str) -> None:
         kind, _, unit_id = arg.partition(":")
@@ -105,9 +140,9 @@ class BookMixin:
             for text, buttons in fmt.words_hidden(unit, known, recog):
                 await self.tg.send_message(chat_id, text, buttons)
         elif kind == "f":
-            await self.tg.send_document(chat_id, f"unit_{unit['unit']}_slova.txt",
+            await self.tg.send_document(chat_id, f"{unit['book']}_{unit['num']}_slova.txt",
                                         fmt.words_file(unit).encode("utf-8"),
-                                        f"📄 Unit {unit['unit']} — {unit['title']}")
+                                        f"📄 {unit['name']} — {unit['title']}")
         elif kind == "v":
             await self.words_voice(chat_id, unit)
 
@@ -116,7 +151,7 @@ class BookMixin:
         words = unit["words"]
         for start in range(0, len(words), WORDS_VOICE_CHUNK):
             part = words[start:start + WORDS_VOICE_CHUNK]
-            await self.tg.send_message(chat_id, f"🔊 Unit {unit['unit']}: слова {start + 1}–{start + len(part)} "
+            await self.tg.send_message(chat_id, f"🔊 {unit['name']}: слова {start + 1}–{start + len(part)} "
                                                  f"из {len(words)}")
             await self.tg.send_action(chat_id, "record_voice")
             try:
@@ -128,8 +163,8 @@ class BookMixin:
             await self.tg.send_voice(chat_id, ogg)
 
     def words_hint(self, data: str) -> str:
-        """wd:s:<unit>:<n> — перевод слова n (всплывашка)."""
-        _, _, unit_id, n = data.split(":")
+        """wd:s:<unit>|<n> — перевод слова n (всплывашка)."""
+        unit_id, _, n = data[5:].rpartition("|")
         unit = textbook.get_unit(unit_id)
         if not unit or not 1 <= int(n) <= len(unit["words"]):
             return "Слово не найдено"

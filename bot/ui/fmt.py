@@ -7,6 +7,7 @@ from ..core.config import local_dt
 
 from ..core.rules import group
 from ..core.verbs import verb_line
+from ..exercises.logic import CHOICE_TYPES, LETTERS, book_options
 from ..core.training import Criteria, WordStats, kind_of, num, progress_bar
 
 KIND_ICON = {"word": "🔤", "grammar": "📝", "pronunciation": "🗣"}
@@ -608,17 +609,30 @@ def book_units_screen(units: list[dict], prefix: str = "x:b:u:",
                       title: str = "📘 <b>Учебник</b> — какой юнит тренируем?") -> tuple[str, list[list[tuple[str, str]]]]:
     lines = [title, ""]
     for u in units:
-        lines.append(f"<b>Unit {e(u['unit'])} — {e(u['title'])}</b> · {len(u['words'])} слов")
+        nx = len(u.get("exercises") or [])
+        lines.append(f"<b>{e(u['name'])} — {e(u['title'])}</b> · {len(u['words'])} слов"
+                     + (f" · 📝 {nx} упр." if nx else ""))
         if u.get("summary"):
             lines.append(f"<i>{e(u['summary'])}</i>")
-    return "\n".join(lines), [[(f"Unit {u['unit']} — {u['title']}"[:60], f"{prefix}{u['unit']}")] for u in units]
+    return "\n".join(lines), [[(f"{u['name']} — {u['title']}"[:60], f"{prefix}{u['unit']}")] for u in units]
+
+
+def books_screen(books: list[dict], purpose: str, title: str) -> tuple[str, list[list[tuple[str, str]]]]:
+    """📚 Выбор учебника (purpose: ex — упражнения, wd — слова, su — набор из юнита)."""
+    lines = [title, ""]
+    for b in books:
+        nx = sum(len(u.get("exercises") or []) for u in b["units"])
+        lines.append(f"<b>{e(b['title'])}</b> · {len(b['units'])} юн." + (f" · 📝 {nx} упр." if nx else ""))
+    return "\n".join(lines), [[(f"📚 {b['title']}"[:60], f"bk:{purpose}:{b['id']}")] for b in books]
 
 
 def book_unit_screen(unit: dict, done: int, recog: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
-    text = (f"📘 <b>Unit {e(unit['unit'])} — {e(unit['title'])}</b> · знаю {done} · узнаю {recog} · из {total}\n"
+    text = (f"📘 <b>{e(unit['book_short'])} · {e(unit['name'])} — {e(unit['title'])}</b> · знаю {done} · узнаю {recog} · из {total}\n"
             + (f"<i>{e(unit['summary'])}</i>\n" if unit.get("summary") else "")
             + "\n" + KNOW_LEGEND + "\n<i>Сначала идут слова с ошибками, потом ещё не «знаю», потом редкие.</i>")
-    return text, [[("📖 Слова юнита — список с переводом", f"wd:u:{unit['unit']}")],
+    nx = len(unit.get("exercises") or [])
+    ex_row = [[(f"📝 Упражнения из книги ({nx})", f"bx:l:{unit['unit']}")]] if nx else []
+    return text, ex_row + [[("📖 Слова юнита — список с переводом", f"wd:u:{unit['unit']}")],
                   [("✍️ Пропуски в предложениях", "x:b:m:gap")],
                   [("🃏 Карточки — пишу перевод", "x:b:m:card")],
                   [("🔘 Тест — выбираю перевод", "x:b:m:test")]]
@@ -658,7 +672,8 @@ def _word_line(n: int, w: dict, mark: str, with_ru: bool = True) -> str:
     """mark: ✅ знаю / 🟡 узнаю / пусто. 🔗 сочетание — с отступом под своим словом."""
     tr = f" [{e(w['translit'])}]" if w.get("translit") else ""
     pre = "      🔗 " if w.get("of") else ""
-    head = f"{pre}{mark + ' ' if mark else ''}{n}. <b>{e(w['pl'])}</b>{tr}"
+    wb = " 📒" if w.get("src") == "wb" else ""
+    head = f"{pre}{mark + ' ' if mark else ''}{n}. <b>{e(w['pl'])}</b>{tr}{wb}"
     if not with_ru:
         return head
     pos = f" · <i>{e(w['pos'])}</i>" if w.get("pos") and not w.get("of") else ""
@@ -670,12 +685,13 @@ def _mark(w: dict, known: set[str], recog: set[str]) -> str:
 
 
 def words_header(unit: dict, known: int, recog: int, total: int) -> str:
-    return (f"📖 <b>Unit {e(unit['unit'])} — {e(unit['title'])}</b> · знаю {known} · узнаю {recog} · из {total}\n"
+    return (f"📖 <b>{e(unit['book_short'])} · {e(unit['name'])} — {e(unit['title'])}</b> · знаю {known} · узнаю {recog} · из {total}\n"
             + (f"<i>{e(unit['summary'])}</i>" if unit.get("summary") else ""))
 
 
 KNOW_LEGEND = ("<i>✅ знаю — 3 раза подряд написал сам верно, в обе стороны (карточки, пропуски, разговор). "
-               "🟡 узнаю — 3 раза подряд верно выбрал в тесте. 🔗 — сочетание с предлогом / устойчивое.</i>")
+               "🟡 узнаю — 3 раза подряд верно выбрал в тесте. 🔗 — сочетание с предлогом / устойчивое. "
+               "📒 — слово из рабочей тетради.</i>")
 
 
 def words_list(unit: dict, known: set[str], recog: set[str]) -> tuple[str, list[list[tuple[str, str]]]]:
@@ -692,10 +708,10 @@ def words_hidden(unit: dict, known: set[str], recog: set[str]) -> list[tuple[str
     out, words, u = [], unit["words"], unit["unit"]
     for start in range(0, len(words), WORDS_CHUNK):
         part = list(enumerate(words[start:start + WORDS_CHUNK], start + 1))
-        head = (f"🙈 <b>Unit {e(u)} — {e(unit['title'])}</b> · {start + 1}–{part[-1][0]} из {len(words)}\n"
+        head = (f"🙈 <b>{e(unit['name'])} — {e(unit['title'])}</b> · {start + 1}–{part[-1][0]} из {len(words)}\n"
                 "<i>Вспомни перевод, потом нажми номер — подскажу.</i>\n\n")
         text = head + "\n".join(_word_line(n, w, _mark(w, known, recog), with_ru=False) for n, w in part)
-        btns = [(str(n), f"wd:s:{u}:{n}") for n, _ in part]
+        btns = [(str(n), f"wd:s:{u}|{n}") for n, _ in part]
         out.append((text, [btns[i:i + 5] for i in range(0, len(btns), 5)]))
     return out
 
@@ -705,7 +721,7 @@ def word_hint(w: dict) -> str:
 
 
 def words_file(unit: dict) -> str:
-    lines = [f"Unit {unit['unit']} — {unit['title']}", unit.get("summary", ""), ""]
+    lines = [f"{unit['book_title']} · {unit['name']} — {unit['title']}", unit.get("summary", ""), ""]
     lines += [f"{n}. {w['pl']} [{w.get('translit', '')}] — {w['ru']}" + (f" ({w['pos']})" if w.get("pos") else "")
               for n, w in enumerate(unit["words"], 1)]
     return "\n".join(lines) + "\n"
@@ -774,9 +790,10 @@ def ex_quiz_keyboard(ex: dict, pick: dict, sure: list, check: bool = True) -> li
 STATUS_ICON = {"ok": "✅", "wrong": "❌", "unsure": "❓"}
 
 
-def ex_results(ex: dict, results: list[dict]) -> str:
+def ex_results(ex: dict, results: list[dict], head: str | None = None, foot: str | None = None) -> str:
+    """Разбор проверенных пунктов. head / foot — свои заголовок и подсказка внизу (для упражнений из книги)."""
     ok = sum(1 for r in results if r["final"] in ("ok", "unsure"))
-    lines = [f"📊 <b>{ok} из {len(results)}</b> · #{ex['id']} — {e(ex['title'])}", ""]
+    lines = [head or f"📊 <b>{ok} из {len(results)}</b> · #{ex['id']} — {e(ex['title'])}", ""]
     for r in results:
         if r["n"] > 1:
             lines.append("")  # пустая строка между пунктами: длинный разбор режется по пунктам, а не посреди
@@ -790,11 +807,13 @@ def ex_results(ex: dict, results: list[dict]) -> str:
             head = f"{icon} {r['n']}. {e(user)} → <b>{e(right)}</b>"
         else:
             head = f"{icon} {r['n']}. <b>{e(user)}</b>"
-        lines.append(f"{head} — <i>{e(it.get('grammar', ''))}</i>")
+        lines.append(head + (f" — <i>{e(it['grammar'])}</i>" if it.get("grammar") else ""))
         if verb_line(it):
             lines.append(f"    {verb_line(it)}")
         if r["final"] != "ok" or r.get("explanation"):  # верный ответ с «!» — без разбора
-            lines.append(f"    {e(it.get('full_pl', ''))} [{e(it.get('translit', ''))}] — {e(it.get('ru', ''))}")
+            if it.get("full_pl"):
+                lines.append(f"    {e(it['full_pl'])}" + (f" [{e(it['translit'])}]" if it.get("translit") else "")
+                             + (f" — {e(it['ru'])}" if it.get("ru") else ""))
             if r.get("explanation"):
                 lines.append(f"    {e(r['explanation'])}")
             if r.get("bridge"):
@@ -808,7 +827,7 @@ def ex_results(ex: dict, results: list[dict]) -> str:
                 line += f": {e(r['note_comment'])}"
             lines.append(line)
     lines.append("")
-    lines.append("<i>Вопрос по пункту — напиши: «5: почему не czasem?»</i>")
+    lines.append(foot if foot is not None else "<i>Вопрос по пункту — напиши: «5: почему не czasem?»</i>")
     return "\n".join(lines)
 
 
@@ -819,4 +838,116 @@ def ex_result_buttons(ex_id: int, left: int) -> list[list[tuple[str, str]]]:
         rows.append([("🔁 Повторить серию", f"x:rp:{ex_id}")])
     else:
         rows.append([("🔁 Повторить", f"x:rp:{ex_id}"), ("🏋️ Другие упражнения", "x:menu")])
+    return rows
+
+
+# ---------- 📝 упражнения из книги (учебник 📗 и рабочая тетрадь 📒) ----------
+
+def bex_name(x: dict) -> str:
+    return f"{'📒' if x.get('src') == 'wb' else '📗'} {x.get('ref', '')} — {x.get('title_ru') or x.get('title', '')}"
+
+
+def bex_counts(x: dict, done: dict) -> tuple[int, int]:
+    """(верно, отвечено) по пунктам упражнения; done — {(ex_id, n): row}."""
+    rows = [done[(x["id"], n)] for n in range(1, len(x["items"]) + 1) if (x["id"], n) in done]
+    return sum(1 for r in rows if r["ok"]), len(rows)
+
+
+def bex_icon(x: dict, done: dict) -> str:
+    ok, answered = bex_counts(x, done)
+    return "✅" if ok == len(x["items"]) else "◐" if answered else "○"
+
+
+def bex_list_screen(unit: dict, done: dict) -> tuple[str, list[list[tuple[str, str]]]]:
+    exs = unit.get("exercises") or []
+    full = sum(1 for x in exs if bex_icon(x, done) == "✅")
+    lines = [f"📝 <b>{e(unit['book_short'])} · {e(unit['name'])} — {e(unit['title'])}</b> · упражнения: "
+             f"сделано {full} из {len(exs)}", "",
+             "📗 — учебник, 📒 — рабочая тетрадь · ✅ всё верно · ◐ начато · ○ не начато", ""]
+    rows = []
+    for x in exs:
+        ok, _ = bex_counts(x, done)
+        lines.append(f"{bex_icon(x, done)} {e(bex_name(x))} · {ok}/{len(x['items'])}")
+        rows.append([(f"{bex_icon(x, done)} {bex_name(x)}"[:60], f"bx:o:{unit['unit']}|{x['id']}")])
+    return "\n".join(lines), rows
+
+
+TF_LABELS = {"a": "P", "b": "N"}   # prawda / nieprawda
+
+
+def bex_message(unit: dict, x: dict, done: dict, notes: dict | None = None) -> str:
+    ok, answered = bex_counts(x, done)
+    lines = [f"📝 <b>{e(unit['book_short'])} · {e(unit['name'])} · {e(bex_name(x))}</b> · {ok}/{len(x['items'])}"]
+    if x.get("title"):
+        lines.append(f"<i>{e(x['title'])}</i>")
+    if x.get("task_ru"):
+        lines.append(e(x["task_ru"]))
+    if x.get("text"):
+        lines.append(f"<blockquote>{e(x['text'])}</blockquote>")
+    if x.get("options") and x.get("type") != "tf":  # «соедини»: общий список вариантов
+        lines.append("\n".join(f"<b>{LETTERS[j]})</b> {e(o)}" for j, o in enumerate(x["options"])))
+    lines.append("")
+    choice = x.get("type") in CHOICE_TYPES
+    for n, it in enumerate(x["items"], 1):
+        row = done.get((x["id"], n))
+        mark = "" if not row else "✅ " if row["ok"] else "❌ "
+        q = e(it.get("q", "")).replace("___", "<b>___</b>")
+        got = f" → <b>{e(row['answer'])}</b>" if row and row["ok"] else (f" <s>{e(row['answer'])}</s>" if row else "")
+        lines.append(f"{mark}{n}. {q}{got}" + (f" 💡{n}" if it.get("hint") and not (row and row["ok"]) else ""))
+        if it.get("ru"):
+            lines.append(f"    <i>— {e(it['ru'])}</i>")
+        if it.get("options"):
+            lines.append("    " + "   ".join(f"{LETTERS[j]}) {e(o)}" for j, o in enumerate(it["options"])))
+        if (notes or {}).get(str(n)):
+            lines.append(f"    💭 <i>{e(notes[str(n)])}</i>")
+    lines.append("")
+    if choice:
+        opts = "P / N" if x.get("type") == "tf" else "a / b / c"
+        lines.append(f"<i>Жми ответы кнопками ({opts}) — можно не все: проверю отмеченные, остальное — потом, "
+                     "прогресс сохраняется. «n !» — уверен, не объяснять. Можно и текстом: «1b 3a», "
+                     "уточнение — в скобках: «2a (почему?)».</i>")
+    elif x.get("type") == "free":
+        lines.append("<i>Ответь своими словами: «1 … 2 …» — можно на один пункт, остальные потом. "
+                     "Вопрос — в скобках.</i>")
+    else:
+        lines.append("<i>Ответ одним сообщением, можно не на все пункты: «1 jestem 3 mam». Уточнение — в скобках, "
+                     "уверен — «!». Остальное — потом, прогресс сохраняется.</i>")
+    if answered:
+        lines.append("<i>✅ — уже верно; ❌ — была ошибка, можно ответить ещё раз.</i>")
+    return "\n".join(lines)
+
+
+def bex_keyboard(unit: dict, x: dict, done: dict, pick: dict, sure: list) -> list[list[tuple[str, str]]]:
+    rows: list[list[tuple[str, str]]] = []
+    todo = [n for n in range(1, len(x["items"]) + 1) if not (done.get((x["id"], n)) or {}).get("ok")]
+    if x.get("type") in CHOICE_TYPES:
+        for n in todo:
+            opts = book_options(x, x["items"][n - 1])
+            row = []
+            for L in LETTERS[:len(opts)]:
+                label = TF_LABELS.get(L, L) if x.get("type") == "tf" else L
+                row.append(((f"✅{n}{label}" if pick.get(str(n)) == L else f"{n} {label}"), f"bx:a:{n}:{L}"))
+            if len(row) < 8:
+                row.append((f"❗{n}" if n in sure else f"{n} !", f"bx:a:{n}:!"))
+            rows.append(row)
+    hints = [(f"💡{n}", f"bx:h:{n}") for n in todo if x["items"][n - 1].get("hint")]
+    rows += [hints[i:i + 6] for i in range(0, len(hints), 6)]
+    if x.get("type") in CHOICE_TYPES and todo:
+        rows.append([(f"📨 Проверить отмеченные ({len(pick)})", "bx:go")])
+    rows.append([("📋 Все упражнения юнита", f"bx:l:{unit['unit']}")])
+    return rows
+
+
+def bex_result_buttons(unit: dict, x: dict, done: dict) -> list[list[tuple[str, str]]]:
+    u = unit["unit"]
+    exs = unit.get("exercises") or []
+    ok, _ = bex_counts(x, done)
+    rows = []
+    if ok < len(x["items"]):
+        rows.append([(f"▶️ Продолжить (осталось {len(x['items']) - ok})", f"bx:o:{u}|{x['id']}")])
+    i = next((k for k, y in enumerate(exs) if y["id"] == x["id"]), -1)
+    nxt = next((y for y in exs[i + 1:] if bex_icon(y, done) != "✅"), None)
+    if nxt:
+        rows.append([(f"➡️ {bex_name(nxt)}"[:60], f"bx:o:{u}|{nxt['id']}")])
+    rows.append([("📋 Все упражнения юнита", f"bx:l:{u}"), ("🔄 Заново", f"bx:r:{u}|{x['id']}")])
     return rows

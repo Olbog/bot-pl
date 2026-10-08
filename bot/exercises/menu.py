@@ -113,13 +113,7 @@ class ExerciseMenuMixin:
                 await self.show(chat_id, user_id, {"step": "ex_fmt", "ex": ex}, "🧩 Грамматика — какой формат?",
                                 fmt.ex_format_buttons(kind), prev=menu)
             elif kind == "book":
-                units = textbook.load_units()
-                if not units:
-                    await self.tg.send_message(chat_id, "📘 Юнитов пока нет. Пришли скрины юнита в чат с Claude — "
-                                                         "он добавит слова, и после обновления бота они появятся здесь.")
-                    return
-                text, buttons = fmt.book_units_screen(units)
-                await self.show(chat_id, user_id, {"step": "ex_book", "ex": ex}, text, buttons, prev=menu)
+                await self.pick_unit(chat_id, user_id, "ex", {"ex": ex}, prev=menu)
             elif kind == "errors":
                 top, examples = self.ex_top_rules(user_id)
                 if not top:
