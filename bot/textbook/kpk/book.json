@@ -8,5 +8,9 @@
   "tb": "Krok_po_kroku/Iwona Stempek - Krok po Kroku Polski A1 - 2010.pdf",
   "wb": "Krok_po_kroku/Krok_po_kroku_1_tetrad.pdf"
  },
- "order": 1
+ "order": 1,
+ "page_offset": {
+  "tb": -5,
+  "wb": 0
+ }
 }

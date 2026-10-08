@@ -97,6 +97,16 @@ def book_options(ex: dict, item: dict) -> list[str]:
     return item.get("options") or ex.get("options") or (["prawda", "nieprawda"] if ex.get("type") == "tf" else [])
 
 
+def book_pages(ex: dict) -> list[int]:
+    """Страницы книги упражнения: поле pages или «s. 54» / «s. 54–55» из ref."""
+    if ex.get("pages"):
+        return [int(p) for p in ex["pages"]]
+    out: list[int] = []
+    for a, b in re.findall(r"s\.\s*(\d+)(?:\s*[–-]\s*(\d+))?", ex.get("ref") or ""):
+        out += list(range(int(a), int(b or a) + 1))
+    return out[:4]
+
+
 def option_text(item: dict, answer: str) -> str:
     """Для теста: «b» → текст варианта b."""
     a = norm(answer)

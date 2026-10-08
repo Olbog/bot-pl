@@ -161,6 +161,13 @@ class Telegram:
             params["parse_mode"] = "HTML"
         await self.call("sendAudio", **params)
 
+    async def send_photo(self, chat_id: int, filename: str, content: bytes, caption: str = "") -> None:
+        params = {"chat_id": str(chat_id), "_files": {"photo": (filename, content, "image/png")}}
+        if caption:
+            params["caption"] = caption[:1000]
+            params["parse_mode"] = "HTML"
+        await self.call("sendPhoto", **params)
+
     async def send_document(self, chat_id: int, filename: str, content: bytes, caption: str = "") -> None:
         params = {"chat_id": str(chat_id), "_files": {"document": (filename, content, "text/plain")}}
         if caption:

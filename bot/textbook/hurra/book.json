@@ -8,5 +8,9 @@
   "tb": "Hurra/HURRA 1 Podręcznik studenta. Nowa Edycja.pdf",
   "wb": "Hurra/HURRA 1 Zeszyt ćwiczeń. Nowa Edycja.pdf"
  },
- "order": 2
+ "order": 2,
+ "page_offset": {
+  "tb": 3,
+  "wb": 2
+ }
 }

@@ -305,10 +305,26 @@
    "of": "kapusta"
   },
   {
+   "pl": "kapusta pekińska",
+   "translit": "ка-ПУС-та пэ-КИНЬ-ска",
+   "ru": "пекинская капуста",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "of": "kapusta"
+  },
+  {
    "pl": "fasola",
    "translit": "фа-СО-ля",
    "ru": "фасоль",
    "pos": "сущ., ж. р."
+  },
+  {
+   "pl": "zupa fasolowa",
+   "translit": "ЗУ-па фа-со-ЛЁ-ва",
+   "ru": "фасолевый суп",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "fasola"
   },
   {
    "pl": "groszek",
@@ -341,6 +357,14 @@
    "translit": "ГЖЫП",
    "ru": "гриб",
    "pos": "сущ., м. р."
+  },
+  {
+   "pl": "zupa grzybowa",
+   "translit": "ЗУ-па гжы-БО-ва",
+   "ru": "грибной суп",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "grzyb"
   },
   {
    "pl": "bazylia",
@@ -673,6 +697,14 @@
    ]
   },
   {
+   "pl": "koszyk z zakupami",
+   "translit": "КО-шык з за-ку-ПА-ми",
+   "ru": "корзина с покупками",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "koszyk"
+  },
+  {
    "pl": "produkt",
    "translit": "ПРО-дукт",
    "ru": "продукт",
@@ -797,6 +829,2219 @@
    "ru_alt": [
     "Что попить?",
     "Что из напитков?"
+   ]
+  },
+  {
+   "pl": "ogórek konserwowy",
+   "translit": "о-ГУ-рэк кон-сэр-ВО-вы",
+   "ru": "маринованный огурец",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "keczup",
+   "translit": "КЭ-чуп",
+   "ru": "кетчуп",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "z keczupem",
+   "translit": "с кэ-ЧУ-пэм",
+   "ru": "с кетчупом",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "keczup"
+  },
+  {
+   "pl": "majonez",
+   "translit": "ма-ЁН-эс",
+   "ru": "майонез",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "melon",
+   "translit": "МЭ-лён",
+   "ru": "дыня",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "pieczarka",
+   "translit": "пе-ЧАР-ка",
+   "ru": "шампиньон",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "zupa pieczarkowa",
+   "translit": "ЗУ-па пе-чар-КО-ва",
+   "ru": "суп из шампиньонов",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "pieczarka"
+  },
+  {
+   "pl": "zupa rybna",
+   "translit": "ЗУ-па РЫБ-на",
+   "ru": "рыбный суп",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "olej",
+   "translit": "О-лей",
+   "ru": "растительное масло",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "drobne",
+   "translit": "ДРОБ-нэ",
+   "ru": "мелочь (деньги)",
+   "pos": "сущ., мн. ч.",
+   "src": "wb"
+  },
+  {
+   "pl": "Czy ma pani drobne?",
+   "translit": "чы ма ПА-ни ДРОБ-нэ",
+   "ru": "У вас есть мелочь?",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "drobne"
+  },
+  {
+   "pl": "To wszystko.",
+   "translit": "то ФШЫСТ-ко",
+   "ru": "Это всё.",
+   "pos": "фраза",
+   "src": "wb"
+  },
+  {
+   "pl": "Co jeszcze?",
+   "translit": "цо ЕЩ-чэ",
+   "ru": "Что ещё?",
+   "pos": "фраза",
+   "src": "wb"
+  },
+  {
+   "pl": "więcej",
+   "translit": "ВЕН-цэй",
+   "ru": "больше",
+   "pos": "нареч.",
+   "src": "wb"
+  },
+  {
+   "pl": "smaczny",
+   "translit": "СМАЧ-ны",
+   "ru": "вкусный",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "smaczne truskawki",
+   "translit": "СМАЧ-нэ трус-КАФ-ки",
+   "ru": "вкусная клубника",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "smaczny"
+  },
+  {
+   "pl": "kilogram",
+   "translit": "ки-ЛЁ-грам",
+   "ru": "килограмм",
+   "pos": "сущ., м. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "młody",
+   "translit": "МЎО-ды",
+   "ru": "молодой",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "młode ziemniaki",
+   "translit": "МЎО-дэ жем-НЯ-ки",
+   "ru": "молодая картошка",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "młody"
+  },
+  {
+   "pl": "średni",
+   "translit": "ШРЭД-ни",
+   "ru": "средний",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "wytrawny",
+   "translit": "вы-ТРАВ-ны",
+   "ru": "сухой (о вине)",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "wytrawne wino",
+   "translit": "вы-ТРАВ-нэ ВИ-но",
+   "ru": "сухое вино",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "wytrawny"
+  },
+  {
+   "pl": "salami",
+   "translit": "са-ЛЯ-ми",
+   "ru": "салями",
+   "pos": "сущ., ср. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "chipsy",
+   "translit": "ЧИП-сы",
+   "ru": "чипсы",
+   "pos": "сущ., мн. ч.",
+   "src": "wb"
+  },
+  {
+   "pl": "słone paluszki",
+   "translit": "СЎО-нэ па-ЛЮШ-ки",
+   "ru": "солёные палочки (соломка)",
+   "pos": "сущ., мн. ч.",
+   "src": "wb"
+  },
+  {
+   "pl": "drożdżówka",
+   "translit": "дрож-ДЖУФ-ка",
+   "ru": "сдобная булочка",
+   "pos": "сущ., ж. р.",
+   "src": "wb"
+  },
+  {
+   "pl": "zakupy",
+   "translit": "за-КУ-пы",
+   "ru": "покупки",
+   "pos": "сущ., мн. ч.",
+   "src": "wb"
+  },
+  {
+   "pl": "robić zakupy",
+   "translit": "РО-бичь за-КУ-пы",
+   "ru": "делать покупки",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "zakupy"
+  },
+  {
+   "pl": "ciężki",
+   "translit": "ЧЕНЖ-ки",
+   "ru": "тяжёлый",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "sympatyczny",
+   "translit": "сым-па-ТЫЧ-ны",
+   "ru": "симпатичный, приятный",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "zdrowszy",
+   "translit": "ЗДРОФ-шы",
+   "ru": "здоровее, полезнее",
+   "pos": "прил.",
+   "src": "wb"
+  },
+  {
+   "pl": "hiszpański",
+   "translit": "хиш-ПАНЬ-ски",
+   "ru": "испанский",
+   "pos": "прил.",
+   "src": "wb"
+  }
+ ],
+ "exercises": [
+  {
+   "id": "tb-9-a1",
+   "src": "tb",
+   "ref": "A · s. 58",
+   "title": "Owoce i warzywa",
+   "title_ru": "Фрукты и овощи",
+   "task_ru": "Картинки из учебника — здесь эмодзи и русское слово. Напиши по-польски: «1 banan 2 jabłko …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "🍌 банан",
+     "answer": "banan",
+     "ru": "банан",
+     "translit": "БА-нан"
+    },
+    {
+     "q": "🍏 яблоко",
+     "answer": "jabłko",
+     "ru": "яблоко",
+     "translit": "ЯП-ко"
+    },
+    {
+     "q": "🍐 груша",
+     "answer": "gruszka",
+     "ru": "груша",
+     "translit": "ГРУШ-ка"
+    },
+    {
+     "q": "🫐 слива",
+     "answer": "śliwka",
+     "ru": "слива",
+     "translit": "ШЛИФ-ка"
+    },
+    {
+     "q": "🍊 апельсин",
+     "answer": "pomarańcza",
+     "ru": "апельсин",
+     "translit": "по-ма-РАНЬ-ча"
+    },
+    {
+     "q": "🍑 персик",
+     "answer": "brzoskwinia",
+     "ru": "персик",
+     "translit": "бжос-КФИ-ня"
+    },
+    {
+     "q": "🍇 виноград",
+     "answer": "winogrona",
+     "ru": "виноград",
+     "translit": "ви-но-ГРО-на",
+     "grammar": "мн. ч."
+    },
+    {
+     "q": "🍒 вишня",
+     "answer": "wiśnia",
+     "ru": "вишня",
+     "translit": "ВИШЬ-ня"
+    },
+    {
+     "q": "🍉 арбуз",
+     "answer": "arbuz",
+     "ru": "арбуз",
+     "translit": "АР-бус"
+    },
+    {
+     "q": "🫐 черника, ягоды",
+     "answer": "jagody",
+     "ru": "черника",
+     "translit": "я-ГО-ды",
+     "grammar": "мн. ч."
+    },
+    {
+     "q": "🥔 картошка",
+     "answer": "ziemniak",
+     "ru": "картофелина",
+     "translit": "ЖЕМ-няк",
+     "accepted": [
+      "ziemniaki"
+     ]
+    },
+    {
+     "q": "🥕 морковь",
+     "answer": "marchewka",
+     "ru": "морковь",
+     "translit": "мар-ХЭФ-ка"
+    },
+    {
+     "q": "🧅 лук",
+     "answer": "cebula",
+     "ru": "лук",
+     "translit": "цэ-БУ-ля"
+    },
+    {
+     "q": "🌿 петрушка",
+     "answer": "pietruszka",
+     "ru": "петрушка",
+     "translit": "пет-РУШ-ка"
+    },
+    {
+     "q": "🫑 перец (овощ)",
+     "answer": "papryka",
+     "ru": "перец, паприка",
+     "translit": "па-ПРЫ-ка"
+    },
+    {
+     "q": "🧄 чеснок",
+     "answer": "czosnek",
+     "ru": "чеснок",
+     "translit": "ЧОС-нэк"
+    },
+    {
+     "q": "🥦 брокколи",
+     "answer": "brokuły",
+     "ru": "брокколи",
+     "translit": "бро-КУ-ўы",
+     "grammar": "мн. ч."
+    },
+    {
+     "q": "🥬 капуста",
+     "answer": "kapusta",
+     "ru": "капуста",
+     "translit": "ка-ПУС-та"
+    },
+    {
+     "q": "🫘 фасоль",
+     "answer": "fasola",
+     "ru": "фасоль",
+     "translit": "фа-СО-ля"
+    },
+    {
+     "q": "🟢 горошек",
+     "answer": "groszek",
+     "ru": "горошек",
+     "translit": "ГРО-шэк"
+    },
+    {
+     "q": "🌽 кукуруза",
+     "answer": "kukurydza",
+     "ru": "кукуруза",
+     "translit": "ку-ку-РЫ-дза"
+    },
+    {
+     "q": "🔴 редиска",
+     "answer": "rzodkiewka",
+     "ru": "редиска",
+     "translit": "жот-КЕФ-ка"
+    },
+    {
+     "q": "⚪ цветная капуста",
+     "answer": "kalafior",
+     "ru": "цветная капуста",
+     "translit": "ка-ЛЯ-фьор"
+    },
+    {
+     "q": "🌱 лук-порей",
+     "answer": "por",
+     "ru": "лук-порей",
+     "translit": "пор"
+    }
+   ],
+   "audio": "109a1.mp3"
+  },
+  {
+   "id": "tb-9-a2",
+   "src": "tb",
+   "ref": "A · Ćw. 2, s. 59",
+   "title": "Proszę opisać sałatki.",
+   "title_ru": "Опиши салаты",
+   "task_ru": "Что в салате? «sałatka z …» + творительный. Можно по одному пункту: «1 Sałatka z …». Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Sałatka 2: 🥕 морковь, сельдерей, 🍏 яблоко, 🍋 лимон",
+     "answer": "Sałatka z marchewką, selerem, jabłkiem i cytryną.",
+     "ru": "Салат с морковью, сельдереем, яблоком и лимоном.",
+     "grammar": "z + творительный: -ą (ж. р.), -em (м. и ср. р.)"
+    },
+    {
+     "q": "Sałatka 3: 🍅 помидоры, 🥒 огурец, 🌶️ красный перец, 🧅 лук, 🧄 чеснок, оливковое масло",
+     "answer": "Sałatka z pomidorami, ogórkiem, czerwoną papryką, cebulą, czosnkiem i oliwą.",
+     "ru": "Салат с помидорами, огурцом, красным перцем, луком, чесноком и оливковым маслом.",
+     "grammar": "мн. ч. pomidorami; ед. ч. ogórkiem, cebulą"
+    },
+    {
+     "q": "Sałatka 4: 🥬 салат, 🌽 кукуруза, 🍅 помидор, 🫘 фасоль, 🧄 чеснок, 🫑 зелёный перец, оливковое масло",
+     "answer": "Sałatka z sałatą, kukurydzą, pomidorem, fasolą, czosnkiem, zieloną papryką i oliwą.",
+     "ru": "Салат с листьями салата, кукурузой, помидором, фасолью, чесноком, зелёным перцем и оливковым маслом."
+    },
+    {
+     "q": "Sałatka 5: 🥬 салат, 🥒 огурец, 🔴 редиски, сметана",
+     "answer": "Sałatka z sałatą, ogórkiem, rzodkiewkami i śmietaną.",
+     "ru": "Салат с листьями салата, огурцом, редиской и сметаной.",
+     "grammar": "rzodkiewki → rzodkiewkami"
+    }
+   ]
+  },
+  {
+   "id": "tb-9-a3",
+   "src": "tb",
+   "ref": "A · Ćw. 3, s. 59",
+   "title": "Proszę opisać swój ulubiony owoc i ulubione warzywo.",
+   "title_ru": "Твой любимый фрукт и овощ",
+   "task_ru": "Опиши вкус (słodki, kwaśny, słony, gorzki, ostry, delikatny), форму (okrągły, owalny, podłużny), с чем он хорош. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Mój ulubiony owoc",
+     "answer": "Truskawka. Jest mała, czerwona i słodka, trochę podłużna i miękka. Jest dobra z cukrem i ze śmietaną.",
+     "ru": "Мой любимый фрукт (пример: клубника — маленькая, красная, сладкая, мягкая, хороша с сахаром и сметаной).",
+     "grammar": "прилагательное согласуется с родом фрукта"
+    },
+    {
+     "q": "Moje ulubione warzywo",
+     "answer": "Pomidor. Jest czerwony i okrągły. Ma delikatny smak. Jest dobry z cebulą i z solą.",
+     "ru": "Мой любимый овощ (пример: помидор — красный, круглый, нежный вкус, хорош с луком и солью).",
+     "grammar": "pomidor — м. р.: czerwony, dobry"
+    }
+   ]
+  },
+  {
+   "id": "tb-9-b1",
+   "src": "tb",
+   "ref": "B · Ćw. 1, s. 59",
+   "title": "Proszę posłuchać dialogu 1 i odpowiedzieć na pytania.",
+   "title_ru": "Диалог 1: ответь на вопросы",
+   "task_ru": "Послушай диалог 1 (аудио выше) и ответь коротко по-польски. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Czy Mami i Angela kupują coś na lunch?",
+     "answer": "Nie, kupują coś na kolację.",
+     "ru": "Мами и Анджела покупают что-то на обед?"
+    },
+    {
+     "q": "Na co ma ochotę Angela?",
+     "answer": "Angela ma ochotę na spaghetti i na sałatkę owocową.",
+     "ru": "Чего хочется Анджеле?"
+    },
+    {
+     "q": "Na co ma ochotę Mami?",
+     "answer": "Mami ma ochotę na zupę jarzynową i rybę.",
+     "ru": "Чего хочется Мами?"
+    },
+    {
+     "q": "Kiedy chcą kupić rybę?",
+     "answer": "Jutro.",
+     "ru": "Когда они хотят купить рыбу?"
+    }
+   ],
+   "audio": "109b1.mp3"
+  },
+  {
+   "id": "tb-9-b5",
+   "src": "tb",
+   "ref": "B · Ćw. 5, s. 61",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Множественное число",
+   "task_ru": "Напиши форму мн. ч.: «1 pomidory 2 banany …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "pomidor → ___",
+     "answer": "pomidory",
+     "ru": "помидоры",
+     "translit": "по-ми-ДО-ры",
+     "grammar": "м. р. → -y"
+    },
+    {
+     "q": "banan → ___",
+     "answer": "banany",
+     "ru": "бананы",
+     "translit": "ба-НА-ны",
+     "grammar": "м. р. → -y"
+    },
+    {
+     "q": "ziemniak → ___",
+     "answer": "ziemniaki",
+     "ru": "картофель",
+     "translit": "жем-НЯ-ки",
+     "grammar": "после k → -i"
+    },
+    {
+     "q": "owoc → ___",
+     "answer": "owoce",
+     "ru": "фрукты",
+     "translit": "о-ВО-цэ",
+     "grammar": "после c → -e"
+    },
+    {
+     "q": "grosz → ___",
+     "answer": "grosze",
+     "ru": "гроши",
+     "translit": "ГРО-шэ",
+     "grammar": "после sz → -e"
+    },
+    {
+     "q": "cytryna → ___",
+     "answer": "cytryny",
+     "ru": "лимоны",
+     "translit": "цы-ТРЫ-ны",
+     "grammar": "ж. р. → -y"
+    },
+    {
+     "q": "malina → ___",
+     "answer": "maliny",
+     "ru": "малина (ягоды)",
+     "translit": "ма-ЛИ-ны",
+     "grammar": "ж. р. → -y"
+    },
+    {
+     "q": "śliwka → ___",
+     "answer": "śliwki",
+     "ru": "сливы",
+     "translit": "ШЛИФ-ки",
+     "grammar": "после k → -i"
+    },
+    {
+     "q": "brzoskwinia → ___",
+     "answer": "brzoskwinie",
+     "ru": "персики",
+     "translit": "бжос-КФИ-нье",
+     "grammar": "-ia → -ie"
+    },
+    {
+     "q": "pomarańcza → ___",
+     "answer": "pomarańcze",
+     "ru": "апельсины",
+     "translit": "по-ма-РАНЬ-чэ",
+     "grammar": "после cz → -e"
+    },
+    {
+     "q": "cebula → ___",
+     "answer": "cebule",
+     "ru": "луковицы",
+     "translit": "цэ-БУ-ле",
+     "grammar": "после l → -e"
+    },
+    {
+     "q": "jajko → ___",
+     "answer": "jajka",
+     "ru": "яйца",
+     "translit": "ЯЙ-ка",
+     "grammar": "ср. р. → -a"
+    },
+    {
+     "q": "warzywo → ___",
+     "answer": "warzywa",
+     "ru": "овощи",
+     "translit": "ва-ЖЫ-ва",
+     "grammar": "ср. р. → -a"
+    },
+    {
+     "q": "jabłko → ___",
+     "answer": "jabłka",
+     "ru": "яблоки",
+     "translit": "ЯП-ка",
+     "grammar": "ср. р. → -a"
+    },
+    {
+     "q": "winogrono → ___",
+     "answer": "winogrona",
+     "ru": "виноград",
+     "translit": "ви-но-ГРО-на",
+     "grammar": "ср. р. → -a"
+    },
+    {
+     "q": "piwo → ___",
+     "answer": "piwa",
+     "ru": "пива (бутылки пива)",
+     "translit": "ПИ-ва",
+     "grammar": "ср. р. → -a"
+    },
+    {
+     "q": "wino → ___",
+     "answer": "wina",
+     "ru": "вина",
+     "translit": "ВИ-на",
+     "grammar": "ср. р. → -a"
+    },
+    {
+     "q": "dojrzały banan → ___",
+     "answer": "dojrzałe banany",
+     "ru": "спелые бананы",
+     "translit": "дой-ЖА-ўэ ба-НА-ны",
+     "grammar": "прил. мн. ч. → -e"
+    },
+    {
+     "q": "żółta papryka → ___",
+     "answer": "żółte papryki",
+     "ru": "жёлтые перцы",
+     "translit": "ЖУЎ-тэ па-ПРЫ-ки",
+     "grammar": "прил. -e, сущ. после k -i"
+    },
+    {
+     "q": "słodkie winogrono → ___",
+     "answer": "słodkie winogrona",
+     "ru": "сладкий виноград",
+     "translit": "СЎОТ-ке ви-но-ГРО-на",
+     "grammar": "прил. -e (после k → -ie)"
+    }
+   ]
+  },
+  {
+   "id": "tb-9-c1-1",
+   "src": "tb",
+   "ref": "C · Ćw. 1, s. 61 (1/2)",
+   "title": "Transformacja: l. poj. → l. mn.",
+   "title_ru": "Какое окончание во мн. ч.?",
+   "task_ru": "Выбери окончание мн. ч.: -y, -i, -e или -a. (После k, g → -i; после sz, cz, c, ż, rz, dż, ś, ć, ź, ń, l, j → -e; ср. р. → -a.)",
+   "type": "match",
+   "items": [
+    {
+     "q": "gruszka",
+     "answer": "-i",
+     "ru": "груша",
+     "full_pl": "gruszki"
+    },
+    {
+     "q": "pomidor",
+     "answer": "-y",
+     "ru": "помидор",
+     "full_pl": "pomidory"
+    },
+    {
+     "q": "ziemniak",
+     "answer": "-i",
+     "ru": "картофелина",
+     "full_pl": "ziemniaki"
+    },
+    {
+     "q": "warzywo",
+     "answer": "-a",
+     "ru": "овощ",
+     "full_pl": "warzywa"
+    },
+    {
+     "q": "melon",
+     "answer": "-y",
+     "ru": "дыня",
+     "full_pl": "melony"
+    },
+    {
+     "q": "cebula",
+     "answer": "-e",
+     "ru": "лук",
+     "full_pl": "cebule"
+    },
+    {
+     "q": "pomarańcza",
+     "answer": "-e",
+     "ru": "апельсин",
+     "full_pl": "pomarańcze"
+    },
+    {
+     "q": "wiśnia",
+     "answer": "-e",
+     "ru": "вишня",
+     "full_pl": "wiśnie"
+    },
+    {
+     "q": "ogórek",
+     "answer": "-i",
+     "ru": "огурец",
+     "full_pl": "ogórki",
+     "grammar": "e выпадает: ogórek → ogórki"
+    },
+    {
+     "q": "sałata",
+     "answer": "-y",
+     "ru": "салат (листья)",
+     "full_pl": "sałaty"
+    },
+    {
+     "q": "masło",
+     "answer": "-a",
+     "ru": "масло",
+     "full_pl": "masła"
+    },
+    {
+     "q": "pieczarka",
+     "answer": "-i",
+     "ru": "шампиньон",
+     "full_pl": "pieczarki"
+    },
+    {
+     "q": "grzyb",
+     "answer": "-y",
+     "ru": "гриб",
+     "full_pl": "grzyby"
+    }
+   ],
+   "options": [
+    "-y",
+    "-i",
+    "-e",
+    "-a"
+   ]
+  },
+  {
+   "id": "tb-9-c1-2",
+   "src": "tb",
+   "ref": "C · Ćw. 1, s. 61 (2/2)",
+   "title": "Transformacja: l. poj. → l. mn.",
+   "title_ru": "Какое окончание во мн. ч.?",
+   "task_ru": "Выбери окончание мн. ч.: -y, -i, -e или -a. (После k, g → -i; после sz, cz, c, ż, rz, dż, ś, ć, ź, ń, l, j → -e; ср. р. → -a.)",
+   "type": "match",
+   "items": [
+    {
+     "q": "pieróg",
+     "answer": "-i",
+     "ru": "вареник",
+     "full_pl": "pierogi",
+     "grammar": "ó → o: pieróg → pierogi"
+    },
+    {
+     "q": "śledź",
+     "answer": "-e",
+     "ru": "сельдь",
+     "full_pl": "śledzie"
+    },
+    {
+     "q": "olej",
+     "answer": "-e",
+     "ru": "растительное масло",
+     "full_pl": "oleje"
+    },
+    {
+     "q": "łosoś",
+     "answer": "-e",
+     "ru": "лосось",
+     "full_pl": "łososie"
+    },
+    {
+     "q": "chleb",
+     "answer": "-y",
+     "ru": "хлеб",
+     "full_pl": "chleby"
+    },
+    {
+     "q": "węgorz",
+     "answer": "-e",
+     "ru": "угорь",
+     "full_pl": "węgorze"
+    },
+    {
+     "q": "dorsz",
+     "answer": "-e",
+     "ru": "треска",
+     "full_pl": "dorsze"
+    },
+    {
+     "q": "ser",
+     "answer": "-y",
+     "ru": "сыр",
+     "full_pl": "sery"
+    },
+    {
+     "q": "lód",
+     "answer": "-y",
+     "ru": "лёд",
+     "full_pl": "lody",
+     "grammar": "ó → o: lód → lody"
+    },
+    {
+     "q": "ciastko",
+     "answer": "-a",
+     "ru": "пирожное",
+     "full_pl": "ciastka"
+    },
+    {
+     "q": "pstrąg",
+     "answer": "-i",
+     "ru": "форель",
+     "full_pl": "pstrągi",
+     "grammar": "после g → -i"
+    },
+    {
+     "q": "kukurydza",
+     "answer": "-e",
+     "ru": "кукуруза",
+     "full_pl": "kukurydze"
+    },
+    {
+     "q": "fasola",
+     "answer": "-e",
+     "ru": "фасоль",
+     "full_pl": "fasole"
+    }
+   ],
+   "options": [
+    "-y",
+    "-i",
+    "-e",
+    "-a"
+   ]
+  },
+  {
+   "id": "tb-9-c2",
+   "src": "tb",
+   "ref": "C · Lista zakupów + Ćw. 2, s. 62",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Список покупок: мн. ч.",
+   "task_ru": "После 2, 3, 4 — именительный мн. ч.: прил. -e, сущ. -y / -i / -e / -a.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "2 ___ (jasny chleb)",
+     "answer": "jasne chleby",
+     "ru": "2 белых хлеба",
+     "translit": "ЯС-нэ ХЛЭ-бы"
+    },
+    {
+     "q": "4 ___ (ciemna bułka)",
+     "answer": "ciemne bułki",
+     "ru": "4 тёмные булочки",
+     "translit": "ЧЕМ-нэ БУЎ-ки"
+    },
+    {
+     "q": "2 ___ (świeże masło)",
+     "answer": "świeże masła",
+     "ru": "2 свежих масла (пачки)",
+     "translit": "ШЬВЕ-жэ МАС-ўа"
+    },
+    {
+     "q": "3 ___ (zielony ogórek)",
+     "answer": "zielone ogórki",
+     "ru": "3 зелёных огурца",
+     "translit": "же-ЛЁ-нэ о-ГУР-ки"
+    },
+    {
+     "q": "4 ___ (duży pomidor)",
+     "answer": "duże pomidory",
+     "ru": "4 больших помидора",
+     "translit": "ДУ-жэ по-ми-ДО-ры"
+    },
+    {
+     "q": "2 ___ (jogurt naturalny)",
+     "answer": "jogurty naturalne",
+     "ru": "2 натуральных йогурта",
+     "translit": "ё-ГУР-ты на-ту-РАЛЬ-нэ"
+    },
+    {
+     "q": "2 ___ (sok pomarańczowy)",
+     "answer": "soki pomarańczowe",
+     "ru": "2 апельсиновых сока",
+     "translit": "СО-ки по-ма-рань-ЧО-вэ"
+    },
+    {
+     "q": "2 ___ (ciemne piwo)",
+     "answer": "ciemne piwa",
+     "ru": "2 тёмных пива",
+     "translit": "ЧЕМ-нэ ПИ-ва"
+    },
+    {
+     "q": "4 ___ (woda mineralna)",
+     "answer": "wody mineralne",
+     "ru": "4 минеральные воды",
+     "translit": "ВО-ды ми-нэ-РАЛЬ-нэ"
+    },
+    {
+     "q": "2 ___ (średnia cytryna)",
+     "answer": "średnie cytryny",
+     "ru": "2 средних лимона",
+     "translit": "ШРЭД-не цы-ТРЫ-ны"
+    },
+    {
+     "q": "3 ___ (czerwona papryka)",
+     "answer": "czerwone papryki",
+     "ru": "3 красных перца",
+     "translit": "чэр-ВО-нэ па-ПРЫ-ки"
+    }
+   ]
+  },
+  {
+   "id": "tb-9-d1",
+   "src": "tb",
+   "ref": "D · Ćw. 1, s. 62",
+   "title": "Prawda czy nieprawda?",
+   "title_ru": "Правда или нет? (готовка)",
+   "task_ru": "Послушай диалог (аудио выше; текст — в ćw. 2). Правда (P) или неправда (N)?",
+   "type": "tf",
+   "items": [
+    {
+     "q": "Mami robi sos do spaghetti.",
+     "answer": "nieprawda",
+     "ru": "Мами делает соус к спагетти.",
+     "full_pl": "Mami gotuje zupę jarzynową, a Angela robi sos."
+    },
+    {
+     "q": "Karolina bardzo lubi duszoną cebulę.",
+     "answer": "prawda",
+     "ru": "Каролина очень любит тушёный лук.",
+     "full_pl": "Karolina: «Uwielbiam duszoną cebulę!»"
+    },
+    {
+     "q": "Mięso smażone jest zdrowsze niż gotowane.",
+     "answer": "nieprawda",
+     "ru": "Жареное мясо полезнее варёного.",
+     "full_pl": "Duszone mięso jest zdrowsze niż smażone."
+    },
+    {
+     "q": "Mami lubi gotowane ryby.",
+     "answer": "prawda",
+     "ru": "Мами любит варёную рыбу.",
+     "full_pl": "Mami: «A ja lubię gotowane ryby…»"
+    },
+    {
+     "q": "Karolina woli gotowanego kurczaka niż pieczonego.",
+     "answer": "nieprawda",
+     "ru": "Каролина предпочитает варёную курицу запечённой.",
+     "full_pl": "«Niestety, mama mówi, że gotowany kurczak jest zdrowszy» — Karolina woli pieczonego."
+    },
+    {
+     "q": "Angela lubi wędzone ryby.",
+     "answer": "prawda",
+     "ru": "Анджела любит копчёную рыбу.",
+     "full_pl": "Angela: «Ja wolę wędzone albo pieczone ryby.»"
+    }
+   ],
+   "audio": "109d1.mp3"
+  },
+  {
+   "id": "tb-9-d2",
+   "src": "tb",
+   "ref": "D · Ćw. 2, s. 62",
+   "title": "Proszę uzupełnić tekst.",
+   "title_ru": "Что готовят? (падежи)",
+   "task_ru": "Поставь слово в нужную форму: после gotuję / lubię / wolę — винительный, после z — творительный.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Ja gotuję ___ (zupa jarzynowa).",
+     "answer": "zupę jarzynową",
+     "ru": "Я варю овощной суп.",
+     "grammar": "винительный, ж. р."
+    },
+    {
+     "q": "Cebula ze ___ (świeża bazylia)…",
+     "answer": "świeżą bazylią",
+     "ru": "Лук со свежим базиликом…",
+     "grammar": "z(e) + творительный"
+    },
+    {
+     "q": "…oregano, z ___ (czosnek)…",
+     "answer": "czosnkiem",
+     "ru": "…орегано, с чесноком…",
+     "grammar": "czosnek → czosnkiem (e выпадает)"
+    },
+    {
+     "q": "…cebula jest smażona z ___ (oliwa) na patelni.",
+     "answer": "oliwą",
+     "ru": "…лук жарится на оливковом масле на сковороде.",
+     "grammar": "творительный, ж. р."
+    },
+    {
+     "q": "Wasz sos to ___ (duszona cebula).",
+     "answer": "duszona cebula",
+     "ru": "Ваш соус — это тушёный лук.",
+     "grammar": "«to» + именительный"
+    },
+    {
+     "q": "A ja lubię ___ (gotowana ryba — l. mn.)…",
+     "answer": "gotowane ryby",
+     "ru": "А я люблю варёную рыбу…",
+     "grammar": "винительный мн. ч. = именительный: -e, -y"
+    },
+    {
+     "q": "…i ___ (zupa rybna).",
+     "answer": "zupę rybną",
+     "ru": "…и рыбный суп.",
+     "grammar": "винительный, ж. р."
+    },
+    {
+     "q": "Ja wolę ___ (wędzona — l. mn.)…",
+     "answer": "wędzone",
+     "ru": "Я предпочитаю копчёную…",
+     "grammar": "мн. ч. прил. -e"
+    },
+    {
+     "q": "…albo ___ (pieczona ryba — l. mn.).",
+     "answer": "pieczone ryby",
+     "ru": "…или запечённую рыбу.",
+     "grammar": "мн. ч.: -e, -y"
+    }
+   ],
+   "audio": "109d1.mp3"
+  },
+  {
+   "id": "tb-9-e2a-1",
+   "src": "tb",
+   "ref": "E · Ćw. 2a, s. 63 (1/2)",
+   "title": "Proszę pogrupować produkty.",
+   "title_ru": "Отделы магазина (1)",
+   "task_ru": "В какой отдел: молочное, напитки, сладости, фрукты и овощи, алкоголь?",
+   "type": "match",
+   "items": [
+    {
+     "q": "mleko",
+     "answer": "nabiał",
+     "ru": "молоко"
+    },
+    {
+     "q": "sok",
+     "answer": "napoje",
+     "ru": "сок"
+    },
+    {
+     "q": "jabłka",
+     "answer": "owoce i warzywa",
+     "ru": "яблоки"
+    },
+    {
+     "q": "ser żółty",
+     "answer": "nabiał",
+     "ru": "жёлтый сыр"
+    },
+    {
+     "q": "wino",
+     "answer": "alkohole",
+     "ru": "вино"
+    },
+    {
+     "q": "czekolada",
+     "answer": "słodycze",
+     "ru": "шоколад"
+    },
+    {
+     "q": "jogurt",
+     "answer": "nabiał",
+     "ru": "йогурт"
+    },
+    {
+     "q": "ogórki",
+     "answer": "owoce i warzywa",
+     "ru": "огурцы"
+    },
+    {
+     "q": "woda mineralna",
+     "answer": "napoje",
+     "ru": "минеральная вода"
+    },
+    {
+     "q": "pomidory",
+     "answer": "owoce i warzywa",
+     "ru": "помидоры"
+    },
+    {
+     "q": "ser biały",
+     "answer": "nabiał",
+     "ru": "творог"
+    }
+   ],
+   "options": [
+    "nabiał",
+    "napoje",
+    "słodycze",
+    "owoce i warzywa",
+    "alkohole"
+   ]
+  },
+  {
+   "id": "tb-9-e2a-2",
+   "src": "tb",
+   "ref": "E · Ćw. 2a, s. 63 (2/2)",
+   "title": "Proszę pogrupować produkty.",
+   "title_ru": "Отделы магазина (1)",
+   "task_ru": "В какой отдел: молочное, напитки, сладости, фрукты и овощи, алкоголь?",
+   "type": "match",
+   "items": [
+    {
+     "q": "cytryny",
+     "answer": "owoce i warzywa",
+     "ru": "лимоны"
+    },
+    {
+     "q": "coca-cola",
+     "answer": "napoje",
+     "ru": "кока-кола"
+    },
+    {
+     "q": "wódka",
+     "answer": "alkohole",
+     "ru": "водка"
+    },
+    {
+     "q": "śmietana",
+     "answer": "nabiał",
+     "ru": "сметана"
+    },
+    {
+     "q": "banany",
+     "answer": "owoce i warzywa",
+     "ru": "бананы"
+    },
+    {
+     "q": "ciastka",
+     "answer": "słodycze",
+     "ru": "печенье"
+    },
+    {
+     "q": "cukierki",
+     "answer": "słodycze",
+     "ru": "конфеты"
+    },
+    {
+     "q": "piwo",
+     "answer": "alkohole",
+     "ru": "пиво"
+    },
+    {
+     "q": "ziemniaki",
+     "answer": "owoce i warzywa",
+     "ru": "картошка"
+    },
+    {
+     "q": "masło",
+     "answer": "nabiał",
+     "ru": "масло"
+    }
+   ],
+   "options": [
+    "nabiał",
+    "napoje",
+    "słodycze",
+    "owoce i warzywa",
+    "alkohole"
+   ]
+  },
+  {
+   "id": "tb-9-e2b-1",
+   "src": "tb",
+   "ref": "E · Ćw. 2b, s. 63 (1/2)",
+   "title": "Proszę pogrupować produkty.",
+   "title_ru": "Отделы магазина (2)",
+   "task_ru": "В какой отдел: рыба, мясо и колбасы, заморозка, хлеб, крупы и макароны?",
+   "type": "match",
+   "items": [
+    {
+     "q": "makaron",
+     "answer": "produkty zbożowe",
+     "ru": "макароны"
+    },
+    {
+     "q": "szynka",
+     "answer": "mięso i wędliny",
+     "ru": "ветчина"
+    },
+    {
+     "q": "chleb",
+     "answer": "pieczywo",
+     "ru": "хлеб"
+    },
+    {
+     "q": "ryż",
+     "answer": "produkty zbożowe",
+     "ru": "рис"
+    },
+    {
+     "q": "bułki",
+     "answer": "pieczywo",
+     "ru": "булочки"
+    },
+    {
+     "q": "kurczak",
+     "answer": "mięso i wędliny",
+     "ru": "курица"
+    },
+    {
+     "q": "kiełbasa",
+     "answer": "mięso i wędliny",
+     "ru": "колбаса"
+    },
+    {
+     "q": "makrela",
+     "answer": "ryby",
+     "ru": "скумбрия"
+    },
+    {
+     "q": "mrożone truskawki",
+     "answer": "mrożonki",
+     "ru": "замороженная клубника"
+    },
+    {
+     "q": "pstrąg",
+     "answer": "ryby",
+     "ru": "форель"
+    }
+   ],
+   "options": [
+    "ryby",
+    "mięso i wędliny",
+    "mrożonki",
+    "pieczywo",
+    "produkty zbożowe"
+   ]
+  },
+  {
+   "id": "tb-9-e2b-2",
+   "src": "tb",
+   "ref": "E · Ćw. 2b, s. 63 (2/2)",
+   "title": "Proszę pogrupować produkty.",
+   "title_ru": "Отделы магазина (2)",
+   "task_ru": "В какой отдел: рыба, мясо и колбасы, заморозка, хлеб, крупы и макароны?",
+   "type": "match",
+   "items": [
+    {
+     "q": "płatki kukurydziane",
+     "answer": "produkty zbożowe",
+     "ru": "кукурузные хлопья"
+    },
+    {
+     "q": "łosoś",
+     "answer": "ryby",
+     "ru": "лосось"
+    },
+    {
+     "q": "dorsz",
+     "answer": "ryby",
+     "ru": "треска"
+    },
+    {
+     "q": "frytki",
+     "answer": "mrożonki",
+     "ru": "картофель фри (замороженный)"
+    },
+    {
+     "q": "śledzie",
+     "answer": "ryby",
+     "ru": "сельдь"
+    },
+    {
+     "q": "kasza",
+     "answer": "produkty zbożowe",
+     "ru": "крупа"
+    },
+    {
+     "q": "drożdżówka",
+     "answer": "pieczywo",
+     "ru": "сдобная булочка"
+    },
+    {
+     "q": "węgorz",
+     "answer": "ryby",
+     "ru": "угорь"
+    },
+    {
+     "q": "mrożone pierogi",
+     "answer": "mrożonki",
+     "ru": "замороженные вареники"
+    }
+   ],
+   "options": [
+    "ryby",
+    "mięso i wędliny",
+    "mrożonki",
+    "pieczywo",
+    "produkty zbożowe"
+   ]
+  },
+  {
+   "id": "tb-9-f1",
+   "src": "tb",
+   "ref": "F · Powtórzenie, s. 63",
+   "title": "Co to jest? Jaka zupa? Jaki sok?",
+   "title_ru": "Какой суп? Какой сок?",
+   "task_ru": "Напиши продукт и прилагательное через запятую: «1 pomidory, pomidorowa». Прил.: zupa → -owa, sok → -owy.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "🍅 → zupa ___",
+     "answer": "pomidory, pomidorowa",
+     "ru": "помидоры → томатный суп",
+     "full_pl": "pomidory — zupa pomidorowa",
+     "accepted": [
+      "pomidor, pomidorowa"
+     ]
+    },
+    {
+     "q": "🫘 → zupa ___",
+     "answer": "fasola, fasolowa",
+     "ru": "фасоль → фасолевый суп",
+     "full_pl": "fasola — zupa fasolowa"
+    },
+    {
+     "q": "🍄 (лесные грибы) → zupa ___",
+     "answer": "grzyby, grzybowa",
+     "ru": "грибы → грибной суп",
+     "full_pl": "grzyby — zupa grzybowa",
+     "accepted": [
+      "grzyb, grzybowa"
+     ]
+    },
+    {
+     "q": "🍄 (шампиньоны) → zupa ___",
+     "answer": "pieczarki, pieczarkowa",
+     "ru": "шампиньоны → суп из шампиньонов",
+     "full_pl": "pieczarki — zupa pieczarkowa",
+     "accepted": [
+      "pieczarka, pieczarkowa"
+     ]
+    },
+    {
+     "q": "⚪ цветная капуста → zupa ___",
+     "answer": "kalafior, kalafiorowa",
+     "ru": "цветная капуста → суп из цветной капусты",
+     "full_pl": "kalafior — zupa kalafiorowa"
+    },
+    {
+     "q": "🥦 → zupa ___",
+     "answer": "brokuły, brokułowa",
+     "ru": "брокколи → суп из брокколи",
+     "full_pl": "brokuły — zupa brokułowa"
+    },
+    {
+     "q": "🧅 → zupa ___",
+     "answer": "cebula, cebulowa",
+     "ru": "лук → луковый суп",
+     "full_pl": "cebula — zupa cebulowa"
+    },
+    {
+     "q": "🍊 → sok ___",
+     "answer": "pomarańcza, pomarańczowy",
+     "ru": "апельсин → апельсиновый сок",
+     "full_pl": "pomarańcza — sok pomarańczowy",
+     "accepted": [
+      "pomarańcze, pomarańczowy"
+     ]
+    },
+    {
+     "q": "🍏 → sok ___",
+     "answer": "jabłko, jabłkowy",
+     "ru": "яблоко → яблочный сок",
+     "full_pl": "jabłko — sok jabłkowy",
+     "accepted": [
+      "jabłka, jabłkowy"
+     ]
+    },
+    {
+     "q": "🍓 (малина) → sok ___",
+     "answer": "maliny, malinowy",
+     "ru": "малина → малиновый сок",
+     "full_pl": "maliny — sok malinowy",
+     "accepted": [
+      "malina, malinowy"
+     ]
+    },
+    {
+     "q": "🍋 → sok ___",
+     "answer": "cytryna, cytrynowy",
+     "ru": "лимон → лимонный сок",
+     "full_pl": "cytryna — sok cytrynowy"
+    },
+    {
+     "q": "🍍 → sok ___",
+     "answer": "ananas, ananasowy",
+     "ru": "ананас → ананасовый сок",
+     "full_pl": "ananas — sok ananasowy"
+    },
+    {
+     "q": "🍑 → sok ___",
+     "answer": "brzoskwinia, brzoskwiniowy",
+     "ru": "персик → персиковый сок",
+     "full_pl": "brzoskwinia — sok brzoskwiniowy",
+     "accepted": [
+      "brzoskwinie, brzoskwiniowy"
+     ]
+    },
+    {
+     "q": "🍇 → sok ___",
+     "answer": "winogrona, winogronowy",
+     "ru": "виноград → виноградный сок",
+     "full_pl": "winogrona — sok winogronowy"
+    },
+    {
+     "q": "🍒 → sok ___",
+     "answer": "wiśnie, wiśniowy",
+     "ru": "вишня → вишнёвый сок",
+     "full_pl": "wiśnie — sok wiśniowy",
+     "accepted": [
+      "wiśnia, wiśniowy"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-9-1",
+   "src": "wb",
+   "ref": "Ćw. 1, s. 34",
+   "title": "Co to jest? Proszę uporządkować litery.",
+   "title_ru": "Собери слово из букв",
+   "task_ru": "Переставь буквы: «1 ziemniak 2 ananas …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "m n i a k z i e",
+     "answer": "ziemniak",
+     "ru": "картофелина",
+     "translit": "ЖЕМ-няк"
+    },
+    {
+     "q": "a s a n a n",
+     "answer": "ananas",
+     "ru": "ананас",
+     "translit": "А-на-нас"
+    },
+    {
+     "q": "r a p o m a ń c z a",
+     "answer": "pomarańcza",
+     "ru": "апельсин",
+     "translit": "по-ма-РАНЬ-ча"
+    },
+    {
+     "q": "f i o r l a k a",
+     "answer": "kalafior",
+     "ru": "цветная капуста",
+     "translit": "ка-ЛЯ-фьор"
+    },
+    {
+     "q": "n a n b a",
+     "answer": "banan",
+     "ru": "банан",
+     "translit": "БА-нан"
+    },
+    {
+     "q": "t r y c y n a",
+     "answer": "cytryna",
+     "ru": "лимон",
+     "translit": "цы-ТРЫ-на"
+    },
+    {
+     "q": "l i m a n a",
+     "answer": "malina",
+     "ru": "малина",
+     "translit": "ма-ЛИ-на"
+    },
+    {
+     "q": "d o r m i p o",
+     "answer": "pomidor",
+     "ru": "помидор",
+     "translit": "по-МИ-дор"
+    },
+    {
+     "q": "ł a s a t a",
+     "answer": "sałata",
+     "ru": "салат (листья)",
+     "translit": "са-ЎА-та"
+    },
+    {
+     "q": "p r y k a p a",
+     "answer": "papryka",
+     "ru": "перец",
+     "translit": "па-ПРЫ-ка"
+    },
+    {
+     "q": "k a s t a p u",
+     "answer": "kapusta",
+     "ru": "капуста",
+     "translit": "ка-ПУС-та"
+    },
+    {
+     "q": "s o l a f a",
+     "answer": "fasola",
+     "ru": "фасоль",
+     "translit": "фа-СО-ля"
+    }
+   ]
+  },
+  {
+   "id": "wb-9-2",
+   "src": "wb",
+   "ref": "Ćw. 2, s. 34",
+   "title": "Owoc czy warzywo?",
+   "title_ru": "Фрукт или овощ?",
+   "task_ru": "Выбери: owoc или warzywo.",
+   "type": "match",
+   "items": [
+    {
+     "q": "malina",
+     "answer": "owoc",
+     "ru": "малина"
+    },
+    {
+     "q": "marchewka",
+     "answer": "warzywo",
+     "ru": "морковь"
+    },
+    {
+     "q": "wiśnia",
+     "answer": "owoc",
+     "ru": "вишня"
+    },
+    {
+     "q": "pietruszka",
+     "answer": "warzywo",
+     "ru": "петрушка"
+    },
+    {
+     "q": "gruszka",
+     "answer": "owoc",
+     "ru": "груша"
+    },
+    {
+     "q": "cebula",
+     "answer": "warzywo",
+     "ru": "лук"
+    },
+    {
+     "q": "winogrona",
+     "answer": "owoc",
+     "ru": "виноград"
+    },
+    {
+     "q": "kapusta",
+     "answer": "warzywo",
+     "ru": "капуста"
+    },
+    {
+     "q": "seler",
+     "answer": "warzywo",
+     "ru": "сельдерей"
+    },
+    {
+     "q": "śliwka",
+     "answer": "owoc",
+     "ru": "слива"
+    },
+    {
+     "q": "kalafior",
+     "answer": "warzywo",
+     "ru": "цветная капуста"
+    },
+    {
+     "q": "jagody",
+     "answer": "owoc",
+     "ru": "черника"
+    },
+    {
+     "q": "czosnek",
+     "answer": "warzywo",
+     "ru": "чеснок"
+    },
+    {
+     "q": "brzoskwinia",
+     "answer": "owoc",
+     "ru": "персик"
+    },
+    {
+     "q": "truskawka",
+     "answer": "owoc",
+     "ru": "клубника"
+    }
+   ],
+   "options": [
+    "owoc",
+    "warzywo"
+   ]
+  },
+  {
+   "id": "wb-9-3",
+   "src": "wb",
+   "ref": "Ćw. 3, s. 34",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Салат «Гирос» (творительный)",
+   "task_ru": "Диалог Дитмара и Госи. После z — творительный.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Czy to ta z ___ (ser) feta?",
+     "answer": "serem",
+     "ru": "Это тот, что с сыром фета?",
+     "grammar": "ser → serem"
+    },
+    {
+     "q": "Ta jest z ___ (kapusta pekińska)…",
+     "answer": "kapustą pekińską",
+     "ru": "Этот — с пекинской капустой…",
+     "grammar": "ж. р.: -ą, -ą"
+    },
+    {
+     "q": "…___ (kurczak)…",
+     "answer": "kurczakiem",
+     "ru": "…курицей…",
+     "grammar": "м. р. -iem после k"
+    },
+    {
+     "q": "…___ (cebula)…",
+     "answer": "cebulą",
+     "ru": "…луком…",
+     "grammar": "ж. р. -ą"
+    },
+    {
+     "q": "…___ (ogórek konserwowy — l. mn.)…",
+     "answer": "ogórkami konserwowymi",
+     "ru": "…маринованными огурцами…",
+     "grammar": "мн. ч.: сущ. -ami, прил. -ymi"
+    },
+    {
+     "q": "…i z ___ (kukurydza).",
+     "answer": "kukurydzą",
+     "ru": "…и с кукурузой.",
+     "grammar": "ж. р. -ą"
+    },
+    {
+     "q": "Czy to się je z ___ (sos) czy bez?",
+     "answer": "sosem",
+     "ru": "Его едят с соусом или без?",
+     "grammar": "sos → sosem"
+    },
+    {
+     "q": "Z ___ (keczup)…",
+     "answer": "keczupem",
+     "ru": "С кетчупом…",
+     "grammar": "м. р. -em"
+    },
+    {
+     "q": "…i z ___ (majonez).",
+     "answer": "majonezem",
+     "ru": "…и с майонезом.",
+     "grammar": "м. р. -em"
+    }
+   ]
+  },
+  {
+   "id": "wb-9-4",
+   "src": "wb",
+   "ref": "Ćw. 4, s. 35",
+   "title": "Jaki to smak? Jaki to kształt?",
+   "title_ru": "Вкус и форма",
+   "task_ru": "Напиши вкус или форму: «1 ostry 2 słodki …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "___ jak chili",
+     "answer": "ostry",
+     "ru": "острый как чили",
+     "translit": "ОС-тры"
+    },
+    {
+     "q": "___ jak cukier",
+     "answer": "słodki",
+     "ru": "сладкий как сахар",
+     "translit": "СЎОТ-ки"
+    },
+    {
+     "q": "___ jak sól",
+     "answer": "słony",
+     "ru": "солёный как соль",
+     "translit": "СЎО-ны"
+    },
+    {
+     "q": "___ jak kawa bez cukru",
+     "answer": "gorzki",
+     "ru": "горький как кофе без сахара",
+     "translit": "ГОЖ-ки"
+    },
+    {
+     "q": "⬭ _ w _ _ _ _ (форма)",
+     "answer": "owalny",
+     "ru": "овальный",
+     "translit": "о-ВАЛЬ-ны"
+    },
+    {
+     "q": "⚪ o _ _ _ _ _ _ (форма)",
+     "answer": "okrągły",
+     "ru": "круглый",
+     "translit": "о-КРОНГ-ўы"
+    },
+    {
+     "q": "▭ p _ _ _ _ ż _ _ (форма)",
+     "answer": "podłużny",
+     "ru": "продолговатый",
+     "translit": "по-ДЎУЖ-ны"
+    }
+   ]
+  },
+  {
+   "id": "wb-9-6",
+   "src": "wb",
+   "ref": "Ćw. 6, s. 35",
+   "title": "Kto co mówi? Proszę pogrupować.",
+   "title_ru": "Кто это говорит?",
+   "task_ru": "Продавец (sprzedawca) или покупатель (klient)?",
+   "type": "match",
+   "items": [
+    {
+     "q": "„Czy są kiszone ogórki?”",
+     "answer": "klient",
+     "ru": "Есть солёные огурцы?"
+    },
+    {
+     "q": "„22 złote 53 grosze.”",
+     "answer": "sprzedawca",
+     "ru": "22 злотых 53 гроша."
+    },
+    {
+     "q": "„Poproszę trzy bułki.”",
+     "answer": "klient",
+     "ru": "Дайте, пожалуйста, три булочки."
+    },
+    {
+     "q": "„Czy ma pan / pani drobne?”",
+     "answer": "sprzedawca",
+     "ru": "У вас есть мелочь?"
+    },
+    {
+     "q": "„Proszę bardzo, co jeszcze?”",
+     "answer": "sprzedawca",
+     "ru": "Пожалуйста, что ещё?"
+    },
+    {
+     "q": "„To wszystko.”",
+     "answer": "klient",
+     "ru": "Это всё."
+    },
+    {
+     "q": "„Ile?”",
+     "answer": "sprzedawca",
+     "ru": "Сколько?",
+     "accepted": [
+      "klient"
+     ]
+    },
+    {
+     "q": "„Dobrze, proszę pół kilo.”",
+     "answer": "klient",
+     "ru": "Хорошо, полкило, пожалуйста."
+    },
+    {
+     "q": "„Może jeszcze wodę mineralną?”",
+     "answer": "sprzedawca",
+     "ru": "Может, ещё минеральной воды?",
+     "accepted": [
+      "klient"
+     ]
+    }
+   ],
+   "options": [
+    "sprzedawca",
+    "klient"
+   ]
+  },
+  {
+   "id": "wb-9-7",
+   "src": "wb",
+   "ref": "Ćw. 7, s. 36",
+   "title": "Proszę uzupełnić dialog.",
+   "title_ru": "В магазине (слова из рамки)",
+   "task_ru": "Диалог Паулины и продавщицы. Выбери слово из рамки.",
+   "type": "match",
+   "items": [
+    {
+     "q": "Niestety, nie ma, ale mamy bardzo ___ truskawki.",
+     "answer": "smaczne",
+     "ru": "К сожалению, нет, но у нас очень вкусная клубника."
+    },
+    {
+     "q": "15 złotych ___.",
+     "answer": "kilogram",
+     "ru": "15 злотых килограмм."
+    },
+    {
+     "q": "Może być trochę ___?",
+     "answer": "więcej",
+     "ru": "Может быть чуть больше?"
+    },
+    {
+     "q": "Poproszę ___ duży jogurt naturalny.",
+     "answer": "jeszcze",
+     "ru": "Дайте ещё большой натуральный йогурт."
+    },
+    {
+     "q": "Proszę bardzo, czy to ___?",
+     "answer": "wszystko",
+     "ru": "Пожалуйста, это всё?"
+    },
+    {
+     "q": "11 złotych, 52 grosze. Czy ma pani ___?",
+     "answer": "drobne",
+     "ru": "11 злотых 52 гроша. У вас есть мелочь?"
+    }
+   ],
+   "options": [
+    "drobne",
+    "smaczne",
+    "wszystko",
+    "kilogram",
+    "jeszcze",
+    "więcej"
+   ]
+  },
+  {
+   "id": "wb-9-8",
+   "src": "wb",
+   "ref": "Ćw. 8, s. 36",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "2, 3, 4 + мн. ч.",
+   "task_ru": "Напиши форму мн. ч.: «1 miody 2 banany …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "miód — 2 ___",
+     "answer": "miody",
+     "ru": "2 мёда (банки)",
+     "translit": "МЁ-ды",
+     "grammar": "ó → o"
+    },
+    {
+     "q": "banan — 3 ___",
+     "answer": "banany",
+     "ru": "3 банана",
+     "translit": "ба-НА-ны"
+    },
+    {
+     "q": "mała bułka — 4 ___",
+     "answer": "małe bułki",
+     "ru": "4 маленькие булочки",
+     "translit": "МА-ўэ БУЎ-ки"
+    },
+    {
+     "q": "duża kapusta — 2 ___",
+     "answer": "duże kapusty",
+     "ru": "2 большие капусты",
+     "translit": "ДУ-жэ ка-ПУС-ты"
+    },
+    {
+     "q": "mocna kawa — 3 ___",
+     "answer": "mocne kawy",
+     "ru": "3 крепких кофе",
+     "translit": "МОЦ-нэ КА-вы"
+    },
+    {
+     "q": "wytrawne wino — 4 ___",
+     "answer": "wytrawne wina",
+     "ru": "4 сухих вина",
+     "translit": "вы-ТРАВ-нэ ВИ-на"
+    },
+    {
+     "q": "jogurt malinowy — 3 ___",
+     "answer": "jogurty malinowe",
+     "ru": "3 малиновых йогурта",
+     "translit": "ё-ГУР-ты ма-ли-НО-вэ"
+    },
+    {
+     "q": "świeży ogórek — 2 ___",
+     "answer": "świeże ogórki",
+     "ru": "2 свежих огурца",
+     "translit": "ШЬВЕ-жэ о-ГУР-ки"
+    },
+    {
+     "q": "młody ziemniak — 4 ___",
+     "answer": "młode ziemniaki",
+     "ru": "4 молодые картофелины",
+     "translit": "МЎО-дэ жем-НЯ-ки"
+    }
+   ]
+  },
+  {
+   "id": "wb-9-9",
+   "src": "wb",
+   "ref": "Ćw. 9, s. 36",
+   "title": "Proszę uzupełnić. Liczba mnoga.",
+   "title_ru": "Мн. ч. в предложении",
+   "task_ru": "Именительный / винительный мн. ч. (неличные): прил. -e, сущ. -y / -i / -e / -a. Два слова — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Karolina kupuje ___ (hiszpańska pomarańcza).",
+     "answer": "hiszpańskie pomarańcze",
+     "ru": "Каролина покупает испанские апельсины."
+    },
+    {
+     "q": "Javier kupuje dwa ___ (średni arbuz).",
+     "answer": "średnie arbuzy",
+     "ru": "Хавьер покупает два средних арбуза."
+    },
+    {
+     "q": "Uwe je na śniadanie dwa ___ (gotowane jajko).",
+     "answer": "gotowane jajka",
+     "ru": "Уве ест на завтрак два варёных яйца."
+    },
+    {
+     "q": "Angela ma w torbie cztery ___ (czarny długopis).",
+     "answer": "czarne długopisy",
+     "ru": "У Анджелы в сумке четыре чёрные ручки."
+    },
+    {
+     "q": "Mami kupuje dwie ___ (duża ryba) na obiad.",
+     "answer": "duże ryby",
+     "ru": "Мами покупает на обед две большие рыбы."
+    },
+    {
+     "q": "W koszyku są dwa ___ (słodki ananas).",
+     "answer": "słodkie ananasy",
+     "ru": "В корзине два сладких ананаса."
+    },
+    {
+     "q": "Do sosu dają dwie ___ (cebula) i cztery ___ (pomidor).",
+     "answer": "cebule, pomidory",
+     "ru": "В соус кладут две луковицы и четыре помидора."
+    },
+    {
+     "q": "Uwe ma dwie ___ (komórka) i dwa ___ (komputer).",
+     "answer": "komórki, komputery",
+     "ru": "У Уве два мобильника и два компьютера."
+    },
+    {
+     "q": "Oni mają ___ (książka), ___ (zeszyt) i ___ (segregator).",
+     "answer": "książki, zeszyty, segregatory",
+     "ru": "У них есть книги, тетради и папки."
+    }
+   ]
+  },
+  {
+   "id": "wb-9-10",
+   "src": "wb",
+   "ref": "Ćw. 10, s. 36",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Что на ужин? (мн. ч. и винительный)",
+   "task_ru": "Поставь слово в нужную форму. Два слова — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Są 4 ___ (pomidor) i 2 ___ (ogórek)…",
+     "answer": "pomidory, ogórki",
+     "ru": "Есть 4 помидора и 2 огурца…"
+    },
+    {
+     "q": "…i ___ (zielona oliwka — l. mn.)…",
+     "answer": "zielone oliwki",
+     "ru": "…и зелёные оливки…"
+    },
+    {
+     "q": "…proponuję ___ (sałatka).",
+     "answer": "sałatkę",
+     "ru": "…предлагаю салат.",
+     "grammar": "винительный"
+    },
+    {
+     "q": "Świetnie, tu mam ___ (wędlina) i ___ (ser)…",
+     "answer": "wędlinę, ser",
+     "ru": "Отлично, у меня тут колбаса и сыр…"
+    },
+    {
+     "q": "…więc ja robię ___ (tost — l. mn.).",
+     "answer": "tosty",
+     "ru": "…так что я делаю тосты."
+    },
+    {
+     "q": "O, to dobrze, bo ja bardzo lubię ___ (grzanka — l. mn.).",
+     "answer": "grzanki",
+     "ru": "О, хорошо, я очень люблю гренки."
+    },
+    {
+     "q": "Mam dwa ___ (zimne piwo).",
+     "answer": "zimne piwa",
+     "ru": "У меня два холодных пива."
+    },
+    {
+     "q": "Ja wolę ___ (dobra herbata) z ___ (cytryna).",
+     "answer": "dobrą herbatę, cytryną",
+     "ru": "Я предпочитаю хороший чай с лимоном.",
+     "grammar": "винительный + z + творительный"
+    }
+   ]
+  },
+  {
+   "id": "wb-9-11",
+   "src": "wb",
+   "ref": "Ćw. 11, s. 37",
+   "title": "Co nie pasuje? Dlaczego?",
+   "title_ru": "Что лишнее?",
+   "task_ru": "Выбери лишнее слово. Уточнение «почему» — в скобках: «2b (to warzywo)».",
+   "type": "choice",
+   "items": [
+    {
+     "q": "ryż — kasza — por — makaron",
+     "answer": "por",
+     "ru": "рис — крупа — лук-порей — макароны",
+     "full_pl": "Por, bo to jest warzywo.",
+     "options": [
+      "ryż",
+      "kasza",
+      "por",
+      "makaron"
+     ]
+    },
+    {
+     "q": "salami — ser — szynka — kiełbasa",
+     "answer": "ser",
+     "ru": "салями — сыр — ветчина — колбаса",
+     "full_pl": "Ser, bo to jest nabiał, a nie wędlina.",
+     "options": [
+      "salami",
+      "ser",
+      "szynka",
+      "kiełbasa"
+     ]
+    },
+    {
+     "q": "chipsy — słone paluszki — drożdżówka — arbuz",
+     "answer": "arbuz",
+     "ru": "чипсы — солёные палочки — сдобная булочка — арбуз",
+     "full_pl": "Arbuz, bo to jest owoc.",
+     "options": [
+      "chipsy",
+      "słone paluszki",
+      "drożdżówka",
+      "arbuz"
+     ]
+    },
+    {
+     "q": "bułka — brokuły — groszek — seler",
+     "answer": "bułka",
+     "ru": "булочка — брокколи — горошек — сельдерей",
+     "full_pl": "Bułka, bo to jest pieczywo.",
+     "options": [
+      "bułka",
+      "brokuły",
+      "groszek",
+      "seler"
+     ]
+    },
+    {
+     "q": "wiśnie — jagody — wino — ananas",
+     "answer": "wino",
+     "ru": "вишни — черника — вино — ананас",
+     "full_pl": "Wino, bo to jest alkohol.",
+     "options": [
+      "wiśnie",
+      "jagody",
+      "wino",
+      "ananas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-9-12",
+   "src": "wb",
+   "ref": "Ćw. 12, s. 37",
+   "title": "Proszę uzupełnić tekst. Zakupy Mami",
+   "title_ru": "Покупки Мами",
+   "task_ru": "Поставь слово в нужную форму (мн. ч., винительный, творительный). Два слова — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "W koszyku z zakupami są ___ i ___ (owoc, warzywo).",
+     "answer": "owoce, warzywa",
+     "ru": "В корзине с покупками фрукты и овощи."
+    },
+    {
+     "q": "Są tam ___ (dojrzały czerwony pomidor — l. mn.)…",
+     "answer": "dojrzałe czerwone pomidory",
+     "ru": "Там спелые красные помидоры…"
+    },
+    {
+     "q": "…___ (zielony ogórek — l. mn.)…",
+     "answer": "zielone ogórki",
+     "ru": "…зелёные огурцы…"
+    },
+    {
+     "q": "…i trzy ___ (mała cebula).",
+     "answer": "małe cebule",
+     "ru": "…и три маленькие луковицы."
+    },
+    {
+     "q": "To są ___ (produkt) na sałatkę…",
+     "answer": "produkty",
+     "ru": "Это продукты для салата…"
+    },
+    {
+     "q": "…którą Mami planuje robić na ___ (kolacja).",
+     "answer": "kolację",
+     "ru": "…который Мами планирует сделать на ужин.",
+     "grammar": "na + винительный"
+    },
+    {
+     "q": "W koszyku są też dwa ___ (średni kalafior)…",
+     "answer": "średnie kalafiory",
+     "ru": "В корзине ещё две средние цветные капусты…"
+    },
+    {
+     "q": "…brokuły i ___ (młody ziemniak — l. mn.).",
+     "answer": "młode ziemniaki",
+     "ru": "…брокколи и молодая картошка."
+    },
+    {
+     "q": "Mami bardzo lubi ___ (owoc — l. mn.).",
+     "answer": "owoce",
+     "ru": "Мами очень любит фрукты."
+    },
+    {
+     "q": "Zwykle kupuje ___ (banan — l. mn.), ___ (pomarańcza — l. mn.), ___ (jabłko — l. mn.)…",
+     "answer": "banany, pomarańcze, jabłka",
+     "ru": "Обычно покупает бананы, апельсины, яблоки…"
+    },
+    {
+     "q": "…ale dziś ma tylko ___ (ananas) i ___ (mały arbuz).",
+     "answer": "ananasa, małego arbuza",
+     "ru": "…но сегодня у неё только ананас и маленький арбуз.",
+     "grammar": "фрукты часто как одуш.: ananasa, arbuza (можно и ananas, arbuz)",
+     "accepted": [
+      "ananas, mały arbuz",
+      "ananasa, mały arbuz",
+      "ananas, małego arbuza"
+     ]
+    },
+    {
+     "q": "Koszyk z ___ (zakupy) jest już bardzo ciężki…",
+     "answer": "zakupami",
+     "ru": "Корзина с покупками уже очень тяжёлая…",
+     "grammar": "z + творительный мн. ч."
+    },
+    {
+     "q": "…a Mami chce jeszcze kupić ___ (gruszka — l. mn.) i ___ (wędzona ryba).",
+     "answer": "gruszki, wędzoną rybę",
+     "ru": "…а Мами хочет ещё купить груши и копчёную рыбу."
+    },
+    {
+     "q": "Dobrze, że Javier jest ___ (sympatyczny kolega)…",
+     "answer": "sympatycznym kolegą",
+     "ru": "Хорошо, что Хавьер — симпатичный (приятный) коллега…",
+     "grammar": "być + творительный"
+    },
+    {
+     "q": "…może jeszcze kupić i ___ (gruszka — l. mn.), i ___ (ryba), i ___ (truskawka — l. mn.)…",
+     "answer": "gruszki, rybę, truskawki",
+     "ru": "…может ещё купить и груши, и рыбу, и клубнику…"
+    },
+    {
+     "q": "…zaprasza Javiera na ___ (kolacja).",
+     "answer": "kolację",
+     "ru": "…приглашает Хавьера на ужин."
+    }
+   ]
+  },
+  {
+   "id": "wb-9-13",
+   "src": "wb",
+   "ref": "Ćw. 13, s. 37",
+   "title": "Proszę uporządkować zdania.",
+   "title_ru": "Составь предложение",
+   "task_ru": "Расставь слова по порядку: «1 Karol lubi jeść tłustą kiełbasę.» Проверяет модель, если порядок другой, но верный.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "tłustą / jeść / Karol / kiełbasę / lubi",
+     "answer": "Karol lubi jeść tłustą kiełbasę.",
+     "ru": "Кароль любит есть жирную колбасу."
+    },
+    {
+     "q": "ziemniakami / pstrąga / z / proszę / pieczonymi",
+     "answer": "Proszę pstrąga z pieczonymi ziemniakami.",
+     "ru": "Пожалуйста, форель с печёной картошкой."
+    },
+    {
+     "q": "niż / wolę / winogrona / jagody",
+     "answer": "Wolę winogrona niż jagody.",
+     "ru": "Я предпочитаю виноград чернике.",
+     "accepted": [
+      "Wolę jagody niż winogrona."
+     ]
+    },
+    {
+     "q": "jajko / na / masz / miękko / ochotę / na / czy",
+     "answer": "Czy masz ochotę na jajko na miękko?",
+     "ru": "Хочешь яйцо всмятку?"
+    },
+    {
+     "q": "prosić / czy / i / kubek / mogę / łyżeczkę",
+     "answer": "Czy mogę prosić kubek i łyżeczkę?",
+     "ru": "Можно попросить кружку и чайную ложку?"
+    },
+    {
+     "q": "niż / kurczak / zdrowszy / gotowany / jest / pieczony",
+     "answer": "Gotowany kurczak jest zdrowszy niż pieczony.",
+     "ru": "Варёная курица полезнее запечённой."
+    }
    ]
   }
  ]

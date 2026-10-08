@@ -321,7 +321,7 @@ def test_summary_dedup_and_empty():
 class FakeTG:
     def __init__(self):
         self.sent, self.voices, self.buttons, self.edits, self.docs = [], [], [], [], []
-        self.toasts, self.deleted, self.markups, self.audios = [], [], [], []
+        self.toasts, self.deleted, self.markups, self.audios, self.photos = [], [], [], [], []
 
     async def send_message(self, chat_id, text, buttons=None):
         self.sent.append(text)
@@ -348,6 +348,9 @@ class FakeTG:
 
     async def send_audio(self, chat_id, filename, content, caption=""):
         self.audios.append((filename, content))
+
+    async def send_photo(self, chat_id, filename, content, caption=""):
+        self.photos.append((filename, content, caption))
 
     async def send_action(self, chat_id, action):
         pass
@@ -2060,3 +2063,33 @@ def test_real_book_exercises_are_valid():
                 assert it["q"] and it["answer"] and it["ru"], (x["id"], it)
                 if x["type"] in CHOICE_TYPES:
                     assert it["answer"] in book_options(x, it), (x["id"], it)
+
+
+def test_book_page_button_sends_rendered_page_and_caches():
+    app = bex_app()
+    import tempfile
+    (app.books_root / "kpk_tb.pdf").write_bytes(b"%PDF")
+    tb.UNITS_DIR.joinpath("kpk", "book.json").write_text(json.dumps(
+        {**KPK_META, "files": {"tb": "kpk_tb.pdf"}, "page_offset": {"tb": -5}}), encoding="utf-8")
+    app.pages_dir = Path(tempfile.mkdtemp())
+    calls = []
+
+    async def render(pdf, n, out):
+        calls.append(n)
+        out.write_bytes(b"PNG")
+        return True
+    app.render_page = render
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    assert ("📄 Страница учебника (s. 20)", "bx:p:kpk:2|tb-2-1") in [b for r in app.tg.buttons[-1] for b in r]
+    run(app.on_callback(cb("bx:p:kpk:2|tb-2-1")))
+    run(app.on_callback(cb("bx:p:kpk:2|tb-2-1")))
+    assert calls == [15] and app.tg.photos == [("kpk_tb_015.png", b"PNG", "📄 KpK · учебник, s. 20")] * 2
+    run(app.on_callback(cb("bx:o:kpk:2|wb-2-1")))                      # у тетради PDF не указан — кнопки нет
+    assert "bx:p:" not in str(app.tg.buttons[-1])
+
+
+def test_book_pages_from_ref():
+    from bot.exercises.logic import book_pages
+    assert book_pages({"ref": "A · Ćw. 4, s. 54"}) == [54]
+    assert book_pages({"ref": "Ćw. 2, s. 30–31"}) == [30, 31]
+    assert book_pages({"ref": "x", "pages": [7]}) == [7]

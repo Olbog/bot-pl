@@ -1,7 +1,9 @@
 """Учебники: bot/textbook/<книга>/book.json + unit_NN.json (их добавляет Claude по страницам учебника и тетради).
 
 book.json: {"id": "kpk", "title": "Krok po kroku. Polski A1", "short": "KpK", "unit_label": "Unit",
-            "audio_dir": "Krok_po_kroku/Audio (A1)"}   — аудио ищется в BOOKS_DIR/<audio_dir>
+            "audio_dir": "Krok_po_kroku/Audio (A1)",   — аудио ищется в BOOKS_DIR/<audio_dir>
+            "files": {"tb": "…pdf", "wb": "…pdf"},      — PDF учебника и тетради в BOOKS_DIR
+            "page_offset": {"tb": -5, "wb": 0}}        — страница PDF = страница книги + сдвиг
 
 unit_NN.json:
 {
@@ -52,7 +54,8 @@ def load_books(path: Path | None = None) -> list[dict]:
             num = str(u.get("unit") or f.stem.removeprefix("unit_").lstrip("0") or "0")
             u.update(num=num, unit=f"{meta['id']}:{num}", book=meta["id"], book_title=meta.get("title", ""),
                      book_short=meta["short"], name=f"{meta['unit_label']} {num}",
-                     audio_dir=meta.get("audio_dir", ""))
+                     audio_dir=meta.get("audio_dir", ""), files=meta.get("files") or {},
+                     page_offset=meta.get("page_offset") or {})
             u["words"] = [w for w in u.get("words") or [] if w.get("pl") and w.get("ru")]
             u["exercises"] = [x for x in u.get("exercises") or [] if x.get("id") and x.get("items")]
             if u["words"] or u["exercises"]:

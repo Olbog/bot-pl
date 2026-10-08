@@ -7,7 +7,7 @@ from ..core.config import local_dt
 
 from ..core.rules import group
 from ..core.verbs import verb_line
-from ..exercises.logic import CHOICE_TYPES, LETTERS, book_options
+from ..exercises.logic import CHOICE_TYPES, LETTERS, book_options, book_pages
 from ..core.training import Criteria, WordStats, kind_of, num, progress_bar
 
 KIND_ICON = {"word": "🔤", "grammar": "📝", "pronunciation": "🗣"}
@@ -934,8 +934,19 @@ def bex_keyboard(unit: dict, x: dict, done: dict, pick: dict, sure: list) -> lis
     rows += [hints[i:i + 6] for i in range(0, len(hints), 6)]
     if x.get("type") in CHOICE_TYPES and todo:
         rows.append([(f"📨 Проверить отмеченные ({len(pick)})", "bx:go")])
+    rows += page_row(unit, x)
     rows.append([("📋 Все упражнения юнита", f"bx:l:{unit['unit']}")])
     return rows
+
+
+def page_row(unit: dict, x: dict) -> list[list[tuple[str, str]]]:
+    """«📄 Страница учебника / тетради» — картинка страницы из PDF на сервере (диалоги, таблицы, рисунки)."""
+    pages = book_pages(x)
+    if not pages or not (unit.get("files") or {}).get(x.get("src", "tb")):
+        return []
+    what = "тетради" if x.get("src") == "wb" else "учебника"
+    nums = ", ".join(map(str, pages))
+    return [[(f"📄 Страница {what} (s. {nums})", f"bx:p:{unit['unit']}|{x['id']}")]]
 
 
 def bex_result_buttons(unit: dict, x: dict, done: dict) -> list[list[tuple[str, str]]]:
@@ -950,4 +961,4 @@ def bex_result_buttons(unit: dict, x: dict, done: dict) -> list[list[tuple[str, 
     if nxt:
         rows.append([(f"➡️ {bex_name(nxt)}"[:60], f"bx:o:{u}|{nxt['id']}")])
     rows.append([("📋 Все упражнения юнита", f"bx:l:{u}"), ("🔄 Заново", f"bx:r:{u}|{x['id']}")])
-    return rows
+    return rows + page_row(unit, x)

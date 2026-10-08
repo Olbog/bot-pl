@@ -1,0 +1,2750 @@
+{
+ "unit": "6",
+ "title": "Proszę rachunek",
+ "summary": "Еда и напитки, кафе и ресторан: меню, заказ, счёт; цены (złoty / złote / złotych, grosz / grosze / groszy), числа 100–1000, номера телефонов. Грамматика: jeść / pić + винительный, z + творительный (kawa z mlekiem), мн. ч. существительных.",
+ "words": [
+  {
+   "pl": "bułka",
+   "translit": "БУЎ-ка",
+   "ru": "булочка",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "chleb",
+   "translit": "хлеп",
+   "ru": "хлеб",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "chleb z masłem",
+   "translit": "хлеп з МАС-ўэм",
+   "ru": "хлеб с маслом",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "chleb"
+  },
+  {
+   "pl": "cukier",
+   "translit": "ЦУ-кер",
+   "ru": "сахар",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "bez cukru",
+   "translit": "бэс ЦУК-ру",
+   "ru": "без сахара",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "cukier"
+  },
+  {
+   "pl": "dżem",
+   "translit": "джэм",
+   "ru": "джем",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "jajko",
+   "translit": "ЯЙ-ко",
+   "ru": "яйцо",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "kiełbasa",
+   "translit": "кеў-БА-са",
+   "ru": "колбаса",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "masło",
+   "translit": "МАС-ўо",
+   "ru": "сливочное масло",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "miód",
+   "translit": "мют",
+   "ru": "мёд",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "pieprz",
+   "translit": "пепш",
+   "ru": "перец (молотый)",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "płatki śniadaniowe",
+   "translit": "ПЎАТ-ки шня-да-НЁ-вэ",
+   "ru": "хлопья для завтрака",
+   "pos": "сущ., мн. ч.",
+   "src": "tb"
+  },
+  {
+   "pl": "ser biały",
+   "translit": "сэр БЯ-ўы",
+   "ru": "творог",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "ser żółty",
+   "translit": "сэр ЖУЎ-ты",
+   "ru": "сыр",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "sól",
+   "translit": "суль",
+   "ru": "соль",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "szynka",
+   "translit": "ШЫН-ка",
+   "ru": "ветчина",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "musztarda",
+   "translit": "муш-ТАР-да",
+   "ru": "горчица",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "keczup",
+   "translit": "КЭ-чуп",
+   "ru": "кетчуп",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "margaryna",
+   "translit": "мар-га-РЫ-на",
+   "ru": "маргарин",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "ciastko",
+   "translit": "ЧЯСТ-ко",
+   "ru": "печенье, пирожное",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "ciasto",
+   "translit": "ЧЯС-то",
+   "ru": "пирог, торт",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "frytki",
+   "translit": "ФРЫТ-ки",
+   "ru": "картофель фри",
+   "pos": "сущ., мн. ч.",
+   "src": "tb"
+  },
+  {
+   "pl": "kotlet",
+   "translit": "КОТ-лет",
+   "ru": "котлета, отбивная",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "kotlet z frytkami",
+   "translit": "КОТ-лет с фрыт-КА-ми",
+   "ru": "котлета с картошкой фри",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "kotlet"
+  },
+  {
+   "pl": "kurczak",
+   "translit": "КУР-чак",
+   "ru": "курица",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "ru_alt": [
+    "курица (блюдо)"
+   ]
+  },
+  {
+   "pl": "kurczak z ziemniakami",
+   "translit": "КУР-чак з жем-ня-КА-ми",
+   "ru": "курица с картошкой",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "kurczak"
+  },
+  {
+   "pl": "lody",
+   "translit": "ЛЁ-ды",
+   "ru": "мороженое",
+   "pos": "сущ., мн. ч.",
+   "src": "tb"
+  },
+  {
+   "pl": "lody owocowe",
+   "translit": "ЛЁ-ды о-во-ЦО-вэ",
+   "ru": "фруктовое мороженое",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "lody"
+  },
+  {
+   "pl": "makaron",
+   "translit": "ма-КА-рон",
+   "ru": "макароны",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "mięso",
+   "translit": "МЕН-со",
+   "ru": "мясо",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "ryba",
+   "translit": "РЫ-ба",
+   "ru": "рыба",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "ryż",
+   "translit": "рыж",
+   "ru": "рис",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "sałatka",
+   "translit": "са-ЎАТ-ка",
+   "ru": "салат (блюдо)",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "sałatka grecka",
+   "translit": "са-ЎАТ-ка ГРЭЦ-ка",
+   "ru": "греческий салат",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "sałatka"
+  },
+  {
+   "pl": "zupa",
+   "translit": "ЗУ-па",
+   "ru": "суп",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "zupa pomidorowa",
+   "translit": "ЗУ-па по-ми-до-РО-ва",
+   "ru": "томатный суп",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "zupa"
+  },
+  {
+   "pl": "kanapka",
+   "translit": "ка-НАП-ка",
+   "ru": "бутерброд",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "deser",
+   "translit": "ДЭ-сэр",
+   "ru": "десерт",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "na deser",
+   "translit": "на ДЭ-сэр",
+   "ru": "на десерт",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "deser"
+  },
+  {
+   "pl": "pierwsze danie",
+   "translit": "ПЕРФ-шэ ДА-не",
+   "ru": "первое блюдо",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "drugie danie",
+   "translit": "ДРУ-ге ДА-не",
+   "ru": "второе блюдо",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "herbata",
+   "translit": "хэр-БА-та",
+   "ru": "чай",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "herbata z cytryną",
+   "translit": "хэр-БА-та с цы-ТРЫ-нон",
+   "ru": "чай с лимоном",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "herbata"
+  },
+  {
+   "pl": "kawa",
+   "translit": "КА-ва",
+   "ru": "кофе",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "kawa z mlekiem",
+   "translit": "КА-ва з МЛЭ-кем",
+   "ru": "кофе с молоком",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "kawa"
+  },
+  {
+   "pl": "mała kawa",
+   "translit": "МА-ўа КА-ва",
+   "ru": "маленький кофе",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "kawa"
+  },
+  {
+   "pl": "mleko",
+   "translit": "МЛЭ-ко",
+   "ru": "молоко",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "piwo",
+   "translit": "ПИ-во",
+   "ru": "пиво",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "duże piwo",
+   "translit": "ДУ-жэ ПИ-во",
+   "ru": "большое пиво",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "piwo"
+  },
+  {
+   "pl": "sok",
+   "translit": "сок",
+   "ru": "сок",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "sok pomarańczowy",
+   "translit": "сок по-ма-рань-ЧО-вы",
+   "ru": "апельсиновый сок",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "sok"
+  },
+  {
+   "pl": "wino",
+   "translit": "ВИ-но",
+   "ru": "вино",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "woda mineralna",
+   "translit": "ВО-да ми-нэ-РАЛЬ-на",
+   "ru": "минеральная вода",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "gazowana",
+   "translit": "га-зо-ВА-на",
+   "ru": "газированная",
+   "pos": "прил.",
+   "src": "tb"
+  },
+  {
+   "pl": "niegazowana",
+   "translit": "не-га-зо-ВА-на",
+   "ru": "негазированная",
+   "pos": "прил.",
+   "src": "tb"
+  },
+  {
+   "pl": "cebula",
+   "translit": "цэ-БУ-ля",
+   "ru": "лук",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "kapusta",
+   "translit": "ка-ПУС-та",
+   "ru": "капуста",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "marchewka",
+   "translit": "мар-ХЭФ-ка",
+   "ru": "морковь",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "ogórek",
+   "translit": "о-ГУ-рэк",
+   "ru": "огурец",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "pomidor",
+   "translit": "по-МИ-дор",
+   "ru": "помидор",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "sałata",
+   "translit": "са-ЎА-та",
+   "ru": "салат (листья)",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "ziemniak",
+   "translit": "ЖЕМ-няк",
+   "ru": "картофелина",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "ru_alt": [
+    "картошка"
+   ]
+  },
+  {
+   "pl": "papryka",
+   "translit": "па-ПРЫ-ка",
+   "ru": "перец (овощ)",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "banan",
+   "translit": "БА-нан",
+   "ru": "банан",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "cytryna",
+   "translit": "цы-ТРЫ-на",
+   "ru": "лимон",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "gruszka",
+   "translit": "ГРУШ-ка",
+   "ru": "груша",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "jabłko",
+   "translit": "ЯП-ко",
+   "ru": "яблоко",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "pomarańcza",
+   "translit": "по-ма-РАНЬ-ча",
+   "ru": "апельсин",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "winogrono",
+   "translit": "ви-но-ГРО-но",
+   "ru": "виноградина (мн. ч. winogrona — виноград)",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "ru_alt": [
+    "виноград"
+   ]
+  },
+  {
+   "pl": "barszcz",
+   "translit": "барщ",
+   "ru": "борщ (свекольный)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "ru_alt": [
+    "борщ"
+   ]
+  },
+  {
+   "pl": "gołąbki",
+   "translit": "го-ЎОМП-ки",
+   "ru": "голубцы",
+   "pos": "сущ., мн. ч.",
+   "src": "tb"
+  },
+  {
+   "pl": "kotlet schabowy",
+   "translit": "КОТ-лет с-ха-БО-вы",
+   "ru": "свиная отбивная",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "naleśniki",
+   "translit": "на-лешь-НИ-ки",
+   "ru": "блины",
+   "pos": "сущ., мн. ч.",
+   "src": "tb"
+  },
+  {
+   "pl": "pierogi",
+   "translit": "пе-РО-ги",
+   "ru": "вареники",
+   "pos": "сущ., мн. ч.",
+   "src": "tb"
+  },
+  {
+   "pl": "pierogi ruskie",
+   "translit": "пе-РО-ги РУС-ке",
+   "ru": "вареники с картошкой и творогом",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "pierogi"
+  },
+  {
+   "pl": "rosół",
+   "translit": "РО-суў",
+   "ru": "бульон",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "rosół z makaronem",
+   "translit": "РО-суў з ма-ка-РО-нэм",
+   "ru": "бульон с лапшой",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "rosół"
+  },
+  {
+   "pl": "sernik",
+   "translit": "СЭР-ник",
+   "ru": "сырник (творожный торт)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "ru_alt": [
+    "чизкейк",
+    "творожный торт"
+   ]
+  },
+  {
+   "pl": "szarlotka",
+   "translit": "шар-ЛЁТ-ка",
+   "ru": "шарлотка (яблочный пирог)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "ru_alt": [
+    "шарлотка"
+   ]
+  },
+  {
+   "pl": "bigos",
+   "translit": "БИ-гос",
+   "ru": "бигос (тушёная капуста с мясом)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "ru_alt": [
+    "бигос"
+   ]
+  },
+  {
+   "pl": "żurek",
+   "translit": "ЖУ-рэк",
+   "ru": "журек (кислый суп)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "ru_alt": [
+    "журек"
+   ]
+  },
+  {
+   "pl": "Ile kosztuje…?",
+   "translit": "И-ле кош-ТУ-е",
+   "ru": "Сколько стоит…?",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Ile kosztują…?",
+   "translit": "И-ле кош-ТУ-ён",
+   "ru": "Сколько стоят…?",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "złoty",
+   "translit": "ЗЎО-ты",
+   "ru": "злотый (2–4 złote, 5+ złotych)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "ru_alt": [
+    "злотый"
+   ]
+  },
+  {
+   "pl": "grosz",
+   "translit": "грош",
+   "ru": "грош (2–4 grosze, 5+ groszy)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "ru_alt": [
+    "грош"
+   ]
+  },
+  {
+   "pl": "sto",
+   "translit": "сто",
+   "ru": "сто",
+   "pos": "числ.",
+   "src": "tb"
+  },
+  {
+   "pl": "dwieście",
+   "translit": "ДВЕЩЬ-че",
+   "ru": "двести",
+   "pos": "числ.",
+   "src": "tb"
+  },
+  {
+   "pl": "trzysta",
+   "translit": "ТШЫС-та",
+   "ru": "триста",
+   "pos": "числ.",
+   "src": "tb"
+  },
+  {
+   "pl": "czterysta",
+   "translit": "ЧТЭ-ры-ста",
+   "ru": "четыреста",
+   "pos": "числ.",
+   "src": "tb"
+  },
+  {
+   "pl": "pięćset",
+   "translit": "ПЕНЬЧЬ-сэт",
+   "ru": "пятьсот",
+   "pos": "числ.",
+   "src": "tb"
+  },
+  {
+   "pl": "sześćset",
+   "translit": "ШЭЩЬ-сэт",
+   "ru": "шестьсот",
+   "pos": "числ.",
+   "src": "tb"
+  },
+  {
+   "pl": "siedemset",
+   "translit": "ШЕ-дэм-сэт",
+   "ru": "семьсот",
+   "pos": "числ.",
+   "src": "tb"
+  },
+  {
+   "pl": "osiemset",
+   "translit": "О-шем-сэт",
+   "ru": "восемьсот",
+   "pos": "числ.",
+   "src": "tb"
+  },
+  {
+   "pl": "dziewięćset",
+   "translit": "джеВЕНЬЧЬ-сэт",
+   "ru": "девятьсот",
+   "pos": "числ.",
+   "src": "tb"
+  },
+  {
+   "pl": "tysiąc",
+   "translit": "ТЫ-шёнц",
+   "ru": "тысяча",
+   "pos": "числ.",
+   "src": "tb"
+  },
+  {
+   "pl": "kawiarnia",
+   "translit": "ка-ВЯР-ня",
+   "ru": "кафе, кофейня",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "restauracja",
+   "translit": "рэс-тау-РАЦ-я",
+   "ru": "ресторан",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "bar mleczny",
+   "translit": "бар МЛЭЧ-ны",
+   "ru": "молочный бар (дешёвая столовая)",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "kelner",
+   "translit": "КЭЛЬ-нэр",
+   "ru": "официант",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "klient",
+   "translit": "КЛИ-ент",
+   "ru": "клиент, посетитель",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "karta",
+   "translit": "КАР-та",
+   "ru": "меню; карта",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "ru_alt": [
+    "меню"
+   ]
+  },
+  {
+   "pl": "Proszę kartę.",
+   "translit": "ПРО-шэ КАР-тэ",
+   "ru": "Меню, пожалуйста.",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Co dla pana / pani?",
+   "translit": "цо для ПА-на / ПА-ни",
+   "ru": "Что для вас (мужчине / женщине)?",
+   "pos": "фраза",
+   "src": "tb",
+   "ru_alt": [
+    "Что для вас?"
+   ]
+  },
+  {
+   "pl": "Co dla państwa?",
+   "translit": "цо для ПАНЬ-ства",
+   "ru": "Что для вас (группе)?",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Słucham pana / panią.",
+   "translit": "СЎУ-хам ПА-на / ПА-нён",
+   "ru": "Слушаю вас.",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Co do picia?",
+   "translit": "цо до ПИ-ча",
+   "ru": "Что будете пить?",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Czy coś jeszcze?",
+   "translit": "чы цощь ЕЩ-чэ",
+   "ru": "Что-нибудь ещё?",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Niestety, nie ma.",
+   "translit": "не-СТЭ-ты, НЕ ма",
+   "ru": "К сожалению, нет.",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "To wszystko, dziękuję.",
+   "translit": "то ФШЫСТ-ко, джен-КУ-е",
+   "ru": "Это всё, спасибо.",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "rachunek",
+   "translit": "ра-ХУ-нэк",
+   "ru": "счёт",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "Proszę rachunek.",
+   "translit": "ПРО-шэ ра-ХУ-нэк",
+   "ru": "Счёт, пожалуйста.",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Reszta dla pana / pani.",
+   "translit": "РЭШ-та для ПА-на / ПА-ни",
+   "ru": "Сдачи не надо (сдача вам).",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Reszty nie trzeba.",
+   "translit": "РЭШ-ты не ТШЭ-ба",
+   "ru": "Сдачи не надо.",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Smacznego!",
+   "translit": "смач-НЭ-го",
+   "ru": "Приятного аппетита!",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Dziękuję, nawzajem.",
+   "translit": "джен-КУ-е, на-ВЗА-ем",
+   "ru": "Спасибо, и вам того же.",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Gdzie tu jest toaleta?",
+   "translit": "гдже ту ест то-а-ЛЭ-та",
+   "ru": "Где здесь туалет?",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "na lewo",
+   "translit": "на ЛЭ-во",
+   "ru": "налево",
+   "pos": "нареч.",
+   "src": "tb"
+  },
+  {
+   "pl": "na prawo",
+   "translit": "на ПРА-во",
+   "ru": "направо",
+   "pos": "нареч.",
+   "src": "tb"
+  },
+  {
+   "pl": "Płaci pan kartą czy gotówką?",
+   "translit": "ПЎА-чи пан КАР-тон чы го-ТУФ-кон",
+   "ru": "Вы платите картой или наличными?",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "płacić kartą",
+   "translit": "ПЎА-чичь КАР-тон",
+   "ru": "платить картой",
+   "pos": "🔗 сочетание",
+   "src": "tb"
+  },
+  {
+   "pl": "gotówka",
+   "translit": "го-ТУФ-ка",
+   "ru": "наличные",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "Czy można tu palić?",
+   "translit": "чы МОЖ-на ту ПА-личь",
+   "ru": "Здесь можно курить?",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Nie wolno palić.",
+   "translit": "не ВОЛЬ-но ПА-личь",
+   "ru": "Курить нельзя.",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Czy jest wolny stolik?",
+   "translit": "чы ест ВОЛЬ-ны СТО-лик",
+   "ru": "Есть свободный столик?",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Jesteś głodny?",
+   "translit": "ЕС-тэщь ГЎОД-ны",
+   "ru": "Ты голоден?",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Chce mi się jeść i pić.",
+   "translit": "хцэ ми щен ещьчь и пичь",
+   "ru": "Мне хочется есть и пить.",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "Mogę prosić sól?",
+   "translit": "МО-гэ ПРО-щичь суль",
+   "ru": "Можно попросить соль?",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "jedzenie",
+   "translit": "е-ДЗЭ-не",
+   "ru": "еда",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "picie",
+   "translit": "ПИ-че",
+   "ru": "питьё, напитки",
+   "pos": "сущ., ср. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "dostawa",
+   "translit": "дос-ТА-ва",
+   "ru": "доставка",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "otwarte",
+   "translit": "от-ФАР-тэ",
+   "ru": "открыто",
+   "pos": "прил.",
+   "src": "tb"
+  },
+  {
+   "pl": "zamknięte",
+   "translit": "зам-КНЕН-тэ",
+   "ru": "закрыто",
+   "pos": "прил.",
+   "src": "tb"
+  },
+  {
+   "pl": "rezerwacja",
+   "translit": "рэ-зэр-ВАЦ-я",
+   "ru": "бронирование",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "sala dla niepalących",
+   "translit": "СА-ля для не-па-ЛЁН-цых",
+   "ru": "зал для некурящих",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "toaleta nieczynna",
+   "translit": "то-а-ЛЭ-та не-ЧЫН-на",
+   "ru": "туалет не работает",
+   "pos": "фраза",
+   "src": "tb"
+  },
+  {
+   "pl": "zestaw obiadowy",
+   "translit": "ЗЭС-таф о-бя-ДО-вы",
+   "ru": "комплексный обед",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "numer telefonu",
+   "translit": "НУ-мэр тэ-лэ-ФО-ну",
+   "ru": "номер телефона",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "wegetarianin",
+   "translit": "вэ-гэ-тар-ЯНИН",
+   "ru": "вегетарианец",
+   "pos": "сущ., м. р.",
+   "src": "tb"
+  },
+  {
+   "pl": "wegetarianka",
+   "translit": "вэ-гэ-тар-ЯН-ка",
+   "ru": "вегетарианка",
+   "pos": "сущ., ж. р.",
+   "src": "tb"
+  }
+ ],
+ "exercises": [
+  {
+   "id": "tb-6-1c",
+   "src": "tb",
+   "ref": "Ćw. 1c, s. 51",
+   "title": "Co nie pasuje?",
+   "title_ru": "Что лишнее?",
+   "task_ru": "Выбери лишнее слово. Почему — можно в скобках: «2b (to nie napój)».",
+   "type": "choice",
+   "items": [
+    {
+     "q": "woda — ser — masło — dżem",
+     "answer": "woda",
+     "ru": "вода — сыр — масло — джем",
+     "full_pl": "Woda, bo to jest napój.",
+     "options": [
+      "woda",
+      "ser",
+      "masło",
+      "dżem"
+     ]
+    },
+    {
+     "q": "zupa — wino — woda — chleb",
+     "answer": "chleb",
+     "ru": "суп — вино — вода — хлеб",
+     "full_pl": "Chleb (wszystko inne jest płynne) albo zupa (wino i woda to napoje, chleb — pieczywo).",
+     "accepted": [
+      "zupa"
+     ],
+     "options": [
+      "zupa",
+      "wino",
+      "woda",
+      "chleb"
+     ]
+    },
+    {
+     "q": "lody — ciasto — kawa — ziemniaki",
+     "answer": "ziemniaki",
+     "ru": "мороженое — пирог — кофе — картошка",
+     "full_pl": "Ziemniaki, bo to jest warzywo (lody, ciasto, kawa — na deser); albo kawa — napój.",
+     "accepted": [
+      "kawa"
+     ],
+     "options": [
+      "lody",
+      "ciasto",
+      "kawa",
+      "ziemniaki"
+     ]
+    },
+    {
+     "q": "bułka — chleb — dżem — ciasto",
+     "answer": "dżem",
+     "ru": "булочка — хлеб — джем — пирог",
+     "full_pl": "Dżem, bo nie jest pieczywem.",
+     "options": [
+      "bułka",
+      "chleb",
+      "dżem",
+      "ciasto"
+     ]
+    },
+    {
+     "q": "płatki — pieprz — sól — cukier",
+     "answer": "płatki",
+     "ru": "хлопья — перец — соль — сахар",
+     "full_pl": "Płatki, bo pieprz, sól i cukier to przyprawy.",
+     "options": [
+      "płatki",
+      "pieprz",
+      "sól",
+      "cukier"
+     ]
+    },
+    {
+     "q": "kapusta — pomidor — ogórek — jajko",
+     "answer": "jajko",
+     "ru": "капуста — помидор — огурец — яйцо",
+     "full_pl": "Jajko, bo to nie jest warzywo.",
+     "options": [
+      "kapusta",
+      "pomidor",
+      "ogórek",
+      "jajko"
+     ]
+    },
+    {
+     "q": "kotlet — mięso — szynka — owoce",
+     "answer": "owoce",
+     "ru": "котлета — мясо — ветчина — фрукты",
+     "full_pl": "Owoce, bo to nie jest mięso.",
+     "options": [
+      "kotlet",
+      "mięso",
+      "szynka",
+      "owoce"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-6-1d",
+   "src": "tb",
+   "ref": "Ćw. 1d, s. 51",
+   "title": "Jaki to rodzaj?",
+   "title_ru": "Какой род?",
+   "task_ru": "Мужской, женский или средний род?",
+   "type": "match",
+   "items": [
+    {
+     "q": "bułka",
+     "answer": "rodzaj żeński",
+     "ru": "булочка",
+     "grammar": "-a → ж. р."
+    },
+    {
+     "q": "chleb",
+     "answer": "rodzaj męski",
+     "ru": "хлеб",
+     "grammar": "согласная → м. р."
+    },
+    {
+     "q": "banan",
+     "answer": "rodzaj męski",
+     "ru": "банан"
+    },
+    {
+     "q": "ser żółty",
+     "answer": "rodzaj męski",
+     "ru": "сыр"
+    },
+    {
+     "q": "mleko",
+     "answer": "rodzaj nijaki",
+     "ru": "молоко",
+     "grammar": "-o → ср. р."
+    },
+    {
+     "q": "marchewka",
+     "answer": "rodzaj żeński",
+     "ru": "морковь"
+    },
+    {
+     "q": "winogrono",
+     "answer": "rodzaj nijaki",
+     "ru": "виноградина"
+    },
+    {
+     "q": "cytryna",
+     "answer": "rodzaj żeński",
+     "ru": "лимон"
+    },
+    {
+     "q": "jabłko",
+     "answer": "rodzaj nijaki",
+     "ru": "яблоко"
+    },
+    {
+     "q": "kotlet",
+     "answer": "rodzaj męski",
+     "ru": "котлета"
+    },
+    {
+     "q": "zupa",
+     "answer": "rodzaj żeński",
+     "ru": "суп"
+    },
+    {
+     "q": "piwo",
+     "answer": "rodzaj nijaki",
+     "ru": "пиво"
+    }
+   ],
+   "options": [
+    "rodzaj męski",
+    "rodzaj żeński",
+    "rodzaj nijaki"
+   ]
+  },
+  {
+   "id": "tb-6-1e",
+   "src": "tb",
+   "ref": "Ćw. 1e, s. 51",
+   "title": "Proszę uzupełnić brakujące formy liczby mnogiej.",
+   "title_ru": "Множественное число",
+   "task_ru": "Напиши форму мн. ч.: -y / -i (после k, g) / -e / -a (ср. р.).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "pomidor → ___",
+     "answer": "pomidory",
+     "ru": "помидоры",
+     "translit": "по-ми-ДО-ры",
+     "grammar": "-y"
+    },
+    {
+     "q": "kotlet → ___",
+     "answer": "kotlety",
+     "ru": "котлеты",
+     "translit": "кот-ЛЕ-ты",
+     "grammar": "-y"
+    },
+    {
+     "q": "kurczak → ___",
+     "answer": "kurczaki",
+     "ru": "курицы",
+     "translit": "кур-ЧА-ки",
+     "grammar": "после k → -i"
+    },
+    {
+     "q": "cytryna → ___",
+     "answer": "cytryny",
+     "ru": "лимоны",
+     "translit": "цы-ТРЫ-ны",
+     "grammar": "-a → -y"
+    },
+    {
+     "q": "zupa → ___",
+     "answer": "zupy",
+     "ru": "супы",
+     "translit": "ЗУ-пы",
+     "grammar": "-a → -y"
+    },
+    {
+     "q": "ryba → ___",
+     "answer": "ryby",
+     "ru": "рыбы",
+     "translit": "РЫ-бы",
+     "grammar": "-a → -y"
+    },
+    {
+     "q": "papryka → ___",
+     "answer": "papryki",
+     "ru": "перцы",
+     "translit": "па-ПРЫ-ки",
+     "grammar": "-ka → -ki"
+    },
+    {
+     "q": "frytka → ___",
+     "answer": "frytki",
+     "ru": "картофель фри",
+     "translit": "ФРЫТ-ки",
+     "grammar": "-ka → -ki"
+    },
+    {
+     "q": "cebula → ___",
+     "answer": "cebule",
+     "ru": "луковицы",
+     "translit": "цэ-БУ-ле",
+     "grammar": "после l → -e"
+    },
+    {
+     "q": "jabłko → ___",
+     "answer": "jabłka",
+     "ru": "яблоки",
+     "translit": "ЯП-ка",
+     "grammar": "ср. р. -o → -a"
+    },
+    {
+     "q": "piwo → ___",
+     "answer": "piwa",
+     "ru": "пива",
+     "translit": "ПИ-ва",
+     "grammar": "ср. р. -o → -a"
+    }
+   ]
+  },
+  {
+   "id": "tb-6-1f",
+   "src": "tb",
+   "ref": "Ćw. 1f, s. 51",
+   "title": "Co Pan / Pani lubi jeść?",
+   "title_ru": "Что ты любишь есть?",
+   "task_ru": "Напиши 2–3 предложения о своём меню, с формами мн. ч. (ogórki, pomidory, jabłka…). Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Moje menu",
+     "answer": "Lubię jeść warzywa i owoce: ogórki, pomidory, ziemniaki, jabłka i gruszki. Jem też jajka i sery.",
+     "ru": "Моё меню (пример: Люблю овощи и фрукты: огурцы, помидоры, картошку, яблоки и груши. Ещё ем яйца и сыры.)",
+     "grammar": "lubię / jem + винительный мн. ч. (= именительный мн. ч.)"
+    }
+   ]
+  },
+  {
+   "id": "tb-6-2b",
+   "src": "tb",
+   "ref": "Ćw. 2b, s. 52",
+   "title": "Proszę uzupełnić zdania brakującymi słowami.",
+   "title_ru": "С чем? (творительный)",
+   "task_ru": "Слова из рамки: miód, mleko, musztarda, ziemniaki, margaryna, masło, keczup, cukier, sok. После z — творительный. Два слова — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Proszę kurczaka z ___.",
+     "answer": "ziemniakami",
+     "ru": "Курицу с картошкой, пожалуйста.",
+     "grammar": "мн. ч. -ami"
+    },
+    {
+     "q": "Na śniadanie lubię tradycyjny chleb z ___ lub ___.",
+     "answer": "masłem, margaryną",
+     "ru": "На завтрак я люблю обычный хлеб с маслом или маргарином.",
+     "accepted": [
+      "margaryną, masłem",
+      "masłem, miodem"
+     ]
+    },
+    {
+     "q": "Maria lubi pić zieloną herbatę z ___ lub z ___.",
+     "answer": "miodem, cukrem",
+     "ru": "Мария любит пить зелёный чай с мёдом или с сахаром.",
+     "accepted": [
+      "cukrem, miodem"
+     ]
+    },
+    {
+     "q": "Jarek jest studentem i lubi frytki z ___.",
+     "answer": "keczupem",
+     "ru": "Ярек студент и любит картошку фри с кетчупом.",
+     "accepted": [
+      "musztardą"
+     ]
+    },
+    {
+     "q": "Pan Tomasz często je kiełbasę z ___.",
+     "answer": "musztardą",
+     "ru": "Пан Томаш часто ест колбасу с горчицей.",
+     "accepted": [
+      "keczupem"
+     ]
+    },
+    {
+     "q": "Lubisz jeść płatki śniadaniowe z ___?",
+     "answer": "mlekiem",
+     "ru": "Ты любишь есть хлопья с молоком?"
+    },
+    {
+     "q": "Proszę małą kawę z ___.",
+     "answer": "mlekiem",
+     "ru": "Маленький кофе с молоком, пожалуйста.",
+     "accepted": [
+      "cukrem"
+     ]
+    },
+    {
+     "q": "Proszę piwo z ___.",
+     "answer": "sokiem",
+     "ru": "Пиво с соком, пожалуйста.",
+     "grammar": "sok → sokiem"
+    }
+   ]
+  },
+  {
+   "id": "tb-6-2d",
+   "src": "tb",
+   "ref": "Ćw. 2d, s. 53",
+   "title": "Co pasuje?",
+   "title_ru": "Что подходит?",
+   "task_ru": "Выбери подходящее слово.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Proszę ___ wodę mineralną.",
+     "answer": "zimną",
+     "ru": "Холодную минеральную воду, пожалуйста.",
+     "options": [
+      "zimną",
+      "zieloną"
+     ]
+    },
+    {
+     "q": "Proszę ___ kawę.",
+     "answer": "czarną",
+     "ru": "Чёрный кофе, пожалуйста.",
+     "options": [
+      "czarną",
+      "gazowaną"
+     ]
+    },
+    {
+     "q": "Proszę ___ chleb.",
+     "answer": "ciemny",
+     "ru": "Тёмный хлеб, пожалуйста.",
+     "options": [
+      "ciemny",
+      "tłusty"
+     ]
+    },
+    {
+     "q": "Proszę ___ colę.",
+     "answer": "dietetyczną",
+     "ru": "Диетическую колу, пожалуйста.",
+     "options": [
+      "dietetyczną",
+      "niegazowaną"
+     ]
+    },
+    {
+     "q": "Proszę ___ pomidory.",
+     "answer": "świeże",
+     "ru": "Свежие помидоры, пожалуйста.",
+     "options": [
+      "świeże",
+      "stare"
+     ]
+    },
+    {
+     "q": "Proszę ___ lody waniliowe.",
+     "answer": "małe",
+     "ru": "Маленькое ванильное мороженое, пожалуйста.",
+     "options": [
+      "kaloryczne",
+      "małe"
+     ]
+    },
+    {
+     "q": "Proszę ___ piwo z sokiem.",
+     "answer": "zimne",
+     "ru": "Холодное пиво с соком, пожалуйста.",
+     "options": [
+      "pomarańczowe",
+      "zimne"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-6-3",
+   "src": "tb",
+   "ref": "Ćw. 3, s. 54",
+   "title": "Ile kosztuje…? Ile kosztują…?",
+   "title_ru": "Сколько стоит?",
+   "task_ru": "Напиши цену словами: 1 złoty, 2–4 złote, 5–21 złotych (…2, …3, …4 — złote); 1 grosz, 2–4 grosze, 5+ groszy. Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Ile kosztuje kawa? (12,40 zł)",
+     "answer": "dwanaście złotych czterdzieści groszy",
+     "ru": "Сколько стоит кофе? — 12,40 зл"
+    },
+    {
+     "q": "Ile kosztuje herbata? (6,24 zł)",
+     "answer": "sześć złotych dwadzieścia cztery grosze",
+     "ru": "Сколько стоит чай? — 6,24 зл"
+    },
+    {
+     "q": "Ile kosztuje woda mineralna? (1,99 zł)",
+     "answer": "jeden złoty dziewięćdziesiąt dziewięć groszy",
+     "ru": "Сколько стоит минеральная вода? — 1,99 зл"
+    },
+    {
+     "q": "Ile kosztuje szynka? (30,99 zł)",
+     "answer": "trzydzieści złotych dziewięćdziesiąt dziewięć groszy",
+     "ru": "Сколько стоит ветчина? — 30,99 зл"
+    },
+    {
+     "q": "Ile kosztuje kurczak? (15,33 zł)",
+     "answer": "piętnaście złotych trzydzieści trzy grosze",
+     "ru": "Сколько стоит курица? — 15,33 зл"
+    },
+    {
+     "q": "Ile kosztują lody? (gałka 3 zł)",
+     "answer": "trzy złote",
+     "ru": "Сколько стоит мороженое? — шарик 3 зл"
+    },
+    {
+     "q": "Ile kosztują ziemniaki? (1,99 zł)",
+     "answer": "jeden złoty dziewięćdziesiąt dziewięć groszy",
+     "ru": "Сколько стоит картошка? — 1,99 зл"
+    },
+    {
+     "q": "Ile kosztują pomidory? (6,17 zł)",
+     "answer": "sześć złotych siedemnaście groszy",
+     "ru": "Сколько стоят помидоры? — 6,17 зл"
+    },
+    {
+     "q": "Ile kosztują ogórki? (5,44 zł)",
+     "answer": "pięć złotych czterdzieści cztery grosze",
+     "ru": "Сколько стоят огурцы? — 5,44 зл"
+    },
+    {
+     "q": "Ile kosztują banany? (4,50 zł)",
+     "answer": "cztery złote pięćdziesiąt groszy",
+     "ru": "Сколько стоят бананы? — 4,50 зл"
+    },
+    {
+     "q": "Ile kosztują cytryny? (8,12 zł)",
+     "answer": "osiem złotych dwanaście groszy",
+     "ru": "Сколько стоят лимоны? — 8,12 зл"
+    }
+   ]
+  },
+  {
+   "id": "tb-6-4a",
+   "src": "tb",
+   "ref": "Ćw. 4a, s. 54",
+   "title": "Liczebniki 100–1000",
+   "title_ru": "Сотни",
+   "task_ru": "Напиши число словами.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "200",
+     "answer": "dwieście",
+     "ru": "двести",
+     "translit": "ДВЕЩЬ-че"
+    },
+    {
+     "q": "400",
+     "answer": "czterysta",
+     "ru": "четыреста",
+     "translit": "ЧТЭ-ры-ста"
+    },
+    {
+     "q": "700",
+     "answer": "siedemset",
+     "ru": "семьсот",
+     "translit": "ШЕ-дэм-сэт"
+    },
+    {
+     "q": "900",
+     "answer": "dziewięćset",
+     "ru": "девятьсот",
+     "translit": "дже-ВЕНЬЧЬ-сэт"
+    },
+    {
+     "q": "600",
+     "answer": "sześćset",
+     "ru": "шестьсот",
+     "translit": "ШЭЩЬ-сэт"
+    },
+    {
+     "q": "300",
+     "answer": "trzysta",
+     "ru": "триста",
+     "translit": "ТШЫС-та"
+    }
+   ]
+  },
+  {
+   "id": "tb-6-4b",
+   "src": "tb",
+   "ref": "Ćw. 4b, s. 54",
+   "title": "Ile to jest?",
+   "title_ru": "Сколько будет?",
+   "task_ru": "Посчитай и выбери ответ.",
+   "type": "match",
+   "items": [
+    {
+     "q": "570 − 340 =",
+     "answer": "dwieście trzydzieści",
+     "ru": "570 − 340 = 230"
+    },
+    {
+     "q": "920 − 210 =",
+     "answer": "siedemset dziesięć",
+     "ru": "920 − 210 = 710"
+    },
+    {
+     "q": "122 + 211 =",
+     "answer": "trzysta trzydzieści trzy",
+     "ru": "122 + 211 = 333"
+    },
+    {
+     "q": "867 + 200 =",
+     "answer": "tysiąc sześćdziesiąt siedem",
+     "ru": "867 + 200 = 1067"
+    },
+    {
+     "q": "1000 − 550 =",
+     "answer": "czterysta pięćdziesiąt",
+     "ru": "1000 − 550 = 450"
+    }
+   ],
+   "options": [
+    "siedemset dziesięć",
+    "trzysta trzydzieści trzy",
+    "czterysta pięćdziesiąt",
+    "dwieście trzydzieści",
+    "tysiąc sześćdziesiąt siedem"
+   ]
+  },
+  {
+   "id": "tb-6-4c",
+   "src": "tb",
+   "ref": "Ćw. 4c, s. 54",
+   "title": "Ile to jest?",
+   "title_ru": "Посчитай и напиши словами",
+   "task_ru": "Напиши ответ словами.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "700 − 450 =",
+     "answer": "dwieście pięćdziesiąt",
+     "ru": "250"
+    },
+    {
+     "q": "612 + 100 =",
+     "answer": "siedemset dwanaście",
+     "ru": "712"
+    },
+    {
+     "q": "90 + 210 =",
+     "answer": "trzysta",
+     "ru": "300"
+    },
+    {
+     "q": "112 + 21 =",
+     "answer": "sto trzydzieści trzy",
+     "ru": "133"
+    }
+   ]
+  },
+  {
+   "id": "tb-6-5a",
+   "src": "tb",
+   "ref": "Ćw. 5a, s. 55",
+   "title": "Proszę odpowiedzieć na pytania.",
+   "title_ru": "Реклама: ответь на вопросы",
+   "task_ru": "Прочитай рекламу и ответь коротко. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Jaki jest numer telefonu do pizzerii?",
+     "answer": "12 542-14-90",
+     "ru": "Какой номер телефона пиццерии?"
+    },
+    {
+     "q": "Jaki jest adres restauracji?",
+     "answer": "ulica Staropolska 15",
+     "ru": "Какой адрес ресторана?"
+    },
+    {
+     "q": "Skąd jest importowana kawa w kawiarni?",
+     "answer": "Z Brazylii.",
+     "ru": "Откуда привозят кофе в кафе?"
+    },
+    {
+     "q": "Ile minut od centrum jest hotel?",
+     "answer": "Pięć minut.",
+     "ru": "Сколько минут от центра до отеля?"
+    },
+    {
+     "q": "Ile rabatu mają studenci w barze studenckim?",
+     "answer": "20% w poniedziałki.",
+     "ru": "Какая скидка у студентов в студенческом баре?"
+    }
+   ],
+   "text": "Pizzeria „Bolonia”, ul. Włoska 165, Kraków, tel. 12 542-14-90. Dostawa w 30 minut!\nRestauracja „Tradycyjna”, kuchnia polska, ul. Staropolska 15, rezerwacja tel. 12 673-23-89.\nKawa importowana z Brazylii! Kawiarnia „Mała czarna”, ul. Kawowa 666, tel. 12 223-46-12.\nHotel „Ambasador”, ul. Konsularna 45, tel. (+48) 12 444-33-90, 5 minut od centrum! Restauracja, basen, sauna.\nBar Studencki „Żak”, ul. Jagiellońska 245. Obiad już od 15 zł! Rabaty 20% w poniedziałki. Kanapka + kawa 10 zł."
+  },
+  {
+   "id": "tb-6-6a",
+   "src": "tb",
+   "ref": "Ćw. 6a, s. 56",
+   "title": "Proszę uzupełnić kartę.",
+   "title_ru": "Меню кафе «Filiżanka»",
+   "task_ru": "Как называется раздел меню?",
+   "type": "match",
+   "items": [
+    {
+     "q": "wegetariańska / z szynką i serem żółtym / z kurczakiem i sosem majonezowym — 10 zł",
+     "answer": "kanapki",
+     "ru": "вегетарианский / с ветчиной и сыром / с курицей и майонезным соусом"
+    },
+    {
+     "q": "grecka / z mozzarellą i pomidorami / makaronowa z kurczakiem — 12 zł",
+     "answer": "sałatki",
+     "ru": "греческий / с моцареллой и помидорами / с макаронами и курицей"
+    },
+    {
+     "q": "lody waniliowe, tort czekoladowy, tort owocowy, szarlotka, sernik",
+     "answer": "desery",
+     "ru": "ванильное мороженое, шоколадный торт, фруктовый торт, шарлотка, сырник"
+    },
+    {
+     "q": "kawa espresso, kawa czarna, kawa biała, cappuccino, herbata",
+     "answer": "napoje gorące",
+     "ru": "эспрессо, чёрный кофе, кофе с молоком, капучино, чай"
+    },
+    {
+     "q": "woda mineralna, sok pomarańczowy / bananowy / jabłkowy, pepsi, fanta",
+     "answer": "napoje zimne",
+     "ru": "минеральная вода, сок, пепси, фанта"
+    },
+    {
+     "q": "piwo, wino (czerwone / białe / różowe)",
+     "answer": "alkohol",
+     "ru": "пиво, вино (красное / белое / розовое)"
+    }
+   ],
+   "options": [
+    "napoje gorące",
+    "napoje zimne",
+    "desery",
+    "kanapki",
+    "sałatki",
+    "alkohol"
+   ]
+  },
+  {
+   "id": "tb-6-7a",
+   "src": "tb",
+   "ref": "Ćw. 7a, s. 57",
+   "title": "Proszę uzupełnić kartę.",
+   "title_ru": "Меню ресторана «Smacznego»",
+   "task_ru": "Как называется раздел меню?",
+   "type": "match",
+   "items": [
+    {
+     "q": "rosół z makaronem, zupa pomidorowa, barszcz czerwony",
+     "answer": "zupy",
+     "ru": "бульон с лапшой, томатный суп, красный борщ"
+    },
+    {
+     "q": "bigos, gołąbki, kotlet schabowy, befsztyk",
+     "answer": "dania mięsne",
+     "ru": "бигос, голубцы, свиная отбивная, бифштекс"
+    },
+    {
+     "q": "kurczak, filet z indyka, kaczka z jabłkami",
+     "answer": "dania z drobiu",
+     "ru": "курица, филе индейки, утка с яблоками"
+    },
+    {
+     "q": "karp, tuńczyk z grilla, filet z łososia",
+     "answer": "dania z ryb",
+     "ru": "карп, тунец на гриле, филе лосося"
+    },
+    {
+     "q": "naleśniki z serem, pierogi ruskie, zestaw sałatek",
+     "answer": "dania wegetariańskie",
+     "ru": "блины с творогом, вареники с картошкой и творогом, набор салатов"
+    },
+    {
+     "q": "kawa, herbata, piwo, sok",
+     "answer": "napoje",
+     "ru": "кофе, чай, пиво, сок"
+    }
+   ],
+   "options": [
+    "zupy",
+    "dania mięsne",
+    "dania z drobiu",
+    "napoje",
+    "dania z ryb",
+    "dania wegetariańskie"
+   ]
+  },
+  {
+   "id": "tb-6-7e",
+   "src": "tb",
+   "ref": "Ćw. 7e, s. 58",
+   "title": "Jaka to restauracja?",
+   "title_ru": "Какой ресторан?",
+   "task_ru": "Подбери название ресторана к меню.",
+   "type": "match",
+   "items": [
+    {
+     "q": "sałatka owocowa, sałata zielona z sosem vinegret, knedle, tofu sojowe",
+     "answer": "Vega",
+     "ru": "вегетарианское меню"
+    },
+    {
+     "q": "ryż po japońsku, sushi, herbata zielona, sake",
+     "answer": "Tokio",
+     "ru": "японское меню"
+    },
+    {
+     "q": "befsztyk, frytki, sałatka colesław, pepsi, kurczak, popcorn",
+     "answer": "Manhattan",
+     "ru": "американское меню"
+    },
+    {
+     "q": "karp, świeże kraby, makrela w sosie beszamelowym, tuńczyk",
+     "answer": "Frutti di mare",
+     "ru": "рыба и морепродукты"
+    },
+    {
+     "q": "makaron z sosem pomidorowym, bazylią i oregano, pizza Margherita z oliwkami",
+     "answer": "Benito",
+     "ru": "итальянское меню"
+    },
+    {
+     "q": "sajgonki, zupa z bambusem i mięsem, kaczka w sosie pomarańczowym",
+     "answer": "Pekin",
+     "ru": "китайское меню"
+    },
+    {
+     "q": "zupa imbirowa, curry z kurczakiem, chlebek naan",
+     "answer": "Bombaj",
+     "ru": "индийское меню"
+    },
+    {
+     "q": "zupa pomidorowa z makaronem, kotlet schabowy z ziemniakami, mizeria z ogórków",
+     "answer": "Bar Krakowski",
+     "ru": "польское меню"
+    }
+   ],
+   "options": [
+    "Vega",
+    "Frutti di mare",
+    "Tokio",
+    "Manhattan",
+    "Benito",
+    "Bar Krakowski",
+    "Pekin",
+    "Bombaj"
+   ]
+  },
+  {
+   "id": "tb-6-9",
+   "src": "tb",
+   "ref": "Ćw. 9, s. 59",
+   "title": "Proszę przeczytać ofertę pizzerii i odpowiedzieć na pytania.",
+   "title_ru": "Пиццерия «Wezuwiusz»",
+   "task_ru": "Прочитай предложение пиццерии и ответь. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Jak nazywa się pizzeria? Jaki jest jej adres i numer telefonu?",
+     "answer": "Pizzeria „Wezuwiusz”, ulica Kucharska 7, telefon 12 789-11-34.",
+     "ru": "Как называется пиццерия? Адрес и телефон?"
+    },
+    {
+     "q": "Jaki jest czas dostawy?",
+     "answer": "Trzydzieści minut.",
+     "ru": "Сколько времени доставка?"
+    },
+    {
+     "q": "Ile kosztuje duża pizza Capricciosa?",
+     "answer": "Dwadzieścia siedem złotych dwadzieścia groszy.",
+     "ru": "Сколько стоит большая пицца «Капричоза»?"
+    },
+    {
+     "q": "Jakie napoje można zamówić?",
+     "answer": "Coca-colę, fantę, sprite'a i wodę mineralną.",
+     "ru": "Какие напитки можно заказать?"
+    },
+    {
+     "q": "Jaką pizzę Pan / Pani zamawia?",
+     "answer": "Zamawiam średnią pizzę Hawajską.",
+     "ru": "Какую пиццу ты заказываешь?",
+     "grammar": "zamawiam + винительный: pizzę"
+    }
+   ],
+   "text": "Pizza na telefon — Pizzeria „Wezuwiusz”, tel. 12 789-11-34, ul. Kucharska 7. Dostawa w 30 minut!\nMargherita 21,50 / 22,50 / 23,40 · Salami 22,60 / 23,70 / 25,20 · Hawajska 23,10 / 24,90 / 26,80 · Capricciosa 22,30 / 24,30 / 27,20 · Wegetariana 23,50 / 24,30 / 27,40 · Prima 24,60 / 25,90 / 28,90 · Frutti di mare 24,60 / 25,90 / 28,90 (mała / średnia / duża).\nNapoje: coca-cola, fanta, sprite 8,00 · woda mineralna 6,00."
+  },
+  {
+   "id": "tb-6-10a",
+   "src": "tb",
+   "ref": "Ćw. 10a, s. 60",
+   "title": "Która to sytuacja?",
+   "title_ru": "Какая это ситуация?",
+   "task_ru": "Картинки из учебника — здесь описание по-русски. Выбери, к какой картинке относится диалог.",
+   "type": "match",
+   "items": [
+    {
+     "q": "– Czy można tu palić? – Nie, tu nie wolno palić.",
+     "answer": "🚭 перечёркнутая сигарета",
+     "ru": "– Здесь можно курить? – Нет, здесь курить нельзя."
+    },
+    {
+     "q": "– Czy jest wolny stolik na cztery osoby? – Tak, proszę na prawo.",
+     "answer": "👥 компания у свободного стола",
+     "ru": "– Есть свободный столик на четверых? – Да, пожалуйста, направо."
+    },
+    {
+     "q": "– Przepraszam, gdzie jest toaleta? – Tam. Na lewo.",
+     "answer": "🚻 двери туалета",
+     "ru": "– Простите, где туалет? – Там. Налево."
+    },
+    {
+     "q": "– Mogę prosić sól? – Tak, proszę bardzo.",
+     "answer": "🧂 рука с солонкой",
+     "ru": "– Можно соль? – Да, пожалуйста."
+    },
+    {
+     "q": "– Płaci pan kartą czy gotówką? – Gotówką.",
+     "answer": "💳 карта и деньги",
+     "ru": "– Вы платите картой или наличными? – Наличными."
+    },
+    {
+     "q": "– Jesteś głodny? – Tak, bardzo chce mi się jeść i pić.",
+     "answer": "🍽️ человек перед горой еды",
+     "ru": "– Ты голоден? – Да, очень хочется есть и пить."
+    },
+    {
+     "q": "– Smacznego! – Dziękuję, nawzajem.",
+     "answer": "🍴 двое едят за столом",
+     "ru": "– Приятного аппетита! – Спасибо, и вам."
+    }
+   ],
+   "options": [
+    "🍴 двое едят за столом",
+    "🧂 рука с солонкой",
+    "👥 компания у свободного стола",
+    "🚭 перечёркнутая сигарета",
+    "🚻 двери туалета",
+    "💳 карта и деньги",
+    "🍽️ человек перед горой еды"
+   ]
+  },
+  {
+   "id": "tb-6-11",
+   "src": "tb",
+   "ref": "Ćw. 11, s. 60",
+   "title": "Co to znaczy?",
+   "title_ru": "Что значит надпись?",
+   "task_ru": "Напиши по-русски, что значит надпись. Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "BAR MLECZNY",
+     "answer": "молочный бар — дешёвая столовая",
+     "ru": "молочный бар"
+    },
+    {
+     "q": "ZAMKNIĘTE",
+     "answer": "закрыто",
+     "ru": "закрыто"
+    },
+    {
+     "q": "OTWARTE od 7.00 do 16.00",
+     "answer": "открыто с 7 до 16",
+     "ru": "открыто с 7:00 до 16:00"
+    },
+    {
+     "q": "Sala dla niepalących",
+     "answer": "зал для некурящих",
+     "ru": "зал для некурящих"
+    },
+    {
+     "q": "Zestaw obiadowy 17 zł",
+     "answer": "комплексный обед — 17 злотых",
+     "ru": "комплексный обед 17 зл"
+    },
+    {
+     "q": "Rezerwacja od 19.00",
+     "answer": "столик забронирован с 19:00",
+     "ru": "бронь с 19:00"
+    },
+    {
+     "q": "TOALETA NIECZYNNA",
+     "answer": "туалет не работает",
+     "ru": "туалет не работает"
+    }
+   ]
+  },
+  {
+   "id": "tb-6-I",
+   "src": "tb",
+   "ref": "Czy już to umiesz? I, s. 61",
+   "title": "Marek jest w restauracji. Proszę ułożyć dialog w kolejności.",
+   "title_ru": "Расставь реплики по порядку",
+   "task_ru": "Первые две реплики уже на месте: «Marek: Dzień dobry.» и «Kelner: Dzień dobry. Proszę kartę. Co dla pana?». Дальше напиши буквы остальных реплик по порядку: «1 a … ». Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Порядок реплик a–k",
+     "answer": "a i f b d h g k e j c",
+     "ru": "Марек заказывает суп и второе → что пить → сок → десерт → мороженое → «приятного аппетита» → счёт → 55 зл → «сдачи не надо» → «спасибо, до свидания» → «до свидания»."
+    }
+   ],
+   "text": "a) Marek: Proszę zupę pomidorową z ryżem, na drugie danie kotlet schabowy z ziemniakami i kapustą.\nb) Kelner: A co na deser?\nc) Marek: Do widzenia.\nd) Marek: Proszę lody owocowe.\ne) Marek: Reszty nie trzeba.\nf) Marek: Proszę sok pomarańczowy.\ng) Marek: Proszę rachunek.\nh) Kelner: Proszę bardzo. Smacznego!\ni) Kelner: A co do picia?\nj) Kelner: Dziękuję bardzo. Do widzenia.\nk) Kelner: Proszę. 55 zł."
+  },
+  {
+   "id": "wb-6-1",
+   "src": "wb",
+   "ref": "Ćw. 1, s. 35",
+   "title": "Jaka to liczba?",
+   "title_ru": "Напиши число словами",
+   "task_ru": "Напиши число словами: «1 siedemset osiemdziesiąt pięć». Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "785",
+     "answer": "siedemset osiemdziesiąt pięć",
+     "ru": "785"
+    },
+    {
+     "q": "1703",
+     "answer": "tysiąc siedemset trzy",
+     "ru": "1703"
+    },
+    {
+     "q": "349",
+     "answer": "trzysta czterdzieści dziewięć",
+     "ru": "349"
+    },
+    {
+     "q": "466",
+     "answer": "czterysta sześćdziesiąt sześć",
+     "ru": "466"
+    },
+    {
+     "q": "1553",
+     "answer": "tysiąc pięćset pięćdziesiąt trzy",
+     "ru": "1553"
+    },
+    {
+     "q": "917",
+     "answer": "dziewięćset siedemnaście",
+     "ru": "917"
+    },
+    {
+     "q": "620",
+     "answer": "sześćset dwadzieścia",
+     "ru": "620"
+    },
+    {
+     "q": "812",
+     "answer": "osiemset dwanaście",
+     "ru": "812"
+    },
+    {
+     "q": "1200",
+     "answer": "tysiąc dwieście",
+     "ru": "1200"
+    }
+   ]
+  },
+  {
+   "id": "wb-6-2",
+   "src": "wb",
+   "ref": "Ćw. 2, s. 35",
+   "title": "Jaka to liczba?",
+   "title_ru": "Раздели слова и напиши цифрами",
+   "task_ru": "Напиши число цифрами: «1 311».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "trzystajedenaście",
+     "answer": "311",
+     "ru": "триста одиннадцать",
+     "full_pl": "trzysta jedenaście"
+    },
+    {
+     "q": "siedemsetdwadzieściadwa",
+     "answer": "722",
+     "ru": "семьсот двадцать два",
+     "full_pl": "siedemset dwadzieścia dwa"
+    },
+    {
+     "q": "pięćsetosiemdziesiątdziewięć",
+     "answer": "589",
+     "ru": "пятьсот восемьдесят девять",
+     "full_pl": "pięćset osiemdziesiąt dziewięć"
+    },
+    {
+     "q": "tysiącsześćsetpięćdziesiąt",
+     "answer": "1650",
+     "ru": "тысяча шестьсот пятьдесят",
+     "full_pl": "tysiąc sześćset pięćdziesiąt"
+    }
+   ]
+  },
+  {
+   "id": "wb-6-3-1",
+   "src": "wb",
+   "ref": "Ćw. 3, s. 35 (1/2)",
+   "title": "Proszę pogrupować słowa.",
+   "title_ru": "Напитки, фрукты, овощи или другое?",
+   "task_ru": "Выбери группу.",
+   "type": "match",
+   "items": [
+    {
+     "q": "chleb",
+     "answer": "inne",
+     "ru": "хлеб"
+    },
+    {
+     "q": "pomarańcza",
+     "answer": "owoce",
+     "ru": "апельсин"
+    },
+    {
+     "q": "bułka",
+     "answer": "inne",
+     "ru": "булочка"
+    },
+    {
+     "q": "masło",
+     "answer": "inne",
+     "ru": "масло"
+    },
+    {
+     "q": "kapusta",
+     "answer": "warzywa",
+     "ru": "капуста"
+    },
+    {
+     "q": "herbata",
+     "answer": "napoje",
+     "ru": "чай"
+    },
+    {
+     "q": "cebula",
+     "answer": "warzywa",
+     "ru": "лук"
+    },
+    {
+     "q": "wino",
+     "answer": "napoje",
+     "ru": "вино"
+    },
+    {
+     "q": "piwo",
+     "answer": "napoje",
+     "ru": "пиво"
+    },
+    {
+     "q": "ziemniaki",
+     "answer": "warzywa",
+     "ru": "картошка"
+    }
+   ],
+   "options": [
+    "napoje",
+    "owoce",
+    "warzywa",
+    "inne"
+   ]
+  },
+  {
+   "id": "wb-6-3-2",
+   "src": "wb",
+   "ref": "Ćw. 3, s. 35 (2/2)",
+   "title": "Proszę pogrupować słowa.",
+   "title_ru": "Напитки, фрукты, овощи или другое?",
+   "task_ru": "Выбери группу.",
+   "type": "match",
+   "items": [
+    {
+     "q": "sałata",
+     "answer": "warzywa",
+     "ru": "салат (листья)"
+    },
+    {
+     "q": "ogórek",
+     "answer": "warzywa",
+     "ru": "огурец"
+    },
+    {
+     "q": "kurczak",
+     "answer": "inne",
+     "ru": "курица"
+    },
+    {
+     "q": "woda mineralna",
+     "answer": "napoje",
+     "ru": "минеральная вода"
+    },
+    {
+     "q": "lody",
+     "answer": "inne",
+     "ru": "мороженое"
+    },
+    {
+     "q": "ciasto",
+     "answer": "inne",
+     "ru": "пирог"
+    },
+    {
+     "q": "banan",
+     "answer": "owoce",
+     "ru": "банан"
+    },
+    {
+     "q": "jabłko",
+     "answer": "owoce",
+     "ru": "яблоко"
+    },
+    {
+     "q": "pomidor",
+     "answer": "warzywa",
+     "ru": "помидор"
+    },
+    {
+     "q": "cytryna",
+     "answer": "owoce",
+     "ru": "лимон"
+    }
+   ],
+   "options": [
+    "napoje",
+    "owoce",
+    "warzywa",
+    "inne"
+   ]
+  },
+  {
+   "id": "wb-6-4",
+   "src": "wb",
+   "ref": "Ćw. 4, s. 35",
+   "title": "Gdzie są słowa?",
+   "title_ru": "Найди слова в строке",
+   "task_ru": "Найди в строке ещё 6 слов (первое — herbata). Напиши: «1 kotlet 2 …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "слово 1 — котлета",
+     "answer": "kotlet",
+     "ru": "котлета"
+    },
+    {
+     "q": "слово 2 — суп",
+     "answer": "zupa",
+     "ru": "суп"
+    },
+    {
+     "q": "слово 3 — томатный (суп)",
+     "answer": "pomidorowa",
+     "ru": "томатный"
+    },
+    {
+     "q": "слово 4 — картошка",
+     "answer": "ziemniaki",
+     "ru": "картошка"
+    },
+    {
+     "q": "слово 5 — курица",
+     "answer": "kurczak",
+     "ru": "курица"
+    },
+    {
+     "q": "слово 6 — картофель фри",
+     "answer": "frytki",
+     "ru": "картофель фри"
+    }
+   ],
+   "text": "adrteherbatapiooklekotletbnejzupakhpomidorowamwidoziemniakiaacniekurczakfdyfrytki"
+  },
+  {
+   "id": "wb-6-5a",
+   "src": "wb",
+   "ref": "Ćw. 5a, s. 35",
+   "title": "W kawiarni",
+   "title_ru": "В кафе (слова из рамки)",
+   "task_ru": "Диалог в кафе. Выбери слово из рамки (аудио — для проверки).",
+   "type": "match",
+   "items": [
+    {
+     "q": "Marek: Co ___?",
+     "answer": "dla ciebie",
+     "ru": "Марек: Что тебе?"
+    },
+    {
+     "q": "Basia: Dla mnie zimny sok ___…",
+     "answer": "pomarańczowy",
+     "ru": "Бася: Мне холодный апельсиновый сок…"
+    },
+    {
+     "q": "…i ___ kawa.",
+     "answer": "mała",
+     "ru": "…и маленький кофе."
+    },
+    {
+     "q": "Kelner: Kawa biała ___ czarna?",
+     "answer": "czy",
+     "ru": "Официант: Кофе с молоком или чёрный?"
+    },
+    {
+     "q": "Marek: Dla ___ piwo.",
+     "answer": "mnie",
+     "ru": "Марек: Мне пиво."
+    },
+    {
+     "q": "Kelner: Duże czy ___?",
+     "answer": "małe",
+     "ru": "Официант: Большое или маленькое?"
+    },
+    {
+     "q": "Marek: Przepraszam, czy ___ tu palić?",
+     "answer": "wolno",
+     "ru": "Марек: Простите, здесь можно курить?"
+    }
+   ],
+   "audio": "Track34.mp3",
+   "options": [
+    "mała",
+    "wolno",
+    "pomarańczowy",
+    "mnie",
+    "dla ciebie",
+    "czy",
+    "małe"
+   ]
+  },
+  {
+   "id": "wb-6-7",
+   "src": "wb",
+   "ref": "Ćw. 7, s. 36",
+   "title": "Złote — złotych, grosze — groszy?",
+   "title_ru": "Złote или złotych?",
+   "task_ru": "Напиши цену цифрами и нужной формой: «1 14 złotych 15 groszy».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "14,15 zł",
+     "answer": "14 złotych 15 groszy",
+     "ru": "14 злотых 15 грошей",
+     "grammar": "5–21 → złotych / groszy"
+    },
+    {
+     "q": "52,24 zł",
+     "answer": "52 złote 24 grosze",
+     "ru": "52 злотых 24 гроша",
+     "grammar": "…2, …3, …4 → złote / grosze"
+    },
+    {
+     "q": "7,43 zł",
+     "answer": "7 złotych 43 grosze",
+     "ru": "7 злотых 43 гроша"
+    },
+    {
+     "q": "72,02 zł",
+     "answer": "72 złote 2 grosze",
+     "ru": "72 злотых 2 гроша"
+    },
+    {
+     "q": "21,50 zł",
+     "answer": "21 złotych 50 groszy",
+     "ru": "21 злотый 50 грошей",
+     "grammar": "21 → złotych (исключение: только 1 → złoty)"
+    },
+    {
+     "q": "13,70 zł",
+     "answer": "13 złotych 70 groszy",
+     "ru": "13 злотых 70 грошей"
+    }
+   ]
+  },
+  {
+   "id": "wb-6-8",
+   "src": "wb",
+   "ref": "Ćw. 8, s. 36",
+   "title": "Proszę uzupełnić tabelę.",
+   "title_ru": "Jeść и pić — спряжение",
+   "task_ru": "Напиши форму: «1 jesz 2 je …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "jeść: (ty) ___",
+     "answer": "jesz",
+     "ru": "ты ешь",
+     "translit": "еш",
+     "grammar": "jeść: jem, jesz, je, jemy, jecie, jedzą"
+    },
+    {
+     "q": "jeść: (on, ona, ono) ___",
+     "answer": "je",
+     "ru": "он / она ест",
+     "translit": "е"
+    },
+    {
+     "q": "jeść: (my) ___",
+     "answer": "jemy",
+     "ru": "мы едим",
+     "translit": "Е-мы"
+    },
+    {
+     "q": "jeść: (wy) ___",
+     "answer": "jecie",
+     "ru": "вы едите",
+     "translit": "ЕЧ-е"
+    },
+    {
+     "q": "jeść: (oni, one) ___",
+     "answer": "jedzą",
+     "ru": "они едят",
+     "translit": "Е-дзон"
+    },
+    {
+     "q": "pić: (ja) ___",
+     "answer": "piję",
+     "ru": "я пью",
+     "translit": "ПИ-е",
+     "grammar": "pić: piję, pijesz, pije, pijemy, pijecie, piją"
+    },
+    {
+     "q": "pić: (ty) ___",
+     "answer": "pijesz",
+     "ru": "ты пьёшь",
+     "translit": "ПИ-еш"
+    },
+    {
+     "q": "pić: (on, ona, ono) ___",
+     "answer": "pije",
+     "ru": "он / она пьёт",
+     "translit": "ПИ-е"
+    },
+    {
+     "q": "pić: (my) ___",
+     "answer": "pijemy",
+     "ru": "мы пьём",
+     "translit": "пи-Е-мы"
+    },
+    {
+     "q": "pić: (wy) ___",
+     "answer": "pijecie",
+     "ru": "вы пьёте",
+     "translit": "пи-ЕЧ-е"
+    },
+    {
+     "q": "pić: (oni, one) ___",
+     "answer": "piją",
+     "ru": "они пьют",
+     "translit": "ПИ-ён"
+    }
+   ]
+  },
+  {
+   "id": "wb-6-9",
+   "src": "wb",
+   "ref": "Ćw. 9, s. 36",
+   "title": "Proszę ułożyć zdania.",
+   "title_ru": "Составь предложение",
+   "task_ru": "Составь предложение (глагол — в нужной форме): «1 Chce mi się pić.» Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "pić — chce — się — mi",
+     "answer": "Chce mi się pić.",
+     "ru": "Мне хочется пить."
+    },
+    {
+     "q": "my — czytać — książka — dobra",
+     "answer": "Czytamy dobrą książkę.",
+     "ru": "Мы читаем хорошую книгу.",
+     "accepted": [
+      "My czytamy dobrą książkę."
+     ]
+    },
+    {
+     "q": "mój — z — cytryna — pić — ojciec — herbata",
+     "answer": "Mój ojciec pije herbatę z cytryną.",
+     "ru": "Мой отец пьёт чай с лимоном."
+    },
+    {
+     "q": "czy — jeszcze — coś?",
+     "answer": "Czy coś jeszcze?",
+     "ru": "Что-нибудь ещё?"
+    },
+    {
+     "q": "reszta — pani — dla",
+     "answer": "Reszta dla pani.",
+     "ru": "Сдачи не надо (сдача вам)."
+    },
+    {
+     "q": "śniadanie — ja — jeść — na — żółty — ser",
+     "answer": "Na śniadanie jem żółty ser.",
+     "ru": "На завтрак я ем жёлтый сыр.",
+     "accepted": [
+      "Na śniadanie ja jem żółty ser."
+     ]
+    },
+    {
+     "q": "picia — do — co?",
+     "answer": "Co do picia?",
+     "ru": "Что будете пить?"
+    },
+    {
+     "q": "deser — na — co?",
+     "answer": "Co na deser?",
+     "ru": "Что на десерт?"
+    },
+    {
+     "q": "do kolacji — ja — pić — kawa — bez cukru",
+     "answer": "Do kolacji piję kawę bez cukru.",
+     "ru": "К ужину я пью кофе без сахара."
+    },
+    {
+     "q": "mineralna — woda — ja — prosić",
+     "answer": "Proszę wodę mineralną.",
+     "ru": "Минеральную воду, пожалуйста.",
+     "accepted": [
+      "Ja proszę wodę mineralną.",
+      "Poproszę wodę mineralną."
+     ]
+    },
+    {
+     "q": "ty — głodny — być?",
+     "answer": "Czy jesteś głodny?",
+     "ru": "Ты голоден?",
+     "accepted": [
+      "Jesteś głodny?"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-6-10",
+   "src": "wb",
+   "ref": "Ćw. 10, s. 37",
+   "title": "Proszę wstawić formy biernika.",
+   "title_ru": "Винительный падеж",
+   "task_ru": "Поставь в винительный: ж. р. -ą / -ę, м. р. неодуш. и ср. р. — без изменений.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Dzień dobry, proszę ___ (zupa pomidorowa)…",
+     "answer": "zupę pomidorową",
+     "ru": "Здравствуйте, томатный суп, пожалуйста…"
+    },
+    {
+     "q": "…___ (filet) z kurczaka…",
+     "answer": "filet",
+     "ru": "…куриное филе…"
+    },
+    {
+     "q": "…___ (sałatka grecka) i frytki.",
+     "answer": "sałatkę grecką",
+     "ru": "…греческий салат и картошку фри."
+    },
+    {
+     "q": "Do picia proszę ___ (sok pomarańczowy)…",
+     "answer": "sok pomarańczowy",
+     "ru": "Пить — апельсиновый сок…"
+    },
+    {
+     "q": "…a na deser ___ (ciasto czekoladowe)…",
+     "answer": "ciasto czekoladowe",
+     "ru": "…а на десерт шоколадный торт…"
+    },
+    {
+     "q": "…i ___ (biała kawa).",
+     "answer": "białą kawę",
+     "ru": "…и кофе с молоком."
+    },
+    {
+     "q": "Na śniadanie jem ___ (ciemny chleb) z masłem i dżemem…",
+     "answer": "ciemny chleb",
+     "ru": "На завтрак я ем тёмный хлеб с маслом и джемом…"
+    },
+    {
+     "q": "…czasami ___ (bułka) z szynką.",
+     "answer": "bułkę",
+     "ru": "…иногда булочку с ветчиной."
+    },
+    {
+     "q": "Do śniadania zawsze piję ___ (zielona herbata).",
+     "answer": "zieloną herbatę",
+     "ru": "К завтраку я всегда пью зелёный чай."
+    },
+    {
+     "q": "Na obiad jem ___ (makaron) albo ___ (ryż) z sosem…",
+     "answer": "makaron, ryż",
+     "ru": "На обед я ем макароны или рис с соусом…"
+    },
+    {
+     "q": "…rzadko ___ (mięso) albo ___ (grillowana ryba).",
+     "answer": "mięso, grillowaną rybę",
+     "ru": "…редко мясо или рыбу на гриле."
+    },
+    {
+     "q": "Do obiadu zwykle piję ___ (woda mineralna gazowana).",
+     "answer": "wodę mineralną gazowaną",
+     "ru": "К обеду я обычно пью газированную минеральную воду."
+    },
+    {
+     "q": "Na kolację jem ___ (kanapka) albo ___ (mała sałatka).",
+     "answer": "kanapkę, małą sałatkę",
+     "ru": "На ужин я ем бутерброд или маленький салат."
+    },
+    {
+     "q": "Do kolacji czasem piję ___ (alkohol), na przykład ___ (czerwone wino) albo ___ (małe piwo).",
+     "answer": "alkohol, czerwone wino, małe piwo",
+     "ru": "К ужину я иногда пью алкоголь, например красное вино или маленькое пиво."
+    }
+   ]
+  },
+  {
+   "id": "wb-6-11",
+   "src": "wb",
+   "ref": "Ćw. 11, s. 37",
+   "title": "Biernik czy narzędnik?",
+   "title_ru": "Винительный или творительный?",
+   "task_ru": "После jest (кто?) — творительный; после proszę / pije / jem — винительный; после z — творительный. Два слова — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Hans jest ___ (Niemiec), a Helga jest ___ (Niemka).",
+     "answer": "Niemcem, Niemką",
+     "ru": "Ганс — немец, а Хельга — немка.",
+     "grammar": "być + творительный"
+    },
+    {
+     "q": "Marek jest ___ (Polak), a Anna jest ___ (Polka).",
+     "answer": "Polakiem, Polką",
+     "ru": "Марек — поляк, а Анна — полька."
+    },
+    {
+     "q": "Sophia Loren jest ___ (włoska aktorka).",
+     "answer": "włoską aktorką",
+     "ru": "Софи Лорен — итальянская актриса."
+    },
+    {
+     "q": "Proszę ___ (mała kawa).",
+     "answer": "małą kawę",
+     "ru": "Маленький кофе, пожалуйста.",
+     "grammar": "proszę + винительный"
+    },
+    {
+     "q": "Marek pije ___ z ___ (herbata / cytryna) do kolacji.",
+     "answer": "herbatę, cytryną",
+     "ru": "Марек пьёт чай с лимоном к ужину."
+    },
+    {
+     "q": "Do obiadu Anna pije ___ z ___ (sok pomarańczowy / lód).",
+     "answer": "sok pomarańczowy, lodem",
+     "ru": "К обеду Анна пьёт апельсиновый сок со льдом."
+    },
+    {
+     "q": "Proszę ___ z ___ (kawa / mleko).",
+     "answer": "kawę, mlekiem",
+     "ru": "Кофе с молоком, пожалуйста."
+    },
+    {
+     "q": "Jem ___ z ___ (bułka / szynka).",
+     "answer": "bułkę, szynką",
+     "ru": "Я ем булочку с ветчиной."
+    },
+    {
+     "q": "Piję ___ z ___ (woda mineralna / cytryna).",
+     "answer": "wodę mineralną, cytryną",
+     "ru": "Я пью минеральную воду с лимоном."
+    }
+   ]
+  },
+  {
+   "id": "wb-6-12",
+   "src": "wb",
+   "ref": "Ćw. 12, s. 37",
+   "title": "Proszę napisać pytania: Kogo? / Co?",
+   "title_ru": "Вопрос: Kogo? или Co?",
+   "task_ru": "Задай вопрос к подчёркнутому слову: люди и животные — Kogo?, вещи — Co? Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Mama zna mojego profesora.",
+     "answer": "Kogo zna mama?",
+     "ru": "Мама знает моего профессора."
+    },
+    {
+     "q": "Dziewczyna lubi studenta.",
+     "answer": "Kogo lubi dziewczyna?",
+     "ru": "Девушке нравится студент."
+    },
+    {
+     "q": "Piotr pije sok.",
+     "answer": "Co pije Piotr?",
+     "ru": "Пётр пьёт сок."
+    },
+    {
+     "q": "Ten pan czyta gazetę.",
+     "answer": "Co czyta ten pan?",
+     "ru": "Этот господин читает газету."
+    },
+    {
+     "q": "Ja mam kota.",
+     "answer": "Kogo masz?",
+     "ru": "У меня есть кот.",
+     "accepted": [
+      "Kogo ty masz?",
+      "Co masz?"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-6-13",
+   "src": "wb",
+   "ref": "Ćw. 13, s. 37",
+   "title": "Jaki? / Jakiego? / Jaką? / Jakie?",
+   "title_ru": "Вопрос: какой?",
+   "task_ru": "Задай вопрос к подчёркнутому прилагательному: «1 Jaką kawę lubisz?» Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Lubię włoską kawę.",
+     "answer": "Jaką kawę lubisz?",
+     "ru": "Я люблю итальянский кофе.",
+     "grammar": "kawę — винительный ж. р. → jaką"
+    },
+    {
+     "q": "Piotr ma nowe auto.",
+     "answer": "Jakie auto ma Piotr?",
+     "ru": "У Петра новая машина.",
+     "grammar": "auto — ср. р. → jakie"
+    },
+    {
+     "q": "Jem ser żółty.",
+     "answer": "Jaki ser jesz?",
+     "ru": "Я ем жёлтый сыр.",
+     "grammar": "м. р. неодуш. → jaki"
+    },
+    {
+     "q": "Kupuję duży chleb.",
+     "answer": "Jaki chleb kupujesz?",
+     "ru": "Я покупаю большой хлеб."
+    },
+    {
+     "q": "Lubię tego dużego psa.",
+     "answer": "Jakiego psa lubisz?",
+     "ru": "Мне нравится эта большая собака.",
+     "grammar": "м. р. одуш. → jakiego"
+    },
+    {
+     "q": "Mam nowy telewizor.",
+     "answer": "Jaki telewizor masz?",
+     "ru": "У меня новый телевизор."
+    }
+   ]
+  }
+ ]
+}

@@ -12,16 +12,19 @@
 Отвечать можно частями: проверяются только отвеченные пункты, результат по каждому пункту хранится
 в таблице book_ex — можно вернуться позже и продолжить. Шаг pending «bex»: {unit, ex, pick, sure, notes, msg}.
 """
+import asyncio
 import os
 from pathlib import Path
 
 from ..core import textbook
 from ..ai.prompt import CHECK_HINT, CHECK_SCHEMA, check_prompt
 from ..ui import fmt
+from ..common import log
 from ..exercises import logic
-from ..settings import BOOKS_DIR, EX_EXPLAIN_ALL
+from ..settings import BOOKS_DIR, EX_EXPLAIN_ALL, PAGE_DPI
 
 ROOT = Path(__file__).resolve().parent.parent.parent   # корень проекта: там папка Books (на сервере, не в git)
+PAGES_DIR = ROOT / "data" / "pages"   # кэш картинок страниц (data/ — не в git)
 TF_TYPED = {"p": "a", "prawda": "a", "n": "b", "nieprawda": "b", "fałsz": "b"}
 
 
@@ -45,6 +48,42 @@ def _find(unit: dict, ex_id: str) -> dict | None:
 
 class BookExMixin:
     books_root: Path | None = None   # тесты подставляют свою папку Books
+    pages_dir: Path = PAGES_DIR
+
+    async def render_page(self, pdf: Path, n: int, out: Path) -> bool:
+        """Страница n PDF → PNG (pdftoppm из poppler-utils)."""
+        out.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            proc = await asyncio.create_subprocess_exec(
+                "pdftoppm", "-f", str(n), "-l", str(n), "-r", str(PAGE_DPI), "-png", "-singlefile",
+                str(pdf), str(out.with_suffix("")), stdout=asyncio.subprocess.DEVNULL, stderr=asyncio.subprocess.PIPE)
+            _, err = await asyncio.wait_for(proc.communicate(), 60)
+        except (OSError, asyncio.TimeoutError) as e:
+            log.warning(f"pdftoppm: {e}")
+            return False
+        if proc.returncode != 0:
+            log.warning(f"pdftoppm {pdf.name} s.{n}: {err.decode(errors='ignore')[:200]}")
+        return out.is_file()
+
+    async def bex_pages(self, chat_id: int, unit: dict, x: dict) -> None:
+        """📄 Страницы книги к упражнению — картинкой из PDF в Books/ (сам текст в репозиторий не попадает)."""
+        src = x.get("src", "tb")
+        rel = (unit.get("files") or {}).get(src)
+        pdf = (self.books_root or ROOT / BOOKS_DIR) / rel if rel else None
+        if not pdf or not pdf.is_file():
+            await self.tg.send_message(chat_id, f"📄 PDF не нашёлся в папке Books на сервере: {fmt.e(rel or '—')}")
+            return
+        shift = (unit.get("page_offset") or {}).get(src, 0)
+        for page in logic.book_pages(x):
+            n = page + shift
+            out = self.pages_dir / f"{unit['book']}_{src}_{n:03d}.png"
+            await self.tg.send_action(chat_id, "upload_photo")
+            if not out.is_file() and not await self.render_page(pdf, n, out):
+                await self.tg.send_message(chat_id, f"📄 Не получилось вырезать страницу {page} из PDF.")
+                return
+            what = "тетрадь" if src == "wb" else "учебник"
+            await self.tg.send_photo(chat_id, out.name, out.read_bytes(),
+                                     f"📄 {fmt.e(unit['book_short'])} · {what}, s. {page}")
 
     def bex_get(self, pending: dict | None) -> tuple[dict, dict] | None:
         if (pending or {}).get("step") != "bex":
@@ -55,7 +94,8 @@ class BookExMixin:
 
     async def bex_callback(self, chat_id: int, user_id: int, message_id: int, pending: dict | None,
                            action: str) -> None:
-        """bx:l:<юнит> — список; bx:o:<юнит>|<упр> — открыть; bx:r:<юнит>|<упр> — начать заново."""
+        """bx:l:<юнит> — список; bx:o:<юнит>|<упр> — открыть; bx:r:<юнит>|<упр> — начать заново;
+        bx:p:<юнит>|<упр> — страница книги картинкой."""
         kind, _, arg = action.partition(":")
         unit_id, _, ex_id = arg.partition("|")
         unit = textbook.get_unit(unit_id)
@@ -64,6 +104,10 @@ class BookExMixin:
         if kind == "l":
             text, buttons = fmt.bex_list_screen(unit, self.db.bex_results(user_id, unit["unit"]))
             await self.show(chat_id, user_id, {"step": "bex_list", "unit": unit["unit"]}, text, buttons)
+        elif kind == "p":
+            x = _find(unit, ex_id)
+            if x:
+                await self.bex_pages(chat_id, unit, x)
         elif kind in ("o", "r"):
             x = _find(unit, ex_id)
             if not x:
