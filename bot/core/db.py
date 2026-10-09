@@ -137,6 +137,7 @@ CREATE TABLE IF NOT EXISTS book_ex (
     answer TEXT NOT NULL DEFAULT '',
     explanation TEXT NOT NULL DEFAULT '',
     at REAL NOT NULL,
+    manual INTEGER NOT NULL DEFAULT 0,       -- ✋ засчитан пользователем вручную
     PRIMARY KEY (user_id, unit, ex_id, n)
 );
 CREATE TABLE IF NOT EXISTS book_ex_done (    -- упражнение из книги выполнено на 100%: ответы этой попытки
@@ -145,7 +146,8 @@ CREATE TABLE IF NOT EXISTS book_ex_done (    -- упражнение из кни
     unit TEXT NOT NULL,
     ex_id TEXT NOT NULL,
     answers TEXT NOT NULL,                   -- JSON {номер пункта: ответ}
-    at REAL NOT NULL
+    at REAL NOT NULL,
+    manual TEXT NOT NULL DEFAULT '[]'        -- JSON [номера пунктов, засчитанных вручную ✋]
 );
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
@@ -186,6 +188,9 @@ class DB:
             # выученность в учебнике в два уровня: test — узнаю (выбор из вариантов), typed — знаю (написал сам)
             "book_stats": [("test_streak", "INTEGER NOT NULL DEFAULT 0"), ("typed_streak", "INTEGER NOT NULL DEFAULT 0"),
                            ("last_ok", "INTEGER NOT NULL DEFAULT 1")],
+            # ✋ пункт упражнения из книги засчитан пользователем вручную
+            "book_ex": [("manual", "INTEGER NOT NULL DEFAULT 0")],
+            "book_ex_done": [("manual", "TEXT NOT NULL DEFAULT '[]'")],
         }
         two_level = "test_streak" not in self._columns("book_stats")
         for table, cols in adds.items():
@@ -447,15 +452,30 @@ class DB:
         return {(r["ex_id"], r["n"]): dict(r) for r in self.conn.execute(
             "SELECT * FROM book_ex WHERE user_id=? AND unit=?", (user_id, unit_key(unit)))}
 
-    def bex_save(self, user_id: int, unit: str, ex_id: str, n: int, ok: bool, answer: str, explanation: str) -> None:
+    def bex_save(self, user_id: int, unit: str, ex_id: str, n: int, ok: bool, answer: str, explanation: str,
+                 manual: bool = False) -> None:
         self.conn.execute(
-            "INSERT OR REPLACE INTO book_ex(user_id, unit, ex_id, n, ok, answer, explanation, at) VALUES (?,?,?,?,?,?,?,?)",
-            (user_id, unit_key(unit), ex_id, n, int(ok), answer, explanation, self.clock()))
+            "INSERT OR REPLACE INTO book_ex(user_id, unit, ex_id, n, ok, answer, explanation, at, manual) "
+            "VALUES (?,?,?,?,?,?,?,?,?)",
+            (user_id, unit_key(unit), ex_id, n, int(ok), answer, explanation, self.clock(), int(manual)))
         self.conn.commit()
 
-    def bex_done_add(self, user_id: int, unit: str, ex_id: str, answers: dict) -> None:
-        self.conn.execute("INSERT INTO book_ex_done(user_id, unit, ex_id, answers, at) VALUES (?,?,?,?,?)",
-                          (user_id, unit_key(unit), ex_id, json.dumps(answers, ensure_ascii=False), self.clock()))
+    def bex_mark_manual(self, user_id: int, unit: str, ex_id: str, ns: list[int]) -> list[int]:
+        """✋ Засчитать пункты вручную (ответ, если был, сохраняется). Возвращает пункты, которые изменились."""
+        have = {(r["ex_id"], r["n"]): r for r in self.bex_results(user_id, unit).values()}
+        changed = []
+        for n in ns:
+            row = have.get((ex_id, n))
+            if row and row["ok"]:
+                continue
+            self.bex_save(user_id, unit, ex_id, n, True, row["answer"] if row else "", "", manual=True)
+            changed.append(n)
+        return changed
+
+    def bex_done_add(self, user_id: int, unit: str, ex_id: str, answers: dict, manual: list[int] | None = None) -> None:
+        self.conn.execute("INSERT INTO book_ex_done(user_id, unit, ex_id, answers, at, manual) VALUES (?,?,?,?,?,?)",
+                          (user_id, unit_key(unit), ex_id, json.dumps(answers, ensure_ascii=False), self.clock(),
+                           json.dumps(sorted(manual or []))))
         self.conn.commit()
 
     def bex_done(self, user_id: int, unit: str) -> dict:
@@ -463,7 +483,8 @@ class DB:
         out: dict = {}
         for r in self.conn.execute("SELECT * FROM book_ex_done WHERE user_id=? AND unit=? ORDER BY id",
                                    (user_id, unit_key(unit))):
-            out.setdefault(r["ex_id"], []).append({"answers": json.loads(r["answers"]), "at": r["at"]})
+            out.setdefault(r["ex_id"], []).append({"answers": json.loads(r["answers"]), "at": r["at"],
+                                                   "manual": json.loads(r["manual"] or "[]")})
         return out
 
     def bex_reset(self, user_id: int, unit: str, ex_id: str) -> None:

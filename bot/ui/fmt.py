@@ -853,9 +853,17 @@ def bex_counts(x: dict, done: dict) -> tuple[int, int]:
     return sum(1 for r in rows if r["ok"]), len(rows)
 
 
+def bex_manual(x: dict, done: dict) -> int:
+    """Сколько пунктов засчитано пользователем вручную ✋."""
+    return sum(1 for n in range(1, len(x["items"]) + 1) if (done.get((x["id"], n)) or {}).get("manual"))
+
+
 def bex_icon(x: dict, done: dict) -> str:
+    """✅ всё верно · ☑️ 100%, но часть засчитана вручную · ◐ начато · ○ не начато."""
     ok, answered = bex_counts(x, done)
-    return "✅" if ok == len(x["items"]) else "◐" if answered else "○"
+    if ok == len(x["items"]):
+        return "☑️" if bex_manual(x, done) else "✅"
+    return "◐" if answered else "○"
 
 
 def bex_complete(x: dict, done: dict) -> bool:
@@ -869,14 +877,17 @@ def bex_list_screen(unit: dict, done: dict, hist: dict | None = None) -> tuple[s
     full = sum(1 for x in exs if bex_complete(x, done) or hist.get(x["id"]))
     lines = [f"📝 <b>{e(unit['book_short'])} · {e(unit['name'])} — {e(unit['title'])}</b> · упражнения: "
              f"сделано {full} из {len(exs)}", "",
-             "📗 — учебник, 📒 — рабочая тетрадь · ✅ всё верно · ◐ начато · ○ не начато · 🏆 — сколько раз "
-             "сделано на 100%", ""]
+             "📗 — учебник, 📒 — рабочая тетрадь · ✅ всё верно · ☑️ 100%, но часть пунктов засчитана вручную (✋N — "
+             "сколько) · ◐ начато · ○ не начато · 🏆 — сколько раз сделано на 100% (🏆✋ — последний раз с ручными)", ""]
     rows = []
     for x in exs:
         ok, _ = bex_counts(x, done)
-        wins = len(hist.get(x["id"]) or [])
-        cup = f" · 🏆{wins if wins > 1 else ''}" if wins else ""
-        lines.append(f"{bex_icon(x, done)} {e(bex_name(x))} · {ok}/{len(x['items'])}{cup}")
+        attempts = hist.get(x["id"]) or []
+        wins = len(attempts)
+        cup = (f" · 🏆{wins if wins > 1 else ''}" + ("✋" if attempts[-1].get("manual") else "")) if wins else ""
+        hand = bex_manual(x, done)
+        lines.append(f"{bex_icon(x, done)} {e(bex_name(x))} · {ok}/{len(x['items'])}"
+                     + (f" · ✋{hand}" if hand else "") + cup)
         rows.append([(f"{bex_icon(x, done)}{'🏆' if wins else ''} {bex_name(x)}"[:60], f"bx:o:{unit['unit']}|{x['id']}")])
     return "\n".join(lines), rows
 
@@ -923,9 +934,9 @@ def bex_message(unit: dict, x: dict, done: dict, notes: dict | None = None, wins
         row = done.get((x["id"], n))
         if hide and row and row["ok"]:
             continue
-        mark = "" if not row else "✅ " if row["ok"] else "❌ "
+        mark = "" if not row else ("✋ " if row.get("manual") else "✅ ") if row["ok"] else "❌ "
         q = e(it.get("q", "")).replace("___", "<b>___</b>")
-        got = f" → <b>{e(row['answer'])}</b>" if row and row["ok"] else ""
+        got = f" → <b>{e(row['answer'])}</b>" if row and row["ok"] and row["answer"] else ""
         lines.append(f"{mark}{n}. {q}{got}" + (f" 💡{n}" if it.get("hint") and not (row and row["ok"]) else ""))
         if it.get("ru") and not _same(it.get("q", ""), it["ru"]):
             lines.append(f"    <i>— {e(it['ru'])}</i>")
@@ -935,7 +946,8 @@ def bex_message(unit: dict, x: dict, done: dict, notes: dict | None = None, wins
             lines.append(f"    💭 <i>{e(notes[str(n)])}</i>")
     lines.append("")
     if complete:
-        lines.append("<i>🎉 Всё верно. Пройти ещё раз — «🔁 Выполнить заново»: эта попытка сохранится.</i>")
+        lines.append("<i>🎉 Всё верно" + (" (✋ — засчитано вручную)" if bex_manual(x, done) else "")
+                     + ". Пройти ещё раз — «🔁 Выполнить заново»: эта попытка сохранится.</i>")
     elif x.get("type") in CHOICE_TYPES:
         opts = "P / N" if x.get("type") == "tf" else "a / b / c"
         lines.append(f"<i>Жми ответы кнопками ({opts}) — можно не все: проверю отмеченные, остальное — потом, "
@@ -948,8 +960,11 @@ def bex_message(unit: dict, x: dict, done: dict, notes: dict | None = None, wins
         lines.append("<i>Ответ одним сообщением, номера — в любом порядке: «1 jestem 3 mam». Не знаешь — «4-», "
                      "несколько подряд — «4-8-». Пропущенные пункты до последнего номера — тоже ошибка. "
                      "Пункты после него — потом, прогресс сохраняется. Уточнение — в скобках, уверен — «!».</i>")
+    if not complete:
+        lines.append("<i>Засчитать пункт вручную (описка, спорный ответ) — «5+», несколько подряд — «4+8+»; "
+                     "всё упражнение — кнопкой «✋ Засчитать всё».</i>")
     if answered and not complete:
-        lines.append("<i>✅ — уже верно; ❌ — была ошибка, можно ответить ещё раз.</i>")
+        lines.append("<i>✅ — уже верно; ✋ — засчитано вручную; ❌ — была ошибка, можно ответить ещё раз.</i>")
     return "\n".join(lines)
 
 
@@ -971,6 +986,8 @@ def bex_keyboard(unit: dict, x: dict, done: dict, pick: dict, sure: list, wins: 
     if x.get("type") in CHOICE_TYPES and todo:
         rows.append([(f"📨 Проверить отмеченные ({len(pick)})", "bx:go")])
     rows += again_rows(unit, x, done, wins)
+    if todo:
+        rows.append([("✋ Засчитать всё упражнение", f"bx:m:{unit['unit']}|{x['id']}")])
     rows += page_row(unit, x)
     rows.append([("📋 Все упражнения юнита", f"bx:l:{unit['unit']}")])
     return rows
@@ -989,14 +1006,16 @@ def again_rows(unit: dict, x: dict, done: dict, wins: int) -> list[list[tuple[st
 def bex_attempt_view(unit: dict, x: dict, attempts: list[dict], now: float) -> str:
     """📜 Последняя попытка на 100% — все ответы сразу."""
     last = attempts[-1]
+    hand = set(last.get("manual") or [])
     lines = [f"📜 <b>{e(unit['book_short'])} · {e(unit['name'])} · {e(bex_name(x))}</b>",
-             f"<i>Выполнено на 100%: {len(attempts)} раз(а), последний — {ago(last['at'], now)}.</i>", ""]
+             f"<i>Выполнено на 100%: {len(attempts)} раз(а), последний — {ago(last['at'], now)}"
+             + (f"; ✋ вручную засчитано пунктов: {len(hand)}" if hand else "") + ".</i>", ""]
     if x.get("text"):
         lines += [f"<blockquote>{e(x['text'])}</blockquote>", ""]
     for n, it in enumerate(x["items"], 1):
         ans = last["answers"].get(str(n)) or it.get("answer", "")
         q = e(it.get("q", "")).replace("___", "<b>___</b>")
-        lines.append(f"{n}. {q} → <b>{e(ans)}</b>")
+        lines.append(f"{'✋ ' if n in hand else ''}{n}. {q} → <b>{e(ans)}</b>")
         if it.get("ru") and not _same(it.get("q", ""), it["ru"]):
             lines.append(f"    <i>— {e(it['ru'])}</i>")
     return "\n".join(lines)
@@ -1012,11 +1031,15 @@ def page_row(unit: dict, x: dict) -> list[list[tuple[str, str]]]:
     return [[(f"📄 Страница {what} (s. {nums})", f"bx:p:{unit['unit']}|{x['id']}")]]
 
 
-def bex_result_buttons(unit: dict, x: dict, done: dict, wins: int = 0) -> list[list[tuple[str, str]]]:
+def bex_result_buttons(unit: dict, x: dict, done: dict, wins: int = 0,
+                       wrong: list[int] | None = None) -> list[list[tuple[str, str]]]:
     u = unit["unit"]
     exs = unit.get("exercises") or []
     ok, _ = bex_counts(x, done)
     rows = []
+    data = f"bx:w:{u}|{x['id']}|{','.join(map(str, wrong or []))}"
+    if wrong and len(data.encode()) <= 64:   # описка — засчитать ошибки этой проверки, не переписывая
+        rows.append([(f"✋ Засчитать ошибочные ({len(wrong)})", data)])
     if ok < len(x["items"]):
         rows.append([(f"▶️ Продолжить (осталось {len(x['items']) - ok})", f"bx:o:{u}|{x['id']}")])
     i = next((k for k, y in enumerate(exs) if y["id"] == x["id"]), -1)

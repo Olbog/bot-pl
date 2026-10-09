@@ -2132,3 +2132,46 @@ def test_long_list_hides_done_items_and_no_duplicate_translation():
     assert "— слово3" not in m and "zle" not in m                    # перевод = пункт и прошлый неверный ответ не пишем
     x["items"][0]["q"] = "…z ___ (cukier)"                            # продолжение текста — показываем всё
     assert "✅ 1." in f.bex_message(unit, x, done)
+
+
+def test_manual_done_items_and_whole_exercise():
+    app = bex_app()
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    assert "bx:m:kpk:2|tb-2-1" in str(app.tg.buttons[-1])
+    app.gemini.check_verdict = {2: False}
+    run(app.handle(msg(text="1 mam 2 mas")))                          # описка в пункте 2
+    assert "bx:w:kpk:2|tb-2-1|2" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("bx:w:kpk:2|tb-2-1|2")))                  # ✋ засчитать ошибочные
+    assert "Засчитано вручную" in app.tg.sent[-1] and "верно 2 из 3" in app.tg.sent[-1]
+    row = app.db.bex_results(42, "kpk:2")[("tb-2-1", 2)]
+    assert row["ok"] == 1 and row["manual"] == 1 and row["answer"] == "mas"
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    assert "✋ 2. Ty" in app.tg.sent[-1]
+    run(app.handle(msg(text="3+")))                                    # «3+» — последний пункт вручную
+    assert "100%" in app.tg.sent[-1]
+    assert app.db.bex_done(42, "kpk:2")["tb-2-1"][0]["manual"] == [2, 3]
+    run(app.on_callback(cb("bx:l:kpk:2")))
+    assert "☑️ 📗 Ćw. 1, s. 20" in app.tg.sent[-1] and "✋2" in app.tg.sent[-1] and "🏆✋" in app.tg.sent[-1]
+    run(app.on_callback(cb("bx:v:kpk:2|tb-2-1")))
+    assert "✋ 3. On" in app.tg.sent[-1]
+    run(app.on_callback(cb("bx:m:kpk:2|wb-2-1")))                    # всё упражнение — с подтверждением
+    assert "bx:M:kpk:2|wb-2-1" in str(app.tg.buttons[-1]) and not app.db.bex_results(42, "kpk:2").get(("wb-2-1", 1))
+    run(app.on_callback(cb("bx:M:kpk:2|wb-2-1")))
+    assert "100%" in app.tg.sent[-1]
+    assert all(app.db.bex_results(42, "kpk:2")[("wb-2-1", n)]["manual"] for n in (1, 2))
+
+
+def test_book_paths_resolve_loosely_and_audio_per_source():
+    import tempfile
+    from bot.exercises.bookex import audio_dir_of, find_audio, resolve
+    root = Path(tempfile.mkdtemp())
+    d = root / "Krok_po_kroku" / "A1 lvl" / "Audio_zeszyt cwiczen"
+    d.mkdir(parents=True)
+    (d / "37_L08_cwiczenie2.mp3").write_bytes(b"x")
+    (root / "Hurra po polsku" / "1").mkdir(parents=True)
+    (root / "Hurra po polsku" / "1" / "Zeszyt ćwiczeń.pdf").write_bytes(b"%PDF")
+    assert resolve(root, "Krok po Kroku/A1 lvl/Audio_zeszyt cwiczen") == d
+    assert resolve(root, "Hurra_po_polsku/1/Zeszyt cwiczen.pdf").name == "Zeszyt ćwiczeń.pdf"
+    unit = {"audio_dir": {"tb": "Krok po Kroku/A1 lvl/Audio (A1)", "wb": "Krok po Kroku/A1 lvl/Audio_zeszyt cwiczen"}}
+    assert find_audio(audio_dir_of(unit, "wb"), "37_L08_cwiczenie2.mp3", root) == d / "37_L08_cwiczenie2.mp3"
+    assert find_audio(audio_dir_of(unit, "tb"), "37_L08_cwiczenie2.mp3", root) is None

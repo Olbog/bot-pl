@@ -14,6 +14,7 @@
 """
 import asyncio
 import os
+import unicodedata
 from pathlib import Path
 
 from ..core import textbook
@@ -28,18 +29,49 @@ PAGES_DIR = ROOT / "data" / "pages"   # кэш картинок страниц (
 TF_TYPED = {"p": "a", "prawda": "a", "n": "b", "nieprawda": "b", "fałsz": "b"}
 
 
+def _key(name: str) -> str:
+    """Имя файла/папки для сравнения: без регистра, пробелов, «_», знаков и польских букв."""
+    name = unicodedata.normalize("NFKD", name.lower().replace("ł", "l"))
+    return "".join(ch for ch in name if ch.isalnum() and not unicodedata.combining(ch))
+
+
+def resolve(root: Path, rel: str) -> Path | None:
+    """Путь внутри Books/: сначала как есть, иначе по частям с нестрогим сравнением имён —
+    на сервере и на ноутбуке папки могут называться чуть по-разному («Krok po Kroku» / «Krok_po_kroku»)."""
+    path = root / rel
+    if path.exists():
+        return path
+    cur = root
+    for part in Path(rel).parts:
+        if (cur / part).exists():
+            cur = cur / part
+            continue
+        if not cur.is_dir():
+            return None
+        match = next((c for c in sorted(cur.iterdir()) if _key(c.name) == _key(part)), None)
+        if match is None:
+            return None
+        cur = match
+    return cur
+
+
 def find_audio(audio_dir: str, name: str, root: Path | None = None) -> Path | None:
-    """Файл аудио в Books/<audio_dir> — прямо или в подпапках, без учёта регистра."""
-    base = (root or ROOT / BOOKS_DIR) / audio_dir
+    """Файл аудио в Books/<audio_dir> — прямо или в подпапках, имя сравнивается нестрого."""
+    base = resolve(root or ROOT / BOOKS_DIR, audio_dir) if audio_dir else None
+    if base is None or not base.is_dir():
+        return None
     if (base / name).is_file():
         return base / name
-    if not base.is_dir():
-        return None
     for dirpath, _, files in os.walk(base):
         for f in files:
-            if f.lower() == name.lower():
+            if _key(f) == _key(name):
                 return Path(dirpath) / f
     return None
+
+
+def audio_dir_of(unit: dict, src: str) -> str:
+    d = unit.get("audio_dir") or ""
+    return d.get(src) or d.get("tb", "") if isinstance(d, dict) else d
 
 
 def _find(unit: dict, ex_id: str) -> dict | None:
@@ -69,7 +101,7 @@ class BookExMixin:
         """📄 Страницы книги к упражнению — картинкой из PDF в Books/ (сам текст в репозиторий не попадает)."""
         src = x.get("src", "tb")
         rel = (unit.get("files") or {}).get(src)
-        pdf = (self.books_root or ROOT / BOOKS_DIR) / rel if rel else None
+        pdf = resolve(self.books_root or ROOT / BOOKS_DIR, rel) if rel else None
         if not pdf or not pdf.is_file():
             await self.tg.send_message(chat_id, f"📄 PDF не нашёлся в папке Books на сервере: {fmt.e(rel or '—')}")
             return
@@ -110,6 +142,26 @@ class BookExMixin:
             x = _find(unit, ex_id)
             if x:
                 await self.bex_pages(chat_id, unit, x)
+        elif kind in ("m", "M", "w"):   # ✋ засчитать вручную: всё упражнение (m — спросить, M — да) или ошибки проверки
+            ex_id, _, ns = ex_id.partition("|")
+            x = _find(unit, ex_id)
+            if not x:
+                return
+            done = self.db.bex_results(user_id, unit["unit"])
+            todo = [n for n in range(1, len(x["items"]) + 1) if not (done.get((x["id"], n)) or {}).get("ok")]
+            if kind == "m":
+                await self.tg.send_message(
+                    chat_id, f"✋ Засчитать вручную всё упражнение «{fmt.e(fmt.bex_name(x))}»? Невыполненных пунктов: "
+                             f"{len(todo)}. В списке оно будет помечено ☑️ — «100%, часть вручную».",
+                    [[("✋ Да, засчитать", f"bx:M:{unit['unit']}|{x['id']}"), ("Нет", f"bx:o:{unit['unit']}|{x['id']}")]])
+                return
+            ok_before = fmt.bex_counts(x, done)[0]
+            want = todo if kind == "M" else [int(n) for n in ns.split(",") if n.isdigit()]
+            changed = self.db.bex_mark_manual(user_id, unit["unit"], x["id"], want)
+            if message_id:
+                await self.tg.edit_markup(chat_id, message_id)
+            await self.bex_after_manual(chat_id, user_id, pending if (pending or {}).get("step") == "bex" else None,
+                                        unit, x, changed, ok_before)
         elif kind == "v":   # 📜 выполненная попытка — все ответы сразу
             x = _find(unit, ex_id)
             attempts = self.db.bex_done(user_id, unit["unit"]).get(ex_id) if x else None
@@ -128,7 +180,7 @@ class BookExMixin:
     async def bex_open(self, chat_id: int, user_id: int, unit: dict, x: dict) -> None:
         audio = x.get("audio") or []
         for name in [audio] if isinstance(audio, str) else audio:
-            path = find_audio(unit.get("audio_dir", ""), name, self.books_root)
+            path = find_audio(audio_dir_of(unit, x.get("src", "tb")), name, self.books_root)
             if path:
                 await self.tg.send_action(chat_id, "upload_voice")
                 await self.tg.send_audio(chat_id, path.name, path.read_bytes(), f"🎧 {fmt.e(x.get('ref', ''))}")
@@ -200,7 +252,7 @@ class BookExMixin:
         for n, L in pending["pick"].items():
             answers.setdefault(int(n), {"answer": L, "unsure": False, "sure": int(n) in pending["sure"],
                                         "note": pending["notes"].get(n, "")})
-        if not any(a["answer"] or a.get("skip") for a in answers.values()):
+        if not any(a["answer"] or a.get("skip") or a.get("done") for a in answers.values()):
             await self.tg.send_message(chat_id, "Не нашёл ответов. Пиши с номерами пунктов: «1 jestem 3 mam».")
             return
         await self.bex_check(chat_id, user_id, pending, unit, x, answers, text=text, gaps=True)
@@ -214,9 +266,13 @@ class BookExMixin:
         items = [{**it, "options": logic.book_options(x, it)} if choice else it for it in x["items"]]
         before = self.db.bex_results(user_id, unit["unit"])
         ok_before = fmt.bex_counts(x, before)[0]
-        last = max((n for n, a in answers.items() if a["answer"] or a.get("skip")), default=0)
+        last = max((n for n, a in answers.items() if a["answer"] or a.get("skip") or a.get("done")), default=0)
+        manual = sorted(n for n, a in answers.items() if a.get("done"))   # «5+» — засчитать вручную ✋
+        answers = {n: a for n, a in answers.items() if not a.get("done")}
 
         def take(r: dict) -> bool:
+            if r["n"] in manual:
+                return False
             if r["status"] != "missing":
                 return True
             if not gaps:
@@ -225,7 +281,12 @@ class BookExMixin:
                 return True
             return r["n"] < last and not (before.get((x["id"], r["n"])) or {}).get("ok")
         results = [r for r in logic.quick_check(items, answers, "test" if choice else "gap") if take(r)]
+        if manual:
+            self.db.bex_mark_manual(user_id, unit["unit"], x["id"], manual)
         if not results:
+            if manual:
+                await self.bex_after_manual(chat_id, user_id, pending, unit, x, manual, ok_before)
+                return
             await self.tg.send_message(chat_id, "Не нашёл ответов. Пиши с номерами пунктов: «1 jestem 3 mam».")
             return
         if kind == "free":
@@ -273,11 +334,37 @@ class BookExMixin:
         ok_now = sum(1 for r in results if r["final"] == "ok")
         ok_all, _ = fmt.bex_counts(x, done)
         total = len(x["items"])
-        if ok_before < total == ok_all:   # попытка добита до 100% — сохраняем её ответы целиком
-            self.db.bex_done_add(user_id, unit["unit"], x["id"],
-                                 {str(n): done[(x["id"], n)]["answer"] for n in range(1, total + 1)})
+        self.bex_snapshot(user_id, unit, x, done, ok_before)
         head = (f"📊 <b>{ok_now} из {len(results)}</b> · {fmt.e(fmt.bex_name(x))}\n"
+                + (f"✋ Засчитано вручную: {', '.join(map(str, manual))}\n" if manual else "")
                 + (f"🎉 <b>Упражнение выполнено на 100%!</b>" if ok_all == total
                    else f"<i>Всего в упражнении верно {ok_all} из {total}.</i>"))
+        wrong = [r["n"] for r in results if r["final"] != "ok"]
         await self.tg.send_message(chat_id, fmt.ex_results({"items": items}, results, head=head, foot=""),
-                                   fmt.bex_result_buttons(unit, x, done, self.bex_wins(user_id, unit, x)))
+                                   fmt.bex_result_buttons(unit, x, done, self.bex_wins(user_id, unit, x), wrong))
+
+    def bex_snapshot(self, user_id: int, unit: dict, x: dict, done: dict, ok_before: int) -> bool:
+        """Попытка только что добита до 100% — сохраняем её ответы целиком (и какие пункты засчитаны вручную)."""
+        total = len(x["items"])
+        if not ok_before < total == fmt.bex_counts(x, done)[0]:
+            return False
+        rows = [done[(x["id"], n)] for n in range(1, total + 1)]
+        self.db.bex_done_add(user_id, unit["unit"], x["id"], {str(r["n"]): r["answer"] for r in rows},
+                             [r["n"] for r in rows if r.get("manual")])
+        return True
+
+    async def bex_after_manual(self, chat_id: int, user_id: int, pending: dict | None, unit: dict, x: dict,
+                               ns: list[int], ok_before: int) -> None:
+        """Сообщение после «✋ засчитать вручную»: что засчитано и что осталось."""
+        if pending and pending.get("msg"):
+            await self.tg.edit_markup(chat_id, pending["msg"])
+        self.db.set_pending(user_id, None)
+        done = self.db.bex_results(user_id, unit["unit"])
+        ok_all = fmt.bex_counts(x, done)[0]
+        total = len(x["items"])
+        self.bex_snapshot(user_id, unit, x, done, ok_before)
+        text = (f"✋ <b>Засчитано вручную</b> · {fmt.e(fmt.bex_name(x))}: "
+                + (", ".join(map(str, ns)) if ns else "ничего нового — эти пункты уже верны") + "\n"
+                + ("🎉 <b>Упражнение выполнено на 100%</b> (часть пунктов — вручную ✋)." if ok_all == total
+                   else f"<i>Всего в упражнении верно {ok_all} из {total}.</i>"))
+        await self.tg.send_message(chat_id, text, fmt.bex_result_buttons(unit, x, done, self.bex_wins(user_id, unit, x)))

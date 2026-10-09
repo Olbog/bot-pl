@@ -70,6 +70,27 @@ SKIP_RANGE_RE = re.compile(r"(?:(?<=[\s,;.])|^)(\d{1,2})\s*-\s*(\d{1,2})\s*-(?=\
 SKIP_ONE_RE = re.compile(r"(?:(?<=[\s,;.])|^)(\d{1,2})\s*-(?=\s*(?:$|[,;.\n]|\d))")
 
 
+# «5+» — пункт 5 засчитать вручную (✋); «4+8+» или «4-8+» — с 4 по 8
+DONE_RANGE_RE = re.compile(r"(?:(?<=[\s,;.])|^)(\d{1,2})\s*[-+]\s*(\d{1,2})\s*\+(?=\s*(?:$|[,;.\n]|\d))")
+DONE_ONE_RE = re.compile(r"(?:(?<=[\s,;.])|^)(\d{1,2})\s*\+(?=\s*(?:$|[,;.\n]|\d))")
+
+
+def _marks(text: str, n: int, one_re, range_re) -> tuple[str, set[int]]:
+    found: set[int] = set()
+
+    def rng(m):
+        a, b = sorted((int(m.group(1)), int(m.group(2))))
+        found.update(k for k in range(a, b + 1) if 1 <= k <= n)
+        return " ; "
+
+    def one(m):
+        if 1 <= int(m.group(1)) <= n:
+            found.add(int(m.group(1)))
+        return " ; "
+    text = range_re.sub(rng, text)
+    return one_re.sub(one, text), found
+
+
 def _skips(text: str, n: int) -> tuple[str, set[int]]:
     skipped: set[int] = set()
 
@@ -95,12 +116,15 @@ def _boundary(before: str) -> bool:
 def parse_answers(text: str, n: int, numeric: bool = False) -> dict[int, dict]:
     """«1 piję (ja → -ę) 2 lubi (почему не lubią?) 3 mam!» → {1: {answer, unsure, sure, note}, ...}.
     Номера — в любом порядке (каждый пункт один раз, в пределах 1..n); всё до следующего номера — ответ,
-    в скобках — уточнение. «4-» или «4-8-» — «не знаю»: пункт с пустым ответом и skip=True.
+    в скобках — уточнение. «4-» или «4-8-» — «не знаю»: пункт с пустым ответом и skip=True;
+    «5+» или «4+8+» — засчитать вручную: пункт с пустым ответом и done=True.
     numeric — в правильных ответах есть цифры: новый пункт начинается только с новой строки, после «;» или «.»."""
     text, notes = _hide_notes((text or "").replace("\n", " \n "))
+    text, done = _marks(text, n, DONE_ONE_RE, DONE_RANGE_RE)
     text, skipped = _skips(text, n)
+    skipped -= done
     marks = []
-    used: set[int] = set(skipped)
+    used: set[int] = set(skipped) | done
     for m in NUM_RE.finditer(text):
         num = int(m.group(1))
         if not 1 <= num <= n or num in used:
@@ -111,9 +135,10 @@ def parse_answers(text: str, n: int, numeric: bool = False) -> dict[int, dict]:
         used.add(num)
     out: dict[int, dict] = {k: {"answer": "", "unsure": False, "sure": False, "note": "", "skip": True}
                             for k in skipped}
+    out.update({k: {"answer": "", "unsure": False, "sure": False, "note": "", "done": True} for k in done})
     if not marks:  # без номеров: по строкам или через запятую, если ответов ровно n
         parts = [p.strip() for p in re.split(r"\n|,|;", text) if p.strip()]
-        if not skipped and len(parts) == n:
+        if not skipped and not done and len(parts) == n:
             for i, raw in enumerate(parts, 1):
                 out[i] = _one(raw, notes)
         return out

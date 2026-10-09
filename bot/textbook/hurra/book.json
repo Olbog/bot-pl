@@ -3,14 +3,17 @@
  "title": "Hurra!!! Po polsku 1",
  "short": "Hurra",
  "unit_label": "Lekcja",
- "audio_dir": "Hurra",
+ "audio_dir": {
+  "tb": "Hurra_po_polsku/1/Audio. Podręcznik studenta",
+  "wb": "Hurra_po_polsku/1/Audio. Zeszyt ćwiczeń"
+ },
  "files": {
-  "tb": "Hurra/HURRA 1 Podręcznik studenta. Nowa Edycja.pdf",
-  "wb": "Hurra/HURRA 1 Zeszyt ćwiczeń. Nowa Edycja.pdf"
+  "tb": "Hurra_po_polsku/1/Małolepsza M., Szymkiewicz A. - Hurra!!!  Po Polsku 1. Podręcznik studenta - 2020.pdf",
+  "wb": "Hurra_po_polsku/1/Małolepsza M., Szymkiewicz A. - Hurra!!!  Po Polsku 1. Zeszyt ćwiczeń - 2020.pdf"
  },
  "order": 2,
  "page_offset": {
-  "tb": 3,
+  "tb": 2,
   "wb": 2
  }
 }

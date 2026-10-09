@@ -1,8 +1,9 @@
 """Учебники: bot/textbook/<книга>/book.json + unit_NN.json (их добавляет Claude по страницам учебника и тетради).
 
 book.json: {"id": "kpk", "title": "Krok po kroku. Polski A1", "short": "KpK", "unit_label": "Unit",
-            "audio_dir": "Krok_po_kroku/Audio (A1)",   — аудио ищется в BOOKS_DIR/<audio_dir>
+            "audio_dir": {"tb": "…", "wb": "…"},       — аудио учебника и тетради в BOOKS_DIR (или одна папка строкой)
             "files": {"tb": "…pdf", "wb": "…pdf"},      — PDF учебника и тетради в BOOKS_DIR
+                     пути сверяются без учёта регистра, пробелов, «_» и польских букв: «Krok po Kroku» = «Krok_po_kroku»
             "page_offset": {"tb": -5, "wb": 0}}        — страница PDF = страница книги + сдвиг
 
 unit_NN.json:

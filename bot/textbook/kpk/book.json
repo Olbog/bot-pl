@@ -3,14 +3,17 @@
  "title": "Krok po kroku. Polski A1",
  "short": "KpK",
  "unit_label": "Unit",
- "audio_dir": "Krok_po_kroku/Audio (A1)",
+ "audio_dir": {
+  "tb": "Krok po Kroku/A1 lvl/Audio (A1) Podręcznik studenta",
+  "wb": "Krok po Kroku/A1 lvl/Audio_zeszyt cwiczen"
+ },
  "files": {
-  "tb": "Krok_po_kroku/Iwona Stempek - Krok po Kroku Polski A1 - 2010.pdf",
-  "wb": "Krok_po_kroku/Krok_po_kroku_1_tetrad.pdf"
+  "tb": "Krok po Kroku/A1 lvl/Iwona Stempek - Krok po Kroku Polski A1 - Podręcznik studenta - 2010.pdf",
+  "wb": "Krok po Kroku/A1 lvl/Krok_po_kroku_1 _-_zeszyt cwiczen.pdf"
  },
  "order": 1,
  "page_offset": {
   "tb": -5,
-  "wb": 0
+  "wb": -2
  }
 }
