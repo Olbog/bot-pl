@@ -57,7 +57,8 @@ def load_books(path: Path | None = None) -> list[dict]:
                      book_short=meta["short"], name=f"{meta['unit_label']} {num}",
                      audio_dir=meta.get("audio_dir", ""), files=meta.get("files") or {},
                      page_offset=meta.get("page_offset") or {})
-            u["words"] = [w for w in u.get("words") or [] if w.get("pl") and w.get("ru")]
+            u["words"] = group_words([w for w in u.get("words") or [] if w.get("pl") and w.get("ru")],
+                                     u.get("topics") or [])
             u["exercises"] = [x for x in u.get("exercises") or [] if x.get("id") and x.get("items")]
             if u["words"] or u["exercises"]:
                 units.append(u)
@@ -66,6 +67,49 @@ def load_books(path: Path | None = None) -> list[dict]:
         books.append(meta)
     books.sort(key=lambda b: (b.get("order", 99), b["id"]))
     return books
+
+
+MIN_TOPIC = 3            # в теме меньше слов (без сочетаний) — они уходят в «Разное», чтобы не плодить мелкие темы
+OTHER_TOPIC = "Разное"
+
+
+def group_words(words: list[dict], order: list[str]) -> list[dict]:
+    """Слова юнита по темам (поле topic; сочетание — в теме своего слова, сразу под ним): темы в порядке
+    unit["topics"], «Разное» — в конце. Ничего не выбрасывается — только порядок и поле group.
+    Если тем в юните нет — порядок как в файле, без групп."""
+    if not any(w.get("topic") for w in words):
+        return words
+    base_topic: dict[str, str] = {}
+    for w in words:
+        if not w.get("of"):
+            base_topic[w["pl"]] = w.get("topic") or OTHER_TOPIC
+    for w in words:
+        w["group"] = base_topic.get(w["of"], w.get("topic") or OTHER_TOPIC) if w.get("of") else base_topic[w["pl"]]
+    sizes: dict[str, int] = {}
+    for w in words:
+        if not w.get("of"):
+            sizes[w["group"]] = sizes.get(w["group"], 0) + 1
+    for w in words:
+        if sizes.get(w["group"], 0) < MIN_TOPIC:
+            w["group"] = OTHER_TOPIC
+    seen = list(dict.fromkeys(order + [w["group"] for w in words]))
+    rank = {t: i for i, t in enumerate(t for t in seen if t != OTHER_TOPIC)}
+    rank[OTHER_TOPIC] = len(rank)
+    return sorted(words, key=lambda w: rank[w["group"]])   # sorted устойчив: внутри темы — порядок файла
+
+
+def topic_parts(words: list[dict], size: int) -> list[tuple[str | None, int, list[tuple[int, dict]]]]:
+    """[(тема, номер части, [(номер слова, слово)…])] — куски не больше size, не через границу темы."""
+    out: list[tuple[str | None, int, list[tuple[int, dict]]]] = []
+    for n, w in enumerate(words, 1):
+        g = w.get("group")
+        if out and out[-1][0] == g and len(out[-1][2]) < size:
+            out[-1][2].append((n, w))
+        elif out and out[-1][0] == g:
+            out.append((g, out[-1][1] + 1, [(n, w)]))
+        else:
+            out.append((g, 1, [(n, w)]))
+    return out
 
 
 def load_units(path: Path | None = None, book: str | None = None) -> list[dict]:

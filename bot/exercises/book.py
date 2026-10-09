@@ -147,15 +147,15 @@ class BookMixin:
             await self.words_voice(chat_id, unit)
 
     async def words_voice(self, chat_id: int, unit: dict) -> None:
-        """🔊 Озвучка слов юнита: польское слово, пауза; частями по WORDS_VOICE_CHUNK."""
+        """🔊 Озвучка слов юнита: польское слово, пауза; по темам, части не длиннее WORDS_VOICE_CHUNK."""
         words = unit["words"]
-        for start in range(0, len(words), WORDS_VOICE_CHUNK):
-            part = words[start:start + WORDS_VOICE_CHUNK]
-            await self.tg.send_message(chat_id, f"🔊 {unit['name']}: слова {start + 1}–{start + len(part)} "
-                                                 f"из {len(words)}")
+        for grp, k, part in textbook.topic_parts(words, WORDS_VOICE_CHUNK):
+            topic = f" · 🗂 {grp}{f' ({k})' if k > 1 else ''}" if grp else ""
+            await self.tg.send_message(chat_id, f"🔊 {unit['name']}: слова {part[0][0]}–{part[-1][0]} "
+                                                 f"из {len(words)}{escape(topic)}")
             await self.tg.send_action(chat_id, "record_voice")
             try:
-                ogg = await self.tts(" ... ".join(w["pl"].rstrip("?!.") for w in part) + ".",
+                ogg = await self.tts(" ... ".join(w["pl"].rstrip("?!.") for _, w in part) + ".",
                                      self.cfg.tts_voice, self.cfg.tts_rate)
             except Exception:
                 await self.tg.send_message(chat_id, "🔇 Озвучка не получилась — попробуй позже.")

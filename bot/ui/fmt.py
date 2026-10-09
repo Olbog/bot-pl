@@ -7,6 +7,7 @@ from ..core.config import local_dt
 
 from ..core.rules import group
 from ..core.verbs import verb_line
+from ..core.textbook import topic_parts
 from ..exercises.logic import CHOICE_TYPES, LETTERS, book_options, book_pages
 from ..core.training import Criteria, WordStats, kind_of, num, progress_bar
 
@@ -694,9 +695,30 @@ KNOW_LEGEND = ("<i>✅ знаю — 3 раза подряд написал са�
                "📒 — слово из рабочей тетради.</i>")
 
 
+def topics_line(words: list[dict]) -> str:
+    """Оглавление: «🗂 Темы: Напитки (9) · Овощи (8) · …» — сколько слов (без сочетаний) в каждой."""
+    counts: dict[str, int] = {}
+    for w in words:
+        if w.get("group") and not w.get("of"):
+            counts[w["group"]] = counts.get(w["group"], 0) + 1
+    return ("🗂 <b>Темы:</b> " + " · ".join(f"{e(t)} ({n})" for t, n in counts.items())) if counts else ""
+
+
+def _topic_head(t: str) -> str:
+    return f"🗂 <b>{e(t)}</b>"
+
+
 def words_list(unit: dict, known: set[str], recog: set[str]) -> tuple[str, list[list[tuple[str, str]]]]:
-    lines = [words_header(unit, len(known), len(recog), len(unit["words"])), ""]
-    lines += [_word_line(n, w, _mark(w, known, recog)) for n, w in enumerate(unit["words"], 1)]
+    lines = [words_header(unit, len(known), len(recog), len(unit["words"]))]
+    if topics_line(unit["words"]):
+        lines.append(topics_line(unit["words"]))
+    lines.append("")
+    grp = None
+    for n, w in enumerate(unit["words"], 1):
+        if w.get("group") and w["group"] != grp:
+            grp = w["group"]
+            lines += ([""] if lines[-1] else []) + [_topic_head(grp)]
+        lines.append(_word_line(n, w, _mark(w, known, recog)))
     lines += ["", KNOW_LEGEND]
     u = unit["unit"]
     return "\n".join(lines), [[("🙈 Скрыть перевод", f"wd:h:{u}"), ("📄 Файлом", f"wd:f:{u}"),
@@ -706,10 +728,10 @@ def words_list(unit: dict, known: set[str], recog: set[str]) -> tuple[str, list[
 def words_hidden(unit: dict, known: set[str], recog: set[str]) -> list[tuple[str, list[list[tuple[str, str]]]]]:
     """Скрытый перевод: куски по WORDS_CHUNK слов, под каждым — кнопки-номера; нажал — перевод всплывает."""
     out, words, u = [], unit["words"], unit["unit"]
-    for start in range(0, len(words), WORDS_CHUNK):
-        part = list(enumerate(words[start:start + WORDS_CHUNK], start + 1))
-        head = (f"🙈 <b>{e(unit['name'])} — {e(unit['title'])}</b> · {start + 1}–{part[-1][0]} из {len(words)}\n"
-                "<i>Вспомни перевод, потом нажми номер — подскажу.</i>\n\n")
+    for grp, k, part in topic_parts(words, WORDS_CHUNK):   # по темам: каждая тема — своё сообщение
+        topic = f"🗂 <b>{e(grp)}</b>{f' ({k})' if k > 1 else ''}\n" if grp else ""
+        head = (f"🙈 <b>{e(unit['name'])} — {e(unit['title'])}</b> · {part[0][0]}–{part[-1][0]} из {len(words)}\n"
+                + topic + "<i>Вспомни перевод, потом нажми номер — подскажу.</i>\n\n")
         text = head + "\n".join(_word_line(n, w, _mark(w, known, recog), with_ru=False) for n, w in part)
         btns = [(str(n), f"wd:s:{u}|{n}") for n, _ in part]
         out.append((text, [btns[i:i + 5] for i in range(0, len(btns), 5)]))
@@ -722,8 +744,15 @@ def word_hint(w: dict) -> str:
 
 def words_file(unit: dict) -> str:
     lines = [f"{unit['book_title']} · {unit['name']} — {unit['title']}", unit.get("summary", ""), ""]
-    lines += [f"{n}. {w['pl']} [{w.get('translit', '')}] — {w['ru']}" + (f" ({w['pos']})" if w.get("pos") else "")
-              for n, w in enumerate(unit["words"], 1)]
+    grp = None
+    for n, w in enumerate(unit["words"], 1):
+        if w.get("group") and w["group"] != grp:
+            grp = w["group"]
+            lines += ["", f"=== {grp} ==="]
+        pre = "    + " if w.get("of") else ""
+        wb = " [тетрадь]" if w.get("src") == "wb" else ""
+        lines.append(f"{pre}{n}. {w['pl']} [{w.get('translit', '')}] — {w['ru']}"
+                     + (f" ({w['pos']})" if w.get("pos") and not w.get("of") else "") + wb)
     return "\n".join(lines) + "\n"
 
 

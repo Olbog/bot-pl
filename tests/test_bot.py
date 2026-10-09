@@ -2175,3 +2175,28 @@ def test_book_paths_resolve_loosely_and_audio_per_source():
     unit = {"audio_dir": {"tb": "Krok po Kroku/A1 lvl/Audio (A1)", "wb": "Krok po Kroku/A1 lvl/Audio_zeszyt cwiczen"}}
     assert find_audio(audio_dir_of(unit, "wb"), "37_L08_cwiczenie2.mp3", root) == d / "37_L08_cwiczenie2.mp3"
     assert find_audio(audio_dir_of(unit, "tb"), "37_L08_cwiczenie2.mp3", root) is None
+
+
+def test_unit_words_grouped_by_topic_nothing_lost():
+    words = [{"pl": "kawa", "ru": "кофе", "topic": "Напитки"}, {"pl": "kawa z mlekiem", "ru": "кофе с молоком", "of": "kawa"},
+             {"pl": "nóż", "ru": "нож", "topic": "Посуда"}, {"pl": "sok", "ru": "сок", "topic": "Напитки"},
+             {"pl": "łyżka", "ru": "ложка", "topic": "Посуда"}, {"pl": "herbata", "ru": "чай", "topic": "Напитки"},
+             {"pl": "talerz", "ru": "тарелка", "topic": "Посуда"}, {"pl": "ser", "ru": "сыр", "topic": "Сыры"},
+             {"pl": "spać", "ru": "спать"}]
+    out = tb.group_words([dict(w) for w in words], ["Посуда", "Напитки"])
+    assert len(out) == len(words)                                    # пул не урезан
+    assert [w["pl"] for w in out] == ["nóż", "łyżka", "talerz", "kawa", "kawa z mlekiem", "sok", "herbata", "ser", "spać"]
+    assert out[-1]["group"] == out[-2]["group"] == "Разное"           # тема из 1 слова и без темы — в «Разное»
+    assert out[4]["group"] == "Напитки"                              # сочетание — под своим словом
+    unit = {"unit": "kpk:2", "name": "Unit 2", "title": "T", "book_short": "KpK", "book_title": "KpK", "words": out}
+    text, _ = fmt_mod.words_list(unit, set(), set())
+    assert "🗂 <b>Темы:</b> Посуда (3) · Напитки (3) · Разное (2)" in text and text.index("Посуда</b>") < text.index("nóż")
+    hidden = fmt_mod.words_hidden(unit, set(), set())
+    assert len(hidden) == 3 and "Напитки" in hidden[1][0] and ("4", "wd:s:kpk:2|4") in hidden[1][1][0]
+    assert "=== Разное ===" in fmt_mod.words_file(unit)
+
+
+def test_real_units_every_word_has_topic():
+    real = Path(__file__).resolve().parent.parent / "bot" / "textbook"
+    for u in tb.load_units(real):
+        assert all(w.get("group") for w in u["words"]), u["unit"]
