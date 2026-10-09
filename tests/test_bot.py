@@ -1999,21 +1999,31 @@ def test_book_exercise_list_open_audio_partial_and_continue():
     run(app.on_callback(cb("bx:h:1")))
     assert app.tg.toasts[-1] == "💡1: mieć, 1 л."
     app.gemini.check_verdict = {3: False}
-    run(app.handle(msg(text="1 mam 3 maja")))                       # ответ только на 1 и 3
-    assert "1 из 2" in app.tg.sent[-1] and "верно 1 из 3" in app.tg.sent[-1]
-    assert "Ty ___" not in app.gemini.prompts[-1]                   # неотвеченный пункт 2 не проверяется
+    run(app.handle(msg(text="3 maja 1 mam")))                       # не по порядку, пункт 2 пропущен
+    assert "1 из 3" in app.tg.sent[-1] and "верно 1 из 3" in app.tg.sent[-1]
+    assert "❌ 2. — → <b>masz</b>" in app.tg.sent[-1]                 # пропуск до последнего номера — ошибка
+    assert "Ty ___" not in app.gemini.prompts[-1]                   # пропущенный пункт модели не отправляем
     assert app.db.get_state(42)["pending"] is None
     assert "bx:o:kpk:2|tb-2-1" in str(app.tg.buttons[-1])           # ▶️ Продолжить
     run(app.handle(msg(text="hej")))                                 # после проверки текст — снова разговор
     assert app.gemini.calls
     run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))                   # продолжить позже
-    assert "✅ 1. Ja" in app.tg.sent[-1] and "❌ 3." in app.tg.sent[-1]
+    assert "✅ 1. Ja" in app.tg.sent[-1] and "❌ 3." in app.tg.sent[-1] and "maja" not in app.tg.sent[-1]
+    assert "bx:r:" not in str(app.tg.buttons[-1])                    # «Выполнить заново» — только после 100%
     run(app.handle(msg(text="2 masz! 3 ma!")))
-    assert "верно 3 из 3" in app.tg.sent[-1]
+    assert "100%" in app.tg.sent[-1] and "bx:r:kpk:2|tb-2-1" in str(app.tg.buttons[-1])
+    assert app.db.bex_done(42, "kpk:2")["tb-2-1"][0]["answers"] == {"1": "mam", "2": "masz", "3": "ma"}
     run(app.on_callback(cb("bx:l:kpk:2")))
-    assert "✅ 📗 Ćw. 1, s. 20" in app.tg.sent[-1]
-    run(app.on_callback(cb("bx:r:kpk:2|tb-2-1")))                   # 🔄 заново
-    assert app.db.bex_results(42, "kpk:2") == {}
+    assert "✅ 📗 Ćw. 1, s. 20" in app.tg.sent[-1] and "🏆" in app.tg.sent[-1]
+    run(app.on_callback(cb("bx:r:kpk:2|tb-2-1")))                   # 🔁 выполнить заново
+    assert app.db.bex_results(42, "kpk:2") == {} and app.db.bex_done(42, "kpk:2")["tb-2-1"]
+    assert "🏆 Уже сделано на 100%: 1" in app.tg.sent[-1] and "bx:v:kpk:2|tb-2-1" in str(app.tg.buttons[-1])
+    run(app.handle(msg(text="1 mam 2-3-")))                          # «не знаю» диапазоном
+    assert "❌ 2. — → <b>masz</b>" in app.tg.sent[-1] and "❌ 3. — → <b>ma</b>" in app.tg.sent[-1]
+    run(app.on_callback(cb("bx:l:kpk:2")))
+    assert "◐ 📗 Ćw. 1, s. 20 — Вставь глагол · 1/3 · 🏆" in app.tg.sent[-1]   # новая попытка, прошлая цела
+    run(app.on_callback(cb("bx:v:kpk:2|tb-2-1")))                   # 📜 выполненная попытка целиком
+    assert "Ty <b>___</b> (mieć) siostrę. → <b>masz</b>" in app.tg.sent[-1]
 
 
 def test_book_exercise_buttons_tf_and_match():
@@ -2033,7 +2043,7 @@ def test_book_exercise_buttons_tf_and_match():
     run(app.on_callback(cb("bx:o:kpk:2|wb-2-1")))
     assert all("bx:a:1:" not in str(r) for r in app.tg.buttons[-1])  # верный пункт 1 больше не спрашиваем
     run(app.handle(msg(text="2 n")))                                 # текстом: n → nieprawda
-    assert "верно 2 из 2" in app.tg.sent[-1]
+    assert "выполнено на 100%" in app.tg.sent[-1]
     run(app.on_callback(cb("bx:o:kpk:2|wb-2-2")))
     assert "<b>c)</b> pies" in app.tg.sent[-1] and ("1 c", "bx:a:1:c") in app.tg.buttons[-1][0]
     run(app.handle(msg(text="1c 2a")))
@@ -2093,3 +2103,32 @@ def test_book_pages_from_ref():
     assert book_pages({"ref": "A · Ćw. 4, s. 54"}) == [54]
     assert book_pages({"ref": "Ćw. 2, s. 30–31"}) == [30, 31]
     assert book_pages({"ref": "x", "pages": [7]}) == [7]
+
+
+def test_parse_answers_any_order_skips_and_numeric():
+    from bot.exercises.logic import parse_answers as P
+
+    def a(t, n=24, **k):
+        return {k2: (v["answer"], v.get("skip", False)) for k2, v in sorted(P(t, n, **k).items())}
+    assert a("18 kapusta 6 brzoskwinia 12 marchewka") == {6: ("brzoskwinia", False), 12: ("marchewka", False),
+                                                          18: ("kapusta", False)}
+    assert a("1 kot, 2 pies, 4-, 5-, 6 ser") == {1: ("kot", False), 2: ("pies", False), 4: ("", True),
+                                                5: ("", True), 6: ("ser", False)}
+    assert a("1 a 4-8- 9 b")[6] == ("", True) and a("1 a 4-8- 9 b")[9] == ("b", False)
+    assert a("1 jem 3 je 1 jemy", 5) == {1: ("jem", False), 3: ("je 1 jemy", False)}   # номер дважды — текст
+    got = a("1 14 złotych 15 groszy. 2 52 złote 2 grosze\n4 7 złotych 3 grosze", 6, numeric=True)
+    assert got == {1: ("14 złotych 15 groszy.", False), 2: ("52 złote 2 grosze", False),
+                   4: ("7 złotych 3 grosze", False)}
+
+
+def test_long_list_hides_done_items_and_no_duplicate_translation():
+    from bot.ui import fmt as f
+    unit = {"unit": "kpk:2", "book_short": "KpK", "name": "Unit 2", "files": {}}
+    x = {"id": "t", "src": "tb", "ref": "s. 1", "type": "gap",
+         "items": [{"q": f"🍎 слово{i}", "ru": f"слово{i}", "answer": f"w{i}"} for i in range(1, 13)]}
+    done = {("t", 1): {"ok": 1, "answer": "w1"}, ("t", 2): {"ok": 0, "answer": "zle"}}
+    m = f.bex_message(unit, x, done)
+    assert "Сделано 1 из 12" in m and "✅ 1." not in m and "\n11. 🍎" in m and "❌ 2. 🍎 слово2" in m
+    assert "— слово3" not in m and "zle" not in m                    # перевод = пункт и прошлый неверный ответ не пишем
+    x["items"][0]["q"] = "…z ___ (cukier)"                            # продолжение текста — показываем всё
+    assert "✅ 1." in f.bex_message(unit, x, done)

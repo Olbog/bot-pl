@@ -95,19 +95,27 @@ class BookExMixin:
     async def bex_callback(self, chat_id: int, user_id: int, message_id: int, pending: dict | None,
                            action: str) -> None:
         """bx:l:<юнит> — список; bx:o:<юнит>|<упр> — открыть; bx:r:<юнит>|<упр> — начать заново;
-        bx:p:<юнит>|<упр> — страница книги картинкой."""
+        bx:p:<юнит>|<упр> — страница книги картинкой; bx:v:<юнит>|<упр> — выполненная попытка целиком.
+        «Заново» стирает только текущую попытку: выполненные на 100% хранятся в book_ex_done."""
         kind, _, arg = action.partition(":")
         unit_id, _, ex_id = arg.partition("|")
         unit = textbook.get_unit(unit_id)
         if not unit:
             return
         if kind == "l":
-            text, buttons = fmt.bex_list_screen(unit, self.db.bex_results(user_id, unit["unit"]))
+            text, buttons = fmt.bex_list_screen(unit, self.db.bex_results(user_id, unit["unit"]),
+                                                self.db.bex_done(user_id, unit["unit"]))
             await self.show(chat_id, user_id, {"step": "bex_list", "unit": unit["unit"]}, text, buttons)
         elif kind == "p":
             x = _find(unit, ex_id)
             if x:
                 await self.bex_pages(chat_id, unit, x)
+        elif kind == "v":   # 📜 выполненная попытка — все ответы сразу
+            x = _find(unit, ex_id)
+            attempts = self.db.bex_done(user_id, unit["unit"]).get(ex_id) if x else None
+            if attempts:
+                await self.tg.send_message(chat_id, fmt.bex_attempt_view(unit, x, attempts, self.clock()),
+                                           [[("▶️ Открыть упражнение", f"bx:o:{unit['unit']}|{x['id']}")]])
         elif kind in ("o", "r"):
             x = _find(unit, ex_id)
             if not x:
@@ -127,10 +135,14 @@ class BookExMixin:
             else:
                 await self.tg.send_message(chat_id, f"🎧 Аудио {fmt.e(name)} не нашлось в папке Books на сервере.")
         done = self.db.bex_results(user_id, unit["unit"])
-        sent = await self.tg.send_message(chat_id, fmt.bex_message(unit, x, done),
-                                          fmt.bex_keyboard(unit, x, done, {}, []))
+        wins = self.bex_wins(user_id, unit, x)
+        sent = await self.tg.send_message(chat_id, fmt.bex_message(unit, x, done, wins=wins),
+                                          fmt.bex_keyboard(unit, x, done, {}, [], wins))
         self.db.set_pending(user_id, {"step": "bex", "unit": unit["unit"], "ex": x["id"], "pick": {}, "sure": [],
                                       "notes": {}, "msg": (sent or {}).get("message_id")})
+
+    def bex_wins(self, user_id: int, unit: dict, x: dict) -> int:
+        return len(self.db.bex_done(user_id, unit["unit"]).get(x["id"]) or [])
 
     async def bex_tap(self, chat_id: int, user_id: int, pending: dict | None, action: str) -> tuple[str | None, bool]:
         """bx:a:<n>:<буква|!> — выбор; bx:h:<n> — подсказка; bx:go — проверить. Возвращает (всплывашка, окно)."""
@@ -163,7 +175,8 @@ class BookExMixin:
         self.db.set_pending(user_id, pend)
         if pend.get("msg"):
             done = self.db.bex_results(user_id, unit["unit"])
-            await self.tg.edit_markup(chat_id, pend["msg"], fmt.bex_keyboard(unit, x, done, pend["pick"], pend["sure"]))
+            await self.tg.edit_markup(chat_id, pend["msg"], fmt.bex_keyboard(unit, x, done, pend["pick"], pend["sure"],
+                                                                          self.bex_wins(user_id, unit, x)))
         return None, False
 
     async def bex_text(self, chat_id: int, user_id: int, pending: dict, text: str, voice: dict | None) -> None:
@@ -176,7 +189,8 @@ class BookExMixin:
         if voice and not text:
             await self.tg.send_message(chat_id, "🎙 Голосом здесь пока нельзя — ответь текстом: «1 … 2 …».")
             return
-        answers = logic.parse_answers(text, len(x["items"]))
+        numeric = any(ch.isdigit() for it in x["items"] for ch in str(it.get("answer", "")))
+        answers = logic.parse_answers(text, len(x["items"]), numeric=numeric)
         choice = x.get("type") in logic.CHOICE_TYPES
         for n, a in answers.items():
             if choice and x.get("type") == "tf":
@@ -186,25 +200,38 @@ class BookExMixin:
         for n, L in pending["pick"].items():
             answers.setdefault(int(n), {"answer": L, "unsure": False, "sure": int(n) in pending["sure"],
                                         "note": pending["notes"].get(n, "")})
-        if not any(a["answer"] for a in answers.values()):
+        if not any(a["answer"] or a.get("skip") for a in answers.values()):
             await self.tg.send_message(chat_id, "Не нашёл ответов. Пиши с номерами пунктов: «1 jestem 3 mam».")
             return
-        await self.bex_check(chat_id, user_id, pending, unit, x, answers, text=text)
+        await self.bex_check(chat_id, user_id, pending, unit, x, answers, text=text, gaps=True)
 
     async def bex_check(self, chat_id: int, user_id: int, pending: dict, unit: dict, x: dict,
-                        answers: dict[int, dict], text: str = "") -> None:
+                        answers: dict[int, dict], text: str = "", gaps: bool = False) -> None:
+        """Проверка отвеченных пунктов. gaps (ответ текстом): «4-» и пропущенные пункты до последнего
+        названного номера — ошибка с правильным ответом; пункты после него остаются на потом."""
         kind = x.get("type", "gap")
         choice = kind in logic.CHOICE_TYPES
         items = [{**it, "options": logic.book_options(x, it)} if choice else it for it in x["items"]]
-        results = [r for r in logic.quick_check(items, answers, "test" if choice else "gap")
-                   if r["status"] != "missing"]
+        before = self.db.bex_results(user_id, unit["unit"])
+        ok_before = fmt.bex_counts(x, before)[0]
+        last = max((n for n, a in answers.items() if a["answer"] or a.get("skip")), default=0)
+
+        def take(r: dict) -> bool:
+            if r["status"] != "missing":
+                return True
+            if not gaps:
+                return False
+            if (answers.get(r["n"]) or {}).get("skip"):
+                return True
+            return r["n"] < last and not (before.get((x["id"], r["n"])) or {}).get("ok")
+        results = [r for r in logic.quick_check(items, answers, "test" if choice else "gap") if take(r)]
         if not results:
             await self.tg.send_message(chat_id, "Не нашёл ответов. Пиши с номерами пунктов: «1 jestem 3 mam».")
             return
         if kind == "free":
             for r in results:
                 r["status"] = "check"   # эталон — лишь пример: решает модель
-        todo = logic.needs_model(results, EX_EXPLAIN_ALL)
+        todo = [r for r in logic.needs_model(results, EX_EXPLAIN_ALL) if r["status"] != "missing"]
         verdicts: dict[int, dict] = {}
         if todo:
             task = " — ".join(t for t in (x.get("title"), x.get("task_ru")) if t)
@@ -245,7 +272,12 @@ class BookExMixin:
         done = self.db.bex_results(user_id, unit["unit"])
         ok_now = sum(1 for r in results if r["final"] == "ok")
         ok_all, _ = fmt.bex_counts(x, done)
+        total = len(x["items"])
+        if ok_before < total == ok_all:   # попытка добита до 100% — сохраняем её ответы целиком
+            self.db.bex_done_add(user_id, unit["unit"], x["id"],
+                                 {str(n): done[(x["id"], n)]["answer"] for n in range(1, total + 1)})
         head = (f"📊 <b>{ok_now} из {len(results)}</b> · {fmt.e(fmt.bex_name(x))}\n"
-                f"<i>Всего в упражнении верно {ok_all} из {len(x['items'])}.</i>")
+                + (f"🎉 <b>Упражнение выполнено на 100%!</b>" if ok_all == total
+                   else f"<i>Всего в упражнении верно {ok_all} из {total}.</i>"))
         await self.tg.send_message(chat_id, fmt.ex_results({"items": items}, results, head=head, foot=""),
-                                   fmt.bex_result_buttons(unit, x, done))
+                                   fmt.bex_result_buttons(unit, x, done, self.bex_wins(user_id, unit, x)))

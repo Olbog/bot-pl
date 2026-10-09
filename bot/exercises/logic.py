@@ -9,7 +9,7 @@ SURE_MARK = "!"   # «уверен» — пункт можно не объясн
 NOTE_RE = re.compile(r"\(([^()]*)\)")   # уточнение или вопрос к пункту — в скобках
 NOTE_TOKEN_RE = re.compile(r"⟦(\d+)⟧")
 # Номер пункта в начале строки или после пробела: «1 », «1.», «1)», «1:», «1-»
-NUM_RE = re.compile(r"(?:(?<=\s)|^)(\d{1,2})\s*[.):\-]?\s*")
+NUM_RE = re.compile(r"(?:(?<=[\s;,])|^)(\d{1,2})\s*[.):\-]?\s*")
 
 POLISH_STRIP = str.maketrans("ąćęłńóśźżĄĆĘŁŃÓŚŹŻ", "acelnoszzACELNOSZZ")
 
@@ -65,27 +65,61 @@ def _one(raw: str, notes: list[str]) -> dict:
     return {"answer": re.sub(r"\s+", " ", ans).strip(), "unsure": unsure, "sure": sure, "note": note}
 
 
-def parse_answers(text: str, n: int) -> dict[int, dict]:
+# «4-» — пункт 4 не знаю; «4-8-» — с 4 по 8 не знаю (дальше — конец, запятая, «;», «.», цифра или перевод строки)
+SKIP_RANGE_RE = re.compile(r"(?:(?<=[\s,;.])|^)(\d{1,2})\s*-\s*(\d{1,2})\s*-(?=\s*(?:$|[,;.\n]|\d))")
+SKIP_ONE_RE = re.compile(r"(?:(?<=[\s,;.])|^)(\d{1,2})\s*-(?=\s*(?:$|[,;.\n]|\d))")
+
+
+def _skips(text: str, n: int) -> tuple[str, set[int]]:
+    skipped: set[int] = set()
+
+    def rng(m):
+        a, b = sorted((int(m.group(1)), int(m.group(2))))
+        skipped.update(k for k in range(a, b + 1) if 1 <= k <= n)
+        return " ; "
+
+    def one(m):
+        if 1 <= int(m.group(1)) <= n:
+            skipped.add(int(m.group(1)))
+        return " ; "
+    text = SKIP_RANGE_RE.sub(rng, text)
+    return SKIP_ONE_RE.sub(one, text), skipped
+
+
+def _boundary(before: str) -> bool:
+    """Перед номером — начало, новая строка, «;» или «.»: тогда номер точно начинает новый пункт."""
+    tail = before.rstrip(" \t")
+    return not tail or tail[-1] in "\n;."
+
+
+def parse_answers(text: str, n: int, numeric: bool = False) -> dict[int, dict]:
     """«1 piję (ja → -ę) 2 lubi (почему не lubią?) 3 mam!» → {1: {answer, unsure, sure, note}, ...}.
-    Номера должны идти по возрастанию и быть в пределах 1..n; всё между номерами — ответ, в скобках — уточнение."""
+    Номера — в любом порядке (каждый пункт один раз, в пределах 1..n); всё до следующего номера — ответ,
+    в скобках — уточнение. «4-» или «4-8-» — «не знаю»: пункт с пустым ответом и skip=True.
+    numeric — в правильных ответах есть цифры: новый пункт начинается только с новой строки, после «;» или «.»."""
     text, notes = _hide_notes((text or "").replace("\n", " \n "))
+    text, skipped = _skips(text, n)
     marks = []
-    last = 0
+    used: set[int] = set(skipped)
     for m in NUM_RE.finditer(text):
         num = int(m.group(1))
-        if last < num <= n:
-            marks.append((num, m.start(), m.end()))
-            last = num
-    out: dict[int, dict] = {}
+        if not 1 <= num <= n or num in used:
+            continue
+        if numeric and marks and not _boundary(text[:m.start()]):
+            continue
+        marks.append((num, m.start(), m.end()))
+        used.add(num)
+    out: dict[int, dict] = {k: {"answer": "", "unsure": False, "sure": False, "note": "", "skip": True}
+                            for k in skipped}
     if not marks:  # без номеров: по строкам или через запятую, если ответов ровно n
         parts = [p.strip() for p in re.split(r"\n|,|;", text) if p.strip()]
-        if len(parts) == n:
+        if not skipped and len(parts) == n:
             for i, raw in enumerate(parts, 1):
                 out[i] = _one(raw, notes)
         return out
     for i, (num, _, end) in enumerate(marks):
         stop = marks[i + 1][1] if i + 1 < len(marks) else len(text)
-        out[num] = _one(text[end:stop].strip(), notes)
+        out[num] = _one(re.sub(r"[\s,;]+$", "", text[end:stop].strip()), notes)
     return out
 
 

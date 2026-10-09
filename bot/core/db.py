@@ -139,6 +139,14 @@ CREATE TABLE IF NOT EXISTS book_ex (
     at REAL NOT NULL,
     PRIMARY KEY (user_id, unit, ex_id, n)
 );
+CREATE TABLE IF NOT EXISTS book_ex_done (    -- упражнение из книги выполнено на 100%: ответы этой попытки
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    unit TEXT NOT NULL,
+    ex_id TEXT NOT NULL,
+    answers TEXT NOT NULL,                   -- JSON {номер пункта: ответ}
+    at REAL NOT NULL
+);
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
     mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
@@ -444,6 +452,19 @@ class DB:
             "INSERT OR REPLACE INTO book_ex(user_id, unit, ex_id, n, ok, answer, explanation, at) VALUES (?,?,?,?,?,?,?,?)",
             (user_id, unit_key(unit), ex_id, n, int(ok), answer, explanation, self.clock()))
         self.conn.commit()
+
+    def bex_done_add(self, user_id: int, unit: str, ex_id: str, answers: dict) -> None:
+        self.conn.execute("INSERT INTO book_ex_done(user_id, unit, ex_id, answers, at) VALUES (?,?,?,?,?)",
+                          (user_id, unit_key(unit), ex_id, json.dumps(answers, ensure_ascii=False), self.clock()))
+        self.conn.commit()
+
+    def bex_done(self, user_id: int, unit: str) -> dict:
+        """{ex_id: [попытки на 100%: {answers, at}], от старой к новой}."""
+        out: dict = {}
+        for r in self.conn.execute("SELECT * FROM book_ex_done WHERE user_id=? AND unit=? ORDER BY id",
+                                   (user_id, unit_key(unit))):
+            out.setdefault(r["ex_id"], []).append({"answers": json.loads(r["answers"]), "at": r["at"]})
+        return out
 
     def bex_reset(self, user_id: int, unit: str, ex_id: str) -> None:
         self.conn.execute("DELETE FROM book_ex WHERE user_id=? AND unit=? AND ex_id=?",
