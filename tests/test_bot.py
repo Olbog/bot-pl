@@ -393,11 +393,14 @@ class FakeGemini:
         import re as _re
         lines = {int(m.group(1)): m.group(0) for m in _re.finditer(r"^(\d+)\. Задание.*$", prompt, _re.M)}
         out = []
+        heard_map = getattr(self, "voice_heard", None)
+        if heard_map is not None and "ГОЛОСОВЫМ" in prompt:   # 🎙 ответ голосом: только названные пункты
+            lines = {n: line for n, line in lines.items() if n in heard_map}
         for n, line in lines.items():
             note = _re.search(r"уточнение ученика: «(.*?)»", line)
             if n in self.voice_notes:
                 note = _re.search("(.*)", self.voice_notes[n])
-            out.append({"n": n, "heard": "", "correct": self.check_verdict.get(n, False),
+            out.append({"n": n, "heard": (heard_map or {}).get(n, ""), "correct": self.check_verdict.get(n, False),
                         "explanation": f"объяснение {n}", "bridge": "как в русском",
                         "note": note.group(1) if note else "", "note_ok": self.note_verdict.get(n, True),
                         "note_comment": f"комментарий {n}" if note else ""})
@@ -2200,3 +2203,36 @@ def test_real_units_every_word_has_topic():
     real = Path(__file__).resolve().parent.parent / "bot" / "textbook"
     for u in tb.load_units(real):
         assert all(w.get("group") for w in u["words"]), u["unit"]
+
+
+
+def test_voice_answer_to_book_exercise():
+    app = bex_app()
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    assert "голосом" in app.tg.sent[-1]
+    app.gemini.voice_heard = {3: "ma", 2: "-"}                         # «три — ma, два — не знаю»
+    app.gemini.check_verdict = {3: True}
+    run(app.handle(msg(voice={"file_id": "v"})))
+    p = app.gemini.prompts[-1]
+    assert app.gemini.audios[-1] == b"OGG-IN" and "ГОЛОСОВЫМ" in p and "1. Задание: Ja ___" in p
+    res = app.tg.sent[-1]
+    assert "✅ 3. <b>ma</b>" in res and "❌ 2." in res and "→ <b>masz</b>" in res and "❌ 1." in res   # 1 < 3 — ошибка
+    st = app.db.bex_results(42, "kpk:2")
+    assert st[("tb-2-1", 3)]["ok"] == 1 and st[("tb-2-1", 2)]["ok"] == 0
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))                      # верный пункт 3 модели больше не шлём
+    app.gemini.voice_heard = {1: "mam"}
+    app.gemini.check_verdict = {1: True}
+    run(app.handle(msg(voice={"file_id": "v2"})))
+    assert "3. Задание" not in app.gemini.prompts[-1] and "верно 2 из 3" in app.tg.sent[-1]
+
+
+def test_voice_answer_to_regular_exercise():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:mix", "x:n:1")
+    assert "голосом" in app.tg.sent[-1]
+    gem.voice_heard = {i: f"forma{i - 1}" for i in range(1, 10)}       # пункт 10 не назван
+    gem.check_verdict = {i: True for i in range(1, 10)}
+    run(app.handle(msg(voice={"file_id": "v"})))
+    assert "ГОЛОСОВЫМ" in gem.prompts[-1] and gem.audios[-1] == b"OGG-IN"
+    assert "9 из 10" in app.tg.sent[-1]

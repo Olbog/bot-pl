@@ -239,7 +239,7 @@ class BookExMixin:
             return
         unit, x = got
         if voice and not text:
-            await self.tg.send_message(chat_id, "🎙 Голосом здесь пока нельзя — ответь текстом: «1 … 2 …».")
+            await self.bex_voice(chat_id, user_id, pending, unit, x, voice)
             return
         numeric = any(ch.isdigit() for it in x["items"] for ch in str(it.get("answer", "")))
         answers = logic.parse_answers(text, len(x["items"]), numeric=numeric)
@@ -257,8 +257,42 @@ class BookExMixin:
             return
         await self.bex_check(chat_id, user_id, pending, unit, x, answers, text=text, gaps=True)
 
+    async def bex_voice(self, chat_id: int, user_id: int, pending: dict, unit: dict, x: dict, voice: dict) -> None:
+        """🎙 Ответ голосом: «один — jestem, три — mam» (номера в любом порядке, «не знаю» — пропуск).
+        Модель в одном запросе распознаёт и проверяет; дальше — как ответ текстом."""
+        kind = x.get("type", "gap")
+        choice = kind in logic.CHOICE_TYPES
+        items = [{**it, "options": logic.book_options(x, it)} if choice else it for it in x["items"]]
+        done = self.db.bex_results(user_id, unit["unit"])
+        todo = [(n, it) for n, it in enumerate(items, 1) if not (done.get((x["id"], n)) or {}).get("ok")]
+        if not todo:
+            await self.tg.send_message(chat_id, "Здесь всё уже верно 🎉")
+            return
+        audio = await self.tg.download_file(voice["file_id"])
+        verdicts = await self.ask_voice(chat_id, user_id, todo, audio, wait=f"⏳ Слушаю и проверяю {fmt.bex_name(x)}…",
+                                        task=self.bex_task(x), free=kind == "free")
+        if verdicts is None:
+            return   # шаг bex сохраняется — можно прислать ещё раз
+        if not verdicts:
+            await self.tg.send_message(chat_id, "🎙 Не расслышал ответов. Называй номер пункта и ответ: "
+                                                 "«один — jestem, три — mam».")
+            return
+        answers: dict[int, dict] = {}
+        for n, v in verdicts.items():
+            heard = str(v.get("heard") or "").strip()
+            skip = not heard or heard in ("-", "—")
+            answers[n] = {"answer": "" if skip else heard, "unsure": False, "sure": False,
+                          "note": str(v.get("note") or "").strip(), **({"skip": True} if skip else {})}
+        await self.bex_check(chat_id, user_id, pending, unit, x, answers, gaps=True, voice_verdicts=verdicts)
+
+    @staticmethod
+    def bex_task(x: dict) -> str:
+        task = " — ".join(t for t in (x.get("title"), x.get("task_ru")) if t)
+        return task + (f"\nТекст: {x['text']}" if x.get("text") else "")
+
     async def bex_check(self, chat_id: int, user_id: int, pending: dict, unit: dict, x: dict,
-                        answers: dict[int, dict], text: str = "", gaps: bool = False) -> None:
+                        answers: dict[int, dict], text: str = "", gaps: bool = False,
+                        voice_verdicts: dict[int, dict] | None = None) -> None:
         """Проверка отвеченных пунктов. gaps (ответ текстом): «4-» и пропущенные пункты до последнего
         названного номера — ошибка с правильным ответом; пункты после него остаются на потом."""
         kind = x.get("type", "gap")
@@ -289,15 +323,18 @@ class BookExMixin:
                 return
             await self.tg.send_message(chat_id, "Не нашёл ответов. Пиши с номерами пунктов: «1 jestem 3 mam».")
             return
-        if kind == "free":
-            for r in results:
-                r["status"] = "check"   # эталон — лишь пример: решает модель
+        if kind == "free" or voice_verdicts is not None:
+            for r in results:   # свободный ответ или голос — решает модель (голос она уже проверила)
+                if r["status"] != "missing":
+                    r["status"] = "check"
+                    if voice_verdicts is not None:
+                        r["heard"] = r["user"]
         todo = [r for r in logic.needs_model(results, EX_EXPLAIN_ALL) if r["status"] != "missing"]
-        verdicts: dict[int, dict] = {}
+        verdicts: dict[int, dict] = dict(voice_verdicts or {})
+        if voice_verdicts is not None:
+            todo = []
         if todo:
-            task = " — ".join(t for t in (x.get("title"), x.get("task_ru")) if t)
-            if x.get("text"):
-                task += f"\nТекст: {x['text']}"
+            task = self.bex_task(x)
             prompt = check_prompt([(r["n"], items[r["n"] - 1], r["user"], r["unsure"], r.get("note", ""))
                                    for r in todo], self.cfg.level, voice=False, free=kind == "free", task=task)
             data = await self.ask(chat_id, prompt, CHECK_SCHEMA, CHECK_HINT,

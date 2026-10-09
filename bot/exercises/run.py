@@ -3,7 +3,7 @@ import random
 
 from ..core import rules, textbook
 from ..ai.prompt import (CHECK_HINT, CHECK_SCHEMA, EX_HINT, EX_SCHEMA, RULES_HINT, RULES_SCHEMA, check_prompt,
-                         ex_prompt, ex_question_prompt)
+                         ex_prompt, ex_question_prompt, voice_answers_prompt)
 from ..ui import fmt
 from ..exercises import logic as exercises
 from ..settings import (EX_CASES, EX_EXPLAIN_ALL, EX_PRESENT_ONLY, EX_QUIZ_BUTTONS, EX_REUSE, EX_WEIGHT_TEST,
@@ -121,6 +121,20 @@ class ExerciseRunMixin:
                                             f"ошибок на повтор — {len(wrong)}.")
         await self.ex_make(chat_id, user_id, ex)
 
+    async def ask_voice(self, chat_id: int, user_id: int, items: list[tuple[int, dict]], audio: bytes, wait: str,
+                        task: str = "", free: bool = False, cards: bool = False) -> dict[int, dict] | None:
+        """🎙 Ответ на упражнение голосом: один запрос — распознать, к каким пунктам ответы, и проверить.
+        {номер пункта: вердикт}; heard «-» — «не знаю». None — модель не ответила."""
+        prompt = voice_answers_prompt(items, self.cfg.level, task=task, free=free, cards=cards)
+        if self.ignore_block(user_id):
+            prompt = self.ignore_block(user_id) + "\n\n" + prompt
+        data = await self.ask(chat_id, prompt, CHECK_SCHEMA, CHECK_HINT, wait=wait, audio=audio)
+        if data is None:
+            return None
+        nums = {n for n, _ in items}
+        return {int(v.get("n", 0)): v for v in data.get("items") or []
+                if isinstance(v, dict) and int(v.get("n", 0) or 0) in nums}
+
     def ex_hint(self, user_id: int, data: str) -> str:
         """x:h:<ex>:<n> — перевод пропущенного слова пункта n (всплывашка только для этого пункта)."""
         _, _, ex_id, n = data.split(":")
@@ -204,16 +218,35 @@ class ExerciseRunMixin:
                 for n, note in quiz["notes"].items():
                     if int(n) in answers and not answers[int(n)].get("note"):
                         answers[int(n)]["note"] = note
-        if voice:
+        kind = ex.get("kind") or (saved.get("cfg") or {}).get("kind")
+        cards = any(it.get("card") for it in items)
+        verdicts: dict[int, dict] = {}
+        spoken = voice and kind != "voice"   # 🎙 ответ голосом на обычное упражнение: «один … три …»
+        if spoken:
+            audio = await self.tg.download_file(voice["file_id"])
+            got = await self.ask_voice(chat_id, user_id, list(enumerate(items, 1)), audio,
+                                       wait=f"⏳ Слушаю и проверяю упражнение #{saved['id']}…", cards=cards)
+            if got is None:
+                return  # шаг ex_answer сохраняется — можно прислать ещё раз
+            verdicts = got
+            results = []
+            for i in range(1, len(items) + 1):
+                v = verdicts.get(i) or {}
+                heard = str(v.get("heard") or "").strip()
+                said = bool(heard) and heard not in ("-", "—")
+                results.append({"n": i, "user": heard if said else "", "heard": heard if said else "", "unsure": False,
+                                "sure": False, "note": str(v.get("note") or "").strip(),
+                                "status": "check" if said else "missing"})
+            todo = []
+        elif voice:
             audio = await self.tg.download_file(voice["file_id"])
             results = [{"n": i, "user": "", "unsure": False, "note": "", "status": "check"}
                        for i in range(1, len(items) + 1)]
+            todo = exercises.needs_model(results, EX_EXPLAIN_ALL and not cards)
         else:
             audio = None
             results = exercises.quick_check(items, answers, f)
-        cards = any(it.get("card") for it in items)
-        todo = exercises.needs_model(results, EX_EXPLAIN_ALL and not cards)  # карточки: объясняем только ошибки
-        verdicts: dict[int, dict] = {}
+            todo = exercises.needs_model(results, EX_EXPLAIN_ALL and not cards)  # карточки: объясняем только ошибки
         if todo:
             prompt = check_prompt([(r["n"], items[r["n"] - 1], r["user"], r["unsure"], r.get("note", "")) for r in todo],
                                   self.cfg.level, voice=bool(voice), topics=saved.get("topics"), cards=cards)
