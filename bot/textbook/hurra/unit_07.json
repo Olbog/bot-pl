@@ -1,0 +1,2857 @@
+{
+ "unit": "7",
+ "title": "Co dzisiaj robisz?",
+ "summary": "Распорядок дня, время суток, дни недели, который час (официально и разговорно: wpół do, po, za), транспорт. Грамматика: brać, myć się, spać, iść / chodzić, jechać / jeździć, umieć / wiedzieć / znać, spotykać / spotykać się z, личные местоимения в творительном (ze mną, z nim…), порядковые числительные 1–24.",
+ "topics": [
+  "Мой день: утро",
+  "День и вечер",
+  "С кем? Встречи",
+  "Местоимения: с кем? (творительный)",
+  "Когда? Время суток и как часто",
+  "Дни недели",
+  "Который час?",
+  "Движение и транспорт",
+  "Уметь, знать, ведать",
+  "Фразы",
+  "Какой?"
+ ],
+ "words": [
+  {
+   "pl": "budzić się",
+   "translit": "БУ-джичь щен",
+   "ru": "просыпаться",
+   "pos": "глаг., -ę / -isz: budzę się, budzisz się",
+   "src": "wb",
+   "topic": "Мой день: утро"
+  },
+  {
+   "pl": "wstawać",
+   "translit": "ФСТА-вачь",
+   "ru": "вставать",
+   "pos": "глаг.: wstaję, wstajesz, wstają",
+   "src": "wb",
+   "topic": "Мой день: утро"
+  },
+  {
+   "pl": "brać prysznic",
+   "translit": "брачь ПРЫШ-ниц",
+   "ru": "принимать душ",
+   "pos": "глаг.: biorę, bierzesz, biorą",
+   "src": "wb",
+   "topic": "Мой день: утро"
+  },
+  {
+   "pl": "myć się",
+   "translit": "мычь щен",
+   "ru": "мыться",
+   "pos": "глаг.: myję się, myjesz się",
+   "src": "wb",
+   "topic": "Мой день: утро"
+  },
+  {
+   "pl": "myć zęby",
+   "translit": "мычь ЗЭМ-бы",
+   "ru": "чистить зубы",
+   "pos": "глаг.: myję, myjesz",
+   "src": "wb",
+   "topic": "Мой день: утро"
+  },
+  {
+   "pl": "ubierać się",
+   "translit": "у-БЕ-рачь щен",
+   "ru": "одеваться",
+   "pos": "глаг., -am / -asz",
+   "src": "wb",
+   "topic": "Мой день: утро"
+  },
+  {
+   "pl": "robić makijaż",
+   "translit": "РО-бичь ма-КИ-яж",
+   "ru": "краситься, делать макияж",
+   "pos": "глаг., -ę / -isz",
+   "src": "wb",
+   "topic": "Мой день: утро"
+  },
+  {
+   "pl": "pić kawę",
+   "translit": "пичь КА-вэ",
+   "ru": "пить кофе",
+   "pos": "глаг.: piję, pijesz",
+   "src": "wb",
+   "topic": "Мой день: утро"
+  },
+  {
+   "pl": "jeść śniadanie",
+   "translit": "ещьчь шня-ДА-не",
+   "ru": "завтракать",
+   "pos": "глаг.: jem, jesz, jedzą",
+   "src": "wb",
+   "topic": "Мой день: утро"
+  },
+  {
+   "pl": "wychodzić do pracy",
+   "translit": "вы-ХО-джичь до ПРА-цы",
+   "ru": "выходить на работу",
+   "pos": "глаг.: wychodzę, wychodzisz",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "pracować",
+   "translit": "пра-ЦО-вачь",
+   "ru": "работать",
+   "pos": "глаг.: pracuję, pracujesz",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "pisać e-maile",
+   "translit": "ПИ-сачь и-МЭЙ-ле",
+   "ru": "писать имейлы",
+   "pos": "глаг.: piszę, piszesz",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "robić przerwę",
+   "translit": "РО-бичь ПШЭР-вэ",
+   "ru": "делать перерыв",
+   "pos": "глаг., przerwa → przerwę",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "robić zakupy",
+   "translit": "РО-бичь за-КУ-пы",
+   "ru": "делать покупки",
+   "pos": "глаг.",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "jeść obiad",
+   "translit": "ещьчь О-бят",
+   "ru": "обедать",
+   "pos": "глаг.",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "wracać do domu",
+   "translit": "ВРА-цачь до ДО-му",
+   "ru": "возвращаться домой",
+   "pos": "глаг., -am / -asz",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "jeść kolację",
+   "translit": "ещьчь ко-ЛЯ-цье",
+   "ru": "ужинать",
+   "pos": "глаг.",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "oglądać telewizję",
+   "translit": "о-ГЛЁН-дачь тэ-лэ-ВИ-зье",
+   "ru": "смотреть телевизор",
+   "pos": "глаг., -am / -asz",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "czytać książkę",
+   "translit": "ЧЫ-тачь КЩЁНЖ-кэ",
+   "ru": "читать книгу",
+   "pos": "глаг., -am / -asz",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "iść na spacer z psem",
+   "translit": "ищьчь на СПА-цэр с псэм",
+   "ru": "идти гулять с собакой",
+   "pos": "глаг.: idę, idziesz",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "rozbierać się",
+   "translit": "роз-БЕ-рачь щен",
+   "ru": "раздеваться",
+   "pos": "глаг., -am / -asz",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "iść spać",
+   "translit": "ищьчь спачь",
+   "ru": "идти спать",
+   "pos": "глаг.",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "spać",
+   "translit": "спачь",
+   "ru": "спать",
+   "pos": "глаг.: śpię, śpisz, śpią",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "przerwa",
+   "translit": "ПШЭР-ва",
+   "ru": "перерыв",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "День и вечер"
+  },
+  {
+   "pl": "spotykać",
+   "translit": "спо-ТЫ-качь",
+   "ru": "встречать (кого-то случайно)",
+   "pos": "глаг. + винительный: spotykam kolegę",
+   "src": "wb",
+   "topic": "С кем? Встречи"
+  },
+  {
+   "pl": "spotykać się z",
+   "translit": "спо-ТЫ-качь щен з",
+   "ru": "встречаться с (договорившись)",
+   "pos": "глаг. + z + творительный",
+   "src": "wb",
+   "topic": "С кем? Встречи"
+  },
+  {
+   "pl": "spotykać się z kolegami",
+   "translit": "спо-ТЫ-качь щен с ко-лэ-ГА-ми",
+   "ru": "встречаться с друзьями",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "spotykać się z"
+  },
+  {
+   "pl": "rozmawiać przez telefon",
+   "translit": "роз-МА-вячь пшэс тэ-ЛЕ-фон",
+   "ru": "разговаривать по телефону",
+   "pos": "глаг., -am / -asz",
+   "src": "wb",
+   "topic": "С кем? Встречи"
+  },
+  {
+   "pl": "z kolegą",
+   "translit": "с ко-ЛЭ-гон",
+   "ru": "с другом, с коллегой",
+   "pos": "творительный",
+   "src": "wb",
+   "topic": "С кем? Встречи"
+  },
+  {
+   "pl": "z koleżanką",
+   "translit": "с ко-лэ-ЖАН-кон",
+   "ru": "с подругой, с коллегой",
+   "pos": "творительный",
+   "src": "wb",
+   "topic": "С кем? Встречи"
+  },
+  {
+   "pl": "z przyjacielem",
+   "translit": "с пшы-я-ЧЕ-лем",
+   "ru": "с другом (близким)",
+   "pos": "творительный",
+   "src": "wb",
+   "topic": "С кем? Встречи"
+  },
+  {
+   "pl": "z przyjaciółką",
+   "translit": "с пшы-я-ЧУЎ-кон",
+   "ru": "с подругой (близкой)",
+   "pos": "творительный",
+   "src": "wb",
+   "topic": "С кем? Встречи"
+  },
+  {
+   "pl": "z przyjaciółmi",
+   "translit": "с пшы-я-ЧУЎ-ми",
+   "ru": "с друзьями",
+   "pos": "творительный мн. ч.",
+   "src": "wb",
+   "topic": "С кем? Встречи"
+  },
+  {
+   "pl": "znajomy",
+   "translit": "зна-Ё-мы",
+   "ru": "знакомый",
+   "pos": "сущ. / прил.",
+   "src": "wb",
+   "topic": "С кем? Встречи"
+  },
+  {
+   "pl": "ze znajomymi",
+   "translit": "зэ зна-ё-МЫ-ми",
+   "ru": "со знакомыми",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "znajomy"
+  },
+  {
+   "pl": "ze mną",
+   "translit": "зэ мнон",
+   "ru": "со мной",
+   "pos": "местоим., творительный от ja",
+   "src": "tb",
+   "topic": "Местоимения: с кем? (творительный)"
+  },
+  {
+   "pl": "z tobą",
+   "translit": "с ТО-бон",
+   "ru": "с тобой",
+   "pos": "местоим., творительный от ty",
+   "src": "tb",
+   "topic": "Местоимения: с кем? (творительный)"
+  },
+  {
+   "pl": "z nim",
+   "translit": "з ним",
+   "ru": "с ним",
+   "pos": "местоим., творительный от on / ono",
+   "src": "tb",
+   "topic": "Местоимения: с кем? (творительный)"
+  },
+  {
+   "pl": "z nią",
+   "translit": "з нён",
+   "ru": "с ней",
+   "pos": "местоим., творительный от ona",
+   "src": "tb",
+   "topic": "Местоимения: с кем? (творительный)"
+  },
+  {
+   "pl": "z nami",
+   "translit": "з НА-ми",
+   "ru": "с нами",
+   "pos": "местоим., творительный от my",
+   "src": "tb",
+   "topic": "Местоимения: с кем? (творительный)"
+  },
+  {
+   "pl": "z wami",
+   "translit": "з ВА-ми",
+   "ru": "с вами",
+   "pos": "местоим., творительный от wy",
+   "src": "tb",
+   "topic": "Местоимения: с кем? (творительный)"
+  },
+  {
+   "pl": "z nimi",
+   "translit": "з НИ-ми",
+   "ru": "с ними",
+   "pos": "местоим., творительный от oni / one",
+   "src": "tb",
+   "topic": "Местоимения: с кем? (творительный)"
+  },
+  {
+   "pl": "najpierw",
+   "translit": "НАЙ-перф",
+   "ru": "сначала",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "potem",
+   "translit": "ПО-тэм",
+   "ru": "потом",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "rano",
+   "translit": "РА-но",
+   "ru": "утром",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "przed południem",
+   "translit": "пшэт по-ЎУД-нем",
+   "ru": "до полудня",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "w południe",
+   "translit": "ф по-ЎУД-нэ",
+   "ru": "в полдень",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "po południu",
+   "translit": "по по-ЎУД-ню",
+   "ru": "после полудня, днём",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "wieczorem",
+   "translit": "вье-ЧО-рэм",
+   "ru": "вечером",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "w nocy",
+   "translit": "в НО-цы",
+   "ru": "ночью",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "o północy",
+   "translit": "о пуў-НО-цы",
+   "ru": "в полночь",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "codziennie",
+   "translit": "цо-ДЖЕН-не",
+   "ru": "каждый день",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "zwykle",
+   "translit": "ЗВЫК-лэ",
+   "ru": "обычно",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "zawsze",
+   "translit": "ЗАФ-шэ",
+   "ru": "всегда",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "często",
+   "translit": "ЧЭН-сто",
+   "ru": "часто",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "rzadko",
+   "translit": "ЖАТ-ко",
+   "ru": "редко",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "nigdy nie",
+   "translit": "НИГ-ды не",
+   "ru": "никогда не",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "regularnie",
+   "translit": "рэ-гу-ЛЯР-не",
+   "ru": "регулярно",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "jutro",
+   "translit": "ЮТ-ро",
+   "ru": "завтра",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "znów",
+   "translit": "знуф",
+   "ru": "снова",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "dzisiaj",
+   "translit": "ДЖИ-щяй",
+   "ru": "сегодня",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Когда? Время суток и как часто"
+  },
+  {
+   "pl": "w poniedziałek",
+   "translit": "ф по-не-ДЖЯ-ўэк",
+   "ru": "в понедельник",
+   "pos": "когда? — w + винительный",
+   "src": "wb",
+   "topic": "Дни недели"
+  },
+  {
+   "pl": "we wtorek",
+   "translit": "вэ ФТО-рэк",
+   "ru": "во вторник",
+   "pos": "когда?",
+   "src": "wb",
+   "topic": "Дни недели"
+  },
+  {
+   "pl": "w środę",
+   "translit": "ф ШРО-дэ",
+   "ru": "в среду",
+   "pos": "когда? (środa → w środę)",
+   "src": "wb",
+   "topic": "Дни недели"
+  },
+  {
+   "pl": "w czwartek",
+   "translit": "ф ЧФАР-тэк",
+   "ru": "в четверг",
+   "pos": "когда?",
+   "src": "wb",
+   "topic": "Дни недели"
+  },
+  {
+   "pl": "w piątek",
+   "translit": "ф ПЁН-тэк",
+   "ru": "в пятницу",
+   "pos": "когда?",
+   "src": "wb",
+   "topic": "Дни недели"
+  },
+  {
+   "pl": "w sobotę",
+   "translit": "ф со-БО-тэ",
+   "ru": "в субботу",
+   "pos": "когда? (sobota → w sobotę)",
+   "src": "wb",
+   "topic": "Дни недели"
+  },
+  {
+   "pl": "w niedzielę",
+   "translit": "в не-ДЖЕ-лэ",
+   "ru": "в воскресенье",
+   "pos": "когда? (niedziela → w niedzielę)",
+   "src": "wb",
+   "topic": "Дни недели"
+  },
+  {
+   "pl": "Która jest godzina?",
+   "translit": "КТУ-ра ест го-ДЖИ-на",
+   "ru": "Который час?",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "pierwsza",
+   "translit": "ПЕРФ-ша",
+   "ru": "час (первый)",
+   "pos": "числ. порядк., ж. р.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "druga",
+   "translit": "ДРУ-га",
+   "ru": "два часа (вторая)",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "trzecia",
+   "translit": "ТШЭ-ча",
+   "ru": "три часа",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "czwarta",
+   "translit": "ЧФАР-та",
+   "ru": "четыре часа",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "piąta",
+   "translit": "ПЁН-та",
+   "ru": "пять часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "szósta",
+   "translit": "ШУС-та",
+   "ru": "шесть часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "siódma",
+   "translit": "ЩЮД-ма",
+   "ru": "семь часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "ósma",
+   "translit": "УС-ма",
+   "ru": "восемь часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "dziewiąta",
+   "translit": "дже-ВЁН-та",
+   "ru": "девять часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "dziesiąta",
+   "translit": "дже-ЩЁН-та",
+   "ru": "десять часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "jedenasta",
+   "translit": "е-дэ-НАС-та",
+   "ru": "одиннадцать часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "dwunasta",
+   "translit": "дву-НАС-та",
+   "ru": "двенадцать часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "trzynasta",
+   "translit": "тшы-НАС-та",
+   "ru": "тринадцать часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "czternasta",
+   "translit": "чтэр-НАС-та",
+   "ru": "четырнадцать часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "piętnasta",
+   "translit": "пент-НАС-та",
+   "ru": "пятнадцать часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "szesnasta",
+   "translit": "шэс-НАС-та",
+   "ru": "шестнадцать часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "siedemnasta",
+   "translit": "ще-дэм-НАС-та",
+   "ru": "семнадцать часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "osiemnasta",
+   "translit": "о-щем-НАС-та",
+   "ru": "восемнадцать часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "dziewiętnasta",
+   "translit": "дже-вьент-НАС-та",
+   "ru": "девятнадцать часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "dwudziesta",
+   "translit": "дву-ДЖЕС-та",
+   "ru": "двадцать часов",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "dwudziesta pierwsza",
+   "translit": "дву-ДЖЕС-та ПЕРФ-ша",
+   "ru": "двадцать один час",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "dwudziesta druga",
+   "translit": "дву-ДЖЕС-та ДРУ-га",
+   "ru": "двадцать два часа",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "dwudziesta trzecia",
+   "translit": "дву-ДЖЕС-та ТШЭ-ча",
+   "ru": "двадцать три часа",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "dwudziesta czwarta",
+   "translit": "дву-ДЖЕС-та ЧФАР-та",
+   "ru": "двадцать четыре часа",
+   "pos": "числ. порядк.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "wpół do",
+   "translit": "фпуў до",
+   "ru": "половина (чего-то): wpół do ósmej — 7:30",
+   "pos": "+ родительный порядкового",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "piętnaście po pierwszej",
+   "translit": "пент-НАЩЬ-че по ПЕРФ-шэй",
+   "ru": "пятнадцать минут второго (1:15)",
+   "pos": "po + местный",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "kwadrans",
+   "translit": "КФАД-ранс",
+   "ru": "четверть часа",
+   "pos": "сущ., м. р.",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "za kwadrans druga",
+   "translit": "за КФАД-ранс ДРУ-га",
+   "ru": "без четверти два (1:45)",
+   "pos": "za + именительный",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "liczebnik główny",
+   "translit": "ли-ЧЭБ-ник ГЎУВ-ны",
+   "ru": "количественное числительное",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "liczebnik porządkowy",
+   "translit": "ли-ЧЭБ-ник по-жонт-КО-вы",
+   "ru": "порядковое числительное",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Который час?"
+  },
+  {
+   "pl": "iść",
+   "translit": "ищьчь",
+   "ru": "идти (сейчас, один раз)",
+   "pos": "глаг.: idę, idziesz, idą",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "chodzić",
+   "translit": "ХО-джичь",
+   "ru": "ходить (регулярно)",
+   "pos": "глаг.: chodzę, chodzisz, chodzą",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "jechać",
+   "translit": "Е-хачь",
+   "ru": "ехать (сейчас, один раз)",
+   "pos": "глаг.: jadę, jedziesz, jadą",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "jeździć",
+   "translit": "ЕЖЬ-джичь",
+   "ru": "ездить (регулярно)",
+   "pos": "глаг.: jeżdżę, jeździsz, jeżdżą",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "pieszo",
+   "translit": "ПЕ-шо",
+   "ru": "пешком",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "samochodem",
+   "translit": "са-мо-ХО-дэм",
+   "ru": "на машине",
+   "pos": "творительный",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "taksówką",
+   "translit": "так-СУФ-кон",
+   "ru": "на такси",
+   "pos": "творительный",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "pociągiem",
+   "translit": "по-ЧЁН-гем",
+   "ru": "на поезде",
+   "pos": "творительный",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "autobusem",
+   "translit": "ау-то-БУ-сэм",
+   "ru": "на автобусе",
+   "pos": "творительный",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "tramwajem",
+   "translit": "трам-ВА-ем",
+   "ru": "на трамвае",
+   "pos": "творительный",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "na rowerze",
+   "translit": "на ро-ВЭ-жэ",
+   "ru": "на велосипеде",
+   "pos": "na + местный",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "na nartach",
+   "translit": "на НАР-тах",
+   "ru": "на лыжах",
+   "pos": "na + местный мн. ч.",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "konno",
+   "translit": "КОН-но",
+   "ru": "верхом",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Движение и транспорт"
+  },
+  {
+   "pl": "wiedzieć",
+   "translit": "ВЕ-джечь",
+   "ru": "знать (факт): wiem, że… / gdzie… / kiedy…",
+   "pos": "глаг.: wiem, wiesz, wiedzą",
+   "src": "wb",
+   "topic": "Уметь, знать, ведать"
+  },
+  {
+   "pl": "umieć",
+   "translit": "У-мечь",
+   "ru": "уметь + инфинитив",
+   "pos": "глаг.: umiem, umiesz, umieją",
+   "src": "wb",
+   "topic": "Уметь, знать, ведать"
+  },
+  {
+   "pl": "znać",
+   "translit": "значь",
+   "ru": "знать (кого-то, что-то) + винительный",
+   "pos": "глаг.: znam, znasz, znają",
+   "src": "wb",
+   "topic": "Уметь, знать, ведать"
+  },
+  {
+   "pl": "Czekam tu już pół godziny!",
+   "translit": "ЧЭ-кам ту юж пуў го-ДЖИ-ны",
+   "ru": "Я жду тут уже полчаса!",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Jest dokładnie pierwsza.",
+   "translit": "ест док-ЎАД-не ПЕРФ-ша",
+   "ru": "Ровно час.",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Już tak późno?",
+   "translit": "юж так ПУЖЬ-но",
+   "ru": "Уже так поздно?",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Ma pan mało czasu.",
+   "translit": "ма пан МА-ўо ЧА-су",
+   "ru": "У вас мало времени.",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Mówi pan za szybko!",
+   "translit": "МУ-ви пан за ШЫП-ко",
+   "ru": "Вы говорите слишком быстро!",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Na pewno?",
+   "translit": "на ПЭВ-но",
+   "ru": "Точно?",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Niestety nie mam zegarka.",
+   "translit": "не-СТЭ-ты не мам зэ-ГАР-ка",
+   "ru": "К сожалению, у меня нет часов.",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "No, jesteś nareszcie!",
+   "translit": "но ЕС-тэщь на-РЭЩЬ-че",
+   "ru": "Ну наконец-то ты пришёл!",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Proszę mi to napisać!",
+   "translit": "ПРО-шэ ми то на-ПИ-сачь",
+   "ru": "Пожалуйста, напишите мне это!",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Zaraz, chwileczkę.",
+   "translit": "ЗА-рас хви-ЛЕЧ-кэ",
+   "ru": "Сейчас, минуточку.",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "oczywiście",
+   "translit": "о-чы-ВИЩЬ-че",
+   "ru": "конечно",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "niepunktualny",
+   "translit": "не-пунк-ту-АЛЬ-ны",
+   "ru": "непунктуальный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой?"
+  },
+  {
+   "pl": "zmęczony",
+   "translit": "змэн-ЧО-ны",
+   "ru": "уставший",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой?"
+  },
+  {
+   "pl": "pilny",
+   "translit": "ПИЛЬ-ны",
+   "ru": "прилежный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой?"
+  },
+  {
+   "pl": "leniwy",
+   "translit": "лэ-НИ-вы",
+   "ru": "ленивый",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой?"
+  }
+ ],
+ "exercises": [
+  {
+   "id": "tb-7-1a",
+   "src": "tb",
+   "ref": "Ćw. 1a, s. 62",
+   "title": "Co robi pan Kowalski?",
+   "title_ru": "Что делает пан Ковальский?",
+   "task_ru": "Картинки из учебника — здесь описание по-русски. Напиши действие по-польски (инфинитив): «1 jeść śniadanie».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "🍳 завтракает",
+     "answer": "jeść śniadanie",
+     "ru": "есть завтрак"
+    },
+    {
+     "q": "☕ пьёт кофе",
+     "answer": "pić kawę",
+     "ru": "пить кофе"
+    },
+    {
+     "q": "🚶 идёт на работу",
+     "answer": "iść do pracy",
+     "ru": "идти на работу"
+    },
+    {
+     "q": "💼 работает",
+     "answer": "pracować",
+     "ru": "работать"
+    },
+    {
+     "q": "🍲 обедает",
+     "answer": "jeść obiad",
+     "ru": "обедать"
+    },
+    {
+     "q": "🛒 делает покупки",
+     "answer": "robić zakupy",
+     "ru": "делать покупки"
+    },
+    {
+     "q": "🏠 возвращается домой",
+     "answer": "wracać do domu",
+     "ru": "возвращаться домой"
+    },
+    {
+     "q": "📺 смотрит телевизор",
+     "answer": "oglądać telewizję",
+     "ru": "смотреть телевизор"
+    },
+    {
+     "q": "📖 читает книгу",
+     "answer": "czytać książkę",
+     "ru": "читать книгу"
+    },
+    {
+     "q": "🐕 идёт гулять с собакой",
+     "answer": "iść na spacer z psem",
+     "ru": "идти на прогулку с собакой",
+     "accepted": [
+      "iść na spacer"
+     ]
+    },
+    {
+     "q": "👥 встречается с другом",
+     "answer": "spotykać się z kolegą",
+     "ru": "встречаться с коллегой / другом"
+    },
+    {
+     "q": "📞 разговаривает по телефону",
+     "answer": "rozmawiać przez telefon",
+     "ru": "говорить по телефону"
+    },
+    {
+     "q": "👕 раздевается",
+     "answer": "rozbierać się",
+     "ru": "раздеваться"
+    },
+    {
+     "q": "🛏 идёт спать",
+     "answer": "iść spać",
+     "ru": "идти спать"
+    },
+    {
+     "q": "😴 спит",
+     "answer": "spać",
+     "ru": "спать"
+    }
+   ]
+  },
+  {
+   "id": "tb-7-1c",
+   "src": "tb",
+   "ref": "Ćw. 1c, s. 63",
+   "title": "Co robimy najpierw, a co potem?",
+   "title_ru": "Что сначала, а что потом?",
+   "task_ru": "Составь предложение «Najpierw …, a potem …» в нужном лице. Порядок действий — логичный. Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "on / myć zęby / wstawać",
+     "answer": "Najpierw wstaje, a potem myje zęby.",
+     "ru": "Сначала он встаёт, а потом чистит зубы."
+    },
+    {
+     "q": "(ja) / iść do pracy / ubierać się",
+     "answer": "Najpierw ubieram się, a potem idę do pracy.",
+     "ru": "Сначала я одеваюсь, а потом иду на работу.",
+     "accepted": [
+      "Najpierw się ubieram, a potem idę do pracy."
+     ]
+    },
+    {
+     "q": "oni / robić zakupy / iść do sklepu",
+     "answer": "Najpierw idą do sklepu, a potem robią zakupy.",
+     "ru": "Сначала они идут в магазин, а потом делают покупки."
+    },
+    {
+     "q": "ona / iść spać / iść na spacer",
+     "answer": "Najpierw idzie na spacer, a potem idzie spać.",
+     "ru": "Сначала она идёт гулять, а потом идёт спать."
+    },
+    {
+     "q": "(my) / jeść kolację / myć zęby",
+     "answer": "Najpierw jemy kolację, a potem myjemy zęby.",
+     "ru": "Сначала мы ужинаем, а потом чистим зубы."
+    },
+    {
+     "q": "(my) / brać prysznic / iść do pracy",
+     "answer": "Najpierw bierzemy prysznic, a potem idziemy do pracy.",
+     "ru": "Сначала мы принимаем душ, а потом идём на работу."
+    },
+    {
+     "q": "ona / iść spać / jeść kolację",
+     "answer": "Najpierw je kolację, a potem idzie spać.",
+     "ru": "Сначала она ужинает, а потом идёт спать."
+    },
+    {
+     "q": "oni / brać prysznic / wstawać",
+     "answer": "Najpierw wstają, a potem biorą prysznic.",
+     "ru": "Сначала они встают, а потом принимают душ."
+    },
+    {
+     "q": "(wy) / oglądać telewizję / iść spać",
+     "answer": "Najpierw oglądacie telewizję, a potem idziecie spać.",
+     "ru": "Сначала вы смотрите телевизор, а потом идёте спать."
+    },
+    {
+     "q": "one / budzić się / pić kawę",
+     "answer": "Najpierw budzą się, a potem piją kawę.",
+     "ru": "Сначала они просыпаются, а потом пьют кофе.",
+     "accepted": [
+      "Najpierw się budzą, a potem piją kawę."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-7-2a",
+   "src": "tb",
+   "ref": "Ćw. 2a, s. 63",
+   "title": "Dzień Ani — co Ania robi najpierw, a co potem?",
+   "title_ru": "День Ани: расставь по порядку",
+   "task_ru": "Пункты 1 и 15 уже на месте. Напиши буквы остальных фраз по порядку (со 2-го по 14-е): «1 f c d …». Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Порядок фраз b–n",
+     "answer": "f c d e g i j b l h m k n",
+     "ru": "Встаёт и принимает душ → одевается → завтракает → едет на работу → работает → обед → снова работает → покупки и домой → звонит подруге → вечером встреча с Анджеем и кафе → друзья и дискотека → на дискотеке → танцует и едет домой."
+    }
+   ],
+   "text": "1) a — Ania budzi się i …\nb — Robi zakupy i wraca do domu.\nc — Potem ubiera się i robi makijaż.\nd — Robi i je śniadanie.\ne — Jedzie tramwajem do pracy.\nf — wstaje, myje zęby i bierze prysznic.\ng — Pracuje, pracuje, pracuje: pisze i czyta maile i rozmawia przez telefon.\nh — Wieczorem spotyka się z Andrzejem i idą razem do kawiarni,\ni — Robi krótką przerwę – je szybko mały obiad,\nj — a potem znowu pracuje.\nk — Na dyskotece Ania …\nl — W domu dzwoni do przyjaciółki i rozmawia z nią godzinę.\nm — tam spotykają przyjaciół ze studiów i spontanicznie idą z nimi na dyskotekę.\nn — tańczy i rozmawia z przyjaciółmi. Potem jedzie taksówką do domu.\n15) o — Jest bardzo zmęczona, bierze prysznic i idzie spać."
+  },
+  {
+   "id": "tb-7-3a",
+   "src": "tb",
+   "ref": "Ćw. 3a, s. 64",
+   "title": "Biernik czy narzędnik? Czy jest potrzebny przyimek?",
+   "title_ru": "spotykać или spotykać się z?",
+   "task_ru": "spotykać + винительный (кого?), spotykać się z + творительный (с кем?). Напиши, что в пропуске (с предлогом, если нужен).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Kiedy czekam na autobus, często spotykam ___ (Marek).",
+     "answer": "Marka",
+     "ru": "Когда я жду автобус, я часто встречаю Марека.",
+     "grammar": "spotykać + винительный, м. р. одуш.: Marek → Marka"
+    },
+    {
+     "q": "Magda, zawsze kiedy nie chce, spotyka swojego ___ (ekschłopak).",
+     "answer": "ekschłopaka",
+     "ru": "Магда всегда, когда не хочет, встречает своего бывшего.",
+     "grammar": "винительный одуш.: -a"
+    },
+    {
+     "q": "Lubię spotykać się ___ (znajomi) i rozmawiać z nimi o polityce.",
+     "answer": "ze znajomymi",
+     "ru": "Я люблю встречаться со знакомыми и говорить с ними о политике.",
+     "grammar": "spotykać się z + творительный мн. ч.: -ymi"
+    },
+    {
+     "q": "Marek często chodzi do klubu i zawsze spotyka tam ___ (przyjaciel — l. mn.).",
+     "answer": "przyjaciół",
+     "ru": "Марек часто ходит в клуб и всегда встречает там друзей.",
+     "grammar": "винительный мн. ч. одуш. (= родительный): przyjaciele → przyjaciół"
+    },
+    {
+     "q": "Teraz mam czas i często spotykam się ___ (przyjaciel — l. mn.).",
+     "answer": "z przyjaciółmi",
+     "ru": "Теперь у меня есть время, и я часто встречаюсь с друзьями.",
+     "grammar": "творительный мн. ч.: przyjaciółmi"
+    }
+   ]
+  },
+  {
+   "id": "tb-7-3b",
+   "src": "tb",
+   "ref": "Ćw. 3b, s. 64",
+   "title": "Zaimki osobowe w narzędniku",
+   "title_ru": "С кем? Местоимения",
+   "task_ru": "Ответь местоимением в творительном: ze mną, z tobą, z nim, z nią, z nami, z wami, z nimi. Пиши только местоимение.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Czy często spotykasz się ze znanymi politykami? — Tak, spotykam się z ___.",
+     "answer": "nimi",
+     "ru": "Ты часто встречаешься с известными политиками? — Да, с ними."
+    },
+    {
+     "q": "Interesujesz się popularnymi osobami? — Tak, interesuję się ___.",
+     "answer": "nimi",
+     "ru": "Ты интересуешься знаменитостями? — Да, ими.",
+     "grammar": "interesować się + творительный (без предлога)"
+    },
+    {
+     "q": "Lubisz rozmawiać z Polakami? — Tak, lubię z ___ rozmawiać.",
+     "answer": "nimi",
+     "ru": "Ты любишь разговаривать с поляками? — Да, с ними."
+    },
+    {
+     "q": "Czy rozmawiasz teraz z kolegą z kursu? — Tak, rozmawiam z ___.",
+     "answer": "nim",
+     "ru": "Ты сейчас говоришь с коллегой с курса? — Да, с ним."
+    },
+    {
+     "q": "Czy rozmawiasz teraz z koleżanką z kursu? — Tak, rozmawiam z ___.",
+     "answer": "nią",
+     "ru": "Ты сейчас говоришь с коллегой (ж.) с курса? — Да, с ней."
+    },
+    {
+     "q": "Lubisz się z nami spotykać? — Tak, lubię się z ___ spotykać.",
+     "answer": "wami",
+     "ru": "Ты любишь с нами встречаться? — Да, с вами."
+    },
+    {
+     "q": "Lubisz się ze mną spotykać? — Tak, lubię się z ___ spotykać.",
+     "answer": "tobą",
+     "ru": "Ты любишь со мной встречаться? — Да, с тобой."
+    }
+   ]
+  },
+  {
+   "id": "tb-7-6a",
+   "src": "tb",
+   "ref": "Ćw. 6a, s. 66",
+   "title": "Proszę odpowiedzieć na pytania.",
+   "title_ru": "Ответь о себе",
+   "task_ru": "Ответь полным предложением о себе. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Czym jeździsz do pracy / na uniwersytet?",
+     "answer": "Jeżdżę do pracy samochodem.",
+     "ru": "На чём ты ездишь на работу / в университет?",
+     "grammar": "czym? — творительный"
+    },
+    {
+     "q": "Czym jeździsz na zakupy?",
+     "answer": "Na zakupy jeżdżę autobusem.",
+     "ru": "На чём ты ездишь за покупками?"
+    },
+    {
+     "q": "Często chodzisz pieszo?",
+     "answer": "Tak, często chodzę pieszo.",
+     "ru": "Ты часто ходишь пешком?"
+    },
+    {
+     "q": "Umiesz jeździć na nartach?",
+     "answer": "Nie, nie umiem jeździć na nartach.",
+     "ru": "Ты умеешь кататься на лыжах?"
+    },
+    {
+     "q": "Lubisz jeździć na rowerze?",
+     "answer": "Tak, lubię jeździć na rowerze.",
+     "ru": "Ты любишь ездить на велосипеде?"
+    },
+    {
+     "q": "Umiesz jeździć konno?",
+     "answer": "Nie, nie umiem jeździć konno.",
+     "ru": "Ты умеешь ездить верхом?"
+    },
+    {
+     "q": "Jak często chodzisz do kina?",
+     "answer": "Chodzę do kina raz w miesiącu.",
+     "ru": "Как часто ты ходишь в кино?"
+    },
+    {
+     "q": "Często jeździsz taksówką?",
+     "answer": "Nie, rzadko jeżdżę taksówką.",
+     "ru": "Ты часто ездишь на такси?"
+    }
+   ]
+  },
+  {
+   "id": "tb-7-6b",
+   "src": "tb",
+   "ref": "Ćw. 6b, s. 66",
+   "title": "Iść czy chodzić?",
+   "title_ru": "Iść или chodzić?",
+   "task_ru": "iść — сейчас, сегодня, один раз; chodzić — регулярно, обычно. Два пропуска — через запятую: «1 chodzić, idę».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Lubię ___ do teatru — dzisiaj na przykład ___ do Teatru Starego.",
+     "answer": "chodzić, idę",
+     "ru": "Я люблю ходить в театр — сегодня, например, иду в Старый театр.",
+     "grammar": "lubić + инфинитив (регулярно); dzisiaj → idę"
+    },
+    {
+     "q": "Jola ___ codziennie na kurs francuskiego, ale dzisiaj nie ___, bo musi pracować.",
+     "answer": "chodzi, idzie",
+     "ru": "Йоля каждый день ходит на курс французского, но сегодня не идёт, потому что должна работать."
+    },
+    {
+     "q": "Oni zawsze ___ na uniwersytet pieszo. Dzisiaj też ___ pieszo.",
+     "answer": "chodzą, idą",
+     "ru": "Они всегда ходят в университет пешком. Сегодня тоже идут пешком."
+    }
+   ]
+  },
+  {
+   "id": "tb-7-6c",
+   "src": "tb",
+   "ref": "Ćw. 6c, s. 66",
+   "title": "Jechać czy jeździć?",
+   "title_ru": "Jechać или jeździć?",
+   "task_ru": "jechać — сейчас, сегодня; jeździć — регулярно. Два пропуска — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Codziennie Marek ___ do pracy tramwajem, ale dzisiaj ___ taksówką.",
+     "answer": "jeździ, jedzie",
+     "ru": "Каждый день Марек ездит на работу на трамвае, а сегодня едет на такси."
+    },
+    {
+     "q": "One ___ zawsze do pracy samochodem, ale dzisiaj ___ autobusem.",
+     "answer": "jeżdżą, jadą",
+     "ru": "Они всегда ездят на работу на машине, а сегодня едут на автобусе."
+    },
+    {
+     "q": "Nie lubię ___ autobusem, ale dzisiaj ___ (autobusem).",
+     "answer": "jeździć, jadę",
+     "ru": "Я не люблю ездить на автобусе, но сегодня еду (на автобусе).",
+     "accepted": [
+      "jeździć, jadę autobusem"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-7-7",
+   "src": "tb",
+   "ref": "Quiz, s. 67",
+   "title": "Czy wiesz, czy umiesz, czy znasz?",
+   "title_ru": "Wiedzieć, umieć или znać?",
+   "task_ru": "wiedzieć — знать факт (wiem, że / gdzie / kiedy…), umieć + инфинитив — уметь, znać + винительный — знать кого-то, что-то.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Czy ___, ile w Polsce jest województw?",
+     "answer": "wiesz",
+     "ru": "Ты знаешь, сколько в Польше воеводств?",
+     "options": [
+      "wiesz",
+      "umiesz",
+      "znasz"
+     ]
+    },
+    {
+     "q": "Czy ___, kiedy w Polsce jest Święto Pracy?",
+     "answer": "wiesz",
+     "ru": "Ты знаешь, когда в Польше День труда?",
+     "options": [
+      "wiesz",
+      "umiesz",
+      "znasz"
+     ]
+    },
+    {
+     "q": "Czy ___, gdzie jest Zakopane?",
+     "answer": "wiesz",
+     "ru": "Ты знаешь, где Закопане?",
+     "options": [
+      "wiesz",
+      "umiesz",
+      "znasz"
+     ]
+    },
+    {
+     "q": "Czy ___ jeździć na nartach?",
+     "answer": "umiesz",
+     "ru": "Ты умеешь кататься на лыжах?",
+     "options": [
+      "wiesz",
+      "umiesz",
+      "znasz"
+     ]
+    },
+    {
+     "q": "Czy ___ dobrze gotować?",
+     "answer": "umiesz",
+     "ru": "Ты умеешь хорошо готовить?",
+     "options": [
+      "wiesz",
+      "umiesz",
+      "znasz"
+     ]
+    },
+    {
+     "q": "Czy ___ pływać?",
+     "answer": "umiesz",
+     "ru": "Ты умеешь плавать?",
+     "options": [
+      "wiesz",
+      "umiesz",
+      "znasz"
+     ]
+    },
+    {
+     "q": "Czy ___ osobiście Lecha Wałęsę?",
+     "answer": "znasz",
+     "ru": "Ты лично знаешь Леха Валенсу?",
+     "options": [
+      "wiesz",
+      "umiesz",
+      "znasz"
+     ]
+    },
+    {
+     "q": "Czy ___ dobrze polską gramatykę?",
+     "answer": "znasz",
+     "ru": "Ты хорошо знаешь польскую грамматику?",
+     "options": [
+      "wiesz",
+      "umiesz",
+      "znasz"
+     ]
+    },
+    {
+     "q": "Czy ___ Kraków?",
+     "answer": "znasz",
+     "ru": "Ты знаешь Краков?",
+     "options": [
+      "wiesz",
+      "umiesz",
+      "znasz"
+     ]
+    },
+    {
+     "q": "Czy ___ polskie kino?",
+     "answer": "znasz",
+     "ru": "Ты знаешь польское кино?",
+     "options": [
+      "wiesz",
+      "umiesz",
+      "znasz"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-7-8a",
+   "src": "tb",
+   "ref": "Ćw. 8a, s. 67",
+   "title": "Proszę wpisać właściwe liczebniki.",
+   "title_ru": "Который час? Порядковые 1–24",
+   "task_ru": "Напиши час порядковым числительным: «1 pierwsza 2 druga …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "1:00",
+     "answer": "pierwsza",
+     "ru": "1 ч."
+    },
+    {
+     "q": "2:00",
+     "answer": "druga",
+     "ru": "2 ч."
+    },
+    {
+     "q": "3:00",
+     "answer": "trzecia",
+     "ru": "3 ч."
+    },
+    {
+     "q": "4:00",
+     "answer": "czwarta",
+     "ru": "4 ч."
+    },
+    {
+     "q": "5:00",
+     "answer": "piąta",
+     "ru": "5 ч."
+    },
+    {
+     "q": "6:00",
+     "answer": "szósta",
+     "ru": "6 ч."
+    },
+    {
+     "q": "7:00",
+     "answer": "siódma",
+     "ru": "7 ч."
+    },
+    {
+     "q": "8:00",
+     "answer": "ósma",
+     "ru": "8 ч."
+    },
+    {
+     "q": "9:00",
+     "answer": "dziewiąta",
+     "ru": "9 ч."
+    },
+    {
+     "q": "10:00",
+     "answer": "dziesiąta",
+     "ru": "10 ч."
+    },
+    {
+     "q": "11:00",
+     "answer": "jedenasta",
+     "ru": "11 ч."
+    },
+    {
+     "q": "12:00",
+     "answer": "dwunasta",
+     "ru": "12 ч."
+    },
+    {
+     "q": "13:00",
+     "answer": "trzynasta",
+     "ru": "13 ч."
+    },
+    {
+     "q": "14:00",
+     "answer": "czternasta",
+     "ru": "14 ч."
+    },
+    {
+     "q": "15:00",
+     "answer": "piętnasta",
+     "ru": "15 ч."
+    },
+    {
+     "q": "16:00",
+     "answer": "szesnasta",
+     "ru": "16 ч."
+    },
+    {
+     "q": "17:00",
+     "answer": "siedemnasta",
+     "ru": "17 ч."
+    },
+    {
+     "q": "18:00",
+     "answer": "osiemnasta",
+     "ru": "18 ч."
+    },
+    {
+     "q": "19:00",
+     "answer": "dziewiętnasta",
+     "ru": "19 ч."
+    },
+    {
+     "q": "20:00",
+     "answer": "dwudziesta",
+     "ru": "20 ч."
+    },
+    {
+     "q": "21:00",
+     "answer": "dwudziesta pierwsza",
+     "ru": "21 ч."
+    },
+    {
+     "q": "22:00",
+     "answer": "dwudziesta druga",
+     "ru": "22 ч."
+    },
+    {
+     "q": "23:00",
+     "answer": "dwudziesta trzecia",
+     "ru": "23 ч."
+    },
+    {
+     "q": "24:00",
+     "answer": "dwudziesta czwarta",
+     "ru": "24 ч."
+    }
+   ]
+  },
+  {
+   "id": "tb-7-9b",
+   "src": "tb",
+   "ref": "Ćw. 9b, s. 68",
+   "title": "Które zdanie jest prawdziwe?",
+   "title_ru": "Какое предложение верное?",
+   "task_ru": "По диалогам ćw. 9a (их можно прослушать — аудио выше — или открыть страницу учебника). Выбери верное.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Поезд в Варшаву (сейчас 1:00, «через 6 минут поезд»)",
+     "answer": "Pociąg do Warszawy jest sześć po pierwszej.",
+     "ru": "Поезд в Варшаву в 1:06.",
+     "options": [
+      "Pociąg do Warszawy jest za sześć pierwsza.",
+      "Pociąg do Warszawy jest sześć po pierwszej."
+     ]
+    },
+    {
+     "q": "Войтек ждёт Марту (сейчас 15:15, ждёт полчаса)",
+     "answer": "Wojtek czeka na Martę od za piętnaście trzecia.",
+     "ru": "Войтек ждёт Марту с 14:45.",
+     "options": [
+      "Wojtek czeka na Martę od za piętnaście trzecia.",
+      "Wojtek czeka na Martę od wpół do trzeciej."
+     ]
+    },
+    {
+     "q": "Кассир и Томек",
+     "answer": "Kasjer nie mówi wolno.",
+     "ru": "Кассир говорит не медленно (слишком быстро).",
+     "options": [
+      "Kasjer nie mówi wolno.",
+      "Kasjer nie chce napisać, o której godzinie są autobusy wieczorem."
+     ]
+    },
+    {
+     "q": "Женщина и время",
+     "answer": "Kobieta nie wie, która jest godzina, bo nie ma zegarka.",
+     "ru": "Женщина не знает, который час, у неё нет часов.",
+     "options": [
+      "Kobieta nie wie, która jest godzina, bo nie ma zegarka.",
+      "Kobieta pyta, bo nie wie, która jest godzina."
+     ]
+    }
+   ],
+   "audio": [
+    "049 - HURRA_PP1_podr_stud.mp3",
+    "050 - HURRA_PP1_podr_stud.mp3",
+    "051 - HURRA_PP1_podr_stud.mp3",
+    "052 - HURRA_PP1_podr_stud.mp3"
+   ]
+  },
+  {
+   "id": "tb-7-10a",
+   "src": "tb",
+   "ref": "Ćw. 10a, s. 68",
+   "title": "Proszę napisać w stylu nieoficjalnym.",
+   "title_ru": "Разговорное время",
+   "task_ru": "Переведи официальное время в разговорное: po (после), wpół do (половина), za (без). «1 kwadrans po czwartej».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "szesnasta piętnaście",
+     "answer": "kwadrans po czwartej",
+     "ru": "16:15",
+     "accepted": [
+      "piętnaście po czwartej"
+     ]
+    },
+    {
+     "q": "osiemnasta dwadzieścia pięć",
+     "answer": "dwadzieścia pięć po szóstej",
+     "ru": "18:25"
+    },
+    {
+     "q": "dwudziesta druga dziesięć",
+     "answer": "dziesięć po dziesiątej",
+     "ru": "22:10"
+    },
+    {
+     "q": "piętnasta trzydzieści",
+     "answer": "wpół do czwartej",
+     "ru": "15:30"
+    },
+    {
+     "q": "ósma czterdzieści pięć",
+     "answer": "za kwadrans dziewiąta",
+     "ru": "8:45",
+     "accepted": [
+      "za piętnaście dziewiąta"
+     ]
+    },
+    {
+     "q": "dwudziesta trzecia pięćdziesiąt",
+     "answer": "za dziesięć dwunasta",
+     "ru": "23:50"
+    },
+    {
+     "q": "dwunasta piętnaście",
+     "answer": "kwadrans po dwunastej",
+     "ru": "12:15",
+     "accepted": [
+      "piętnaście po dwunastej"
+     ]
+    },
+    {
+     "q": "osiemnasta dwadzieścia",
+     "answer": "dwadzieścia po szóstej",
+     "ru": "18:20"
+    }
+   ]
+  },
+  {
+   "id": "tb-7-10c",
+   "src": "tb",
+   "ref": "Ćw. 10c, s. 69",
+   "title": "Proszę napisać formy nieoficjalne.",
+   "title_ru": "Po, wpół do, za: какая форма?",
+   "task_ru": "po и wpół do + форма на -ej (местный / родительный), za + форма на -a (именительный). Напиши пропущенное слово.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "1:10 — jest dziesięć po ___",
+     "answer": "pierwszej",
+     "ru": "десять минут второго"
+    },
+    {
+     "q": "4:20 — jest dwadzieścia po ___",
+     "answer": "czwartej",
+     "ru": "двадцать минут пятого"
+    },
+    {
+     "q": "14:07 — jest siedem po ___",
+     "answer": "drugiej",
+     "ru": "семь минут третьего"
+    },
+    {
+     "q": "17:15 — jest piętnaście po ___",
+     "answer": "piątej",
+     "ru": "пятнадцать минут шестого"
+    },
+    {
+     "q": "20:25 — jest dwadzieścia pięć po ___",
+     "answer": "ósmej",
+     "ru": "двадцать пять минут девятого"
+    },
+    {
+     "q": "19:30 — jest wpół do ___",
+     "answer": "ósmej",
+     "ru": "половина восьмого"
+    },
+    {
+     "q": "21:30 — jest wpół do ___",
+     "answer": "dziesiątej",
+     "ru": "половина десятого"
+    },
+    {
+     "q": "11:30 — jest wpół do ___",
+     "answer": "dwunastej",
+     "ru": "половина двенадцатого"
+    },
+    {
+     "q": "15:55 — jest za pięć ___",
+     "answer": "czwarta",
+     "ru": "без пяти четыре"
+    },
+    {
+     "q": "10:55 — jest za pięć ___",
+     "answer": "jedenasta",
+     "ru": "без пяти одиннадцать"
+    },
+    {
+     "q": "12:50 — jest za dziesięć ___",
+     "answer": "pierwsza",
+     "ru": "без десяти час"
+    },
+    {
+     "q": "17:49 — jest za jedenaście ___",
+     "answer": "szósta",
+     "ru": "без одиннадцати шесть"
+    },
+    {
+     "q": "20:40 — jest za dwadzieścia ___",
+     "answer": "dziewiąta",
+     "ru": "без двадцати девять"
+    },
+    {
+     "q": "1:45 — jest za kwadrans ___",
+     "answer": "druga",
+     "ru": "без четверти два"
+    }
+   ]
+  },
+  {
+   "id": "tb-7-I",
+   "src": "tb",
+   "ref": "Czy już to umiesz? I, s. 69",
+   "title": "Proszę utworzyć zdania.",
+   "title_ru": "Составь сочетание",
+   "task_ru": "Допиши подходящее окончание фразы из списка: taksówką, pracy, książkę, spać, przyjaciółką, gramatykę, telewizję, tańczyć, przyjaciółkę, pieszo, prysznic, śniadanie, że ten film jest dobry, zęby, domu, spacer.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Biorę ___",
+     "answer": "prysznic",
+     "ru": "Принимаю душ."
+    },
+    {
+     "q": "Jem ___",
+     "answer": "śniadanie",
+     "ru": "Ем завтрак."
+    },
+    {
+     "q": "Idę ___ (не «na», не «do»)",
+     "answer": "spać",
+     "ru": "Иду спать.",
+     "accepted": [
+      "pieszo"
+     ]
+    },
+    {
+     "q": "Myję ___",
+     "answer": "zęby",
+     "ru": "Чищу зубы."
+    },
+    {
+     "q": "Znam świetnie ___",
+     "answer": "gramatykę",
+     "ru": "Отлично знаю грамматику."
+    },
+    {
+     "q": "Oglądam ___",
+     "answer": "telewizję",
+     "ru": "Смотрю телевизор."
+    },
+    {
+     "q": "Czytam ___",
+     "answer": "książkę",
+     "ru": "Читаю книгу."
+    },
+    {
+     "q": "Idę na ___",
+     "answer": "spacer",
+     "ru": "Иду на прогулку."
+    },
+    {
+     "q": "Idę do ___",
+     "answer": "pracy",
+     "ru": "Иду на работу."
+    },
+    {
+     "q": "Wracam do ___",
+     "answer": "domu",
+     "ru": "Возвращаюсь домой."
+    },
+    {
+     "q": "Spotykam się z ___",
+     "answer": "przyjaciółką",
+     "ru": "Встречаюсь с подругой."
+    },
+    {
+     "q": "Spotykam ___",
+     "answer": "przyjaciółkę",
+     "ru": "Встречаю подругу."
+    },
+    {
+     "q": "Jadę ___",
+     "answer": "taksówką",
+     "ru": "Еду на такси."
+    },
+    {
+     "q": "Idę ___ (второй раз: как?)",
+     "answer": "pieszo",
+     "ru": "Иду пешком.",
+     "accepted": [
+      "spać"
+     ]
+    },
+    {
+     "q": "Wiem, ___",
+     "answer": "że ten film jest dobry",
+     "ru": "Знаю, что этот фильм хороший."
+    },
+    {
+     "q": "Umiem ___",
+     "answer": "tańczyć",
+     "ru": "Умею танцевать."
+    }
+   ]
+  },
+  {
+   "id": "tb-7-II",
+   "src": "tb",
+   "ref": "Czy już to umiesz? II, s. 69",
+   "title": "Które słowo nie pasuje?",
+   "title_ru": "Что лишнее?",
+   "task_ru": "Выбери лишнее слово. Почему — можно в скобках: «2d (не о времени)».",
+   "type": "choice",
+   "items": [
+    {
+     "q": "piętnasta – piętnaście – szesnasta – siedemnasta",
+     "answer": "piętnaście",
+     "ru": "15-я – пятнадцать – 16-я – 17-я",
+     "full_pl": "piętnaście — количественное, остальные порядковые",
+     "options": [
+      "piętnasta",
+      "piętnaście",
+      "szesnasta",
+      "siedemnasta"
+     ]
+    },
+    {
+     "q": "wpół do – po – za – w",
+     "answer": "w",
+     "ru": "половина – после – без – в",
+     "full_pl": "w — не для времени на часах",
+     "options": [
+      "wpół do",
+      "po",
+      "za",
+      "w"
+     ]
+    },
+    {
+     "q": "rano – wieczorem – zwykle – przed południem",
+     "answer": "zwykle",
+     "ru": "утром – вечером – обычно – до полудня",
+     "full_pl": "zwykle — как часто, остальные — время суток",
+     "options": [
+      "rano",
+      "wieczorem",
+      "zwykle",
+      "przed południem"
+     ]
+    },
+    {
+     "q": "w południe – często – rzadko – nigdy",
+     "answer": "w południe",
+     "ru": "в полдень – часто – редко – никогда",
+     "full_pl": "w południe — время суток, остальные — как часто",
+     "options": [
+      "w południe",
+      "często",
+      "rzadko",
+      "nigdy"
+     ]
+    },
+    {
+     "q": "biorę – jadę – pisze – idę",
+     "answer": "pisze",
+     "ru": "беру – еду – пишет – иду",
+     "full_pl": "pisze — 3-е лицо, остальные — ja",
+     "options": [
+      "biorę",
+      "jadę",
+      "pisze",
+      "idę"
+     ]
+    },
+    {
+     "q": "z – do – na – ona",
+     "answer": "ona",
+     "ru": "с – к – на – она",
+     "full_pl": "ona — местоимение, остальные — предлоги",
+     "options": [
+      "z",
+      "do",
+      "na",
+      "ona"
+     ]
+    },
+    {
+     "q": "wracać – dzień – iść – jechać",
+     "answer": "dzień",
+     "ru": "возвращаться – день – идти – ехать",
+     "full_pl": "dzień — существительное",
+     "options": [
+      "wracać",
+      "dzień",
+      "iść",
+      "jechać"
+     ]
+    },
+    {
+     "q": "taksówką – samochodem – pieszo – tramwajem",
+     "answer": "pieszo",
+     "ru": "на такси – на машине – пешком – на трамвае",
+     "full_pl": "pieszo — наречие, остальные — транспорт в творительном",
+     "options": [
+      "taksówką",
+      "samochodem",
+      "pieszo",
+      "tramwajem"
+     ]
+    },
+    {
+     "q": "poniedziałek – o północy – wtorek – niedziela",
+     "answer": "o północy",
+     "ru": "понедельник – в полночь – вторник – воскресенье",
+     "full_pl": "o północy — время суток, остальные — дни недели",
+     "options": [
+      "poniedziałek",
+      "o północy",
+      "wtorek",
+      "niedziela"
+     ]
+    },
+    {
+     "q": "dwudziesta – ósma – pięć – dziewiętnasta",
+     "answer": "pięć",
+     "ru": "20-я – 8-я – пять – 19-я",
+     "full_pl": "pięć — количественное",
+     "options": [
+      "dwudziesta",
+      "ósma",
+      "pięć",
+      "dziewiętnasta"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-7-1b",
+   "src": "wb",
+   "ref": "Ćw. 1b, s. 40",
+   "title": "Proszę napisać, jakie to słowo.",
+   "title_ru": "Собери слово из букв",
+   "task_ru": "Переставь буквы: «1 budzić się».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "ubidzć isę",
+     "answer": "budzić się",
+     "ru": "просыпаться"
+    },
+    {
+     "q": "ćaspotyk ęsi",
+     "answer": "spotykać się",
+     "ru": "встречаться"
+    },
+    {
+     "q": "daćoląg",
+     "answer": "oglądać",
+     "ru": "смотреть"
+    },
+    {
+     "q": "niaśdenia",
+     "answer": "śniadanie",
+     "ru": "завтрак"
+    },
+    {
+     "q": "raćubie ęis",
+     "answer": "ubierać się",
+     "ru": "одеваться"
+    },
+    {
+     "q": "staawwć",
+     "answer": "wstawać",
+     "ru": "вставать"
+    },
+    {
+     "q": "ypukaz",
+     "answer": "zakupy",
+     "ru": "покупки"
+    },
+    {
+     "q": "pryncisz",
+     "answer": "prysznic",
+     "ru": "душ"
+    },
+    {
+     "q": "pacś",
+     "answer": "spać",
+     "ru": "спать"
+    },
+    {
+     "q": "rozwmaiać",
+     "answer": "rozmawiać",
+     "ru": "разговаривать"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-2",
+   "src": "wb",
+   "ref": "Ćw. 2, s. 40",
+   "title": "Proszę napisać, która jest godzina.",
+   "title_ru": "Который час: официально и разговорно",
+   "task_ru": "Напиши оба варианта через «/»: «1 trzynasta dwadzieścia / dwadzieścia po pierwszej». Аудио — для проверки. Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Jest 13:20",
+     "answer": "trzynasta dwadzieścia / dwadzieścia po pierwszej",
+     "ru": "13:20"
+    },
+    {
+     "q": "Jest 5:30",
+     "answer": "piąta trzydzieści / wpół do szóstej",
+     "ru": "5:30"
+    },
+    {
+     "q": "Jest 16:00",
+     "answer": "szesnasta / czwarta",
+     "ru": "16:00"
+    },
+    {
+     "q": "Jest 21:30",
+     "answer": "dwudziesta pierwsza trzydzieści / wpół do dziesiątej",
+     "ru": "21:30"
+    },
+    {
+     "q": "Jest 21:15",
+     "answer": "dwudziesta pierwsza piętnaście / kwadrans po dziewiątej",
+     "ru": "21:15",
+     "accepted": [
+      "dwudziesta pierwsza piętnaście / piętnaście po dziewiątej"
+     ]
+    },
+    {
+     "q": "Jest 14:45",
+     "answer": "czternasta czterdzieści pięć / za kwadrans trzecia",
+     "ru": "14:45",
+     "accepted": [
+      "czternasta czterdzieści pięć / za piętnaście trzecia"
+     ]
+    },
+    {
+     "q": "Jest 20:25",
+     "answer": "dwudziesta dwadzieścia pięć / dwadzieścia pięć po ósmej",
+     "ru": "20:25"
+    },
+    {
+     "q": "Jest 13:05",
+     "answer": "trzynasta pięć / pięć po pierwszej",
+     "ru": "13:05"
+    },
+    {
+     "q": "Jest 15:30",
+     "answer": "piętnasta trzydzieści / wpół do czwartej",
+     "ru": "15:30"
+    },
+    {
+     "q": "Jest 23:35",
+     "answer": "dwudziesta trzecia trzydzieści pięć / za dwadzieścia pięć dwunasta",
+     "ru": "23:35"
+    },
+    {
+     "q": "Jest 17:40",
+     "answer": "siedemnasta czterdzieści / za dwadzieścia szósta",
+     "ru": "17:40"
+    },
+    {
+     "q": "Jest 18:00",
+     "answer": "osiemnasta / szósta",
+     "ru": "18:00"
+    },
+    {
+     "q": "Jest 8:45",
+     "answer": "ósma czterdzieści pięć / za kwadrans dziewiąta",
+     "ru": "8:45",
+     "accepted": [
+      "ósma czterdzieści pięć / za piętnaście dziewiąta"
+     ]
+    },
+    {
+     "q": "Jest 19:30",
+     "answer": "dziewiętnasta trzydzieści / wpół do ósmej",
+     "ru": "19:30"
+    },
+    {
+     "q": "Jest 20:10",
+     "answer": "dwudziesta dziesięć / dziesięć po ósmej",
+     "ru": "20:10"
+    }
+   ],
+   "audio": "37 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-7-3",
+   "src": "wb",
+   "ref": "Ćw. 3, s. 41",
+   "title": "Proszę wpisać właściwe dni tygodnia.",
+   "title_ru": "Дни недели",
+   "task_ru": "Напиши день недели: «1 czwartek».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Między środą a piątkiem jest ___.",
+     "answer": "czwartek",
+     "ru": "Между средой и пятницей — четверг."
+    },
+    {
+     "q": "Piąty dzień tygodnia to ___.",
+     "answer": "piątek",
+     "ru": "Пятый день недели — пятница."
+    },
+    {
+     "q": "Czwarty dzień tygodnia to ___.",
+     "answer": "czwartek",
+     "ru": "Четвёртый день недели — четверг."
+    },
+    {
+     "q": "Przed poniedziałkiem jest ___.",
+     "answer": "niedziela",
+     "ru": "Перед понедельником — воскресенье."
+    },
+    {
+     "q": "Przed niedzielą jest ___.",
+     "answer": "sobota",
+     "ru": "Перед воскресеньем — суббота."
+    },
+    {
+     "q": "Między poniedziałkiem a środą jest ___.",
+     "answer": "wtorek",
+     "ru": "Между понедельником и средой — вторник."
+    },
+    {
+     "q": "Przed wtorkiem jest ___.",
+     "answer": "poniedziałek",
+     "ru": "Перед вторником — понедельник."
+    },
+    {
+     "q": "Między wtorkiem a czwartkiem jest ___.",
+     "answer": "środa",
+     "ru": "Между вторником и четвергом — среда."
+    },
+    {
+     "q": "Nie pracuję w ___.",
+     "answer": "sobotę",
+     "ru": "Я не работаю в субботу.",
+     "grammar": "w + винительный: sobota → w sobotę",
+     "accepted": [
+      "niedzielę"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-7-4",
+   "src": "wb",
+   "ref": "Ćw. 4, s. 41",
+   "title": "Kiedy Pan / Pani to robi?",
+   "title_ru": "Когда ты это делаешь?",
+   "task_ru": "Ответь: rano, przed południem, w południe, po południu, wieczorem, w nocy, o północy. Про себя — как у тебя. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Jem kolację ___.",
+     "answer": "wieczorem",
+     "ru": "Я ужинаю…"
+    },
+    {
+     "q": "Robię zakupy ___.",
+     "answer": "po południu",
+     "ru": "Я делаю покупки…"
+    },
+    {
+     "q": "Spotykam się ze znajomymi ___.",
+     "answer": "wieczorem",
+     "ru": "Я встречаюсь со знакомыми…"
+    },
+    {
+     "q": "Jem obiad ___.",
+     "answer": "po południu",
+     "ru": "Я обедаю…"
+    },
+    {
+     "q": "Jem śniadanie ___.",
+     "answer": "rano",
+     "ru": "Я завтракаю…"
+    },
+    {
+     "q": "Godzina dwunasta jest ___.",
+     "answer": "w południe",
+     "ru": "Двенадцать часов — это…"
+    },
+    {
+     "q": "Godzina dwudziesta czwarta jest ___.",
+     "answer": "o północy",
+     "ru": "Двадцать четыре часа — это…"
+    },
+    {
+     "q": "Godzina siedemnasta jest ___.",
+     "answer": "po południu",
+     "ru": "Семнадцать часов — это…"
+    },
+    {
+     "q": "Idę spać ___.",
+     "answer": "w nocy",
+     "ru": "Я иду спать…"
+    },
+    {
+     "q": "Zwykle piszę e-maile ___.",
+     "answer": "przed południem",
+     "ru": "Обычно я пишу имейлы…"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-5",
+   "src": "wb",
+   "ref": "Ćw. 5, s. 41",
+   "title": "Proszę uzupełnić zdania podanymi słowami.",
+   "title_ru": "Вставь слово из рамки",
+   "task_ru": "Слова: codziennie, zakupy, telefon, prysznic, się, zęby, telewizję, wstaję, taksówką, kina, czekam. Два пропуска — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Marek zawsze bardzo długo myje ___.",
+     "answer": "zęby",
+     "ru": "Марек всегда очень долго чистит зубы."
+    },
+    {
+     "q": "Marta robi ___.",
+     "answer": "zakupy",
+     "ru": "Марта делает покупки."
+    },
+    {
+     "q": "Rano szybko biorę ___.",
+     "answer": "prysznic",
+     "ru": "Утром я быстро принимаю душ."
+    },
+    {
+     "q": "Andrzej zwykle długo rozmawia przez ___.",
+     "answer": "telefon",
+     "ru": "Анджей обычно долго говорит по телефону."
+    },
+    {
+     "q": "Lubię oglądać ___, ale lubię też chodzić do ___.",
+     "answer": "telewizję, kina",
+     "ru": "Я люблю смотреть телевизор, но люблю и ходить в кино."
+    },
+    {
+     "q": "Wieczorem zawsze wracamy do domu ___.",
+     "answer": "taksówką",
+     "ru": "Вечером мы всегда возвращаемся домой на такси."
+    },
+    {
+     "q": "Zwykle najpierw ___ ubieram, a potem jem śniadanie.",
+     "answer": "się",
+     "ru": "Обычно я сначала одеваюсь, а потом завтракаю."
+    },
+    {
+     "q": "Najpierw budzę się, a potem ___.",
+     "answer": "wstaję",
+     "ru": "Сначала я просыпаюсь, а потом встаю."
+    },
+    {
+     "q": "Na przystanku tramwajowym ___ na tramwaj.",
+     "answer": "czekam",
+     "ru": "На трамвайной остановке я жду трамвай."
+    },
+    {
+     "q": "___ uczę się polskiego!",
+     "answer": "Codziennie",
+     "ru": "Каждый день я учу польский!"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-6a",
+   "src": "wb",
+   "ref": "Ćw. 6A, s. 42",
+   "title": "Proszę wpisać właściwą formę czasownika.",
+   "title_ru": "Brać, spać, jechać, iść, myć się",
+   "task_ru": "Напиши глагол в нужной форме.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "(ty) ___ kredyt na dom? (brać)",
+     "answer": "Bierzesz",
+     "ru": "Ты берёшь кредит на дом?",
+     "grammar": "brać: biorę, bierzesz, biorą"
+    },
+    {
+     "q": "On zawsze bardzo krótko ___ — tylko 5–6 godzin. (spać)",
+     "answer": "śpi",
+     "ru": "Он всегда спит очень мало — всего 5–6 часов.",
+     "grammar": "spać: śpię, śpisz, śpi"
+    },
+    {
+     "q": "W niedzielę zawsze (ja) ___ do dziesiątej. (spać)",
+     "answer": "śpię",
+     "ru": "В воскресенье я всегда сплю до десяти."
+    },
+    {
+     "q": "W weekend (my) ___ na wycieczkę do Zakopanego. (jechać)",
+     "answer": "jedziemy",
+     "ru": "На выходных мы едем на экскурсию в Закопане.",
+     "grammar": "jechać: jadę, jedziesz, jedziemy, jadą"
+    },
+    {
+     "q": "(wy) ___ dzisiaj z nami do kina? (iść)",
+     "answer": "Idziecie",
+     "ru": "Вы идёте сегодня с нами в кино?"
+    },
+    {
+     "q": "Do której godziny (ty) ___ w sobotę? (spać)",
+     "answer": "śpisz",
+     "ru": "До которого часа ты спишь в субботу?"
+    },
+    {
+     "q": "Pan Wojtasiński ___ jutro na konferencję do Szczecina. (jechać)",
+     "answer": "jedzie",
+     "ru": "Пан Войтасиньский едет завтра на конференцию в Щецин."
+    },
+    {
+     "q": "Jutro (ja) ___ do muzeum — jest interesująca wystawa. (iść)",
+     "answer": "idę",
+     "ru": "Завтра я иду в музей — там интересная выставка."
+    },
+    {
+     "q": "Andrzej ___ zawsze bardzo długo. (myć się)",
+     "answer": "myje się",
+     "ru": "Анджей всегда очень долго моется.",
+     "grammar": "myć się: myję się, myjesz się"
+    },
+    {
+     "q": "Czy (wy) ___ kredyt na samochód? (brać)",
+     "answer": "bierzecie",
+     "ru": "Вы берёте кредит на машину?"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-6b",
+   "src": "wb",
+   "ref": "Ćw. 6B, s. 42",
+   "title": "spotykać się z / spotykać",
+   "title_ru": "Spotykać или spotykać się z?",
+   "task_ru": "spotykać + кого? (винительный), spotykać się z + с кем? (творительный). Напиши глагол (и предлог, если нужен).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Często (ja) ___ tego mężczyznę w parku.",
+     "answer": "spotykam",
+     "ru": "Я часто встречаю этого мужчину в парке."
+    },
+    {
+     "q": "Nigdy cię nie (ja) ___ na uniwersytecie! Nie studiujesz już?",
+     "answer": "spotykam",
+     "ru": "Я никогда не встречаю тебя в университете!"
+    },
+    {
+     "q": "W piątki zawsze (my) ___ znajomymi w klubie „Gloria”.",
+     "answer": "spotykamy się ze",
+     "ru": "По пятницам мы всегда встречаемся со знакомыми."
+    },
+    {
+     "q": "Wiem, że Agata pracuje w centrum, bo często ją tam ___.",
+     "answer": "spotykam",
+     "ru": "Я знаю, что Агата работает в центре, потому что часто её там встречаю."
+    },
+    {
+     "q": "Czy Andrzej często ___ Anią?",
+     "answer": "spotyka się z",
+     "ru": "Анджей часто встречается с Аней?"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-6c",
+   "src": "wb",
+   "ref": "Ćw. 6C, s. 42",
+   "title": "iść / chodzić // jechać / jeździć",
+   "title_ru": "Идти / ходить, ехать / ездить",
+   "task_ru": "Сейчас, сегодня — iść, jechać; регулярно — chodzić, jeździć. Несколько пропусков — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Zawsze, kiedy jest ładnie, Wojtek ___ do pracy rowerem albo ___ pieszo. Dzisiaj też ___ pieszo.",
+     "answer": "jeździ, chodzi, idzie",
+     "ru": "Когда хорошая погода, Войтек ездит на работу на велосипеде или ходит пешком. Сегодня тоже идёт пешком."
+    },
+    {
+     "q": "Lubię ___ samochodem, ale często ___ też pieszo.",
+     "answer": "jeździć, chodzę",
+     "ru": "Я люблю ездить на машине, но часто хожу и пешком."
+    },
+    {
+     "q": "Codziennie (my) ___ tramwajem do pracy.",
+     "answer": "jeździmy",
+     "ru": "Каждый день мы ездим на трамвае на работу."
+    },
+    {
+     "q": "Zwykle (ja) ___ do szkoły pieszo, ale dzisiaj ___ taksówką.",
+     "answer": "chodzę, jadę",
+     "ru": "Обычно я хожу в школу пешком, а сегодня еду на такси."
+    },
+    {
+     "q": "Zwykle pan Marian ___ na spacer wieczorem, ale dzisiaj ___ po południu.",
+     "answer": "chodzi, idzie",
+     "ru": "Обычно пан Мариан ходит гулять вечером, а сегодня идёт днём."
+    },
+    {
+     "q": "Nie umiem ___ na nartach.",
+     "answer": "jeździć",
+     "ru": "Я не умею кататься на лыжах."
+    },
+    {
+     "q": "(wy) Często ___ do kina?",
+     "answer": "chodzicie",
+     "ru": "Вы часто ходите в кино?"
+    },
+    {
+     "q": "Andrzej i Ania rzadko ___ taksówką, ale dzisiaj ___.",
+     "answer": "jeżdżą, jadą",
+     "ru": "Анджей и Аня редко ездят на такси, но сегодня едут."
+    },
+    {
+     "q": "Nigdy nie (ja) ___ na spacer po jedenastej wieczorem.",
+     "answer": "chodzę",
+     "ru": "Я никогда не хожу гулять после одиннадцати вечера."
+    },
+    {
+     "q": "Zawsze (my) ___ do Warszawy pociągiem, ale teraz ___ samochodem.",
+     "answer": "jeździmy, jedziemy",
+     "ru": "Мы всегда ездим в Варшаву на поезде, но сейчас едем на машине."
+    }
+   ]
+  },
+  {
+   "id": "wb-7-6d",
+   "src": "wb",
+   "ref": "Ćw. 6D, s. 43",
+   "title": "umieć / wiedzieć / znać",
+   "title_ru": "Уметь, знать (факт) или знать (кого/что)?",
+   "task_ru": "umieć + инфинитив, wiedzieć + że / gdzie / kiedy…, znać + винительный. Напиши глагол в нужной форме.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "(ja) ___ trochę język polski.",
+     "answer": "Znam",
+     "ru": "Я немного знаю польский язык."
+    },
+    {
+     "q": "Czy ___ pan grać na gitarze?",
+     "answer": "umie",
+     "ru": "Вы умеете играть на гитаре?"
+    },
+    {
+     "q": "(ja) ___ mówić trochę po polsku.",
+     "answer": "Umiem",
+     "ru": "Я умею немного говорить по-польски."
+    },
+    {
+     "q": "(ja) ___, że Warszawa jest stolicą Polski.",
+     "answer": "Wiem",
+     "ru": "Я знаю, что Варшава — столица Польши."
+    },
+    {
+     "q": "Czy (ty) ___ grać w tenisa?",
+     "answer": "umiesz",
+     "ru": "Ты умеешь играть в теннис?"
+    },
+    {
+     "q": "Czy (wy) ___ Marka Kętrzyńskiego?",
+     "answer": "znacie",
+     "ru": "Вы знаете Марка Кентшыньского?"
+    },
+    {
+     "q": "Czy (wy) ___ dobrze gotować?",
+     "answer": "umiecie",
+     "ru": "Вы умеете хорошо готовить?"
+    },
+    {
+     "q": "Helena ___ trzy języki obce: angielski, portugalski i bułgarski.",
+     "answer": "zna",
+     "ru": "Хелена знает три иностранных языка."
+    },
+    {
+     "q": "Andrzej ___, że Ania go lubi.",
+     "answer": "wie",
+     "ru": "Анджей знает, что нравится Ане."
+    },
+    {
+     "q": "Ania nie ___, gdzie mieszka siostra Andrzeja.",
+     "answer": "wie",
+     "ru": "Аня не знает, где живёт сестра Анджея."
+    },
+    {
+     "q": "(ty) ___, kiedy jest test z polskiego?",
+     "answer": "Wiesz",
+     "ru": "Ты знаешь, когда тест по польскому?"
+    },
+    {
+     "q": "Weronika i Justyna nie ___, gdzie jest klub „Pauza”.",
+     "answer": "wiedzą",
+     "ru": "Вероника и Юстына не знают, где клуб «Пауза»."
+    }
+   ]
+  },
+  {
+   "id": "wb-7-6e",
+   "src": "wb",
+   "ref": "Ćw. 6E, s. 43",
+   "title": "Co robimy najpierw, a co potem?",
+   "title_ru": "Najpierw…, a potem…",
+   "task_ru": "Составь «Najpierw …, a potem …» в нужном лице, в логичном порядке. Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "one / biegać / brać prysznic",
+     "answer": "Najpierw biegają, a potem biorą prysznic.",
+     "ru": "Сначала они бегают, а потом принимают душ."
+    },
+    {
+     "q": "(ja) / iść spać / czytać książkę",
+     "answer": "Najpierw czytam książkę, a potem idę spać.",
+     "ru": "Сначала я читаю книгу, а потом иду спать."
+    },
+    {
+     "q": "(ja) / kupować książkę / czytać",
+     "answer": "Najpierw kupuję książkę, a potem czytam.",
+     "ru": "Сначала я покупаю книгу, а потом читаю."
+    },
+    {
+     "q": "on / robić zdjęcia / oglądać zdjęcia",
+     "answer": "Najpierw robi zdjęcia, a potem ogląda zdjęcia.",
+     "ru": "Сначала он фотографирует, а потом смотрит фото."
+    },
+    {
+     "q": "on / wstawać / spać",
+     "answer": "Najpierw śpi, a potem wstaje.",
+     "ru": "Сначала он спит, а потом встаёт."
+    },
+    {
+     "q": "(my) / pić kawę / iść do kawiarni",
+     "answer": "Najpierw idziemy do kawiarni, a potem pijemy kawę.",
+     "ru": "Сначала мы идём в кафе, а потом пьём кофе."
+    },
+    {
+     "q": "(ty) / oglądać film / kupować bilet",
+     "answer": "Najpierw kupujesz bilet, a potem oglądasz film.",
+     "ru": "Сначала ты покупаешь билет, а потом смотришь фильм."
+    },
+    {
+     "q": "ona / jeść kolację / myć zęby",
+     "answer": "Najpierw je kolację, a potem myje zęby.",
+     "ru": "Сначала она ужинает, а потом чистит зубы."
+    },
+    {
+     "q": "(wy) / budzić się / spać",
+     "answer": "Najpierw śpicie, a potem budzicie się.",
+     "ru": "Сначала вы спите, а потом просыпаетесь.",
+     "accepted": [
+      "Najpierw śpicie, a potem się budzicie."
+     ]
+    },
+    {
+     "q": "ona / ubierać się / brać prysznic",
+     "answer": "Najpierw bierze prysznic, a potem ubiera się.",
+     "ru": "Сначала она принимает душ, а потом одевается.",
+     "accepted": [
+      "Najpierw bierze prysznic, a potem się ubiera."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-7-7",
+   "src": "wb",
+   "ref": "Ćw. 7, s. 43",
+   "title": "Proszę uzupełnić zdania podanymi przyimkami.",
+   "title_ru": "Предлоги",
+   "task_ru": "Предлоги: z, ze, na, do, przez, w, we, przed, po, o. Несколько пропусков — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Często spotykam się ___ przyjaciółmi. Chodzimy razem ___ spacer albo ___ kina.",
+     "answer": "z, na, do",
+     "ru": "Я часто встречаюсь с друзьями. Мы вместе ходим гулять или в кино."
+    },
+    {
+     "q": "___ wtorek idę ___ znajomymi ___ koncert.",
+     "answer": "We, ze, na",
+     "ru": "Во вторник я иду со знакомыми на концерт."
+    },
+    {
+     "q": "Lubisz rozmawiać ___ mną ___ telefon?",
+     "answer": "ze, przez",
+     "ru": "Ты любишь разговаривать со мной по телефону?"
+    },
+    {
+     "q": "___ pracy jeżdżę taksówką.",
+     "answer": "Do",
+     "ru": "На работу я езжу на такси."
+    },
+    {
+     "q": "Często chodzę spać ___ północy.",
+     "answer": "o",
+     "ru": "Я часто ложусь спать в полночь."
+    },
+    {
+     "q": "Marcin jest policjantem i czasem pracuje ___ nocy.",
+     "answer": "w",
+     "ru": "Марцин полицейский и иногда работает ночью."
+    },
+    {
+     "q": "___ poniedziałek ___ południem mamy test z polskiego.",
+     "answer": "W, przed",
+     "ru": "В понедельник до полудня у нас тест по польскому."
+    },
+    {
+     "q": "___ południu idziemy ___ muzeum.",
+     "answer": "Po, do",
+     "ru": "После полудня мы идём в музей."
+    },
+    {
+     "q": "___ środę idziemy ___ kawiarni.",
+     "answer": "W, do",
+     "ru": "В среду мы идём в кафе."
+    },
+    {
+     "q": "Umiesz jeździć ___ nartach?",
+     "answer": "na",
+     "ru": "Ты умеешь кататься на лыжах?"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-8",
+   "src": "wb",
+   "ref": "Ćw. 8, s. 44",
+   "title": "Proszę wpisać zaimek osobowy w narzędniku.",
+   "title_ru": "Местоимение в творительном",
+   "task_ru": "Напиши местоимение в творительном: mną, tobą, nim, nią, nami, wami, nimi.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Mieszkasz z Adamem? — Nie, już z ___ nie mieszkam.",
+     "answer": "nim",
+     "ru": "Ты живёшь с Адамом? — Нет, я с ним уже не живу."
+    },
+    {
+     "q": "Znasz język polski? — Tak, bardzo się ___ interesuję.",
+     "answer": "nim",
+     "ru": "Ты знаешь польский? — Да, очень им интересуюсь.",
+     "grammar": "interesować się + творительный без предлога"
+    },
+    {
+     "q": "Lubicie pracować ze ___? — Oczywiście, że lubimy z tobą pracować.",
+     "answer": "mną",
+     "ru": "Вам нравится работать со мной? — Конечно."
+    },
+    {
+     "q": "Czy on mieszka z Moniką? — Tak, mieszka z ___.",
+     "answer": "nią",
+     "ru": "Он живёт с Моникой? — Да, с ней."
+    },
+    {
+     "q": "Nie wiem, czy oni lubią ze mną pracować. — Tak, mówią, że lubią z ___ pracować.",
+     "answer": "tobą",
+     "ru": "Не знаю, нравится ли им работать со мной. — Да, говорят, что им нравится работать с тобой."
+    },
+    {
+     "q": "Lubicie z nami pracować? — Oczywiście, że lubimy z ___ pracować!",
+     "answer": "wami",
+     "ru": "Вам нравится работать с нами? — Конечно, с вами!"
+    },
+    {
+     "q": "Czy Rudzki mieszka z Nowacką? — Nie, już z ___ nie mieszka.",
+     "answer": "nią",
+     "ru": "Рудзкий живёт с Новацкой? — Нет, уже не живёт с ней."
+    },
+    {
+     "q": "Czy ta firma interesuje się inwestycjami europejskimi? — Tak, bardzo się ___ interesuje.",
+     "answer": "nimi",
+     "ru": "Эта фирма интересуется европейскими инвестициями? — Да, очень ими интересуется."
+    },
+    {
+     "q": "Czy pan Kornecki pracuje z panem Ropczyńskim? — Tak, pracuje z ___.",
+     "answer": "nim",
+     "ru": "Пан Корнецкий работает с паном Ропчиньским? — Да, с ним."
+    },
+    {
+     "q": "Nie wiem, czy oni lubią z ___ rozmawiać. — Tak, oczywiście, że lubią z wami rozmawiać!",
+     "answer": "nami",
+     "ru": "Не знаю, нравится ли им говорить с нами. — Да, конечно, им нравится говорить с вами!"
+    }
+   ]
+  }
+ ]
+}

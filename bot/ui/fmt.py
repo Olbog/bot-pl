@@ -108,6 +108,7 @@ HELP = (
     "или без набора (без темы, своя, случайная)\n"
     "/ex — 🏋️ упражнения: слова, грамматика, мои ошибки, голосом, учебник\n"
     "/words — 📖 слова юнита: список с переводом, 🙈 скрытый перевод, 📄 файлом, 🔊 озвучка\n"
+    "/phr — 💬 полезные выражения: с транскрипцией, переводом и правилом; карточки, тест, набор для разговора\n"
     "/set — 🎯 наборы слов: прогресс, новый набор, 📚 архив, отметить освоенные\n"
     "/itog — 📋 итог: ошибки и слова за час / сутки / разговор, всё время — файлом\n"
     "/dict — ⭐ словарь выражений; 🙅 исключения\n"
@@ -192,7 +193,7 @@ def main_menu(status: str) -> tuple[str, list[list[tuple[str, str]]]]:
             [[("💬 Новый разговор", "go:new"), ("🏋️ Упражнения", "go:ex")],
              [("🎯 Наборы слов", "go:set"), ("📋 Итог", "go:itog")],
              [("⭐ Словарь", "go:dict"), ("📖 Слова учебника", "go:words")],
-             [("🗂 Выгрузка", "go:export")]])
+             [("💬 Полезные выражения", "go:phr"), ("🗂 Выгрузка", "go:export")]])
 
 
 def new_menu(status: str, active: dict | None, done: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
@@ -298,6 +299,18 @@ def rules_message(data: dict, header: str = "📖") -> str:
         if not isinstance(r, dict):
             continue
         lines = [f"{header} <b>{e(r.get('title', ''))}</b>", e(r.get("explanation", ""))]
+        rows = [t for t in r.get("table") or [] if isinstance(t, dict) and t.get("form")]
+        if rows:
+            lines.append("📋 <b>Таблица</b>")
+            for t in rows:
+                ex = f": {e(str(t.get('example', '')))}" if t.get("example") else ""
+                lines.append(f"▫️ {e(str(t.get('when', '')))} → <b>{e(str(t['form']))}</b>{ex}")
+        exc = [str(x) for x in r.get("exceptions") or [] if str(x).strip()]
+        if exc:
+            lines.append("⚠️ <b>Исключения и особые группы</b>")
+            lines += [f"▫️ {e(x)}" for x in exc]
+        if rows or exc:
+            lines.append("✏️ <b>Примеры</b>")
         for ex in r.get("examples") or []:
             if isinstance(ex, dict):
                 lines.append(f"• <b>{e(ex.get('pl', ''))}</b> [{e(ex.get('translit', ''))}] — {e(ex.get('ru', ''))}")
@@ -592,7 +605,7 @@ def ex_pick(title: str, labels: list[str], chosen: list[int],
 def ex_card_prompt(topics: list[str]) -> tuple[str, list[list[tuple[str, str]]]]:
     text = ("🧩 <b>Тема:</b> " + e(topics[0]) if len(topics) == 1 else
             "🧩 <b>Темы</b> (вперемешку, на различение):\n" + "\n".join(f"• {e(t)}" for t in topics))
-    return text, [[("📖 Сначала кратко правило", "x:c:rule"), ("▶️ Сразу упражнения", "x:c:go")]]
+    return text, [[("📖 Сначала правило", "x:c:rule"), ("▶️ Сразу упражнения", "x:c:go")]]
 
 
 def ex_rule_picker(catalog: list[str], chosen: list[int]) -> tuple[str, list[list[tuple[str, str]]]]:
@@ -678,7 +691,8 @@ def _word_line(n: int, w: dict, mark: str, with_ru: bool = True) -> str:
     if not with_ru:
         return head
     pos = f" · <i>{e(w['pos'])}</i>" if w.get("pos") and not w.get("of") else ""
-    return f"{head} — {e(w['ru'])}{pos}"
+    rule = f"\n      📐 <i>{e(w['rule'])}</i>" if w.get("rule") else ""
+    return f"{head} — {e(w['ru'])}{pos}{rule}"
 
 
 def _mark(w: dict, known: set[str], recog: set[str]) -> str:
@@ -739,7 +753,8 @@ def words_hidden(unit: dict, known: set[str], recog: set[str]) -> list[tuple[str
 
 
 def word_hint(w: dict) -> str:
-    return f"{w['pl']} — {w['ru']}" + (f" · {w['pos']}" if w.get("pos") else "")
+    return (f"{w['pl']} — {w['ru']}" + (f" · {w['pos']}" if w.get("pos") else "")
+            + (f"\n📐 {w['rule']}" if w.get("rule") else ""))
 
 
 def words_file(unit: dict) -> str:
@@ -752,7 +767,8 @@ def words_file(unit: dict) -> str:
         pre = "    + " if w.get("of") else ""
         wb = " [тетрадь]" if w.get("src") == "wb" else ""
         lines.append(f"{pre}{n}. {w['pl']} [{w.get('translit', '')}] — {w['ru']}"
-                     + (f" ({w['pos']})" if w.get("pos") and not w.get("of") else "") + wb)
+                     + (f" ({w['pos']})" if w.get("pos") and not w.get("of") else "") + wb
+                     + (f"\n      правило: {w['rule']}" if w.get("rule") else ""))
     return "\n".join(lines) + "\n"
 
 

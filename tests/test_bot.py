@@ -1137,7 +1137,8 @@ def test_grammar_own_topic_and_rule_card():
     app = make_app(gem=gem)
     ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:own")
     run(app.handle(msg(text="творительный падеж (z kim, być kim)")))
-    assert app.db.get_state(42)["pending"]["ex"]["rules"] == [rules_mod.CATALOG[4]]   # узнал правило каталога
+    ex = app.db.get_state(42)["pending"]["ex"]
+    assert ex["rules"] == ["творительный падеж (z kim, być kim)"] and ex["rule_tags"] == [rules_mod.CATALOG[4]]
     run(app.on_callback(cb("x:c:rule")))
     assert "📖" in app.tg.sent[-2] and "Сколько упражнений" in app.tg.sent[-1]
     ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:own")
@@ -1684,11 +1685,11 @@ def test_book_no_units_message():
 def test_real_textbook_units_are_valid():
     real = Path(__file__).resolve().parent.parent / "bot" / "textbook"
     units = tb.load_units(real)
-    assert [u["unit"] for u in units][:3] == ["kpk:7", "kpk:7a", "kpk:8"]
+    assert [u["unit"] for u in units if u["book"] == "kpk"][:3] == ["kpk:7", "kpk:7a", "kpk:8"]
     for u in units:
         assert u["title"] and u["summary"]
         for w in u["words"]:
-            assert w["pl"] and w["ru"] and w["translit"] and w["pos"], w
+            assert w["pl"] and w["ru"] and w["translit"] and (w.get("pos") or u["book"] == "phr"), w
 
 
 # ---------- 🏠 меню, /new, наборы из юнита и 🧳 недоученные ----------
@@ -2236,3 +2237,41 @@ def test_voice_answer_to_regular_exercise():
     run(app.handle(msg(voice={"file_id": "v"})))
     assert "ГОЛОСОВЫМ" in gem.prompts[-1] and gem.audios[-1] == b"OGG-IN"
     assert "9 из 10" in app.tg.sent[-1]
+
+
+
+def test_phrases_section_separate_from_textbooks():
+    real = Path(__file__).resolve().parent.parent / "bot" / "textbook"
+    tb.UNITS_DIR = real
+    app = make_app()
+    run(app.handle(msg(text="/words")))
+    assert "phr" not in str(app.tg.buttons[-1])                     # в списке учебников выражений нет
+    run(app.handle(msg(text="/phr")))
+    assert "x:b:u:phr:1" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("x:b:u:phr:1")))
+    assert "wd:u:phr:1" in str(app.tg.buttons[-1])                   # список, карточки, тест — как у юнита
+    run(app.on_callback(cb("wd:u:phr:1")))
+    assert "📐 <i>nie ma + родительный: sprawa → sprawy</i>" in app.tg.sent[-1]
+    u = tb.get_unit("phr:1", real)
+    assert all(w.get("translit") and w.get("ru") for w in u["words"]) and len(u["words"]) >= 80
+    assert tb.card_item(u["words"][0], "pl")["rule"].startswith("nie ma")
+
+
+def test_rule_with_table_and_exceptions_and_own_topic_kept():
+    from bot.ui import fmt as f
+    from bot.ai.prompt import rules_by_name_prompt
+    text = f.rules_message({"rules": [{"title": "Мн. ч.", "explanation": "Как образуется.",
+                                       "table": [{"when": "м. р. после k, g", "form": "-i", "example": "stolik → stoliki"},
+                                                 {"when": "ср. р.", "form": "-a", "example": "ciasto → ciasta"}],
+                                       "exceptions": ["dziecko → dzieci"],
+                                       "examples": [{"pl": "Dwa stoliki.", "translit": "два сто-ЛИ-ки", "ru": "Два столика."}]}]})
+    assert "📋 <b>Таблица</b>" in text and "м. р. после k, g → <b>-i</b>: stolik → stoliki" in text
+    assert "⚠️ <b>Исключения и особые группы</b>\n▫️ dziecko → dzieci" in text
+    assert "ЦЕЛИКОМ" in rules_by_name_prompt(["x"], {}, "A1") and "exceptions" in rules_by_name_prompt(["x"], {}, "A1")
+    app = make_app()
+    ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:own")
+    own = "Множественное число существительных и прилагательных (четыре груши, пять свежих помидоров)"
+    run(app.handle(msg(text=own)))
+    st = app.db.get_state(42)["pending"]["ex"]
+    assert st["rules"] == [own] and st["rule_tags"] == ["Множественное число существительных"]
+    assert own.split(" (")[0] in app.tg.sent[-1] and "свежих помидоров" in app.tg.sent[-1]

@@ -283,8 +283,9 @@ class ExerciseMenuMixin:
             return True
         if step == "ex_rule_text" and text:
             own = text.strip()
-            known = rules.normalize(own)  # совпало с каталогом — берём его название, иначе тема как написана
-            await self.ex_topics_chosen(chat_id, user_id, ex, [known if known != rules.OTHER else own])
+            known = rules.normalize(own)  # тема остаётся как написана; правило каталога — только для повтора ошибок
+            ex["rule_tags"] = [known] if known != rules.OTHER else []
+            await self.ex_topics_chosen(chat_id, user_id, ex, [own])
             return True
         if step == "ex_count" and text and text.strip().isdigit():
             await self.ex_start(chat_id, user_id, ex, int(text.strip()))

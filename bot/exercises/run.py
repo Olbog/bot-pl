@@ -30,7 +30,7 @@ class ExerciseRunMixin:
         elif kind in ("words", "voice") and ex.get("redo"):  # слова с ошибками — первыми
             wrong = [r["lemma"] for r in ex["redo"] if r.get("lemma")]
             ex = {**ex, "words": wrong + [w for w in ex.get("words") or [] if w not in wrong]}
-        rule_filter = ex.get("rules") or None
+        rule_filter = ex.get("rule_tags") or ex.get("rules") or None
         reuse = [it for it in self.db.ex_review_items(user_id, 20, rule_filter)
                  if bool(it.get("options")) == (f == "test") and not it.get("card") and not it.get("unit")
                  and (kind not in ("words", "voice") or it.get("lemma") in (ex.get("words") or []))][:EX_REUSE]

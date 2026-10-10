@@ -29,6 +29,7 @@ import re
 from pathlib import Path
 
 UNITS_DIR = Path(__file__).resolve().parent.parent / "textbook"  # bot/textbook/<книга>/unit_NN.json
+PHRASES_BOOK = "phr"     # 💬 полезные выражения: «книга» вне учебников (standalone в book.json)
 DEFAULT_BOOK = "kpk"     # старые ключи юнитов без книги («8») — это Krok po kroku
 DIRS = {"pl": "🇵🇱→🇷🇺", "ru": "🇷🇺→🇵🇱", "mix": "🔀 Вперемешку"}
 KNOW_STREAK = 3   # столько верных ответов подряд нужно для «знаю» / «узнаю»
@@ -170,7 +171,7 @@ def card_item(w: dict, d: str) -> dict:
     else:
         q, answer, accepted = w["ru"], w["pl"], list(w.get("pl_alt") or [])
     return {"q": q, "answer": answer, "accepted": accepted, "options": [], "full_pl": w["pl"],
-            "translit": w.get("translit", ""), "ru": w["ru"], "grammar": w.get("pos", ""), "rule": "",
+            "translit": w.get("translit", ""), "ru": w["ru"], "grammar": w.get("pos", ""), "rule": w.get("rule", ""),
             "lemma": w["pl"], "dir": d, "card": True}
 
 

@@ -327,6 +327,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             await self.ex_menu(chat_id, user_id)
         elif cmd == "/words":
             await self.words_menu(chat_id, user_id)
+        elif cmd == "/phr":
+            await self.phrases_menu(chat_id, user_id)
         elif cmd == "/export":
             await self.send_export(chat_id, user_id, "a")
         elif cmd == "/cancel":
@@ -348,7 +350,7 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         """Кнопки главного меню — как соответствующие команды (незаконченный выбор отменяется)."""
         self.db.set_pending(user_id, None)
         cmd = {"new": "/new", "ex": "/ex", "set": "/set", "itog": "/itog", "dict": "/dict", "export": "/export",
-               "words": "/words"}
+               "words": "/words", "phr": "/phr"}
         if where in cmd:
             await self.command(chat_id, user_id, cmd[where])
 
