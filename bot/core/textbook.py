@@ -56,6 +56,8 @@ def load_books(path: Path | None = None) -> list[dict]:
             num = str(u.get("unit") or f.stem.removeprefix("unit_").lstrip("0") or "0")
             u.update(num=num, unit=f"{meta['id']}:{num}", book=meta["id"], book_title=meta.get("title", ""),
                      book_short=meta["short"], name=f"{meta['unit_label']} {num}",
+                     phrases=bool(meta.get("phrases")),
+                     unit_of=meta.get("unit_of", "юнита"), item_word=meta.get("item_word", "слов"),
                      audio_dir=meta.get("audio_dir", ""), files=meta.get("files") or {},
                      page_offset=meta.get("page_offset") or {})
             u["words"] = group_words([w for w in u.get("words") or [] if w.get("pl") and w.get("ru")],

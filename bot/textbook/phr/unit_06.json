@@ -1,0 +1,65 @@
+{
+ "unit": "6",
+ "title": "Состояние и чувства",
+ "summary": "10 выражений: как читать, перевод и 📐 правило, если есть.",
+ "words": [
+  {
+   "pl": "Jest mi zimno.",
+   "translit": "ест ми ЖИМ-но",
+   "ru": "Мне холодно.",
+   "rule": "безличное: дательный (mi) + наречие на -o; так же jest mi gorąco"
+  },
+  {
+   "pl": "Chce mi się spać.",
+   "translit": "хцэ ми щен спачь",
+   "ru": "Мне хочется спать.",
+   "rule": "безличное: chce mi się + инфинитив (chce mi się pić, jeść)"
+  },
+  {
+   "pl": "Boli mnie głowa.",
+   "translit": "БО-ли мне ГЎО-ва",
+   "ru": "У меня болит голова.",
+   "rule": "boli + винительный: mnie, cię, go, ją"
+  },
+  {
+   "pl": "Jestem zmęczony.",
+   "translit": "ЕС-тэм змэн-ЧО-ны",
+   "ru": "Я устал.",
+   "rule": "прилагательное по роду говорящего: zmęczony (м.) / zmęczona (ж.)"
+  },
+  {
+   "pl": "Wszystko w porządku.",
+   "translit": "ФШЫСТ-ко ф по-ЖОНТ-ку",
+   "ru": "Всё в порядке.",
+   "rule": "w + местный: porządek → w porządku (e выпадает)"
+  },
+  {
+   "pl": "Cieszę się.",
+   "translit": "ЧЕ-шэ щен",
+   "ru": "Я рад(а).",
+   "rule": "cieszyć się: -ę / -ysz; чему? — z + родительный: cieszę się z prezentu"
+  },
+  {
+   "pl": "Nie przejmuj się.",
+   "translit": "не ПШЭЙ-муй щен",
+   "ru": "Не переживай.",
+   "rule": "повелительное от -ować: przejmować → przejmuj"
+  },
+  {
+   "pl": "Mam dobry humor.",
+   "translit": "мам ДОБ-ры ХУ-мор",
+   "ru": "У меня хорошее настроение.",
+   "rule": "humor (м. р. неодуш.) — в винительном без изменений"
+  },
+  {
+   "pl": "Co słychać?",
+   "translit": "цо СЎЫ-хачь",
+   "ru": "Как дела? / Что нового?"
+  },
+  {
+   "pl": "Tak sobie.",
+   "translit": "так СО-бе",
+   "ru": "Так себе."
+  }
+ ]
+}

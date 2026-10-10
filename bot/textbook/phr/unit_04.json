@@ -1,0 +1,63 @@
+{
+ "unit": "4",
+ "title": "Кафе и магазин",
+ "summary": "10 выражений: как читать, перевод и 📐 правило, если есть.",
+ "words": [
+  {
+   "pl": "Poproszę kawę z mlekiem.",
+   "translit": "по-ПРО-шэ КА-вэ з МЛЭ-кем",
+   "ru": "Кофе с молоком, пожалуйста.",
+   "rule": "poproszę + винительный (kawa → kawę), z + творительный (mleko → mlekiem)"
+  },
+  {
+   "pl": "Dla mnie herbata.",
+   "translit": "для мне хэр-БА-та",
+   "ru": "Мне чай.",
+   "rule": "dla + родительный: ja → mnie"
+  },
+  {
+   "pl": "Ile płacę?",
+   "translit": "И-ле ПЎА-цэ",
+   "ru": "Сколько с меня?"
+  },
+  {
+   "pl": "Płacę kartą.",
+   "translit": "ПЎА-цэ КАР-тон",
+   "ru": "Плачу картой.",
+   "rule": "чем? — творительный: karta → kartą, gotówka → gotówką"
+  },
+  {
+   "pl": "Rachunek, proszę.",
+   "translit": "ра-ХУ-нэк ПРО-шэ",
+   "ru": "Счёт, пожалуйста."
+  },
+  {
+   "pl": "Nie mam drobnych.",
+   "translit": "не мам ДРОБ-ных",
+   "ru": "У меня нет мелочи.",
+   "rule": "nie mam + родительный мн. ч.: drobne → drobnych"
+  },
+  {
+   "pl": "Szukam apteki.",
+   "translit": "ШУ-кам ап-ТЭ-ки",
+   "ru": "Я ищу аптеку.",
+   "rule": "szukać + родительный: apteka → apteki (не винительный, как в русском!)"
+  },
+  {
+   "pl": "Czy jest wolny stolik?",
+   "translit": "чы ест ВОЛЬ-ны СТО-лик",
+   "ru": "Есть свободный столик?"
+  },
+  {
+   "pl": "To wszystko, dziękuję.",
+   "translit": "то ФШЫСТ-ко джен-КУ-е",
+   "ru": "Это всё, спасибо."
+  },
+  {
+   "pl": "Poproszę jeszcze wodę.",
+   "translit": "по-ПРО-шэ ЕЩ-чэ ВО-дэ",
+   "ru": "Ещё воды, пожалуйста.",
+   "rule": "винительный: woda → wodę (в русском — «воды»)"
+  }
+ ]
+}

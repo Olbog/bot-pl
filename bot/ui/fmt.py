@@ -624,9 +624,9 @@ def book_units_screen(units: list[dict], prefix: str = "x:b:u:",
     lines = [title, ""]
     for u in units:
         nx = len(u.get("exercises") or [])
-        lines.append(f"<b>{e(u['name'])} — {e(u['title'])}</b> · {len(u['words'])} слов"
+        lines.append(f"<b>{e(u['name'])} — {e(u['title'])}</b> · {len(u['words'])} {u.get('item_word', 'слов')}"
                      + (f" · 📝 {nx} упр." if nx else ""))
-        if u.get("summary"):
+        if u.get("summary") and not u.get("phrases"):
             lines.append(f"<i>{e(u['summary'])}</i>")
     return "\n".join(lines), [[(f"{u['name']} — {u['title']}"[:60], f"{prefix}{u['unit']}")] for u in units]
 
@@ -636,17 +636,23 @@ def books_screen(books: list[dict], purpose: str, title: str) -> tuple[str, list
     lines = [title, ""]
     for b in books:
         nx = sum(len(u.get("exercises") or []) for u in b["units"])
-        lines.append(f"<b>{e(b['title'])}</b> · {len(b['units'])} юн." + (f" · 📝 {nx} упр." if nx else ""))
-    return "\n".join(lines), [[(f"📚 {b['title']}"[:60], f"bk:{purpose}:{b['id']}")] for b in books]
+        cnt = f"{len(b['units'])} цикл." if b.get("phrases") else f"{len(b['units'])} юн."
+        lines.append(f"<b>{e(b['title'])}</b> · {cnt}" + (f" · 📝 {nx} упр." if nx else ""))
+    icon = lambda b: "🧱" if b.get("phrases") else "📚"  # noqa: E731
+    return "\n".join(lines), [[(f"{icon(b)} {b['title']}"[:60], f"bk:{purpose}:{b['id']}")] for b in books]
 
 
 def book_unit_screen(unit: dict, done: int, recog: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
-    text = (f"📘 <b>{e(unit['book_short'])} · {e(unit['name'])} — {e(unit['title'])}</b> · знаю {done} · узнаю {recog} · из {total}\n"
+    ph = unit.get("phrases")
+    what = "выражения" if ph else "слова"
+    text = (f"{'💬' if ph else '📘'} <b>{e(unit['book_short'])} · {e(unit['name'])} — {e(unit['title'])}</b> · знаю {done} · узнаю {recog} · из {total}\n"
             + (f"<i>{e(unit['summary'])}</i>\n" if unit.get("summary") else "")
-            + "\n" + KNOW_LEGEND + "\n<i>Сначала идут слова с ошибками, потом ещё не «знаю», потом редкие.</i>")
+            + "\n" + (PHRASE_LEGEND if ph else KNOW_LEGEND)
+            + f"\n<i>Сначала идут {what} с ошибками, потом ещё не «знаю», потом редкие.</i>")
     nx = len(unit.get("exercises") or [])
     ex_row = [[(f"📝 Упражнения из книги ({nx})", f"bx:l:{unit['unit']}")]] if nx else []
-    return text, ex_row + [[("📖 Слова юнита — список с переводом", f"wd:u:{unit['unit']}")],
+    lst = "📖 Выражения цикла — список с переводом" if ph else "📖 Слова юнита — список с переводом"
+    return text, ex_row + [[(lst, f"wd:u:{unit['unit']}")],
                   [("✍️ Пропуски в предложениях", "x:b:m:gap")],
                   [("🃏 Карточки — пишу перевод", "x:b:m:card")],
                   [("🔘 Тест — выбираю перевод", "x:b:m:test")]]
@@ -704,6 +710,8 @@ def words_header(unit: dict, known: int, recog: int, total: int) -> str:
             + (f"<i>{e(unit['summary'])}</i>" if unit.get("summary") else ""))
 
 
+PHRASE_LEGEND = ("<i>✅ знаю — 3 раза подряд написал сам верно, в обе стороны (карточки, пропуски, разговор). "
+                 "🟡 узнаю — 3 раза подряд верно выбрал в тесте. 📐 — правило, которое показывает выражение.</i>")
 KNOW_LEGEND = ("<i>✅ знаю — 3 раза подряд написал сам верно, в обе стороны (карточки, пропуски, разговор). "
                "🟡 узнаю — 3 раза подряд верно выбрал в тесте. 🔗 — сочетание с предлогом / устойчивое. "
                "📒 — слово из рабочей тетради.</i>")
@@ -733,7 +741,7 @@ def words_list(unit: dict, known: set[str], recog: set[str]) -> tuple[str, list[
             grp = w["group"]
             lines += ([""] if lines[-1] else []) + [_topic_head(grp)]
         lines.append(_word_line(n, w, _mark(w, known, recog)))
-    lines += ["", KNOW_LEGEND]
+    lines += ["", PHRASE_LEGEND if unit.get("phrases") else KNOW_LEGEND]
     u = unit["unit"]
     return "\n".join(lines), [[("🙈 Скрыть перевод", f"wd:h:{u}"), ("📄 Файлом", f"wd:f:{u}"),
                                 ("🔊 Озвучить", f"wd:v:{u}")]]

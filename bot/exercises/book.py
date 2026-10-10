@@ -14,7 +14,7 @@ from ..settings import WORDS_VOICE_CHUNK
 UNIT_PICK = {"ex": ("ex_book", "x:b:u:", "📘 <b>Учебник</b> — какой юнит тренируем?"),
              "wd": ("words_units", "wd:u:", "📖 <b>Слова юнита</b> — какой юнит?"),
              "su": ("set_unit", "su:", "📘 <b>Набор из юнита</b> — какой юнит?"),
-             "ph": ("ex_book", "x:b:u:", "💬 <b>Полезные выражения</b> — какая часть?")}
+             "ph": ("ex_book", "x:b:u:", "💬 <b>Полезные выражения</b> — какой цикл?")}
 STANDALONE_OK = ("su", "ph")   # «отдельные» книги (выражения) — только здесь, не в списке учебников
 
 
@@ -98,7 +98,7 @@ class BookMixin:
 
     async def phrases_menu(self, chat_id: int, user_id: int) -> None:
         """💬 Полезные выражения: части — как юниты (список, карточки, тест, пропуски, набор для разговора)."""
-        await self.pick_unit(chat_id, user_id, "ph", {"ex": {"kind": "book"}}, prev=None, book_id=textbook.PHRASES_BOOK)
+        await self.pick_unit(chat_id, user_id, "ph", {"ex": {"kind": "book"}}, prev=None)
 
     async def words_menu(self, chat_id: int, user_id: int) -> None:
         await self.pick_unit(chat_id, user_id, "wd", prev=None)
@@ -110,7 +110,8 @@ class BookMixin:
         """Список юнитов; если учебников с юнитами несколько — сначала выбор учебника (кнопки bk:<purpose>:<книга>)."""
         step, prefix, title = UNIT_PICK[purpose]
         books = [b for b in textbook.load_books() if b["units"] and book_id in (None, b["id"])
-                 and (not b.get("standalone") or purpose in STANDALONE_OK)]
+                 and (not b.get("standalone") or purpose in STANDALONE_OK)
+                 and (purpose != "ph" or b.get("phrases"))]
         if not books:
             await self.tg.send_message(chat_id, "📘 Юнитов пока нет. Пришли страницы учебника в чат с Claude — "
                                                  "он добавит слова, и после обновления бота они появятся здесь.")
@@ -118,10 +119,12 @@ class BookMixin:
         extra = extra or {}
         if len(books) == 1:
             b = books[0]
-            text, buttons = fmt.book_units_screen(b["units"], prefix, f"{title}\n📚 {escape(b['title'])}")
+            head = (f"🧱 Блок «{escape(b['title'])}»" if b.get("phrases") else f"📚 {escape(b['title'])}")
+            text, buttons = fmt.book_units_screen(b["units"], prefix, f"{title}\n{head}")
             await self.show(chat_id, user_id, {"step": step, **extra}, text, buttons, message_id, prev=prev)
         else:
-            text, buttons = fmt.books_screen(books, purpose, f"{title.split(' — ')[0]} — какой учебник?")
+            what = "какой блок?" if purpose == "ph" else "какой учебник?"
+            text, buttons = fmt.books_screen(books, purpose, f"{title.split(' — ')[0]} — {what}")
             await self.show(chat_id, user_id, {"step": f"books_{purpose}", **extra}, text, buttons, message_id,
                             prev=prev)
 

@@ -1,0 +1,66 @@
+{
+ "unit": "5",
+ "title": "Время и планы",
+ "summary": "10 выражений: как читать, перевод и 📐 правило, если есть.",
+ "words": [
+  {
+   "pl": "Która jest godzina?",
+   "translit": "КТУ-ра ест го-ДЖИ-на",
+   "ru": "Который час?",
+   "rule": "часы — порядковые числительные ж. р.: pierwsza, druga, trzecia…"
+  },
+  {
+   "pl": "Jest wpół do ósmej.",
+   "translit": "ест фпуў до УС-мэй",
+   "ru": "Половина восьмого.",
+   "rule": "wpół do + родительный порядкового: ósma → ósmej"
+  },
+  {
+   "pl": "Spotkajmy się o szóstej.",
+   "translit": "спот-КАЙ-мы щен о ШУС-тэй",
+   "ru": "Давай встретимся в шесть.",
+   "rule": "во сколько? — o + местный: o szóstej, o siódmej"
+  },
+  {
+   "pl": "Mam czas w sobotę.",
+   "translit": "мам час ф со-БО-тэ",
+   "ru": "У меня есть время в субботу.",
+   "rule": "дни недели — w + винительный: sobota → w sobotę, środa → w środę"
+  },
+  {
+   "pl": "Nie mam czasu.",
+   "translit": "не мам ЧА-су",
+   "ru": "У меня нет времени.",
+   "rule": "родительный после отрицания: czas → czasu"
+  },
+  {
+   "pl": "Co robisz w weekend?",
+   "translit": "цо РО-биш ў ЎИ-кэнт",
+   "ru": "Что делаешь на выходных?",
+   "rule": "w + винительный: w weekend"
+  },
+  {
+   "pl": "Od poniedziałku do piątku.",
+   "translit": "от по-не-ДЖЯЎ-ку до ПЁНТ-ку",
+   "ru": "С понедельника по пятницу.",
+   "rule": "od / do + родительный: poniedziałek → poniedziałku, piątek → piątku"
+  },
+  {
+   "pl": "Zaraz będę.",
+   "translit": "ЗА-рас БЭН-дэ",
+   "ru": "Скоро буду.",
+   "rule": "будущее от być: będę, będziesz, będzie"
+  },
+  {
+   "pl": "Spóźnię się.",
+   "translit": "СПУЖЬ-не щен",
+   "ru": "Я опоздаю.",
+   "rule": "совершенный вид: форма настоящего = будущее время"
+  },
+  {
+   "pl": "Na razie!",
+   "translit": "на РА-же",
+   "ru": "Пока!"
+  }
+ ]
+}

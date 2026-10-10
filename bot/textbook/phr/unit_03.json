@@ -1,0 +1,66 @@
+{
+ "unit": "3",
+ "title": "Не понимаю: переспросить и попросить",
+ "summary": "10 выражений: как читать, перевод и 📐 правило, если есть.",
+ "words": [
+  {
+   "pl": "Nie rozumiem.",
+   "translit": "не ро-ЗУ-мем",
+   "ru": "Я не понимаю.",
+   "rule": "rozumieć: -em / -esz (rozumiem, rozumiesz, rozumieją)"
+  },
+  {
+   "pl": "Możesz powtórzyć?",
+   "translit": "МО-жэш пов-ТУ-жычь",
+   "ru": "Можешь повторить?",
+   "rule": "móc + инфинитив: mogę, możesz, może"
+  },
+  {
+   "pl": "Mów wolniej, proszę.",
+   "translit": "муф ВОЛЬ-ней ПРО-шэ",
+   "ru": "Говори медленнее, пожалуйста.",
+   "rule": "повелительное: mówić → mów; wolno → wolniej (сравнительная степень)"
+  },
+  {
+   "pl": "Co to znaczy?",
+   "translit": "цо то ЗНА-чы",
+   "ru": "Что это значит?"
+  },
+  {
+   "pl": "Jak to się mówi po polsku?",
+   "translit": "як то щен МУ-ви по ПОЛЬ-ску",
+   "ru": "Как это сказать по-польски?",
+   "rule": "безличное «się mówi» — «говорится»"
+  },
+  {
+   "pl": "Jak się to pisze?",
+   "translit": "як щен то ПИ-шэ",
+   "ru": "Как это пишется?",
+   "rule": "pisać → pisze (s → sz), как мне → «пишет»"
+  },
+  {
+   "pl": "Nie wiem.",
+   "translit": "не вем",
+   "ru": "Не знаю.",
+   "rule": "wiedzieć — неправильный: wiem, wiesz, wie, wiedzą"
+  },
+  {
+   "pl": "Chwileczkę.",
+   "translit": "хви-ЛЕЧ-кэ",
+   "ru": "Минуточку.",
+   "rule": "винительный: (proszę o) chwileczkę ← chwileczka"
+  },
+  {
+   "pl": "Mam pytanie.",
+   "translit": "мам пы-ТА-не",
+   "ru": "У меня вопрос.",
+   "rule": "mieć + винительный: pytanie (ср. р. — форма как в именительном)"
+  },
+  {
+   "pl": "Czy możesz mi pomóc?",
+   "translit": "чы МО-жэш ми ПО-муц",
+   "ru": "Можешь мне помочь?",
+   "rule": "pomóc + дательный: mi, ci, mu, jej"
+  }
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "unit": "8",
+ "title": "Город и дорога",
+ "summary": "10 выражений: как читать, перевод и 📐 правило, если есть.",
+ "words": [
+  {
+   "pl": "Gdzie jest przystanek?",
+   "translit": "гдже ест пшыс-ТА-нэк",
+   "ru": "Где остановка?"
+  },
+  {
+   "pl": "Jak dojść do centrum?",
+   "translit": "як дойщьчь до ЦЭН-трум",
+   "ru": "Как дойти до центра?",
+   "rule": "do + родительный; centrum в ед. ч. не склоняется"
+  },
+  {
+   "pl": "Idę do domu.",
+   "translit": "И-дэ до ДО-му",
+   "ru": "Иду домой.",
+   "rule": "do + родительный: dom → domu"
+  },
+  {
+   "pl": "Jadę autobusem.",
+   "translit": "Я-дэ ау-то-БУ-сэм",
+   "ru": "Еду на автобусе.",
+   "rule": "транспорт — творительный: autobus → autobusem, tramwaj → tramwajem"
+  },
+  {
+   "pl": "Idę na piechotę.",
+   "translit": "И-дэ на пе-ХО-тэ",
+   "ru": "Иду пешком.",
+   "rule": "na + винительный: piechota → na piechotę"
+  },
+  {
+   "pl": "Prosto i w lewo.",
+   "translit": "ПРОС-то и ў ЛЕ-во",
+   "ru": "Прямо и налево."
+  },
+  {
+   "pl": "Czy to daleko stąd?",
+   "translit": "чы то да-ЛЕ-ко стонт",
+   "ru": "Это далеко отсюда?"
+  },
+  {
+   "pl": "Jestem w drodze.",
+   "translit": "ЕС-тэм ў ДРО-дзэ",
+   "ru": "Я в пути.",
+   "rule": "w + местный: droga → w drodze (g → dz)"
+  },
+  {
+   "pl": "Gdzie mogę kupić bilet?",
+   "translit": "гдже МО-гэ КУ-пичь БИ-лет",
+   "ru": "Где можно купить билет?",
+   "rule": "móc + инфинитив; bilet в винительном без изменений"
+  },
+  {
+   "pl": "Zgubiłem się.",
+   "translit": "згу-БИ-ўэм щен",
+   "ru": "Я заблудился.",
+   "rule": "прошедшее время: мужской род -łem, женский -łam (zgubiłam się)"
+  }
+ ]
+}

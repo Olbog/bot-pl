@@ -1,0 +1,67 @@
+{
+ "unit": "2",
+ "title": "Знакомство и о себе",
+ "summary": "10 выражений: как читать, перевод и 📐 правило, если есть.",
+ "words": [
+  {
+   "pl": "Miło mi.",
+   "translit": "МИ-ўо ми",
+   "ru": "Приятно познакомиться.",
+   "rule": "mi — дательный от ja («мне приятно»)"
+  },
+  {
+   "pl": "Mam na imię Marek.",
+   "translit": "мам на И-мен МА-рэк",
+   "ru": "Меня зовут Марек.",
+   "rule": "устойчиво: mieć na imię — «иметь по имени»"
+  },
+  {
+   "pl": "Skąd jesteś?",
+   "translit": "сконт ЕС-тэщь",
+   "ru": "Откуда ты?",
+   "rule": "ответ — z + родительный: z Polski, z Rosji, z Niemiec"
+  },
+  {
+   "pl": "Mieszkam w Polsce.",
+   "translit": "МЕШ-кам ф ПОЛЬ-сцэ",
+   "ru": "Я живу в Польше.",
+   "rule": "w + местный: Polska → w Polsce (k → c)"
+  },
+  {
+   "pl": "Uczę się polskiego.",
+   "translit": "У-чэ щен поль-СКЕ-го",
+   "ru": "Я учу польский.",
+   "rule": "uczyć się + родительный: polski → polskiego"
+  },
+  {
+   "pl": "Mówię trochę po polsku.",
+   "translit": "МУ-ве ТРО-хэ по ПОЛЬ-ску",
+   "ru": "Я немного говорю по-польски.",
+   "rule": "po polsku — «по-польски», как po rosyjsku, po angielsku"
+  },
+  {
+   "pl": "Ile masz lat?",
+   "translit": "И-ле маш лят",
+   "ru": "Сколько тебе лет?",
+   "rule": "ile + родительный мн. ч.: lata → lat; возраст — глагол mieć"
+  },
+  {
+   "pl": "Mam trzydzieści lat.",
+   "translit": "мам тшы-ДЖЕЩЬ-чи лят",
+   "ru": "Мне тридцать лет.",
+   "rule": "5 и больше + родительный мн. ч.: lat (но 2–4 lata: mam dwadzieścia trzy lata)"
+  },
+  {
+   "pl": "Czym się zajmujesz?",
+   "translit": "чым щен зай-МУ-еш",
+   "ru": "Чем ты занимаешься?",
+   "rule": "zajmować się + творительный: co → czym"
+  },
+  {
+   "pl": "Jestem lekarzem.",
+   "translit": "ЕС-тэм лэ-КА-жэм",
+   "ru": "Я врач.",
+   "rule": "być + творительный (кто?): lekarz → lekarzem, lekarka → lekarką"
+  }
+ ]
+}

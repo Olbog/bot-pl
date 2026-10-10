@@ -1,0 +1,65 @@
+{
+ "unit": "7",
+ "title": "Мнение и реакции",
+ "summary": "10 выражений: как читать, перевод и 📐 правило, если есть.",
+ "words": [
+  {
+   "pl": "Moim zdaniem…",
+   "translit": "МО-им ЗДА-нем",
+   "ru": "По-моему…",
+   "rule": "творительный: moje zdanie → moim zdaniem"
+  },
+  {
+   "pl": "Myślę, że…",
+   "translit": "МЫЩЬ-лэ жэ",
+   "ru": "Я думаю, что…",
+   "rule": "myśleć: -ę / -isz (myślę, myślisz, myślą)"
+  },
+  {
+   "pl": "Masz rację.",
+   "translit": "маш РА-цье",
+   "ru": "Ты прав(а).",
+   "rule": "mieć + винительный: racja → rację"
+  },
+  {
+   "pl": "Zgadzam się.",
+   "translit": "ЗГА-дзам щен",
+   "ru": "Я согласен / согласна.",
+   "rule": "с кем? — z + творительный: zgadzam się z tobą"
+  },
+  {
+   "pl": "To zależy.",
+   "translit": "то за-ЛЕ-жы",
+   "ru": "Это зависит (от обстоятельств).",
+   "rule": "от чего? — od + родительный: to zależy od pogody"
+  },
+  {
+   "pl": "Wszystko jedno.",
+   "translit": "ФШЫСТ-ко ЕД-но",
+   "ru": "Всё равно."
+  },
+  {
+   "pl": "Szczerze mówiąc…",
+   "translit": "ЩЭ-жэ МУ-вьёнц",
+   "ru": "Честно говоря…",
+   "rule": "деепричастие на -ąc: mówić → mówiąc"
+  },
+  {
+   "pl": "Nie ma mowy!",
+   "translit": "не ма МО-вы",
+   "ru": "Ни за что! / Исключено!",
+   "rule": "nie ma + родительный: mowa → mowy"
+  },
+  {
+   "pl": "Bez sensu.",
+   "translit": "бэс СЭН-су",
+   "ru": "Бессмысленно. / Ерунда.",
+   "rule": "bez + родительный: sens → sensu"
+  },
+  {
+   "pl": "No właśnie!",
+   "translit": "но ВЎАЩЬ-не",
+   "ru": "Вот именно!"
+  }
+ ]
+}

@@ -1,8 +1,11 @@
 {
  "id": "phr",
- "title": "Полезные выражения",
- "short": "Выражения",
- "unit_label": "Часть",
+ "title": "На каждый день",
+ "short": "На каждый день",
+ "unit_label": "Цикл",
+ "unit_of": "цикла",
+ "item_word": "выражений",
  "standalone": true,
+ "phrases": true,
  "order": 0
 }

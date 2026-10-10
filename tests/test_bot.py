@@ -2203,7 +2203,7 @@ def test_unit_words_grouped_by_topic_nothing_lost():
 def test_real_units_every_word_has_topic():
     real = Path(__file__).resolve().parent.parent / "bot" / "textbook"
     for u in tb.load_units(real):
-        assert all(w.get("group") for w in u["words"]), u["unit"]
+        assert u["phrases"] or all(w.get("group") for w in u["words"]), u["unit"]
 
 
 
@@ -2247,14 +2247,16 @@ def test_phrases_section_separate_from_textbooks():
     run(app.handle(msg(text="/words")))
     assert "phr" not in str(app.tg.buttons[-1])                     # в списке учебников выражений нет
     run(app.handle(msg(text="/phr")))
-    assert "x:b:u:phr:1" in str(app.tg.buttons[-1])
+    assert "Блок «На каждый день»" in app.tg.sent[-1] and "x:b:u:phr:1" in str(app.tg.buttons[-1])
+    assert "Цикл 1 — Вежливость и пожелания" in str(app.tg.buttons[-1])
     run(app.on_callback(cb("x:b:u:phr:1")))
-    assert "wd:u:phr:1" in str(app.tg.buttons[-1])                   # список, карточки, тест — как у юнита
+    assert "Выражения цикла" in str(app.tg.buttons[-1]) and "юнит" not in app.tg.sent[-1]
     run(app.on_callback(cb("wd:u:phr:1")))
-    assert "📐 <i>nie ma + родительный: sprawa → sprawy</i>" in app.tg.sent[-1]
-    u = tb.get_unit("phr:1", real)
-    assert all(w.get("translit") and w.get("ru") for w in u["words"]) and len(u["words"]) >= 80
-    assert tb.card_item(u["words"][0], "pl")["rule"].startswith("nie ma")
+    assert "📐 <i>nie ma + родительный: sprawa → sprawy</i>" in app.tg.sent[-1] and "🗂" not in app.tg.sent[-1]
+    units = [u for u in tb.load_units(real) if u["book"] == "phr"]
+    assert len(units) >= 9 and all(5 <= len(u["words"]) <= 20 for u in units)
+    assert all(w.get("translit") and w.get("ru") for u in units for w in u["words"])
+    assert tb.card_item(units[0]["words"][0], "pl")["rule"].startswith("nie ma")
 
 
 def test_rule_with_table_and_exceptions_and_own_topic_kept():
