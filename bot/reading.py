@@ -16,6 +16,8 @@ from .ai.prompt import RULES_HINT, RULES_SCHEMA, read_question_prompt
 from .ui import fmt
 
 READ_RATE = "+0%"   # обычный темп речи (для слов юнита — медленнее, cfg.tts_rate)
+PREGEN_PAUSE = 3                  # секунд между абзацами при озвучке заранее
+PREGEN_RETRY = (60, 300, 1800)    # повтор после ошибки: 1, 5, 30 мин, дальше раз в 30 мин
 
 
 class ReadingMixin:
@@ -42,23 +44,34 @@ class ReadingMixin:
         path.write_bytes(ogg)
         return ogg
 
-    async def read_pregen(self) -> None:
-        """Озвучить заранее все абзацы всех книг для чтения (уже готовые — пропускаются)."""
-        made = 0
-        for b in self.read_books():
-            for u in b["units"]:
-                for i in range(len(u["paragraphs"])):
-                    if self.read_audio_path(u, i).exists():
+    async def read_pregen(self, sleep=None) -> None:
+        """Озвучить заранее все абзацы всех книг для чтения (уже готовые — пропускаются).
+        Между абзацами — пауза PREGEN_PAUSE (сервис не любит частые запросы подряд). Ошибка — не конец:
+        повтор через PREGEN_RETRY (1, 5, 30 мин), дальше раз в 30 мин, пока все абзацы не будут готовы;
+        после удачной озвучки отсчёт задержек начинается заново."""
+        sleep = sleep or asyncio.sleep
+        made = fails = 0
+        while True:
+            todo = [(u, i) for b in self.read_books() for u in b["units"] for i in range(len(u["paragraphs"]))
+                    if not self.read_audio_path(u, i).exists()]
+            if not todo:
+                if made:
+                    log.info("📚 Чтение: озвучено абзацев — %s, готово всё", made)
+                return
+            try:
+                for u, i in todo:
+                    if self.read_audio_path(u, i).exists():   # уже озвучен по кнопке «Слушать»
                         continue
-                    try:
-                        await self.read_audio(u, i)
-                        made += 1
-                    except Exception:
-                        log.exception("Озвучка абзаца %s/%s не удалась", u["unit"], i + 1)
-                        return
-                    await asyncio.sleep(0.5)
-        if made:
-            log.info("📚 Чтение: озвучено абзацев — %s", made)
+                    await self.read_audio(u, i)
+                    made += 1
+                    fails = 0
+                    await sleep(PREGEN_PAUSE)
+            except Exception as e:
+                delay = PREGEN_RETRY[min(fails, len(PREGEN_RETRY) - 1)]
+                fails += 1
+                log.warning("📚 Озвучка абзаца не удалась (%s: %s); осталось %s, повтор через %s мин",
+                            type(e).__name__, str(e)[:200], len(todo), delay // 60)
+                await sleep(delay)
 
     def read_unit(self, unit_id: str) -> dict | None:
         u = textbook.get_unit(unit_id)

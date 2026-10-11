@@ -1820,7 +1820,7 @@ def test_words_list_hidden_file_voice():
     name, content, _ = app.tg.docs[-1]
     assert name == "kpk_2_slova.txt" and "1. brat [БРАТ] — брат (сущ., м. р.)" in content
     run(app.on_callback(cb("wd:v:2")))
-    assert app.tg.voices[-1] == b"OGG:brat ... siostra ... rodze\u0144stwo.".decode("unicode_escape").encode()
+    assert app.tg.voices[-1] == "OGG:brat ... siostra ... rodzeństwo.".encode()
     run(app.handle(msg(text="/menu")))
     run(app.on_callback(cb("go:words")))
     assert "Слова юнита" in app.tg.sent[-1]
@@ -2377,11 +2377,36 @@ def test_reading_pregen_all_paragraphs_normal_rate():
         rates.append(rate)
         return await tts(text, voice, rate)
     app.tts = spy
-    run(app.read_pregen())
+    sleeps = []
+
+    async def nap(sec):
+        sleeps.append(sec)
+    run(app.read_pregen(sleep=nap))
     total = sum(len(u["paragraphs"]) for b in app.read_books() for u in b["units"])
     assert len(list(app.read_audio_dir.glob("*.ogg"))) == total == len(rates) and set(rates) == {"+0%"}
-    run(app.read_pregen())                                             # готовое не переозвучивается
+    assert sleeps == [3] * total                                       # пауза между абзацами
+    run(app.read_pregen(sleep=nap))                                    # готовое не переозвучивается
     assert len(rates) == total
+
+
+def test_reading_pregen_retries_after_service_error():
+    app = _read_app()
+    calls, sleeps = [], []
+    tts = app.tts
+
+    async def flaky(text, voice, rate):
+        calls.append(text)
+        if len(calls) in (3, 4, 5, 7):                                 # 403 от сервиса: три раза подряд, потом ещё раз
+            raise RuntimeError("403, message='Invalid response status'")
+        return await tts(text, voice, rate)
+
+    async def nap(sec):
+        sleeps.append(sec)
+    app.tts = flaky
+    run(app.read_pregen(sleep=nap))
+    total = sum(len(u["paragraphs"]) for b in app.read_books() for u in b["units"])
+    assert len(list(app.read_audio_dir.glob("*.ogg"))) == total        # бот не сдался — всё озвучено
+    assert [x for x in sleeps if x != 3] == [60, 300, 1800, 60]        # после удачи отсчёт задержек заново
 
 
 def test_reading_continue_same_paragraph_until_next():
