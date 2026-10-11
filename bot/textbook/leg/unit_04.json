@@ -1,0 +1,345 @@
+{
+ "unit": "4",
+ "title": "Król Popiel i myszy",
+ "title_ru": "Король Попель и мыши",
+ "summary": "Король Попель и мыши",
+ "paragraphs": [
+  {
+   "pl": "Dawno temu w Kruszwicy, nad jeziorem Gopło, mieszka król Popiel. Popiel jest zły i chciwy. Ma dużo złota, ale chce mieć jeszcze więcej. Ludzie go nie lubią, bo muszą płacić mu wysokie podatki. Jego żona też jest zła i zazdrosna.",
+   "ru": "Давным-давно в Крушвице, над озером Гопло, живёт король Попель. Попель злой и жадный. У него много золота, но он хочет иметь ещё больше. Люди его не любят, потому что должны платить ему высокие налоги. Его жена тоже злая и завистливая.",
+   "words": [
+    {
+     "pl": "nad jeziorem",
+     "ru": "над озером",
+     "rule": "nad + творительный: jezioro → jeziorem"
+    },
+    {
+     "pl": "chciwy",
+     "ru": "жадный"
+    },
+    {
+     "pl": "dużo złota",
+     "ru": "много золота",
+     "rule": "dużo + родительный"
+    },
+    {
+     "pl": "jeszcze więcej",
+     "ru": "ещё больше"
+    },
+    {
+     "pl": "go nie lubią",
+     "ru": "его не любят",
+     "rule": "go — винительный от on"
+    },
+    {
+     "pl": "płacić mu",
+     "ru": "платить ему",
+     "rule": "дательный: on → mu"
+    },
+    {
+     "pl": "podatek",
+     "ru": "налог",
+     "rule": "мн. ч.: podatki (e выпадает)"
+    },
+    {
+     "pl": "zazdrosny",
+     "ru": "завистливый"
+    }
+   ]
+  },
+  {
+   "pl": "Popiel ma wielu wujów, bo jego ojciec ma wielu braci. Wujowie są mądrzy i ludzie ich szanują. Popiel się boi: „Oni chcą być królami zamiast mnie!”. Żona mówi mu: „Zaproś ich na ucztę. Ja wiem, co robić”.",
+   "ru": "У Попеля много дядей, потому что у его отца много братьев. Дяди умные, и люди их уважают. Попель боится: «Они хотят быть королями вместо меня!». Жена говорит ему: «Пригласи их на пир. Я знаю, что делать».",
+   "words": [
+    {
+     "pl": "wuj",
+     "ru": "дядя",
+     "rule": "мн. ч.: wujowie (-owie у родственников)"
+    },
+    {
+     "pl": "wielu braci",
+     "ru": "много братьев",
+     "rule": "wielu + родительный (лично-мужское)"
+    },
+    {
+     "pl": "ojciec",
+     "ru": "отец"
+    },
+    {
+     "pl": "mądry",
+     "ru": "умный",
+     "rule": "мн. ч. лично-мужской: mądrzy"
+    },
+    {
+     "pl": "szanować",
+     "ru": "уважать"
+    },
+    {
+     "pl": "być królami",
+     "ru": "быть королями",
+     "rule": "być + творительный мн. ч."
+    },
+    {
+     "pl": "zamiast mnie",
+     "ru": "вместо меня",
+     "rule": "zamiast + родительный"
+    },
+    {
+     "pl": "zaprosić na ucztę",
+     "ru": "пригласить на пир",
+     "rule": "повелительное: zaproś"
+    }
+   ]
+  },
+  {
+   "pl": "Wujowie przychodzą na ucztę do zamku. Jest dużo jedzenia, muzyki i wina. Królowa daje im kielichy z winem. Ale w winie jest trucizna! Wujowie piją i po chwili wszyscy umierają.",
+   "ru": "Дяди приходят на пир в замок. Много еды, музыки и вина. Королева даёт им кубки с вином. Но в вине яд! Дяди пьют, и через мгновение все умирают.",
+   "words": [
+    {
+     "pl": "królowa",
+     "ru": "королева"
+    },
+    {
+     "pl": "daje im",
+     "ru": "даёт им",
+     "rule": "дательный мн. ч.: oni → im"
+    },
+    {
+     "pl": "kielich",
+     "ru": "кубок",
+     "rule": "z + творительный: kielichy z winem"
+    },
+    {
+     "pl": "trucizna",
+     "ru": "яд"
+    },
+    {
+     "pl": "w winie",
+     "ru": "в вине",
+     "rule": "местный: wino → winie"
+    },
+    {
+     "pl": "po chwili",
+     "ru": "через мгновение"
+    },
+    {
+     "pl": "umierać",
+     "ru": "умирать"
+    }
+   ]
+  },
+  {
+   "pl": "Popiel i jego żona się śmieją. Nie chowają ciał wujów. Mówią: „Niech tu leżą”. Ale z ciał wychodzą tysiące myszy. Myszy biegną prosto do zamku.",
+   "ru": "Попель и его жена смеются. Они не хоронят тела дядей. Они говорят: «Пусть лежат здесь». Но из тел выходят тысячи мышей. Мыши бегут прямо в замок.",
+   "words": [
+    {
+     "pl": "śmiać się",
+     "ru": "смеяться"
+    },
+    {
+     "pl": "chować",
+     "ru": "хоронить; прятать"
+    },
+    {
+     "pl": "ciało",
+     "ru": "тело",
+     "rule": "nie + родительный мн. ч.: ciał"
+    },
+    {
+     "pl": "niech leżą",
+     "ru": "пусть лежат"
+    },
+    {
+     "pl": "tysiące myszy",
+     "ru": "тысячи мышей",
+     "rule": "родительный мн. ч.: mysz → myszy"
+    },
+    {
+     "pl": "prosto",
+     "ru": "прямо"
+    }
+   ]
+  },
+  {
+   "pl": "Popiel i żona uciekają przed myszami. Biegną na wysoką wieżę nad jeziorem. Zamykają drzwi i myślą, że są bezpieczni. Ale myszy wchodzą po ścianach. Nie ma ucieczki.",
+   "ru": "Попель и жена убегают от мышей. Они бегут на высокую башню над озером. Они закрывают дверь и думают, что они в безопасности. Но мыши лезут по стенам. Спасения нет.",
+   "words": [
+    {
+     "pl": "uciekać przed",
+     "ru": "убегать от",
+     "rule": "przed + творительный: myszami"
+    },
+    {
+     "pl": "na wysoką wieżę",
+     "ru": "на высокую башню",
+     "rule": "куда? — na + винительный"
+    },
+    {
+     "pl": "bezpieczny",
+     "ru": "в безопасности"
+    },
+    {
+     "pl": "wchodzić po ścianach",
+     "ru": "лезть по стенам",
+     "rule": "po + местный мн. ч.: -ach"
+    },
+    {
+     "pl": "ucieczka",
+     "ru": "побег, спасение"
+    }
+   ]
+  },
+  {
+   "pl": "Myszy zjadają króla Popiela i jego żonę. Tak kończy się historia złego króla. Ludzie wybierają nowego władcę. To jest Piast, zwykły, dobry i biedny człowiek. Od niego pochodzą pierwsi królowie Polski.",
+   "ru": "Мыши съедают короля Попеля и его жену. Так заканчивается история злого короля. Люди выбирают нового правителя. Это Пяст, простой, добрый и бедный человек. От него происходят первые короли Польши.",
+   "words": [
+    {
+     "pl": "króla Popiela",
+     "ru": "короля Попеля",
+     "rule": "винительный одуш. = родительный"
+    },
+    {
+     "pl": "kończyć się",
+     "ru": "заканчиваться"
+    },
+    {
+     "pl": "władca",
+     "ru": "правитель",
+     "rule": "винительный: nowego władcę"
+    },
+    {
+     "pl": "zwykły",
+     "ru": "обычный, простой"
+    },
+    {
+     "pl": "biedny",
+     "ru": "бедный"
+    },
+    {
+     "pl": "pochodzić od",
+     "ru": "происходить от",
+     "rule": "od + родительный: od niego"
+    },
+    {
+     "pl": "pierwsi królowie",
+     "ru": "первые короли",
+     "rule": "лично-мужское: pierwszy → pierwsi, król → królowie"
+    }
+   ]
+  },
+  {
+   "pl": "Do dziś w Kruszwicy stoi stara wieża nad jeziorem Gopło. Ludzie nazywają ją Mysią Wieżą. Turyści przyjeżdżają ją zobaczyć. Wieża jest dużo młodsza niż legenda, ale to nie przeszkadza. Legenda jest ciekawsza niż historia!",
+   "ru": "До сих пор в Крушвице стоит старая башня над озером Гопло. Люди называют её Мышиной башней. Туристы приезжают её посмотреть. Башня намного моложе легенды, но это не мешает. Легенда интереснее истории!",
+   "words": [
+    {
+     "pl": "nazywać",
+     "ru": "называть",
+     "rule": "+ творительный: Mysią Wieżą"
+    },
+    {
+     "pl": "turysta",
+     "ru": "турист",
+     "rule": "мн. ч.: turyści"
+    },
+    {
+     "pl": "młodszy niż",
+     "ru": "моложе чем",
+     "rule": "сравнительная степень: młody → młodszy"
+    },
+    {
+     "pl": "przeszkadzać",
+     "ru": "мешать"
+    },
+    {
+     "pl": "ciekawszy",
+     "ru": "интереснее",
+     "rule": "ciekawy → ciekawszy"
+    }
+   ]
+  }
+ ],
+ "exercises": [
+  {
+   "id": "q-4-tf",
+   "src": "rd",
+   "ref": "Вопросы",
+   "title": "Prawda czy nieprawda?",
+   "title_ru": "Правда или нет?",
+   "task_ru": "По тексту легенды: правда (P) или неправда (N)?",
+   "type": "tf",
+   "items": [
+    {
+     "q": "Popiel jest dobrym królem.",
+     "answer": "nieprawda",
+     "ru": "Попель — хороший король."
+    },
+    {
+     "q": "Wujowie Popiela są mądrzy.",
+     "answer": "prawda",
+     "ru": "Дяди Попеля умные."
+    },
+    {
+     "q": "W winie jest trucizna.",
+     "answer": "prawda",
+     "ru": "В вине яд."
+    },
+    {
+     "q": "Popiel ucieka na wieżę.",
+     "answer": "prawda",
+     "ru": "Попель убегает на башню."
+    },
+    {
+     "q": "Myszy nie wchodzą na wieżę.",
+     "answer": "nieprawda",
+     "ru": "Мыши не забираются на башню."
+    },
+    {
+     "q": "Nowym władcą jest Piast.",
+     "answer": "prawda",
+     "ru": "Новый правитель — Пяст."
+    }
+   ]
+  },
+  {
+   "id": "q-4-gap",
+   "src": "rd",
+   "ref": "Формы",
+   "title": "Uzupełnij.",
+   "title_ru": "Поставь слово в нужную форму",
+   "task_ru": "Как в тексте легенды. Напиши форму: «1 podatki».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Ludzie płacą wysokie ___ (podatek — мн. ч.).",
+     "answer": "podatki",
+     "ru": "Люди платят высокие налоги.",
+     "grammar": "мн. ч."
+    },
+    {
+     "q": "Wujowie przychodzą na ___ (uczta).",
+     "answer": "ucztę",
+     "ru": "Дяди приходят на пир.",
+     "grammar": "na + винительный"
+    },
+    {
+     "q": "Popiel ucieka przed ___ (mysz — мн. ч.).",
+     "answer": "myszami",
+     "ru": "Попель убегает от мышей.",
+     "grammar": "przed + творительный мн. ч."
+    },
+    {
+     "q": "Ludzie nazywają ją Mysią ___ (Wieża).",
+     "answer": "Wieżą",
+     "ru": "Люди называют её Мышиной башней.",
+     "grammar": "nazywać + творительный"
+    },
+    {
+     "q": "Popiel chce być ___ (król) zawsze.",
+     "answer": "królem",
+     "ru": "Попель хочет быть королём всегда.",
+     "grammar": "być + творительный"
+    }
+   ]
+  }
+ ]
+}

@@ -149,6 +149,20 @@ CREATE TABLE IF NOT EXISTS book_ex_done (    -- упражнение из кни
     at REAL NOT NULL,
     manual TEXT NOT NULL DEFAULT '[]'        -- JSON [номера пунктов, засчитанных вручную ✋]
 );
+CREATE TABLE IF NOT EXISTS read_done (       -- 📚 чтение: показанный абзац главы
+    user_id INTEGER NOT NULL,
+    unit TEXT NOT NULL,                      -- «leg:1»
+    idx INTEGER NOT NULL,                    -- номер абзаца с 0
+    at REAL NOT NULL,
+    PRIMARY KEY (user_id, unit, idx)
+);
+CREATE TABLE IF NOT EXISTS read_pos (        -- 📚 где остановился в книге
+    user_id INTEGER NOT NULL,
+    book TEXT NOT NULL,
+    unit TEXT NOT NULL,
+    idx INTEGER NOT NULL,
+    PRIMARY KEY (user_id, book)
+);
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
     mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
@@ -491,6 +505,31 @@ class DB:
         self.conn.execute("DELETE FROM book_ex WHERE user_id=? AND unit=? AND ex_id=?",
                           (user_id, unit_key(unit), ex_id))
         self.conn.commit()
+
+    # ---------- 📚 чтение ----------
+
+    def read_mark(self, user_id: int, unit: str, idx: int) -> None:
+        """Абзац показан — прочитан; позиция книги — здесь."""
+        self.conn.execute("INSERT OR IGNORE INTO read_done(user_id, unit, idx, at) VALUES (?,?,?,?)",
+                          (user_id, unit, idx, self.clock()))
+        self.conn.execute("INSERT OR REPLACE INTO read_pos(user_id, book, unit, idx) VALUES (?,?,?,?)",
+                          (user_id, unit.split(":")[0], unit, idx))
+        self.conn.commit()
+
+    def read_done(self, user_id: int) -> dict[str, set[int]]:
+        """{юнит: {номера прочитанных абзацев}}."""
+        out: dict[str, set[int]] = {}
+        for r in self.conn.execute("SELECT unit, idx FROM read_done WHERE user_id=?", (user_id,)):
+            out.setdefault(r["unit"], set()).add(r["idx"])
+        return out
+
+    def read_pos(self, user_id: int, book: str) -> tuple[str, int] | None:
+        r = self.conn.execute("SELECT unit, idx FROM read_pos WHERE user_id=? AND book=?", (user_id, book)).fetchone()
+        return (r["unit"], r["idx"]) if r else None
+
+    def dict_has(self, user_id: int, pl: str) -> bool:
+        return self.conn.execute("SELECT 1 FROM dict_items WHERE user_id=? AND lower(pl)=lower(?)",
+                                 (user_id, pl.strip())).fetchone() is not None
 
     # ---------- исключения («🙅 Не ошибка») ----------
 

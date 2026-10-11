@@ -252,6 +252,16 @@ def rule_question_prompt(question: str, level: str) -> str:
 {_RULE_STYLE}"""
 
 
+def read_question_prompt(paragraph_pl: str, paragraph_ru: str, question: str, level: str) -> str:
+    return f"""Ученик (уровень {level}) читает адаптированный польский текст. Абзац:
+«{paragraph_pl}»
+Перевод: «{paragraph_ru}»
+Вопрос ученика по этому абзацу: «{question}»
+Ответь на вопрос в поле rules: если он про слово или форму — объясни форму и правило, примеры бери из абзаца;
+если про смысл — объясни смысл в explanation (таблица и исключения тогда не нужны).
+{_RULE_STYLE}"""
+
+
 # ---------- выражения для словаря ----------
 
 PHRASES_SCHEMA = {

@@ -1,0 +1,375 @@
+{
+ "unit": "2",
+ "title": "Warszawska Syrenka",
+ "title_ru": "Варшавская русалка",
+ "summary": "Варшавская русалка",
+ "paragraphs": [
+  {
+   "pl": "Dawno temu nad Wisłą nie ma jeszcze Warszawy. Jest tylko mała wioska. Mieszkają tam rybacy. Codziennie rano płyną łodzią na rzekę i łowią ryby. Wieczorem wracają do domu, jedzą kolację i śpiewają piosenki.",
+   "ru": "Давным-давно над Вислой ещё нет Варшавы. Есть только маленькая деревня. Там живут рыбаки. Каждое утро они плывут на лодке по реке и ловят рыбу. Вечером возвращаются домой, ужинают и поют песни.",
+   "words": [
+    {
+     "pl": "nie ma jeszcze Warszawy",
+     "ru": "ещё нет Варшавы",
+     "rule": "nie ma + родительный: Warszawa → Warszawy"
+    },
+    {
+     "pl": "wioska",
+     "ru": "деревня"
+    },
+    {
+     "pl": "rybak",
+     "ru": "рыбак",
+     "rule": "мн. ч. лично-мужской: rybacy (k → c)"
+    },
+    {
+     "pl": "płynąć łodzią",
+     "ru": "плыть на лодке",
+     "rule": "чем? — творительный: łódź → łodzią"
+    },
+    {
+     "pl": "na rzekę",
+     "ru": "на реку",
+     "rule": "куда? — na + винительный"
+    },
+    {
+     "pl": "łowić ryby",
+     "ru": "ловить рыбу"
+    },
+    {
+     "pl": "piosenka",
+     "ru": "песня"
+    }
+   ]
+  },
+  {
+   "pl": "Pewnego wieczoru rybacy słyszą piękny głos. Ktoś śpiewa na rzece. Rybacy patrzą i nie wierzą. W wodzie jest dziewczyna, ale zamiast nóg ma rybi ogon. To jest syrena!",
+   "ru": "Однажды вечером рыбаки слышат красивый голос. Кто-то поёт на реке. Рыбаки смотрят и не верят. В воде девушка, но вместо ног у неё рыбий хвост. Это русалка!",
+   "words": [
+    {
+     "pl": "pewnego wieczoru",
+     "ru": "однажды вечером"
+    },
+    {
+     "pl": "słyszeć",
+     "ru": "слышать"
+    },
+    {
+     "pl": "głos",
+     "ru": "голос"
+    },
+    {
+     "pl": "ktoś",
+     "ru": "кто-то"
+    },
+    {
+     "pl": "na rzece",
+     "ru": "на реке",
+     "rule": "где? — na + местный: rzeka → rzece (k → c)"
+    },
+    {
+     "pl": "wierzyć",
+     "ru": "верить"
+    },
+    {
+     "pl": "w wodzie",
+     "ru": "в воде",
+     "rule": "w + местный: woda → wodzie (d → dz)"
+    },
+    {
+     "pl": "zamiast nóg",
+     "ru": "вместо ног",
+     "rule": "zamiast + родительный: nogi → nóg"
+    },
+    {
+     "pl": "ogon",
+     "ru": "хвост"
+    },
+    {
+     "pl": "syrena",
+     "ru": "русалка"
+    }
+   ]
+  },
+  {
+   "pl": "Syrenka jest wesoła, ale też trochę niegrzeczna. W nocy wypuszcza ryby z sieci. Rybacy są źli. „Kto zabiera nasze ryby?” — pytają. Ale kiedy słyszą jej piosenkę, zapominają o złości.",
+   "ru": "Русалка весёлая, но и немного непослушная. Ночью она выпускает рыбу из сетей. Рыбаки сердятся. «Кто забирает нашу рыбу?» — спрашивают они. Но когда слышат её песню, забывают о злости.",
+   "words": [
+    {
+     "pl": "wesoły",
+     "ru": "весёлый"
+    },
+    {
+     "pl": "niegrzeczny",
+     "ru": "непослушный"
+    },
+    {
+     "pl": "wypuszczać",
+     "ru": "выпускать"
+    },
+    {
+     "pl": "z sieci",
+     "ru": "из сетей",
+     "rule": "z + родительный: sieć → sieci"
+    },
+    {
+     "pl": "są źli",
+     "ru": "они сердиты",
+     "rule": "мн. ч. лично-мужской: zły → źli"
+    },
+    {
+     "pl": "zabierać",
+     "ru": "забирать"
+    },
+    {
+     "pl": "zapominać o",
+     "ru": "забывать о",
+     "rule": "o + местный: złość → złości"
+    }
+   ]
+  },
+  {
+   "pl": "Pewnego dnia do wioski przyjeżdża bogaty kupiec. Słyszy syrenkę i myśli: „Ona może dać mi dużo pieniędzy!”. W nocy łapie syrenkę i zamyka ją w małej drewnianej szopie. Syrenka płacze i nie może wrócić do wody.",
+   "ru": "Однажды в деревню приезжает богатый купец. Он слышит русалку и думает: «Она может принести мне много денег!». Ночью он ловит русалку и запирает её в маленьком деревянном сарае. Русалка плачет и не может вернуться в воду.",
+   "words": [
+    {
+     "pl": "kupiec",
+     "ru": "купец"
+    },
+    {
+     "pl": "bogaty",
+     "ru": "богатый"
+    },
+    {
+     "pl": "dużo pieniędzy",
+     "ru": "много денег",
+     "rule": "dużo + родительный: pieniądze → pieniędzy"
+    },
+    {
+     "pl": "łapać",
+     "ru": "ловить"
+    },
+    {
+     "pl": "zamykać",
+     "ru": "запирать"
+    },
+    {
+     "pl": "w małej drewnianej szopie",
+     "ru": "в маленьком деревянном сарае",
+     "rule": "местный ж. р.: прил. -ej, сущ. -ie"
+    },
+    {
+     "pl": "płakać",
+     "ru": "плакать",
+     "rule": "płaczę, płaczesz, płacze"
+    },
+    {
+     "pl": "wrócić do wody",
+     "ru": "вернуться в воду"
+    }
+   ]
+  },
+  {
+   "pl": "Młody rybak słyszy płacz syrenki. Wieczorem przychodzi z przyjaciółmi do szopy. Otwierają drzwi i uwalniają syrenkę. Syrenka jest bardzo szczęśliwa. Mówi: „Dziękuję! Kiedy będziecie w potrzebie, pomogę wam”.",
+   "ru": "Молодой рыбак слышит плач русалки. Вечером он приходит с друзьями к сараю. Они открывают дверь и освобождают русалку. Русалка очень счастлива. Она говорит: «Спасибо! Когда вы будете в беде, я вам помогу».",
+   "words": [
+    {
+     "pl": "płacz",
+     "ru": "плач"
+    },
+    {
+     "pl": "z przyjaciółmi",
+     "ru": "с друзьями",
+     "rule": "z + творительный мн. ч.: przyjaciele → przyjaciółmi"
+    },
+    {
+     "pl": "drzwi",
+     "ru": "дверь",
+     "rule": "только мн. ч.: otwierać drzwi"
+    },
+    {
+     "pl": "uwalniać",
+     "ru": "освобождать"
+    },
+    {
+     "pl": "szczęśliwy",
+     "ru": "счастливый"
+    },
+    {
+     "pl": "w potrzebie",
+     "ru": "в беде"
+    },
+    {
+     "pl": "pomogę wam",
+     "ru": "я вам помогу",
+     "rule": "pomóc + дательный: wam"
+    }
+   ]
+  },
+  {
+   "pl": "Od tego dnia syrenka chroni rybaków i wioskę. Ma miecz i tarczę. Kiedy przychodzą wrogowie, syrenka walczy razem z ludźmi. Wioska rośnie i staje się dużym miastem. To miasto to Warszawa.",
+   "ru": "С того дня русалка защищает рыбаков и деревню. У неё есть меч и щит. Когда приходят враги, русалка сражается вместе с людьми. Деревня растёт и становится большим городом. Этот город — Варшава.",
+   "words": [
+    {
+     "pl": "od tego dnia",
+     "ru": "с того дня",
+     "rule": "od + родительный"
+    },
+    {
+     "pl": "chronić",
+     "ru": "защищать"
+    },
+    {
+     "pl": "chroni rybaków",
+     "ru": "защищает рыбаков",
+     "rule": "винительный мн. ч. лично-мужской = родительный: rybaków"
+    },
+    {
+     "pl": "tarcza",
+     "ru": "щит"
+    },
+    {
+     "pl": "wróg",
+     "ru": "враг",
+     "rule": "мн. ч.: wrogowie"
+    },
+    {
+     "pl": "razem z ludźmi",
+     "ru": "вместе с людьми",
+     "rule": "творительный: ludzie → ludźmi"
+    },
+    {
+     "pl": "rosnąć",
+     "ru": "расти"
+    },
+    {
+     "pl": "stawać się",
+     "ru": "становиться",
+     "rule": "+ творительный: dużym miastem"
+    }
+   ]
+  },
+  {
+   "pl": "Do dziś syrenka jest w herbie Warszawy. Na Starym Mieście stoi jej pomnik. Ma miecz w ręce i patrzy na Wisłę. Warszawiacy mówią, że ona dalej ich chroni. Kiedy będziesz w Warszawie, zobacz syrenkę!",
+   "ru": "До сих пор русалка есть на гербе Варшавы. На Старом городе стоит её памятник. У неё меч в руке, и она смотрит на Вислу. Варшавяне говорят, что она по-прежнему их защищает. Когда будешь в Варшаве, посмотри на русалку!",
+   "words": [
+    {
+     "pl": "herb",
+     "ru": "герб",
+     "rule": "w + местный: w herbie"
+    },
+    {
+     "pl": "na Starym Mieście",
+     "ru": "на Старом городе",
+     "rule": "местный: Stare Miasto"
+    },
+    {
+     "pl": "pomnik",
+     "ru": "памятник"
+    },
+    {
+     "pl": "w ręce",
+     "ru": "в руке",
+     "rule": "местный: ręka → ręce (k → c)"
+    },
+    {
+     "pl": "warszawiak",
+     "ru": "варшавянин"
+    },
+    {
+     "pl": "dalej",
+     "ru": "по-прежнему; дальше"
+    },
+    {
+     "pl": "zobacz",
+     "ru": "посмотри",
+     "rule": "повелительное от zobaczyć"
+    }
+   ]
+  }
+ ],
+ "exercises": [
+  {
+   "id": "q-2-tf",
+   "src": "rd",
+   "ref": "Вопросы",
+   "title": "Prawda czy nieprawda?",
+   "title_ru": "Правда или нет?",
+   "task_ru": "По тексту легенды: правда (P) или неправда (N)?",
+   "type": "tf",
+   "items": [
+    {
+     "q": "Na początku Warszawa jest dużym miastem.",
+     "answer": "nieprawda",
+     "ru": "Вначале Варшава — большой город."
+    },
+    {
+     "q": "Syrenka ma rybi ogon.",
+     "answer": "prawda",
+     "ru": "У русалки рыбий хвост."
+    },
+    {
+     "q": "Kupiec chce zarobić na syrence.",
+     "answer": "prawda",
+     "ru": "Купец хочет заработать на русалке."
+    },
+    {
+     "q": "Rybacy zamykają syrenkę w szopie.",
+     "answer": "nieprawda",
+     "ru": "Рыбаки запирают русалку в сарае."
+    },
+    {
+     "q": "Syrenka ma miecz i tarczę.",
+     "answer": "prawda",
+     "ru": "У русалки есть меч и щит."
+    },
+    {
+     "q": "Pomnik syrenki stoi w Krakowie.",
+     "answer": "nieprawda",
+     "ru": "Памятник русалке стоит в Кракове."
+    }
+   ]
+  },
+  {
+   "id": "q-2-gap",
+   "src": "rd",
+   "ref": "Формы",
+   "title": "Uzupełnij.",
+   "title_ru": "Поставь слово в нужную форму",
+   "task_ru": "Как в тексте легенды. Напиши форму: «1 łodzią».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Rybacy płyną ___ (łódź).",
+     "answer": "łodzią",
+     "ru": "Рыбаки плывут на лодке.",
+     "grammar": "чем? — творительный"
+    },
+    {
+     "q": "W ___ (woda) jest dziewczyna.",
+     "answer": "wodzie",
+     "ru": "В воде девушка.",
+     "grammar": "w + местный"
+    },
+    {
+     "q": "Kupiec zamyka syrenkę w małej drewnianej ___ (szopa).",
+     "answer": "szopie",
+     "ru": "Купец запирает русалку в маленьком сарае.",
+     "grammar": "w + местный ж. р."
+    },
+    {
+     "q": "Syrenka walczy razem z ___ (ludzie).",
+     "answer": "ludźmi",
+     "ru": "Русалка сражается вместе с людьми.",
+     "grammar": "z + творительный мн. ч."
+    },
+    {
+     "q": "Wioska staje się dużym ___ (miasto).",
+     "answer": "miastem",
+     "ru": "Деревня становится большим городом.",
+     "grammar": "stawać się + творительный"
+    }
+   ]
+  }
+ ]
+}

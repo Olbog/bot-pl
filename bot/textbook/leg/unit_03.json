@@ -1,0 +1,396 @@
+{
+ "unit": "3",
+ "title": "Lech, Czech i Rus",
+ "title_ru": "Лех, Чех и Рус",
+ "summary": "Лех, Чех и Рус",
+ "paragraphs": [
+  {
+   "pl": "Dawno temu żyją trzej bracia: Lech, Czech i Rus. Mieszkają razem z rodzinami i ludźmi z plemienia. Ich ziemia jest mała, a ludzi jest coraz więcej. Nie ma dość jedzenia dla wszystkich. Bracia decydują: „Musimy szukać nowej ziemi”.",
+   "ru": "Давным-давно живут три брата: Лех, Чех и Рус. Они живут вместе с семьями и людьми из племени. Их земля маленькая, а людей всё больше. Еды на всех не хватает. Братья решают: «Мы должны искать новую землю».",
+   "words": [
+    {
+     "pl": "trzej bracia",
+     "ru": "три брата",
+     "rule": "лично-мужское числительное: trzej; brat → bracia"
+    },
+    {
+     "pl": "plemię",
+     "ru": "племя",
+     "rule": "z + родительный: z plemienia"
+    },
+    {
+     "pl": "ziemia",
+     "ru": "земля"
+    },
+    {
+     "pl": "coraz więcej",
+     "ru": "всё больше"
+    },
+    {
+     "pl": "dość jedzenia",
+     "ru": "достаточно еды",
+     "rule": "dość + родительный"
+    },
+    {
+     "pl": "dla wszystkich",
+     "ru": "для всех",
+     "rule": "dla + родительный"
+    },
+    {
+     "pl": "decydować",
+     "ru": "решать",
+     "rule": "decyduję, decydujesz"
+    },
+    {
+     "pl": "szukać nowej ziemi",
+     "ru": "искать новую землю",
+     "rule": "szukać + родительный"
+    }
+   ]
+  },
+  {
+   "pl": "Bracia zbierają ludzi, konie i wozy. Idą długo przez lasy, rzeki i góry. Jest zimno, pada deszcz, ludzie są zmęczeni. Ale idą dalej, bo chcą znaleźć dobre miejsce. W końcu dochodzą do wielkiej rzeki.",
+   "ru": "Братья собирают людей, коней и повозки. Они долго идут через леса, реки и горы. Холодно, идёт дождь, люди устали. Но они идут дальше, потому что хотят найти хорошее место. В конце концов они доходят до большой реки.",
+   "words": [
+    {
+     "pl": "zbierać",
+     "ru": "собирать"
+    },
+    {
+     "pl": "wóz",
+     "ru": "повозка",
+     "rule": "мн. ч.: wozy (ó → o)"
+    },
+    {
+     "pl": "przez lasy",
+     "ru": "через леса",
+     "rule": "przez + винительный"
+    },
+    {
+     "pl": "góra",
+     "ru": "гора"
+    },
+    {
+     "pl": "pada deszcz",
+     "ru": "идёт дождь"
+    },
+    {
+     "pl": "zmęczony",
+     "ru": "уставший",
+     "rule": "мн. ч. лично-мужской: zmęczeni"
+    },
+    {
+     "pl": "znaleźć miejsce",
+     "ru": "найти место"
+    },
+    {
+     "pl": "dochodzić do",
+     "ru": "доходить до",
+     "rule": "do + родительный: do wielkiej rzeki"
+    }
+   ]
+  },
+  {
+   "pl": "Tam bracia się zatrzymują. Rozmawiają długo przy ognisku. Czech mówi: „Ja idę na południe, w góry”. Rus mówi: „A ja idę na wschód, do wielkich lasów i stepów”. Lech myśli i mówi: „Ja jeszcze szukam”.",
+   "ru": "Там братья останавливаются. Они долго разговаривают у костра. Чех говорит: «Я иду на юг, в горы». Рус говорит: «А я иду на восток, к большим лесам и степям». Лех думает и говорит: «Я ещё ищу».",
+   "words": [
+    {
+     "pl": "zatrzymywać się",
+     "ru": "останавливаться"
+    },
+    {
+     "pl": "przy ognisku",
+     "ru": "у костра",
+     "rule": "przy + местный: ognisko → ognisku"
+    },
+    {
+     "pl": "na południe",
+     "ru": "на юг",
+     "rule": "куда? — na + винительный"
+    },
+    {
+     "pl": "w góry",
+     "ru": "в горы",
+     "rule": "куда? — w + винительный"
+    },
+    {
+     "pl": "na wschód",
+     "ru": "на восток"
+    },
+    {
+     "pl": "do wielkich lasów",
+     "ru": "к большим лесам",
+     "rule": "do + родительный мн. ч.: -ich, -ów"
+    },
+    {
+     "pl": "step",
+     "ru": "степь"
+    }
+   ]
+  },
+  {
+   "pl": "Bracia żegnają się i każdy idzie w swoją stronę. Lech idzie na północ z ludźmi. Pewnego dnia widzą piękną zieloną dolinę. Są tam jeziora, łąki i stare dęby. Na jednym dębie jest gniazdo.",
+   "ru": "Братья прощаются, и каждый идёт в свою сторону. Лех идёт на север с людьми. Однажды они видят красивую зелёную долину. Там есть озёра, луга и старые дубы. На одном дубе есть гнездо.",
+   "words": [
+    {
+     "pl": "żegnać się",
+     "ru": "прощаться"
+    },
+    {
+     "pl": "każdy",
+     "ru": "каждый"
+    },
+    {
+     "pl": "w swoją stronę",
+     "ru": "в свою сторону",
+     "rule": "swój — свой: swoją (винительный ж. р.)"
+    },
+    {
+     "pl": "na północ",
+     "ru": "на север"
+    },
+    {
+     "pl": "piękną zieloną dolinę",
+     "ru": "красивую зелёную долину",
+     "rule": "винительный ж. р.: -ą, -ą, -ę"
+    },
+    {
+     "pl": "jezioro",
+     "ru": "озеро",
+     "rule": "мн. ч.: jeziora"
+    },
+    {
+     "pl": "łąka",
+     "ru": "луг"
+    },
+    {
+     "pl": "dąb",
+     "ru": "дуб",
+     "rule": "мн. ч.: dęby (ą → ę); na dębie"
+    },
+    {
+     "pl": "gniazdo",
+     "ru": "гнездо"
+    }
+   ]
+  },
+  {
+   "pl": "W gnieździe siedzi wielki biały orzeł. Nagle orzeł rozkłada skrzydła i leci w górę. Słońce świeci za nim i niebo jest czerwone. Biały orzeł na czerwonym niebie wygląda pięknie. Lech patrzy i mówi: „To jest znak!”.",
+   "ru": "В гнезде сидит большой белый орёл. Вдруг орёл расправляет крылья и летит вверх. За ним светит солнце, и небо красное. Белый орёл на красном небе выглядит красиво. Лех смотрит и говорит: «Это знак!».",
+   "words": [
+    {
+     "pl": "w gnieździe",
+     "ru": "в гнезде",
+     "rule": "местный: gniazdo → gnieździe"
+    },
+    {
+     "pl": "orzeł",
+     "ru": "орёл"
+    },
+    {
+     "pl": "nagle",
+     "ru": "вдруг"
+    },
+    {
+     "pl": "rozkładać skrzydła",
+     "ru": "расправлять крылья"
+    },
+    {
+     "pl": "lecieć w górę",
+     "ru": "лететь вверх",
+     "rule": "lecę, lecisz, leci"
+    },
+    {
+     "pl": "słońce",
+     "ru": "солнце"
+    },
+    {
+     "pl": "za nim",
+     "ru": "за ним",
+     "rule": "za + творительный: on → nim"
+    },
+    {
+     "pl": "na czerwonym niebie",
+     "ru": "на красном небе",
+     "rule": "местный: niebo → niebie"
+    },
+    {
+     "pl": "wyglądać",
+     "ru": "выглядеть"
+    },
+    {
+     "pl": "znak",
+     "ru": "знак"
+    }
+   ]
+  },
+  {
+   "pl": "Lech decyduje, że tu zostaje. Ludzie budują domy i nowy gród. Lech nazywa go Gnieznem, od słowa „gniazdo”. Białego orła wybiera na swój znak. Tak powstaje Polska.",
+   "ru": "Лех решает, что остаётся здесь. Люди строят дома и новый город-крепость. Лех называет его Гнезно, от слова «гнездо». Белого орла он выбирает своим знаком. Так возникает Польша.",
+   "words": [
+    {
+     "pl": "zostawać",
+     "ru": "оставаться"
+    },
+    {
+     "pl": "budować",
+     "ru": "строить",
+     "rule": "buduję, budujesz"
+    },
+    {
+     "pl": "gród",
+     "ru": "город-крепость"
+    },
+    {
+     "pl": "nazywać",
+     "ru": "называть",
+     "rule": "nazywać + творительный: Gnieznem"
+    },
+    {
+     "pl": "od słowa",
+     "ru": "от слова",
+     "rule": "od + родительный"
+    },
+    {
+     "pl": "białego orła",
+     "ru": "белого орла",
+     "rule": "винительный одуш. м. р. = родительный: -ego, -a"
+    },
+    {
+     "pl": "wybierać",
+     "ru": "выбирать"
+    },
+    {
+     "pl": "powstawać",
+     "ru": "возникать"
+    }
+   ]
+  },
+  {
+   "pl": "Do dziś biały orzeł na czerwonym tle jest w herbie Polski. Gniezno to pierwsza stolica kraju. A Czech i Rus? Legenda mówi, że też zakładają swoje państwa. Dlatego mówi się, że te trzy narody to bracia.",
+   "ru": "До сих пор белый орёл на красном фоне — на гербе Польши. Гнезно — первая столица страны. А Чех и Рус? Легенда говорит, что они тоже основывают свои государства. Поэтому говорят, что эти три народа — братья.",
+   "words": [
+    {
+     "pl": "na czerwonym tle",
+     "ru": "на красном фоне",
+     "rule": "местный: tło → tle"
+    },
+    {
+     "pl": "stolica",
+     "ru": "столица"
+    },
+    {
+     "pl": "stolica kraju",
+     "ru": "столица страны",
+     "rule": "родительный: kraj → kraju"
+    },
+    {
+     "pl": "zakładać",
+     "ru": "основывать"
+    },
+    {
+     "pl": "państwo",
+     "ru": "государство"
+    },
+    {
+     "pl": "dlatego",
+     "ru": "поэтому"
+    },
+    {
+     "pl": "mówi się",
+     "ru": "говорят",
+     "rule": "безличное: się"
+    },
+    {
+     "pl": "naród",
+     "ru": "народ",
+     "rule": "мн. ч.: narody (ó → o)"
+    }
+   ]
+  }
+ ],
+ "exercises": [
+  {
+   "id": "q-3-tf",
+   "src": "rd",
+   "ref": "Вопросы",
+   "title": "Prawda czy nieprawda?",
+   "title_ru": "Правда или нет?",
+   "task_ru": "По тексту легенды: правда (P) или неправда (N)?",
+   "type": "tf",
+   "items": [
+    {
+     "q": "Bracia mają dużo jedzenia.",
+     "answer": "nieprawda",
+     "ru": "У братьев много еды."
+    },
+    {
+     "q": "Czech idzie na południe, w góry.",
+     "answer": "prawda",
+     "ru": "Чех идёт на юг, в горы."
+    },
+    {
+     "q": "Rus idzie na północ.",
+     "answer": "nieprawda",
+     "ru": "Рус идёт на север."
+    },
+    {
+     "q": "Lech widzi białego orła.",
+     "answer": "prawda",
+     "ru": "Лех видит белого орла."
+    },
+    {
+     "q": "Lech nazywa gród Krakowem.",
+     "answer": "nieprawda",
+     "ru": "Лех называет город Краковом."
+    },
+    {
+     "q": "Biały orzeł jest w herbie Polski.",
+     "answer": "prawda",
+     "ru": "Белый орёл на гербе Польши."
+    }
+   ]
+  },
+  {
+   "id": "q-3-gap",
+   "src": "rd",
+   "ref": "Формы",
+   "title": "Uzupełnij.",
+   "title_ru": "Поставь слово в нужную форму",
+   "task_ru": "Как в тексте легенды. Напиши форму: «1 lasy».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Bracia idą przez ___ (las — мн. ч.).",
+     "answer": "lasy",
+     "ru": "Братья идут через леса.",
+     "grammar": "przez + винительный мн. ч."
+    },
+    {
+     "q": "Bracia rozmawiają przy ___ (ognisko).",
+     "answer": "ognisku",
+     "ru": "Братья разговаривают у костра.",
+     "grammar": "przy + местный"
+    },
+    {
+     "q": "Orzeł siedzi w ___ (gniazdo).",
+     "answer": "gnieździe",
+     "ru": "Орёл сидит в гнезде.",
+     "grammar": "w + местный"
+    },
+    {
+     "q": "Lech wybiera ___ (biały orzeł) na swój znak.",
+     "answer": "białego orła",
+     "ru": "Лех выбирает белого орла своим знаком.",
+     "grammar": "винительный одуш."
+    },
+    {
+     "q": "Nie ma dość ___ (jedzenie).",
+     "answer": "jedzenia",
+     "ru": "Не хватает еды.",
+     "grammar": "dość + родительный"
+    }
+   ]
+  }
+ ]
+}

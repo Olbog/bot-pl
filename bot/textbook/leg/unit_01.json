@@ -1,0 +1,440 @@
+{
+ "unit": "1",
+ "title": "Smok Wawelski",
+ "title_ru": "Вавельский дракон",
+ "summary": "Вавельский дракон",
+ "paragraphs": [
+  {
+   "pl": "Dawno temu nad Wisłą jest małe miasto. To jest Kraków. Ludzie mieszkają tam spokojnie i pracują. Na wzgórzu stoi zamek. To jest Wawel, a w zamku mieszka dobry król Krak.",
+   "ru": "Давным-давно над Вислой есть маленький город. Это Краков. Люди живут там спокойно и работают. На холме стоит замок. Это Вавель, а в замке живёт добрый король Крак.",
+   "words": [
+    {
+     "pl": "dawno temu",
+     "ru": "давным-давно"
+    },
+    {
+     "pl": "nad Wisłą",
+     "ru": "над Вислой",
+     "rule": "nad + творительный: Wisła → Wisłą"
+    },
+    {
+     "pl": "miasto",
+     "ru": "город"
+    },
+    {
+     "pl": "spokojnie",
+     "ru": "спокойно"
+    },
+    {
+     "pl": "na wzgórzu",
+     "ru": "на холме",
+     "rule": "na + местный: wzgórze → wzgórzu"
+    },
+    {
+     "pl": "zamek",
+     "ru": "замок"
+    },
+    {
+     "pl": "król",
+     "ru": "король"
+    }
+   ]
+  },
+  {
+   "pl": "Pod zamkiem jest duża, ciemna jaskinia. W jaskini mieszka smok. Smok jest wielki, zielony i bardzo zły. Codziennie wychodzi z jaskini i szuka jedzenia. Je owce, krowy, a czasem nawet ludzi!",
+   "ru": "Под замком есть большая тёмная пещера. В пещере живёт дракон. Дракон огромный, зелёный и очень злой. Каждый день он выходит из пещеры и ищет еду. Он ест овец, коров, а иногда даже людей!",
+   "words": [
+    {
+     "pl": "pod zamkiem",
+     "ru": "под замком",
+     "rule": "pod + творительный: zamek → zamkiem"
+    },
+    {
+     "pl": "jaskinia",
+     "ru": "пещера",
+     "rule": "w + местный: w jaskini"
+    },
+    {
+     "pl": "smok",
+     "ru": "дракон"
+    },
+    {
+     "pl": "wielki",
+     "ru": "огромный"
+    },
+    {
+     "pl": "zły",
+     "ru": "злой"
+    },
+    {
+     "pl": "szukać jedzenia",
+     "ru": "искать еду",
+     "rule": "szukać + родительный: jedzenie → jedzenia"
+    },
+    {
+     "pl": "owca",
+     "ru": "овца"
+    },
+    {
+     "pl": "krowa",
+     "ru": "корова"
+    },
+    {
+     "pl": "nawet",
+     "ru": "даже"
+    }
+   ]
+  },
+  {
+   "pl": "Ludzie w Krakowie bardzo się boją. Nie chcą wychodzić z domu. Król Krak jest smutny i myśli: „Co robić?”. Rycerze idą do jaskini i walczą ze smokiem. Ale smok jest silny i rycerze nie wracają.",
+   "ru": "Люди в Кракове очень боятся. Они не хотят выходить из дома. Король Крак грустный и думает: «Что делать?». Рыцари идут в пещеру и сражаются с драконом. Но дракон сильный, и рыцари не возвращаются.",
+   "words": [
+    {
+     "pl": "bać się",
+     "ru": "бояться",
+     "rule": "boję się, boisz się, boją się"
+    },
+    {
+     "pl": "smutny",
+     "ru": "грустный"
+    },
+    {
+     "pl": "rycerz",
+     "ru": "рыцарь",
+     "rule": "мн. ч. лично-мужской: rycerze"
+    },
+    {
+     "pl": "walczyć ze smokiem",
+     "ru": "сражаться с драконом",
+     "rule": "walczyć z + творительный"
+    },
+    {
+     "pl": "silny",
+     "ru": "сильный"
+    },
+    {
+     "pl": "wracać",
+     "ru": "возвращаться"
+    }
+   ]
+  },
+  {
+   "pl": "Wtedy król mówi: „Kto zabije smoka, dostanie moją córkę za żonę!”. Do Krakowa przyjeżdżają rycerze z całego świata. Mają miecze, konie i piękne zbroje. Ale nikt nie wygrywa ze smokiem. Wszyscy uciekają albo giną.",
+   "ru": "Тогда король говорит: «Кто убьёт дракона, получит мою дочь в жёны!». В Краков приезжают рыцари со всего мира. У них мечи, кони и красивые доспехи. Но никто не побеждает дракона. Все убегают или погибают.",
+   "words": [
+    {
+     "pl": "wtedy",
+     "ru": "тогда"
+    },
+    {
+     "pl": "zabije",
+     "ru": "убьёт",
+     "rule": "будущее время совершенного вида: zabić → zabije"
+    },
+    {
+     "pl": "córka",
+     "ru": "дочь",
+     "rule": "винительный: moją córkę"
+    },
+    {
+     "pl": "za żonę",
+     "ru": "в жёны"
+    },
+    {
+     "pl": "z całego świata",
+     "ru": "со всего мира",
+     "rule": "z + родительный: cały świat → całego świata"
+    },
+    {
+     "pl": "miecz",
+     "ru": "меч"
+    },
+    {
+     "pl": "koń",
+     "ru": "конь",
+     "rule": "мн. ч.: konie"
+    },
+    {
+     "pl": "zbroja",
+     "ru": "доспехи"
+    },
+    {
+     "pl": "nikt nie",
+     "ru": "никто не",
+     "rule": "двойное отрицание, как в русском"
+    },
+    {
+     "pl": "uciekać",
+     "ru": "убегать"
+    },
+    {
+     "pl": "ginąć",
+     "ru": "погибать"
+    }
+   ]
+  },
+  {
+   "pl": "Pewnego dnia do zamku przychodzi młody szewc. Nazywa się Skuba. Nie ma miecza ani konia. Mówi do króla: „Mam pomysł. Pokonam smoka!”. Król patrzy na niego i myśli, że to żart.",
+   "ru": "Однажды в замок приходит молодой сапожник. Его зовут Скуба. У него нет ни меча, ни коня. Он говорит королю: «У меня есть идея. Я побежду дракона!». Король смотрит на него и думает, что это шутка.",
+   "words": [
+    {
+     "pl": "pewnego dnia",
+     "ru": "однажды",
+     "rule": "родительный: pewien dzień → pewnego dnia"
+    },
+    {
+     "pl": "szewc",
+     "ru": "сапожник"
+    },
+    {
+     "pl": "nazywać się",
+     "ru": "называться, зваться"
+    },
+    {
+     "pl": "nie ma miecza ani konia",
+     "ru": "нет ни меча, ни коня",
+     "rule": "nie ma + родительный"
+    },
+    {
+     "pl": "pomysł",
+     "ru": "идея"
+    },
+    {
+     "pl": "pokonać",
+     "ru": "победить"
+    },
+    {
+     "pl": "patrzeć na",
+     "ru": "смотреть на",
+     "rule": "patrzeć na + винительный: na niego"
+    },
+    {
+     "pl": "żart",
+     "ru": "шутка"
+    }
+   ]
+  },
+  {
+   "pl": "Skuba bierze baranka i robi coś dziwnego. Wkłada do baranka dużo siarki. Potem zszywa skórę, bo jest szewcem i umie szyć. Rano zanosi baranka pod jaskinię. Siada za kamieniem i czeka.",
+   "ru": "Скуба берёт барашка и делает что-то странное. Он кладёт в барашка много серы. Потом зашивает шкуру, ведь он сапожник и умеет шить. Утром он относит барашка к пещере. Садится за камень и ждёт.",
+   "words": [
+    {
+     "pl": "baranek",
+     "ru": "барашек"
+    },
+    {
+     "pl": "coś dziwnego",
+     "ru": "что-то странное",
+     "rule": "coś + родительный: dziwne → dziwnego"
+    },
+    {
+     "pl": "wkładać do",
+     "ru": "класть в",
+     "rule": "do + родительный: do baranka"
+    },
+    {
+     "pl": "dużo siarki",
+     "ru": "много серы",
+     "rule": "dużo + родительный: siarka → siarki"
+    },
+    {
+     "pl": "zszywać",
+     "ru": "зашивать"
+    },
+    {
+     "pl": "skóra",
+     "ru": "шкура, кожа"
+    },
+    {
+     "pl": "jest szewcem",
+     "ru": "он сапожник",
+     "rule": "być + творительный: szewc → szewcem"
+    },
+    {
+     "pl": "umieć szyć",
+     "ru": "уметь шить",
+     "rule": "umieć + инфинитив"
+    },
+    {
+     "pl": "za kamieniem",
+     "ru": "за камнем",
+     "rule": "za + творительный"
+    }
+   ]
+  },
+  {
+   "pl": "Smok wychodzi z jaskini i widzi baranka. Jest bardzo głodny, więc szybko go zjada. Ale potem w brzuchu smoka jest ogień! Smok bardzo chce pić. Biegnie do Wisły i pije, pije, pije wodę.",
+   "ru": "Дракон выходит из пещеры и видит барашка. Он очень голодный, поэтому быстро его съедает. Но потом в животе дракона огонь! Дракон очень хочет пить. Он бежит к Висле и пьёт, пьёт, пьёт воду.",
+   "words": [
+    {
+     "pl": "widzieć",
+     "ru": "видеть"
+    },
+    {
+     "pl": "głodny",
+     "ru": "голодный"
+    },
+    {
+     "pl": "więc",
+     "ru": "поэтому"
+    },
+    {
+     "pl": "zjadać",
+     "ru": "съедать"
+    },
+    {
+     "pl": "w brzuchu",
+     "ru": "в животе",
+     "rule": "w + местный: brzuch → brzuchu"
+    },
+    {
+     "pl": "ogień",
+     "ru": "огонь"
+    },
+    {
+     "pl": "chce pić",
+     "ru": "хочет пить",
+     "rule": "chcieć + инфинитив"
+    },
+    {
+     "pl": "biec",
+     "ru": "бежать",
+     "rule": "biegnę, biegniesz, biegnie"
+    },
+    {
+     "pl": "do Wisły",
+     "ru": "к Висле",
+     "rule": "do + родительный: Wisła → Wisły"
+    }
+   ]
+  },
+  {
+   "pl": "Smok pije tak dużo, że w końcu pęka z hukiem! Ludzie wychodzą z domów i krzyczą z radości. Skuba żeni się z córką króla i żyją razem długo i szczęśliwie. A pod Wawelem do dziś jest Smocza Jama. Można ją zobaczyć, kiedy jesteś w Krakowie.",
+   "ru": "Дракон пьёт так много, что в конце концов лопается с грохотом! Люди выходят из домов и кричат от радости. Скуба женится на дочери короля, и они живут вместе долго и счастливо. А под Вавелем до сих пор есть Драконья пещера. Её можно увидеть, когда ты в Кракове.",
+   "words": [
+    {
+     "pl": "tak dużo, że",
+     "ru": "так много, что"
+    },
+    {
+     "pl": "w końcu",
+     "ru": "в конце концов"
+    },
+    {
+     "pl": "pękać",
+     "ru": "лопаться"
+    },
+    {
+     "pl": "z hukiem",
+     "ru": "с грохотом"
+    },
+    {
+     "pl": "z radości",
+     "ru": "от радости",
+     "rule": "z + родительный: radość → radości"
+    },
+    {
+     "pl": "żenić się z",
+     "ru": "жениться на",
+     "rule": "z + творительный: z córką"
+    },
+    {
+     "pl": "długo i szczęśliwie",
+     "ru": "долго и счастливо"
+    },
+    {
+     "pl": "do dziś",
+     "ru": "до сих пор"
+    },
+    {
+     "pl": "można",
+     "ru": "можно"
+    }
+   ]
+  }
+ ],
+ "exercises": [
+  {
+   "id": "q-1-tf",
+   "src": "rd",
+   "ref": "Вопросы",
+   "title": "Prawda czy nieprawda?",
+   "title_ru": "Правда или нет?",
+   "task_ru": "По тексту легенды: правда (P) или неправда (N)?",
+   "type": "tf",
+   "items": [
+    {
+     "q": "Smok mieszka w zamku.",
+     "answer": "nieprawda",
+     "ru": "Дракон живёт в замке."
+    },
+    {
+     "q": "Smok je owce i krowy.",
+     "answer": "prawda",
+     "ru": "Дракон ест овец и коров."
+    },
+    {
+     "q": "Rycerze łatwo wygrywają ze smokiem.",
+     "answer": "nieprawda",
+     "ru": "Рыцари легко побеждают дракона."
+    },
+    {
+     "q": "Skuba jest szewcem.",
+     "answer": "prawda",
+     "ru": "Скуба — сапожник."
+    },
+    {
+     "q": "Smok pije wodę z Wisły.",
+     "answer": "prawda",
+     "ru": "Дракон пьёт воду из Вислы."
+    },
+    {
+     "q": "Smocza Jama jest w Warszawie.",
+     "answer": "nieprawda",
+     "ru": "Драконья пещера в Варшаве."
+    }
+   ]
+  },
+  {
+   "id": "q-1-gap",
+   "src": "rd",
+   "ref": "Формы",
+   "title": "Uzupełnij.",
+   "title_ru": "Поставь слово в нужную форму",
+   "task_ru": "Как в тексте легенды. Напиши форму: «1 jaskini».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "W ___ (jaskinia) mieszka smok.",
+     "answer": "jaskini",
+     "ru": "В пещере живёт дракон.",
+     "grammar": "w + местный"
+    },
+    {
+     "q": "Rycerze walczą ze ___ (smok).",
+     "answer": "smokiem",
+     "ru": "Рыцари сражаются с драконом.",
+     "grammar": "z + творительный"
+    },
+    {
+     "q": "Skuba nie ma ___ (miecz).",
+     "answer": "miecza",
+     "ru": "У Скубы нет меча.",
+     "grammar": "nie ma + родительный"
+    },
+    {
+     "q": "Skuba jest ___ (szewc).",
+     "answer": "szewcem",
+     "ru": "Скуба — сапожник.",
+     "grammar": "być + творительный"
+    },
+    {
+     "q": "Smok biegnie do ___ (Wisła).",
+     "answer": "Wisły",
+     "ru": "Дракон бежит к Висле.",
+     "grammar": "do + родительный"
+    }
+   ]
+  }
+ ]
+}

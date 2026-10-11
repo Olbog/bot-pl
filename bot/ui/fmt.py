@@ -109,6 +109,7 @@ HELP = (
     "/ex — 🏋️ упражнения: слова, грамматика, мои ошибки, голосом, учебник\n"
     "/words — 📖 слова юнита: список с переводом, 🙈 скрытый перевод, 📄 файлом, 🔊 озвучка\n"
     "/phr — 💬 полезные выражения: с транскрипцией, переводом и правилом; карточки, тест, набор для разговора\n"
+    "/read — 📚 чтение: легенды по абзацам с переводом и аудио, слова абзаца в ⭐ словарь, вопросы к главе\n"
     "/set — 🎯 наборы слов: прогресс, новый набор, 📚 архив, отметить освоенные\n"
     "/itog — 📋 итог: ошибки и слова за час / сутки / разговор, всё время — файлом\n"
     "/dict — ⭐ словарь выражений; 🙅 исключения\n"
@@ -193,7 +194,8 @@ def main_menu(status: str) -> tuple[str, list[list[tuple[str, str]]]]:
             [[("💬 Новый разговор", "go:new"), ("🏋️ Упражнения", "go:ex")],
              [("🎯 Наборы слов", "go:set"), ("📋 Итог", "go:itog")],
              [("⭐ Словарь", "go:dict"), ("📖 Слова учебника", "go:words")],
-             [("💬 Полезные выражения", "go:phr"), ("🗂 Выгрузка", "go:export")]])
+             [("💬 Полезные выражения", "go:phr"), ("📚 Чтение", "go:read")],
+             [("🗂 Выгрузка", "go:export")]])
 
 
 def new_menu(status: str, active: dict | None, done: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
@@ -645,13 +647,16 @@ def books_screen(books: list[dict], purpose: str, title: str) -> tuple[str, list
 def book_unit_screen(unit: dict, done: int, recog: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
     ph = unit.get("phrases")
     what = "выражения" if ph else "слова"
-    text = (f"{'💬' if ph else '📘'} <b>{e(unit['book_short'])} · {e(unit['name'])} — {e(unit['title'])}</b> · знаю {done} · узнаю {recog} · из {total}\n"
+    icon = "💬" if ph else "📚" if unit.get("reading") else "📘"
+    text = (f"{icon} <b>{e(unit['book_short'])} · {e(unit['name'])} — {e(unit['title'])}</b> · знаю {done} · узнаю {recog} · из {total}\n"
             + (f"<i>{e(unit['summary'])}</i>\n" if unit.get("summary") else "")
             + "\n" + (PHRASE_LEGEND if ph else KNOW_LEGEND)
             + f"\n<i>Сначала идут {what} с ошибками, потом ещё не «знаю», потом редкие.</i>")
     nx = len(unit.get("exercises") or [])
-    ex_row = [[(f"📝 Упражнения из книги ({nx})", f"bx:l:{unit['unit']}")]] if nx else []
-    lst = "📖 Выражения цикла — список с переводом" if ph else "📖 Слова юнита — список с переводом"
+    ex_label = "📝 Вопросы к главе" if unit.get("reading") else "📝 Упражнения из книги"
+    ex_row = [[(f"{ex_label} ({nx})", f"bx:l:{unit['unit']}")]] if nx else []
+    lst = ("📖 Выражения цикла — список с переводом" if ph else
+           "📖 Слова главы — список с переводом" if unit.get("reading") else "📖 Слова юнита — список с переводом")
     return text, ex_row + [[(lst, f"wd:u:{unit['unit']}")],
                   [("✍️ Пропуски в предложениях", "x:b:m:gap")],
                   [("🃏 Карточки — пишу перевод", "x:b:m:card")],
@@ -899,7 +904,8 @@ def ex_result_buttons(ex_id: int, left: int) -> list[list[tuple[str, str]]]:
 # ---------- 📝 упражнения из книги (учебник 📗 и рабочая тетрадь 📒) ----------
 
 def bex_name(x: dict) -> str:
-    return f"{'📒' if x.get('src') == 'wb' else '📗'} {x.get('ref', '')} — {x.get('title_ru') or x.get('title', '')}"
+    icon = {"wb": "📒", "rd": "📚"}.get(x.get("src"), "📗")   # rd — вопросы к главе книги для чтения
+    return f"{icon} {x.get('ref', '')} — {x.get('title_ru') or x.get('title', '')}"
 
 
 def bex_counts(x: dict, done: dict) -> tuple[int, int]:
@@ -930,9 +936,11 @@ def bex_list_screen(unit: dict, done: dict, hist: dict | None = None) -> tuple[s
     hist = hist or {}
     exs = unit.get("exercises") or []
     full = sum(1 for x in exs if bex_complete(x, done) or hist.get(x["id"]))
-    lines = [f"📝 <b>{e(unit['book_short'])} · {e(unit['name'])} — {e(unit['title'])}</b> · упражнения: "
+    src = "" if unit.get("reading") else "📗 — учебник, 📒 — рабочая тетрадь · "
+    what = "вопросы к главе" if unit.get("reading") else "упражнения"
+    lines = [f"📝 <b>{e(unit['book_short'])} · {e(unit['name'])} — {e(unit['title'])}</b> · {what}: "
              f"сделано {full} из {len(exs)}", "",
-             "📗 — учебник, 📒 — рабочая тетрадь · ✅ всё верно · ☑️ 100%, но часть пунктов засчитана вручную (✋N — "
+             f"{src}✅ всё верно · ☑️ 100%, но часть пунктов засчитана вручную (✋N — "
              "сколько) · ◐ начато · ○ не начато · 🏆 — сколько раз сделано на 100% (🏆✋ — последний раз с ручными)", ""]
     rows = []
     for x in exs:
@@ -1105,3 +1113,99 @@ def bex_result_buttons(unit: dict, x: dict, done: dict, wins: int = 0,
     rows += again_rows(unit, x, done, wins)
     rows.append([("📋 Все упражнения юнита", f"bx:l:{u}")])
     return rows + page_row(unit, x)
+
+
+# ---------- 📚 чтение ----------
+
+def pct(done: int, total: int) -> int:
+    return round(100 * done / total) if total else 0
+
+
+def read_counts(units: list[dict], done: dict) -> tuple[int, int]:
+    """(прочитано абзацев, всего) по списку глав."""
+    return (sum(len({i for i in done.get(u["unit"], set()) if i < len(u["paragraphs"])}) for u in units),
+            sum(len(u["paragraphs"]) for u in units))
+
+
+def read_books_screen(books: list[dict], done: dict) -> tuple[str, list[list[tuple[str, str]]]]:
+    all_units = [u for b in books for u in b["units"]]
+    lines = [f"📚 <b>Чтение</b> · всё прочитанное: {pct(*read_counts(all_units, done))}%", ""]
+    for b in books:
+        r, t = read_counts(b["units"], done)
+        lines.append(f"<b>{e(b['title'])}</b> · {len(b['units'])} гл. · {pct(r, t)}%")
+    return "\n".join(lines), [[(f"📚 {b['title']}"[:60], f"rd:b:{b['id']}")] for b in books]
+
+
+def read_book_screen(book: dict, done: dict, all_units: list[dict], cont: tuple[dict, int] | None,
+                     started: bool, many: bool) -> tuple[str, list[list[tuple[str, str]]]]:
+    r, t = read_counts(book["units"], done)
+    lines = [f"📚 <b>{e(book['title'])}</b> · прочитано {pct(r, t)}% ({r} из {t} абзацев)"]
+    if many:
+        lines.append(f"Всё чтение в боте: {pct(*read_counts(all_units, done))}%")
+    lines.append("")
+    for u in book["units"]:
+        ur, ut = read_counts([u], done)
+        icon = "✅" if ur == ut else "📖" if ur else "▫️"
+        ru = f" ({e(u['title_ru'])})" if u.get("title_ru") else ""
+        lines.append(f"{icon} {e(u['name'])} — <b>{e(u['title'])}</b>{ru} · {ut} абз. · {pct(ur, ut)}%")
+    lines.append("\n<i>Абзац — текст по-польски, перевод под спойлером, 🔊 аудио в обычном темпе, "
+                 "📖 слова абзаца — в ⭐ словарь. После главы — вопросы и тренировка её слов.</i>")
+    rows = []
+    if cont:
+        u, i = cont
+        rows.append([(f"▶️ {'Продолжить' if started else 'Начать'}: {u['name']}, абзац {i + 1}"[:60],
+                      f"rd:g:{u['unit']}|{i}")])
+    rows += [[(f"{u['name']} — {u['title']}"[:60], f"rd:o:{u['unit']}")] for u in book["units"]]
+    if many:
+        rows.append([("📚 Все книги", "rd:l")])
+    return "\n".join(lines), rows
+
+
+def read_paragraph(unit: dict, idx: int, book_pct: int, all_pct: int | None) -> tuple[str, list[list[tuple[str, str]]]]:
+    p = unit["paragraphs"][idx]
+    n = len(unit["paragraphs"])
+    u = unit["unit"]
+    total = f"книга {book_pct}%" + (f" · всё чтение {all_pct}%" if all_pct is not None else "")
+    text = (f"📚 <b>{e(unit['title'])}</b> · {e(unit['name'])} · абзац {idx + 1}/{n}\n\n"
+            f"{e(p['pl'])}\n\n"
+            f"🇷🇺 <tg-spoiler>{e(p['ru'])}</tg-spoiler>\n\n"
+            f"<i>Прочитано: {total}</i>")
+    nav = []
+    if idx > 0:
+        nav.append(("⬅️", f"rd:g:{u}|{idx - 1}|{idx}"))
+    nav.append(("📑 Главы", f"rd:c:{unit['book']}"))
+    nav.append(("➡️ Дальше", f"rd:g:{u}|{idx + 1}|{idx}") if idx + 1 < n else ("🏁 Конец главы", f"rd:e:{u}"))
+    rows = [[("🔊 Слушать", f"rd:a:{u}|{idx}"), (f"📖 Слова ({len(p.get('words') or [])})", f"rd:w:{u}|{idx}")],
+            [("❓ Спросить про абзац", f"rd:q:{u}|{idx}")], nav]
+    return text, rows
+
+
+def read_words(unit: dict, idx: int, in_dict: set[str]) -> tuple[str, list[list[tuple[str, str]]]]:
+    words = unit["paragraphs"][idx].get("words") or []
+    lines = [f"📖 <b>Слова абзаца {idx + 1}</b> · {e(unit['name'])} — {e(unit['title'])}", ""]
+    for k, w in enumerate(words, 1):
+        lines.append(f"{k}. <b>{e(w['pl'])}</b> — {e(w['ru'])}")
+        if w.get("rule"):
+            lines.append(f"     📐 <i>{e(w['rule'])}</i>")
+    lines.append("\n<i>⭐ — добавить в словарь, ✅ — уже там (нажми, чтобы убрать).</i>")
+    btns = [(f"{'✅' if w['pl'].lower() in in_dict else '⭐'} {w['pl']}"[:40], f"rd:s:{unit['unit']}|{idx}|{k}")
+            for k, w in enumerate(words)]
+    rows = [btns[i:i + 2] for i in range(0, len(btns), 2)]
+    if any(w["pl"].lower() not in in_dict for w in words):
+        rows.append([("⭐ Все слова абзаца — в словарь", f"rd:S:{unit['unit']}|{idx}")])
+    return "\n".join(lines), rows
+
+
+def read_end(unit: dict, nxt: dict | None) -> tuple[str, list[list[tuple[str, str]]]]:
+    u = unit["unit"]
+    nx = len(unit.get("exercises") or [])
+    text = (f"🏁 <b>{e(unit['name'])} — {e(unit['title'])}</b> прочитана!\n\n"
+            f"<i>Закрепить: вопросы по тексту и тренировка слов главы ({len(unit['words'])}) — карточки, тест, пропуски.</i>")
+    rows = []
+    if nx:
+        rows.append([(f"📝 Вопросы к главе ({nx})", f"bx:l:{u}")])
+    rows.append([(f"🎯 Слова главы — тренировка ({len(unit['words'])})", f"rd:t:{u}")])
+    if nxt:
+        rows.append([(f"➡️ {nxt['name']} — {nxt['title']}"[:60], f"rd:o:{nxt['unit']}")])
+    rows.append([("📑 Главы", f"rd:c:{unit['book']}")])
+    return text, rows

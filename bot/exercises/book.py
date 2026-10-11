@@ -111,7 +111,8 @@ class BookMixin:
         step, prefix, title = UNIT_PICK[purpose]
         books = [b for b in textbook.load_books() if b["units"] and book_id in (None, b["id"])
                  and (not b.get("standalone") or purpose in STANDALONE_OK)
-                 and (purpose != "ph" or b.get("phrases"))]
+                 and (purpose != "ph" or b.get("phrases"))
+                 and (not b.get("reading") or purpose == "su")]   # 📚 чтение — своё меню /read
         if not books:
             await self.tg.send_message(chat_id, "📘 Юнитов пока нет. Пришли страницы учебника в чат с Claude — "
                                                  "он добавит слова, и после обновления бота они появятся здесь.")

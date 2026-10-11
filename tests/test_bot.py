@@ -1689,7 +1689,7 @@ def test_real_textbook_units_are_valid():
     for u in units:
         assert u["title"] and u["summary"]
         for w in u["words"]:
-            assert w["pl"] and w["ru"] and w["translit"] and (w.get("pos") or u["book"] == "phr"), w
+            assert w["pl"] and w["ru"] and (u["reading"] or w["translit"] and (w.get("pos") or u["book"] == "phr")), w
 
 
 # ---------- 🏠 меню, /new, наборы из юнита и 🧳 недоученные ----------
@@ -2071,7 +2071,7 @@ def test_real_book_exercises_are_valid():
         ids = [x["id"] for x in u["exercises"]]
         assert len(ids) == len(set(ids)), u["unit"]
         for x in u["exercises"]:
-            assert x["type"] in ("gap", "choice", "match", "tf", "open", "free") and x["src"] in ("tb", "wb"), x["id"]
+            assert x["type"] in ("gap", "choice", "match", "tf", "open", "free") and x["src"] in ("tb", "wb", "rd"), x["id"]
             assert len(fmt_mod.bex_message(u, x, {})) < 4000 and sum(map(len, fmt_mod.bex_keyboard(u, x, {}, {}, []))) <= 100
             for it in x["items"]:
                 assert it["q"] and it["answer"] and it["ru"], (x["id"], it)
@@ -2203,7 +2203,7 @@ def test_unit_words_grouped_by_topic_nothing_lost():
 def test_real_units_every_word_has_topic():
     real = Path(__file__).resolve().parent.parent / "bot" / "textbook"
     for u in tb.load_units(real):
-        assert u["phrases"] or all(w.get("group") for w in u["words"]), u["unit"]
+        assert u["phrases"] or u["reading"] or all(w.get("group") for w in u["words"]), u["unit"]
 
 
 
@@ -2277,3 +2277,103 @@ def test_rule_with_table_and_exceptions_and_own_topic_kept():
     st = app.db.get_state(42)["pending"]["ex"]
     assert st["rules"] == [own] and st["rule_tags"] == ["Множественное число существительных"]
     assert own.split(" (")[0] in app.tg.sent[-1] and "свежих помидоров" in app.tg.sent[-1]
+
+
+# ---------- 📚 чтение ----------
+
+def _read_app():
+    import tempfile
+    tb.UNITS_DIR = Path(__file__).resolve().parent.parent / "bot" / "textbook"
+    app = make_app()
+    app.read_audio_dir = Path(tempfile.mkdtemp())
+    return app
+
+
+def test_reading_book_content():
+    import re as _re
+    tb.UNITS_DIR = Path(__file__).resolve().parent.parent / "bot" / "textbook"
+    leg = next(b for b in tb.load_books() if b["id"] == "leg")
+    assert leg["reading"] and len(leg["units"]) >= 4
+    for u in leg["units"]:
+        assert u["reading"] and u["title_ru"] and len(u["paragraphs"]) >= 5
+        for p in u["paragraphs"]:
+            n = len([s for s in _re.split(r"(?<=[.!?])\s+", p["pl"].strip()) if s])
+            assert 3 <= n <= 6, (u["unit"], p["pl"])
+            assert p["ru"] and p["words"] and all(w["pl"] and w["ru"] for w in p["words"])
+        pls = [w["pl"].lower() for w in u["words"]]
+        assert len(pls) == len(set(pls)) and len(pls) >= 20          # слова главы — из абзацев, без повторов
+        assert {x["type"] for x in u["exercises"]} >= {"tf", "gap"}
+
+
+def test_reading_flow_percent_audio_words_question_end():
+    app = _read_app()
+    run(app.handle(msg(text="/words")))
+    assert "leg" not in str(app.tg.buttons[-1])                       # чтение — не в списке учебников
+    run(app.handle(msg(text="/read")))
+    assert "Польские легенды" in app.tg.sent[-1] and "прочитано 0%" in app.tg.sent[-1]
+    assert ("▶️ Начать: Глава 1, абзац 1", "rd:g:leg:1|0") in app.tg.buttons[-1][0]
+    run(app.on_callback(cb("rd:g:leg:1|0", mid=7)))
+    text, rows = app.tg.sent[-1], app.tg.buttons[-1]
+    assert "абзац 1/" in text and "<tg-spoiler>" in text and "Dawno temu" in text and "книга 3%" in text
+    assert ("🔊 Слушать", "rd:a:leg:1|0") in rows[0] and rows[-1][-1] == ("➡️ Дальше", "rd:g:leg:1|1|0")
+    run(app.on_callback(cb("rd:g:leg:1|1|0", mid=8)))                 # дальше: у прошлого — только 🔊 📖 ❓
+    mid, keep = app.tg.markups[-1]
+    assert mid == 8 and len(keep) == 2 and keep[0][0][1] == "rd:a:leg:1|0"
+    assert "абзац 2/" in app.tg.sent[-1] and "книга 7%" in app.tg.sent[-1]
+    assert app.db.read_done(42) == {"leg:1": {0, 1}}
+    # 🔊 обычный темп, кэш на диске
+    run(app.on_callback(cb("rd:a:leg:1|1")))
+    assert app.tg.voices[-1].startswith(b"OGG:Pod zamkiem")
+    assert len(list(app.read_audio_dir.glob("leg_1_02_*.ogg"))) == 1
+    app.tts = None                                                     # второй раз — из кэша, без озвучки
+    run(app.on_callback(cb("rd:a:leg:1|1")))
+    assert app.tg.voices[-1].startswith(b"OGG:Pod zamkiem")
+    # 📖 слова абзаца → ⭐ в словарь, ✅ — убрать, «все»
+    run(app.on_callback(cb("rd:w:leg:1|1")))
+    assert "<b>pod zamkiem</b> — под замком" in app.tg.sent[-1] and "📐" in app.tg.sent[-1]
+    assert app.tg.buttons[-1][0][0] == ("⭐ pod zamkiem", "rd:s:leg:1|1|0")
+    run(app.on_callback(cb("rd:s:leg:1|1|0", mid=20)))
+    assert app.db.dict_has(42, "pod zamkiem") and "⭐ В словаре" in app.tg.toasts[-1]
+    assert app.tg.markups[-1][1][0][0][0] == "✅ pod zamkiem"
+    run(app.on_callback(cb("rd:s:leg:1|1|0", mid=20)))
+    assert not app.db.dict_has(42, "pod zamkiem")
+    run(app.on_callback(cb("rd:S:leg:1|1", mid=20)))
+    assert app.db.dict_has(42, "smok") and "Все слова" not in str(app.tg.markups[-1][1])
+    # ❓ вопрос по абзацу
+    run(app.on_callback(cb("rd:q:leg:1|1")))
+    run(app.handle(msg(text="почему pod zamkiem?")))
+    assert "Pod zamkiem jest duża" in app.gemini.prompts[-1] and "почему pod zamkiem?" in app.gemini.prompts[-1]
+    assert "📖" in app.tg.sent[-1] and app.db.get_state(42)["pending"] is None and not app.gemini.calls
+    # продолжить — первый непрочитанный после места
+    run(app.handle(msg(text="/read")))
+    assert app.tg.buttons[-1][0][0][1] == "rd:g:leg:1|2" and "Продолжить" in app.tg.buttons[-1][0][0][0]
+    assert "📖 Глава 1" in app.tg.sent[-1] and "▫️ Глава 2" in app.tg.sent[-1]
+    # конец главы
+    n = len(tb.get_unit("leg:1")["paragraphs"])
+    run(app.on_callback(cb(f"rd:g:leg:1|{n - 1}|{n - 2}")))
+    assert app.tg.buttons[-1][-1][-1] == ("🏁 Конец главы", "rd:e:leg:1")
+    run(app.on_callback(cb("rd:e:leg:1", mid=30)))
+    flat = [d for row in app.tg.buttons[-1] for _, d in row]
+    assert "прочитана" in app.tg.sent[-1] and flat[:3] == ["bx:l:leg:1", "rd:t:leg:1", "rd:o:leg:2"]
+    run(app.on_callback(cb("rd:t:leg:1")))
+    assert "Слова главы" in str(app.tg.buttons[-1]) and "Вопросы к главе" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("bx:l:leg:1")))
+    assert "вопросы к главе" in app.tg.sent[-1] and "📚 Вопросы — Правда или нет?" in app.tg.sent[-1] and "📗" not in app.tg.sent[-1]
+    run(app.on_callback(cb("rd:o:leg:2")))
+    assert "Warszawska Syrenka" in app.tg.sent[-1] and "абзац 1/" in app.tg.sent[-1]
+
+
+def test_reading_pregen_all_paragraphs_normal_rate():
+    app = _read_app()
+    rates = []
+    tts = app.tts
+
+    async def spy(text, voice, rate):
+        rates.append(rate)
+        return await tts(text, voice, rate)
+    app.tts = spy
+    run(app.read_pregen())
+    total = sum(len(u["paragraphs"]) for b in app.read_books() for u in b["units"])
+    assert len(list(app.read_audio_dir.glob("*.ogg"))) == total == len(rates) and set(rates) == {"+0%"}
+    run(app.read_pregen())                                             # готовое не переозвучивается
+    assert len(rates) == total

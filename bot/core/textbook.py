@@ -16,6 +16,8 @@ unit_NN.json:
   ],
   "exercises": [ ... ]   — упражнения из книги, см. exercises/bookex.py
 }
+📚 Чтение (book.json: "reading": true) — юнит = глава: "paragraphs": [{"pl", "ru", "words": [{"pl", "ru", "rule"}]}];
+слова главы собираются из абзацев, упражнения («вопросы к главе») — как у учебника.
 "of" — 🔗 сочетание к слову (стоит сразу после него); "src": "wb" — слово из рабочей тетради (иначе учебник).
 Ключ юнита везде — «<книга>:<номер>», например «kpk:8»; старое «8» понимается как kpk.
 
@@ -56,10 +58,12 @@ def load_books(path: Path | None = None) -> list[dict]:
             num = str(u.get("unit") or f.stem.removeprefix("unit_").lstrip("0") or "0")
             u.update(num=num, unit=f"{meta['id']}:{num}", book=meta["id"], book_title=meta.get("title", ""),
                      book_short=meta["short"], name=f"{meta['unit_label']} {num}",
-                     phrases=bool(meta.get("phrases")),
+                     phrases=bool(meta.get("phrases")), reading=bool(meta.get("reading")),
                      unit_of=meta.get("unit_of", "юнита"), item_word=meta.get("item_word", "слов"),
                      audio_dir=meta.get("audio_dir", ""), files=meta.get("files") or {},
                      page_offset=meta.get("page_offset") or {})
+            if u.get("paragraphs") and not u.get("words"):   # 📚 чтение: слова главы — из её абзацев
+                u["words"] = reading_words(u["paragraphs"])
             u["words"] = group_words([w for w in u.get("words") or [] if w.get("pl") and w.get("ru")],
                                      u.get("topics") or [])
             u["exercises"] = [x for x in u.get("exercises") or [] if x.get("id") and x.get("items")]
@@ -112,6 +116,18 @@ def topic_parts(words: list[dict], size: int) -> list[tuple[str | None, int, lis
             out.append((g, out[-1][1] + 1, [(n, w)]))
         else:
             out.append((g, 1, [(n, w)]))
+    return out
+
+
+def reading_words(paragraphs: list[dict]) -> list[dict]:
+    """Слова главы для чтения: слова всех абзацев по порядку, без повторов."""
+    seen, out = set(), []
+    for p in paragraphs:
+        for w in p.get("words") or []:
+            k = str(w.get("pl", "")).strip().lower()
+            if k and k not in seen:
+                seen.add(k)
+                out.append(dict(w))
     return out
 
 

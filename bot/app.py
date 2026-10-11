@@ -24,10 +24,11 @@ from .exercises.menu import ExerciseMenuMixin
 from .exercises.run import ExerciseRunMixin
 from .exercises.book import BookMixin
 from .exercises.bookex import BookExMixin
+from .reading import ReadingMixin
 
 
 class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
-          ExerciseMenuMixin, ExerciseRunMixin, BookMixin, BookExMixin):
+          ExerciseMenuMixin, ExerciseRunMixin, BookMixin, BookExMixin, ReadingMixin):
     """Бот целиком: ядро здесь, остальное — в модулях-миксинах."""
     def __init__(self, cfg: cfg_mod.Config, tg: Telegram, gemini: Gemini, db: DB, tts=synthesize,
                  clock=time.time):
@@ -83,7 +84,9 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
 
     async def pending_text(self, chat_id: int, user_id: int, pending: dict, text: str) -> None:
         step = pending["step"]
-        if step == "new_topic":
+        if step == "read_q":
+            await self.read_question(chat_id, user_id, pending, text)
+        elif step == "new_topic":
             await self.start_free(chat_id, user_id, text.strip()[:100])
         elif step == "topic":
             n = self.cfg.set_size
@@ -205,6 +208,10 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             return
         if data.startswith(("bx:a:", "bx:go", "bx:h:")):  # 📝 упражнение из книги: всплывашка вместо сообщения
             await self.tg.answer_callback(cq["id"], *await self.bex_tap(chat_id, user_id, pending, data[3:]))
+            return
+        if data.startswith("rd:"):  # 📚 чтение: ответ — всплывашка (⭐ в словарь) или пусто
+            note = await self.read_callback(chat_id, user_id, message_id, data[3:])
+            await self.tg.answer_callback(cq["id"], note)
             return
         if data.startswith("nav:"):
             await self.tg.answer_callback(cq["id"], await self.nav(chat_id, user_id, message_id, pending, data[4:]))
@@ -329,6 +336,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             await self.words_menu(chat_id, user_id)
         elif cmd == "/phr":
             await self.phrases_menu(chat_id, user_id)
+        elif cmd == "/read":
+            await self.read_menu(chat_id, user_id)
         elif cmd == "/export":
             await self.send_export(chat_id, user_id, "a")
         elif cmd == "/cancel":
@@ -350,7 +359,7 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         """Кнопки главного меню — как соответствующие команды (незаконченный выбор отменяется)."""
         self.db.set_pending(user_id, None)
         cmd = {"new": "/new", "ex": "/ex", "set": "/set", "itog": "/itog", "dict": "/dict", "export": "/export",
-               "words": "/words", "phr": "/phr"}
+               "words": "/words", "phr": "/phr", "read": "/read"}
         if where in cmd:
             await self.command(chat_id, user_id, cmd[where])
 
@@ -364,6 +373,7 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             log.exception("setMyCommands не удался")
         asyncio.create_task(self.classify_old_errors())
         asyncio.create_task(self.scheduler())
+        asyncio.create_task(self.read_pregen())   # 📚 аудио абзацев для чтения — заранее, в фоне
         offset = None
         log.info("Бот запущен")
         while True:
