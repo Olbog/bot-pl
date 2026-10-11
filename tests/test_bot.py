@@ -2314,13 +2314,16 @@ def test_reading_flow_percent_audio_words_question_end():
     assert ("▶️ Начать: Глава 1, абзац 1", "rd:g:leg:1|0") in app.tg.buttons[-1][0]
     run(app.on_callback(cb("rd:g:leg:1|0", mid=7)))
     text, rows = app.tg.sent[-1], app.tg.buttons[-1]
-    assert "абзац 1/" in text and "<tg-spoiler>" in text and "Dawno temu" in text and "книга 3%" in text
+    assert "абзац 1/" in text and "<tg-spoiler>" in text and "Dawno temu" in text and "книга 0%" in text
     assert ("🔊 Слушать", "rd:a:leg:1|0") in rows[0] and rows[-1][-1] == ("➡️ Дальше", "rd:g:leg:1|1|0")
     run(app.on_callback(cb("rd:g:leg:1|1|0", mid=8)))                 # дальше: у прошлого — только 🔊 📖 ❓
     mid, keep = app.tg.markups[-1]
     assert mid == 8 and len(keep) == 2 and keep[0][0][1] == "rd:a:leg:1|0"
-    assert "абзац 2/" in app.tg.sent[-1] and "книга 7%" in app.tg.sent[-1]
-    assert app.db.read_done(42) == {"leg:1": {0, 1}}
+    assert "абзац 2/" in app.tg.sent[-1] and "книга 3%" in app.tg.sent[-1]
+    assert app.db.read_done(42) == {"leg:1": {0}}                      # прочитан только тот, с которого ушёл «Дальше»
+    run(app.on_callback(cb("rd:g:leg:1|0|1", mid=9)))                 # ⬅️ — ничего не засчитывает
+    run(app.on_callback(cb("rd:o:leg:1")))                            # глава — с первого непрочитанного
+    assert "абзац 2/" in app.tg.sent[-1] and app.db.read_done(42) == {"leg:1": {0}}
     # 🔊 обычный темп, кэш на диске
     run(app.on_callback(cb("rd:a:leg:1|1")))
     assert app.tg.voices[-1].startswith(b"OGG:Pod zamkiem")
@@ -2346,13 +2349,15 @@ def test_reading_flow_percent_audio_words_question_end():
     assert "📖" in app.tg.sent[-1] and app.db.get_state(42)["pending"] is None and not app.gemini.calls
     # продолжить — первый непрочитанный после места
     run(app.handle(msg(text="/read")))
-    assert app.tg.buttons[-1][0][0][1] == "rd:g:leg:1|2" and "Продолжить" in app.tg.buttons[-1][0][0][0]
+    assert app.tg.buttons[-1][0][0][1] == "rd:g:leg:1|1" and "Продолжить" in app.tg.buttons[-1][0][0][0]
     assert "📖 Глава 1" in app.tg.sent[-1] and "▫️ Глава 2" in app.tg.sent[-1]
     # конец главы
     n = len(tb.get_unit("leg:1")["paragraphs"])
     run(app.on_callback(cb(f"rd:g:leg:1|{n - 1}|{n - 2}")))
     assert app.tg.buttons[-1][-1][-1] == ("🏁 Конец главы", "rd:e:leg:1")
+    assert app.db.read_done(42)["leg:1"] == {0, n - 2}
     run(app.on_callback(cb("rd:e:leg:1", mid=30)))
+    assert app.db.read_done(42)["leg:1"] == {0, n - 2, n - 1}         # 🏁 — последний абзац прочитан
     flat = [d for row in app.tg.buttons[-1] for _, d in row]
     assert "прочитана" in app.tg.sent[-1] and flat[:3] == ["bx:l:leg:1", "rd:t:leg:1", "rd:o:leg:2"]
     run(app.on_callback(cb("rd:t:leg:1")))
@@ -2377,3 +2382,19 @@ def test_reading_pregen_all_paragraphs_normal_rate():
     assert len(list(app.read_audio_dir.glob("*.ogg"))) == total == len(rates) and set(rates) == {"+0%"}
     run(app.read_pregen())                                             # готовое не переозвучивается
     assert len(rates) == total
+
+
+def test_reading_continue_same_paragraph_until_next():
+    app = _read_app()
+    run(app.on_callback(cb("rd:g:leg:2|3")))                          # открыл, дальше не пошёл
+    run(app.handle(msg(text="/read")))
+    assert app.tg.buttons[-1][0][0][1] == "rd:g:leg:2|3" and "прочитано 0%" in app.tg.sent[-1]
+    run(app.on_callback(cb("rd:g:leg:2|4|3")))
+    run(app.handle(msg(text="/read")))
+    assert app.tg.buttons[-1][0][0][1] == "rd:g:leg:2|4"
+    book = next(b for b in app.read_books() if b["id"] == "leg")
+    for u in book["units"]:                                            # всё прочитано — следующий за местом
+        for i in range(len(u["paragraphs"])):
+            app.db.read_mark(42, u["unit"], i)
+    run(app.handle(msg(text="/read")))
+    assert app.tg.buttons[-1][0][0][1] == "rd:g:leg:2|5" and "прочитано 100%" in app.tg.sent[-1]

@@ -509,9 +509,13 @@ class DB:
     # ---------- 📚 чтение ----------
 
     def read_mark(self, user_id: int, unit: str, idx: int) -> None:
-        """Абзац показан — прочитан; позиция книги — здесь."""
+        """Абзац прочитан — ученик сам перешёл дальше («➡️ Дальше» / «🏁 Конец главы»)."""
         self.conn.execute("INSERT OR IGNORE INTO read_done(user_id, unit, idx, at) VALUES (?,?,?,?)",
                           (user_id, unit, idx, self.clock()))
+        self.conn.commit()
+
+    def read_seen(self, user_id: int, unit: str, idx: int) -> None:
+        """Абзац открыт — место в книге здесь (для «▶️ Продолжить»); прочитанным он от этого не становится."""
         self.conn.execute("INSERT OR REPLACE INTO read_pos(user_id, book, unit, idx) VALUES (?,?,?,?)",
                           (user_id, unit.split(":")[0], unit, idx))
         self.conn.commit()

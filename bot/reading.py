@@ -2,7 +2,8 @@
 
 Абзац — текст по-польски, перевод под спойлером, 🔊 аудио в обычном темпе (озвучено заранее, при старте бота,
 кэш data/audio/read/), 📖 слова абзаца с кнопками ⭐ в словарь, ❓ вопрос по абзацу.
-Показанный абзац считается прочитанным (read_done), место в книге — read_pos.
+Абзац прочитан (read_done), когда ученик сам нажал «➡️ Дальше» (на последнем — «🏁 Конец главы»);
+«⬅️» и повторный просмотр ничего не засчитывают. Последний открытый абзац — место в книге (read_pos).
 Конец главы: 📝 вопросы к главе (упражнения юнита, как у учебника) и 🎯 тренировка слов главы.
 """
 import asyncio
@@ -64,16 +65,16 @@ class ReadingMixin:
         return u if u and u.get("reading") and u.get("paragraphs") else None
 
     def read_continue(self, user_id: int, book: dict, done: dict) -> tuple[tuple[dict, int] | None, bool]:
-        """Куда «▶️ Продолжить»: первый непрочитанный абзац после места, где остановился (по кругу);
-        всё прочитано — следующий за местом. Второе — начинал ли читать."""
+        """Куда «▶️ Продолжить»: первый непрочитанный, начиная с места, где остановился (сам этот абзац,
+        если дальше не перешёл), по кругу; всё прочитано — следующий за местом. Второе — начинал ли читать."""
         seq = [(u, i) for u in book["units"] for i in range(len(u["paragraphs"]))]
         if not seq:
             return None, False
         pos = self.db.read_pos(user_id, book["id"])
-        start = next((k + 1 for k, (u, i) in enumerate(seq) if pos and (u["unit"], i) == pos), 0)
+        start = next((k for k, (u, i) in enumerate(seq) if pos and (u["unit"], i) == pos), 0)
         order = seq[start:] + seq[:start]
         nxt = next(((u, i) for u, i in order if i not in done.get(u["unit"], set())), None)
-        return nxt or order[0], pos is not None
+        return nxt or (order[1] if len(order) > 1 and pos else order[0]), pos is not None
 
     # ---------- экраны ----------
 
@@ -109,7 +110,9 @@ class ReadingMixin:
                         from_idx: int | None = None) -> None:
         """Абзац новым сообщением (прочитанное остаётся в чате); у прошлого абзаца кнопки перехода убираются."""
         idx = max(0, min(idx, len(unit["paragraphs"]) - 1))
-        self.db.read_mark(user_id, unit["unit"], idx)
+        if from_idx is not None and from_idx == idx - 1:   # «➡️ Дальше» — прошлый абзац прочитан
+            self.db.read_mark(user_id, unit["unit"], from_idx)
+        self.db.read_seen(user_id, unit["unit"], idx)
         done = self.db.read_done(user_id)
         books = self.read_books()
         book = next(b for b in books if b["id"] == unit["book"])
@@ -167,7 +170,8 @@ class ReadingMixin:
             await self.show(chat_id, user_id, {"step": "read_q", "unit": unit["unit"], "idx": idx},
                             f"❓ Напиши вопрос по абзацу {idx + 1} — по-русски, можно про слово, форму или смысл. "
                             "Например: <i>почему nad Wisłą, а не nad Wisła?</i>", prev=None)
-        elif kind == "e":
+        elif kind == "e":   # 🏁 Конец главы — последний абзац прочитан
+            self.db.read_mark(user_id, unit["unit"], n - 1)
             await self.tg.edit_markup(chat_id, message_id)
             units = next(b for b in self.read_books() if b["id"] == unit["book"])["units"]
             k = next(i for i, u in enumerate(units) if u["unit"] == unit["unit"])
