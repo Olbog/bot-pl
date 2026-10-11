@@ -2423,3 +2423,70 @@ def test_reading_continue_same_paragraph_until_next():
             app.db.read_mark(42, u["unit"], i)
     run(app.handle(msg(text="/read")))
     assert app.tg.buttons[-1][0][0][1] == "rd:g:leg:2|5" and "прочитано 100%" in app.tg.sent[-1]
+
+
+def _fake_edge_tts(fail_times):
+    """Подмена edge_tts: первые fail_times подключений — 403, дальше пишет «mp3»."""
+    import sys
+    import types
+    state = {"n": 0}
+
+    class Communicate:
+        def __init__(self, text, voice, rate=None):
+            self.text = text
+
+        async def save(self, path):
+            state["n"] += 1
+            if state["n"] <= fail_times:
+                raise RuntimeError("403, message='Invalid response status'")
+            Path(path).write_bytes(b"MP3")
+    sys.modules["edge_tts"] = types.SimpleNamespace(Communicate=Communicate)
+    return state
+
+
+def _no_ffmpeg(monkey_calls):
+    """Подмена ffmpeg: копирует mp3 в ogg."""
+    from bot.core import tts as tts_mod
+
+    class Proc:
+        returncode = 0
+
+        def __init__(self, src, dst):
+            self.src, self.dst = src, dst
+
+        async def communicate(self):
+            Path(self.dst).write_bytes(b"OGG<" + Path(self.src).read_bytes() + b">")
+            return b"", b""
+
+    async def fake_exec(*args, **kw):
+        monkey_calls.append(args)
+        return Proc(args[args.index("-i") + 1], args[-1])
+    orig = tts_mod.asyncio.create_subprocess_exec
+    tts_mod.asyncio.create_subprocess_exec = fake_exec
+    return orig
+
+
+def test_tts_retries_service_refusal():
+    import sys
+    from bot.core import tts as tts_mod
+    calls, sleeps = [], []
+
+    async def nap(sec):
+        sleeps.append(sec)
+    orig = _no_ffmpeg(calls)
+    try:
+        state = _fake_edge_tts(2)                                      # два отказа подряд — третья попытка удалась
+        assert run(tts_mod.synthesize("Dzień dobry", "v", "+0%", sleep=nap)) == b"OGG<MP3>"
+        assert state["n"] == 3 and sleeps == [2, 5] and len(calls) == 1
+        sleeps.clear()
+        state = _fake_edge_tts(10)                                     # сервис лежит — после 4 попыток ошибка
+        try:
+            run(tts_mod.synthesize("x", "v", "+0%", sleep=nap))
+        except RuntimeError as e:
+            assert "403" in str(e)
+        else:
+            raise AssertionError("ожидалась ошибка")
+        assert state["n"] == 4 and sleeps == [2, 5, 10]
+    finally:
+        tts_mod.asyncio.create_subprocess_exec = orig
+        sys.modules.pop("edge_tts", None)
