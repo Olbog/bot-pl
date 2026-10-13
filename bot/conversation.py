@@ -43,7 +43,8 @@ class ConversationMixin:
             chat_id,
             fmt.turn_message(turn, from_voice=bool(voice), show_model=self.cfg.show_model,
                              target_line=fmt.target_line(uses)),
-            None if opening else fmt.reply_buttons(msg_id, bool(turn.corrections)))
+            None if opening else fmt.reply_buttons(msg_id, bool(turn.corrections),
+                                                   any(w["mastered_at"] is None for w in self.db.msg_set_words(msg_id))))
 
         if turn.reply_pl:
             await self.tg.send_action(chat_id, "record_voice")
@@ -58,7 +59,7 @@ class ConversationMixin:
             await self.tg.send_message(
                 chat_id, f"🎉 Освоено: <b>{escape(w['pl'])}</b>"
                          + ("" if training.kind_of(w) == "rule" else f" — {escape(w['ru'])}") + "\n"
-                         f"<i>{self.criteria_for(w).streak} раз подряд без ошибок, в разных формах и днях. "
+                         f"<i>{self.criteria_for(w).streak} раз правильно, в разных формах и днях. "
                          f"Теперь в повторении.</i>")
         await self.maybe_suggest_next(chat_id, user_id)
 
@@ -69,7 +70,8 @@ class ConversationMixin:
         if mode == "set" and active:
             rows = [(w, st) for w, st in self.set_rows(active["id"]) if w["mastered_at"] is None]
             if rows:
-                block = training.set_block(active["title"], rows, self.criteria, self.rule_criteria)
+                block = training.set_block(active["title"], rows, self.criteria, self.rule_criteria,
+                                           self.familiar_due(user_id, [w for w, _ in rows]))
                 return block, {w["pl"].lower(): w for w, _ in rows}
         now = self.clock()
         due = [w for w in self.db.mastered_words(user_id) if training.due_for_review(w, now)][:5]
@@ -79,6 +81,21 @@ class ConversationMixin:
             block = (f"ТЕМА РАЗГОВОРА: «{topic}». Веди разговор вокруг этой темы: задавай вопросы о ней, "
                      "подкидывай жизненные ситуации; если ученик ушёл в сторону — мягко возвращай.\n\n" + block).strip()
         return block, {w["pl"].lower(): w for w in due}
+
+    def familiar_due(self, user_id: int, words: list):
+        """👌 Знакомое, которому подошла очередь: с последнего раза (употребление или отметка) ученик сказал
+        не меньше familiar_gap реплик; из таких — дольше всех ждущее. Одно за реплику или None."""
+        fam = [w for w in words if training.is_familiar(w)]
+        n_active = len(words) - len(fam)
+        if not fam or not n_active:
+            return None
+        gap = training.familiar_gap(n_active)
+        best, best_t = None, None
+        for w in fam:
+            t = max(self.db.last_use_at(w["id"]) or 0, w["familiar_at"] or 0)
+            if self.db.user_turns_since(user_id, t) >= gap and (best_t is None or t < best_t):
+                best, best_t = w, t
+        return best
 
     def apply_target_uses(self, user_id: int, targets: dict, uses: list[dict],
                           msg_id: int | None = None) -> tuple[list, list]:

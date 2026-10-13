@@ -16,6 +16,49 @@ class SetsMixin:
     def set_rows(self, set_id: int) -> list[tuple]:
         return [(w, training.stats(self.db.word_uses(w["id"]))) for w in self.db.set_words(set_id)]
 
+    async def familiar_callback(self, chat_id: int, user_id: int, message_id: int, arg: str) -> None:
+        """👌 Знакомые: fm:<msg> — слова из ответа (новым сообщением); fm:t:<msg>:<id> — переключить там;
+        fm:ok:<msg> — готово; fm:list — все неосвоенные слова набора (/set); fm:s:<id> — переключить там."""
+        if arg == "list" or arg.startswith("s:"):
+            active = self.db.active_set(user_id)
+            if not active:
+                return
+            if arg.startswith("s:"):
+                self.familiar_toggle(user_id, int(arg[2:]))
+            words = [w for w in self.db.set_words(active["id"]) if w["mastered_at"] is None]
+            text, buttons = fmt.familiar_screen(words, "fm:s:", "s:show", f"Знакомые слова — «{fmt.e(active['title'])}»")
+            await self.tg.edit_message(chat_id, message_id, text, buttons)
+            return
+        if arg.startswith("ok:"):
+            words = [w for w in self.db.msg_set_words(int(arg[3:])) if w["user_id"] == user_id]
+            fam = [w["pl"] for w in words if w["mastered_at"] is None and training.is_familiar(w)]
+            await self.tg.edit_message(chat_id, message_id, (
+                f"👌 Знакомые: {fmt.e(', '.join(fam))}. Вопросы на них строиться не будут — вернутся по одному "
+                "позже. Все знакомые — /set → 👌" if fam else "👌 Знакомых в этом ответе не отмечено."))
+            return
+        if arg.startswith("t:"):
+            _, msg, wid = arg.split(":")
+            self.familiar_toggle(user_id, int(wid))
+            msg_id, edit = int(msg), message_id
+        elif arg.isdigit():
+            msg_id, edit = int(arg), None
+        else:
+            return
+        words = [w for w in self.db.msg_set_words(msg_id) if w["user_id"] == user_id and w["mastered_at"] is None]
+        if not words:
+            await self.tg.send_message(chat_id, "В этом ответе нет неосвоенных слов набора.")
+            return
+        text, buttons = fmt.familiar_screen(words, f"fm:t:{msg_id}:", f"fm:ok:{msg_id}", "Какие слова уже знакомы?")
+        if edit:
+            await self.tg.edit_message(chat_id, edit, text, buttons)
+        else:
+            await self.tg.send_message(chat_id, text, buttons)
+
+    def familiar_toggle(self, user_id: int, word_id: int) -> None:
+        w = self.db.word(word_id)
+        if w and w["user_id"] == user_id and w["mastered_at"] is None:
+            self.db.set_familiar(word_id, not training.is_familiar(w))
+
     async def show_set(self, chat_id: int, user_id: int, message_id: int | None = None) -> None:
         mode = self.db.get_state(user_id)["mode"]
         active = self.db.active_set(user_id)

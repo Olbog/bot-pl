@@ -248,6 +248,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
                 await self.start_set_conversation(chat_id, user_id)
             else:
                 await self.start_free(chat_id, user_id, None)
+        elif data.startswith("fm:"):
+            await self.familiar_callback(chat_id, user_id, message_id, data[3:])
         elif data == "m:list":
             active = self.db.active_set(user_id)
             if active:

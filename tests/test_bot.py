@@ -548,12 +548,12 @@ def use(form, ok, day):
     return {"form": form, "correct": int(ok), "day": day}
 
 
-def test_stats_streak_resets_on_error():
+def test_stats_error_not_counted_but_not_reset():
     uses = [use("piekę", 1, "d1"), use("pieczesz", 1, "d1"), use("piec", 0, "d2"),
             use("piecze", 1, "d2"), use("Piecze", 1, "d3")]
     st = training.stats(uses)
-    assert (st.total, st.correct, st.errors, st.streak) == (5, 4, 1, 2)
-    assert st.streak_forms == ["piecze"] and st.streak_days == 2
+    assert (st.total, st.correct, st.errors, st.streak) == (5, 4, 1, 4)   # ошибка не обнулила и не засчиталась
+    assert st.streak_forms == ["piekę", "pieczesz", "piecze"] and st.streak_days == 3
     assert "piekę" in st.all_forms
 
 
@@ -563,7 +563,7 @@ def test_meets_criteria():
     assert training.meets(training.stats(good), c)
     assert not training.meets(training.stats(good[:3]), c)                      # мало раз
     assert not training.meets(training.stats([use("a", 1, "d1")] * 4), c)        # одна форма, один день
-    assert not training.meets(training.stats(good + [use("x", 0, "d3")]), c)     # ошибка сбросила серию
+    assert training.meets(training.stats(good + [use("x", 0, "d3")]), c)         # ошибка не сбрасывает
 
 
 def test_due_for_review():
@@ -2490,3 +2490,62 @@ def test_tts_retries_service_refusal():
     finally:
         tts_mod.asyncio.create_subprocess_exec = orig
         sys.modules.pop("edge_tts", None)
+
+
+
+def _set_app():
+    app = make_app()
+    sid = app.db.create_set(42, "Zakupy", [{"pl": p, "ru": r, "translit": "", "pos": ""} for p, r in
+                                            [("sklep", "магазин"), ("kiosk", "киоск"), ("mapa", "карта"),
+                                             ("biżuteria", "украшения")]])
+    app.db.set_mode(42, "set")
+    return app, sid
+
+
+def test_familiar_words_block_and_return_in_turn():
+    app, sid = _set_app()
+    words = {w["pl"]: w for w in app.db.set_words(sid)}
+    app.db.set_familiar(words["sklep"]["id"], True)
+    block, targets = app.training_context(42)
+    head, _, fam = block.partition("ЗНАКОМЫЕ")
+    assert "- kiosk" in head and "- sklep" not in head                       # вопросы — на незнакомых
+    assert "- sklep (магазин)" in fam and "sklep" in targets                 # знакомое — только для отметки
+    assert "В ЭТОЙ реплике" not in block                                     # очередь ещё не подошла
+    session = app.db.current_session(42)
+    for i in range(training.familiar_gap(3)):                                # 2 круга по 3 незнакомым = 6 ответов
+        app.clock.t += 10
+        app.db.save_turn(session, 42, f"odp {i}", "ok", [], [])
+    block, _ = app.training_context(42)
+    assert "В ЭТОЙ реплике можно вернуть одно знакомое — sklep" in block
+    for w in ("kiosk", "mapa", "biżuteria"):                                 # все знакомые — снова обычный режим
+        app.db.set_familiar(words[w]["id"], True)
+    block, _ = app.training_context(42)
+    assert "ЗНАКОМЫЕ" not in block and "- sklep" in block
+
+
+def test_familiar_button_under_reply_and_in_set():
+    gem = FakeGemini()
+    app, sid = _set_app()
+    words = {w["pl"]: w for w in app.db.set_words(sid)}
+    gem.turn = {**TURN_JSON, "target_uses": [{"lemma": "kiosk", "form": "kiosku", "correct": True}]}
+    app.gemini = gem
+    run(app.handle(msg(text="Byłem w kiosku")))
+    rows = app.tg.buttons[0]
+    fm = rows[-1][0]
+    assert fm[0] == "👌 Знакомые" and fm[1].startswith("fm:")
+    run(app.on_callback(cb(fm[1])))
+    assert "Какие слова уже знакомы?" in app.tg.sent[-1]
+    tog = app.tg.buttons[-1][0][0]
+    assert tog[0] == "⚪ kiosk"
+    run(app.on_callback(cb(tog[1], mid=5)))
+    assert app.db.word(words["kiosk"]["id"])["familiar_at"] is not None
+    assert app.tg.edits[-1][1][0][0][0] == "👌 kiosk"
+    run(app.on_callback(cb(app.tg.edits[-1][1][-1][0][1], mid=5)))           # ✅ Готово
+    assert "👌 Знакомые: kiosk" in app.tg.edits[-1][0]
+    run(app.handle(msg(text="/set")))
+    assert "🟡👌 <b>kiosk</b>" in app.tg.sent[-1] and "👌 — знакомое" in app.tg.sent[-1]
+    run(app.on_callback(cb("fm:list", mid=9)))
+    labels = [b[0] for row in app.tg.edits[-1][1] for b in row]
+    assert "👌 kiosk" in labels and "⚪ sklep" in labels
+    run(app.on_callback(cb(f"fm:s:{words['kiosk']['id']}", mid=9)))          # снять
+    assert app.db.word(words["kiosk"]["id"])["familiar_at"] is None

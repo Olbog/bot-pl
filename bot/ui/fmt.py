@@ -9,7 +9,7 @@ from ..core.rules import group
 from ..core.verbs import verb_line
 from ..core.textbook import topic_parts
 from ..exercises.logic import CHOICE_TYPES, LETTERS, book_options, book_pages
-from ..core.training import Criteria, WordStats, kind_of, num, progress_bar
+from ..core.training import Criteria, WordStats, is_familiar, kind_of, num, progress_bar
 
 KIND_ICON = {"word": "🔤", "grammar": "📝", "pronunciation": "🗣"}
 
@@ -132,6 +132,8 @@ def word_line(w, st: WordStats, c: Criteria) -> str:
         icon = "🔴"
     else:
         icon = "⚪"
+    if w["mastered_at"] is None and is_familiar(w):
+        icon += "👌"
     if kind_of(w) == "rule":
         line = f"{icon} 📐 <b>{e(w['pl'])}</b>"
     else:
@@ -154,10 +156,12 @@ def set_progress(title: str, rows: list[tuple], c: Criteria, mode: str, rule_c: 
     mode_line = ("Сейчас: 🎯 разговор по этому набору" if mode == "set"
                  else "📚 В архиве — прогресс сохранён, можно продолжить с того же места." if mode == "archive"
                  else "Сейчас разговор без набора. Тренировать набор — /new → 🎯")
-    legend = (f"<i>Освоено: слово — {c.streak} раз подряд без ошибок, {c.forms} формы, {c.days} дня"
+    legend = (f"<i>Освоено: слово — {c.streak} раз правильно (ошибка не засчитывается, но и не обнуляет), "
+              f"{c.forms} формы, {c.days} дня"
               + (f"; 📐 правило — {rule_c.streak} раз, {rule_c.forms} ситуаций, {rule_c.days} дней"
                  if any(kind_of(w) == "rule" for w, _ in rows) else "")
-              + ". Или отметь сам.</i>")
+              + ". Или отметь сам.\n👌 — знакомое: вопросы на нём не строятся, возвращается по одному "
+                "примерно раз в два круга по остальным словам; из набора уходит только при освоении.</i>")
     lines = [word_line(w, st, rule_c if kind_of(w) == "rule" else c) for w, st in rows]
     return "\n".join([head, mode_line, ""] + lines + ["", legend])
 
@@ -174,7 +178,7 @@ def set_buttons(has_set: bool, archived: int = 0) -> list[list[tuple[str, str]]]
     if archived:
         rows.append([(f"📚 Архив наборов ({archived})", "ar:list")])
     if has_set:
-        rows.append([("✅ Отметить освоенные", "m:list")])
+        rows.append([("👌 Знакомые слова", "fm:list"), ("✅ Отметить освоенные", "m:list")])
     return rows
 
 
@@ -320,12 +324,30 @@ def rules_message(data: dict, header: str = "📖") -> str:
     return "\n\n".join(blocks) or "Не получилось объяснить правило, попробуй ещё раз."
 
 
-def reply_buttons(msg_id: int, has_corrections: bool) -> list[list[tuple[str, str]]]:
+def reply_buttons(msg_id: int, has_corrections: bool, has_set_words: bool = False) -> list[list[tuple[str, str]]]:
     row = [("📖 Правило", f"r:{msg_id}")] if has_corrections else []
     row.append(("⭐ В словарь", f"d:{msg_id}"))
     if has_corrections:
         row.append(("🙅 Не ошибка", f"nd:{msg_id}"))
-    return [row]
+    rows = [row]
+    if has_set_words:   # в ответе были слова набора — можно отметить их 👌 знакомыми
+        rows.append([("👌 Знакомые", f"fm:{msg_id}")])
+    return rows
+
+
+# ---------- 👌 Знакомые слова набора ----------
+
+FAMILIAR_HINT = ("<i>Отметь слова, которые уже свободно используешь: вопросы на них строиться не будут, "
+                 "они будут возвращаться по одному примерно раз в два круга по остальным словам — и копить счётчик. "
+                 "Из набора уходят только при освоении. Нажми ещё раз, чтобы снять.</i>")
+
+
+def familiar_screen(words: list, prefix: str, done: str, title: str) -> tuple[str, list[list[tuple[str, str]]]]:
+    """words — неосвоенные слова набора; кнопка: <prefix><id> — переключить 👌."""
+    btns = [((("👌 " if is_familiar(w) else "⚪ ") + w["pl"])[:30], f"{prefix}{w['id']}") for w in words]
+    rows = [btns[i:i + 2] for i in range(0, len(btns), 2)]
+    rows.append([("✅ Готово" if done.startswith("fm:ok") else "↩️ К прогрессу", done)])
+    return f"👌 <b>{title}</b>\n\n{FAMILIAR_HINT}", rows
 
 
 # ---------- 🙅 Не ошибка ----------

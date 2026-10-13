@@ -195,7 +195,8 @@ class DB:
         """Новые колонки для старой базы."""
         adds = {
             "corrections": [("rule", "TEXT"), ("msg_id", "INTEGER"), ("disputed", "INTEGER NOT NULL DEFAULT 0")],
-            "set_words": [("kind", "TEXT NOT NULL DEFAULT 'word'"), ("unit", "TEXT")],
+            # familiar_at — 👌 «знакомое»: ученик уже свободно использует, показывать реже (до освоения)
+            "set_words": [("kind", "TEXT NOT NULL DEFAULT 'word'"), ("unit", "TEXT"), ("familiar_at", "REAL")],
             "user_state": [("topic", "TEXT")],
             "word_uses": [("weight", "REAL NOT NULL DEFAULT 1"), ("msg_id", "INTEGER")],
             "exercises": [("tg_msg_id", "INTEGER"), ("topics", "TEXT"), ("cfg", "TEXT")],
@@ -368,12 +369,32 @@ class DB:
                           (word_id, user_id, form, int(correct), day, weight, self.clock(), msg_id))
         self.conn.commit()
 
+    def msg_set_words(self, msg_id: int) -> list:
+        """Слова набора, которые ученик употребил в реплике (кнопка 👌 Знакомые под ответом)."""
+        return self.conn.execute("SELECT DISTINCT w.* FROM word_uses u JOIN set_words w ON w.id = u.word_id "
+                                 "WHERE u.msg_id=? ORDER BY w.id", (msg_id,)).fetchall()
+
     def uses_for_msg(self, msg_id: int) -> list:
         return self.conn.execute("SELECT * FROM word_uses WHERE msg_id=? ORDER BY id", (msg_id,)).fetchall()
 
     def set_use_correct(self, use_id: int, correct: bool) -> None:
         self.conn.execute("UPDATE word_uses SET correct=? WHERE id=?", (int(correct), use_id))
         self.conn.commit()
+
+    def set_familiar(self, word_id: int, on: bool) -> None:
+        """👌 Знакомое: вопросы на нём не строим, возвращается по одному раз в пару кругов; из набора — только при освоении."""
+        self.conn.execute("UPDATE set_words SET familiar_at=? WHERE id=?", (self.clock() if on else None, word_id))
+        self.conn.commit()
+
+    def last_use_at(self, word_id: int) -> float | None:
+        r = self.conn.execute("SELECT MAX(created_at) AS t FROM word_uses WHERE word_id=?", (word_id,)).fetchone()
+        return r["t"] if r else None
+
+    def user_turns_since(self, user_id: int, since: float) -> int:
+        """Сколько реплик ученик сказал после момента since (во всех разговорах)."""
+        return self.conn.execute(
+            "SELECT COUNT(*) FROM messages m JOIN sessions s ON s.id = m.session_id "
+            "WHERE s.user_id=? AND m.role='user' AND m.created_at>?", (user_id, since)).fetchone()[0]
 
     def set_mastered(self, word_id: int, by: str | None) -> None:
         """by=None — снять отметку «освоено»."""
