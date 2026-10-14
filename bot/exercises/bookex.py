@@ -268,8 +268,7 @@ class BookExMixin:
         if not todo:
             await self.tg.send_message(chat_id, "Здесь всё уже верно 🎉")
             return
-        audio = await self.tg.download_file(voice["file_id"])
-        verdicts = await self.ask_voice(chat_id, user_id, todo, audio, wait=f"⏳ Слушаю и проверяю {fmt.bex_name(x)}…",
+        verdicts = await self.ask_voice(chat_id, user_id, todo, voice, wait=f"⏳ Слушаю и проверяю {fmt.bex_name(x)}…",
                                         task=self.bex_task(x), free=kind == "free")
         if verdicts is None:
             return   # шаг bex сохраняется — можно прислать ещё раз

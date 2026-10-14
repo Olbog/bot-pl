@@ -1,0 +1,3728 @@
+{
+ "unit": "5",
+ "title": "Co lubisz robić?",
+ "summary": "Хобби и свободное время, как часто (zawsze, często, od czasu do czasu, rzadko, nigdy nie), учебные предметы на -ia / -yka, объявления (бассейн, корты, кино, театр), звонки и бронирование. Грамматика: lubić + инфинитив, lubić + винительный, interesować się + творительный; спряжения -m / -sz, -ę / -isz (-ysz), -ę / -esz, глаголы на -ować; grać w / na, chodzić do / na / po.",
+ "topics": [
+  "Хобби: что я люблю делать",
+  "Как часто?",
+  "Интересы и предметы",
+  "Спряжение: глаголы урока",
+  "Глаголы на -ować",
+  "Места и объявления",
+  "Звонок и билеты",
+  "Люди",
+  "Фразы",
+  "Грамматические термины"
+ ],
+ "words": [
+  {
+   "pl": "hobby",
+   "translit": "ХОБ-бы",
+   "ru": "хобби",
+   "pos": "сущ., ср. р., не склоняется",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "Moje hobby to…",
+   "translit": "МО-е ХОБ-бы то",
+   "ru": "Моё хобби — …",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "hobby"
+  },
+  {
+   "pl": "wolny czas",
+   "translit": "ВОЛЬ-ны час",
+   "ru": "свободное время",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "w wolnym czasie",
+   "translit": "в ВОЛЬ-ным ЧА-ще",
+   "ru": "в свободное время",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "wolny czas"
+  },
+  {
+   "pl": "biegać",
+   "translit": "БЕ-гачь",
+   "ru": "бегать",
+   "pos": "глаг., -m / -sz: biegam, biegasz, biegają",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "pływać",
+   "translit": "ПЎЫ-вачь",
+   "ru": "плавать",
+   "pos": "глаг., -m / -sz: pływam, pływasz, pływają",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "tańczyć",
+   "translit": "ТАНЬ-чычь",
+   "ru": "танцевать",
+   "pos": "глаг., -ę / -ysz: tańczę, tańczysz, tańczą",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "śpiewać",
+   "translit": "ЩПЕ-вачь",
+   "ru": "петь",
+   "pos": "глаг., -m / -sz: śpiewam, śpiewasz, śpiewają",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "podróżować",
+   "translit": "по-дру-ЖО-вачь",
+   "ru": "путешествовать",
+   "pos": "глаг., -ować: podróżuję, podróżujesz, podróżują",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "podróżować po Europie",
+   "translit": "по-дру-ЖО-вачь по эў-РО-пе",
+   "ru": "путешествовать по Европе",
+   "pos": "🔗 сочетание: po + местный",
+   "src": "tb",
+   "of": "podróżować"
+  },
+  {
+   "pl": "uprawiać sport",
+   "translit": "у-ПРА-вячь спорт",
+   "ru": "заниматься спортом",
+   "pos": "глаг., -m / -sz: uprawiam, uprawiasz",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "grać",
+   "translit": "грачь",
+   "ru": "играть",
+   "pos": "глаг., -m / -sz: gram, grasz, grają; grać w + вин. (игра), grać na + местн. (инструмент)",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "grać w tenisa",
+   "translit": "грачь ф тэ-НИ-са",
+   "ru": "играть в теннис",
+   "pos": "🔗 сочетание: w + винительный",
+   "src": "tb",
+   "of": "grać"
+  },
+  {
+   "pl": "grać w piłkę nożną",
+   "translit": "грачь ф ПИЎ-кэ НОЖ-нон",
+   "ru": "играть в футбол",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "grać"
+  },
+  {
+   "pl": "grać w karty",
+   "translit": "грачь ф КАР-ты",
+   "ru": "играть в карты",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "grać"
+  },
+  {
+   "pl": "grać na gitarze",
+   "translit": "грачь на ги-ТА-жэ",
+   "ru": "играть на гитаре",
+   "pos": "🔗 сочетание: na + местный",
+   "src": "tb",
+   "of": "grać"
+  },
+  {
+   "pl": "grać na saksofonie",
+   "translit": "грачь на сак-со-ФО-не",
+   "ru": "играть на саксофоне",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "grać"
+  },
+  {
+   "pl": "czytać książki",
+   "translit": "ЧЫ-тачь КЩЁНЖ-ки",
+   "ru": "читать книги",
+   "pos": "глаг., -m / -sz: czytam, czytasz",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "czytać gazety",
+   "translit": "ЧЫ-тачь га-ЗЭ-ты",
+   "ru": "читать газеты",
+   "pos": "глаг.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "słuchać muzyki",
+   "translit": "СЎУ-хачь му-ЗЫ-ки",
+   "ru": "слушать музыку",
+   "pos": "глаг., -m / -sz; słuchać + родительный",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "oglądać telewizję",
+   "translit": "о-ГЛЁН-дачь тэ-лэ-ВИ-зье",
+   "ru": "смотреть телевизор",
+   "pos": "глаг., -m / -sz: oglądam, oglądasz",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "oglądać filmy",
+   "translit": "о-ГЛЁН-дачь ФИЛЬ-мы",
+   "ru": "смотреть фильмы",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "oglądać telewizję"
+  },
+  {
+   "pl": "robić zdjęcia",
+   "translit": "РО-бичь ЗДЬЕН-ча",
+   "ru": "фотографировать",
+   "pos": "глаг., -ę / -isz: robię, robisz",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "robić zakupy",
+   "translit": "РО-бичь за-КУ-пы",
+   "ru": "делать покупки",
+   "pos": "глаг.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "spotykać się z kolegami",
+   "translit": "спо-ТЫ-качь щен с ко-лэ-ГА-ми",
+   "ru": "встречаться с друзьями",
+   "pos": "глаг., -m / -sz",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "chodzić do kina",
+   "translit": "ХО-джичь до КИ-на",
+   "ru": "ходить в кино",
+   "pos": "глаг., do + родительный",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "chodzić do teatru",
+   "translit": "ХО-джичь до тэ-АТ-ру",
+   "ru": "ходить в театр",
+   "pos": "глаг., do + родительный",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "chodzić do muzeum",
+   "translit": "ХО-джичь до му-ЗЭ-ум",
+   "ru": "ходить в музей",
+   "pos": "глаг.; muzeum не склоняется в ед. ч.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "chodzić do kawiarni",
+   "translit": "ХО-джичь до ка-ВЯР-ни",
+   "ru": "ходить в кафе",
+   "pos": "глаг.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "chodzić do restauracji",
+   "translit": "ХО-джичь до рэс-тау-РА-цьи",
+   "ru": "ходить в ресторан",
+   "pos": "глаг.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "chodzić do filharmonii",
+   "translit": "ХО-джичь до филь-хар-МО-нии",
+   "ru": "ходить в филармонию",
+   "pos": "глаг.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "chodzić na dyskotekę",
+   "translit": "ХО-джичь на дыс-ко-ТЭ-кэ",
+   "ru": "ходить на дискотеку",
+   "pos": "глаг., na + винительный",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "chodzić na koncerty",
+   "translit": "ХО-джичь на кон-ЦЭР-ты",
+   "ru": "ходить на концерты",
+   "pos": "глаг., na + винительный",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "chodzić na basen",
+   "translit": "ХО-джичь на БА-сэн",
+   "ru": "ходить в бассейн",
+   "pos": "глаг., na + винительный",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "chodzić po górach",
+   "translit": "ХО-джичь по ГУ-рах",
+   "ru": "ходить в горы, в походы по горам",
+   "pos": "глаг., po + местный",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "jeździć na rowerze",
+   "translit": "ЕЖЬ-джичь на ро-ВЭ-жэ",
+   "ru": "кататься на велосипеде",
+   "pos": "глаг.: jeżdżę, jeździsz",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "jeździć na nartach",
+   "translit": "ЕЖЬ-джичь на НАР-тах",
+   "ru": "кататься на лыжах",
+   "pos": "глаг.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "jeździć na snowboardzie",
+   "translit": "ЕЖЬ-джичь на сноў-БОР-дже",
+   "ru": "кататься на сноуборде",
+   "pos": "глаг.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "surfować po internecie",
+   "translit": "сур-ФО-вачь по ин-тэр-НЭ-че",
+   "ru": "сидеть в интернете",
+   "pos": "глаг., -ować: surfuję, surfujesz",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "dyskutować o polityce",
+   "translit": "дыс-ку-ТО-вачь о по-ли-ТЫ-цэ",
+   "ru": "обсуждать политику",
+   "pos": "глаг., o + местный",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "siedzieć w domu",
+   "translit": "ЩЕ-джечь в ДО-му",
+   "ru": "сидеть дома",
+   "pos": "глаг., -ę / -isz: siedzę, siedzisz",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "kryminał",
+   "translit": "кры-МИ-наў",
+   "ru": "детектив (книга, фильм)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "książki kryminalne",
+   "translit": "КЩЁНЖ-ки кры-ми-НАЛЬ-нэ",
+   "ru": "детективы (книги)",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "kryminał"
+  },
+  {
+   "pl": "walc",
+   "translit": "вальц",
+   "ru": "вальс",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "samba",
+   "translit": "САМ-ба",
+   "ru": "самба",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "brydż",
+   "translit": "брыч",
+   "ru": "бридж (карточная игра)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Хобби: что я люблю делать"
+  },
+  {
+   "pl": "Jak często?",
+   "translit": "як ЧЭН-сто",
+   "ru": "Как часто?",
+   "pos": "вопрос",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "zawsze",
+   "translit": "ЗАФ-шэ",
+   "ru": "всегда",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "codziennie",
+   "translit": "цо-ДЖЕН-не",
+   "ru": "каждый день",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "zwykle w weekend",
+   "translit": "ЗВЫК-лэ в ЎИ-кэнт",
+   "ru": "обычно на выходных",
+   "pos": "нареч. + сущ.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "w weekendy",
+   "translit": "в ўи-КЭН-ды",
+   "ru": "по выходным",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "zwykle w weekend"
+  },
+  {
+   "pl": "często",
+   "translit": "ЧЭН-сто",
+   "ru": "часто",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "bardzo często",
+   "translit": "БАР-дзо ЧЭН-сто",
+   "ru": "очень часто",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "często"
+  },
+  {
+   "pl": "od czasu do czasu",
+   "translit": "от ЧА-су до ЧА-су",
+   "ru": "время от времени",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "rzadko",
+   "translit": "ЖАТ-ко",
+   "ru": "редко",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "bardzo rzadko",
+   "translit": "БАР-дзо ЖАТ-ко",
+   "ru": "очень редко",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "rzadko"
+  },
+  {
+   "pl": "nigdy nie",
+   "translit": "НИГ-ды не",
+   "ru": "никогда не",
+   "pos": "нареч.; глагол — с nie: Nigdy nie biegam.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "na wakacjach",
+   "translit": "на ва-КА-цьях",
+   "ru": "на каникулах, в отпуске",
+   "pos": "na + местный мн. ч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "interesować się",
+   "translit": "ин-тэ-рэ-СО-вачь щен",
+   "ru": "интересоваться",
+   "pos": "глаг., -ować + творительный: interesuję się sportem",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "lubić",
+   "translit": "ЛЮ-бичь",
+   "ru": "любить, нравиться",
+   "pos": "глаг., -ę / -isz: lubię, lubisz, lubią; + инфинитив или винительный",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "sport",
+   "translit": "спорт",
+   "ru": "спорт",
+   "pos": "сущ., м. р.; творит.: sportem",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "kino",
+   "translit": "КИ-но",
+   "ru": "кино (искусство и кинотеатр)",
+   "pos": "сущ., ср. р.; творит.: kinem",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "polskie kino",
+   "translit": "ПОЛЬ-ске КИ-но",
+   "ru": "польское кино",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "kino"
+  },
+  {
+   "pl": "literatura",
+   "translit": "ли-тэ-ра-ТУ-ра",
+   "ru": "литература",
+   "pos": "сущ., ж. р.; вин.: literaturę, творит.: literaturą",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "literatura angielska",
+   "translit": "ли-тэ-ра-ТУ-ра ан-ГЕЛЬ-ска",
+   "ru": "английская литература",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "literatura"
+  },
+  {
+   "pl": "muzyka",
+   "translit": "МУ-зы-ка",
+   "ru": "музыка",
+   "pos": "сущ., ж. р.; ударение на 3-й слог от конца",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "muzyka klasyczna",
+   "translit": "МУ-зы-ка кла-СЫЧ-на",
+   "ru": "классическая музыка",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "muzyka"
+  },
+  {
+   "pl": "muzyka rockowa",
+   "translit": "МУ-зы-ка ро-КО-ва",
+   "ru": "рок-музыка",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "muzyka"
+  },
+  {
+   "pl": "muzyka dyskotekowa",
+   "translit": "МУ-зы-ка дыс-ко-тэ-КО-ва",
+   "ru": "дискотечная музыка",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "muzyka"
+  },
+  {
+   "pl": "fotografia",
+   "translit": "фо-то-ГРА-фья",
+   "ru": "фотография (занятие)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "kultura",
+   "translit": "куль-ТУ-ра",
+   "ru": "культура",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "kuchnia",
+   "translit": "КУХ-ня",
+   "ru": "кухня (национальная, блюда)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "niemiecka kuchnia",
+   "translit": "не-МЕЦ-ка КУХ-ня",
+   "ru": "немецкая кухня",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "kuchnia"
+  },
+  {
+   "pl": "geografia",
+   "translit": "гэ-о-ГРА-фья",
+   "ru": "география",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "historia",
+   "translit": "хис-ТО-рья",
+   "ru": "история",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "socjologia",
+   "translit": "соць-ё-ЛЁ-гья",
+   "ru": "социология",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "ekonomia",
+   "translit": "э-ко-НО-мья",
+   "ru": "экономика (наука)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "biologia",
+   "translit": "бьё-ЛЁ-гья",
+   "ru": "биология",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "filozofia",
+   "translit": "фи-ло-ЗО-фья",
+   "ru": "философия",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "geologia",
+   "translit": "гэ-о-ЛЁ-гья",
+   "ru": "геология",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "chemia",
+   "translit": "ХЭ-мья",
+   "ru": "химия",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "psychologia",
+   "translit": "псы-хо-ЛЁ-гья",
+   "ru": "психология",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "polityka",
+   "translit": "по-ЛИ-ты-ка",
+   "ru": "политика",
+   "pos": "сущ., ж. р.; ударение на 3-й слог от конца",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "polityka europejska",
+   "translit": "по-ЛИ-ты-ка эў-ро-ПЭЙ-ска",
+   "ru": "европейская политика",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "polityka"
+  },
+  {
+   "pl": "informatyka",
+   "translit": "ин-фор-МА-ты-ка",
+   "ru": "информатика",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "statystyka",
+   "translit": "ста-ТЫС-ты-ка",
+   "ru": "статистика",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "polonistyka",
+   "translit": "по-ло-НИС-ты-ка",
+   "ru": "полонистика (польская филология)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "anglistyka",
+   "translit": "ан-ГЛИС-ты-ка",
+   "ru": "англистика (английская филология)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "europeistyka",
+   "translit": "эў-ро-пэ-ИС-ты-ка",
+   "ru": "европеистика",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "fizyka",
+   "translit": "ФИ-зы-ка",
+   "ru": "физика",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "botanika",
+   "translit": "бо-ТА-ни-ка",
+   "ru": "ботаника",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "gramatyka",
+   "translit": "гра-МА-ты-ка",
+   "ru": "грамматика",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "matematyka",
+   "translit": "ма-тэ-МА-ты-ка",
+   "ru": "математика",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы и предметы"
+  },
+  {
+   "pl": "mieszkać",
+   "translit": "МЕШ-качь",
+   "ru": "жить (где-то)",
+   "pos": "глаг., -m / -sz: mieszkam, mieszkasz, mieszkają",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "rozumieć",
+   "translit": "ро-ЗУ-мечь",
+   "ru": "понимать",
+   "pos": "глаг., -m / -sz: rozumiem, rozumiesz, rozumieją",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "czytać",
+   "translit": "ЧЫ-тачь",
+   "ru": "читать",
+   "pos": "глаг., -m / -sz: czytam, czytasz, czytają",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "jeść",
+   "translit": "ещьчь",
+   "ru": "есть",
+   "pos": "глаг., -m / -sz: jem, jesz, je, jemy, jecie, jedzą",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "wiedzieć",
+   "translit": "ВЕ-джечь",
+   "ru": "знать (факт)",
+   "pos": "глаг., -m / -sz: wiem, wiesz, wie, wiemy, wiecie, wiedzą",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "mieć",
+   "translit": "мечь",
+   "ru": "иметь",
+   "pos": "глаг., -m / -sz: mam, masz, mają",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "mówić",
+   "translit": "МУ-вичь",
+   "ru": "говорить",
+   "pos": "глаг., -ę / -isz: mówię, mówisz, mówią",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "chodzić",
+   "translit": "ХО-джичь",
+   "ru": "ходить",
+   "pos": "глаг., -ę / -isz: chodzę, chodzisz, chodzą",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "robić",
+   "translit": "РО-бичь",
+   "ru": "делать",
+   "pos": "глаг., -ę / -isz: robię, robisz, robią",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "uczyć się",
+   "translit": "У-чычь щен",
+   "ru": "учиться, учить",
+   "pos": "глаг., -ę / -ysz: uczę się, uczysz się; + родительный: uczę się języka polskiego",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "chcieć",
+   "translit": "хчечь",
+   "ru": "хотеть",
+   "pos": "глаг., -ę / -esz: chcę, chcesz, chce, chcemy, chcecie, chcą",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "pisać",
+   "translit": "ПИ-сачь",
+   "ru": "писать",
+   "pos": "глаг., -ę / -esz: piszę, piszesz, piszą",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "móc",
+   "translit": "муц",
+   "ru": "мочь",
+   "pos": "глаг., -ę / -esz: mogę, możesz, może, możemy, możecie, mogą",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "studiować",
+   "translit": "сту-ДЬЁ-вачь",
+   "ru": "учиться в вузе, изучать",
+   "pos": "глаг., -ować: studiuję, studiujesz, studiują",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "pracować",
+   "translit": "пра-ЦО-вачь",
+   "ru": "работать",
+   "pos": "глаг., -ować: pracuję, pracujesz, pracują",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "dzwonić",
+   "translit": "ДЗВО-ничь",
+   "ru": "звонить",
+   "pos": "глаг., -ę / -isz: dzwonię, dzwonisz; dzwonić do + родительный",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "wybierać",
+   "translit": "вы-БЕ-рачь",
+   "ru": "выбирать",
+   "pos": "глаг., -m / -sz: wybieram, wybierasz",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "przepraszać",
+   "translit": "пшэ-ПРА-шачь",
+   "ru": "извиняться",
+   "pos": "глаг., -m / -sz: przepraszam, przepraszasz",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "myśleć",
+   "translit": "МЫЩЬ-лечь",
+   "ru": "думать",
+   "pos": "глаг.: myślę, myślisz; Myślę, że… — Думаю, что…",
+   "src": "wb",
+   "topic": "Спряжение: глаголы урока"
+  },
+  {
+   "pl": "dyskutować",
+   "translit": "дыс-ку-ТО-вачь",
+   "ru": "обсуждать, дискутировать",
+   "pos": "глаг., -ować: dyskutuję, dyskutujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "mailować",
+   "translit": "мэй-ЛЁ-вачь",
+   "ru": "писать имейлы",
+   "pos": "глаг., -ować: mailuję, mailujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "surfować",
+   "translit": "сур-ФО-вачь",
+   "ru": "сёрфить (в интернете)",
+   "pos": "глаг., -ować: surfuję, surfujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "telefonować",
+   "translit": "тэ-лэ-фо-НО-вачь",
+   "ru": "звонить по телефону",
+   "pos": "глаг., -ować: telefonuję, telefonujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "planować",
+   "translit": "пла-НО-вачь",
+   "ru": "планировать",
+   "pos": "глаг., -ować: planuję, planujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "dekorować",
+   "translit": "дэ-ко-РО-вачь",
+   "ru": "украшать",
+   "pos": "глаг., -ować: dekoruję, dekorujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "kontrolować",
+   "translit": "кон-тро-ЛЁ-вачь",
+   "ru": "проверять, контролировать",
+   "pos": "глаг., -ować: kontroluję, kontrolujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "lądować",
+   "translit": "лён-ДО-вачь",
+   "ru": "приземляться",
+   "pos": "глаг., -ować: ląduję, lądujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "parkować",
+   "translit": "пар-КО-вачь",
+   "ru": "парковать(ся)",
+   "pos": "глаг., -ować: parkuję, parkujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "koniugować",
+   "translit": "ко-ню-ГО-вачь",
+   "ru": "спрягать",
+   "pos": "глаг., -ować: koniuguję, koniugujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "negocjować",
+   "translit": "нэ-го-ЦЬЁ-вачь",
+   "ru": "вести переговоры",
+   "pos": "глаг., -ować: negocjuję, negocjujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "protestować",
+   "translit": "про-тэс-ТО-вачь",
+   "ru": "протестовать",
+   "pos": "глаг., -ować: protestuję, protestujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "stresować się",
+   "translit": "стрэ-СО-вачь щен",
+   "ru": "нервничать, переживать",
+   "pos": "глаг., -ować: stresuję się",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "analizować",
+   "translit": "а-на-ли-ЗО-вачь",
+   "ru": "анализировать",
+   "pos": "глаг., -ować: analizuję, analizujesz",
+   "src": "tb",
+   "topic": "Глаголы на -ować"
+  },
+  {
+   "pl": "oferta",
+   "translit": "о-ФЭР-та",
+   "ru": "предложение (коммерческое)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "zapraszamy",
+   "translit": "за-пра-ША-мы",
+   "ru": "приглашаем, ждём вас",
+   "pos": "глаг. zapraszać, мы",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "biuro turystyczne",
+   "translit": "БЮ-ро ту-рыс-ТЫЧ-нэ",
+   "ru": "турагентство",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "wycieczka",
+   "translit": "вы-ЧЕЧ-ка",
+   "ru": "экскурсия, поездка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "księgarnia",
+   "translit": "кщэн-ГАР-ня",
+   "ru": "книжный магазин",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "pływalnia",
+   "translit": "пўы-ВАЛЬ-ня",
+   "ru": "бассейн (крытый)",
+   "pos": "сущ., ж. р.; na pływalnię — в бассейн",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "basen",
+   "translit": "БА-сэн",
+   "ru": "бассейн",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "korty tenisowe",
+   "translit": "КОР-ты тэ-ни-СО-вэ",
+   "ru": "теннисные корты",
+   "pos": "сущ., мн. ч.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "klub",
+   "translit": "клюп",
+   "ru": "клуб",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "joga",
+   "translit": "Ё-га",
+   "ru": "йога",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "szkoła jogi",
+   "translit": "ШКО-ўа Ё-ги",
+   "ru": "школа йоги",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "joga"
+  },
+  {
+   "pl": "spektakl",
+   "translit": "СПЭК-такль",
+   "ru": "спектакль",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "premiera",
+   "translit": "прэ-МЕ-ра",
+   "ru": "премьера",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "festiwal filmów",
+   "translit": "фэс-ТИ-валь ФИЛЬ-муф",
+   "ru": "кинофестиваль",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "galeria",
+   "translit": "га-ЛЕ-рья",
+   "ru": "галерея",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "wystawa",
+   "translit": "вы-СТА-ва",
+   "ru": "выставка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "sklep muzyczny",
+   "translit": "склеп му-ЗЫЧ-ны",
+   "ru": "музыкальный магазин",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "sklep sportowy",
+   "translit": "склеп спор-ТО-вы",
+   "ru": "спортивный магазин",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Места и объявления"
+  },
+  {
+   "pl": "bilet",
+   "translit": "БИ-лет",
+   "ru": "билет",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Звонок и билеты"
+  },
+  {
+   "pl": "bilet normalny",
+   "translit": "БИ-лет нор-МАЛЬ-ны",
+   "ru": "полный билет",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "bilet"
+  },
+  {
+   "pl": "bilet ulgowy",
+   "translit": "БИ-лет уль-ГО-вы",
+   "ru": "льготный билет",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "bilet"
+  },
+  {
+   "pl": "Zwykły czy ulgowy?",
+   "translit": "ЗВЫК-ўы чы уль-ГО-вы",
+   "ru": "Обычный или льготный?",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "bilet"
+  },
+  {
+   "pl": "rezerwacja biletów",
+   "translit": "рэ-зэр-ВА-цья би-ЛЕ-туф",
+   "ru": "бронирование билетов",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Звонок и билеты"
+  },
+  {
+   "pl": "zarezerwować",
+   "translit": "за-рэ-зэр-ВО-вачь",
+   "ru": "забронировать",
+   "pos": "глаг., -ować: zarezerwuję",
+   "src": "tb",
+   "topic": "Звонок и билеты"
+  },
+  {
+   "pl": "Czy mogę zarezerwować miejsca?",
+   "translit": "чы МО-гэ за-рэ-зэр-ВО-вачь МЕЙС-ца",
+   "ru": "Можно забронировать места?",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "zarezerwować"
+  },
+  {
+   "pl": "miejsce",
+   "translit": "МЕЙС-цэ",
+   "ru": "место",
+   "pos": "сущ., ср. р.; мн. ч.: miejsca",
+   "src": "tb",
+   "topic": "Звонок и билеты"
+  },
+  {
+   "pl": "wolne miejsca",
+   "translit": "ВОЛЬ-нэ МЕЙС-ца",
+   "ru": "свободные места",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "miejsce"
+  },
+  {
+   "pl": "płyta",
+   "translit": "ПЎЫ-та",
+   "ru": "диск, альбом",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Звонок и билеты"
+  },
+  {
+   "pl": "Słucham.",
+   "translit": "СЎУ-хам",
+   "ru": "Слушаю. (ответ на звонок)",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Звонок и билеты"
+  },
+  {
+   "pl": "To pomyłka.",
+   "translit": "то по-МЫЎ-ка",
+   "ru": "Вы ошиблись номером.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Звонок и билеты"
+  },
+  {
+   "pl": "Na jakie nazwisko?",
+   "translit": "на Я-ке наз-ВИС-ко",
+   "ru": "На какую фамилию?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Звонок и билеты"
+  },
+  {
+   "pl": "kolega, koleżanka",
+   "translit": "ко-ЛЭ-га, ко-лэ-ЖАН-ка",
+   "ru": "приятель, приятельница; коллега",
+   "pos": "сущ., м. р. / ж. р.",
+   "src": "tb",
+   "topic": "Люди"
+  },
+  {
+   "pl": "kolega z grupy",
+   "translit": "ко-ЛЭ-га з ГРУ-пы",
+   "ru": "одногруппник",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "kolega, koleżanka"
+  },
+  {
+   "pl": "przyjaciel, przyjaciółka",
+   "translit": "пшы-Я-чель, пшы-я-ЧУЎ-ка",
+   "ru": "друг, подруга (близкие)",
+   "pos": "сущ., м. р. / ж. р.",
+   "src": "tb",
+   "topic": "Люди"
+  },
+  {
+   "pl": "znajomy, znajoma",
+   "translit": "зна-Ё-мы, зна-Ё-ма",
+   "ru": "знакомый, знакомая",
+   "pos": "сущ. / прил.",
+   "src": "tb",
+   "topic": "Люди"
+  },
+  {
+   "pl": "emeryt, emerytka",
+   "translit": "э-МЭ-рыт, э-мэ-РЫТ-ка",
+   "ru": "пенсионер, пенсионерка",
+   "pos": "сущ., м. р. / ж. р.",
+   "src": "tb",
+   "topic": "Люди"
+  },
+  {
+   "pl": "dziennikarz, dziennikarka",
+   "translit": "джен-НИ-каш, джен-ни-КАР-ка",
+   "ru": "журналист, журналистка",
+   "pos": "сущ., м. р. / ж. р.",
+   "src": "tb",
+   "topic": "Люди"
+  },
+  {
+   "pl": "uczeń, uczennica",
+   "translit": "У-чэнь, у-чэн-НИ-ца",
+   "ru": "ученик, ученица",
+   "pos": "сущ., м. р. / ж. р.",
+   "src": "tb",
+   "topic": "Люди"
+  },
+  {
+   "pl": "wnuczka",
+   "translit": "ВНУЧ-ка",
+   "ru": "внучка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Люди"
+  },
+  {
+   "pl": "liceum",
+   "translit": "ли-ЦЭ-ум",
+   "ru": "лицей (старшая школа)",
+   "pos": "сущ., ср. р.; chodzić do liceum",
+   "src": "tb",
+   "topic": "Люди"
+  },
+  {
+   "pl": "matura",
+   "translit": "ма-ТУ-ра",
+   "ru": "выпускные экзамены (аттестат)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Люди"
+  },
+  {
+   "pl": "po maturze",
+   "translit": "по ма-ТУ-жэ",
+   "ru": "после школы (после выпускных)",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "matura"
+  },
+  {
+   "pl": "aktywny",
+   "translit": "ак-ТЫВ-ны",
+   "ru": "активный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Люди"
+  },
+  {
+   "pl": "Francuzka",
+   "translit": "фран-ЦУС-ка",
+   "ru": "француженка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Люди"
+  },
+  {
+   "pl": "Co lubisz robić?",
+   "translit": "цо ЛЮ-бищь РО-бичь",
+   "ru": "Что ты любишь делать?",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Co pan / pani lubi robić?",
+   "translit": "цо пан / ПА-ни ЛЮ-би РО-бичь",
+   "ru": "Что вы любите делать?",
+   "pos": "🔗 фраза (вежливо)",
+   "src": "wb",
+   "of": "Co lubisz robić?"
+  },
+  {
+   "pl": "Czy lubisz…?",
+   "translit": "чы ЛЮ-бищь",
+   "ru": "Ты любишь…?",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Bardzo lubię…",
+   "translit": "БАР-дзо ЛЮ-бье",
+   "ru": "Я очень люблю…",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Interesuję się…",
+   "translit": "ин-тэ-рэ-СУ-е щен",
+   "ru": "Я интересуюсь… (+ творительный)",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Wybieram…, bo…",
+   "translit": "вы-БЕ-рам, бо",
+   "ru": "Я выбираю…, потому что…",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "bo",
+   "translit": "бо",
+   "ru": "потому что",
+   "pos": "союз",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "na przykład",
+   "translit": "на ПШЫ-кўат",
+   "ru": "например",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "szczególnie",
+   "translit": "щчэ-ГУЛЬ-не",
+   "ru": "особенно",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "raczej",
+   "translit": "РА-чэй",
+   "ru": "скорее, довольно",
+   "pos": "частица",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Czy może pan mówić wolniej?",
+   "translit": "чы МО-жэ пан МУ-вичь ВОЛЬ-ней",
+   "ru": "Не могли бы вы говорить медленнее?",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "To jest bez sensu.",
+   "translit": "то ест бэс СЭН-су",
+   "ru": "Это бессмысленно.",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "prosić o uwagę",
+   "translit": "ПРО-щичь о у-ВА-гэ",
+   "ru": "просить внимания",
+   "pos": "глаг.: proszę, prosisz",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "bezokolicznik",
+   "translit": "бэз-о-ко-ЛИЧ-ник",
+   "ru": "инфинитив",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "biernik",
+   "translit": "БЕР-ник",
+   "ru": "винительный падеж",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "narzędnik",
+   "translit": "на-ЖЭНД-ник",
+   "ru": "творительный падеж",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "koniugacja",
+   "translit": "ко-ню-ГА-цья",
+   "ru": "спряжение",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "czasownik",
+   "translit": "ча-СОВ-ник",
+   "ru": "глагол",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "zaimek",
+   "translit": "ЗА-и-мэк",
+   "ru": "местоимение",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "końcówka",
+   "translit": "конь-ЦУФ-ка",
+   "ru": "окончание",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "liczba pojedyncza",
+   "translit": "ЛИДЖ-ба по-е-ДЫН-ча",
+   "ru": "единственное число",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "liczba mnoga",
+   "translit": "ЛИДЖ-ба МНО-га",
+   "ru": "множественное число",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  }
+ ],
+ "exercises": [
+  {
+   "id": "tb-5-1",
+   "src": "tb",
+   "ref": "Ćw. 1, s. 42",
+   "title": "Proszę podpisać rysunki.",
+   "title_ru": "Подпиши картинки",
+   "task_ru": "Картинки из учебника — здесь описание по-русски. Напиши занятие по-польски (инфинитив). Слова: chodzić po górach, grać na gitarze, grać w tenisa, słuchać muzyki, tańczyć, czytać książki, czytać gazety, oglądać telewizję, spotykać się z kolegami, robić zdjęcia, chodzić do kawiarni, chodzić do kina, chodzić do teatru, chodzić do restauracji, podróżować, jeździć na rowerze, uprawiać sport (два лишние).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "🎭 люди входят в театр",
+     "answer": "chodzić do teatru",
+     "ru": "ходить в театр"
+    },
+    {
+     "q": "📖 девушка лежит с книгой",
+     "answer": "czytać książki",
+     "ru": "читать книги"
+    },
+    {
+     "q": "🍽 люди идут в ресторан",
+     "answer": "chodzić do restauracji",
+     "ru": "ходить в ресторан"
+    },
+    {
+     "q": "🎾 девушка с ракеткой",
+     "answer": "grać w tenisa",
+     "ru": "играть в теннис"
+    },
+    {
+     "q": "📰 мужчина с газетой",
+     "answer": "czytać gazety",
+     "ru": "читать газеты"
+    },
+    {
+     "q": "💃 пара танцует",
+     "answer": "tańczyć",
+     "ru": "танцевать",
+     "translit": "ТАНЬ-чычь"
+    },
+    {
+     "q": "📷 человек с фотоаппаратом",
+     "answer": "robić zdjęcia",
+     "ru": "фотографировать"
+    },
+    {
+     "q": "🎧 парень в наушниках",
+     "answer": "słuchać muzyki",
+     "ru": "слушать музыку"
+    },
+    {
+     "q": "🏋 люди с гантелями и грушей",
+     "answer": "uprawiać sport",
+     "ru": "заниматься спортом"
+    },
+    {
+     "q": "🚲 мужчина на велосипеде",
+     "answer": "jeździć na rowerze",
+     "ru": "кататься на велосипеде"
+    },
+    {
+     "q": "🎸 рокер с гитарой",
+     "answer": "grać na gitarze",
+     "ru": "играть на гитаре"
+    },
+    {
+     "q": "⛰ турист на вершине горы",
+     "answer": "chodzić po górach",
+     "ru": "ходить по горам"
+    },
+    {
+     "q": "🧳 человек с чемоданом и картой",
+     "answer": "podróżować",
+     "ru": "путешествовать",
+     "translit": "по-дру-ЖО-вачь"
+    },
+    {
+     "q": "📺 мужчина в кресле перед телевизором",
+     "answer": "oglądać telewizję",
+     "ru": "смотреть телевизор"
+    },
+    {
+     "q": "👥 друзья встречаются и здороваются",
+     "answer": "spotykać się z kolegami",
+     "ru": "встречаться с друзьями"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-2",
+   "src": "tb",
+   "ref": "Ćw. 2, s. 43",
+   "title": "Proszę wybrać właściwe słowa.",
+   "title_ru": "Выбери подходящее слово",
+   "task_ru": "Слова: podróżować, uprawiać, tańczyć, jeździć, lubisz, karty, czytać, grać, robić, spotykać, słuchać, pływać, śpiewać, gazety, muzyki, chodzić (uprawiać — в примере). Напиши слово для пропуска.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Bardzo lubię grać w ___ – na przykład w brydża.",
+     "answer": "karty",
+     "ru": "Я очень люблю играть в карты — например, в бридж."
+    },
+    {
+     "q": "Czy lubicie ___ muzyki klasycznej?",
+     "answer": "słuchać",
+     "ru": "Вы любите слушать классическую музыку?",
+     "grammar": "słuchać + родительный: muzyki"
+    },
+    {
+     "q": "On nie lubi ___ do teatru.",
+     "answer": "chodzić",
+     "ru": "Он не любит ходить в театр."
+    },
+    {
+     "q": "Mariusz i Agnieszka lubią ___ książki kryminalne.",
+     "answer": "czytać",
+     "ru": "Мариуш и Агнешка любят читать детективы."
+    },
+    {
+     "q": "Czy lubisz ___ w tenisa?",
+     "answer": "grać",
+     "ru": "Ты любишь играть в теннис?"
+    },
+    {
+     "q": "Mój znajomy lubi czytać ___, szczególnie „Gazetę Wyborczą”.",
+     "answer": "gazety",
+     "ru": "Мой знакомый любит читать газеты, особенно «Газету Выборчу»."
+    },
+    {
+     "q": "Czy ___ chodzić do teatru?",
+     "answer": "lubisz",
+     "ru": "Ты любишь ходить в театр?"
+    },
+    {
+     "q": "On bardzo lubi ___ w Parku Wodnym.",
+     "answer": "pływać",
+     "ru": "Он очень любит плавать в аквапарке."
+    },
+    {
+     "q": "Marta i Wojtek bardzo lubią ___ na rowerze.",
+     "answer": "jeździć",
+     "ru": "Марта и Войтек очень любят кататься на велосипеде."
+    },
+    {
+     "q": "Bardzo lubimy ___ po Europie.",
+     "answer": "podróżować",
+     "ru": "Мы очень любим путешествовать по Европе."
+    },
+    {
+     "q": "Moja przyjaciółka lubi ___ na dyskotece.",
+     "answer": "tańczyć",
+     "ru": "Моя подруга любит танцевать на дискотеке."
+    },
+    {
+     "q": "Ona bardzo lubi ___ zakupy.",
+     "answer": "robić",
+     "ru": "Она очень любит делать покупки."
+    },
+    {
+     "q": "Beata i Adam lubią się ___ z kolegami.",
+     "answer": "spotykać",
+     "ru": "Беата и Адам любят встречаться с друзьями."
+    },
+    {
+     "q": "Madonna lubi ___.",
+     "answer": "śpiewać",
+     "ru": "Мадонна любит петь."
+    },
+    {
+     "q": "One lubią słuchać ___ rockowej.",
+     "answer": "muzyki",
+     "ru": "Они любят слушать рок-музыку."
+    }
+   ]
+  },
+  {
+   "id": "tb-5-3",
+   "src": "tb",
+   "ref": "Ćw. 3, s. 43",
+   "title": "Co Pan / Pani lubi robić?",
+   "title_ru": "Что ты любишь делать?",
+   "task_ru": "Ответь о себе полным предложением: lubić + инфинитив. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Co lubisz robić? (3 занятия)",
+     "answer": "Bardzo lubię pływać, czytać książki i podróżować.",
+     "ru": "Что ты любишь делать?"
+    },
+    {
+     "q": "Czy lubisz tańczyć?",
+     "answer": "Nie, nie lubię tańczyć, ale lubię słuchać muzyki.",
+     "ru": "Ты любишь танцевать?"
+    },
+    {
+     "q": "Co lubi robić twój kolega / twoja koleżanka?",
+     "answer": "Mój kolega lubi grać w tenisa, jeździć na rowerze i grać na gitarze.",
+     "ru": "Что любит делать твой друг / твоя подруга?"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-4a",
+   "src": "tb",
+   "ref": "Ćw. 4a, s. 43",
+   "title": "Proszę posłuchać nagrania i napisać, ile lat mają te osoby.",
+   "title_ru": "Сколько им лет?",
+   "task_ru": "Послушай запись (аудио выше) и напиши возраст числом: «65». Йоанне — 33 года (пример).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "B. Józef Buła ma ___ lat.",
+     "answer": "65",
+     "ru": "Сколько лет Юзефу Буле?",
+     "accepted": [
+      "65 lat",
+      "sześćdziesiąt pięć"
+     ]
+    },
+    {
+     "q": "C. Jacek ma ___ lat.",
+     "answer": "25",
+     "ru": "Сколько лет Яцеку?",
+     "accepted": [
+      "25 lat",
+      "dwadzieścia pięć"
+     ]
+    },
+    {
+     "q": "D. Magda ma ___ lat.",
+     "answer": "18",
+     "ru": "Сколько лет Магде?",
+     "accepted": [
+      "18 lat",
+      "osiemnaście"
+     ]
+    }
+   ],
+   "audio": [
+    "028 - HURRA_PP1_podr_stud.mp3",
+    "029 - HURRA_PP1_podr_stud.mp3",
+    "030 - HURRA_PP1_podr_stud.mp3",
+    "031 - HURRA_PP1_podr_stud.mp3"
+   ]
+  },
+  {
+   "id": "tb-5-4b",
+   "src": "tb",
+   "ref": "Ćw. 4b, s. 43",
+   "title": "Czy informacje 1–4 są prawdziwe (P), czy nieprawdziwe (N)?",
+   "title_ru": "Правда или неправда?",
+   "task_ru": "Послушай запись (аудио выше): правда или нет?",
+   "type": "tf",
+   "items": [
+    {
+     "q": "A. Joanna Klimek jest Francuzką.",
+     "answer": "nieprawda",
+     "ru": "Йоанна Климек — француженка."
+    },
+    {
+     "q": "A. Joanna interesuje się polityką europejską.",
+     "answer": "prawda",
+     "ru": "Йоанна интересуется европейской политикой."
+    },
+    {
+     "q": "A. Joanna lubi robić zdjęcia.",
+     "answer": "prawda",
+     "ru": "Йоанна любит фотографировать."
+    },
+    {
+     "q": "A. Joanna lubi grać na gitarze.",
+     "answer": "nieprawda",
+     "ru": "Йоанна любит играть на гитаре."
+    },
+    {
+     "q": "B. Józef Buła jest emerytem.",
+     "answer": "prawda",
+     "ru": "Юзеф Була — пенсионер."
+    },
+    {
+     "q": "B. Józef lubi pływać.",
+     "answer": "prawda",
+     "ru": "Юзеф любит плавать."
+    },
+    {
+     "q": "B. Józef nie lubi grać w karty.",
+     "answer": "nieprawda",
+     "ru": "Юзеф не любит играть в карты."
+    },
+    {
+     "q": "B. Józef lubi oglądać telewizję.",
+     "answer": "prawda",
+     "ru": "Юзеф любит смотреть телевизор."
+    },
+    {
+     "q": "C. Jacek jest mężem Joanny.",
+     "answer": "nieprawda",
+     "ru": "Яцек — муж Йоанны."
+    },
+    {
+     "q": "C. Jacek studiuje polonistykę w Krakowie.",
+     "answer": "nieprawda",
+     "ru": "Яцек изучает полонистику в Кракове."
+    },
+    {
+     "q": "C. Jacek interesuje się muzyką rockową.",
+     "answer": "prawda",
+     "ru": "Яцек интересуется рок-музыкой."
+    },
+    {
+     "q": "C. Jacek jest aktywny – lubi podróżować i jeździć na rowerze.",
+     "answer": "prawda",
+     "ru": "Яцек активный — любит путешествовать и кататься на велосипеде."
+    },
+    {
+     "q": "D. Magda jest studentką.",
+     "answer": "nieprawda",
+     "ru": "Магда — студентка."
+    },
+    {
+     "q": "D. Magda lubi chodzić do muzeum.",
+     "answer": "nieprawda",
+     "ru": "Магда любит ходить в музей."
+    },
+    {
+     "q": "D. Magda bardzo lubi fizykę.",
+     "answer": "nieprawda",
+     "ru": "Магда очень любит физику."
+    },
+    {
+     "q": "D. Magda interesuje się informatyką.",
+     "answer": "prawda",
+     "ru": "Магда интересуется информатикой."
+    }
+   ],
+   "audio": [
+    "028 - HURRA_PP1_podr_stud.mp3",
+    "029 - HURRA_PP1_podr_stud.mp3",
+    "030 - HURRA_PP1_podr_stud.mp3",
+    "031 - HURRA_PP1_podr_stud.mp3"
+   ]
+  },
+  {
+   "id": "tb-5-5a",
+   "src": "tb",
+   "ref": "Ćw. 5a, s. 44",
+   "title": "Proszę uzupełnić zdania.",
+   "title_ru": "lubić + инфинитив / винительный, interesować się + творительный",
+   "task_ru": "Вставь слова из скобок в нужные места: lubię + инфинитив — lubię + винительный — interesuję się + творительный. Ответ — через запятую в порядке пропусков: «chodzić, kino, kinem».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "(kinem, kino, chodzić) Dorota i Renata lubią ___ do kina – one lubią ___ – interesują się ___.",
+     "answer": "chodzić, kino, kinem",
+     "ru": "Дорота и Рената любят ходить в кино — они любят кино — интересуются кино."
+    },
+    {
+     "q": "(czytać, literaturę, literaturą) Mój brat lubi ___ książki – on lubi ___ – interesuje się ___.",
+     "answer": "czytać, literaturę, literaturą",
+     "ru": "Мой брат любит читать книги — он любит литературу — интересуется литературой."
+    },
+    {
+     "q": "(muzyką, śpiewać, muzykę, grać) Nasz kuzyn lubi ___ i ___ na gitarze – on lubi ___ – interesuje się ___.",
+     "answer": "śpiewać, grać, muzykę, muzyką",
+     "ru": "Наш двоюродный брат любит петь и играть на гитаре — он любит музыку — интересуется музыкой."
+    },
+    {
+     "q": "(robić, fotografią, fotografię) Pani Wojciechowska lubi ___ zdjęcia – ona lubi ___ – interesuje się ___.",
+     "answer": "robić, fotografię, fotografią",
+     "ru": "Пани Войцеховская любит фотографировать — любит фотографию — интересуется фотографией."
+    },
+    {
+     "q": "(podróżować, geografię, geografią) Lubimy ___ po Polsce – lubimy ___ – interesujemy się ___.",
+     "answer": "podróżować, geografię, geografią",
+     "ru": "Мы любим путешествовать по Польше — любим географию — интересуемся географией."
+    }
+   ]
+  },
+  {
+   "id": "tb-5-5b",
+   "src": "tb",
+   "ref": "Ćw. 5b, s. 44",
+   "title": "Proszę napisać 3 zdania podobne do zdań w ćw. 5a.",
+   "title_ru": "Напиши 3 похожих предложения",
+   "task_ru": "Напиши о себе (или о друзьях) по схеме: lubię + инфинитив – lubię + винительный – interesuję się + творительный. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Предложение 1",
+     "answer": "Lubię grać w tenisa – lubię sport – interesuję się sportem.",
+     "ru": "Я люблю играть в теннис — люблю спорт — интересуюсь спортом."
+    },
+    {
+     "q": "Предложение 2",
+     "answer": "Lubię czytać o historii – lubię historię – interesuję się historią.",
+     "ru": "Я люблю читать об истории — люблю историю — интересуюсь историей."
+    },
+    {
+     "q": "Предложение 3",
+     "answer": "Lubię słuchać muzyki – lubię muzykę – interesuję się muzyką.",
+     "ru": "Я люблю слушать музыку — люблю музыку — интересуюсь музыкой."
+    }
+   ]
+  },
+  {
+   "id": "tb-5-6",
+   "src": "tb",
+   "ref": "Ćw. 6, s. 44",
+   "title": "Proszę posłuchać nagrania i napisać, w jakiej kolejności słyszał Pan / słyszała Pani te słowa.",
+   "title_ru": "В каком порядке звучат слова?",
+   "task_ru": "Послушай запись (аудио выше) и напиши слова через запятую в том порядке, в котором их слышишь.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "a) -ia: geografia, biologia, chemia, historia, filozofia, psychologia, socjologia, geologia, galeria, ekonomia",
+     "answer": "historia, geografia, galeria, chemia, psychologia, filozofia, socjologia, geologia, ekonomia, biologia",
+     "ru": "слова на -ia — в порядке записи",
+     "grammar": "-ia после согласной читается как [-ья]: geografia — гэ-о-ГРА-фья"
+    },
+    {
+     "q": "b) -ka: polityka, muzyka, gramatyka, informatyka, fizyka, matematyka, statystyka, botanika, anglistyka, polonistyka",
+     "answer": "matematyka, polityka, informatyka, fizyka, muzyka, statystyka, anglistyka, botanika, polonistyka, gramatyka",
+     "ru": "слова на -ka — в порядке записи",
+     "grammar": "в словах на -yka/-ika ударение часто на 3-й слог от конца: ma-te-MA-ty-ka"
+    }
+   ],
+   "audio": [
+    "032 - HURRA_PP1_podr_stud.mp3",
+    "033 - HURRA_PP1_podr_stud.mp3"
+   ]
+  },
+  {
+   "id": "tb-5-7",
+   "src": "tb",
+   "ref": "Ćw. 7, s. 45",
+   "title": "Którą ofertę Pan / Pani wybiera i dlaczego?",
+   "title_ru": "Какое предложение ты выбираешь и почему?",
+   "task_ru": "Объявления — на странице учебника (кнопка 📄 ниже): турбюро, книжный, карате, бассейн, корты, йога, диско-клуб, театр, кино, фитнес-клуб, фотогалерея. Ответь по схеме из примера. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Którą ofertę wybierasz i dlaczego?",
+     "answer": "Wybieram pływalnię, bo bardzo lubię pływać i interesuję się sportem.",
+     "ru": "Какое предложение ты выбираешь и почему?"
+    },
+    {
+     "q": "Którą ofertę wybiera twój kolega / twoja koleżanka?",
+     "answer": "Myślę, że Anna wybiera nowy teatr, bo lubi chodzić do teatru i interesuje się literaturą.",
+     "ru": "Какое предложение выбирает твой друг / твоя подруга?"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-8",
+   "src": "tb",
+   "ref": "Ćw. 8, s. 46",
+   "title": "Jak często…? — proszę zadać pytania.",
+   "title_ru": "Задай вопрос «Как часто…?»",
+   "task_ru": "Преврати занятие (3-е лицо) в вопрос к другу на «ты»: «chodzi do kina» → «Jak często chodzisz do kina?».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "chodzi do kina",
+     "answer": "Jak często chodzisz do kina?",
+     "ru": "Как часто ты ходишь в кино?",
+     "accepted": [
+      "Jak często chodzi pan do kina?",
+      "Jak często chodzi pani do kina?"
+     ]
+    },
+    {
+     "q": "chodzi do teatru",
+     "answer": "Jak często chodzisz do teatru?",
+     "ru": "Как часто ты ходишь в театр?"
+    },
+    {
+     "q": "chodzi do muzeum",
+     "answer": "Jak często chodzisz do muzeum?",
+     "ru": "Как часто ты ходишь в музей?"
+    },
+    {
+     "q": "czyta książki",
+     "answer": "Jak często czytasz książki?",
+     "ru": "Как часто ты читаешь книги?"
+    },
+    {
+     "q": "chodzi na koncerty",
+     "answer": "Jak często chodzisz na koncerty?",
+     "ru": "Как часто ты ходишь на концерты?"
+    },
+    {
+     "q": "uprawia sport",
+     "answer": "Jak często uprawiasz sport?",
+     "ru": "Как часто ты занимаешься спортом?"
+    },
+    {
+     "q": "słucha muzyki",
+     "answer": "Jak często słuchasz muzyki?",
+     "ru": "Как часто ты слушаешь музыку?"
+    },
+    {
+     "q": "jeździ taksówką",
+     "answer": "Jak często jeździsz taksówką?",
+     "ru": "Как часто ты ездишь на такси?"
+    },
+    {
+     "q": "podróżuje",
+     "answer": "Jak często podróżujesz?",
+     "ru": "Как часто ты путешествуешь?",
+     "grammar": "-ować → -uję, -ujesz"
+    },
+    {
+     "q": "spotyka się z kolegami",
+     "answer": "Jak często spotykasz się z kolegami?",
+     "ru": "Как часто ты встречаешься с друзьями?"
+    },
+    {
+     "q": "chodzi do restauracji na obiad",
+     "answer": "Jak często chodzisz do restauracji na obiad?",
+     "ru": "Как часто ты ходишь в ресторан на обед?"
+    },
+    {
+     "q": "ogląda telewizję",
+     "answer": "Jak często oglądasz telewizję?",
+     "ru": "Как часто ты смотришь телевизор?"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-9",
+   "src": "tb",
+   "ref": "Ćw. 9, s. 46",
+   "title": "Jak często Pan / Pani to robi?",
+   "title_ru": "Как часто ты это делаешь?",
+   "task_ru": "Начни фразу словом «как часто» о себе: zawsze, codziennie, zwykle w weekend, często, od czasu do czasu, rzadko, nigdy nie. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "___ chodzę do kina.",
+     "answer": "Od czasu do czasu chodzę do kina.",
+     "ru": "…хожу в кино."
+    },
+    {
+     "q": "___ pływam.",
+     "answer": "Zwykle w weekend pływam.",
+     "ru": "…плаваю."
+    },
+    {
+     "q": "___ jeżdżę na nartach.",
+     "answer": "Nigdy nie jeżdżę na nartach.",
+     "ru": "…катаюсь на лыжах.",
+     "grammar": "nigdy + nie перед глаголом"
+    },
+    {
+     "q": "___ chodzę do filharmonii.",
+     "answer": "Rzadko chodzę do filharmonii.",
+     "ru": "…хожу в филармонию."
+    },
+    {
+     "q": "___ pracuję.",
+     "answer": "Codziennie pracuję.",
+     "ru": "…работаю."
+    },
+    {
+     "q": "___ uprawiam sport.",
+     "answer": "Często uprawiam sport.",
+     "ru": "…занимаюсь спортом."
+    },
+    {
+     "q": "___ surfuję po internecie.",
+     "answer": "Codziennie surfuję po internecie.",
+     "ru": "…сижу в интернете."
+    },
+    {
+     "q": "___ mailuję.",
+     "answer": "Często mailuję.",
+     "ru": "…пишу имейлы."
+    },
+    {
+     "q": "___ oglądam telewizję.",
+     "answer": "Rzadko oglądam telewizję.",
+     "ru": "…смотрю телевизор."
+    },
+    {
+     "q": "___ chodzę na koncerty.",
+     "answer": "Od czasu do czasu chodzę na koncerty.",
+     "ru": "…хожу на концерты."
+    }
+   ]
+  },
+  {
+   "id": "tb-5-10a",
+   "src": "tb",
+   "ref": "Ćw. 10, s. 47 (1/3)",
+   "title": "Proszę uzupełnić tabele. KONIUGACJA: -m, -sz",
+   "title_ru": "Спряжение -m, -sz",
+   "task_ru": "Напиши форму глагола для лица в скобках (только глагол). Спряжение -m, -sz: -m, -sz, -, -my, -cie, -ją / -ą.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "mieszkać — (ja)",
+     "answer": "mieszkam",
+     "ru": "жить: я"
+    },
+    {
+     "q": "mieszkać — (on)",
+     "answer": "mieszka",
+     "ru": "жить: он"
+    },
+    {
+     "q": "mieszkać — (my)",
+     "answer": "mieszkamy",
+     "ru": "жить: мы"
+    },
+    {
+     "q": "mieszkać — (wy)",
+     "answer": "mieszkacie",
+     "ru": "жить: вы"
+    },
+    {
+     "q": "rozumieć — (ty)",
+     "answer": "rozumiesz",
+     "ru": "понимать: ты"
+    },
+    {
+     "q": "rozumieć — (my)",
+     "answer": "rozumiemy",
+     "ru": "понимать: мы"
+    },
+    {
+     "q": "rozumieć — (oni)",
+     "answer": "rozumieją",
+     "ru": "понимать: они"
+    },
+    {
+     "q": "czytać — (ja)",
+     "answer": "czytam",
+     "ru": "читать: я"
+    },
+    {
+     "q": "czytać — (on)",
+     "answer": "czyta",
+     "ru": "читать: он"
+    },
+    {
+     "q": "czytać — (wy)",
+     "answer": "czytacie",
+     "ru": "читать: вы"
+    },
+    {
+     "q": "jeść — (ty)",
+     "answer": "jesz",
+     "ru": "есть: ты"
+    },
+    {
+     "q": "jeść — (on)",
+     "answer": "je",
+     "ru": "есть: он"
+    },
+    {
+     "q": "jeść — (my)",
+     "answer": "jemy",
+     "ru": "есть: мы"
+    },
+    {
+     "q": "wiedzieć — (ja)",
+     "answer": "wiem",
+     "ru": "знать: я"
+    },
+    {
+     "q": "wiedzieć — (on)",
+     "answer": "wie",
+     "ru": "знать: он"
+    },
+    {
+     "q": "wiedzieć — (my)",
+     "answer": "wiemy",
+     "ru": "знать: мы"
+    },
+    {
+     "q": "wiedzieć — (wy)",
+     "answer": "wiecie",
+     "ru": "знать: вы"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-10b",
+   "src": "tb",
+   "ref": "Ćw. 10, s. 47 (2/3)",
+   "title": "Proszę uzupełnić tabele. KONIUGACJA: -ę, -isz / -ę, -ysz",
+   "title_ru": "Спряжение -ę, -isz / -ysz",
+   "task_ru": "Напиши форму глагола для лица в скобках. -ę, -isz (-ysz после cz, sz, rz, ż): -ę, -isz, -i, -imy, -icie, -ą.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "mówić — (ty)",
+     "answer": "mówisz",
+     "ru": "говорить: ты"
+    },
+    {
+     "q": "mówić — (wy)",
+     "answer": "mówicie",
+     "ru": "говорить: вы"
+    },
+    {
+     "q": "mówić — (oni)",
+     "answer": "mówią",
+     "ru": "говорить: они"
+    },
+    {
+     "q": "lubić — (ja)",
+     "answer": "lubię",
+     "ru": "любить: я"
+    },
+    {
+     "q": "lubić — (on)",
+     "answer": "lubi",
+     "ru": "любить: он"
+    },
+    {
+     "q": "lubić — (my)",
+     "answer": "lubimy",
+     "ru": "любить: мы"
+    },
+    {
+     "q": "lubić — (wy)",
+     "answer": "lubicie",
+     "ru": "любить: вы"
+    },
+    {
+     "q": "chodzić — (wy)",
+     "answer": "chodzicie",
+     "ru": "ходить: вы"
+    },
+    {
+     "q": "tańczyć — (ty)",
+     "answer": "tańczysz",
+     "ru": "танцевать: ты"
+    },
+    {
+     "q": "tańczyć — (wy)",
+     "answer": "tańczycie",
+     "ru": "танцевать: вы"
+    },
+    {
+     "q": "tańczyć — (oni)",
+     "answer": "tańczą",
+     "ru": "танцевать: они"
+    },
+    {
+     "q": "uczyć się — (ja)",
+     "answer": "uczę się",
+     "ru": "учиться: я"
+    },
+    {
+     "q": "uczyć się — (on)",
+     "answer": "uczy się",
+     "ru": "учиться: он"
+    },
+    {
+     "q": "uczyć się — (my)",
+     "answer": "uczymy się",
+     "ru": "учиться: мы"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-10c",
+   "src": "tb",
+   "ref": "Ćw. 10, s. 47 (3/3)",
+   "title": "Proszę uzupełnić tabele. KONIUGACJA: -ę, -esz; -ować",
+   "title_ru": "Спряжение -ę, -esz и -ować",
+   "task_ru": "Напиши форму глагола для лица в скобках. -ę, -esz: -ę, -esz, -e, -emy, -ecie, -ą; -ować → -uję, -ujesz…",
+   "type": "gap",
+   "items": [
+    {
+     "q": "chcieć — (ty)",
+     "answer": "chcesz",
+     "ru": "хотеть: ты"
+    },
+    {
+     "q": "pisać — (on)",
+     "answer": "pisze",
+     "ru": "писать: он"
+    },
+    {
+     "q": "pisać — (my)",
+     "answer": "piszemy",
+     "ru": "писать: мы"
+    },
+    {
+     "q": "pisać — (wy)",
+     "answer": "piszecie",
+     "ru": "писать: вы"
+    },
+    {
+     "q": "pisać — (oni)",
+     "answer": "piszą",
+     "ru": "писать: они"
+    },
+    {
+     "q": "móc — (my)",
+     "answer": "możemy",
+     "ru": "мочь: мы"
+    },
+    {
+     "q": "móc — (wy)",
+     "answer": "możecie",
+     "ru": "мочь: вы"
+    },
+    {
+     "q": "studiować — (ty)",
+     "answer": "studiujesz",
+     "ru": "учиться (в вузе): ты"
+    },
+    {
+     "q": "studiować — (my)",
+     "answer": "studiujemy",
+     "ru": "учиться (в вузе): мы"
+    },
+    {
+     "q": "pracować — (ja)",
+     "answer": "pracuję",
+     "ru": "работать: я"
+    },
+    {
+     "q": "pracować — (on)",
+     "answer": "pracuje",
+     "ru": "работать: он"
+    },
+    {
+     "q": "pracować — (wy)",
+     "answer": "pracujecie",
+     "ru": "работать: вы"
+    },
+    {
+     "q": "pracować — (oni)",
+     "answer": "pracują",
+     "ru": "работать: они"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-12b",
+   "src": "tb",
+   "ref": "Ćw. 12b, s. 48",
+   "title": "Proszę uzupełnić zdania właściwą formą czasownika.",
+   "title_ru": "Глаголы на -ować",
+   "task_ru": "Напиши глагол в нужной форме: -ować → -uję, -ujesz, -uje, -ujemy, -ujecie, -ują.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Ten student często ___. (mailować)",
+     "answer": "mailuje",
+     "ru": "Этот студент часто пишет имейлы."
+    },
+    {
+     "q": "(my) ___ językiem polskim. (interesować się)",
+     "answer": "Interesujemy się",
+     "ru": "Мы интересуемся польским языком.",
+     "accepted": [
+      "interesujemy się"
+     ]
+    },
+    {
+     "q": "(ja) ___ czasowniki. (koniugować)",
+     "answer": "Koniuguję",
+     "ru": "Я спрягаю глаголы."
+    },
+    {
+     "q": "Co pani ___? (studiować)",
+     "answer": "studiuje",
+     "ru": "Что вы изучаете?"
+    },
+    {
+     "q": "Magda i Anna często ___ po internecie. (surfować)",
+     "answer": "surfują",
+     "ru": "Магда и Анна часто сидят в интернете."
+    },
+    {
+     "q": "Andrzej codziennie ___. (telefonować)",
+     "answer": "telefonuje",
+     "ru": "Анджей каждый день звонит."
+    },
+    {
+     "q": "Wojtek ___ dom. (dekorować)",
+     "answer": "dekoruje",
+     "ru": "Войтек украшает дом."
+    },
+    {
+     "q": "Gdzie państwo ___? (pracować)",
+     "answer": "pracują",
+     "ru": "Где вы работаете? (вежливо, мн. ч.)",
+     "grammar": "państwo + 3-е лицо мн. ч."
+    },
+    {
+     "q": "Dlaczego zawsze (ty) ___ z profesorem? (dyskutować)",
+     "answer": "dyskutujesz",
+     "ru": "Почему ты всегда споришь с профессором?"
+    },
+    {
+     "q": "Czy często pan ___ z rodziną? (podróżować)",
+     "answer": "podróżuje",
+     "ru": "Вы часто путешествуете с семьёй?"
+    },
+    {
+     "q": "Tadeusz zawsze wszystko ___. (planować)",
+     "answer": "planuje",
+     "ru": "Тадеуш всегда всё планирует."
+    }
+   ]
+  },
+  {
+   "id": "tb-5-13",
+   "src": "tb",
+   "ref": "Ćw. 13, s. 48",
+   "title": "Proszę dokończyć zdania.",
+   "title_ru": "Закончи предложения о себе",
+   "task_ru": "Допиши о себе, что ты делаешь (глагол в 1-м лице). Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Zwykle w weekendy ___.",
+     "answer": "Zwykle w weekendy chodzę do kina.",
+     "ru": "Обычно по выходным…"
+    },
+    {
+     "q": "Na wakacjach nigdy nie ___.",
+     "answer": "Na wakacjach nigdy nie pracuję.",
+     "ru": "В отпуске я никогда не…"
+    },
+    {
+     "q": "Często ___.",
+     "answer": "Często słucham muzyki.",
+     "ru": "Часто…"
+    },
+    {
+     "q": "Rzadko ___.",
+     "answer": "Rzadko oglądam telewizję.",
+     "ru": "Редко…"
+    },
+    {
+     "q": "Od czasu do czasu ___.",
+     "answer": "Od czasu do czasu gram w tenisa.",
+     "ru": "Время от времени…"
+    },
+    {
+     "q": "Codziennie ___.",
+     "answer": "Codziennie czytam gazety.",
+     "ru": "Каждый день…"
+    },
+    {
+     "q": "Bardzo często ___.",
+     "answer": "Bardzo często spotykam się z kolegami.",
+     "ru": "Очень часто…"
+    },
+    {
+     "q": "Bardzo rzadko ___.",
+     "answer": "Bardzo rzadko chodzę do teatru.",
+     "ru": "Очень редко…"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-14",
+   "src": "tb",
+   "ref": "Ćw. 14, s. 48",
+   "title": "Proszę uzupełnić zdania właściwą formą czasownika.",
+   "title_ru": "Глагол в нужной форме",
+   "task_ru": "Напиши глагол в нужной форме.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Czy ___ pan mówić wolniej? (móc)",
+     "answer": "może",
+     "ru": "Не могли бы вы говорить медленнее?"
+    },
+    {
+     "q": "On często ___ telewizję. (oglądać)",
+     "answer": "ogląda",
+     "ru": "Он часто смотрит телевизор."
+    },
+    {
+     "q": "Marek nigdy nie ___ muzyki. (słuchać)",
+     "answer": "słucha",
+     "ru": "Марек никогда не слушает музыку."
+    },
+    {
+     "q": "Czy one często ___ maile? (pisać)",
+     "answer": "piszą",
+     "ru": "Они часто пишут имейлы?"
+    },
+    {
+     "q": "Codziennie (ja) ___ do pracy. (chodzić)",
+     "answer": "chodzę",
+     "ru": "Каждый день я хожу на работу."
+    },
+    {
+     "q": "(ja) ___ dobrze mówić po polsku. (chcieć)",
+     "answer": "Chcę",
+     "ru": "Я хочу хорошо говорить по-польски."
+    },
+    {
+     "q": "Zwykle wieczorem Ania ___ książkę. (czytać)",
+     "answer": "czyta",
+     "ru": "Обычно вечером Аня читает книгу."
+    },
+    {
+     "q": "Pan Kaczmarczyk ___ artykuł. (pisać)",
+     "answer": "pisze",
+     "ru": "Пан Качмарчик пишет статью."
+    },
+    {
+     "q": "Co pan ___ studiować? (chcieć)",
+     "answer": "chce",
+     "ru": "Что вы хотите изучать?"
+    },
+    {
+     "q": "Czy (wy) ___ mówić wolniej? (móc)",
+     "answer": "możecie",
+     "ru": "Вы можете говорить медленнее?"
+    },
+    {
+     "q": "Na lekcji (my) zawsze ___ po polsku. (mówić)",
+     "answer": "mówimy",
+     "ru": "На уроке мы всегда говорим по-польски."
+    }
+   ]
+  },
+  {
+   "id": "tb-5-15a",
+   "src": "tb",
+   "ref": "Ćw. 15a, s. 48",
+   "title": "Proszę posłuchać rozmów telefonicznych i wpisać, dokąd dzwonią Jacek, Joanna, Magda i pan Józef.",
+   "title_ru": "Куда они звонят?",
+   "task_ru": "Послушай 6 разговоров (аудио выше) и выбери, куда звонит человек.",
+   "type": "match",
+   "items": [
+    {
+     "q": "Jacek dzwoni ___ (1)",
+     "answer": "do kina",
+     "ru": "Яцек звонит … (первый разговор)."
+    },
+    {
+     "q": "Jacek dzwoni ___ (2)",
+     "answer": "do sklepu sportowego",
+     "ru": "Яцек звонит … (второй разговор)."
+    },
+    {
+     "q": "Joanna dzwoni ___ (3)",
+     "answer": "do księgarni",
+     "ru": "Йоанна звонит … (третий разговор)."
+    },
+    {
+     "q": "Joanna dzwoni ___ (4)",
+     "answer": "do teatru",
+     "ru": "Йоанна звонит … (четвёртый разговор)."
+    },
+    {
+     "q": "Magda dzwoni ___ (5)",
+     "answer": "do sklepu muzycznego",
+     "ru": "Магда звонит … (пятый разговор)."
+    },
+    {
+     "q": "Pan Józef dzwoni ___ (6)",
+     "answer": "na pływalnię",
+     "ru": "Пан Юзеф звонит … (шестой разговор)."
+    }
+   ],
+   "audio": [
+    "034 - HURRA_PP1_podr_stud.mp3",
+    "035 - HURRA_PP1_podr_stud.mp3",
+    "036 - HURRA_PP1_podr_stud.mp3",
+    "037 - HURRA_PP1_podr_stud.mp3",
+    "038 - HURRA_PP1_podr_stud.mp3",
+    "039 - HURRA_PP1_podr_stud.mp3"
+   ],
+   "options": [
+    "do księgarni",
+    "do teatru",
+    "do sklepu muzycznego",
+    "do kina",
+    "do sklepu sportowego",
+    "na pływalnię"
+   ]
+  },
+  {
+   "id": "tb-5-15b",
+   "src": "tb",
+   "ref": "Ćw. 15b, s. 49",
+   "title": "Proszę posłuchać rozmów telefonicznych jeszcze raz i uzupełnić zdania.",
+   "title_ru": "Дополни по записи",
+   "task_ru": "Послушай разговоры ещё раз (аудио выше). Пропуски — через запятую, числа можно цифрами.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "1. – Bilet kosztuje ___ złotych. – Czy ___ zarezerwować miejsca?",
+     "answer": "15, mogę",
+     "ru": "Билет стоит … злотых. — … забронировать места?",
+     "accepted": [
+      "piętnaście, mogę"
+     ]
+    },
+    {
+     "q": "2. – Czy to jest numer ___-78-___? – Nie, to ___.",
+     "answer": "564, 90, pomyłka",
+     "ru": "Это номер …-78-…? — Нет, это …",
+     "accepted": [
+      "5-6-4, 9-0, pomyłka"
+     ]
+    },
+    {
+     "q": "3. – Czy mają państwo już ___ książkę Jerzego Pilcha? – Książka kosztuje ___ złote.",
+     "answer": "nową, 32",
+     "ru": "У вас уже есть … книга Ежи Пильха? — Книга стоит … злотых.",
+     "accepted": [
+      "nową, trzydzieści dwa"
+     ]
+    },
+    {
+     "q": "4. – Proszę zarezerwować ___ miejsca. – Bilet kosztuje ___ złotych.",
+     "answer": "dwa, 26",
+     "ru": "Пожалуйста, забронируйте … места. — Билет стоит … злотых.",
+     "accepted": [
+      "dwa, dwadzieścia sześć",
+      "2, 26"
+     ]
+    },
+    {
+     "q": "5. – Ile kosztuje nowa ___ Grzegorza Turnaua? – Płyta kosztuje 49 złotych i ___ groszy.",
+     "answer": "płyta, 99",
+     "ru": "Сколько стоит новый … Гжегожа Турнау? — 49 злотых и … грошей.",
+     "accepted": [
+      "płyta, dziewięćdziesiąt dziewięć"
+     ]
+    },
+    {
+     "q": "6. – Bilet normalny kosztuje ___ złotych. – Pływamy ___ minut.",
+     "answer": "10, 45",
+     "ru": "Полный билет стоит … злотых. — Плаваем … минут.",
+     "accepted": [
+      "dziesięć, czterdzieści pięć"
+     ]
+    }
+   ],
+   "audio": [
+    "034 - HURRA_PP1_podr_stud.mp3",
+    "035 - HURRA_PP1_podr_stud.mp3",
+    "036 - HURRA_PP1_podr_stud.mp3",
+    "037 - HURRA_PP1_podr_stud.mp3",
+    "038 - HURRA_PP1_podr_stud.mp3",
+    "039 - HURRA_PP1_podr_stud.mp3"
+   ]
+  },
+  {
+   "id": "tb-5-I",
+   "src": "tb",
+   "ref": "Czy już to umiesz? I, s. 49",
+   "title": "Proszę obejrzeć film i uzupełnić teksty.",
+   "title_ru": "Дополни рассказы о себе",
+   "task_ru": "Текст — на странице учебника (кнопка 📄 ниже); это те же четыре человека, что в ćw. 4 (аудио выше). Впиши пропущенные слова; несколько пропусков — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "A. ___ się Joanna Klimek.",
+     "answer": "Nazywam",
+     "ru": "Меня зовут Йоанна Климек."
+    },
+    {
+     "q": "A. Mam 33 lata. ___ dziennikarką.",
+     "answer": "Jestem",
+     "ru": "Мне 33 года. Я журналистка."
+    },
+    {
+     "q": "A. ___ się polityką europejską, ekonomią i teatrem.",
+     "answer": "Interesuję",
+     "ru": "Я интересуюсь европейской политикой, экономикой и театром."
+    },
+    {
+     "q": "A. Lubię ___ zdjęcia i grać ___ tenisa.",
+     "answer": "robić, w",
+     "ru": "Я люблю фотографировать и играть в теннис."
+    },
+    {
+     "q": "A. Często też ___ książki.",
+     "answer": "czytam",
+     "ru": "Ещё я часто читаю книги."
+    },
+    {
+     "q": "B. Jestem emerytem, mam 65 ___.",
+     "answer": "lat",
+     "ru": "Я пенсионер, мне 65 лет."
+    },
+    {
+     "q": "B. Moje hobby to sport – ___ pływać.",
+     "answer": "lubię",
+     "ru": "Моё хобби — спорт: я люблю плавать."
+    },
+    {
+     "q": "B. Od czasu do ___ spotykam się ___ kolegami i gramy w karty.",
+     "answer": "czasu, z",
+     "ru": "Время от времени я встречаюсь с друзьями, и мы играем в карты."
+    },
+    {
+     "q": "B. Lubię też czytać gazety, ___ telewizję i dyskutować o polityce.",
+     "answer": "oglądać",
+     "ru": "Ещё я люблю читать газеты, смотреть телевизор и обсуждать политику."
+    },
+    {
+     "q": "C. Jestem Jacek, jestem bratem Joanny, ___ anglistykę w Krakowie.",
+     "answer": "studiuję",
+     "ru": "Я Яцек, брат Йоанны, изучаю англистику в Кракове."
+    },
+    {
+     "q": "C. Interesuję się literaturą angielską i ___ rockową.",
+     "answer": "muzyką",
+     "ru": "Я интересуюсь английской литературой и рок-музыкой."
+    },
+    {
+     "q": "C. ___ na przykład tańczyć, ___ na rowerze i podróżować.",
+     "answer": "Lubię, jeździć",
+     "ru": "Я люблю, например, танцевать, кататься на велосипеде и путешествовать."
+    },
+    {
+     "q": "D. Mam na imię Magda, ___ wnuczką Józefa.",
+     "answer": "jestem",
+     "ru": "Меня зовут Магда, я внучка Юзефа."
+    },
+    {
+     "q": "D. ___ 18 lat i ___ do liceum.",
+     "answer": "Mam, chodzę",
+     "ru": "Мне 18 лет, я хожу в лицей."
+    },
+    {
+     "q": "D. Bardzo lubię muzykę – ___ chodzę na dyskotekę albo na koncert.",
+     "answer": "często",
+     "ru": "Я очень люблю музыку — часто хожу на дискотеку или на концерт."
+    },
+    {
+     "q": "D. Lubię też komputery – po maturze ___ studiować informatykę.",
+     "answer": "chcę",
+     "ru": "Ещё я люблю компьютеры — после школы хочу изучать информатику."
+    }
+   ],
+   "audio": [
+    "028 - HURRA_PP1_podr_stud.mp3",
+    "029 - HURRA_PP1_podr_stud.mp3",
+    "030 - HURRA_PP1_podr_stud.mp3",
+    "031 - HURRA_PP1_podr_stud.mp3"
+   ]
+  },
+  {
+   "id": "tb-5-II",
+   "src": "tb",
+   "ref": "Czy już to umiesz? II, s. 49",
+   "title": "Proszę uzupełnić tabelę: zaimki i końcówki koniugacyjne.",
+   "title_ru": "Местоимения и окончания спряжения",
+   "task_ru": "Впиши пропущенное местоимение или окончание. Два — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Ед. ч.: ja — -m / -ę / -ię; ___ — -sz",
+     "answer": "ty",
+     "ru": "ты",
+     "translit": "ты"
+    },
+    {
+     "q": "Ед. ч.: on / ___ / ___, pan / pani — -ø",
+     "answer": "ona, ono",
+     "ru": "она, оно"
+    },
+    {
+     "q": "Мн. ч.: my — -my; wy — ___",
+     "answer": "-cie",
+     "ru": "вы — окончание -cie (czytacie, mówicie)",
+     "accepted": [
+      "cie"
+     ]
+    },
+    {
+     "q": "Мн. ч.: ___ / ___ / państwo",
+     "answer": "oni, one",
+     "ru": "они (м.-личн.), они (прочие)"
+    },
+    {
+     "q": "Мн. ч.: oni / one / państwo — ___",
+     "answer": "-ą / -ją",
+     "ru": "окончание 3-го лица мн. ч.: mówią, czytają",
+     "accepted": [
+      "-ą, -ją",
+      "-ją / -ą",
+      "ą, ją"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-5-1",
+   "src": "wb",
+   "ref": "Ćw. 1, s. 30",
+   "title": "Które słowo nie pasuje do pozostałych i dlaczego?",
+   "title_ru": "Что лишнее и почему?",
+   "task_ru": "Выбери лишнее слово. Пример: muzeum – kino – teatr – sport → sport (не место).",
+   "type": "choice",
+   "items": [
+    {
+     "q": "słuchać – śpiewać – tańczyć – spać",
+     "answer": "spać",
+     "ru": "слушать – петь – танцевать – спать",
+     "full_pl": "spać — не занятие, связанное с музыкой",
+     "options": [
+      "słuchać",
+      "śpiewać",
+      "tańczyć",
+      "spać"
+     ]
+    },
+    {
+     "q": "biegać – oglądać telewizję – pływać – jeździć na rowerze",
+     "answer": "oglądać telewizję",
+     "ru": "бегать – смотреть телевизор – плавать – кататься на велосипеде",
+     "full_pl": "oglądać telewizję — не спорт",
+     "options": [
+      "biegać",
+      "oglądać telewizję",
+      "pływać",
+      "jeździć na rowerze"
+     ]
+    },
+    {
+     "q": "grać na gitarze – podróżować samochodem – jeździć na rowerze – jeździć taksówką",
+     "answer": "grać na gitarze",
+     "ru": "играть на гитаре – путешествовать на машине – кататься на велосипеде – ездить на такси",
+     "full_pl": "grać na gitarze — не передвижение",
+     "options": [
+      "grać na gitarze",
+      "podróżować samochodem",
+      "jeździć na rowerze",
+      "jeździć taksówką"
+     ]
+    },
+    {
+     "q": "książka – gazeta – zdjęcie – magazyn",
+     "answer": "zdjęcie",
+     "ru": "книга – газета – фотография – журнал",
+     "full_pl": "zdjęcie — это не читают",
+     "options": [
+      "książka",
+      "gazeta",
+      "zdjęcie",
+      "magazyn"
+     ]
+    },
+    {
+     "q": "telewizja – film – kawiarnia – kino",
+     "answer": "kawiarnia",
+     "ru": "телевидение – фильм – кафе – кино",
+     "full_pl": "kawiarnia — не связано с фильмами",
+     "options": [
+      "telewizja",
+      "film",
+      "kawiarnia",
+      "kino"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-5-2",
+   "src": "wb",
+   "ref": "Ćw. 2, s. 30",
+   "title": "Proszę uzupełnić zdania, posłuchać nagrania i sprawdzić swoje odpowiedzi.",
+   "title_ru": "Дополни предложения",
+   "task_ru": "Впиши подходящее слово (глагол или существительное), потом проверь по записи (аудио выше). Два пропуска — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Czy lubicie ___ do teatru?",
+     "answer": "chodzić",
+     "ru": "Вы любите ходить в театр?"
+    },
+    {
+     "q": "Lubię ___ w tenisa.",
+     "answer": "grać",
+     "ru": "Я люблю играть в теннис."
+    },
+    {
+     "q": "Czy lubisz ___ muzyki klasycznej?",
+     "answer": "słuchać",
+     "ru": "Ты любишь слушать классическую музыку?"
+    },
+    {
+     "q": "Małgorzata lubi ___ książki kryminalne.",
+     "answer": "czytać",
+     "ru": "Малгожата любит читать детективы."
+    },
+    {
+     "q": "Mój znajomy lubi czytać ___, szczególnie „Rzeczpospolitą”.",
+     "answer": "gazety",
+     "ru": "Мой знакомый любит читать газеты, особенно «Жечпосполиту»."
+    },
+    {
+     "q": "Lubię chodzić do ___ – na przykład do Teatru Starego.",
+     "answer": "teatru",
+     "ru": "Я люблю ходить в театр — например, в Старый театр."
+    },
+    {
+     "q": "Magda i Agnieszka lubią uprawiać ___ – lubią jeździć na ___.",
+     "answer": "sport, rowerze",
+     "ru": "Магда и Агнешка любят спорт — любят кататься на велосипеде."
+    },
+    {
+     "q": "Mój przyjaciel lubi ___ – na przykład walca.",
+     "answer": "tańczyć",
+     "ru": "Мой друг любит танцевать — например, вальс."
+    },
+    {
+     "q": "Barbara lubi ___ z kolegami.",
+     "answer": "spotykać się",
+     "ru": "Барбара любит встречаться с друзьями."
+    },
+    {
+     "q": "Andrzej lubi ___ telewizję.",
+     "answer": "oglądać",
+     "ru": "Анджей любит смотреть телевизор."
+    }
+   ],
+   "audio": "31 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-5-3",
+   "src": "wb",
+   "ref": "Ćw. 3, s. 30",
+   "title": "Proszę napisać zdanie o znaczeniu przeciwnym.",
+   "title_ru": "Напиши противоположное по смыслу",
+   "task_ru": "Поменяй «как часто» на противоположное: zawsze ↔ nigdy nie, często ↔ rzadko… Пример: Nigdy nie chodzimy do kina. ≠ Zawsze chodzimy do kina. Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Często uprawiam sport. ≠ ___",
+     "answer": "Rzadko uprawiam sport.",
+     "ru": "Я редко занимаюсь спортом."
+    },
+    {
+     "q": "Zwykle w weekend słucham muzyki. ≠ ___",
+     "answer": "Nigdy w weekend nie słucham muzyki.",
+     "ru": "На выходных я никогда не слушаю музыку.",
+     "accepted": [
+      "Rzadko w weekend słucham muzyki."
+     ]
+    },
+    {
+     "q": "Profesor zawsze mówi wolno. ≠ ___",
+     "answer": "Profesor nigdy nie mówi wolno.",
+     "ru": "Профессор никогда не говорит медленно.",
+     "accepted": [
+      "Profesor zawsze mówi szybko."
+     ]
+    },
+    {
+     "q": "Andrzej rzadko dzwoni do koleżanki z liceum. ≠ ___",
+     "answer": "Andrzej często dzwoni do koleżanki z liceum.",
+     "ru": "Анджей часто звонит подруге из лицея."
+    },
+    {
+     "q": "Nigdy nie biegam w weekend. ≠ ___",
+     "answer": "Zawsze biegam w weekend.",
+     "ru": "Я всегда бегаю на выходных.",
+     "accepted": [
+      "Zwykle biegam w weekend."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-5-4",
+   "src": "wb",
+   "ref": "Ćw. 4, s. 31",
+   "title": "Proszę wpisać formy biernika lub narzędnika.",
+   "title_ru": "Винительный или творительный?",
+   "task_ru": "lubić, mieć, czytać + винительный (-ą / -ę для ж. р.); interesować się + творительный (-ym / -em, -ą). Пример: On lubi polski boks. Напиши слова из скобок в нужной форме.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "On interesuje się ___. (francuski sport)",
+     "answer": "francuskim sportem",
+     "ru": "Он интересуется французским спортом.",
+     "grammar": "творительный м. р.: -im / -em"
+    },
+    {
+     "q": "Bardzo lubię ___. (niemiecka kuchnia)",
+     "answer": "niemiecką kuchnię",
+     "ru": "Я очень люблю немецкую кухню.",
+     "grammar": "винительный ж. р.: -ą / -ę"
+    },
+    {
+     "q": "Ona lubi ___. (wino i sałatka grecka)",
+     "answer": "wino i sałatkę grecką",
+     "ru": "Она любит вино и греческий салат."
+    },
+    {
+     "q": "Lubisz ___? (muzyka klasyczna)",
+     "answer": "muzykę klasyczną",
+     "ru": "Ты любишь классическую музыку?"
+    },
+    {
+     "q": "Interesujesz się ___? (muzyka hiszpańska)",
+     "answer": "muzyką hiszpańską",
+     "ru": "Ты интересуешься испанской музыкой?",
+     "grammar": "творительный ж. р.: -ą / -ą"
+    },
+    {
+     "q": "Mam ___. (interesująca książka)",
+     "answer": "interesującą książkę",
+     "ru": "У меня есть интересная книга."
+    },
+    {
+     "q": "Czytam ___. (kolorowy magazyn)",
+     "answer": "kolorowy magazyn",
+     "ru": "Я читаю глянцевый журнал.",
+     "grammar": "м. р. неодуш.: винительный = именительный"
+    },
+    {
+     "q": "Oni czytają ___. (aktualna gazeta)",
+     "answer": "aktualną gazetę",
+     "ru": "Они читают свежую газету."
+    },
+    {
+     "q": "Oni interesują się ___. (literatura angielska)",
+     "answer": "literaturą angielską",
+     "ru": "Они интересуются английской литературой."
+    },
+    {
+     "q": "Lubisz ___? (kawa)",
+     "answer": "kawę",
+     "ru": "Ты любишь кофе?"
+    },
+    {
+     "q": "Masz ___? (dobry samochód)",
+     "answer": "dobry samochód",
+     "ru": "У тебя хорошая машина?"
+    },
+    {
+     "q": "Interesujesz się ___? (filozofia)",
+     "answer": "filozofią",
+     "ru": "Ты интересуешься философией?"
+    }
+   ]
+  },
+  {
+   "id": "wb-5-5",
+   "src": "wb",
+   "ref": "Ćw. 5, s. 31",
+   "title": "Proszę wybrać właściwe słowo, posłuchać nagrania i sprawdzić swoje odpowiedzi.",
+   "title_ru": "Выбери слово",
+   "task_ru": "Слова: ekonomię, polityką, sportem, oglądać, grać, kulturą, czytać, język, sport, jeździć. Два пропуска — через запятую. Проверь по записи (аудио выше).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Anna lubi czytać gazety – interesuje się polityką. Oczywiście lubi też ___ telewizję – na przykład wiadomości.",
+     "answer": "oglądać",
+     "ru": "Анна любит читать газеты — интересуется политикой. Конечно, она любит и смотреть телевизор — например, новости."
+    },
+    {
+     "q": "Mariusz lubi ___. Lubi ___ czasopisma ekonomiczne.",
+     "answer": "ekonomię, czytać",
+     "ru": "Мариуш любит экономику. Любит читать экономические журналы."
+    },
+    {
+     "q": "Wojtek interesuje się ___ hiszpańską. Lubi ___ hiszpański.",
+     "answer": "kulturą, język",
+     "ru": "Войтек интересуется испанской культурой. Любит испанский язык."
+    },
+    {
+     "q": "Agnieszka bardzo lubi ___ w tenisa – lubi ___.",
+     "answer": "grać, sport",
+     "ru": "Агнешка очень любит играть в теннис — любит спорт."
+    },
+    {
+     "q": "Katarzyna lubi ___ na nartach. Interesuje się ___.",
+     "answer": "jeździć, sportem",
+     "ru": "Катажина любит кататься на лыжах. Интересуется спортом."
+    }
+   ],
+   "audio": "32 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-5-6",
+   "src": "wb",
+   "ref": "Ćw. 6, s. 31",
+   "title": "Proszę wpisać właściwy przyimek, posłuchać nagrania i sprawdzić swoje odpowiedzi.",
+   "title_ru": "Предлог",
+   "task_ru": "Выбери предлог: grać w (игру) / na (инструменте), chodzić do / na, podróżować po, spotykać się z. Проверь по записи (аудио выше).",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Lubimy podróżować ___ Europie.",
+     "answer": "po",
+     "ru": "Мы любим путешествовать по Европе.",
+     "options": [
+      "w",
+      "na",
+      "po",
+      "z",
+      "do"
+     ]
+    },
+    {
+     "q": "Grażyna świetnie gra ___ saksofonie.",
+     "answer": "na",
+     "ru": "Гражина отлично играет на саксофоне.",
+     "options": [
+      "w",
+      "na",
+      "po",
+      "z",
+      "do"
+     ]
+    },
+    {
+     "q": "Andrzej rzadko spotyka się ___ rodzicami.",
+     "answer": "z",
+     "ru": "Анджей редко встречается с родителями.",
+     "options": [
+      "w",
+      "na",
+      "po",
+      "z",
+      "do"
+     ]
+    },
+    {
+     "q": "Czy twój ojciec lubi chodzić ___ teatru?",
+     "answer": "do",
+     "ru": "Твой отец любит ходить в театр?",
+     "options": [
+      "w",
+      "na",
+      "po",
+      "z",
+      "do"
+     ]
+    },
+    {
+     "q": "Czy lubisz chodzić ___ dyskotekę?",
+     "answer": "na",
+     "ru": "Ты любишь ходить на дискотеку?",
+     "options": [
+      "w",
+      "na",
+      "po",
+      "z",
+      "do"
+     ]
+    },
+    {
+     "q": "Moja matka świetnie gra ___ gitarze.",
+     "answer": "na",
+     "ru": "Моя мама отлично играет на гитаре.",
+     "options": [
+      "w",
+      "na",
+      "po",
+      "z",
+      "do"
+     ]
+    },
+    {
+     "q": "Często spotykam się ___ kolegami.",
+     "answer": "z",
+     "ru": "Я часто встречаюсь с друзьями.",
+     "options": [
+      "w",
+      "na",
+      "po",
+      "z",
+      "do"
+     ]
+    },
+    {
+     "q": "Często chodzimy ___ restauracji.",
+     "answer": "do",
+     "ru": "Мы часто ходим в ресторан.",
+     "options": [
+      "w",
+      "na",
+      "po",
+      "z",
+      "do"
+     ]
+    },
+    {
+     "q": "Nie umiem grać ___ karty.",
+     "answer": "w",
+     "ru": "Я не умею играть в карты.",
+     "options": [
+      "w",
+      "na",
+      "po",
+      "z",
+      "do"
+     ]
+    },
+    {
+     "q": "Czy lubisz chodzić ___ teatru?",
+     "answer": "do",
+     "ru": "Ты любишь ходить в театр?",
+     "options": [
+      "w",
+      "na",
+      "po",
+      "z",
+      "do"
+     ]
+    }
+   ],
+   "audio": "33 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-5-7a",
+   "src": "wb",
+   "ref": "Ćw. 7A, s. 32",
+   "title": "Proszę wpisać właściwą formę czasownika. -ować",
+   "title_ru": "Глаголы на -ować",
+   "task_ru": "Напиши глагол в нужной форме: -ować → -uję, -ujesz, -uje, -ujemy, -ujecie, -ują. Пример: Samolot ląduje.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Dwa samoloty ___. (lądować)",
+     "answer": "lądują",
+     "ru": "Два самолёта приземляются."
+    },
+    {
+     "q": "Marek ___ samochód. (parkować)",
+     "answer": "parkuje",
+     "ru": "Марек паркует машину."
+    },
+    {
+     "q": "Dwa samochody ___. (parkować)",
+     "answer": "parkują",
+     "ru": "Две машины паркуются."
+    },
+    {
+     "q": "Co (ty) ___? (studiować)",
+     "answer": "studiujesz",
+     "ru": "Что ты изучаешь?"
+    },
+    {
+     "q": "Czym ona ___? (interesować się)",
+     "answer": "interesuje się",
+     "ru": "Чем она интересуется?"
+    },
+    {
+     "q": "Gdzie (wy) ___? (pracować)",
+     "answer": "pracujecie",
+     "ru": "Где вы работаете?"
+    },
+    {
+     "q": "(my) ___ w Bytomiu. (pracować)",
+     "answer": "Pracujemy",
+     "ru": "Мы работаем в Бытоме.",
+     "accepted": [
+      "pracujemy"
+     ]
+    },
+    {
+     "q": "Codziennie (my) ___ w internecie. (surfować)",
+     "answer": "surfujemy",
+     "ru": "Каждый день мы сидим в интернете."
+    },
+    {
+     "q": "Maria rzadko ___. (mailować)",
+     "answer": "mailuje",
+     "ru": "Мария редко пишет имейлы."
+    },
+    {
+     "q": "(ja) ___ historią. (interesować się)",
+     "answer": "Interesuję się",
+     "ru": "Я интересуюсь историей.",
+     "accepted": [
+      "interesuję się"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-5-7b",
+   "src": "wb",
+   "ref": "Ćw. 7B, s. 32",
+   "title": "Proszę wpisać właściwą formę czasownika. -m, -sz",
+   "title_ru": "Спряжение -m, -sz",
+   "task_ru": "Напиши глагол в нужной форме: -m, -sz, -, -my, -cie, -ją.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "(ja) ___ interesującą książkę. (czytać)",
+     "answer": "Czytam",
+     "ru": "Я читаю интересную книгу.",
+     "accepted": [
+      "czytam"
+     ]
+    },
+    {
+     "q": "Jak często (ty) ___ w restauracji? (jeść)",
+     "answer": "jesz",
+     "ru": "Как часто ты ешь в ресторане?"
+    },
+    {
+     "q": "On ___. (pływać)",
+     "answer": "pływa",
+     "ru": "Он плавает."
+    },
+    {
+     "q": "(my) ___ muzyki. (słuchać)",
+     "answer": "Słuchamy",
+     "ru": "Мы слушаем музыку.",
+     "accepted": [
+      "słuchamy"
+     ]
+    },
+    {
+     "q": "One pięknie ___. (śpiewać)",
+     "answer": "śpiewają",
+     "ru": "Они красиво поют."
+    },
+    {
+     "q": "Czy (wy) ___? (biegać)",
+     "answer": "biegacie",
+     "ru": "Вы бегаете?"
+    },
+    {
+     "q": "Oni ___ w tenisa. (grać)",
+     "answer": "grają",
+     "ru": "Они играют в теннис."
+    },
+    {
+     "q": "Czy (ty) ___ na gitarze? (grać)",
+     "answer": "grasz",
+     "ru": "Ты играешь на гитаре?"
+    },
+    {
+     "q": "Czy (wy) ___ w piłkę nożną? (grać)",
+     "answer": "gracie",
+     "ru": "Вы играете в футбол?"
+    },
+    {
+     "q": "Jak często (ty) ___ telewizję? (oglądać)",
+     "answer": "oglądasz",
+     "ru": "Как часто ты смотришь телевизор?"
+    }
+   ]
+  },
+  {
+   "id": "wb-5-7c",
+   "src": "wb",
+   "ref": "Ćw. 7C, s. 32",
+   "title": "Proszę wpisać właściwą formę czasownika. -ę, -isz",
+   "title_ru": "Спряжение -ę, -isz",
+   "task_ru": "Напиши глагол в нужной форме: -ę, -isz (-ysz), -i (-y), -imy, -icie, -ą.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Czy (ty) ___ chodzić do kina? (lubić)",
+     "answer": "lubisz",
+     "ru": "Ты любишь ходить в кино?"
+    },
+    {
+     "q": "(ja) ___ słabo po polsku. (mówić)",
+     "answer": "Mówię",
+     "ru": "Я плохо говорю по-польски.",
+     "accepted": [
+      "mówię"
+     ]
+    },
+    {
+     "q": "Czy (wy) ___ po rosyjsku? (mówić)",
+     "answer": "mówicie",
+     "ru": "Вы говорите по-русски?"
+    },
+    {
+     "q": "Oni ___ pływać. (lubić)",
+     "answer": "lubią",
+     "ru": "Они любят плавать."
+    },
+    {
+     "q": "Jak często (wy) ___ do kina? (chodzić)",
+     "answer": "chodzicie",
+     "ru": "Как часто вы ходите в кино?"
+    },
+    {
+     "q": "Dlaczego (ty) ___ języka polskiego? (uczyć się)",
+     "answer": "uczysz się",
+     "ru": "Почему ты учишь польский язык?"
+    },
+    {
+     "q": "Co oni ___ codziennie? (robić)",
+     "answer": "robią",
+     "ru": "Что они делают каждый день?"
+    },
+    {
+     "q": "Co (ty) ___ w weekend? (robić)",
+     "answer": "robisz",
+     "ru": "Что ты делаешь на выходных?"
+    },
+    {
+     "q": "Czy one dobrze ___? (tańczyć)",
+     "answer": "tańczą",
+     "ru": "Они хорошо танцуют?"
+    },
+    {
+     "q": "Oni ___ chodzić do kina. (lubić)",
+     "answer": "lubią",
+     "ru": "Они любят ходить в кино."
+    }
+   ]
+  },
+  {
+   "id": "wb-5-7d",
+   "src": "wb",
+   "ref": "Ćw. 7D, s. 32",
+   "title": "Proszę wpisać właściwą formę czasownika. -ę, -esz",
+   "title_ru": "Спряжение -ę, -esz",
+   "task_ru": "Напиши глагол в нужной форме: pisać (piszę, piszesz), móc (mogę, możesz), chcieć (chcę, chcesz).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Dziennikarz ___ artykuł. (pisać)",
+     "answer": "pisze",
+     "ru": "Журналист пишет статью."
+    },
+    {
+     "q": "Czy (ty) często ___ e-maile? (pisać)",
+     "answer": "piszesz",
+     "ru": "Ты часто пишешь имейлы?"
+    },
+    {
+     "q": "Czy (ja) ___ prosić o uwagę? (móc)",
+     "answer": "mogę",
+     "ru": "Можно попросить внимания?"
+    },
+    {
+     "q": "Czy ___ pan mówić wolniej? (móc)",
+     "answer": "może",
+     "ru": "Не могли бы вы говорить медленнее?"
+    },
+    {
+     "q": "Co (ty) ___ robić dzisiaj wieczorem? (chcieć)",
+     "answer": "chcesz",
+     "ru": "Что ты хочешь делать сегодня вечером?"
+    },
+    {
+     "q": "Marta ___ pracować w Polsce. (chcieć)",
+     "answer": "chce",
+     "ru": "Марта хочет работать в Польше."
+    },
+    {
+     "q": "Anna i Dorota są dziennikarkami i ___ do „Gazety Wyborczej”. (pisać)",
+     "answer": "piszą",
+     "ru": "Анна и Дорота — журналистки и пишут для «Газеты Выборчей»."
+    },
+    {
+     "q": "One ___ mieszkać w Polsce. (chcieć)",
+     "answer": "chcą",
+     "ru": "Они хотят жить в Польше."
+    },
+    {
+     "q": "Czy (wy) ___ powtórzyć, jaki macie numer telefonu? (móc)",
+     "answer": "możecie",
+     "ru": "Можете повторить, какой у вас номер телефона?"
+    },
+    {
+     "q": "W poniedziałek (ja) ___ test z polskiego. (pisać)",
+     "answer": "piszę",
+     "ru": "В понедельник я пишу тест по польскому."
+    }
+   ]
+  },
+  {
+   "id": "wb-5-8a",
+   "src": "wb",
+   "ref": "Ćw. 8A, s. 33",
+   "title": "Proszę wpisać właściwą formę czasownika.",
+   "title_ru": "Глагол в нужной форме (A)",
+   "task_ru": "Напиши глагол в нужной форме. Пример: Marek i Wojtek studiują w Krakowie.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "(ja) ___ artykuł. (pisać)",
+     "answer": "Piszę",
+     "ru": "Я пишу статью.",
+     "accepted": [
+      "piszę"
+     ]
+    },
+    {
+     "q": "One ___ regularnie na kurs francuskiego. (chodzić)",
+     "answer": "chodzą",
+     "ru": "Они регулярно ходят на курс французского."
+    },
+    {
+     "q": "Czy pan ___ pracować we Wrocławiu? (chcieć)",
+     "answer": "chce",
+     "ru": "Вы хотите работать во Вроцлаве?"
+    },
+    {
+     "q": "Czy (wy) ___ sport? (lubić)",
+     "answer": "lubicie",
+     "ru": "Вы любите спорт?"
+    },
+    {
+     "q": "(ty) ___ problem? (mieć)",
+     "answer": "Masz",
+     "ru": "У тебя проблема?",
+     "accepted": [
+      "masz"
+     ]
+    },
+    {
+     "q": "Czy pani ___ po niemiecku? (mówić)",
+     "answer": "mówi",
+     "ru": "Вы говорите по-немецки?"
+    },
+    {
+     "q": "Uczeń ___ do szkoły. (chodzić)",
+     "answer": "chodzi",
+     "ru": "Ученик ходит в школу."
+    },
+    {
+     "q": "Oni świetnie ___ sambę. (tańczyć)",
+     "answer": "tańczą",
+     "ru": "Они отлично танцуют самбу."
+    },
+    {
+     "q": "Czy (ty) ___ w Krakowie? (studiować)",
+     "answer": "studiujesz",
+     "ru": "Ты учишься в Кракове?"
+    },
+    {
+     "q": "Gdzie (ty) ___? (mieszkać)",
+     "answer": "mieszkasz",
+     "ru": "Где ты живёшь?"
+    },
+    {
+     "q": "(ja) ___ języka polskiego. (uczyć się)",
+     "answer": "Uczę się",
+     "ru": "Я учу польский язык.",
+     "accepted": [
+      "uczę się"
+     ]
+    },
+    {
+     "q": "Czy (wy) ___ na kurs polskiego? (chodzić)",
+     "answer": "chodzicie",
+     "ru": "Вы ходите на курс польского?"
+    },
+    {
+     "q": "Oni świetnie ___ po polsku. (mówić)",
+     "answer": "mówią",
+     "ru": "Они отлично говорят по-польски."
+    },
+    {
+     "q": "On ___ książkę. (pisać)",
+     "answer": "pisze",
+     "ru": "Он пишет книгу."
+    },
+    {
+     "q": "Anna ___ europeistykę. (studiować)",
+     "answer": "studiuje",
+     "ru": "Анна изучает европеистику."
+    }
+   ]
+  },
+  {
+   "id": "wb-5-8b",
+   "src": "wb",
+   "ref": "Ćw. 8B, s. 33",
+   "title": "Proszę wpisać właściwą formę czasownika.",
+   "title_ru": "Глагол в нужной форме (B)",
+   "task_ru": "Напиши глагол в нужной форме. Два глагола — через запятую.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Oni ___ na dyskotece. (tańczyć)",
+     "answer": "tańczą",
+     "ru": "Они танцуют на дискотеке."
+    },
+    {
+     "q": "(my) ___ duży dom. (mieć)",
+     "answer": "Mamy",
+     "ru": "У нас большой дом.",
+     "accepted": [
+      "mamy"
+     ]
+    },
+    {
+     "q": "Czy Paweł ___ w Warszawie? (pracować)",
+     "answer": "pracuje",
+     "ru": "Павел работает в Варшаве?"
+    },
+    {
+     "q": "Teraz (ja) nie ___ słuchać muzyki. (chcieć)",
+     "answer": "chcę",
+     "ru": "Сейчас я не хочу слушать музыку."
+    },
+    {
+     "q": "Czy (wy) ___ literaturą? (interesować się)",
+     "answer": "interesujecie się",
+     "ru": "Вы интересуетесь литературой?"
+    },
+    {
+     "q": "Czy pan ___ mówić trochę wolniej? (móc)",
+     "answer": "może",
+     "ru": "Не могли бы вы говорить немного медленнее?"
+    },
+    {
+     "q": "Oni ___ w pokoju. (być)",
+     "answer": "są",
+     "ru": "Они в комнате."
+    },
+    {
+     "q": "Czy (wy) ___ po angielsku? (czytać)",
+     "answer": "czytacie",
+     "ru": "Вы читаете по-английски?"
+    },
+    {
+     "q": "Czy (ty) ___ języka polskiego? (uczyć się)",
+     "answer": "uczysz się",
+     "ru": "Ты учишь польский язык?"
+    },
+    {
+     "q": "Wojtek i Ania ___ zadanie domowe. (robić)",
+     "answer": "robią",
+     "ru": "Войтек и Аня делают домашнее задание."
+    },
+    {
+     "q": "Czy (ty) ___ dobrze język polski? (znać)",
+     "answer": "znasz",
+     "ru": "Ты хорошо знаешь польский язык?"
+    },
+    {
+     "q": "(oni) ___, że to jest bez sensu. (wiedzieć)",
+     "answer": "Wiedzą",
+     "ru": "Они знают, что это бессмысленно.",
+     "accepted": [
+      "wiedzą"
+     ]
+    },
+    {
+     "q": "(ja) ___, ale nie ___. (przepraszać / rozumieć)",
+     "answer": "Przepraszam, rozumiem",
+     "ru": "Извините, но я не понимаю.",
+     "accepted": [
+      "przepraszam, rozumiem"
+     ]
+    },
+    {
+     "q": "Czy (ty) ___ mówić wolniej? (móc)",
+     "answer": "możesz",
+     "ru": "Можешь говорить медленнее?"
+    },
+    {
+     "q": "(ja) ___ studiować ekonomię. (chcieć)",
+     "answer": "Chcę",
+     "ru": "Я хочу изучать экономику.",
+     "accepted": [
+      "chcę"
+     ]
+    }
+   ]
+  }
+ ]
+}

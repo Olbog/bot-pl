@@ -1,0 +1,4645 @@
+{
+ "unit": "2",
+ "title": "Mam pytanie. Co to jest?",
+ "summary": "Что это? Кто это? Предметы и люди, внешность и характер (Jaki on jest? Jaka ona jest?), прилагательные национальности, числительные 11–23, адреса и телефонные коды, воеводства. Грамматика: род существительных (мужской, женский, средний), pluralia tantum, согласование прилагательного (-y / -i, -a, -e / -ie) в именительном, спряжение -m, -sz (mieć, rozumieć, przepraszać, czytać, pytać, mieszkać).",
+ "topics": [
+  "Что это? Предметы",
+  "Кто это? Люди",
+  "Внешность",
+  "Характер",
+  "Откуда? Какой?",
+  "Адрес и город",
+  "Числа 11–23",
+  "Глаголы на -m, -sz",
+  "Фразы",
+  "Грамматические термины"
+ ],
+ "words": [
+  {
+   "pl": "kawa",
+   "translit": "КА-ва",
+   "ru": "кофе",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "okulary",
+   "translit": "о-ку-ЛЯ-ры",
+   "ru": "очки",
+   "pos": "сущ., только мн. ч.: to są okulary",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "dżinsy",
+   "translit": "ДЖИН-сы",
+   "ru": "джинсы",
+   "pos": "сущ., только мн. ч.: to są dżinsy",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "drzwi",
+   "translit": "джви",
+   "ru": "дверь",
+   "pos": "сущ., только мн. ч.: to są drzwi",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "radio",
+   "translit": "РА-дьё",
+   "ru": "радио",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "fotografia",
+   "translit": "фо-то-ГРА-фья",
+   "ru": "фотография",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "lampa",
+   "translit": "ЛЯМ-па",
+   "ru": "лампа",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "krzesło",
+   "translit": "КШЭ-сўо",
+   "ru": "стул",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "okno",
+   "translit": "ОК-но",
+   "ru": "окно",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "gazeta",
+   "translit": "га-ЗЭ-та",
+   "ru": "газета",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "stół",
+   "translit": "стуў",
+   "ru": "стол",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "słońce",
+   "translit": "СЎОНЬ-цэ",
+   "ru": "солнце",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "kino",
+   "translit": "КИ-но",
+   "ru": "кино, кинотеатр",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "dom",
+   "translit": "дом",
+   "ru": "дом",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "komputer",
+   "translit": "ком-ПУ-тэр",
+   "ru": "компьютер",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "telefon",
+   "translit": "тэ-ЛЕ-фон",
+   "ru": "телефон",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "telefon komórkowy",
+   "translit": "тэ-ЛЕ-фон ко-мур-КО-вы",
+   "ru": "мобильный телефон",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "telefon"
+  },
+  {
+   "pl": "komórka",
+   "translit": "ко-МУР-ка",
+   "ru": "мобильный телефон",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "książka",
+   "translit": "КЩЁНЖ-ка",
+   "ru": "книга",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "książka telefoniczna",
+   "translit": "КЩЁНЖ-ка тэ-лэ-фо-НИЧ-на",
+   "ru": "телефонный справочник",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "książka"
+  },
+  {
+   "pl": "długopis",
+   "translit": "дўу-ГО-пис",
+   "ru": "ручка (шариковая)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "autobus",
+   "translit": "ау-ТО-бус",
+   "ru": "автобус",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "samochód",
+   "translit": "са-МО-хут",
+   "ru": "машина, автомобиль",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "auto",
+   "translit": "АУ-то",
+   "ru": "машина, авто",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "mleko",
+   "translit": "МЛЕ-ко",
+   "ru": "молоко",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "muzeum",
+   "translit": "му-ЗЭ-ум",
+   "ru": "музей",
+   "pos": "сущ., ср. р. (-um), ударение исключение",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "Muzeum Narodowe",
+   "translit": "му-ЗЭ-ум на-ро-ДО-вэ",
+   "ru": "Национальный музей",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "muzeum"
+  },
+  {
+   "pl": "centrum",
+   "translit": "ЦЭНТ-рум",
+   "ru": "центр",
+   "pos": "сущ., ср. р. (-um)",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "centrum medyczne",
+   "translit": "ЦЭНТ-рум мэ-ДЫЧ-нэ",
+   "ru": "медицинский центр",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "centrum"
+  },
+  {
+   "pl": "w centrum",
+   "translit": "ф ЦЭНТ-рум",
+   "ru": "в центре",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "centrum"
+  },
+  {
+   "pl": "herbata",
+   "translit": "хэр-БА-та",
+   "ru": "чай",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "wino",
+   "translit": "ВИ-но",
+   "ru": "вино",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "piwo",
+   "translit": "ПИ-во",
+   "ru": "пиво",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "film",
+   "translit": "фильм",
+   "ru": "фильм",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "rzeka",
+   "translit": "ЖЭ-ка",
+   "ru": "река",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "tradycja",
+   "translit": "тра-ДЫ-цья",
+   "ru": "традиция",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "lekcja",
+   "translit": "ЛЕК-цья",
+   "ru": "урок",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "literatura",
+   "translit": "ли-тэ-ра-ТУ-ра",
+   "ru": "литература",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Что это? Предметы"
+  },
+  {
+   "pl": "kobieta",
+   "translit": "ко-БЕ-та",
+   "ru": "женщина",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "mężczyzna",
+   "translit": "мэнж-ЧЫЗ-на",
+   "ru": "мужчина",
+   "pos": "сущ., м. р. (на -a!)",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "chłopak",
+   "translit": "ХЎО-пак",
+   "ru": "парень",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "dziewczyna",
+   "translit": "джеф-ЧЫ-на",
+   "ru": "девушка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "dziecko",
+   "translit": "ДЖЕЦ-ко",
+   "ru": "ребёнок",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "pan",
+   "translit": "пан",
+   "ru": "господин; вы (к мужчине)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "pani",
+   "translit": "ПА-ни",
+   "ru": "госпожа; вы (к женщине)",
+   "pos": "сущ., ж. р. (на -i)",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "lektor",
+   "translit": "ЛЕК-тор",
+   "ru": "преподаватель (языка)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "lektorka",
+   "translit": "лек-ТОР-ка",
+   "ru": "преподавательница (языка)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "student",
+   "translit": "СТУ-дэнт",
+   "ru": "студент",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "studentka",
+   "translit": "сту-ДЭНТ-ка",
+   "ru": "студентка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "artysta",
+   "translit": "ар-ТЫС-та",
+   "ru": "художник, артист",
+   "pos": "сущ., м. р. (на -a!)",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "artystka",
+   "translit": "ар-ТЫСТ-ка",
+   "ru": "художница, артистка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "dentysta",
+   "translit": "дэн-ТЫС-та",
+   "ru": "стоматолог",
+   "pos": "сущ., м. р. (на -a!)",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "dentystka",
+   "translit": "дэн-ТЫСТ-ка",
+   "ru": "стоматолог (женщина)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "optymista",
+   "translit": "оп-ты-МИС-та",
+   "ru": "оптимист",
+   "pos": "сущ., м. р. (на -a!)",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "optymistka",
+   "translit": "оп-ты-МИСТ-ка",
+   "ru": "оптимистка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "profesor",
+   "translit": "про-ФЭ-сор",
+   "ru": "профессор",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "policjant",
+   "translit": "по-ЛИ-цьянт",
+   "ru": "полицейский",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "bibliotekarka",
+   "translit": "биб-лё-тэ-КАР-ка",
+   "ru": "библиотекарь (женщина)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "nauczyciel",
+   "translit": "на-у-ЧЫ-чель",
+   "ru": "учитель",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "poeta",
+   "translit": "по-Э-та",
+   "ru": "поэт",
+   "pos": "сущ., м. р. (на -a!)",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "kolega",
+   "translit": "ко-ЛЭ-га",
+   "ru": "друг, коллега",
+   "pos": "сущ., м. р. (на -a!)",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "polityk",
+   "translit": "по-ЛИ-тык",
+   "ru": "политик",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Кто это? Люди"
+  },
+  {
+   "pl": "Jaki on jest?",
+   "translit": "Я-ки он ест",
+   "ru": "Какой он?",
+   "pos": "вопрос (м. р.)",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "Jaka ona jest?",
+   "translit": "Я-ка О-на ест",
+   "ru": "Какая она?",
+   "pos": "вопрос (ж. р.)",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "Jakie to jest?",
+   "translit": "Я-ке то ест",
+   "ru": "Какое это?",
+   "pos": "вопрос (ср. р.)",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "wysoki",
+   "translit": "вы-СО-ки",
+   "ru": "высокий",
+   "pos": "прил.: wysoki, wysoka, wysokie",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "średniego wzrostu",
+   "translit": "шрэд-НЕ-го ВЗРОС-ту",
+   "ru": "среднего роста",
+   "pos": "выражение",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "niski",
+   "translit": "НИС-ки",
+   "ru": "низкий, невысокий",
+   "pos": "прил.: niski, niska, niskie",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "gruby",
+   "translit": "ГРУ-бы",
+   "ru": "толстый",
+   "pos": "прил.: gruby, gruba, grube",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "szczupły",
+   "translit": "ШЧУП-ўы",
+   "ru": "стройный, худой",
+   "pos": "прил.: szczupły, szczupła, szczupłe",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "stary",
+   "translit": "СТА-ры",
+   "ru": "старый",
+   "pos": "прил.: stary, stara, stare",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "w średnim wieku",
+   "translit": "ф ШРЭД-ним ВЕ-ку",
+   "ru": "среднего возраста",
+   "pos": "выражение",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "młody",
+   "translit": "МЎО-ды",
+   "ru": "молодой",
+   "pos": "прил.: młody, młoda, młode",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "chory",
+   "translit": "ХО-ры",
+   "ru": "больной",
+   "pos": "прил.: chory, chora, chore",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "zdrowy",
+   "translit": "ЗДРО-вы",
+   "ru": "здоровый",
+   "pos": "прил.: zdrowy, zdrowa, zdrowe",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "wysportowany",
+   "translit": "вы-спор-то-ВА-ны",
+   "ru": "спортивный, подтянутый",
+   "pos": "прил., -y / -a / -e",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "niewysportowany",
+   "translit": "не-вы-спор-то-ВА-ны",
+   "ru": "неспортивный",
+   "pos": "прил., -y / -a / -e",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "wesoły",
+   "translit": "вэ-СО-ўы",
+   "ru": "весёлый",
+   "pos": "прил., -y / -a / -e",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "smutny",
+   "translit": "СМУТ-ны",
+   "ru": "грустный",
+   "pos": "прил., -y / -a / -e",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "przystojny",
+   "translit": "пшы-СТОЙ-ны",
+   "ru": "красивый (о мужчине)",
+   "pos": "прил., м. р.",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "ładny",
+   "translit": "ЎАД-ны",
+   "ru": "красивый, симпатичный (ładna — о женщине)",
+   "pos": "прил., -y / -a / -e",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "brzydki",
+   "translit": "БЖЫТ-ки",
+   "ru": "некрасивый, уродливый",
+   "pos": "прил.: brzydki, brzydka, brzydkie",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "miły",
+   "translit": "МИ-ўы",
+   "ru": "милый, приятный",
+   "pos": "прил., -y / -a / -e",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "niemiły",
+   "translit": "не-МИ-ўы",
+   "ru": "неприятный",
+   "pos": "прил., -y / -a / -e",
+   "src": "tb",
+   "topic": "Внешность"
+  },
+  {
+   "pl": "ambitny",
+   "translit": "ам-БИТ-ны",
+   "ru": "амбициозный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "inteligentny",
+   "translit": "ин-тэ-ли-ГЕНТ-ны",
+   "ru": "умный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "kreatywny",
+   "translit": "крэ-а-ТЫВ-ны",
+   "ru": "творческий, креативный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "agresywny",
+   "translit": "аг-рэ-СЫВ-ны",
+   "ru": "агрессивный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "aktywny",
+   "translit": "ак-ТЫВ-ны",
+   "ru": "активный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "sentymentalny",
+   "translit": "сэн-ты-мэн-ТАЛЬ-ны",
+   "ru": "сентиментальный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "racjonalny",
+   "translit": "ра-цьё-НАЛЬ-ны",
+   "ru": "рациональный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "emocjonalny",
+   "translit": "э-мо-цьё-НАЛЬ-ны",
+   "ru": "эмоциональный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "naturalny",
+   "translit": "на-ту-РАЛЬ-ны",
+   "ru": "естественный, натуральный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "romantyczny",
+   "translit": "ро-ман-ТЫЧ-ны",
+   "ru": "романтичный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "sympatyczny",
+   "translit": "сым-па-ТЫЧ-ны",
+   "ru": "симпатичный, приятный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "spontaniczny",
+   "translit": "спон-та-НИЧ-ны",
+   "ru": "спонтанный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "energiczny",
+   "translit": "э-нэр-ГИЧ-ны",
+   "ru": "энергичный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "zestresowany",
+   "translit": "зэ-стрэ-со-ВА-ны",
+   "ru": "в стрессе",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "zrelaksowany",
+   "translit": "зрэ-лак-со-ВА-ны",
+   "ru": "расслабленный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "sfrustrowany",
+   "translit": "сфру-стро-ВА-ны",
+   "ru": "раздражённый, фрустрированный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "utalentowany",
+   "translit": "у-та-лэн-то-ВА-ны",
+   "ru": "талантливый",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "naiwny",
+   "translit": "на-ИВ-ны",
+   "ru": "наивный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "systematyczny",
+   "translit": "сы-стэ-ма-ТЫЧ-ны",
+   "ru": "систематичный, последовательный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "sceptyczny",
+   "translit": "сцэп-ТЫЧ-ны",
+   "ru": "скептичный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "optymistyczny",
+   "translit": "оп-ты-мис-ТЫЧ-ны",
+   "ru": "оптимистичный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "pesymistyczny",
+   "translit": "пэ-сы-мис-ТЫЧ-ны",
+   "ru": "пессимистичный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "szarmancki",
+   "translit": "шар-МАНЦ-ки",
+   "ru": "галантный",
+   "pos": "прил.: szarmancki, -a, -ie",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "elegancki",
+   "translit": "э-лэ-ГАНЦ-ки",
+   "ru": "элегантный",
+   "pos": "прил.: elegancki, -a, -ie",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "arogancki",
+   "translit": "а-ро-ГАНЦ-ки",
+   "ru": "высокомерный",
+   "pos": "прил.: arogancki, -a, -ie",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "idealny",
+   "translit": "и-дэ-АЛЬ-ны",
+   "ru": "идеальный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "atrakcyjny",
+   "translit": "ат-рак-ЦЫЙ-ны",
+   "ru": "привлекательный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "nieatrakcyjny",
+   "translit": "не-ат-рак-ЦЫЙ-ны",
+   "ru": "непривлекательный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "artystyczny",
+   "translit": "ар-ты-СТЫЧ-ны",
+   "ru": "артистичный, художественный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "subtelny",
+   "translit": "суп-ТЭЛЬ-ны",
+   "ru": "тонкий, деликатный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "oryginalny",
+   "translit": "о-ры-ги-НАЛЬ-ны",
+   "ru": "оригинальный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "krytyczny",
+   "translit": "кры-ТЫЧ-ны",
+   "ru": "критичный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "tolerancyjny",
+   "translit": "то-лэ-ран-ЦЫЙ-ны",
+   "ru": "терпимый, толерантный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "egoistyczny",
+   "translit": "э-го-ис-ТЫЧ-ны",
+   "ru": "эгоистичный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "altruistyczny",
+   "translit": "аль-тру-ис-ТЫЧ-ны",
+   "ru": "альтруистичный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "po prostu",
+   "translit": "по ПРОС-ту",
+   "ru": "просто",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Характер"
+  },
+  {
+   "pl": "polski",
+   "translit": "ПОЛЬ-ски",
+   "ru": "польский",
+   "pos": "прил.: polski, polska, polskie",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "niemiecki",
+   "translit": "не-МЕЦ-ки",
+   "ru": "немецкий",
+   "pos": "прил.: niemiecki, -a, -ie",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "francuski",
+   "translit": "фран-ЦУС-ки",
+   "ru": "французский",
+   "pos": "прил.: francuski, -a, -ie",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "amerykański",
+   "translit": "а-мэ-ры-КАНЬ-ски",
+   "ru": "американский",
+   "pos": "прил.: amerykański, -a, -ie",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "japoński",
+   "translit": "я-ПОНЬ-ски",
+   "ru": "японский",
+   "pos": "прил.: japoński, -a, -ie",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "włoski",
+   "translit": "ВЎОС-ки",
+   "ru": "итальянский",
+   "pos": "прил.: włoski, -a, -ie",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "angielski",
+   "translit": "ан-ГЕЛЬ-ски",
+   "ru": "английский",
+   "pos": "прил.: angielski, -a, -ie",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "hiszpański",
+   "translit": "хиш-ПАНЬ-ски",
+   "ru": "испанский",
+   "pos": "прил.: hiszpański, -a, -ie",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "rosyjski",
+   "translit": "ро-СЫЙ-ски",
+   "ru": "русский (российский)",
+   "pos": "прил.: rosyjski, -a, -ie",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "z Niemiec",
+   "translit": "з НЕ-мец",
+   "ru": "из Германии",
+   "pos": "откуда?",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "z Francji",
+   "translit": "с ФРАН-цьи",
+   "ru": "из Франции",
+   "pos": "откуда?",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "z Japonii",
+   "translit": "з я-ПО-ньи",
+   "ru": "из Японии",
+   "pos": "откуда?",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "z Włoch",
+   "translit": "з вўох",
+   "ru": "из Италии",
+   "pos": "откуда?",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "z Hiszpanii",
+   "translit": "з хиш-ПА-ньи",
+   "ru": "из Испании",
+   "pos": "откуда?",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "z Rosji",
+   "translit": "з РО-сьи",
+   "ru": "из России",
+   "pos": "откуда?",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "nowy",
+   "translit": "НО-вы",
+   "ru": "новый",
+   "pos": "прил.: nowy, nowa, nowe",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "dobry",
+   "translit": "ДОБ-ры",
+   "ru": "хороший",
+   "pos": "прил.: dobry, dobra, dobre",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "drogi",
+   "translit": "ДРО-ги",
+   "ru": "дорогой",
+   "pos": "прил.: drogi, droga, drogie",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "interesujący",
+   "translit": "ин-тэ-рэ-су-ЁН-цы",
+   "ru": "интересный",
+   "pos": "прил.: interesujący, -a, -e",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "fatalny",
+   "translit": "фа-ТАЛЬ-ны",
+   "ru": "ужасный, отвратительный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Откуда? Какой?"
+  },
+  {
+   "pl": "imię",
+   "translit": "И-мье",
+   "ru": "имя",
+   "pos": "сущ., ср. р. (-ę)",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "nazwisko",
+   "translit": "на-ЗВИС-ко",
+   "ru": "фамилия",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "adres",
+   "translit": "АД-рэс",
+   "ru": "адрес",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "ulica (ul.)",
+   "translit": "у-ЛИ-ца",
+   "ru": "улица",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "aleja (al.)",
+   "translit": "а-ЛЕ-я",
+   "ru": "аллея, проспект",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "plac (pl.)",
+   "translit": "плац",
+   "ru": "площадь",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "osiedle (os.)",
+   "translit": "о-ЩЕД-ле",
+   "ru": "жилой район, микрорайон",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "numer kierunkowy",
+   "translit": "НУ-мэр ке-рун-КО-вы",
+   "ru": "телефонный код (города)",
+   "pos": "сущ. + прил.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "Dokąd?",
+   "translit": "ДО-конт",
+   "ru": "Куда?",
+   "pos": "вопрос",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "województwo",
+   "translit": "во-е-ВУТСТ-фо",
+   "ru": "воеводство (область)",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "hotel",
+   "translit": "ХО-тэль",
+   "ru": "гостиница",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "biuro",
+   "translit": "БЮ-ро",
+   "ru": "бюро, офис",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "biuro turystyczne",
+   "translit": "БЮ-ро ту-ры-СТЫЧ-нэ",
+   "ru": "турагентство",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "biuro"
+  },
+  {
+   "pl": "restauracja",
+   "translit": "рэс-тау-РА-цья",
+   "ru": "ресторан",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "szkoła językowa",
+   "translit": "ШКО-ўа ен-зы-КО-ва",
+   "ru": "языковая школа",
+   "pos": "сущ. + прил.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "bank",
+   "translit": "банк",
+   "ru": "банк",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "gabinet dentystyczny",
+   "translit": "га-БИ-нэт дэн-ты-СТЫЧ-ны",
+   "ru": "стоматологический кабинет",
+   "pos": "сущ. + прил.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "firma",
+   "translit": "ФИР-ма",
+   "ru": "фирма, компания",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "miasto",
+   "translit": "МЯС-то",
+   "ru": "город",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Адрес и город"
+  },
+  {
+   "pl": "jedenaście",
+   "translit": "е-дэ-НАЩЬ-че",
+   "ru": "одиннадцать (11)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "dwanaście",
+   "translit": "два-НАЩЬ-че",
+   "ru": "двенадцать (12)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "trzynaście",
+   "translit": "тшы-НАЩЬ-че",
+   "ru": "тринадцать (13)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "czternaście",
+   "translit": "чтэр-НАЩЬ-че",
+   "ru": "четырнадцать (14)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "piętnaście",
+   "translit": "пент-НАЩЬ-че",
+   "ru": "пятнадцать (15)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "szesnaście",
+   "translit": "шэс-НАЩЬ-че",
+   "ru": "шестнадцать (16)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "siedemnaście",
+   "translit": "ще-дэм-НАЩЬ-че",
+   "ru": "семнадцать (17)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "osiemnaście",
+   "translit": "о-щем-НАЩЬ-че",
+   "ru": "восемнадцать (18)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "dziewiętnaście",
+   "translit": "дже-вьент-НАЩЬ-че",
+   "ru": "девятнадцать (19)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "dwadzieścia",
+   "translit": "два-ДЖЕЩЬ-ча",
+   "ru": "двадцать (20)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "dwadzieścia jeden",
+   "translit": "два-ДЖЕЩЬ-ча Е-дэн",
+   "ru": "двадцать один (21)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "dwadzieścia dwa",
+   "translit": "два-ДЖЕЩЬ-ча два",
+   "ru": "двадцать два (22)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "dwadzieścia trzy",
+   "translit": "два-ДЖЕЩЬ-ча тшы",
+   "ru": "двадцать три (23)",
+   "pos": "числ.",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "plus",
+   "translit": "плюс",
+   "ru": "плюс",
+   "pos": "2 plus 2",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "minus",
+   "translit": "МИ-нус",
+   "ru": "минус",
+   "pos": "5 minus 3",
+   "src": "wb",
+   "topic": "Числа 11–23"
+  },
+  {
+   "pl": "mieć",
+   "translit": "мечь",
+   "ru": "иметь",
+   "pos": "глаг.: mam, masz, ma, mamy, macie, mają",
+   "src": "tb",
+   "topic": "Глаголы на -m, -sz"
+  },
+  {
+   "pl": "rozumieć",
+   "translit": "ро-ЗУ-мечь",
+   "ru": "понимать",
+   "pos": "глаг.: rozumiem, rozumiesz, rozumieją",
+   "src": "tb",
+   "topic": "Глаголы на -m, -sz"
+  },
+  {
+   "pl": "przepraszać",
+   "translit": "пшэ-ПРА-шачь",
+   "ru": "извиняться",
+   "pos": "глаг.: przepraszam, przepraszasz, przepraszają",
+   "src": "tb",
+   "topic": "Глаголы на -m, -sz"
+  },
+  {
+   "pl": "czytać",
+   "translit": "ЧЫ-тачь",
+   "ru": "читать",
+   "pos": "глаг.: czytam, czytasz, czytają",
+   "src": "tb",
+   "topic": "Глаголы на -m, -sz"
+  },
+  {
+   "pl": "pytać",
+   "translit": "ПЫ-тачь",
+   "ru": "спрашивать",
+   "pos": "глаг.: pytam, pytasz, pytają",
+   "src": "tb",
+   "topic": "Глаголы на -m, -sz"
+  },
+  {
+   "pl": "mieszkać",
+   "translit": "МЕШ-качь",
+   "ru": "жить (где-то)",
+   "pos": "глаг.: mieszkam, mieszkasz, mieszkają",
+   "src": "tb",
+   "topic": "Глаголы на -m, -sz"
+  },
+  {
+   "pl": "nazywać się",
+   "translit": "на-ЗЫ-вачь щен",
+   "ru": "называться, иметь фамилию",
+   "pos": "глаг.: nazywam się, nazywasz się",
+   "src": "tb",
+   "topic": "Глаголы на -m, -sz"
+  },
+  {
+   "pl": "mówić",
+   "translit": "МУ-вичь",
+   "ru": "говорить",
+   "pos": "глаг., -ę / -isz: mówię, mówisz, mówią",
+   "src": "tb",
+   "topic": "Глаголы на -m, -sz"
+  },
+  {
+   "pl": "studiować",
+   "translit": "сту-ДЬЁ-вачь",
+   "ru": "учиться (в вузе), изучать",
+   "pos": "глаг.: studiuję, studiujesz",
+   "src": "tb",
+   "topic": "Глаголы на -m, -sz"
+  },
+  {
+   "pl": "Mam pytanie.",
+   "translit": "мам пы-ТА-не",
+   "ru": "У меня вопрос.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Co to jest?",
+   "translit": "цо то ест",
+   "ru": "Что это?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Kto to jest?",
+   "translit": "кто то ест",
+   "ru": "Кто это?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "To są…",
+   "translit": "то сон",
+   "ru": "Это… (о мн. ч.)",
+   "pos": "фраза: To są okulary.",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Proszę powtórzyć.",
+   "translit": "ПРО-шэ поф-ТУ-жычь",
+   "ru": "Повторите, пожалуйста.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Proszę mówić wolniej.",
+   "translit": "ПРО-шэ МУ-вичь ВОЛЬ-ней",
+   "ru": "Говорите медленнее, пожалуйста.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Nie rozumiem.",
+   "translit": "не ро-ЗУ-мем",
+   "ru": "Я не понимаю.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Co znaczy…?",
+   "translit": "цо ЗНА-чы",
+   "ru": "Что значит…?",
+   "pos": "фраза: Co znaczy „pies”?",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Nic nie szkodzi.",
+   "translit": "ниц не ШКО-джи",
+   "ru": "Ничего страшного.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Bardzo mi miło.",
+   "translit": "БАР-дзо ми МИ-ўо",
+   "ru": "Очень приятно.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Miło mi.",
+   "translit": "МИ-ўо ми",
+   "ru": "Приятно познакомиться.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Jak się masz?",
+   "translit": "як щен маш",
+   "ru": "Как дела?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Świetnie!",
+   "translit": "ЩВЕТ-не",
+   "ru": "Отлично!",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Nie wiem.",
+   "translit": "не вем",
+   "ru": "Не знаю.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Ma na imię Andrzej.",
+   "translit": "ма на И-мье АН-джэй",
+   "ru": "Его зовут Анджей.",
+   "pos": "фраза: mieć na imię",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Jest w serwisie.",
+   "translit": "ест ф сэр-ВИ-ще",
+   "ru": "Она (машина) в сервисе.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Ile jest dwa plus siedem?",
+   "translit": "И-ле ест два плюс ЩЕ-дэм",
+   "ru": "Сколько будет два плюс семь?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "rzeczownik",
+   "translit": "жэ-ЧОВ-ник",
+   "ru": "существительное",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "przymiotnik",
+   "translit": "пшы-МЁТ-ник",
+   "ru": "прилагательное",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "czasownik",
+   "translit": "ча-СОВ-ник",
+   "ru": "глагол",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "bezokolicznik",
+   "translit": "бэз-о-ко-ЛИЧ-ник",
+   "ru": "инфинитив",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "mianownik",
+   "translit": "мя-НОВ-ник",
+   "ru": "именительный падеж (Kto? Co?)",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "rodzaj męski",
+   "translit": "РО-дзай МЭН-ски",
+   "ru": "мужской род",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "rodzaj żeński",
+   "translit": "РО-дзай ЖЭНЬ-ски",
+   "ru": "женский род",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "rodzaj nijaki",
+   "translit": "РО-дзай ни-Я-ки",
+   "ru": "средний род",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "liczba pojedyncza",
+   "translit": "ЛИДЖ-ба по-е-ДЫН-ча",
+   "ru": "единственное число",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "koniugacja",
+   "translit": "ко-ню-ГА-цья",
+   "ru": "спряжение",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "końcówka",
+   "translit": "конь-ЦУФ-ка",
+   "ru": "окончание",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "czas teraźniejszy",
+   "translit": "час тэ-ражь-НЕЙ-шы",
+   "ru": "настоящее время",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "pluralia tantum",
+   "translit": "плю-РА-лья ТАН-тум",
+   "ru": "слова только во мн. ч. (drzwi, okulary)",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "samogłoska",
+   "translit": "са-мо-ГЎОС-ка",
+   "ru": "гласная",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "spółgłoska",
+   "translit": "спуў-ГЎОС-ка",
+   "ru": "согласная",
+   "pos": "термин",
+   "src": "wb",
+   "topic": "Грамматические термины"
+  }
+ ],
+ "exercises": [
+  {
+   "id": "tb-2-1a",
+   "src": "tb",
+   "ref": "Ćw. 1a, s. 16",
+   "title": "Co to jest? To jest ..... To są .....",
+   "title_ru": "Что это?",
+   "task_ru": "Картинки из учебника — здесь описание по-русски. Напиши слово из рамки (kawa, okulary, radio, fotografia, imię, autobus, telefon, kino, komputer, lampa, dżinsy): «1 lampa».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "💡 лампа (висит под потолком)",
+     "answer": "lampa",
+     "ru": "лампа",
+     "translit": "ЛЯМ-па"
+    },
+    {
+     "q": "👖 джинсы",
+     "answer": "dżinsy",
+     "ru": "джинсы",
+     "translit": "ДЖИН-сы",
+     "grammar": "pluralia tantum: to są dżinsy"
+    },
+    {
+     "q": "🎬 здание с вывеской «cinema»",
+     "answer": "kino",
+     "ru": "кино",
+     "translit": "КИ-но"
+    },
+    {
+     "q": "🖥 компьютер",
+     "answer": "komputer",
+     "ru": "компьютер",
+     "translit": "ком-ПУ-тэр"
+    },
+    {
+     "q": "📱 телефон",
+     "answer": "telefon",
+     "ru": "телефон",
+     "translit": "тэ-ЛЕ-фон"
+    },
+    {
+     "q": "🖼 фотография в рамке",
+     "answer": "fotografia",
+     "ru": "фотография",
+     "translit": "фо-то-ГРА-фья"
+    },
+    {
+     "q": "📻 радиоприёмник",
+     "answer": "radio",
+     "ru": "радио",
+     "translit": "РА-дьё"
+    },
+    {
+     "q": "☕ чашка с горячим напитком",
+     "answer": "kawa",
+     "ru": "кофе",
+     "translit": "КА-ва"
+    },
+    {
+     "q": "✍ «Jan Kowalski»: ___ / nazwisko",
+     "answer": "imię",
+     "ru": "имя / фамилия",
+     "translit": "И-мье"
+    },
+    {
+     "q": "🚌 автобус",
+     "answer": "autobus",
+     "ru": "автобус",
+     "translit": "ау-ТО-бус"
+    },
+    {
+     "q": "👓 очки",
+     "answer": "okulary",
+     "ru": "очки",
+     "translit": "о-ку-ЛЯ-ры",
+     "grammar": "pluralia tantum: to są okulary"
+    }
+   ]
+  },
+  {
+   "id": "tb-2-1b",
+   "src": "tb",
+   "ref": "Ćw. 1b, s. 16",
+   "title": "Kto to jest? To jest .....",
+   "title_ru": "Кто это?",
+   "task_ru": "Напиши женскую пару к мужскому слову (из рамки: artystka, studentka, lektorka, dentystka, optymistka).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "lektor / ___",
+     "answer": "lektorka",
+     "ru": "преподаватель / преподавательница",
+     "translit": "лек-ТОР-ка"
+    },
+    {
+     "q": "student / ___",
+     "answer": "studentka",
+     "ru": "студент / студентка",
+     "translit": "сту-ДЭНТ-ка"
+    },
+    {
+     "q": "artysta / ___",
+     "answer": "artystka",
+     "ru": "художник / художница",
+     "translit": "ар-ТЫСТ-ка"
+    },
+    {
+     "q": "dentysta / ___",
+     "answer": "dentystka",
+     "ru": "стоматолог (м.) / стоматолог (ж.)",
+     "translit": "дэн-ТЫСТ-ка"
+    },
+    {
+     "q": "optymista / ___",
+     "answer": "optymistka",
+     "ru": "оптимист / оптимистка",
+     "translit": "оп-ты-МИСТ-ка"
+    }
+   ]
+  },
+  {
+   "id": "tb-2-1c-1",
+   "src": "tb",
+   "ref": "Ćw. 1c, s. 17 (1/2)",
+   "title": "Jaki rodzaj mają rzeczowniki z ćwiczenia 1a i 1b?",
+   "title_ru": "Какого рода существительное?",
+   "task_ru": "Согласная → м. р., -a / -i → ж. р., -o / -e / -ę / -um → ср. р. Но: mężczyzna, artysta, dentysta — м. р.!",
+   "type": "match",
+   "items": [
+    {
+     "q": "kawa",
+     "answer": "rodzaj żeński",
+     "ru": "кофе",
+     "grammar": "-a"
+    },
+    {
+     "q": "radio",
+     "answer": "rodzaj nijaki",
+     "ru": "радио",
+     "grammar": "-o"
+    },
+    {
+     "q": "fotografia",
+     "answer": "rodzaj żeński",
+     "ru": "фотография"
+    },
+    {
+     "q": "imię",
+     "answer": "rodzaj nijaki",
+     "ru": "имя",
+     "grammar": "-ę"
+    },
+    {
+     "q": "autobus",
+     "answer": "rodzaj męski",
+     "ru": "автобус",
+     "grammar": "согласная"
+    },
+    {
+     "q": "telefon",
+     "answer": "rodzaj męski",
+     "ru": "телефон"
+    },
+    {
+     "q": "kino",
+     "answer": "rodzaj nijaki",
+     "ru": "кино"
+    },
+    {
+     "q": "komputer",
+     "answer": "rodzaj męski",
+     "ru": "компьютер"
+    },
+    {
+     "q": "lampa",
+     "answer": "rodzaj żeński",
+     "ru": "лампа"
+    },
+    {
+     "q": "krzesło",
+     "answer": "rodzaj nijaki",
+     "ru": "стул"
+    },
+    {
+     "q": "okno",
+     "answer": "rodzaj nijaki",
+     "ru": "окно"
+    },
+    {
+     "q": "gazeta",
+     "answer": "rodzaj żeński",
+     "ru": "газета"
+    },
+    {
+     "q": "stół",
+     "answer": "rodzaj męski",
+     "ru": "стол"
+    }
+   ],
+   "options": [
+    "rodzaj męski",
+    "rodzaj żeński",
+    "rodzaj nijaki"
+   ]
+  },
+  {
+   "id": "tb-2-1c-2",
+   "src": "tb",
+   "ref": "Ćw. 1c, s. 17 (2/2)",
+   "title": "Jaki rodzaj mają rzeczowniki z ćwiczenia 1a i 1b?",
+   "title_ru": "Какого рода существительное?",
+   "task_ru": "Согласная → м. р., -a / -i → ж. р., -o / -e / -ę / -um → ср. р. Но: mężczyzna, artysta, dentysta — м. р.!",
+   "type": "match",
+   "items": [
+    {
+     "q": "słońce",
+     "answer": "rodzaj nijaki",
+     "ru": "солнце",
+     "grammar": "-e"
+    },
+    {
+     "q": "dom",
+     "answer": "rodzaj męski",
+     "ru": "дом"
+    },
+    {
+     "q": "książka",
+     "answer": "rodzaj żeński",
+     "ru": "книга"
+    },
+    {
+     "q": "długopis",
+     "answer": "rodzaj męski",
+     "ru": "ручка"
+    },
+    {
+     "q": "nazwisko",
+     "answer": "rodzaj nijaki",
+     "ru": "фамилия"
+    },
+    {
+     "q": "samochód",
+     "answer": "rodzaj męski",
+     "ru": "машина"
+    },
+    {
+     "q": "kobieta",
+     "answer": "rodzaj żeński",
+     "ru": "женщина"
+    },
+    {
+     "q": "mężczyzna",
+     "answer": "rodzaj męski",
+     "ru": "мужчина",
+     "grammar": "на -a, но мужчина → м. р."
+    },
+    {
+     "q": "chłopak",
+     "answer": "rodzaj męski",
+     "ru": "парень"
+    },
+    {
+     "q": "dziewczyna",
+     "answer": "rodzaj żeński",
+     "ru": "девушка"
+    },
+    {
+     "q": "artysta",
+     "answer": "rodzaj męski",
+     "ru": "художник",
+     "grammar": "на -a, но м. р."
+    },
+    {
+     "q": "dentystka",
+     "answer": "rodzaj żeński",
+     "ru": "стоматолог (ж.)"
+    },
+    {
+     "q": "dziecko",
+     "answer": "rodzaj nijaki",
+     "ru": "ребёнок"
+    }
+   ],
+   "options": [
+    "rodzaj męski",
+    "rodzaj żeński",
+    "rodzaj nijaki"
+   ]
+  },
+  {
+   "id": "tb-2-2a",
+   "src": "tb",
+   "ref": "Ćw. 2a, s. 17",
+   "title": "Proszę obejrzeć film lub posłuchać nagrania i uzupełnić dialogi.",
+   "title_ru": "Послушай и дополни диалоги",
+   "task_ru": "Текст — на странице учебника (кнопка 📄 ниже). Послушай записи (аудио выше) и напиши пропущенное слово.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "1. Bogusława: Dziękuję, ___. A ty?",
+     "answer": "dobrze",
+     "ru": "Спасибо, хорошо. А ты?",
+     "translit": "ДОБ-жэ"
+    },
+    {
+     "q": "1. Anna: Przepraszam, wiesz, ___ to jest?",
+     "answer": "kto",
+     "ru": "Извини, ты знаешь, кто это?"
+    },
+    {
+     "q": "1. Bogusława: Nie wiesz?! To ___ nowy profesor.",
+     "answer": "jest",
+     "ru": "Не знаешь?! Это новый профессор."
+    },
+    {
+     "q": "1. Bogusława: Nie, on ___ hiszpańskie nazwisko, ale jest z Polski.",
+     "answer": "ma",
+     "ru": "Нет, у него испанская фамилия, но он из Польши."
+    },
+    {
+     "q": "2. Piotr: Dziękuję, dobrze. ___ masz samochód?",
+     "answer": "Gdzie",
+     "ru": "Спасибо, хорошо. Где твоя машина?"
+    },
+    {
+     "q": "2. Ewa: ___ elegancki.",
+     "answer": "Bardzo",
+     "ru": "Очень элегантная."
+    },
+    {
+     "q": "2. Piotr: Puławska... Nie wiem. W ___?",
+     "answer": "centrum",
+     "ru": "Пулавская... Не знаю. В центре?"
+    },
+    {
+     "q": "3. Policjant: ___ pan jest?",
+     "answer": "Skąd",
+     "ru": "Откуда вы?"
+    },
+    {
+     "q": "3. Dirk: Nie rozumiem. Proszę ___.",
+     "answer": "powtórzyć",
+     "ru": "Я не понимаю. Повторите, пожалуйста.",
+     "translit": "поф-ТУ-жычь"
+    },
+    {
+     "q": "3. Dirk: Przepraszam, nie rozumiem. Proszę ___ wolniej.",
+     "answer": "mówić",
+     "ru": "Извините, не понимаю. Говорите медленнее."
+    },
+    {
+     "q": "3. Dirk: Aha, rozumiem. ___ w Hotelu Francuskim.",
+     "answer": "Mieszkam",
+     "ru": "А, понимаю. Я живу в отеле «Французский»."
+    },
+    {
+     "q": "4. Studentka: ___ bardzo.",
+     "answer": "Dziękuję",
+     "ru": "Большое спасибо."
+    }
+   ],
+   "audio": [
+    "015 - HURRA_PP1_podr_stud.mp3",
+    "016 - HURRA_PP1_podr_stud.mp3",
+    "017 - HURRA_PP1_podr_stud.mp3",
+    "018 - HURRA_PP1_podr_stud.mp3"
+   ]
+  },
+  {
+   "id": "tb-2-2c",
+   "src": "tb",
+   "ref": "Ćw. 2c, s. 17",
+   "title": "Czy to prawda (P), czy nieprawda (N)?",
+   "title_ru": "Правда или нет?",
+   "task_ru": "По диалогам ćw. 2a (аудио выше или страница учебника — кнопка 📄).",
+   "type": "tf",
+   "items": [
+    {
+     "q": "Profesor Gonzales ma hiszpańskie imię.",
+     "answer": "nieprawda",
+     "ru": "У профессора Гонсалеса испанское имя.",
+     "full_pl": "Ma hiszpańskie nazwisko, a na imię ma Andrzej."
+    },
+    {
+     "q": "Profesor Gonzales jest z Hiszpanii.",
+     "answer": "nieprawda",
+     "ru": "Профессор Гонсалес из Испании.",
+     "full_pl": "Jest z Polski."
+    },
+    {
+     "q": "Profesor Gonzales ma na imię Andrzej.",
+     "answer": "prawda",
+     "ru": "Профессора Гонсалеса зовут Анджей."
+    },
+    {
+     "q": "Ewa ma japoński samochód.",
+     "answer": "nieprawda",
+     "ru": "У Эвы японская машина.",
+     "full_pl": "Piotr ma japoński samochód."
+    },
+    {
+     "q": "Ewa mieszka w centrum.",
+     "answer": "prawda",
+     "ru": "Эва живёт в центре."
+    },
+    {
+     "q": "Ewa nazywa się Puławska.",
+     "answer": "nieprawda",
+     "ru": "Фамилия Эвы — Пулавская.",
+     "full_pl": "Puławska to ulica (aleja)."
+    },
+    {
+     "q": "Pan Dirk jest z Hiszpanii.",
+     "answer": "nieprawda",
+     "ru": "Пан Дирк из Испании.",
+     "full_pl": "Jest z Niemiec."
+    },
+    {
+     "q": "Pan Dirk nazywa się Francuski.",
+     "answer": "nieprawda",
+     "ru": "Фамилия пана Дирка — Французский.",
+     "full_pl": "Nazywa się Gärtner, mieszka w Hotelu Francuskim."
+    },
+    {
+     "q": "Pan Dirk mieszka w hotelu.",
+     "answer": "prawda",
+     "ru": "Пан Дирк живёт в гостинице."
+    },
+    {
+     "q": "Studentka pyta, gdzie jest literatura niemiecka.",
+     "answer": "nieprawda",
+     "ru": "Студентка спрашивает, где немецкая литература.",
+     "full_pl": "Pyta, gdzie jest literatura francuska."
+    },
+    {
+     "q": "Bibliotekarka wie, gdzie jest literatura francuska.",
+     "answer": "prawda",
+     "ru": "Библиотекарь знает, где французская литература."
+    }
+   ],
+   "audio": [
+    "015 - HURRA_PP1_podr_stud.mp3",
+    "016 - HURRA_PP1_podr_stud.mp3",
+    "017 - HURRA_PP1_podr_stud.mp3",
+    "018 - HURRA_PP1_podr_stud.mp3"
+   ]
+  },
+  {
+   "id": "tb-2-3a",
+   "src": "tb",
+   "ref": "Ćw. 3a, s. 18",
+   "title": "Proszę uzupełnić tabelę.",
+   "title_ru": "Откуда? → какой, какая, какое",
+   "task_ru": "Напиши недостающую форму: «z …» (откуда?) или прилагательное в м. / ж. / ср. роде.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "3. z ___ (→ francuski)",
+     "answer": "Francji",
+     "ru": "из Франции",
+     "translit": "ФРАН-цьи"
+    },
+    {
+     "q": "3. francuski → ż. ___",
+     "answer": "francuska",
+     "ru": "французская"
+    },
+    {
+     "q": "4. amerykański → ż. ___",
+     "answer": "amerykańska",
+     "ru": "американская"
+    },
+    {
+     "q": "4. amerykański → n. ___",
+     "answer": "amerykańskie",
+     "ru": "американское"
+    },
+    {
+     "q": "5. z Japonii → m. ___",
+     "answer": "japoński",
+     "ru": "японский"
+    },
+    {
+     "q": "5. japońska → n. ___",
+     "answer": "japońskie",
+     "ru": "японское"
+    },
+    {
+     "q": "6. z ___ (→ włoskie)",
+     "answer": "Włoch",
+     "ru": "из Италии",
+     "translit": "вўох"
+    },
+    {
+     "q": "6. włoskie → m. ___",
+     "answer": "włoski",
+     "ru": "итальянский"
+    },
+    {
+     "q": "6. włoskie → ż. ___",
+     "answer": "włoska",
+     "ru": "итальянская"
+    },
+    {
+     "q": "7. angielski → ż. ___",
+     "answer": "angielska",
+     "ru": "английская"
+    },
+    {
+     "q": "7. angielski → n. ___",
+     "answer": "angielskie",
+     "ru": "английское"
+    },
+    {
+     "q": "8. z Hiszpanii → m. ___",
+     "answer": "hiszpański",
+     "ru": "испанский"
+    },
+    {
+     "q": "8. hiszpańskie → ż. ___",
+     "answer": "hiszpańska",
+     "ru": "испанская"
+    },
+    {
+     "q": "9. rosyjski → ż. ___",
+     "answer": "rosyjska",
+     "ru": "русская (российская)"
+    },
+    {
+     "q": "9. rosyjski → n. ___",
+     "answer": "rosyjskie",
+     "ru": "русское (российское)"
+    }
+   ]
+  },
+  {
+   "id": "tb-2-3b",
+   "src": "tb",
+   "ref": "Ćw. 3b, s. 18",
+   "title": "Rodzaj męski, żeński czy nijaki?",
+   "title_ru": "Мужской, женский или средний род?",
+   "task_ru": "Выбери род существительного.",
+   "type": "match",
+   "items": [
+    {
+     "q": "auto",
+     "answer": "rodzaj nijaki",
+     "ru": "машина"
+    },
+    {
+     "q": "samochód",
+     "answer": "rodzaj męski",
+     "ru": "машина"
+    },
+    {
+     "q": "firma",
+     "answer": "rodzaj żeński",
+     "ru": "фирма"
+    },
+    {
+     "q": "restauracja",
+     "answer": "rodzaj żeński",
+     "ru": "ресторан"
+    },
+    {
+     "q": "herbata",
+     "answer": "rodzaj żeński",
+     "ru": "чай"
+    },
+    {
+     "q": "polityk",
+     "answer": "rodzaj męski",
+     "ru": "политик"
+    },
+    {
+     "q": "film",
+     "answer": "rodzaj męski",
+     "ru": "фильм"
+    },
+    {
+     "q": "tradycja",
+     "answer": "rodzaj żeński",
+     "ru": "традиция"
+    },
+    {
+     "q": "kawa",
+     "answer": "rodzaj żeński",
+     "ru": "кофе"
+    },
+    {
+     "q": "imię",
+     "answer": "rodzaj nijaki",
+     "ru": "имя"
+    },
+    {
+     "q": "nazwisko",
+     "answer": "rodzaj nijaki",
+     "ru": "фамилия"
+    },
+    {
+     "q": "rzeka",
+     "answer": "rodzaj żeński",
+     "ru": "река"
+    }
+   ],
+   "options": [
+    "rodzaj męski",
+    "rodzaj żeński",
+    "rodzaj nijaki"
+   ]
+  },
+  {
+   "id": "tb-2-3c",
+   "src": "tb",
+   "ref": "Ćw. 3c, s. 18",
+   "title": "Proszę dokończyć zdania i napisać do nich pytania.",
+   "title_ru": "Что это такое? Какое?",
+   "task_ru": "Слова для ответа: auto, samochód, firma, restauracja, herbata, polityk, film, tradycja, kawa, nazwisko. Напиши окончание и вопрос: «niemiecki samochód — Jaki to samochód?». Проверяет модель.",
+   "type": "open",
+   "items": [
+    {
+     "q": "BMW to ___",
+     "answer": "niemiecki samochód — Jaki to samochód?",
+     "ru": "BMW — это немецкая машина. Какая это машина?",
+     "accepted": [
+      "niemieckie auto — Jakie to auto?"
+     ]
+    },
+    {
+     "q": "Gladiator to ___",
+     "answer": "amerykański film — Jaki to film?",
+     "ru": "«Гладиатор» — американский фильм. Какой это фильм?"
+    },
+    {
+     "q": "Władimir Putin to ___",
+     "answer": "rosyjski polityk — Jaki to polityk?",
+     "ru": "Путин — российский политик. Какой это политик?"
+    },
+    {
+     "q": "Suzuki to ___",
+     "answer": "japoński samochód — Jaki to samochód?",
+     "ru": "Сузуки — японская машина. Какая это машина?",
+     "accepted": [
+      "japońskie auto — Jakie to auto?",
+      "japońska firma — Jaka to firma?"
+     ]
+    },
+    {
+     "q": "Microsoft to ___",
+     "answer": "amerykańska firma — Jaka to firma?",
+     "ru": "Microsoft — американская компания. Какая это компания?"
+    },
+    {
+     "q": "Pizzeria Italiana to ___",
+     "answer": "włoska restauracja — Jaka to restauracja?",
+     "ru": "Pizzeria Italiana — итальянский ресторан. Какой это ресторан?"
+    },
+    {
+     "q": "Windsor Tea to ___",
+     "answer": "angielska herbata — Jaka to herbata?",
+     "ru": "Windsor Tea — английский чай. Какой это чай?"
+    },
+    {
+     "q": "Jacobs Krönung to ___",
+     "answer": "niemiecka kawa — Jaka to kawa?",
+     "ru": "Jacobs Krönung — немецкий кофе. Какой это кофе?"
+    },
+    {
+     "q": "Corrida to ___",
+     "answer": "hiszpańska tradycja — Jaka to tradycja?",
+     "ru": "Коррида — испанская традиция. Какая это традиция?"
+    },
+    {
+     "q": "Schulz to ___",
+     "answer": "niemieckie nazwisko — Jakie to nazwisko?",
+     "ru": "Шульц — немецкая фамилия. Какая это фамилия?"
+    }
+   ]
+  },
+  {
+   "id": "tb-2-4",
+   "src": "tb",
+   "ref": "Jaki / jaka jesteś? s. 19",
+   "title": "Jaki / jaka jesteś, a jaki / jaka nie?",
+   "title_ru": "Какой ты, а какой нет?",
+   "task_ru": "Опиши себя прилагательными с s. 19: «Jestem …, … i …, a nie jestem ani …, ani …». Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Jestem ___, ___ i ___, a nie jestem ani ___, ani ___.",
+     "answer": "Jestem wysoki, szczupły i wesoły, a nie jestem ani gruby, ani smutny.",
+     "ru": "Я высокий, стройный и весёлый, а не толстый и не грустный.",
+     "grammar": "ani …, ani … — ни …, ни …"
+    }
+   ]
+  },
+  {
+   "id": "tb-2-4a",
+   "src": "tb",
+   "ref": "Ćw. 4a, s. 19",
+   "title": "Proszę napisać antonimy.",
+   "title_ru": "Напиши антонимы",
+   "task_ru": "Напиши слово с противоположным значением.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "wysoki ≠ ___",
+     "answer": "niski",
+     "ru": "высокий ≠ низкий",
+     "translit": "НИС-ки"
+    },
+    {
+     "q": "___ ≠ niewysportowany",
+     "answer": "wysportowany",
+     "ru": "спортивный ≠ неспортивный"
+    },
+    {
+     "q": "___ ≠ chory",
+     "answer": "zdrowy",
+     "ru": "здоровый ≠ больной",
+     "translit": "ЗДРО-вы"
+    },
+    {
+     "q": "wesoły ≠ ___",
+     "answer": "smutny",
+     "ru": "весёлый ≠ грустный",
+     "translit": "СМУТ-ны"
+    },
+    {
+     "q": "przystojny ≠ ___",
+     "answer": "brzydki",
+     "ru": "красивый ≠ некрасивый",
+     "translit": "БЖЫТ-ки"
+    },
+    {
+     "q": "___ ≠ niemiły",
+     "answer": "miły",
+     "ru": "приятный ≠ неприятный",
+     "translit": "МИ-ўы"
+    },
+    {
+     "q": "młody ≠ ___",
+     "answer": "stary",
+     "ru": "молодой ≠ старый",
+     "translit": "СТА-ры"
+    },
+    {
+     "q": "___ ≠ brzydka",
+     "answer": "ładna",
+     "ru": "красивая ≠ некрасивая",
+     "translit": "ЎАД-на"
+    },
+    {
+     "q": "___ ≠ gruby",
+     "answer": "szczupły",
+     "ru": "стройный ≠ толстый",
+     "translit": "ШЧУП-ўы"
+    }
+   ]
+  },
+  {
+   "id": "tb-2-5",
+   "src": "tb",
+   "ref": "Ćw. 5, s. 20",
+   "title": "Proszę napisać: kto, skąd on / ona jest i jaki on / jaka ona jest.",
+   "title_ru": "Известный человек: кто, откуда, какой?",
+   "task_ru": "Напиши об известном человеке (актёр, политик): откуда он(а) и какой(-ая) — 2 прилагательных. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Pan / Pani ___ jest z ___. On / Ona jest ___ i ___.",
+     "answer": "Pan Robert Lewandowski jest z Polski. On jest wysoki i wysportowany.",
+     "ru": "Роберт Левандовский из Польши. Он высокий и спортивный.",
+     "grammar": "z + родительный: z Polski, z Anglii, z Niemiec"
+    },
+    {
+     "q": "Sherlock Holmes jest z ___. On jest ___ i ___.",
+     "answer": "Sherlock Holmes jest z Anglii. On jest wysoki i przystojny.",
+     "ru": "Шерлок Холмс из Англии. Он высокий и красивый."
+    }
+   ]
+  },
+  {
+   "id": "tb-2-6",
+   "src": "tb",
+   "ref": "Ćw. 6, s. 20",
+   "title": "Proszę połączyć antonimy.",
+   "title_ru": "Соедини антонимы",
+   "task_ru": "Выбери антоним.",
+   "type": "match",
+   "items": [
+    {
+     "q": "ładna",
+     "answer": "brzydka",
+     "ru": "красивая"
+    },
+    {
+     "q": "szczupły",
+     "answer": "gruby",
+     "ru": "стройный"
+    },
+    {
+     "q": "młody",
+     "answer": "stary",
+     "ru": "молодой"
+    },
+    {
+     "q": "przystojny",
+     "answer": "brzydki",
+     "ru": "красивый (о мужчине)"
+    },
+    {
+     "q": "wysportowany",
+     "answer": "niewysportowany",
+     "ru": "спортивный"
+    },
+    {
+     "q": "smutny",
+     "answer": "wesoły",
+     "ru": "грустный"
+    },
+    {
+     "q": "miły",
+     "answer": "niemiły",
+     "ru": "приятный"
+    },
+    {
+     "q": "chory",
+     "answer": "zdrowy",
+     "ru": "больной"
+    }
+   ],
+   "options": [
+    "wesoły",
+    "brzydka",
+    "brzydki",
+    "niewysportowany",
+    "stary",
+    "niemiły",
+    "gruby",
+    "zdrowy"
+   ]
+  },
+  {
+   "id": "tb-2-7c",
+   "src": "tb",
+   "ref": "Ćw. 7c, s. 20",
+   "title": "Proszę wybrać przymiotniki z ćwiczenia 7a i uzupełnić zdania.",
+   "title_ru": "Какой я?",
+   "task_ru": "Выбери прилагательные из 7a (ambitny, kreatywny, sympatyczny…) и напиши о себе. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Jestem: ___, ___, ___.",
+     "answer": "Jestem ambitny, kreatywny, sympatyczny.",
+     "ru": "Я амбициозный, творческий, симпатичный."
+    },
+    {
+     "q": "Nie jestem ani ___, ani ___, ani ___.",
+     "answer": "Nie jestem ani agresywny, ani naiwny, ani arogancki.",
+     "ru": "Я не агрессивный, не наивный и не высокомерный."
+    }
+   ]
+  },
+  {
+   "id": "tb-2-8a",
+   "src": "tb",
+   "ref": "Ćw. 8a, s. 21",
+   "title": "Proszę uzupełnić tabelę.",
+   "title_ru": "Спряжение -m, -sz",
+   "task_ru": "Окончания: ja -m, ty -sz, on -ø, my -my, wy -cie, oni -ją. Напиши форму глагола.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "mieć — (ty) ___",
+     "answer": "masz",
+     "ru": "иметь — ty"
+    },
+    {
+     "q": "mieć — (on / ona) ___",
+     "answer": "ma",
+     "ru": "иметь — on / ona"
+    },
+    {
+     "q": "mieć — (wy) ___",
+     "answer": "macie",
+     "ru": "иметь — wy"
+    },
+    {
+     "q": "mieć — (oni / one) ___",
+     "answer": "mają",
+     "ru": "иметь — oni / one"
+    },
+    {
+     "q": "rozumieć — (ty) ___",
+     "answer": "rozumiesz",
+     "ru": "понимать — ty"
+    },
+    {
+     "q": "rozumieć — (on / ona) ___",
+     "answer": "rozumie",
+     "ru": "понимать — on / ona"
+    },
+    {
+     "q": "rozumieć — (my) ___",
+     "answer": "rozumiemy",
+     "ru": "понимать — my"
+    },
+    {
+     "q": "rozumieć — (oni / one) ___",
+     "answer": "rozumieją",
+     "ru": "понимать — oni / one"
+    },
+    {
+     "q": "przepraszać — (ty) ___",
+     "answer": "przepraszasz",
+     "ru": "извиняться — ty"
+    },
+    {
+     "q": "przepraszać — (my) ___",
+     "answer": "przepraszamy",
+     "ru": "извиняться — my"
+    },
+    {
+     "q": "przepraszać — (wy) ___",
+     "answer": "przepraszacie",
+     "ru": "извиняться — wy"
+    },
+    {
+     "q": "czytać — (ja) ___",
+     "answer": "czytam",
+     "ru": "читать — ja"
+    },
+    {
+     "q": "czytać — (ty) ___",
+     "answer": "czytasz",
+     "ru": "читать — ty"
+    },
+    {
+     "q": "czytać — (on / ona) ___",
+     "answer": "czyta",
+     "ru": "читать — on / ona"
+    },
+    {
+     "q": "czytać — (wy) ___",
+     "answer": "czytacie",
+     "ru": "читать — wy"
+    },
+    {
+     "q": "pytać — (ja) ___",
+     "answer": "pytam",
+     "ru": "спрашивать — ja"
+    },
+    {
+     "q": "pytać — (ty) ___",
+     "answer": "pytasz",
+     "ru": "спрашивать — ty"
+    },
+    {
+     "q": "pytać — (on / ona) ___",
+     "answer": "pyta",
+     "ru": "спрашивать — on / ona"
+    },
+    {
+     "q": "pytać — (my) ___",
+     "answer": "pytamy",
+     "ru": "спрашивать — my"
+    },
+    {
+     "q": "pytać — (oni / one) ___",
+     "answer": "pytają",
+     "ru": "спрашивать — oni / one"
+    },
+    {
+     "q": "mieszkać — (ja) ___",
+     "answer": "mieszkam",
+     "ru": "жить — ja"
+    },
+    {
+     "q": "mieszkać — (ty) ___",
+     "answer": "mieszkasz",
+     "ru": "жить — ty"
+    },
+    {
+     "q": "mieszkać — (on / ona) ___",
+     "answer": "mieszka",
+     "ru": "жить — on / ona"
+    },
+    {
+     "q": "mieszkać — (my) ___",
+     "answer": "mieszkamy",
+     "ru": "жить — my"
+    },
+    {
+     "q": "mieszkać — (wy) ___",
+     "answer": "mieszkacie",
+     "ru": "жить — wy"
+    },
+    {
+     "q": "mieszkać — (oni / one) ___",
+     "answer": "mieszkają",
+     "ru": "жить — oni / one"
+    }
+   ]
+  },
+  {
+   "id": "tb-2-8b",
+   "src": "tb",
+   "ref": "Ćw. 8b, s. 21",
+   "title": "Proszę wpisać zaimki osobowe.",
+   "title_ru": "Вставь личное местоимение",
+   "task_ru": "Определи по окончанию глагола: ja, ty, on, ona, my, wy, oni, one.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "___ nie rozumie.",
+     "answer": "On",
+     "ru": "Он не понимает.",
+     "accepted": [
+      "Ona",
+      "Ono",
+      "Pan",
+      "Pani"
+     ]
+    },
+    {
+     "q": "___ mieszkamy w Krakowie.",
+     "answer": "My",
+     "ru": "Мы живём в Кракове."
+    },
+    {
+     "q": "Gdzie ___ mieszkasz?",
+     "answer": "ty",
+     "ru": "Где ты живёшь?"
+    },
+    {
+     "q": "___ pytają.",
+     "answer": "Oni",
+     "ru": "Они спрашивают.",
+     "accepted": [
+      "One",
+      "Państwo"
+     ]
+    },
+    {
+     "q": "___ czytam gazetę.",
+     "answer": "Ja",
+     "ru": "Я читаю газету."
+    },
+    {
+     "q": "___ mieszkam w centrum.",
+     "answer": "Ja",
+     "ru": "Я живу в центре."
+    },
+    {
+     "q": "Jak ___ się nazywacie?",
+     "answer": "wy",
+     "ru": "Как ваша фамилия? (вас)"
+    },
+    {
+     "q": "___ przepraszam.",
+     "answer": "Ja",
+     "ru": "Я извиняюсь."
+    },
+    {
+     "q": "___ nie rozumiem.",
+     "answer": "Ja",
+     "ru": "Я не понимаю."
+    },
+    {
+     "q": "___ nie rozumiesz?",
+     "answer": "Ty",
+     "ru": "Ты не понимаешь?"
+    },
+    {
+     "q": "___ ma na imię Aneta.",
+     "answer": "Ona",
+     "ru": "Её зовут Анета.",
+     "grammar": "Aneta — женское имя"
+    },
+    {
+     "q": "___ nazywa się Kowalski.",
+     "answer": "On",
+     "ru": "Его фамилия Ковальский.",
+     "grammar": "Kowalski — мужская форма (жен. Kowalska)"
+    }
+   ]
+  },
+  {
+   "id": "tb-2-8c",
+   "src": "tb",
+   "ref": "Ćw. 8c, s. 21",
+   "title": "Proszę utworzyć właściwą formę czasownika.",
+   "title_ru": "Поставь глагол в нужную форму",
+   "task_ru": "Напиши глагол в нужной форме.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Gdzie (ty) ___? (mieszkać)",
+     "answer": "mieszkasz",
+     "ru": "Где ты живёшь?"
+    },
+    {
+     "q": "Gdzie oni ___? (mieszkać)",
+     "answer": "mieszkają",
+     "ru": "Где они живут?"
+    },
+    {
+     "q": "Co pan ___? (czytać)",
+     "answer": "czyta",
+     "ru": "Что вы читаете?",
+     "grammar": "pan / pani + 3-е лицо"
+    },
+    {
+     "q": "Jak (wy) się ___? (nazywać)",
+     "answer": "nazywacie",
+     "ru": "Как ваша фамилия?"
+    },
+    {
+     "q": "(my) ___ gazetę. (czytać)",
+     "answer": "Czytamy",
+     "ru": "Мы читаем газету."
+    },
+    {
+     "q": "On ___. (pytać)",
+     "answer": "pyta",
+     "ru": "Он спрашивает."
+    },
+    {
+     "q": "(ja) Nie ___. (rozumieć)",
+     "answer": "rozumiem",
+     "ru": "Я не понимаю."
+    },
+    {
+     "q": "Co państwo ___? (czytać)",
+     "answer": "czytają",
+     "ru": "Что вы (господа) читаете?",
+     "grammar": "państwo + 3-е лицо мн. ч."
+    },
+    {
+     "q": "Jak się pani ___? (mieć)",
+     "answer": "ma",
+     "ru": "Как у вас дела?"
+    },
+    {
+     "q": "(ja) ___ w centrum. (mieszkać)",
+     "answer": "Mieszkam",
+     "ru": "Я живу в центре."
+    },
+    {
+     "q": "Czy państwo ___ w Warszawie? (mieszkać)",
+     "answer": "mieszkają",
+     "ru": "Вы живёте в Варшаве?"
+    },
+    {
+     "q": "Gdzie ona ___? (mieszkać)",
+     "answer": "mieszka",
+     "ru": "Где она живёт?"
+    }
+   ]
+  },
+  {
+   "id": "tb-2-9a",
+   "src": "tb",
+   "ref": "Ćw. 9a, s. 22",
+   "title": "Proszę dopisać do liczby właściwy liczebnik.",
+   "title_ru": "Числа 11–23 словами",
+   "task_ru": "Напиши число словами: «11 jedenaście».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "11",
+     "answer": "jedenaście",
+     "ru": "11"
+    },
+    {
+     "q": "12",
+     "answer": "dwanaście",
+     "ru": "12"
+    },
+    {
+     "q": "13",
+     "answer": "trzynaście",
+     "ru": "13"
+    },
+    {
+     "q": "14",
+     "answer": "czternaście",
+     "ru": "14"
+    },
+    {
+     "q": "15",
+     "answer": "piętnaście",
+     "ru": "15"
+    },
+    {
+     "q": "16",
+     "answer": "szesnaście",
+     "ru": "16"
+    },
+    {
+     "q": "17",
+     "answer": "siedemnaście",
+     "ru": "17"
+    },
+    {
+     "q": "18",
+     "answer": "osiemnaście",
+     "ru": "18"
+    },
+    {
+     "q": "19",
+     "answer": "dziewiętnaście",
+     "ru": "19"
+    },
+    {
+     "q": "20",
+     "answer": "dwadzieścia",
+     "ru": "20"
+    },
+    {
+     "q": "21",
+     "answer": "dwadzieścia jeden",
+     "ru": "21"
+    },
+    {
+     "q": "22",
+     "answer": "dwadzieścia dwa",
+     "ru": "22"
+    },
+    {
+     "q": "23",
+     "answer": "dwadzieścia trzy",
+     "ru": "23"
+    }
+   ]
+  },
+  {
+   "id": "tb-2-10a",
+   "src": "tb",
+   "ref": "Ćw. 10a, s. 22",
+   "title": "Proszę dopisać właściwe przymiotniki z ramki do podanych adresów.",
+   "title_ru": "Какое прилагательное подходит?",
+   "task_ru": "Слова из рамки: Narodowe, projektowe, włoska, Europejska, Europejski, medyczne, Kredytowy, językowa, turystyczne, dentystyczny. Напиши прилагательное (род — по существительному).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Biuro ___ „ARCH-STUDIO” (przykład)",
+     "answer": "projektowe",
+     "ru": "проектное бюро",
+     "grammar": "biuro — ср. р."
+    },
+    {
+     "q": "Hotel ___",
+     "answer": "Europejski",
+     "ru": "Европейская гостиница",
+     "grammar": "hotel — м. р."
+    },
+    {
+     "q": "Restauracja ___ „BONA”",
+     "answer": "włoska",
+     "ru": "итальянский ресторан",
+     "grammar": "restauracja — ж. р."
+    },
+    {
+     "q": "Szkoła ___ „LINGUA”",
+     "answer": "językowa",
+     "ru": "языковая школа",
+     "grammar": "szkoła — ж. р."
+    },
+    {
+     "q": "Bank ___",
+     "answer": "Kredytowy",
+     "ru": "Кредитный банк",
+     "grammar": "bank — м. р."
+    },
+    {
+     "q": "Gabinet ___ „DENTUS”",
+     "answer": "dentystyczny",
+     "ru": "стоматологический кабинет",
+     "grammar": "gabinet — м. р."
+    },
+    {
+     "q": "Biuro ___ „POL-TUR”",
+     "answer": "turystyczne",
+     "ru": "туристическое бюро",
+     "grammar": "biuro — ср. р."
+    },
+    {
+     "q": "Muzeum ___",
+     "answer": "Narodowe",
+     "ru": "Национальный музей",
+     "grammar": "muzeum — ср. р."
+    },
+    {
+     "q": "___ Fundacja Kultury",
+     "answer": "Europejska",
+     "ru": "Европейский фонд культуры",
+     "grammar": "fundacja — ж. р."
+    },
+    {
+     "q": "Centrum ___",
+     "answer": "medyczne",
+     "ru": "медицинский центр",
+     "grammar": "centrum — ср. р."
+    }
+   ]
+  },
+  {
+   "id": "tb-2-12a",
+   "src": "tb",
+   "ref": "Ćw. 12a, s. 23",
+   "title": "Gdzie oni mieszkają? Proszę posłuchać nagrania i uzupełnić adresy.",
+   "title_ru": "Где они живут?",
+   "task_ru": "Послушай запись (аудио выше). Напиши через запятую: что перед названием (ulica, aleja, plac, osiedle) и недостающий номер: «ulica, 17».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Agnieszka Walczewska: ___ Armii Krajowej 20/___",
+     "answer": "ulica, 17",
+     "ru": "улица Армии Крайовой 20, кв. 17",
+     "accepted": [
+      "ul., 17"
+     ]
+    },
+    {
+     "q": "Maciej Korbielski: ___ Warszawska 9/___",
+     "answer": "aleja, 19",
+     "ru": "аллея Варшавская 9, кв. 19",
+     "accepted": [
+      "al., 19"
+     ]
+    },
+    {
+     "q": "Izabela Budzyńska: ___ Kazimierza Wielkiego 12/___",
+     "answer": "plac, 13",
+     "ru": "площадь Казимира Великого 12, кв. 13",
+     "accepted": [
+      "pl., 13"
+     ]
+    },
+    {
+     "q": "Zbigniew Bugajski: ___ Mickiewicza ___",
+     "answer": "osiedle, 16/10",
+     "ru": "микрорайон Мицкевича 16, кв. 10",
+     "accepted": [
+      "os., 16/10"
+     ]
+    }
+   ],
+   "audio": "019 - HURRA_PP1_podr_stud.mp3"
+  },
+  {
+   "id": "tb-2-I",
+   "src": "tb",
+   "ref": "Czy już to umiesz? I, s. 23",
+   "title": "Proszę połączyć terminy gramatyczne z właściwymi przykładami.",
+   "title_ru": "Термин — пример",
+   "task_ru": "Выбери пример к грамматическому термину.",
+   "type": "match",
+   "items": [
+    {
+     "q": "przymiotnik – rodzaj męski (przykład)",
+     "answer": "angielski, niemiecki",
+     "ru": "прилагательное, мужской род"
+    },
+    {
+     "q": "bezokolicznik",
+     "answer": "mieszkać, mieć, być, rozumieć",
+     "ru": "инфинитив"
+    },
+    {
+     "q": "rzeczownik – rodzaj żeński",
+     "answer": "kawa, woda, szkoła",
+     "ru": "существительное, женский род"
+    },
+    {
+     "q": "rzeczownik – rodzaj nijaki",
+     "answer": "muzeum, słońce, kino",
+     "ru": "существительное, средний род"
+    },
+    {
+     "q": "czasownik – liczba pojedyncza",
+     "answer": "wiem, rozumiesz, mieszkasz",
+     "ru": "глагол, единственное число"
+    },
+    {
+     "q": "rzeczownik – rodzaj męski",
+     "answer": "poeta, mężczyzna, dom",
+     "ru": "существительное, мужской род"
+    },
+    {
+     "q": "mianownik odpowiada na pytanie",
+     "answer": "Kto? Co?",
+     "ru": "именительный падеж отвечает на вопрос"
+    }
+   ],
+   "options": [
+    "kawa, woda, szkoła",
+    "wiem, rozumiesz, mieszkasz",
+    "angielski, niemiecki",
+    "poeta, mężczyzna, dom",
+    "mieszkać, mieć, być, rozumieć",
+    "muzeum, słońce, kino",
+    "Kto? Co?"
+   ]
+  },
+  {
+   "id": "tb-2-II",
+   "src": "tb",
+   "ref": "Czy już to umiesz? II, s. 23",
+   "title": "Proszę uzupełnić pytania i napisać odpowiedzi.",
+   "title_ru": "Вставь вопросительное слово",
+   "task_ru": "Напиши слово, с которого начинается вопрос (Gdzie, Co, Jak, Kto, Czy, Skąd, Ile, Jaki).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "___ mieszkasz?",
+     "answer": "Gdzie",
+     "ru": "Где ты живёшь?",
+     "full_pl": "Gdzie mieszkasz? — Mieszkam w Krakowie."
+    },
+    {
+     "q": "___ to jest? — To jest dom.",
+     "answer": "Co",
+     "ru": "Что это? — Это дом."
+    },
+    {
+     "q": "___ się nazywasz?",
+     "answer": "Jak",
+     "ru": "Как твоя фамилия?",
+     "full_pl": "Jak się nazywasz? — Nazywam się Kowalski."
+    },
+    {
+     "q": "___ to jest? — To jest pani Maria.",
+     "answer": "Kto",
+     "ru": "Кто это? — Это пани Мария."
+    },
+    {
+     "q": "___ to jest dobra książka? — Nie, to nie jest dobra książka.",
+     "answer": "Czy",
+     "ru": "Это хорошая книга? — Нет."
+    },
+    {
+     "q": "___ jesteś?",
+     "answer": "Skąd",
+     "ru": "Откуда ты?",
+     "full_pl": "Skąd jesteś? — Jestem z Polski.",
+     "accepted": [
+      "Kim",
+      "Jaki",
+      "Jaka"
+     ]
+    },
+    {
+     "q": "___ się masz?",
+     "answer": "Jak",
+     "ru": "Как дела?",
+     "full_pl": "Jak się masz? — Dobrze, dziękuję."
+    },
+    {
+     "q": "___ jest 2+7?",
+     "answer": "Ile",
+     "ru": "Сколько будет 2+7?",
+     "full_pl": "Ile jest dwa plus siedem? — Dziewięć."
+    },
+    {
+     "q": "___ masz numer telefonu?",
+     "answer": "Jaki",
+     "ru": "Какой у тебя номер телефона?",
+     "accepted": [
+      "Czy"
+     ]
+    },
+    {
+     "q": "___ masz na imię?",
+     "answer": "Jak",
+     "ru": "Как тебя зовут?",
+     "full_pl": "Jak masz na imię? — Mam na imię Anna."
+    }
+   ]
+  },
+  {
+   "id": "tb-2-III-1",
+   "src": "tb",
+   "ref": "Czy już to umiesz? III, s. 23 (1/3)",
+   "title": "Jaki rodzaj mają te słowa?",
+   "title_ru": "Какого рода слово?",
+   "task_ru": "Согласная → м. р., -a → ж. р., -o / -um → ср. р. Слова на -ista (egoista, altruista) — м. р.",
+   "type": "match",
+   "items": [
+    {
+     "q": "ideał",
+     "answer": "rodzaj męski",
+     "ru": "идеал"
+    },
+    {
+     "q": "metoda",
+     "answer": "rodzaj żeński",
+     "ru": "метод"
+    },
+    {
+     "q": "reżyser",
+     "answer": "rodzaj męski",
+     "ru": "режиссёр"
+    },
+    {
+     "q": "wino",
+     "answer": "rodzaj nijaki",
+     "ru": "вино"
+    },
+    {
+     "q": "muzeum",
+     "answer": "rodzaj nijaki",
+     "ru": "музей"
+    },
+    {
+     "q": "metro",
+     "answer": "rodzaj nijaki",
+     "ru": "метро"
+    },
+    {
+     "q": "aspiryna",
+     "answer": "rodzaj żeński",
+     "ru": "аспирин"
+    },
+    {
+     "q": "kontakt",
+     "answer": "rodzaj męski",
+     "ru": "контакт"
+    },
+    {
+     "q": "forum",
+     "answer": "rodzaj nijaki",
+     "ru": "форум"
+    },
+    {
+     "q": "klimat",
+     "answer": "rodzaj męski",
+     "ru": "климат"
+    },
+    {
+     "q": "kosmos",
+     "answer": "rodzaj męski",
+     "ru": "космос"
+    },
+    {
+     "q": "cywilizacja",
+     "answer": "rodzaj żeński",
+     "ru": "цивилизация"
+    },
+    {
+     "q": "higiena",
+     "answer": "rodzaj żeński",
+     "ru": "гигиена"
+    },
+    {
+     "q": "etyka",
+     "answer": "rodzaj żeński",
+     "ru": "этика"
+    },
+    {
+     "q": "religia",
+     "answer": "rodzaj żeński",
+     "ru": "религия"
+    },
+    {
+     "q": "krokodyl",
+     "answer": "rodzaj męski",
+     "ru": "крокодил"
+    },
+    {
+     "q": "centrum",
+     "answer": "rodzaj nijaki",
+     "ru": "центр"
+    },
+    {
+     "q": "archiwum",
+     "answer": "rodzaj nijaki",
+     "ru": "архив"
+    }
+   ],
+   "options": [
+    "rodzaj męski",
+    "rodzaj żeński",
+    "rodzaj nijaki"
+   ]
+  },
+  {
+   "id": "tb-2-III-2",
+   "src": "tb",
+   "ref": "Czy już to umiesz? III, s. 23 (2/3)",
+   "title": "Jaki rodzaj mają te słowa?",
+   "title_ru": "Какого рода слово?",
+   "task_ru": "Согласная → м. р., -a → ж. р., -o / -um → ср. р. Слова на -ista (egoista, altruista) — м. р.",
+   "type": "match",
+   "items": [
+    {
+     "q": "planetarium",
+     "answer": "rodzaj nijaki",
+     "ru": "планетарий"
+    },
+    {
+     "q": "filozofia",
+     "answer": "rodzaj żeński",
+     "ru": "философия"
+    },
+    {
+     "q": "oregano",
+     "answer": "rodzaj nijaki",
+     "ru": "орегано"
+    },
+    {
+     "q": "akwarium",
+     "answer": "rodzaj nijaki",
+     "ru": "аквариум"
+    },
+    {
+     "q": "organizacja",
+     "answer": "rodzaj żeński",
+     "ru": "организация"
+    },
+    {
+     "q": "portal",
+     "answer": "rodzaj męski",
+     "ru": "портал"
+    },
+    {
+     "q": "limit",
+     "answer": "rodzaj męski",
+     "ru": "лимит"
+    },
+    {
+     "q": "motto",
+     "answer": "rodzaj nijaki",
+     "ru": "девиз"
+    },
+    {
+     "q": "bonus",
+     "answer": "rodzaj męski",
+     "ru": "бонус"
+    },
+    {
+     "q": "moda",
+     "answer": "rodzaj żeński",
+     "ru": "мода"
+    },
+    {
+     "q": "rabat",
+     "answer": "rodzaj męski",
+     "ru": "скидка"
+    },
+    {
+     "q": "integracja",
+     "answer": "rodzaj żeński",
+     "ru": "интеграция"
+    },
+    {
+     "q": "emocja",
+     "answer": "rodzaj żeński",
+     "ru": "эмоция"
+    },
+    {
+     "q": "egoista",
+     "answer": "rodzaj męski",
+     "ru": "эгоист"
+    },
+    {
+     "q": "egoistka",
+     "answer": "rodzaj żeński",
+     "ru": "эгоистка"
+    },
+    {
+     "q": "altruista",
+     "answer": "rodzaj męski",
+     "ru": "альтруист"
+    },
+    {
+     "q": "altruistka",
+     "answer": "rodzaj żeński",
+     "ru": "альтруистка"
+    },
+    {
+     "q": "tenis",
+     "answer": "rodzaj męski",
+     "ru": "теннис"
+    }
+   ],
+   "options": [
+    "rodzaj męski",
+    "rodzaj żeński",
+    "rodzaj nijaki"
+   ]
+  },
+  {
+   "id": "tb-2-III-3",
+   "src": "tb",
+   "ref": "Czy już to umiesz? III, s. 23 (3/3)",
+   "title": "Jaki rodzaj mają te słowa?",
+   "title_ru": "Какого рода слово?",
+   "task_ru": "Согласная → м. р., -a → ж. р., -o / -um → ср. р. Слова на -ista (egoista, altruista) — м. р.",
+   "type": "match",
+   "items": [
+    {
+     "q": "żyrafa",
+     "answer": "rodzaj żeński",
+     "ru": "жираф"
+    },
+    {
+     "q": "sport",
+     "answer": "rodzaj męski",
+     "ru": "спорт"
+    },
+    {
+     "q": "dialog",
+     "answer": "rodzaj męski",
+     "ru": "диалог"
+    },
+    {
+     "q": "auto",
+     "answer": "rodzaj nijaki",
+     "ru": "машина"
+    },
+    {
+     "q": "embargo",
+     "answer": "rodzaj nijaki",
+     "ru": "эмбарго"
+    },
+    {
+     "q": "poezja",
+     "answer": "rodzaj żeński",
+     "ru": "поэзия"
+    },
+    {
+     "q": "medium",
+     "answer": "rodzaj nijaki",
+     "ru": "СМИ, средство"
+    },
+    {
+     "q": "agent",
+     "answer": "rodzaj męski",
+     "ru": "агент"
+    },
+    {
+     "q": "kino",
+     "answer": "rodzaj nijaki",
+     "ru": "кино"
+    },
+    {
+     "q": "syrop",
+     "answer": "rodzaj męski",
+     "ru": "сироп"
+    },
+    {
+     "q": "opera",
+     "answer": "rodzaj żeński",
+     "ru": "опера"
+    },
+    {
+     "q": "radio",
+     "answer": "rodzaj nijaki",
+     "ru": "радио"
+    },
+    {
+     "q": "alkohol",
+     "answer": "rodzaj męski",
+     "ru": "алкоголь"
+    },
+    {
+     "q": "ryzyko",
+     "answer": "rodzaj nijaki",
+     "ru": "риск"
+    },
+    {
+     "q": "ranczo",
+     "answer": "rodzaj nijaki",
+     "ru": "ранчо"
+    },
+    {
+     "q": "komedia",
+     "answer": "rodzaj żeński",
+     "ru": "комедия"
+    },
+    {
+     "q": "kakao",
+     "answer": "rodzaj nijaki",
+     "ru": "какао"
+    }
+   ],
+   "options": [
+    "rodzaj męski",
+    "rodzaj żeński",
+    "rodzaj nijaki"
+   ]
+  },
+  {
+   "id": "tb-2-IV",
+   "src": "tb",
+   "ref": "Czy już to umiesz? IV, s. 23",
+   "title": "Proszę uzupełnić tabelę.",
+   "title_ru": "Прилагательное в трёх родах",
+   "task_ru": "Напиши две другие формы через запятую: м. р. -y, ж. р. -a, ср. р. -e. «idealna, idealne».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "idealny → ż. ___, n. ___",
+     "answer": "idealna, idealne",
+     "ru": "идеальный"
+    },
+    {
+     "q": "naturalna → m. ___, n. ___",
+     "answer": "naturalny, naturalne",
+     "ru": "естественный"
+    },
+    {
+     "q": "agresywne → m. ___, ż. ___",
+     "answer": "agresywny, agresywna",
+     "ru": "агрессивный"
+    },
+    {
+     "q": "optymistyczny → ż. ___, n. ___",
+     "answer": "optymistyczna, optymistyczne",
+     "ru": "оптимистичный"
+    },
+    {
+     "q": "wysportowana → m. ___, n. ___",
+     "answer": "wysportowany, wysportowane",
+     "ru": "спортивный"
+    },
+    {
+     "q": "subtelne → m. ___, ż. ___",
+     "answer": "subtelny, subtelna",
+     "ru": "тонкий"
+    },
+    {
+     "q": "systematyczny → ż. ___, n. ___",
+     "answer": "systematyczna, systematyczne",
+     "ru": "систематичный"
+    },
+    {
+     "q": "zestresowana → m. ___, n. ___",
+     "answer": "zestresowany, zestresowane",
+     "ru": "в стрессе"
+    },
+    {
+     "q": "zrelaksowane → m. ___, ż. ___",
+     "answer": "zrelaksowany, zrelaksowana",
+     "ru": "расслабленный"
+    }
+   ]
+  },
+  {
+   "id": "wb-2-1a",
+   "src": "wb",
+   "ref": "Ćw. 1a, s. 12",
+   "title": "Proszę napisać, co to jest.",
+   "title_ru": "Что это? Да или нет?",
+   "task_ru": "Картинка — в скобках. Ответь полностью: «Tak, to jest …» или «Nie, to nie jest … To jest …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Czy to jest stół? (на картинке: стол)",
+     "answer": "Tak, to jest stół.",
+     "ru": "Это стол? — Да, это стол."
+    },
+    {
+     "q": "Czy to są drzwi? (🏠 дом)",
+     "answer": "Nie, to nie są drzwi. To jest dom.",
+     "ru": "Это дверь? — Нет, это не дверь. Это дом.",
+     "grammar": "drzwi — только мн. ч.: to są / to nie są"
+    },
+    {
+     "q": "Czy to są okulary? (👓 очки)",
+     "answer": "Tak, to są okulary.",
+     "ru": "Это очки? — Да, это очки."
+    },
+    {
+     "q": "Czy to jest telefon? (на картинке: окно)",
+     "answer": "Nie, to nie jest telefon. To jest okno.",
+     "ru": "Это телефон? — Нет, это не телефон. Это окно."
+    },
+    {
+     "q": "Czy to jest krzesło? (🪑 стул)",
+     "answer": "Tak, to jest krzesło.",
+     "ru": "Это стул? — Да, это стул."
+    },
+    {
+     "q": "Czy to jest dom? (🚪 дверь)",
+     "answer": "Nie, to nie jest dom. To są drzwi.",
+     "ru": "Это дом? — Нет, это не дом. Это дверь."
+    }
+   ]
+  },
+  {
+   "id": "wb-2-1b",
+   "src": "wb",
+   "ref": "Ćw. 1b, s. 12",
+   "title": "Proszę napisać, kto to jest.",
+   "title_ru": "Кто это? Да или нет?",
+   "task_ru": "Картинка — в скобках. Ответь полностью: «Tak, to jest …» или «Nie, to nie jest … To jest …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Czy to jest dziecko? (👩‍🎓 студентка с книгой)",
+     "answer": "Nie, to nie jest dziecko. To jest studentka.",
+     "ru": "Это ребёнок? — Нет, это не ребёнок. Это студентка."
+    },
+    {
+     "q": "Czy to jest studentka? (👶 ребёнок)",
+     "answer": "Nie, to nie jest studentka. To jest dziecko.",
+     "ru": "Это студентка? — Нет, это не студентка. Это ребёнок."
+    },
+    {
+     "q": "Czy to jest kobieta? (👩 женщина)",
+     "answer": "Tak, to jest kobieta.",
+     "ru": "Это женщина? — Да, это женщина."
+    },
+    {
+     "q": "Czy to jest dentysta? (👩‍⚕️ стоматолог — женщина)",
+     "answer": "Nie, to nie jest dentysta. To jest dentystka.",
+     "ru": "Это стоматолог (м.)? — Нет, это стоматолог-женщина."
+    },
+    {
+     "q": "Czy to jest mężczyzna? (👨 мужчина)",
+     "answer": "Tak, to jest mężczyzna.",
+     "ru": "Это мужчина? — Да, это мужчина."
+    }
+   ]
+  },
+  {
+   "id": "wb-2-2",
+   "src": "wb",
+   "ref": "Ćw. 2, s. 12",
+   "title": "Proszę napisać, jaki to przymiotnik.",
+   "title_ru": "Собери прилагательное из букв",
+   "task_ru": "Переставь буквы: «1 szczupły». Аудио — для проверки.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "czuszpły",
+     "answer": "szczupły",
+     "ru": "стройный",
+     "translit": "ШЧУП-ўы"
+    },
+    {
+     "q": "yskiow",
+     "answer": "wysoki",
+     "ru": "высокий",
+     "translit": "вы-СО-ки"
+    },
+    {
+     "q": "niksi",
+     "answer": "niski",
+     "ru": "низкий",
+     "translit": "НИС-ки"
+    },
+    {
+     "q": "gubry",
+     "answer": "gruby",
+     "ru": "толстый",
+     "translit": "ГРУ-бы"
+    },
+    {
+     "q": "modły",
+     "answer": "młody",
+     "ru": "молодой",
+     "translit": "МЎО-ды"
+    },
+    {
+     "q": "ywsotproanwy",
+     "answer": "wysportowany",
+     "ru": "спортивный",
+     "translit": "вы-спор-то-ВА-ны"
+    },
+    {
+     "q": "pryzstnjoy",
+     "answer": "przystojny",
+     "ru": "красивый (о мужчине)",
+     "translit": "пшы-СТОЙ-ны"
+    },
+    {
+     "q": "aładn",
+     "answer": "ładna",
+     "ru": "красивая",
+     "translit": "ЎАД-на"
+    },
+    {
+     "q": "wełyso",
+     "answer": "wesoły",
+     "ru": "весёлый",
+     "translit": "вэ-СО-ўы"
+    },
+    {
+     "q": "mustny",
+     "answer": "smutny",
+     "ru": "грустный",
+     "translit": "СМУТ-ны"
+    },
+    {
+     "q": "bzyrkdi",
+     "answer": "brzydki",
+     "ru": "некрасивый",
+     "translit": "БЖЫТ-ки"
+    },
+    {
+     "q": "syrta",
+     "answer": "stary",
+     "ru": "старый",
+     "translit": "СТА-ры"
+    }
+   ],
+   "audio": "24 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-2-3a",
+   "src": "wb",
+   "ref": "Ćw. 3a, s. 13",
+   "title": "Proszę uzupełnić według wzoru.",
+   "title_ru": "Сколько будет? Ответ словом",
+   "task_ru": "Посчитай и напиши ответ словом: «a dwadzieścia». Аудио — для проверки (ćw. 3b).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "dziesięć plus dziesięć",
+     "answer": "dwadzieścia",
+     "ru": "10 + 10 = 20"
+    },
+    {
+     "q": "dziewięć plus dziewięć",
+     "answer": "osiemnaście",
+     "ru": "9 + 9 = 18"
+    },
+    {
+     "q": "osiem plus dziewięć",
+     "answer": "siedemnaście",
+     "ru": "8 + 9 = 17"
+    },
+    {
+     "q": "trzy plus dziewięć",
+     "answer": "dwanaście",
+     "ru": "3 + 9 = 12"
+    },
+    {
+     "q": "trzy plus dziesięć",
+     "answer": "trzynaście",
+     "ru": "3 + 10 = 13"
+    },
+    {
+     "q": "siedem plus dziewięć",
+     "answer": "szesnaście",
+     "ru": "7 + 9 = 16"
+    },
+    {
+     "q": "dziesięć plus dziewięć",
+     "answer": "dziewiętnaście",
+     "ru": "10 + 9 = 19"
+    },
+    {
+     "q": "pięć plus dziesięć",
+     "answer": "piętnaście",
+     "ru": "5 + 10 = 15"
+    },
+    {
+     "q": "dwa plus dziewięć",
+     "answer": "jedenaście",
+     "ru": "2 + 9 = 11"
+    },
+    {
+     "q": "cztery plus dziesięć",
+     "answer": "czternaście",
+     "ru": "4 + 10 = 14"
+    }
+   ],
+   "audio": "25 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-2-3a-ort",
+   "src": "wb",
+   "ref": "Ćw. 3a, s. 13",
+   "title": "Proszę uzupełnić brakujące litery.",
+   "title_ru": "Вставь буквы в числительное",
+   "task_ru": "Напиши числительное целиком с правильными буквами (ś, ę, n, d…) и цифрой: «siedemnaście 17».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "siedem_a_cie",
+     "answer": "siedemnaście 17",
+     "ru": "семнадцать",
+     "accepted": [
+      "siedemnaście"
+     ]
+    },
+    {
+     "q": "je_ena_cie",
+     "answer": "jedenaście 11",
+     "ru": "одиннадцать",
+     "accepted": [
+      "jedenaście"
+     ]
+    },
+    {
+     "q": "dw_na_cie",
+     "answer": "dwanaście 12",
+     "ru": "двенадцать",
+     "accepted": [
+      "dwanaście"
+     ]
+    },
+    {
+     "q": "pi_tna_cie",
+     "answer": "piętnaście 15",
+     "ru": "пятнадцать",
+     "accepted": [
+      "piętnaście"
+     ]
+    },
+    {
+     "q": "szesna_cie",
+     "answer": "szesnaście 16",
+     "ru": "шестнадцать",
+     "accepted": [
+      "szesnaście"
+     ]
+    },
+    {
+     "q": "trz_na_cie",
+     "answer": "trzynaście 13",
+     "ru": "тринадцать",
+     "accepted": [
+      "trzynaście"
+     ]
+    },
+    {
+     "q": "dziewi_tna_cie",
+     "answer": "dziewiętnaście 19",
+     "ru": "девятнадцать",
+     "accepted": [
+      "dziewiętnaście"
+     ]
+    },
+    {
+     "q": "czte_na_cie",
+     "answer": "czternaście 14",
+     "ru": "четырнадцать",
+     "accepted": [
+      "czternaście"
+     ]
+    },
+    {
+     "q": "dwadz_e_cia",
+     "answer": "dwadzieścia 20",
+     "ru": "двадцать",
+     "accepted": [
+      "dwadzieścia"
+     ]
+    },
+    {
+     "q": "_siemna_cie",
+     "answer": "osiemnaście 18",
+     "ru": "восемнадцать",
+     "accepted": [
+      "osiemnaście"
+     ]
+    }
+   ],
+   "audio": "25 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-2-4",
+   "src": "wb",
+   "ref": "Ćw. 4, s. 13",
+   "title": "Jakie tu są słowa? (poziomo i pionowo)",
+   "title_ru": "Найди слова в таблице",
+   "task_ru": "Таблица букв — ниже. Найди слова и перечисли через запятую. Проверяет модель.",
+   "type": "open",
+   "items": [
+    {
+     "q": "Слова по горизонтали (poziomo) — 8 слов",
+     "answer": "przepraszam, dom, my, ta, mi, się, książka, nazwisko",
+     "ru": "8 слов по горизонтали"
+    },
+    {
+     "q": "Слова по вертикали (pionowo) — 7 слов",
+     "answer": "proszę, okno, pytanie, ta, adres, mam, tak",
+     "ru": "7 слов по вертикали"
+    }
+   ],
+   "text": "P R Z E P R A S Z A M R T\nR Ę Ą Ó Y T D O M Y A T A\nO I M I T A R T E L M E K\nS J O P A S E I M I Ę L W\nZ C K I N S S I Ę K L J H\nĘ H N Y I Ć K S I Ą Ż K A\nS E O Ó E N A Z W I S K O"
+  },
+  {
+   "id": "wb-2-5",
+   "src": "wb",
+   "ref": "Ćw. 5, s. 13",
+   "title": "Proszę ułożyć dialog we właściwej kolejności.",
+   "title_ru": "Расставь реплики диалога по порядку",
+   "task_ru": "Реплика «Cześć. Jestem Anna. Jak masz na imię?» — № 1. Напиши номер каждой реплики в диалоге. Аудио — для проверки.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "– Mieszkam w Krakowie. A ty?",
+     "answer": "6",
+     "ru": "Я живу в Кракове. А ты?"
+    },
+    {
+     "q": "– Gdzie mieszkasz?",
+     "answer": "5",
+     "ru": "Где ты живёшь?"
+    },
+    {
+     "q": "– Cześć. Mam na imię Dorota.",
+     "answer": "2",
+     "ru": "Привет. Меня зовут Дорота."
+    },
+    {
+     "q": "– Bardzo mi miło.",
+     "answer": "4",
+     "ru": "Очень приятно."
+    },
+    {
+     "q": "– Miło mi.",
+     "answer": "3",
+     "ru": "Приятно познакомиться."
+    },
+    {
+     "q": "– Z Niemiec, ale mieszkam w Polsce. Studiuję.",
+     "answer": "8",
+     "ru": "Из Германии, но живу в Польше. Учусь."
+    },
+    {
+     "q": "– W Warszawie. Skąd jesteś?",
+     "answer": "7",
+     "ru": "В Варшаве. Откуда ты?"
+    },
+    {
+     "q": "– Co studiujesz?",
+     "answer": "9",
+     "ru": "Что ты изучаешь?"
+    },
+    {
+     "q": "– Filozofię i architekturę.",
+     "answer": "10",
+     "ru": "Философию и архитектуру."
+    }
+   ],
+   "audio": "26 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-2-6a",
+   "src": "wb",
+   "ref": "Ćw. 6a, s. 14",
+   "title": "Proszę ułożyć zdania lub pytania.",
+   "title_ru": "Составь предложение или вопрос",
+   "task_ru": "Расставь слова по порядку: «Mieszkam w Polsce.»",
+   "type": "gap",
+   "items": [
+    {
+     "q": "nazywamy – się – Wielochowie",
+     "answer": "Nazywamy się Wielochowie.",
+     "ru": "Наша фамилия — Велоховы."
+    },
+    {
+     "q": "jest – książka – to",
+     "answer": "To jest książka.",
+     "ru": "Это книга."
+    },
+    {
+     "q": "miło – bardzo – mi",
+     "answer": "Bardzo mi miło.",
+     "ru": "Очень приятно."
+    },
+    {
+     "q": "szkodzi – nie",
+     "answer": "Nie szkodzi.",
+     "ru": "Ничего страшного."
+    },
+    {
+     "q": "znaczy – co – „pies”?",
+     "answer": "Co znaczy „pies”?",
+     "ru": "Что значит «pies»?"
+    },
+    {
+     "q": "one – gdzie – mieszkają – teraz",
+     "answer": "Gdzie one teraz mieszkają?",
+     "ru": "Где они теперь живут?"
+    },
+    {
+     "q": "jak – nazywa – ten – mężczyzna – się",
+     "answer": "Jak się nazywa ten mężczyzna?",
+     "ru": "Как фамилия этого мужчины?",
+     "accepted": [
+      "Jak ten mężczyzna się nazywa?"
+     ]
+    },
+    {
+     "q": "nie – powtórzyć – rozumiem – proszę",
+     "answer": "Nie rozumiem, proszę powtórzyć.",
+     "ru": "Не понимаю, повторите, пожалуйста."
+    },
+    {
+     "q": "imię – on – ma – na – Paweł",
+     "answer": "On ma na imię Paweł.",
+     "ru": "Его зовут Павел."
+    },
+    {
+     "q": "są – oni – Niemiec – z",
+     "answer": "Oni są z Niemiec.",
+     "ru": "Они из Германии."
+    }
+   ]
+  },
+  {
+   "id": "wb-2-6b",
+   "src": "wb",
+   "ref": "Ćw. 6b, s. 14",
+   "title": "Proszę ułożyć zdania lub pytania.",
+   "title_ru": "Составь предложение (длиннее)",
+   "task_ru": "Расставь слова по порядку: «Ja mieszkam w Polsce, a ty gdzie mieszkasz?»",
+   "type": "gap",
+   "items": [
+    {
+     "q": "nazywamy – a – wy? – się – Wielochowie,",
+     "answer": "Nazywamy się Wielochowie, a wy?",
+     "ru": "Наша фамилия — Велоховы, а ваша?"
+    },
+    {
+     "q": "jest – książka? – to – czy",
+     "answer": "Czy to jest książka?",
+     "ru": "Это книга?"
+    },
+    {
+     "q": "jestem – miło – bardzo – mi – Ewa,",
+     "answer": "Jestem Ewa, bardzo mi miło.",
+     "ru": "Я Эва, очень приятно."
+    },
+    {
+     "q": "nic – szkodzi – nie",
+     "answer": "Nic nie szkodzi.",
+     "ru": "Ничего страшного."
+    },
+    {
+     "q": "czy – znaczy – co – „pies”? – wiesz,",
+     "answer": "Czy wiesz, co znaczy „pies”?",
+     "ru": "Ты знаешь, что значит «pies»?"
+    },
+    {
+     "q": "nie – wiem, – one – gdzie – mieszkają – teraz",
+     "answer": "Nie wiem, gdzie one teraz mieszkają.",
+     "ru": "Не знаю, где они теперь живут."
+    },
+    {
+     "q": "wiem, – jak – ten – mężczyzna – się – nie – nazywa",
+     "answer": "Nie wiem, jak ten mężczyzna się nazywa.",
+     "ru": "Не знаю, как фамилия этого мужчины.",
+     "accepted": [
+      "Nie wiem, jak się nazywa ten mężczyzna."
+     ]
+    },
+    {
+     "q": "nie – powtórzyć – przepraszam, – rozumiem, – proszę",
+     "answer": "Przepraszam, nie rozumiem, proszę powtórzyć.",
+     "ru": "Извините, не понимаю, повторите, пожалуйста."
+    },
+    {
+     "q": "imię – on – ma – na – Paweł, – a – ona – jak – imię? – ma – na",
+     "answer": "On ma na imię Paweł, a ona jak ma na imię?",
+     "ru": "Его зовут Павел, а её как зовут?"
+    },
+    {
+     "q": "są – oni – Niemiec, – z – a – z – Hiszpanii – one – są",
+     "answer": "Oni są z Niemiec, a one są z Hiszpanii.",
+     "ru": "Они из Германии, а они (ж.) из Испании."
+    }
+   ]
+  },
+  {
+   "id": "wb-2-7",
+   "src": "wb",
+   "ref": "Ćw. 7, s. 14",
+   "title": "Proszę utworzyć właściwą formę czasownika.",
+   "title_ru": "Поставь глагол в нужную форму",
+   "task_ru": "Напиши глагол в нужной форме.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "On ___ we Wrocławiu. (mieszkać)",
+     "answer": "mieszka",
+     "ru": "Он живёт во Вроцлаве."
+    },
+    {
+     "q": "Czy oni ___ Kowalscy? (nazywać się)",
+     "answer": "nazywają się",
+     "ru": "Их фамилия Ковальские?",
+     "accepted": [
+      "się nazywają"
+     ]
+    },
+    {
+     "q": "To ___ drzwi. (być)",
+     "answer": "są",
+     "ru": "Это дверь.",
+     "grammar": "drzwi — мн. ч.: to są"
+    },
+    {
+     "q": "Czy (wy) ___? (rozumieć)",
+     "answer": "rozumiecie",
+     "ru": "Вы понимаете?"
+    },
+    {
+     "q": "Skąd pan ___? (być)",
+     "answer": "jest",
+     "ru": "Откуда вы?"
+    },
+    {
+     "q": "(my) ___ duży dom. (mieć)",
+     "answer": "Mamy",
+     "ru": "У нас большой дом."
+    },
+    {
+     "q": "(ja) ___ telefon komórkowy. (mieć)",
+     "answer": "Mam",
+     "ru": "У меня есть мобильный телефон."
+    },
+    {
+     "q": "(my) Bardzo ___. (przepraszać)",
+     "answer": "przepraszamy",
+     "ru": "Мы очень извиняемся."
+    },
+    {
+     "q": "To ___ okulary. (być)",
+     "answer": "są",
+     "ru": "Это очки."
+    },
+    {
+     "q": "(my) Nie ___. (rozumieć)",
+     "answer": "rozumiemy",
+     "ru": "Мы не понимаем."
+    },
+    {
+     "q": "Czy pani ___ komputer? (mieć)",
+     "answer": "ma",
+     "ru": "У вас есть компьютер?"
+    },
+    {
+     "q": "One ___ książkę. (czytać)",
+     "answer": "czytają",
+     "ru": "Они читают книгу."
+    },
+    {
+     "q": "O co (wy) ___? (pytać)",
+     "answer": "pytacie",
+     "ru": "О чём вы спрашиваете?"
+    },
+    {
+     "q": "Co (ty) ___? (czytać)",
+     "answer": "czytasz",
+     "ru": "Что ты читаешь?"
+    },
+    {
+     "q": "(ja) ___ francuski magazyn. (czytać)",
+     "answer": "Czytam",
+     "ru": "Я читаю французский журнал."
+    }
+   ]
+  },
+  {
+   "id": "wb-2-8",
+   "src": "wb",
+   "ref": "Ćw. 8, s. 15",
+   "title": "Proszę napisać, jaki rodzaj mają te rzeczowniki.",
+   "title_ru": "Какого рода существительное?",
+   "task_ru": "Выбери род. Подумай почему: окончание -a, -o, -e, -um или согласная.",
+   "type": "match",
+   "items": [
+    {
+     "q": "fotografia",
+     "answer": "rodzaj żeński",
+     "ru": "фотография"
+    },
+    {
+     "q": "lekcja",
+     "answer": "rodzaj żeński",
+     "ru": "урок"
+    },
+    {
+     "q": "kot",
+     "answer": "rodzaj męski",
+     "ru": "кот"
+    },
+    {
+     "q": "książka",
+     "answer": "rodzaj żeński",
+     "ru": "книга"
+    },
+    {
+     "q": "rzeka",
+     "answer": "rodzaj żeński",
+     "ru": "река"
+    },
+    {
+     "q": "dom",
+     "answer": "rodzaj męski",
+     "ru": "дом"
+    },
+    {
+     "q": "dentysta",
+     "answer": "rodzaj męski",
+     "ru": "стоматолог"
+    },
+    {
+     "q": "centrum",
+     "answer": "rodzaj nijaki",
+     "ru": "центр"
+    },
+    {
+     "q": "dentystka",
+     "answer": "rodzaj żeński",
+     "ru": "стоматолог (ж.)"
+    },
+    {
+     "q": "biuro",
+     "answer": "rodzaj nijaki",
+     "ru": "офис"
+    },
+    {
+     "q": "dziecko",
+     "answer": "rodzaj nijaki",
+     "ru": "ребёнок"
+    },
+    {
+     "q": "wino",
+     "answer": "rodzaj nijaki",
+     "ru": "вино"
+    },
+    {
+     "q": "gimnazjum",
+     "answer": "rodzaj nijaki",
+     "ru": "гимназия"
+    },
+    {
+     "q": "adres",
+     "answer": "rodzaj męski",
+     "ru": "адрес"
+    },
+    {
+     "q": "telefon",
+     "answer": "rodzaj męski",
+     "ru": "телефон"
+    },
+    {
+     "q": "słońce",
+     "answer": "rodzaj nijaki",
+     "ru": "солнце"
+    },
+    {
+     "q": "grupa",
+     "answer": "rodzaj żeński",
+     "ru": "группа"
+    },
+    {
+     "q": "mężczyzna",
+     "answer": "rodzaj męski",
+     "ru": "мужчина"
+    },
+    {
+     "q": "pani",
+     "answer": "rodzaj żeński",
+     "ru": "госпожа"
+    },
+    {
+     "q": "miasto",
+     "answer": "rodzaj nijaki",
+     "ru": "город"
+    }
+   ],
+   "options": [
+    "rodzaj męski",
+    "rodzaj żeński",
+    "rodzaj nijaki"
+   ]
+  },
+  {
+   "id": "wb-2-9",
+   "src": "wb",
+   "ref": "Ćw. 9, s. 15",
+   "title": "Do podanych przymiotników proszę dopisać właściwe zakończenie (-y; -i; -a; -e; -ie).",
+   "title_ru": "Допиши окончание прилагательного",
+   "task_ru": "Напиши прилагательное целиком: «dobra». м. р. -y / -i (после k, g), ж. р. -a, ср. р. -e / -ie. Помни: poeta, mężczyzna — м. р.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "dobr… poeta",
+     "answer": "dobry",
+     "ru": "хороший поэт"
+    },
+    {
+     "q": "dobr… poetka",
+     "answer": "dobra",
+     "ru": "хорошая поэтесса"
+    },
+    {
+     "q": "polsk… rzeka",
+     "answer": "polska",
+     "ru": "польская река"
+    },
+    {
+     "q": "polsk… hotel",
+     "answer": "polski",
+     "ru": "польская гостиница"
+    },
+    {
+     "q": "dobr… aktor",
+     "answer": "dobry",
+     "ru": "хороший актёр"
+    },
+    {
+     "q": "interesując… książka",
+     "answer": "interesująca",
+     "ru": "интересная книга"
+    },
+    {
+     "q": "dobr… wieczór",
+     "answer": "dobry",
+     "ru": "добрый вечер"
+    },
+    {
+     "q": "dobr… wino",
+     "answer": "dobre",
+     "ru": "хорошее вино"
+    },
+    {
+     "q": "dobr… muzyka",
+     "answer": "dobra",
+     "ru": "хорошая музыка"
+    },
+    {
+     "q": "włosk… architektura",
+     "answer": "włoska",
+     "ru": "итальянская архитектура"
+    },
+    {
+     "q": "amerykańsk… film",
+     "answer": "amerykański",
+     "ru": "американский фильм"
+    },
+    {
+     "q": "fataln… dzień",
+     "answer": "fatalny",
+     "ru": "ужасный день"
+    },
+    {
+     "q": "interesując… muzeum",
+     "answer": "interesujące",
+     "ru": "интересный музей"
+    },
+    {
+     "q": "interesując… projekt",
+     "answer": "interesujący",
+     "ru": "интересный проект"
+    },
+    {
+     "q": "hiszpańsk… miasto",
+     "answer": "hiszpańskie",
+     "ru": "испанский город"
+    },
+    {
+     "q": "now… lampa",
+     "answer": "nowa",
+     "ru": "новая лампа"
+    },
+    {
+     "q": "polsk… miasto",
+     "answer": "polskie",
+     "ru": "польский город"
+    },
+    {
+     "q": "niemieck… bank",
+     "answer": "niemiecki",
+     "ru": "немецкий банк"
+    },
+    {
+     "q": "interesując… magazyn",
+     "answer": "interesujący",
+     "ru": "интересный журнал"
+    },
+    {
+     "q": "now… komputer",
+     "answer": "nowy",
+     "ru": "новый компьютер"
+    },
+    {
+     "q": "now… adres",
+     "answer": "nowy",
+     "ru": "новый адрес"
+    },
+    {
+     "q": "polsk… piwo",
+     "answer": "polskie",
+     "ru": "польское пиво"
+    },
+    {
+     "q": "niemieck… auto",
+     "answer": "niemieckie",
+     "ru": "немецкая машина"
+    },
+    {
+     "q": "now… park",
+     "answer": "nowy",
+     "ru": "новый парк"
+    },
+    {
+     "q": "eleganck… kobieta",
+     "answer": "elegancka",
+     "ru": "элегантная женщина"
+    },
+    {
+     "q": "eleganck… mężczyzna",
+     "answer": "elegancki",
+     "ru": "элегантный мужчина"
+    },
+    {
+     "q": "dobr… gimnazjum",
+     "answer": "dobre",
+     "ru": "хорошая гимназия"
+    }
+   ]
+  },
+  {
+   "id": "wb-2-10a",
+   "src": "wb",
+   "ref": "Ćw. 10a, s. 15",
+   "title": "Proszę dopisać kropki, kreski i ogonki.",
+   "title_ru": "Расставь польские буквы",
+   "task_ru": "Где ę, ą, ć, ź, ż, ó, ł, ń, ś? Напиши слово правильно. Аудио (ćw. 10b) — послушать и повторить.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "prosze powtorzyc",
+     "answer": "proszę powtórzyć",
+     "ru": "повторите, пожалуйста"
+    },
+    {
+     "q": "one przepraszaja",
+     "answer": "one przepraszają",
+     "ru": "они извиняются"
+    },
+    {
+     "q": "dziekuje",
+     "answer": "dziękuję",
+     "ru": "спасибо"
+    },
+    {
+     "q": "panstwo",
+     "answer": "państwo",
+     "ru": "господа; вы"
+    },
+    {
+     "q": "slonce",
+     "answer": "słońce",
+     "ru": "солнце"
+    },
+    {
+     "q": "imie",
+     "answer": "imię",
+     "ru": "имя"
+    },
+    {
+     "q": "samogloska",
+     "answer": "samogłoska",
+     "ru": "гласная"
+    },
+    {
+     "q": "spolgloska",
+     "answer": "spółgłoska",
+     "ru": "согласная"
+    },
+    {
+     "q": "prosze napisac",
+     "answer": "proszę napisać",
+     "ru": "напишите, пожалуйста"
+    },
+    {
+     "q": "mowic",
+     "answer": "mówić",
+     "ru": "говорить"
+    },
+    {
+     "q": "Gdansk",
+     "answer": "Gdańsk",
+     "ru": "Гданьск"
+    },
+    {
+     "q": "Krakow",
+     "answer": "Kraków",
+     "ru": "Краков"
+    },
+    {
+     "q": "Czestochowa",
+     "answer": "Częstochowa",
+     "ru": "Ченстохова"
+    },
+    {
+     "q": "Wisla",
+     "answer": "Wisła",
+     "ru": "Висла"
+    },
+    {
+     "q": "sie",
+     "answer": "się",
+     "ru": "себя, -ся"
+    },
+    {
+     "q": "wieczor",
+     "answer": "wieczór",
+     "ru": "вечер"
+    },
+    {
+     "q": "dzien",
+     "answer": "dzień",
+     "ru": "день"
+    },
+    {
+     "q": "swietnie",
+     "answer": "świetnie",
+     "ru": "отлично"
+    },
+    {
+     "q": "zle",
+     "answer": "źle",
+     "ru": "плохо"
+    },
+    {
+     "q": "skad",
+     "answer": "skąd",
+     "ru": "откуда"
+    },
+    {
+     "q": "oni sa",
+     "answer": "oni są",
+     "ru": "они есть"
+    },
+    {
+     "q": "ty jestes",
+     "answer": "ty jesteś",
+     "ru": "ты есть"
+    },
+    {
+     "q": "ksiazka",
+     "answer": "książka",
+     "ru": "книга"
+    },
+    {
+     "q": "samochod",
+     "answer": "samochód",
+     "ru": "машина"
+    },
+    {
+     "q": "amerykanski",
+     "answer": "amerykański",
+     "ru": "американский"
+    },
+    {
+     "q": "hiszpanski",
+     "answer": "hiszpański",
+     "ru": "испанский"
+    },
+    {
+     "q": "japonski",
+     "answer": "japoński",
+     "ru": "японский"
+    },
+    {
+     "q": "krzeslo",
+     "answer": "krzesło",
+     "ru": "стул"
+    },
+    {
+     "q": "stol",
+     "answer": "stół",
+     "ru": "стол"
+    },
+    {
+     "q": "mezczyzna",
+     "answer": "mężczyzna",
+     "ru": "мужчина"
+    }
+   ],
+   "audio": "27 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-2-10c",
+   "src": "wb",
+   "ref": "Ćw. 10c, s. 15",
+   "title": "Proszę wybrać 5 słów z ćw. 10a i ułożyć z nimi zdania.",
+   "title_ru": "Предложения со словами",
+   "task_ru": "Выбери 5 слов из ćw. 10a и составь с ними предложения. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Предложение 1–5 (каждое — со словом из 10a)",
+     "answer": "Mieszkam w Krakowie. Mam amerykański samochód. To jest moja książka. Dziękuję, świetnie. Skąd jesteś?",
+     "ru": "Я живу в Кракове. У меня американская машина. Это моя книга. Спасибо, отлично. Откуда ты?"
+    }
+   ]
+  }
+ ]
+}

@@ -2549,3 +2549,18 @@ def test_familiar_button_under_reply_and_in_set():
     assert "👌 kiosk" in labels and "⚪ sklep" in labels
     run(app.on_callback(cb(f"fm:s:{words['kiosk']['id']}", mid=9)))          # снять
     assert app.db.word(words["kiosk"]["id"])["familiar_at"] is None
+
+
+def test_voice_empty_or_too_fast_is_not_counted():
+    app = bex_app()
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    calls = len(app.gemini.prompts)
+    run(app.handle(msg(voice={"file_id": "v", "duration": 0})))        # пустая запись — в модель не идёт
+    assert len(app.gemini.prompts) == calls and "Запись пустая" in app.tg.sent[-1]
+    app.gemini.voice_heard = {1: "mam", 2: "masz", 3: "ma"}            # модель «услышала» 3 ответа за 1 с
+    app.gemini.check_verdict = {1: True, 2: True, 3: True}
+    run(app.handle(msg(voice={"file_id": "v", "duration": 1})))
+    assert "ответов насчитано 3" in app.tg.sent[-1] and not app.db.bex_results(42, "kpk:2")
+    assert "НИЧЕГО НЕ ПРИДУМЫВАЙ" in app.gemini.prompts[-1]
+    run(app.handle(msg(voice={"file_id": "v", "duration": 3})))        # 3 с на 3 ответа — нормально
+    assert app.db.bex_results(42, "kpk:2")[("tb-2-1", 3)]["ok"] == 1

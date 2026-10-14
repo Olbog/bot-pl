@@ -1,0 +1,3244 @@
+{
+ "unit": "1",
+ "title": "Jak masz na imię?",
+ "summary": "Первый контакт: приветствия, знакомство (Jak masz na imię? Jak się nazywasz?), «как дела?» (świetnie, dobrze, tak sobie, źle, fatalnie; Co słychać?), официальный (pan / pani) и неофициальный стиль. Числа 0–10, адрес (ul., al., os., pl.), номер телефона, визитки, алфавит. Откуда ты? (z Polski, z Niemiec…), где живёшь? Грамматика: личные местоимения, спряжение być, mieć, mieszkać.",
+ "topics": [
+  "Приветствие и знакомство",
+  "Как дела?",
+  "Просьбы и вежливость",
+  "Откуда ты? Где живёшь?",
+  "Числа 0–10",
+  "Адрес и телефон",
+  "Личные местоимения",
+  "Глаголы",
+  "Вопросительные и служебные слова",
+  "Вещи",
+  "Грамматические термины"
+ ],
+ "words": [
+  {
+   "pl": "Cześć!",
+   "translit": "чещьчь",
+   "ru": "Привет! / Пока!",
+   "pos": "фраза, неофициально",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "Dzień dobry!",
+   "translit": "джень ДОБ-ры",
+   "ru": "Добрый день! Здравствуйте!",
+   "pos": "фраза, официально",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "Dobry wieczór!",
+   "translit": "ДОБ-ры ВЕ-чур",
+   "ru": "Добрый вечер!",
+   "pos": "фраза, официально",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "Jak masz na imię?",
+   "translit": "як маш на И-мье",
+   "ru": "Как тебя зовут? (имя)",
+   "pos": "фраза, неофициально",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "Jak ma pan / pani na imię?",
+   "translit": "як ма пан / ПА-ни на И-мье",
+   "ru": "Как вас зовут? (имя)",
+   "pos": "фраза, официально",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "Mam na imię…",
+   "translit": "мам на И-мье",
+   "ru": "Меня зовут… (имя)",
+   "pos": "фраза: Mam na imię Jan.",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "Jak się nazywasz?",
+   "translit": "як щен на-ЗЫ-ваш",
+   "ru": "Как твоя фамилия?",
+   "pos": "фраза, неофициально",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "Jak się pan / pani nazywa?",
+   "translit": "як щен пан / ПА-ни на-ЗЫ-ва",
+   "ru": "Как ваша фамилия?",
+   "pos": "фраза, официально",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "Nazywam się…",
+   "translit": "на-ЗЫ-вам щен",
+   "ru": "Моя фамилия… / Меня зовут… (полное имя)",
+   "pos": "фраза: Nazywam się Jan Kowalski.",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "Jestem…",
+   "translit": "ЕС-тэм",
+   "ru": "Я… (представляясь: Jestem Paweł.)",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "Miło mi.",
+   "translit": "МИ-ўо ми",
+   "ru": "Приятно познакомиться.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "Bardzo mi miło.",
+   "translit": "БАР-дзо ми МИ-ўо",
+   "ru": "Очень приятно.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "imię",
+   "translit": "И-мье",
+   "ru": "имя",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "nazwisko",
+   "translit": "наз-ВИС-ко",
+   "ru": "фамилия",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "pan",
+   "translit": "пан",
+   "ru": "господин; вы (к мужчине)",
+   "pos": "сущ., м. р.; вежливое обращение",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "pani",
+   "translit": "ПА-ни",
+   "ru": "госпожа; вы (к женщине)",
+   "pos": "сущ., ж. р.; вежливое обращение",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "państwo",
+   "translit": "ПАНЬ-ство",
+   "ru": "господа; вы (к нескольким людям)",
+   "pos": "сущ., мн. ч. по смыслу; глагол — как для oni: państwo mają",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "kolega",
+   "translit": "ко-ЛЭ-га",
+   "ru": "коллега, друг, приятель",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "koleżanka",
+   "translit": "ко-лэ-ЖАН-ка",
+   "ru": "коллега, подруга, приятельница",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "kontakt oficjalny",
+   "translit": "КОН-такт о-фиц-ЯЛЬ-ны",
+   "ru": "официальный контакт (на «вы»: pan / pani)",
+   "pos": "сущ. + прил.",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "kontakt nieoficjalny",
+   "translit": "КОН-такт не-о-фиц-ЯЛЬ-ны",
+   "ru": "неофициальный контакт (на «ты»)",
+   "pos": "сущ. + прил.",
+   "src": "tb",
+   "topic": "Приветствие и знакомство"
+  },
+  {
+   "pl": "Jak się masz?",
+   "translit": "як щен маш",
+   "ru": "Как дела? Как ты?",
+   "pos": "фраза, неофициально",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "Jak się pan / pani ma?",
+   "translit": "як щен пан / ПА-ни ма",
+   "ru": "Как у вас дела? Как вы?",
+   "pos": "фраза, официально",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "Mam się dobrze.",
+   "translit": "мам щен ДОБ-жэ",
+   "ru": "У меня всё хорошо.",
+   "pos": "фраза: mieć się — поживать",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "świetnie",
+   "translit": "ЩВЕТ-не",
+   "ru": "отлично",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "bardzo dobrze",
+   "translit": "БАР-дзо ДОБ-жэ",
+   "ru": "очень хорошо",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "dobrze",
+   "translit": "ДОБ-жэ",
+   "ru": "хорошо",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "tak sobie",
+   "translit": "так СО-бе",
+   "ru": "так себе",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "źle",
+   "translit": "жьле",
+   "ru": "плохо",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "bardzo źle",
+   "translit": "БАР-дзо жьле",
+   "ru": "очень плохо",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "fatalnie",
+   "translit": "фа-ТАЛЬ-не",
+   "ru": "ужасно",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "Co słychać?",
+   "translit": "цо СЎЫ-хачь",
+   "ru": "Что слышно? Как жизнь?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "Co u ciebie słychać?",
+   "translit": "цо у ЧЕ-бе СЎЫ-хачь",
+   "ru": "Как у тебя дела? Что у тебя нового?",
+   "pos": "фраза, неофициально",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "Co u pana / pani słychać?",
+   "translit": "цо у ПА-на / ПА-ни СЎЫ-хачь",
+   "ru": "Как у вас дела? Что у вас нового?",
+   "pos": "фраза, официально",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "Wszystko w porządku.",
+   "translit": "ФШЫСТ-ко ф по-ЖОНТ-ку",
+   "ru": "Всё в порядке.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "Nic nowego.",
+   "translit": "ниц но-ВЭ-го",
+   "ru": "Ничего нового.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "Po staremu.",
+   "translit": "по ста-РЭ-му",
+   "ru": "По-старому.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "A ty?",
+   "translit": "а ты",
+   "ru": "А ты?",
+   "pos": "фраза, неофициально",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "A pan / pani?",
+   "translit": "а пан / ПА-ни",
+   "ru": "А вы?",
+   "pos": "фраза, официально",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "A u ciebie?",
+   "translit": "а у ЧЕ-бе",
+   "ru": "А у тебя?",
+   "pos": "фраза, неофициально",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "A u pana / pani?",
+   "translit": "а у ПА-на / ПА-ни",
+   "ru": "А у вас?",
+   "pos": "фраза, официально",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "U mnie też.",
+   "translit": "у мне теж",
+   "ru": "У меня тоже.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Как дела?"
+  },
+  {
+   "pl": "Przepraszam.",
+   "translit": "пшэ-ПРА-шам",
+   "ru": "Извините. Простите.",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Просьбы и вежливость"
+  },
+  {
+   "pl": "Dziękuję.",
+   "translit": "джень-КУ-е",
+   "ru": "Спасибо.",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Просьбы и вежливость"
+  },
+  {
+   "pl": "Proszę powtórzyć!",
+   "translit": "ПРО-шэ поф-ТУ-жычь",
+   "ru": "Повторите, пожалуйста!",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Просьбы и вежливость"
+  },
+  {
+   "pl": "Proszę przeliterować!",
+   "translit": "ПРО-шэ пшэ-ли-тэ-РО-вачь",
+   "ru": "Продиктуйте по буквам, пожалуйста!",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Просьбы и вежливость"
+  },
+  {
+   "pl": "Proszę mówić wolniej!",
+   "translit": "ПРО-шэ МУ-вичь ВОЛЬ-ней",
+   "ru": "Говорите, пожалуйста, медленнее!",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Просьбы и вежливость"
+  },
+  {
+   "pl": "Nie rozumiem.",
+   "translit": "не ро-ЗУ-мем",
+   "ru": "Я не понимаю.",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Просьбы и вежливость"
+  },
+  {
+   "pl": "Nie wiem.",
+   "translit": "не вьем",
+   "ru": "Я не знаю.",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Просьбы и вежливость"
+  },
+  {
+   "pl": "Mam pytanie.",
+   "translit": "мам пы-ТА-не",
+   "ru": "У меня вопрос.",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Просьбы и вежливость"
+  },
+  {
+   "pl": "Co to jest?",
+   "translit": "цо то ест",
+   "ru": "Что это?",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Просьбы и вежливость"
+  },
+  {
+   "pl": "Skąd jesteś?",
+   "translit": "сконт ЕС-тэщь",
+   "ru": "Откуда ты?",
+   "pos": "фраза, неофициально",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "Skąd pan / pani jest?",
+   "translit": "сконт пан / ПА-ни ест",
+   "ru": "Откуда вы?",
+   "pos": "фраза, официально",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "Jestem z Polski.",
+   "translit": "ЕС-тэм с ПОЛЬ-ски",
+   "ru": "Я из Польши.",
+   "pos": "фраза: z + родительный",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "z Polski",
+   "translit": "с ПОЛЬ-ски",
+   "ru": "из Польши",
+   "pos": "z + родительный (Polska)",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "z Niemiec",
+   "translit": "з НЕ-мьец",
+   "ru": "из Германии",
+   "pos": "z + родительный (Niemcy)",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "z Francji",
+   "translit": "с ФРАН-цьи",
+   "ru": "из Франции",
+   "pos": "z + родительный (Francja)",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "z Ameryki",
+   "translit": "з а-мэ-РЫ-ки",
+   "ru": "из Америки",
+   "pos": "z + родительный (Ameryka)",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "z Japonii",
+   "translit": "з я-ПО-ньи",
+   "ru": "из Японии",
+   "pos": "z + родительный (Japonia)",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "z Włoch",
+   "translit": "з ВЎОХ",
+   "ru": "из Италии",
+   "pos": "z + родительный (Włochy)",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "z Anglii",
+   "translit": "з АН-гльи",
+   "ru": "из Англии",
+   "pos": "z + родительный (Anglia)",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "z Hiszpanii",
+   "translit": "с хиш-ПА-ньи",
+   "ru": "из Испании",
+   "pos": "z + родительный (Hiszpania)",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "z Rosji",
+   "translit": "з РО-сьи",
+   "ru": "из России",
+   "pos": "z + родительный (Rosja)",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "Gdzie mieszkasz?",
+   "translit": "гдже МЕШ-каш",
+   "ru": "Где ты живёшь?",
+   "pos": "фраза, неофициально",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "Gdzie pan / pani mieszka?",
+   "translit": "гдже пан / ПА-ни МЕШ-ка",
+   "ru": "Где вы живёте?",
+   "pos": "фраза, официально",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "Mieszkam w Krakowie.",
+   "translit": "МЕШ-кам ф кра-КО-вье",
+   "ru": "Я живу в Кракове.",
+   "pos": "фраза: w + местный",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "kraj",
+   "translit": "край",
+   "ru": "страна",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "w moim kraju",
+   "translit": "в МО-им КРА-ю",
+   "ru": "в моей стране",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "kraj"
+  },
+  {
+   "pl": "znany",
+   "translit": "ЗНА-ны",
+   "ru": "известный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "popularny",
+   "translit": "по-пу-ЛЯР-ны",
+   "ru": "популярный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Откуда ты? Где живёшь?"
+  },
+  {
+   "pl": "zero",
+   "translit": "ЗЭ-ро",
+   "ru": "ноль",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "jeden",
+   "translit": "Е-дэн",
+   "ru": "один",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "dwa",
+   "translit": "два",
+   "ru": "два",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "trzy",
+   "translit": "тшы",
+   "ru": "три",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "cztery",
+   "translit": "ЧТЭ-ры",
+   "ru": "четыре",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "pięć",
+   "translit": "пеньчь",
+   "ru": "пять",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "sześć",
+   "translit": "шэщьчь",
+   "ru": "шесть",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "siedem",
+   "translit": "ЩЕ-дэм",
+   "ru": "семь",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "osiem",
+   "translit": "О-щем",
+   "ru": "восемь",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "dziewięć",
+   "translit": "ДЖЕ-вьеньчь",
+   "ru": "девять",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "dziesięć",
+   "translit": "ДЖЕ-щеньчь",
+   "ru": "десять",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "plus",
+   "translit": "плюс",
+   "ru": "плюс",
+   "pos": "мат.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "minus",
+   "translit": "МИ-нус",
+   "ru": "минус",
+   "pos": "мат.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "Ile jest dwa plus trzy?",
+   "translit": "И-ле ест два плюс тшы",
+   "ru": "Сколько будет два плюс три?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "liczebnik",
+   "translit": "ли-ЧЭБ-ник",
+   "ru": "числительное",
+   "pos": "сущ., м. р., термин",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "adres",
+   "translit": "АД-рэс",
+   "ru": "адрес",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "Jaki masz adres?",
+   "translit": "Я-ки маш АД-рэс",
+   "ru": "Какой у тебя адрес?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "ulica",
+   "translit": "у-ЛИ-ца",
+   "ru": "улица (ul.)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "aleja",
+   "translit": "а-ЛЕ-я",
+   "ru": "аллея, проспект (al.)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "osiedle",
+   "translit": "о-ЩЕД-лэ",
+   "ru": "жилой микрорайон (os.)",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "plac",
+   "translit": "плац",
+   "ru": "площадь (pl.)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "przez",
+   "translit": "пшэс",
+   "ru": "дробь (в адресе: 10/3 — dziesięć przez trzy)",
+   "pos": "предлог; в адресе — «дом / квартира»",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "Jaki masz numer telefonu?",
+   "translit": "Я-ки маш НУ-мэр тэ-лэ-ФО-ну",
+   "ru": "Какой у тебя номер телефона?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "Mój numer telefonu to…",
+   "translit": "муй НУ-мэр тэ-лэ-ФО-ну то",
+   "ru": "Мой номер телефона…",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "telefon",
+   "translit": "тэ-ЛЕ-фон",
+   "ru": "телефон",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "telefon stacjonarny",
+   "translit": "тэ-ЛЕ-фон стац-ё-НАР-ны",
+   "ru": "стационарный телефон",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "telefon"
+  },
+  {
+   "pl": "komórka",
+   "translit": "ко-МУР-ка",
+   "ru": "мобильный телефон",
+   "pos": "сущ., ж. р., разг.",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "numer komórki",
+   "translit": "НУ-мэр ко-МУР-ки",
+   "ru": "номер мобильного",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "komórka"
+  },
+  {
+   "pl": "wizytówka",
+   "translit": "ви-зы-ТУФ-ка",
+   "ru": "визитка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "kod pocztowy",
+   "translit": "кот поч-ТО-вы",
+   "ru": "почтовый индекс",
+   "pos": "сущ. + прил.",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "NIP",
+   "translit": "нип",
+   "ru": "ИНН (налоговый номер)",
+   "pos": "сокращ., м. р.",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "numer rejestracyjny",
+   "translit": "НУ-мэр рэ-е-стра-ЦЫЙ-ны",
+   "ru": "номерной знак машины",
+   "pos": "сущ. + прил.",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "stacja benzynowa",
+   "translit": "СТАЦ-ья бэн-зы-НО-ва",
+   "ru": "заправка, АЗС",
+   "pos": "сущ. + прил., ж. р.",
+   "src": "tb",
+   "topic": "Адрес и телефон"
+  },
+  {
+   "pl": "ja",
+   "translit": "я",
+   "ru": "я",
+   "pos": "местоим.",
+   "src": "tb",
+   "topic": "Личные местоимения"
+  },
+  {
+   "pl": "ty",
+   "translit": "ты",
+   "ru": "ты",
+   "pos": "местоим.",
+   "src": "tb",
+   "topic": "Личные местоимения"
+  },
+  {
+   "pl": "on",
+   "translit": "он",
+   "ru": "он",
+   "pos": "местоим.",
+   "src": "tb",
+   "topic": "Личные местоимения"
+  },
+  {
+   "pl": "ona",
+   "translit": "О-на",
+   "ru": "она",
+   "pos": "местоим.",
+   "src": "tb",
+   "topic": "Личные местоимения"
+  },
+  {
+   "pl": "ono",
+   "translit": "О-но",
+   "ru": "оно",
+   "pos": "местоим.",
+   "src": "tb",
+   "topic": "Личные местоимения"
+  },
+  {
+   "pl": "my",
+   "translit": "мы",
+   "ru": "мы",
+   "pos": "местоим.",
+   "src": "tb",
+   "topic": "Личные местоимения"
+  },
+  {
+   "pl": "wy",
+   "translit": "вы",
+   "ru": "вы (несколько человек на «ты»)",
+   "pos": "местоим.",
+   "src": "tb",
+   "topic": "Личные местоимения"
+  },
+  {
+   "pl": "oni",
+   "translit": "О-ни",
+   "ru": "они (если среди них есть мужчина)",
+   "pos": "местоим., мужско-личный род",
+   "src": "tb",
+   "topic": "Личные местоимения"
+  },
+  {
+   "pl": "one",
+   "translit": "О-нэ",
+   "ru": "они (женщины, дети, предметы)",
+   "pos": "местоим., немужско-личный род",
+   "src": "tb",
+   "topic": "Личные местоимения"
+  },
+  {
+   "pl": "być",
+   "translit": "бычь",
+   "ru": "быть",
+   "pos": "глаг.: jestem, jesteś, jest, jesteśmy, jesteście, są",
+   "src": "tb",
+   "topic": "Глаголы"
+  },
+  {
+   "pl": "mieć",
+   "translit": "мечь",
+   "ru": "иметь (у меня есть)",
+   "pos": "глаг.: mam, masz, ma, mamy, macie, mają",
+   "src": "tb",
+   "topic": "Глаголы"
+  },
+  {
+   "pl": "mieć się",
+   "translit": "мечь щен",
+   "ru": "поживать (как дела)",
+   "pos": "глаг.: mam się, masz się — Jak się masz?",
+   "src": "tb",
+   "topic": "Глаголы"
+  },
+  {
+   "pl": "mieszkać",
+   "translit": "МЕШ-качь",
+   "ru": "жить, проживать",
+   "pos": "глаг., -am / -asz: mieszkam, mieszkasz, mieszkają",
+   "src": "tb",
+   "topic": "Глаголы"
+  },
+  {
+   "pl": "nazywać się",
+   "translit": "на-ЗЫ-вачь щен",
+   "ru": "называться; иметь фамилию",
+   "pos": "глаг., -am / -asz: nazywam się, nazywasz się",
+   "src": "tb",
+   "topic": "Глаголы"
+  },
+  {
+   "pl": "rozumieć",
+   "translit": "ро-ЗУ-мечь",
+   "ru": "понимать",
+   "pos": "глаг.: rozumiem, rozumiesz, rozumieją",
+   "src": "tb",
+   "topic": "Глаголы"
+  },
+  {
+   "pl": "przepraszać",
+   "translit": "пшэ-ПРА-шачь",
+   "ru": "извиняться",
+   "pos": "глаг., -am / -asz",
+   "src": "tb",
+   "topic": "Глаголы"
+  },
+  {
+   "pl": "powtórzyć",
+   "translit": "поф-ТУ-жычь",
+   "ru": "повторить",
+   "pos": "глаг. (Proszę powtórzyć!)",
+   "src": "tb",
+   "topic": "Глаголы"
+  },
+  {
+   "pl": "przeliterować",
+   "translit": "пшэ-ли-тэ-РО-вачь",
+   "ru": "произнести по буквам",
+   "pos": "глаг.",
+   "src": "tb",
+   "topic": "Глаголы"
+  },
+  {
+   "pl": "kto?",
+   "translit": "кто",
+   "ru": "кто?",
+   "pos": "местоим. вопр.",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "co?",
+   "translit": "цо",
+   "ru": "что?",
+   "pos": "местоим. вопр.",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "jak?",
+   "translit": "як",
+   "ru": "как?",
+   "pos": "нареч. вопр.",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "gdzie?",
+   "translit": "гдже",
+   "ru": "где?",
+   "pos": "нареч. вопр.",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "skąd?",
+   "translit": "сконт",
+   "ru": "откуда?",
+   "pos": "нареч. вопр.",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "jaki?",
+   "translit": "Я-ки",
+   "ru": "какой?",
+   "pos": "местоим. вопр.",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "ile?",
+   "translit": "И-ле",
+   "ru": "сколько?",
+   "pos": "нареч. вопр.",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "czy",
+   "translit": "чы",
+   "ru": "ли (в начале вопроса «да / нет»)",
+   "pos": "частица: Czy masz telefon?",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "tak",
+   "translit": "так",
+   "ru": "да",
+   "pos": "частица",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "nie",
+   "translit": "не",
+   "ru": "нет; не",
+   "pos": "частица",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "a",
+   "translit": "а",
+   "ru": "а",
+   "pos": "союз: A ty?",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "i",
+   "translit": "и",
+   "ru": "и",
+   "pos": "союз",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "też",
+   "translit": "теж",
+   "ru": "тоже",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "teraz",
+   "translit": "ТЭ-рас",
+   "ru": "сейчас, теперь",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "w",
+   "translit": "ф / в",
+   "ru": "в (где?)",
+   "pos": "предлог + местный: w Krakowie",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "z",
+   "translit": "з / с",
+   "ru": "из (откуда?)",
+   "pos": "предлог + родительный: z Polski",
+   "src": "tb",
+   "topic": "Вопросительные и служебные слова"
+  },
+  {
+   "pl": "dom",
+   "translit": "дом",
+   "ru": "дом",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Вещи"
+  },
+  {
+   "pl": "auto",
+   "translit": "АЎ-то",
+   "ru": "машина, авто",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Вещи"
+  },
+  {
+   "pl": "nowe auto",
+   "translit": "НО-вэ АЎ-то",
+   "ru": "новая машина",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "auto"
+  },
+  {
+   "pl": "komputer",
+   "translit": "ком-ПУ-тэр",
+   "ru": "компьютер",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Вещи"
+  },
+  {
+   "pl": "problem",
+   "translit": "ПРОБ-лэм",
+   "ru": "проблема",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Вещи"
+  },
+  {
+   "pl": "krzesło",
+   "translit": "КШЭС-ўо",
+   "ru": "стул",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Вещи"
+  },
+  {
+   "pl": "paszport",
+   "translit": "ПАШ-порт",
+   "ru": "паспорт (заграничный)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Вещи"
+  },
+  {
+   "pl": "hotel",
+   "translit": "ХО-тэль",
+   "ru": "гостиница",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Вещи"
+  },
+  {
+   "pl": "pytanie",
+   "translit": "пы-ТА-не",
+   "ru": "вопрос",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "odpowiedź",
+   "translit": "от-ПО-вьеджь",
+   "ru": "ответ",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "czasownik",
+   "translit": "ча-СОВ-ник",
+   "ru": "глагол",
+   "pos": "сущ., м. р., термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "bezokolicznik",
+   "translit": "бэз-о-ко-ЛИЧ-ник",
+   "ru": "инфинитив (неопределённая форма)",
+   "pos": "сущ., м. р., термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "liczba pojedyncza",
+   "translit": "ЛИЧ-ба по-е-ДЫН-ча",
+   "ru": "единственное число",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "liczba mnoga",
+   "translit": "ЛИЧ-ба МНО-га",
+   "ru": "множественное число",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  },
+  {
+   "pl": "zaimek osobowy",
+   "translit": "за-И-мэк о-со-БО-вы",
+   "ru": "личное местоимение",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Грамматические термины"
+  }
+ ],
+ "exercises": [
+  {
+   "id": "tb-1-1b",
+   "src": "tb",
+   "ref": "Ćw. 1b, s. 11",
+   "title": "Proszę ułożyć z kolegą / koleżanką dwa dialogi: oficjalny i nieoficjalny.",
+   "title_ru": "Составь два диалога: официальный и неофициальный",
+   "task_ru": "Напиши короткий диалог (3–6 реплик) через « – ». Официальный — на «вы» (pan / pani), неофициальный — на «ты». Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Dialog oficjalny",
+     "answer": "– Dzień dobry. Jak się pan nazywa? – Nazywam się Jan Kowalski. A pani? – Nazywam się Anna Nowak. Jak się pan ma? – Dobrze, dziękuję. A pani? – Świetnie.",
+     "ru": "Официальный диалог (pan / pani, Dzień dobry)"
+    },
+    {
+     "q": "Dialog nieoficjalny",
+     "answer": "– Cześć. Jestem Ewa. A ty? – Cześć. Mam na imię Paweł. – Miło mi. Co słychać? – Wszystko w porządku, a u ciebie? – Po staremu.",
+     "ru": "Неофициальный диалог (ty, Cześć)"
+    }
+   ]
+  },
+  {
+   "id": "tb-1-2",
+   "src": "tb",
+   "ref": "Ćw. 2, s. 11",
+   "title": "Proszę zapytać kolegę / koleżankę:",
+   "title_ru": "Ответь на вопросы о себе",
+   "task_ru": "Ответь полным предложением о себе. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Jak masz na imię?",
+     "answer": "Mam na imię Marek.",
+     "ru": "Как тебя зовут?"
+    },
+    {
+     "q": "Jak się nazywasz?",
+     "answer": "Nazywam się Marek Nowak.",
+     "ru": "Как твоя фамилия?"
+    },
+    {
+     "q": "Jak się masz?",
+     "answer": "Mam się dobrze.",
+     "ru": "Как дела?",
+     "accepted": [
+      "Dobrze.",
+      "Świetnie."
+     ]
+    },
+    {
+     "q": "Co (u ciebie) słychać?",
+     "answer": "U mnie wszystko w porządku.",
+     "ru": "Что у тебя нового?",
+     "accepted": [
+      "Nic nowego.",
+      "Po staremu."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-1-3",
+   "src": "tb",
+   "ref": "Ćw. 3–4, s. 11",
+   "title": "Jak on / ona ma na imię? Jak się nazywa? Jak się ma?",
+   "title_ru": "Как его / её зовут, какая фамилия, как дела?",
+   "task_ru": "По фото (здесь — описание). Напиши одно предложение: «On ma na imię Paweł, nazywa się Kowalski i ma się świetnie». Если фамилии нет — только имя. Настроение — по своему впечатлению. Проверяет модель.",
+   "type": "open",
+   "items": [
+    {
+     "q": "😄 Paweł Kowalski — широко улыбается, бодрый",
+     "answer": "On ma na imię Paweł, nazywa się Kowalski i ma się świetnie.",
+     "ru": "Его зовут Павел, фамилия Ковальский, у него всё отлично.",
+     "accepted": [
+      "On ma na imię Paweł, nazywa się Kowalski i ma się bardzo dobrze."
+     ]
+    },
+    {
+     "q": "😂 Krzysiek Bogacki — хохочет",
+     "answer": "On ma na imię Krzysiek, nazywa się Bogacki i ma się świetnie.",
+     "ru": "Его зовут Кшысек, фамилия Богацкий, у него всё отлично."
+    },
+    {
+     "q": "😐 pani Ania — спокойное лицо",
+     "answer": "Ona ma na imię Ania i ma się tak sobie.",
+     "ru": "Её зовут Аня, дела у неё так себе.",
+     "accepted": [
+      "Ona ma na imię Ania i ma się dobrze."
+     ]
+    },
+    {
+     "q": "🤒 pan Tomek — лежит с компрессом на лбу",
+     "answer": "On ma na imię Tomek i ma się fatalnie.",
+     "ru": "Его зовут Томек, ему очень плохо.",
+     "accepted": [
+      "On ma na imię Tomek i ma się bardzo źle."
+     ]
+    },
+    {
+     "q": "😌 Anna Dębska — довольна, расслаблена",
+     "answer": "Ona ma na imię Anna, nazywa się Dębska i ma się bardzo dobrze.",
+     "ru": "Её зовут Анна, фамилия Дембская, у неё всё очень хорошо.",
+     "accepted": [
+      "Ona ma na imię Anna, nazywa się Dębska i ma się świetnie."
+     ]
+    },
+    {
+     "q": "😒 Maria — недовольна, скрестила руки",
+     "answer": "Ona ma na imię Maria i ma się źle.",
+     "ru": "Её зовут Мария, дела у неё плохо.",
+     "accepted": [
+      "Ona ma na imię Maria i ma się tak sobie."
+     ]
+    },
+    {
+     "q": "🙂 Krystyna Nowak — приветливо улыбается",
+     "answer": "Ona ma na imię Krystyna, nazywa się Nowak i ma się dobrze.",
+     "ru": "Её зовут Кристина, фамилия Новак, у неё всё хорошо."
+    },
+    {
+     "q": "😞 Robert — грустно сидит, опустив голову",
+     "answer": "On ma na imię Robert i ma się bardzo źle.",
+     "ru": "Его зовут Роберт, дела у него очень плохо.",
+     "accepted": [
+      "On ma na imię Robert i ma się źle."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-1-5a",
+   "src": "tb",
+   "ref": "Ćw. 5a, s. 11",
+   "title": "Proszę uzupełnić dialogi, posłuchać nagrania i sprawdzić swoje odpowiedzi.",
+   "title_ru": "Дополни диалоги",
+   "task_ru": "Вставь пропущенное слово. Если пропусков два — через запятую: «2 się, nazywa». Аудио — для проверки.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "A: – Dzień dobry. ___, jak się pani nazywa?",
+     "answer": "Przepraszam",
+     "ru": "– Добрый день. Извините, как ваша фамилия?"
+    },
+    {
+     "q": "A: – Nazywam ___ Marta Nowak, a jak się pan ___?",
+     "answer": "się, nazywa",
+     "ru": "– Меня зовут Марта Новак, а как ваша фамилия?"
+    },
+    {
+     "q": "A: – Mam ___ imię Andrzej. Nazywam się Kowalski.",
+     "answer": "na",
+     "ru": "– Меня зовут Анджей. Фамилия Ковальский."
+    },
+    {
+     "q": "A: – ___ mi.",
+     "answer": "Miło",
+     "ru": "– Приятно познакомиться."
+    },
+    {
+     "q": "B: – Cześć, ___ się masz?",
+     "answer": "jak",
+     "ru": "– Привет, как дела?"
+    },
+    {
+     "q": "B: – ___, a ty?",
+     "answer": "Dobrze",
+     "ru": "– Хорошо, а ты?",
+     "accepted": [
+      "Świetnie",
+      "Bardzo dobrze"
+     ]
+    },
+    {
+     "q": "B: – Tak ___.",
+     "answer": "sobie",
+     "ru": "– Так себе."
+    },
+    {
+     "q": "C: – ___ wieczór.",
+     "answer": "Dobry",
+     "ru": "– Добрый вечер."
+    },
+    {
+     "q": "C: – Dobry wieczór. Jak ma ___ na imię?",
+     "answer": "pan",
+     "ru": "– Добрый вечер. Как вас зовут?"
+    },
+    {
+     "q": "C: – Jestem Jan. A jak ma pani na ___?",
+     "answer": "imię",
+     "ru": "– Я Ян. А как зовут вас?"
+    },
+    {
+     "q": "C: – ___ na imię Monika.",
+     "answer": "Mam",
+     "ru": "– Меня зовут Моника."
+    },
+    {
+     "q": "D: – Cześć. Jestem Anka, ___ ty?",
+     "answer": "a",
+     "ru": "– Привет. Я Анка, а ты?"
+    },
+    {
+     "q": "D: – Jak się nazywasz? – ___ się Wójcik.",
+     "answer": "Nazywam",
+     "ru": "– Как твоя фамилия? – Вуйчик."
+    },
+    {
+     "q": "E: – ___ Marta, co u ciebie ___?",
+     "answer": "Cześć, słychać",
+     "ru": "– Привет, Марта, как у тебя дела?"
+    },
+    {
+     "q": "E: – U mnie? Nic ___, a u ciebie?",
+     "answer": "nowego",
+     "ru": "– У меня? Ничего нового, а у тебя?"
+    },
+    {
+     "q": "E: – Też ___ staremu.",
+     "answer": "po",
+     "ru": "– Тоже по-старому."
+    },
+    {
+     "q": "F: – Dzień dobry pani, co u ___ słychać?",
+     "answer": "pani",
+     "ru": "– Добрый день, как у вас дела?"
+    },
+    {
+     "q": "F: – Dzień dobry, ___ w porządku, a ___ pana?",
+     "answer": "wszystko, u",
+     "ru": "– Добрый день, всё в порядке, а у вас?"
+    },
+    {
+     "q": "F: – ___, u mnie też.",
+     "answer": "Dziękuję",
+     "ru": "– Спасибо, у меня тоже."
+    }
+   ],
+   "audio": [
+    "006 - HURRA_PP1_podr_stud.mp3",
+    "007 - HURRA_PP1_podr_stud.mp3",
+    "008 - HURRA_PP1_podr_stud.mp3",
+    "009 - HURRA_PP1_podr_stud.mp3",
+    "010 - HURRA_PP1_podr_stud.mp3",
+    "011 - HURRA_PP1_podr_stud.mp3"
+   ]
+  },
+  {
+   "id": "tb-1-6",
+   "src": "tb",
+   "ref": "Ćw. 6, s. 12",
+   "title": "Ile jest 2+3? Ile jest 6–4?",
+   "title_ru": "Сколько будет?",
+   "task_ru": "Напиши ответ словом: «1 pięć».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Ile jest dwa plus trzy? (2+3)",
+     "answer": "pięć",
+     "ru": "Сколько будет два плюс три?",
+     "full_pl": "Dwa plus trzy jest pięć.",
+     "translit": "пеньчь"
+    },
+    {
+     "q": "Ile jest sześć minus cztery? (6–4)",
+     "answer": "dwa",
+     "ru": "Сколько будет шесть минус четыре?",
+     "translit": "два"
+    },
+    {
+     "q": "Ile jest jeden plus dwa? (1+2)",
+     "answer": "trzy",
+     "ru": "Сколько будет один плюс два?",
+     "translit": "тшы"
+    },
+    {
+     "q": "Ile jest pięć plus pięć? (5+5)",
+     "answer": "dziesięć",
+     "ru": "Сколько будет пять плюс пять?",
+     "translit": "ДЖЕ-щеньчь"
+    },
+    {
+     "q": "Ile jest dziewięć minus dwa? (9–2)",
+     "answer": "siedem",
+     "ru": "Сколько будет девять минус два?",
+     "translit": "ЩЕ-дэм"
+    },
+    {
+     "q": "Ile jest cztery plus cztery? (4+4)",
+     "answer": "osiem",
+     "ru": "Сколько будет четыре плюс четыре?",
+     "translit": "О-щем"
+    },
+    {
+     "q": "Ile jest osiem minus osiem? (8–8)",
+     "answer": "zero",
+     "ru": "Сколько будет восемь минус восемь?",
+     "translit": "ЗЭ-ро"
+    },
+    {
+     "q": "Ile jest trzy plus trzy? (3+3)",
+     "answer": "sześć",
+     "ru": "Сколько будет три плюс три?",
+     "translit": "шэщьчь"
+    },
+    {
+     "q": "Ile jest dziesięć minus jeden? (10–1)",
+     "answer": "dziewięć",
+     "ru": "Сколько будет десять минус один?",
+     "translit": "ДЖЕ-вьеньчь"
+    },
+    {
+     "q": "Ile jest siedem minus trzy? (7–3)",
+     "answer": "cztery",
+     "ru": "Сколько будет семь минус три?",
+     "translit": "ЧТЭ-ры"
+    }
+   ]
+  },
+  {
+   "id": "tb-1-7a",
+   "src": "tb",
+   "ref": "Ćw. 7a, s. 12",
+   "title": "Proszę przeczytać na głos treść wizytówek. Jaki on / ona ma adres?",
+   "title_ru": "Прочитай адрес с визитки словами",
+   "task_ru": "Напиши адрес полностью словами, как его читают: ul. → ulica, al. → aleja, os. → osiedle, pl. → plac, «/» → przez. Пример: ul. Polna 10/3 → «ulica Polna dziesięć przez trzy».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Anna Nowak: ul. Polna 10/3",
+     "answer": "ulica Polna dziesięć przez trzy",
+     "ru": "улица Польная, дом 10, квартира 3"
+    },
+    {
+     "q": "Jan Kowalski: ul. Leśna 7",
+     "answer": "ulica Leśna siedem",
+     "ru": "улица Лесная, 7"
+    },
+    {
+     "q": "Andrzej Wiśniewski: al. Słoneczna 2/3",
+     "answer": "aleja Słoneczna dwa przez trzy",
+     "ru": "аллея Солнечная, дом 2, квартира 3"
+    },
+    {
+     "q": "Maria Pustaj: ul. Krótka 1/9",
+     "answer": "ulica Krótka jeden przez dziewięć",
+     "ru": "улица Короткая, дом 1, квартира 9"
+    },
+    {
+     "q": "Piotr Kowalczyk: os. Szkolne 4/7",
+     "answer": "osiedle Szkolne cztery przez siedem",
+     "ru": "микрорайон Школьный, дом 4, квартира 7"
+    },
+    {
+     "q": "Małgorzata Kamińska-Wójcik: pl. Kościuszki 9",
+     "answer": "plac Kościuszki dziewięć",
+     "ru": "площадь Костюшко, 9"
+    },
+    {
+     "q": "Katarzyna Lewandowska: al. Mickiewicza 6/10",
+     "answer": "aleja Mickiewicza sześć przez dziesięć",
+     "ru": "аллея Мицкевича, дом 6, квартира 10"
+    }
+   ]
+  },
+  {
+   "id": "tb-1-7b-1",
+   "src": "tb",
+   "ref": "Ćw. 7b, s. 12 (1/2)",
+   "title": "Czy to jest imię, czy nazwisko? Męskie, żeńskie czy uniwersalne?",
+   "title_ru": "Имя или фамилия? Мужское, женское или общее?",
+   "task_ru": "Выбери: imię męskie / żeńskie (мужское / женское имя), nazwisko męskie / żeńskie, nazwisko uniwersalne — фамилия одинаковая для мужчин и женщин (не на -ski / -ska, -cki / -cka).",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Wójcik",
+     "answer": "nazwisko uniwersalne",
+     "ru": "Вуйчик — фамилия, одна форма для всех",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Agnieszka",
+     "answer": "imię żeńskie",
+     "ru": "Агнешка — женское имя",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Żywulko",
+     "answer": "nazwisko uniwersalne",
+     "ru": "Живулько — фамилия на -o, одна форма",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Krzysztof",
+     "answer": "imię męskie",
+     "ru": "Кшиштоф — мужское имя",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Kiełbasa",
+     "answer": "nazwisko uniwersalne",
+     "ru": "Кельбаса — фамилия (досл. «колбаса»), одна форма",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Zielińska",
+     "answer": "nazwisko żeńskie",
+     "ru": "Зелиньская — женская фамилия (муж. Zieliński)",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Lusława",
+     "answer": "imię żeńskie",
+     "ru": "Люслава — редкое женское имя",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Szymańska",
+     "answer": "nazwisko żeńskie",
+     "ru": "Шиманьская — женская фамилия (муж. Szymański)",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Lutomierz",
+     "answer": "imię męskie",
+     "ru": "Лютомеж — редкое старопольское мужское имя",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-1-7b-2",
+   "src": "tb",
+   "ref": "Ćw. 7b, s. 12 (2/2)",
+   "title": "Czy to jest imię, czy nazwisko? Męskie, żeńskie czy uniwersalne?",
+   "title_ru": "Имя или фамилия? Мужское, женское или общее?",
+   "task_ru": "Выбери: imię męskie / żeńskie (мужское / женское имя), nazwisko męskie / żeńskie, nazwisko uniwersalne — фамилия одинаковая для мужчин и женщин (не на -ski / -ska, -cki / -cka).",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Krystyna",
+     "answer": "imię żeńskie",
+     "ru": "Кристина — женское имя",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Woźniak",
+     "answer": "nazwisko uniwersalne",
+     "ru": "Возьняк — фамилия, одна форма",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Dąbrowski",
+     "answer": "nazwisko męskie",
+     "ru": "Домбровский — мужская фамилия (жен. Dąbrowska)",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Stanisław",
+     "answer": "imię męskie",
+     "ru": "Станислав — мужское имя",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Kozłowska",
+     "answer": "nazwisko żeńskie",
+     "ru": "Козловская — женская фамилия",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Tomasz",
+     "answer": "imię męskie",
+     "ru": "Томаш — мужское имя",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Grzeło",
+     "answer": "nazwisko uniwersalne",
+     "ru": "Гжэло — фамилия на -o, одна форма",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Jankowski",
+     "answer": "nazwisko męskie",
+     "ru": "Янковский — мужская фамилия",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    },
+    {
+     "q": "Salezy",
+     "answer": "imię męskie",
+     "ru": "Салезы — редкое мужское имя",
+     "options": [
+      "imię męskie",
+      "imię żeńskie",
+      "nazwisko męskie",
+      "nazwisko żeńskie",
+      "nazwisko uniwersalne"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-1-7c",
+   "src": "tb",
+   "ref": "Ćw. 7c, s. 12",
+   "title": "Popularne adresy to np. ulica Mickiewicza… A w Pana / Pani kraju?",
+   "title_ru": "Популярные названия улиц в твоей стране",
+   "task_ru": "Ответь одним предложением по образцу. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "W moim kraju popularne adresy to: …",
+     "answer": "W moim kraju popularne adresy to: ulica Lenina, ulica Puszkina, ulica Gagarina.",
+     "ru": "В моей стране популярные адреса: …"
+    }
+   ]
+  },
+  {
+   "id": "tb-1-8a",
+   "src": "tb",
+   "ref": "Ćw. 8a, s. 13",
+   "title": "Proszę posłuchać nagrania i napisać liczebnik przy nazwie miasta.",
+   "title_ru": "Какое число у города? (на слух)",
+   "task_ru": "Послушай запись и напиши число словом: «1 jeden».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Gdańsk",
+     "answer": "jeden",
+     "ru": "Gdańsk — 1",
+     "full_pl": "jeden – Gdańsk",
+     "accepted": [
+      "1"
+     ]
+    },
+    {
+     "q": "Kraków",
+     "answer": "dwa",
+     "ru": "Kraków — 2",
+     "full_pl": "dwa – Kraków",
+     "accepted": [
+      "2"
+     ]
+    },
+    {
+     "q": "Warszawa",
+     "answer": "trzy",
+     "ru": "Warszawa — 3",
+     "full_pl": "trzy – Warszawa",
+     "accepted": [
+      "3"
+     ]
+    },
+    {
+     "q": "Szczecin",
+     "answer": "cztery",
+     "ru": "Szczecin — 4",
+     "full_pl": "cztery – Szczecin",
+     "accepted": [
+      "4"
+     ]
+    },
+    {
+     "q": "Poznań",
+     "answer": "pięć",
+     "ru": "Poznań — 5",
+     "full_pl": "pięć – Poznań",
+     "accepted": [
+      "5"
+     ]
+    },
+    {
+     "q": "Wrocław",
+     "answer": "sześć",
+     "ru": "Wrocław — 6",
+     "full_pl": "sześć – Wrocław",
+     "accepted": [
+      "6"
+     ]
+    },
+    {
+     "q": "Katowice",
+     "answer": "siedem",
+     "ru": "Katowice — 7",
+     "full_pl": "siedem – Katowice",
+     "accepted": [
+      "7"
+     ]
+    },
+    {
+     "q": "Łódź",
+     "answer": "osiem",
+     "ru": "Łódź — 8",
+     "full_pl": "osiem – Łódź",
+     "accepted": [
+      "8"
+     ]
+    },
+    {
+     "q": "Częstochowa",
+     "answer": "dziewięć",
+     "ru": "Częstochowa — 9",
+     "full_pl": "dziewięć – Częstochowa",
+     "accepted": [
+      "9"
+     ]
+    },
+    {
+     "q": "Zakopane",
+     "answer": "dziesięć",
+     "ru": "Zakopane — 10",
+     "full_pl": "dziesięć – Zakopane",
+     "accepted": [
+      "10"
+     ]
+    }
+   ],
+   "audio": "012 - HURRA_PP1_podr_stud.mp3"
+  },
+  {
+   "id": "tb-1-9a",
+   "src": "tb",
+   "ref": "Ćw. 9a–9b, s. 13",
+   "title": "Quiz: Czy wiesz, skąd oni są?",
+   "title_ru": "Викторина: откуда они?",
+   "task_ru": "Выбери страну. Проверить себя — запись 9b.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Skąd jest Roman Polański?",
+     "answer": "z Polski",
+     "ru": "Откуда Roman Polański? — из Польши",
+     "full_pl": "Roman Polański jest z Polski.",
+     "options": [
+      "z Polski",
+      "z Hiszpanii",
+      "z Francji",
+      "z Anglii"
+     ]
+    },
+    {
+     "q": "Skąd jest Michaił Gorbaczow?",
+     "answer": "z Rosji",
+     "ru": "Откуда Michaił Gorbaczow? — из России",
+     "full_pl": "Michaił Gorbaczow jest z Rosji.",
+     "options": [
+      "z Niemiec",
+      "z Ameryki",
+      "z Włoch",
+      "z Rosji"
+     ]
+    },
+    {
+     "q": "Skąd jest Pedro Almodóvar?",
+     "answer": "z Hiszpanii",
+     "ru": "Откуда Pedro Almodóvar? — из Испании",
+     "full_pl": "Pedro Almodóvar jest z Hiszpanii.",
+     "options": [
+      "z Anglii",
+      "z Japonii",
+      "z Hiszpanii",
+      "z Francji"
+     ]
+    },
+    {
+     "q": "Skąd jest Agnieszka Holland?",
+     "answer": "z Polski",
+     "ru": "Откуда Agnieszka Holland? — из Польши",
+     "full_pl": "Agnieszka Holland jest z Polski.",
+     "options": [
+      "z Anglii",
+      "z Polski",
+      "z Hiszpanii",
+      "z Francji"
+     ]
+    },
+    {
+     "q": "Skąd jest Angela Merkel?",
+     "answer": "z Niemiec",
+     "ru": "Откуда Angela Merkel? — из Германии",
+     "full_pl": "Angela Merkel jest z Niemiec.",
+     "options": [
+      "z Niemiec",
+      "z Ameryki",
+      "z Włoch",
+      "z Polski"
+     ]
+    },
+    {
+     "q": "Skąd jest Jean-Paul Gaultier?",
+     "answer": "z Francji",
+     "ru": "Откуда Jean-Paul Gaultier? — из Франции",
+     "full_pl": "Jean-Paul Gaultier jest z Francji.",
+     "options": [
+      "z Anglii",
+      "z Japonii",
+      "z Rosji",
+      "z Francji"
+     ]
+    },
+    {
+     "q": "Skąd jest Meryl Streep?",
+     "answer": "z Ameryki",
+     "ru": "Откуда Meryl Streep? — из Америки",
+     "full_pl": "Meryl Streep jest z Ameryki.",
+     "options": [
+      "z Polski",
+      "z Hiszpanii",
+      "z Ameryki",
+      "z Włoch"
+     ]
+    },
+    {
+     "q": "Skąd jest David Beckham?",
+     "answer": "z Anglii",
+     "ru": "Откуда David Beckham? — из Англии",
+     "full_pl": "David Beckham jest z Anglii.",
+     "options": [
+      "z Niemiec",
+      "z Anglii",
+      "z Japonii",
+      "z Rosji"
+     ]
+    },
+    {
+     "q": "Skąd jest Monica Bellucci?",
+     "answer": "z Włoch",
+     "ru": "Откуда Monica Bellucci? — из Италии",
+     "full_pl": "Monica Bellucci jest z Włoch.",
+     "options": [
+      "z Włoch",
+      "z Polski",
+      "z Hiszpanii",
+      "z Francji"
+     ]
+    },
+    {
+     "q": "Skąd jest Kenzo Takada?",
+     "answer": "z Japonii",
+     "ru": "Откуда Kenzo Takada? — из Японии",
+     "full_pl": "Kenzo Takada jest z Japonii.",
+     "options": [
+      "z Rosji",
+      "z Niemiec",
+      "z Ameryki",
+      "z Japonii"
+     ]
+    }
+   ],
+   "audio": "013 - HURRA_PP1_podr_stud.mp3"
+  },
+  {
+   "id": "tb-1-10a",
+   "src": "tb",
+   "ref": "Ćw. 10a, s. 13",
+   "title": "Proszę napisać, skąd oni są.",
+   "title_ru": "Откуда они?",
+   "task_ru": "Человек живёт в этом городе — напиши страну: z + родительный. Пример: Alexandra mieszka w Londynie. Ona jest z Anglii.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Ignatio mieszka w Barcelonie. On jest ___.",
+     "answer": "z Hiszpanii",
+     "ru": "Игнасио живёт в Барселоне. Он из Испании."
+    },
+    {
+     "q": "Andreas mieszka w Berlinie. On jest ___.",
+     "answer": "z Niemiec",
+     "ru": "Андреас живёт в Берлине. Он из Германии."
+    },
+    {
+     "q": "Pan Smith mieszka w Nowym Jorku. On jest ___.",
+     "answer": "z Ameryki",
+     "ru": "Мистер Смит живёт в Нью-Йорке. Он из Америки."
+    },
+    {
+     "q": "Pani Wysocka mieszka w Poznaniu. Ona jest ___.",
+     "answer": "z Polski",
+     "ru": "Пани Высоцкая живёт в Познани. Она из Польши."
+    },
+    {
+     "q": "Roberto mieszka w Rzymie. On jest ___.",
+     "answer": "z Włoch",
+     "ru": "Роберто живёт в Риме. Он из Италии."
+    },
+    {
+     "q": "Paul mieszka w Birmingham. On jest ___.",
+     "answer": "z Anglii",
+     "ru": "Пол живёт в Бирмингеме. Он из Англии."
+    },
+    {
+     "q": "Mami mieszka w Tokio. Ona jest ___.",
+     "answer": "z Japonii",
+     "ru": "Мами живёт в Токио. Она из Японии."
+    },
+    {
+     "q": "Tatiana mieszka w Moskwie. Ona jest ___.",
+     "answer": "z Rosji",
+     "ru": "Татьяна живёт в Москве. Она из России."
+    },
+    {
+     "q": "Nicole mieszka w Paryżu. Ona jest ___.",
+     "answer": "z Francji",
+     "ru": "Николь живёт в Париже. Она из Франции."
+    }
+   ]
+  },
+  {
+   "id": "tb-1-10b",
+   "src": "tb",
+   "ref": "Ćw. 10b, s. 13",
+   "title": "Proszę odpowiedzieć na pytania.",
+   "title_ru": "Ответь на вопросы",
+   "task_ru": "Ответь полным предложением о себе (и о друге / подруге). Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Skąd Pan / Pani jest?",
+     "answer": "Jestem z Białorusi.",
+     "ru": "Откуда вы?"
+    },
+    {
+     "q": "Gdzie Pan / Pani mieszka?",
+     "answer": "Mieszkam w Warszawie.",
+     "ru": "Где вы живёте?"
+    },
+    {
+     "q": "Skąd jest Pana / Pani kolega / koleżanka?",
+     "answer": "Mój kolega jest z Polski.",
+     "ru": "Откуда ваш друг / подруга?",
+     "accepted": [
+      "Moja koleżanka jest z Polski."
+     ]
+    },
+    {
+     "q": "Gdzie on / ona mieszka?",
+     "answer": "On mieszka w Krakowie.",
+     "ru": "Где он / она живёт?"
+    }
+   ]
+  },
+  {
+   "id": "tb-1-11a",
+   "src": "tb",
+   "ref": "Ćw. 11a, s. 14",
+   "title": "Jakie tu są formy?",
+   "title_ru": "Таблица: być, mieć, mieszkać",
+   "task_ru": "Заполни пустые клетки таблицы: напиши форму глагола (или местоимение).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "być — (ja) ___",
+     "answer": "jestem",
+     "ru": "я есть",
+     "translit": "ЕС-тэм"
+    },
+    {
+     "q": "być — on / ona / ono, pan / pani ___",
+     "answer": "jest",
+     "ru": "он / она есть",
+     "translit": "ест"
+    },
+    {
+     "q": "być — oni / one, państwo ___",
+     "answer": "są",
+     "ru": "они есть",
+     "translit": "сон"
+    },
+    {
+     "q": "mieć — (ja) ___",
+     "answer": "mam",
+     "ru": "у меня есть",
+     "translit": "мам"
+    },
+    {
+     "q": "mieć — (wy) ___",
+     "answer": "macie",
+     "ru": "у вас есть",
+     "translit": "МА-че"
+    },
+    {
+     "q": "mieszkać — (ty) ___",
+     "answer": "mieszkasz",
+     "ru": "ты живёшь",
+     "translit": "МЕШ-каш"
+    },
+    {
+     "q": "mieszkać — on / ona / ono, pan / pani ___",
+     "answer": "mieszka",
+     "ru": "он / она живёт",
+     "translit": "МЕШ-ка"
+    },
+    {
+     "q": "mieszkać — (my) ___",
+     "answer": "mieszkamy",
+     "ru": "мы живём",
+     "translit": "меш-КА-мы"
+    },
+    {
+     "q": "być — (ty) jesteś; mieć — (ty) masz. Местоимения 3-го лица ед. ч.: ___ / ___ / ono",
+     "answer": "on, ona",
+     "ru": "он, она, оно",
+     "accepted": [
+      "on / ona"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-1-11b",
+   "src": "tb",
+   "ref": "Ćw. 11b, s. 14",
+   "title": "być",
+   "title_ru": "Глагол być (быть)",
+   "task_ru": "Вставь форму być: jestem, jesteś, jest, jesteśmy, jesteście, są. Пример: (my) Jesteśmy z Hiszpanii.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Skąd (ty) ___?",
+     "answer": "jesteś",
+     "ru": "Откуда ты?",
+     "translit": "ЕС-тэщь"
+    },
+    {
+     "q": "(ja) ___ z Polski.",
+     "answer": "Jestem",
+     "ru": "Я из Польши.",
+     "translit": "ЕС-тэм"
+    },
+    {
+     "q": "One ___ z Niemiec.",
+     "answer": "są",
+     "ru": "Они из Германии.",
+     "translit": "сон"
+    },
+    {
+     "q": "Skąd (wy) ___?",
+     "answer": "jesteście",
+     "ru": "Откуда вы?",
+     "translit": "ес-ТЭЩЬ-че"
+    },
+    {
+     "q": "Ona ___ z Włoch.",
+     "answer": "jest",
+     "ru": "Она из Италии.",
+     "translit": "ест"
+    },
+    {
+     "q": "(my) ___ z Francji.",
+     "answer": "Jesteśmy",
+     "ru": "Мы из Франции.",
+     "translit": "ес-ТЭЩЬ-мы"
+    }
+   ]
+  },
+  {
+   "id": "tb-1-11c",
+   "src": "tb",
+   "ref": "Ćw. 11c, s. 14",
+   "title": "mieć",
+   "title_ru": "Глагол mieć (иметь)",
+   "task_ru": "Вставь форму mieć: mam, masz, ma, mamy, macie, mają.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Jak (ty) ___ na imię?",
+     "answer": "masz",
+     "ru": "Как тебя зовут?",
+     "translit": "маш"
+    },
+    {
+     "q": "Oni ___ problem.",
+     "answer": "mają",
+     "ru": "У них проблема.",
+     "translit": "МА-йон"
+    },
+    {
+     "q": "(my) ___ dom w Krakowie.",
+     "answer": "Mamy",
+     "ru": "У нас дом в Кракове.",
+     "translit": "МА-мы"
+    },
+    {
+     "q": "(ja) ___ na imię Andrzej.",
+     "answer": "Mam",
+     "ru": "Меня зовут Анджей.",
+     "translit": "мам"
+    },
+    {
+     "q": "On ___ pytanie.",
+     "answer": "ma",
+     "ru": "У него вопрос.",
+     "translit": "ма"
+    },
+    {
+     "q": "Czy (wy) ___ nowe auto?",
+     "answer": "macie",
+     "ru": "У вас новая машина?",
+     "translit": "МА-че"
+    }
+   ]
+  },
+  {
+   "id": "tb-1-11d",
+   "src": "tb",
+   "ref": "Ćw. 11d, s. 14",
+   "title": "mieszkać",
+   "title_ru": "Глагол mieszkać (жить)",
+   "task_ru": "Вставь форму mieszkać: mieszkam, mieszkasz, mieszka, mieszkamy, mieszkacie, mieszkają. В 6-м пункте — только глагол.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Gdzie on ___?",
+     "answer": "mieszka",
+     "ru": "Где он живёт?",
+     "translit": "МЕШ-ка"
+    },
+    {
+     "q": "Michael teraz ___ w Krakowie.",
+     "answer": "mieszka",
+     "ru": "Майкл сейчас живёт в Кракове."
+    },
+    {
+     "q": "(my) ___ w Poznaniu.",
+     "answer": "Mieszkamy",
+     "ru": "Мы живём в Познани.",
+     "translit": "меш-КА-мы"
+    },
+    {
+     "q": "Oni ___ w Gdańsku.",
+     "answer": "mieszkają",
+     "ru": "Они живут в Гданьске.",
+     "translit": "меш-КА-йон"
+    },
+    {
+     "q": "Czy (wy) teraz ___ w Łodzi?",
+     "answer": "mieszkacie",
+     "ru": "Вы сейчас живёте в Лодзи?",
+     "translit": "меш-КА-че"
+    },
+    {
+     "q": "Teraz (ja) ___ w … (свой город).",
+     "answer": "mieszkam",
+     "ru": "Сейчас я живу в … .",
+     "translit": "МЕШ-кам"
+    }
+   ]
+  },
+  {
+   "id": "tb-1-11e",
+   "src": "tb",
+   "ref": "Ćw. 11e, s. 14",
+   "title": "oni czy one?",
+   "title_ru": "Oni или one?",
+   "task_ru": "oni — если в группе есть хотя бы один мужчина; one — только женщины (или дети, предметы).",
+   "type": "choice",
+   "items": [
+    {
+     "q": "(Magda i Dominika) ___ są z Polski.",
+     "answer": "One",
+     "ru": "Магда и Доминика из Польши.",
+     "options": [
+      "Oni",
+      "One"
+     ]
+    },
+    {
+     "q": "(Agnieszka i Jacek) ___ mają się dobrze.",
+     "answer": "Oni",
+     "ru": "У Агнешки и Яцека всё хорошо.",
+     "options": [
+      "Oni",
+      "One"
+     ]
+    },
+    {
+     "q": "(pani Kruszańska i pani Wojciechowska) ___ mieszkają we Wrocławiu.",
+     "answer": "One",
+     "ru": "Пани Крушаньская и пани Войцеховская живут во Вроцлаве.",
+     "options": [
+      "Oni",
+      "One"
+     ]
+    },
+    {
+     "q": "(Piotrek i Mariusz) ___ mają komputer.",
+     "answer": "Oni",
+     "ru": "У Петрека и Мариуша есть компьютер.",
+     "options": [
+      "Oni",
+      "One"
+     ]
+    },
+    {
+     "q": "(pan Kamil i pani Grażyna) ___ mieszkają w Warszawie.",
+     "answer": "Oni",
+     "ru": "Пан Камиль и пани Гражина живут в Варшаве.",
+     "options": [
+      "Oni",
+      "One"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-1-12",
+   "src": "tb",
+   "ref": "Ćw. 12, s. 14",
+   "title": "Na stacji benzynowej. Prawda czy nieprawda?",
+   "title_ru": "На заправке: правда или нет?",
+   "task_ru": "Послушай разговор на заправке и сравни с данными в бланке.",
+   "type": "tf",
+   "items": [
+    {
+     "q": "NIP: 762-843-59-02",
+     "answer": "nieprawda",
+     "ru": "ИНН: 762-843-59-02 (в записи: 762-843-59-01)"
+    },
+    {
+     "q": "Kod pocztowy: 31-410",
+     "answer": "prawda",
+     "ru": "Индекс: 31-410"
+    },
+    {
+     "q": "Ulica: Plac Słowackiego 4/10",
+     "answer": "prawda",
+     "ru": "Улица: площадь Словацкого 4/10"
+    },
+    {
+     "q": "Nazwisko i imię: Dobra Anna",
+     "answer": "nieprawda",
+     "ru": "Фамилия и имя: Добра Анна (в записи: Dobrzyńska Anna)"
+    },
+    {
+     "q": "Numer rejestracyjny: KR 354 10",
+     "answer": "nieprawda",
+     "ru": "Номер машины: KR 354 10 (в записи: KR 344 90)"
+    }
+   ],
+   "audio": "014 - HURRA_PP1_podr_stud.mp3"
+  },
+  {
+   "id": "tb-1-I",
+   "src": "tb",
+   "ref": "Czy już to umiesz? I, s. 15",
+   "title": "Proszę wpisać odpowiednie słowa do tabeli.",
+   "title_ru": "Вопрос (на «ты» / на «вы») или ответ?",
+   "task_ru": "Определи, к какой колонке таблицы относится фраза.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Jak się masz?",
+     "answer": "pytanie — kontakt nieoficjalny",
+     "ru": "Как дела? (на «ты»)",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Jak się pan / pani ma?",
+     "answer": "pytanie — kontakt oficjalny",
+     "ru": "Как у вас дела?",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Dobrze.",
+     "answer": "odpowiedź",
+     "ru": "Хорошо.",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Jak masz na imię?",
+     "answer": "pytanie — kontakt nieoficjalny",
+     "ru": "Как тебя зовут?",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Jak ma pan / pani na imię?",
+     "answer": "pytanie — kontakt oficjalny",
+     "ru": "Как вас зовут?",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Mam na imię Jan.",
+     "answer": "odpowiedź",
+     "ru": "Меня зовут Ян.",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Jak się nazywasz?",
+     "answer": "pytanie — kontakt nieoficjalny",
+     "ru": "Как твоя фамилия?",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Jak się pan / pani nazywa?",
+     "answer": "pytanie — kontakt oficjalny",
+     "ru": "Как ваша фамилия?",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Nazywam się Jan Kowalski.",
+     "answer": "odpowiedź",
+     "ru": "Меня зовут Ян Ковальский.",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Skąd jesteś?",
+     "answer": "pytanie — kontakt nieoficjalny",
+     "ru": "Откуда ты?",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Skąd pan / pani jest?",
+     "answer": "pytanie — kontakt oficjalny",
+     "ru": "Откуда вы?",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Jestem z Polski.",
+     "answer": "odpowiedź",
+     "ru": "Я из Польши.",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Gdzie mieszkasz?",
+     "answer": "pytanie — kontakt nieoficjalny",
+     "ru": "Где ты живёшь?",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Gdzie pan / pani mieszka?",
+     "answer": "pytanie — kontakt oficjalny",
+     "ru": "Где вы живёте?",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    },
+    {
+     "q": "Mieszkam w Krakowie.",
+     "answer": "odpowiedź",
+     "ru": "Я живу в Кракове.",
+     "options": [
+      "pytanie — kontakt nieoficjalny",
+      "pytanie — kontakt oficjalny",
+      "odpowiedź"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-1-III",
+   "src": "tb",
+   "ref": "Czy już to umiesz? III, s. 15",
+   "title": "Proszę przedstawić kolegę / koleżankę.",
+   "title_ru": "Представь друга / подругу",
+   "task_ru": "Напиши 3–5 предложений: как зовут, фамилия, как дела, откуда, где живёт. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "On / ona ma na imię …, nazywa się … itd.",
+     "answer": "Ona ma na imię Anna, nazywa się Nowak. Ma się dobrze. Jest z Polski i mieszka w Krakowie.",
+     "ru": "Его / её зовут …, фамилия … и т. д."
+    }
+   ]
+  },
+  {
+   "id": "tb-1-IV",
+   "src": "tb",
+   "ref": "Czy już to umiesz? IV, s. 15",
+   "title": "Jaki przykład tu pasuje?",
+   "title_ru": "Какой пример подходит?",
+   "task_ru": "Соедини грамматический термин с примером.",
+   "type": "match",
+   "items": [
+    {
+     "q": "liczba mnoga",
+     "answer": "jesteśmy, jesteście, są",
+     "ru": "множественное число"
+    },
+    {
+     "q": "bezokolicznik",
+     "answer": "mieszkać, być, mieć, powtórzyć",
+     "ru": "инфинитив"
+    },
+    {
+     "q": "zaimek osobowy",
+     "answer": "ja, ty, on, ona…",
+     "ru": "личное местоимение"
+    },
+    {
+     "q": "oni",
+     "answer": "Andrzej, Marta i Maria",
+     "ru": "они (в группе есть мужчина)"
+    },
+    {
+     "q": "one",
+     "answer": "Marta i Maria",
+     "ru": "они (только женщины)"
+    },
+    {
+     "q": "liczba pojedyncza",
+     "answer": "jestem, jesteś, jest",
+     "ru": "единственное число"
+    }
+   ],
+   "options": [
+    "Marta i Maria",
+    "Andrzej, Marta i Maria",
+    "mieszkać, być, mieć, powtórzyć",
+    "ja, ty, on, ona…",
+    "jesteśmy, jesteście, są",
+    "jestem, jesteś, jest"
+   ]
+  },
+  {
+   "id": "wb-1-1",
+   "src": "wb",
+   "ref": "Ćw. 1, s. 8",
+   "title": "Proszę uzupełnić dialogi, posłuchać nagrania i sprawdzić swoje odpowiedzi.",
+   "title_ru": "Дополни диалоги",
+   "task_ru": "Вставь пропущенное (слово или целый вопрос). Несколько пропусков — через запятую. Аудио — для проверки.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "D1: – Dzień dobry. Przepraszam, jak się ___ nazywa?",
+     "answer": "pani",
+     "ru": "– Добрый день. Извините, как ваша фамилия?"
+    },
+    {
+     "q": "D1: – ___ Maria Bukowska, ___ pani?",
+     "answer": "Nazywam się, a",
+     "ru": "– Меня зовут Мария Буковская, а вас?"
+    },
+    {
+     "q": "D1: – ___ Magda Kowalska.",
+     "answer": "Nazywam się",
+     "ru": "– Меня зовут Магда Ковальская."
+    },
+    {
+     "q": "D1: – Miło ___.",
+     "answer": "mi",
+     "ru": "– Приятно познакомиться."
+    },
+    {
+     "q": "D1: – ___? – Świetnie.",
+     "answer": "Jak się pani ma?",
+     "ru": "– Как у вас дела? – Отлично."
+    },
+    {
+     "q": "D1: – ___? – W Krakowie.",
+     "answer": "Gdzie pani mieszka?",
+     "ru": "– Где вы живёте? – В Кракове."
+    },
+    {
+     "q": "D2: – Dobry ___.",
+     "answer": "wieczór",
+     "ru": "– Добрый вечер."
+    },
+    {
+     "q": "D2: – Dobry wieczór. Jak się pan ___?",
+     "answer": "ma",
+     "ru": "– Добрый вечер. Как у вас дела?"
+    },
+    {
+     "q": "D2: – Tak ___, a pani?",
+     "answer": "sobie",
+     "ru": "– Так себе, а у вас?"
+    },
+    {
+     "q": "D2: – Bardzo ___. Przepraszam. Nie wiem, jak ma pan na ___.",
+     "answer": "dobrze, imię",
+     "ru": "– Очень хорошо. Извините, я не знаю, как вас зовут."
+    },
+    {
+     "q": "D2: – Mam na ___ Jan. A pani?",
+     "answer": "imię",
+     "ru": "– Меня зовут Ян. А вас?"
+    },
+    {
+     "q": "D2: – Jestem ___. Przepraszam, ___ pan mieszka?",
+     "answer": "Anna, gdzie",
+     "ru": "– Я Анна. Извините, где вы живёте?"
+    },
+    {
+     "q": "D2: – Nie ___. Proszę powtórzyć.",
+     "answer": "rozumiem",
+     "ru": "– Не понимаю. Повторите, пожалуйста."
+    },
+    {
+     "q": "D2: – Gdzie pan ___?",
+     "answer": "mieszka",
+     "ru": "– Где вы живёте?"
+    },
+    {
+     "q": "D2: – Mieszkam ___ hotelu Forum.",
+     "answer": "w",
+     "ru": "– Я живу в гостинице «Форум»."
+    }
+   ],
+   "audio": [
+    "18 - HURRA_PP1_zesz_cw.mp3",
+    "19 - HURRA_PP1_zesz_cw.mp3"
+   ]
+  },
+  {
+   "id": "wb-1-2",
+   "src": "wb",
+   "ref": "Ćw. 2, s. 8",
+   "title": "Proszę uzupełnić zdania, posłuchać nagrania i sprawdzić swoje odpowiedzi.",
+   "title_ru": "Дополни фразы",
+   "task_ru": "Вставь одно слово. Пример: Proszę mówić wolniej.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "___ powtórzyć.",
+     "answer": "Proszę",
+     "ru": "Повторите, пожалуйста.",
+     "translit": "ПРО-шэ"
+    },
+    {
+     "q": "___ pytanie.",
+     "answer": "Mam",
+     "ru": "У меня вопрос.",
+     "translit": "мам"
+    },
+    {
+     "q": "___ mieszkasz?",
+     "answer": "Gdzie",
+     "ru": "Где ты живёшь?",
+     "translit": "гдже"
+    },
+    {
+     "q": "___ to jest?",
+     "answer": "Co",
+     "ru": "Что это?",
+     "translit": "цо"
+    },
+    {
+     "q": "Czy ___ telefon?",
+     "answer": "masz",
+     "ru": "У тебя есть телефон?",
+     "translit": "маш"
+    },
+    {
+     "q": "___ masz na imię?",
+     "answer": "Jak",
+     "ru": "Как тебя зовут?",
+     "translit": "як"
+    },
+    {
+     "q": "___ się masz?",
+     "answer": "Jak",
+     "ru": "Как дела?",
+     "translit": "як"
+    },
+    {
+     "q": "Jak ___ nazywasz?",
+     "answer": "się",
+     "ru": "Как твоя фамилия?",
+     "translit": "щен"
+    },
+    {
+     "q": "Przepraszam, ___ rozumiem.",
+     "answer": "nie",
+     "ru": "Извините, я не понимаю.",
+     "translit": "не"
+    },
+    {
+     "q": "Cześć, co ___?",
+     "answer": "słychać",
+     "ru": "Привет, что нового?",
+     "translit": "СЎЫ-хачь"
+    }
+   ],
+   "audio": "20 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-1-3a",
+   "src": "wb",
+   "ref": "Ćw. 3a–3b, s. 8",
+   "title": "Proszę napisać, ile to jest.",
+   "title_ru": "Сколько будет?",
+   "task_ru": "Напиши результат словом. Пример: Dwa plus dwa to jest cztery. Аудио (3b) — для проверки.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Osiem minus cztery to jest ___.",
+     "answer": "cztery",
+     "ru": "8 – 4 = 4",
+     "translit": "ЧТЭ-ры",
+     "accepted": [
+      "4"
+     ]
+    },
+    {
+     "q": "Dziesięć minus dziewięć to jest ___.",
+     "answer": "jeden",
+     "ru": "10 – 9 = 1",
+     "translit": "Е-дэн",
+     "accepted": [
+      "1"
+     ]
+    },
+    {
+     "q": "Pięć minus trzy to jest ___.",
+     "answer": "dwa",
+     "ru": "5 – 3 = 2",
+     "translit": "два",
+     "accepted": [
+      "2"
+     ]
+    },
+    {
+     "q": "Cztery plus pięć to jest ___.",
+     "answer": "dziewięć",
+     "ru": "4 + 5 = 9",
+     "translit": "ДЖЕ-вьеньчь",
+     "accepted": [
+      "9"
+     ]
+    },
+    {
+     "q": "Zero plus osiem to jest ___.",
+     "answer": "osiem",
+     "ru": "0 + 8 = 8",
+     "translit": "О-щем",
+     "accepted": [
+      "8"
+     ]
+    },
+    {
+     "q": "Dziewięć minus dziewięć to jest ___.",
+     "answer": "zero",
+     "ru": "9 – 9 = 0",
+     "translit": "ЗЭ-ро",
+     "accepted": [
+      "0"
+     ]
+    },
+    {
+     "q": "Trzy plus cztery to jest ___.",
+     "answer": "siedem",
+     "ru": "3 + 4 = 7",
+     "translit": "ЩЕ-дэм",
+     "accepted": [
+      "7"
+     ]
+    },
+    {
+     "q": "Siedem minus jeden to jest ___.",
+     "answer": "sześć",
+     "ru": "7 – 1 = 6",
+     "translit": "шэщьчь",
+     "accepted": [
+      "6"
+     ]
+    },
+    {
+     "q": "Pięć plus cztery plus jeden to jest ___.",
+     "answer": "dziesięć",
+     "ru": "5 + 4 + 1 = 10",
+     "translit": "ДЖЕ-щеньчь",
+     "accepted": [
+      "10"
+     ]
+    },
+    {
+     "q": "Sześć plus cztery to jest ___.",
+     "answer": "dziesięć",
+     "ru": "6 + 4 = 10",
+     "translit": "ДЖЕ-щеньчь",
+     "accepted": [
+      "10"
+     ]
+    }
+   ],
+   "audio": "21 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-1-4",
+   "src": "wb",
+   "ref": "Ćw. 4, s. 9",
+   "title": "Proszę posłuchać nagrania i zanotować, jakie oni mają numery telefonu.",
+   "title_ru": "Запиши номера телефонов (на слух)",
+   "task_ru": "Послушай запись и запиши номер цифрами, без пробелов: «607876234».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Anna Nowacka — numer komórki",
+     "answer": "607876234",
+     "ru": "Анна Новацкая — мобильный"
+    },
+    {
+     "q": "Anna Nowacka — numer stacjonarny",
+     "answer": "125432312",
+     "ru": "Анна Новацкая — стационарный"
+    },
+    {
+     "q": "Jerzy Kuźniak — numer komórki",
+     "answer": "501521001",
+     "ru": "Ежи Кузьняк — мобильный"
+    },
+    {
+     "q": "Jerzy Kuźniak — numer stacjonarny",
+     "answer": "122341658",
+     "ru": "Ежи Кузьняк — стационарный"
+    }
+   ],
+   "audio": "22 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-1-5",
+   "src": "wb",
+   "ref": "Ćw. 5, s. 9",
+   "title": "Proszę wpisać poprawną formę czasownika.",
+   "title_ru": "Вставь глагол в нужной форме",
+   "task_ru": "Напиши глагол в нужной форме. Два пропуска — через запятую. Пример: (my) Mieszkamy w Warszawie.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Ona ___ w Krakowie. (mieszkać)",
+     "answer": "mieszka",
+     "ru": "Она живёт в Кракове."
+    },
+    {
+     "q": "Czy pan ___ z Polski? (być)",
+     "answer": "jest",
+     "ru": "Вы из Польши?"
+    },
+    {
+     "q": "Czy pan ___ Piotr Kowalski? (nazywać się)",
+     "answer": "nazywa się",
+     "ru": "Вас зовут Пётр Ковальский?",
+     "accepted": [
+      "się nazywa"
+     ]
+    },
+    {
+     "q": "To ___ krzesło. (być)",
+     "answer": "jest",
+     "ru": "Это стул."
+    },
+    {
+     "q": "Skąd państwo ___? (być)",
+     "answer": "są",
+     "ru": "Откуда вы (господа)?",
+     "grammar": "państwo + 3-е лицо мн. ч."
+    },
+    {
+     "q": "Czy (ty) ___ auto? (mieć)",
+     "answer": "masz",
+     "ru": "У тебя есть машина?"
+    },
+    {
+     "q": "(ja) ___ telefon. (mieć)",
+     "answer": "Mam",
+     "ru": "У меня есть телефон."
+    },
+    {
+     "q": "(ja) ___ bardzo. (przepraszać)",
+     "answer": "Przepraszam",
+     "ru": "Очень извиняюсь."
+    },
+    {
+     "q": "(ja) Nie ___. (rozumieć)",
+     "answer": "rozumiem",
+     "ru": "Я не понимаю."
+    },
+    {
+     "q": "Czy pani ___ komputer? (mieć)",
+     "answer": "ma",
+     "ru": "У вас есть компьютер?"
+    },
+    {
+     "q": "One ___ z Francji. (być)",
+     "answer": "są",
+     "ru": "Они из Франции."
+    },
+    {
+     "q": "(ja) ___ na imię Ania i ___ z Polski. (mieć, być)",
+     "answer": "Mam, jestem",
+     "ru": "Меня зовут Аня, я из Польши."
+    },
+    {
+     "q": "(ja) ___ na imię Matthias i ___ z Niemiec. (mieć, być)",
+     "answer": "Mam, jestem",
+     "ru": "Меня зовут Маттиас, я из Германии."
+    },
+    {
+     "q": "Gdzie oni ___? (mieszkać)",
+     "answer": "mieszkają",
+     "ru": "Где они живут?"
+    },
+    {
+     "q": "Skąd one ___? (być)",
+     "answer": "są",
+     "ru": "Откуда они?"
+    },
+    {
+     "q": "Gdzie (wy) ___? (mieszkać)",
+     "answer": "mieszkacie",
+     "ru": "Где вы живёте?"
+    },
+    {
+     "q": "Skąd (wy) ___? (być)",
+     "answer": "jesteście",
+     "ru": "Откуда вы?"
+    },
+    {
+     "q": "Jak on ___? (nazywać się)",
+     "answer": "się nazywa",
+     "ru": "Как его фамилия?",
+     "accepted": [
+      "nazywa się"
+     ]
+    },
+    {
+     "q": "Czy (wy) ___ dom w Warszawie? (mieć)",
+     "answer": "macie",
+     "ru": "У вас есть дом в Варшаве?"
+    },
+    {
+     "q": "Czy one ___ dom w Poznaniu? (mieć)",
+     "answer": "mają",
+     "ru": "У них есть дом в Познани?"
+    }
+   ]
+  },
+  {
+   "id": "wb-1-6a",
+   "src": "wb",
+   "ref": "Ćw. 6a–6b, s. 9",
+   "title": "Proszę napisać pytania w stylu nieoficjalnym i oficjalnym.",
+   "title_ru": "Неофициальный и официальный вопрос",
+   "task_ru": "Перепиши вопрос в другом стиле: на «ты» ↔ на «вы» (pan / pani). Можно один вариант (pan или pani). Аудио (6b) — для проверки. Проверяет модель.",
+   "type": "open",
+   "items": [
+    {
+     "q": "Jak się pan nazywa? → (na «ty»)",
+     "answer": "Jak się nazywasz?",
+     "ru": "Как ваша фамилия? → на «ты»"
+    },
+    {
+     "q": "Skąd pan jest? → (na «ty»)",
+     "answer": "Skąd jesteś?",
+     "ru": "Откуда вы? → на «ты»"
+    },
+    {
+     "q": "Gdzie mieszkasz? → (oficjalnie)",
+     "answer": "Gdzie pan mieszka?",
+     "ru": "Где ты живёшь? → на «вы»",
+     "accepted": [
+      "Gdzie pani mieszka?",
+      "Gdzie pan mieszka? / Gdzie pani mieszka?"
+     ]
+    },
+    {
+     "q": "Jak się masz? → (oficjalnie)",
+     "answer": "Jak się pan ma?",
+     "ru": "Как дела? → на «вы»",
+     "accepted": [
+      "Jak się pani ma?",
+      "Jak się pan ma? / Jak się pani ma?"
+     ]
+    },
+    {
+     "q": "Co u pana słychać? → (na «ty»)",
+     "answer": "Co u ciebie słychać?",
+     "ru": "Как у вас дела? → на «ты»"
+    },
+    {
+     "q": "Czy ma pan telefon? → (na «ty»)",
+     "answer": "Czy masz telefon?",
+     "ru": "У вас есть телефон? → на «ты»"
+    },
+    {
+     "q": "Jaki ma pan adres? → (na «ty»)",
+     "answer": "Jaki masz adres?",
+     "ru": "Какой у вас адрес? → на «ты»"
+    },
+    {
+     "q": "Czy masz paszport? → (oficjalnie)",
+     "answer": "Czy ma pan paszport?",
+     "ru": "У тебя есть паспорт? → на «вы»",
+     "accepted": [
+      "Czy ma pani paszport?",
+      "Czy ma pan paszport? / Czy ma pani paszport?"
+     ]
+    }
+   ],
+   "audio": "23 - HURRA_PP1_zesz_cw.mp3"
+  },
+  {
+   "id": "wb-1-6c",
+   "src": "wb",
+   "ref": "Ćw. 6c, s. 9",
+   "title": "Proszę odpowiedzieć na pytania z ćwiczenia 6a.",
+   "title_ru": "Ответь на вопросы о себе",
+   "task_ru": "Ответь полным предложением о себе. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Jak masz na imię?",
+     "answer": "Mam na imię Marek.",
+     "ru": "Как тебя зовут?"
+    },
+    {
+     "q": "Jak się nazywasz?",
+     "answer": "Nazywam się Marek Nowak.",
+     "ru": "Как твоя фамилия?"
+    },
+    {
+     "q": "Skąd jesteś?",
+     "answer": "Jestem z Białorusi.",
+     "ru": "Откуда ты?"
+    },
+    {
+     "q": "Gdzie mieszkasz?",
+     "answer": "Mieszkam w Warszawie.",
+     "ru": "Где ты живёшь?"
+    },
+    {
+     "q": "Jak się masz?",
+     "answer": "Mam się dobrze.",
+     "ru": "Как дела?"
+    },
+    {
+     "q": "Co u ciebie słychać?",
+     "answer": "Wszystko w porządku.",
+     "ru": "Что у тебя нового?"
+    },
+    {
+     "q": "Czy masz telefon?",
+     "answer": "Tak, mam telefon.",
+     "ru": "У тебя есть телефон?"
+    },
+    {
+     "q": "Jaki masz adres?",
+     "answer": "Mieszkam na ulicy Polnej dziesięć przez trzy.",
+     "ru": "Какой у тебя адрес?",
+     "accepted": [
+      "Ulica Polna dziesięć przez trzy."
+     ]
+    },
+    {
+     "q": "Czy masz paszport?",
+     "answer": "Tak, mam paszport.",
+     "ru": "У тебя есть паспорт?"
+    }
+   ]
+  }
+ ]
+}

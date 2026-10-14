@@ -5,9 +5,10 @@ from ..core import rules, textbook
 from ..ai.prompt import (CHECK_HINT, CHECK_SCHEMA, EX_HINT, EX_SCHEMA, RULES_HINT, RULES_SCHEMA, check_prompt,
                          ex_prompt, ex_question_prompt, voice_answers_prompt)
 from ..ui import fmt
+from ..common import log
 from ..exercises import logic as exercises
 from ..settings import (EX_CASES, EX_EXPLAIN_ALL, EX_PRESENT_ONLY, EX_QUIZ_BUTTONS, EX_REUSE, EX_WEIGHT_TEST,
-                        EX_WEIGHT_TYPED)
+                        EX_WEIGHT_TYPED, VOICE_MIN_SEC, VOICE_SEC_PER_ANSWER)
 
 
 class ExerciseRunMixin:
@@ -121,10 +122,17 @@ class ExerciseRunMixin:
                                             f"ошибок на повтор — {len(wrong)}.")
         await self.ex_make(chat_id, user_id, ex)
 
-    async def ask_voice(self, chat_id: int, user_id: int, items: list[tuple[int, dict]], audio: bytes, wait: str,
+    async def ask_voice(self, chat_id: int, user_id: int, items: list[tuple[int, dict]], voice: dict, wait: str,
                         task: str = "", free: bool = False, cards: bool = False) -> dict[int, dict] | None:
         """🎙 Ответ на упражнение голосом: один запрос — распознать, к каким пунктам ответы, и проверить.
-        {номер пункта: вердикт}; heard «-» — «не знаю». None — модель не ответила."""
+        {номер пункта: вердикт}; heard «-» — «не знаю». None — не проверено (сообщение уже отправлено).
+        Защита от выдуманных ответов: запись короче VOICE_MIN_SEC в модель не идёт; если ответов больше, чем
+        можно сказать за длину записи (VOICE_SEC_PER_ANSWER на ответ), — ничего не засчитываем."""
+        sec = voice.get("duration")
+        if sec is not None and sec < VOICE_MIN_SEC:
+            await self.tg.send_message(chat_id, "🎙 Запись пустая или слишком короткая — пришли ещё раз.")
+            return None
+        audio = await self.tg.download_file(voice["file_id"])
         prompt = voice_answers_prompt(items, self.cfg.level, task=task, free=free, cards=cards)
         if self.ignore_block(user_id):
             prompt = self.ignore_block(user_id) + "\n\n" + prompt
@@ -132,8 +140,16 @@ class ExerciseRunMixin:
         if data is None:
             return None
         nums = {n for n, _ in items}
-        return {int(v.get("n", 0)): v for v in data.get("items") or []
-                if isinstance(v, dict) and int(v.get("n", 0) or 0) in nums}
+        got = {int(v.get("n", 0)): v for v in data.get("items") or []
+               if isinstance(v, dict) and int(v.get("n", 0) or 0) in nums}
+        said = sum(1 for v in got.values() if str(v.get("heard") or "").strip() not in ("", "-", "—"))
+        if sec is not None and said > max(1, int((sec + 1) / VOICE_SEC_PER_ANSWER)):
+            log.warning("Голос: %s ответов в записи %s с — похоже на выдуманные, не засчитываю", said, sec)
+            await self.tg.send_message(chat_id, f"🎙 В записи {sec} с, а ответов насчитано {said} — так быстро "
+                                                "не говорят, похоже, запись не расслышана. Ничего не засчитал — "
+                                                "пришли ещё раз.")
+            return None
+        return got
 
     def ex_hint(self, user_id: int, data: str) -> str:
         """x:h:<ex>:<n> — перевод пропущенного слова пункта n (всплывашка только для этого пункта)."""
@@ -223,8 +239,7 @@ class ExerciseRunMixin:
         verdicts: dict[int, dict] = {}
         spoken = voice and kind != "voice"   # 🎙 ответ голосом на обычное упражнение: «один … три …»
         if spoken:
-            audio = await self.tg.download_file(voice["file_id"])
-            got = await self.ask_voice(chat_id, user_id, list(enumerate(items, 1)), audio,
+            got = await self.ask_voice(chat_id, user_id, list(enumerate(items, 1)), voice,
                                        wait=f"⏳ Слушаю и проверяю упражнение #{saved['id']}…", cards=cards)
             if got is None:
                 return  # шаг ex_answer сохраняется — можно прислать ещё раз
