@@ -2564,3 +2564,112 @@ def test_voice_empty_or_too_fast_is_not_counted():
     assert "НИЧЕГО НЕ ПРИДУМЫВАЙ" in app.gemini.prompts[-1]
     run(app.handle(msg(voice={"file_id": "v", "duration": 3})))        # 3 с на 3 ответа — нормально
     assert app.db.bex_results(42, "kpk:2")[("tb-2-1", 3)]["ok"] == 1
+
+
+# ---------- 🗣 скороговорки ----------
+
+def test_zvuki_content():
+    from bot import zvuki
+    items = zvuki.load()
+    assert len([i for i in items if i["kind"] == "Скороговорка"]) == 10 and len(items) == 20
+    assert len({i["id"] for i in items}) == 20
+    for it in items:
+        assert it["pl"] and it["translit"] and it["ru"] and it["tip"], it["id"]
+
+
+def test_zvuki_list_open_audio_status_cycle():
+    import tempfile
+    app = make_app()
+    app.tw_audio_dir = Path(tempfile.mkdtemp())
+    rates = []
+    tts = app.tts
+
+    async def spy(text, voice, rate):
+        rates.append(rate)
+        return await tts(text, voice, rate)
+    app.tts = spy
+    run(app.handle(msg(text="/tw")))
+    rows = app.tg.buttons[-1]
+    assert "Скороговорки и песенки" in app.tg.sent[-1] and "⚪ 20" in app.tg.sent[-1]
+    assert rows[0] == [("1. Szedł Sasza suchą szosą.", "tw:o:t01"), ("⚪", "tw:c:t01")]
+    assert all(len(r[0][0]) <= 40 for r in rows[:-1]) and rows[-1][0][1] == "tw:r"
+    run(app.on_callback(cb("tw:o:t04")))
+    text = app.tg.sent[-1]
+    assert "Скороговорка 4" in text and "<tg-spoiler>ЛЕ-жы" in text and "💡" in text and "⚪ не начато" in text
+    assert app.tg.voices[-1].startswith("OGG:Leży".encode()) and rates == ["+0%"]
+    run(app.on_callback(cb("tw:a:t04:s")))
+    assert rates == ["+0%", "-35%"]
+    app.tts = None                                                     # дальше — из файлов, без озвучки
+    run(app.on_callback(cb("tw:a:t04:n")))
+    assert app.tg.voices[-1].startswith("OGG:Leży".encode())
+    run(app.on_callback(cb("tw:s:t04", mid=7)))                        # ⚪ → 🟡 в карточке
+    assert "🟡 работаю" in app.tg.edits[-1][0] and app.tg.toasts[-1] == "🟡 4: работаю"
+    run(app.on_callback(cb("tw:c:t04", mid=8)))                        # 🟡 → ✅ в списке
+    assert ("✅", "tw:c:t04") in app.tg.edits[-1][1][3] and "✅ 1" in app.tg.edits[-1][0]
+    run(app.on_callback(cb("tw:c:t04", mid=8)))                        # ✅ → ⚪ по кругу
+    assert app.db.zv_status(42) == {"t04": 0}
+
+
+def test_zvuki_pregen_both_speeds_once():
+    import tempfile
+    app = make_app()
+    app.tw_audio_dir = Path(tempfile.mkdtemp())
+    n = []
+    tts = app.tts
+
+    async def spy(text, voice, rate):
+        n.append(rate)
+        return await tts(text, voice, rate)
+    app.tts = spy
+
+    async def nap(sec):
+        pass
+    run(app.tw_pregen(sleep=nap))
+    assert len(list(app.tw_audio_dir.glob("*.ogg"))) == 40 and sorted(set(n)) == ["+0%", "-35%"]
+    run(app.tw_pregen(sleep=nap))
+    assert len(n) == 40
+
+
+def test_zvuki_voice_check_errors_and_not_error():
+    import tempfile
+    app = make_app()
+    app.tw_audio_dir = Path(tempfile.mkdtemp())
+    seen = []
+
+    async def ask_json(prompt, schema, hint, audio=None):
+        seen.append((prompt, audio))
+        return {"heard": "Sedł Sasza suchą sosą.", "fluency": "Ритм хороший, поработай над sz.",
+                "errors": [{"word": "Szedł", "said": "Sedł", "said_ru": "сэдў", "translit": "шэдў", "ru": "шёл",
+                            "why": "sz — твёрдое «ш», не «с».", "rule": "Произношение: cz / sz / rz / ż и ć / ś / ź"},
+                           {"word": "szosą", "said": "sosą", "said_ru": "СО-сон", "translit": "ШО-сон",
+                            "ru": "по шоссе", "why": "Первый звук — «ш».", "rule": "что-то своё"}]}
+    app.gemini.ask_json = ask_json
+    run(app.handle(msg(voice={"file_id": "v", "duration": 3})))         # без открытой карточки — это разговор
+    assert not seen
+    run(app.on_callback(cb("tw:o:t01")))
+    assert "Прочитай вслух голосовым" in app.tg.sent[-1]
+    run(app.handle(msg(voice={"file_id": "v", "duration": 0})))
+    assert "Запись пустая" in app.tg.sent[-1] and not seen
+    run(app.handle(msg(voice={"file_id": "v", "duration": 3})))
+    assert "Szedł Sasza suchą szosą." in seen[-1][0] and seen[-1][1] == b"OGG-IN"
+    res, rows = app.tg.sent[-1], app.tg.buttons[-1]
+    assert "❌ <b>Szedł</b> — сказал: Sedł [сэдў] → правильно: [шэдў] — шёл" in res and "Ритм хороший" in res
+    errs = app.db.corrections_by(42, "tw", "t01")
+    assert len(errs) == 2 and errs[1]["rule"] == "Произношение: ударение и прочее" and errs[0]["kind"] == "pronunciation"
+    assert rows[0][0][0] == "🙅 Не ошибка"
+    run(app.on_callback(cb(rows[0][0][1])))                             # экран «Не ошибка»
+    tog = app.tg.buttons[-1][0][0]
+    assert tog[0] == "☐ Sedł → Szedł"
+    run(app.on_callback(cb(tog[1], mid=12)))
+    assert app.db.correction(errs[0]["_id"])["_disputed"] and app.tg.edits[-1][1][0][0][0] == "✅ Sedł → Szedł"
+    run(app.on_callback(cb(app.tg.edits[-1][1][-1][0][1], mid=12)))       # ✅ Готово
+    assert "Не ошибка: 1" in app.tg.edits[-1][0]
+    run(app.handle(msg(voice={"file_id": "v", "duration": 3})))         # та же пара больше не ошибка
+    assert "сказал: Sedł" not in app.tg.sent[-1] and "sosą" in app.tg.sent[-1]
+    assert "он говорит «Szedł»" in seen[-1][0]
+    st = app.tg.buttons[-1][-1][0]
+    run(app.on_callback(cb(st[1], mid=20)))                             # отметка из результата
+    assert app.db.zv_status(42) == {"t01": 1} and app.tg.markups[-1][1][-1][0][0] == "✅ Отметить: готово"
+    app.clock.t += 31 * 60                                              # через 30+ мин голосовое — снова разговор
+    run(app.handle(msg(voice={"file_id": "v", "duration": 3})))
+    assert len(seen) == 2 and app.gemini.calls

@@ -36,42 +36,52 @@ class ReadingMixin:
         return self.read_dir() / f"{unit['book']}_{unit['num']}_{idx + 1:02d}_{h}.ogg"
 
     async def read_audio(self, unit: dict, idx: int) -> bytes:
-        path = self.read_audio_path(unit, idx)
-        if path.exists():
-            return path.read_bytes()
-        ogg = await self.tts(unit["paragraphs"][idx]["pl"], self.cfg.tts_voice, READ_RATE)
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_bytes(ogg)
-        return ogg
+        return await self.cached_tts(self.read_audio_path(unit, idx), unit["paragraphs"][idx]["pl"], READ_RATE)
+
+    def read_jobs(self) -> list[tuple[Path, str, str]]:
+        """(файл, текст, темп) — все абзацы всех книг для чтения."""
+        return [(self.read_audio_path(u, i), u["paragraphs"][i]["pl"], READ_RATE)
+                for b in self.read_books() for u in b["units"] for i in range(len(u["paragraphs"]))]
 
     async def read_pregen(self, sleep=None) -> None:
-        """Озвучить заранее все абзацы всех книг для чтения (уже готовые — пропускаются).
-        Между абзацами — пауза PREGEN_PAUSE (сервис не любит частые запросы подряд). Ошибка — не конец:
-        повтор через PREGEN_RETRY (1, 5, 30 мин), дальше раз в 30 мин, пока все абзацы не будут готовы;
+        await self.pregen_audio(self.read_jobs, "📚 Чтение", sleep)
+
+    async def pregen_audio(self, jobs, label: str, sleep=None) -> None:
+        """Озвучить заранее (jobs() → [(файл, текст, темп)]; готовые файлы пропускаются).
+        Между файлами — пауза PREGEN_PAUSE (сервис не любит частые запросы подряд). Ошибка — не конец:
+        повтор через PREGEN_RETRY (1, 5, 30 мин), дальше раз в 30 мин, пока всё не будет готово;
         после удачной озвучки отсчёт задержек начинается заново."""
         sleep = sleep or asyncio.sleep
         made = fails = 0
         while True:
-            todo = [(u, i) for b in self.read_books() for u in b["units"] for i in range(len(u["paragraphs"]))
-                    if not self.read_audio_path(u, i).exists()]
+            todo = [j for j in jobs() if not j[0].exists()]
             if not todo:
                 if made:
-                    log.info("📚 Чтение: озвучено абзацев — %s, готово всё", made)
+                    log.info("%s: озвучено — %s, готово всё", label, made)
                 return
             try:
-                for u, i in todo:
-                    if self.read_audio_path(u, i).exists():   # уже озвучен по кнопке «Слушать»
+                for path, text, rate in todo:
+                    if path.exists():   # уже озвучено по кнопке
                         continue
-                    await self.read_audio(u, i)
+                    await self.cached_tts(path, text, rate)
                     made += 1
                     fails = 0
                     await sleep(PREGEN_PAUSE)
             except Exception as e:
                 delay = PREGEN_RETRY[min(fails, len(PREGEN_RETRY) - 1)]
                 fails += 1
-                log.warning("📚 Озвучка абзаца не удалась (%s: %s); осталось %s, повтор через %s мин",
-                            type(e).__name__, str(e)[:200], len(todo), delay // 60)
+                log.warning("%s: озвучка не удалась (%s: %s); осталось %s, повтор через %s мин",
+                            label, type(e).__name__, str(e)[:200], len(todo), delay // 60)
                 await sleep(delay)
+
+    async def cached_tts(self, path: Path, text: str, rate: str) -> bytes:
+        """Озвучка с кэшем на диске: есть файл — отдаём его, нет — синтезируем и сохраняем."""
+        if path.exists():
+            return path.read_bytes()
+        ogg = await self.tts(text, self.cfg.tts_voice, rate)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(ogg)
+        return ogg
 
     def read_unit(self, unit_id: str) -> dict | None:
         u = textbook.get_unit(unit_id)

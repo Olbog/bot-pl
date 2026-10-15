@@ -25,10 +25,12 @@ from .exercises.run import ExerciseRunMixin
 from .exercises.book import BookMixin
 from .exercises.bookex import BookExMixin
 from .reading import ReadingMixin
+from .zvuki import ZvukiMixin
 
 
 class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
-          ExerciseMenuMixin, ExerciseRunMixin, BookMixin, BookExMixin, ReadingMixin):
+          ExerciseMenuMixin, ExerciseRunMixin, BookMixin, BookExMixin, ReadingMixin,
+          ZvukiMixin):
     """Бот целиком: ядро здесь, остальное — в модулях-миксинах."""
     def __init__(self, cfg: cfg_mod.Config, tg: Telegram, gemini: Gemini, db: DB, tts=synthesize,
                  clock=time.time):
@@ -65,6 +67,10 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             return
 
         voice = msg.get("voice") or msg.get("audio")
+        tw_item = self.tw_listening(pending)
+        if tw_item and voice and not text:   # 🗣 голосовое после открытой скороговорки — проверка произношения
+            await self.tw_voice(chat_id, user_id, tw_item, voice)
+            return
         if pending and pending.get("step") == "bex" and (text or voice):
             await self.bex_text(chat_id, user_id, pending, text, voice)
             return
@@ -213,6 +219,10 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             note = await self.read_callback(chat_id, user_id, message_id, data[3:])
             await self.tg.answer_callback(cq["id"], note)
             return
+        if data.startswith("tw:"):  # 🗣 скороговорки: ответ — всплывашка (отметка) или пусто
+            note = await self.tw_callback(chat_id, user_id, message_id, data[3:])
+            await self.tg.answer_callback(cq["id"], note)
+            return
         if data.startswith("nav:"):
             await self.tg.answer_callback(cq["id"], await self.nav(chat_id, user_id, message_id, pending, data[4:]))
             return
@@ -338,6 +348,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             await self.words_menu(chat_id, user_id)
         elif cmd == "/phr":
             await self.phrases_menu(chat_id, user_id)
+        elif cmd == "/tw":
+            await self.tw_menu(chat_id, user_id)
         elif cmd == "/read":
             await self.read_menu(chat_id, user_id)
         elif cmd == "/export":
@@ -361,7 +373,7 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         """Кнопки главного меню — как соответствующие команды (незаконченный выбор отменяется)."""
         self.db.set_pending(user_id, None)
         cmd = {"new": "/new", "ex": "/ex", "set": "/set", "itog": "/itog", "dict": "/dict", "export": "/export",
-               "words": "/words", "phr": "/phr", "read": "/read"}
+               "words": "/words", "phr": "/phr", "read": "/read", "tw": "/tw"}
         if where in cmd:
             await self.command(chat_id, user_id, cmd[where])
 
@@ -375,7 +387,7 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             log.exception("setMyCommands не удался")
         asyncio.create_task(self.classify_old_errors())
         asyncio.create_task(self.scheduler())
-        asyncio.create_task(self.read_pregen())   # 📚 аудио абзацев для чтения — заранее, в фоне
+        asyncio.create_task(self.pregen_all())    # 📚 абзацы чтения и 🗣 скороговорки — озвучка заранее, в фоне
         offset = None
         log.info("Бот запущен")
         while True:
@@ -388,6 +400,11 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             for upd in updates:
                 offset = upd["update_id"] + 1
                 asyncio.create_task(self.dispatch(upd))
+
+    async def pregen_all(self) -> None:
+        """По очереди, не параллельно — чтобы не упираться в ограничения сервиса озвучки."""
+        await self.read_pregen()
+        await self.tw_pregen()
 
     async def dispatch(self, upd: dict) -> None:
         """Обработка одного обновления. Пока запрос пользователя в работе, новые не встают в очередь,

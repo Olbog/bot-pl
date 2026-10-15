@@ -109,6 +109,7 @@ HELP = (
     "/ex — 🏋️ упражнения: слова, грамматика, мои ошибки, голосом, учебник\n"
     "/words — 📖 слова юнита: список с переводом, 🙈 скрытый перевод, 📄 файлом, 🔊 озвучка\n"
     "/phr — 💬 полезные выражения: с транскрипцией, переводом и правилом; карточки, тест, набор для разговора\n"
+    "/tw — 🗣 скороговорки и песенки: текст, транскрипция, аудио медленно и в обычном темпе, отметки ⚪🟡✅\n"
     "/read — 📚 чтение: легенды по абзацам с переводом и аудио, слова абзаца в ⭐ словарь, вопросы к главе\n"
     "/set — 🎯 наборы слов: прогресс, новый набор, 📚 архив, отметить освоенные\n"
     "/itog — 📋 итог: ошибки и слова за час / сутки / разговор, всё время — файлом\n"
@@ -199,7 +200,7 @@ def main_menu(status: str) -> tuple[str, list[list[tuple[str, str]]]]:
              [("🎯 Наборы слов", "go:set"), ("📋 Итог", "go:itog")],
              [("⭐ Словарь", "go:dict"), ("📖 Слова учебника", "go:words")],
              [("💬 Полезные выражения", "go:phr"), ("📚 Чтение", "go:read")],
-             [("🗂 Выгрузка", "go:export")]])
+             [("🗣 Скороговорки", "go:tw"), ("🗂 Выгрузка", "go:export")]])
 
 
 def new_menu(status: str, active: dict | None, done: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
@@ -352,13 +353,14 @@ def familiar_screen(words: list, prefix: str, done: str, title: str) -> tuple[st
 
 # ---------- 🙅 Не ошибка ----------
 
-def dispute_screen(corrs: list[dict], msg_id: int) -> tuple[str, list[list[tuple[str, str]]]]:
+def dispute_screen(corrs: list[dict], msg_id: int, toggle: str = "nd:t:",
+                   done: str | None = None) -> tuple[str, list[list[tuple[str, str]]]]:
     text = ("🙅 <b>Какие исправления неверные?</b>\n"
             "<i>Отмеченное уберу из ошибок, а такую же замену дальше не буду считать ошибкой. "
             "Нажми ещё раз, чтобы вернуть.</i>")
     rows = [[((("✅ " if c["_disputed"] else "☐ ") + f"{c.get('original', '')} → {c.get('correct', '')}")[:60],
-              f"nd:t:{c['_id']}")] for c in corrs]
-    rows.append([("✅ Готово", f"nd:ok:{msg_id}")])
+              f"{toggle}{c['_id']}")] for c in corrs]
+    rows.append([("✅ Готово", done or f"nd:ok:{msg_id}")])
     return text, rows
 
 

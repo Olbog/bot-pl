@@ -163,6 +163,13 @@ CREATE TABLE IF NOT EXISTS read_pos (        -- 📚 где остановилс
     idx INTEGER NOT NULL,
     PRIMARY KEY (user_id, book)
 );
+CREATE TABLE IF NOT EXISTS zv_status (       -- 🗣 скороговорки: 0 ⚪ не начато, 1 🟡 работаю, 2 ✅ готово
+    user_id INTEGER NOT NULL,
+    item TEXT NOT NULL,
+    status INTEGER NOT NULL,
+    at REAL NOT NULL,
+    PRIMARY KEY (user_id, item)
+);
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
     mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
@@ -552,6 +559,15 @@ class DB:
         r = self.conn.execute("SELECT unit, idx FROM read_pos WHERE user_id=? AND book=?", (user_id, book)).fetchone()
         return (r["unit"], r["idx"]) if r else None
 
+    def zv_status(self, user_id: int) -> dict[str, int]:
+        return {r["item"]: r["status"] for r in self.conn.execute(
+            "SELECT item, status FROM zv_status WHERE user_id=?", (user_id,))}
+
+    def zv_set(self, user_id: int, item: str, status: int) -> None:
+        self.conn.execute("INSERT OR REPLACE INTO zv_status(user_id, item, status, at) VALUES (?,?,?,?)",
+                          (user_id, item, status, self.clock()))
+        self.conn.commit()
+
     def dict_has(self, user_id: int, pl: str) -> bool:
         return self.conn.execute("SELECT 1 FROM dict_items WHERE user_id=? AND lower(pl)=lower(?)",
                                  (user_id, pl.strip())).fetchone() is not None
@@ -662,6 +678,11 @@ class DB:
         self.conn.execute("INSERT OR REPLACE INTO dict_offers(msg_id, user_id, phrases, saved) VALUES (?,?,?,?)",
                           (msg_id, user_id, json.dumps(phrases, ensure_ascii=False), json.dumps(saved)))
         self.conn.commit()
+
+    def corrections_by(self, user_id: int, key: str, value) -> list[dict]:
+        """Ошибки вне разговора (msg_id NULL) с полем data[key] == value, вместе с оспоренными."""
+        return [c for c in self._corr_rows("user_id=? AND msg_id IS NULL", (user_id,), with_disputed=True)
+                if c.get(key) == value]
 
     def add_corrections(self, session_id: int, user_id: int, corrections: list[dict]) -> None:
         now = self.clock()
