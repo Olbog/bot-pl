@@ -1,0 +1,2831 @@
+{
+ "unit": "1",
+ "title": "Pierwszy dzień w szkole",
+ "summary": "Приветствия и прощания (официально и неофициально), знакомство: jestem…, nazywam się…, mam na imię…, Miło mi; личные данные (imię, nazwisko, adres, numer telefonu); фразы урока: proszę powtórzyć, nie rozumiem, co to znaczy?, mam pytanie; где? — tu, tam, na lewo, na prawo. Грамматика: польский алфавит и чтение букв (sz, cz, rz, ś, ć, ą, ę…), числительные 0–10.",
+ "source": "Krok po kroku. Polski A1 (I. Stempek), Lekcja 01, с. 6–11",
+ "topics": [
+  "Приветствия и прощания",
+  "Знакомство",
+  "Личные данные",
+  "Школа и класс",
+  "Задания на уроке",
+  "Если не понимаешь",
+  "Базовые слова и фразы",
+  "Где? Тут, там",
+  "Числа 0–10",
+  "Алфавит: слова-примеры"
+ ],
+ "words": [
+  {
+   "pl": "Dzień dobry!",
+   "translit": "джень ДОБ-ры",
+   "ru": "Здравствуйте! Добрый день!",
+   "pos": "приветствие (официально, днём)",
+   "src": "tb",
+   "topic": "Приветствия и прощания"
+  },
+  {
+   "pl": "Dobry wieczór!",
+   "translit": "ДОБ-ры ВЕ-чур",
+   "ru": "Добрый вечер!",
+   "pos": "приветствие (вечером)",
+   "src": "tb",
+   "topic": "Приветствия и прощания"
+  },
+  {
+   "pl": "Dobranoc!",
+   "translit": "доб-РА-ноц",
+   "ru": "Спокойной ночи!",
+   "pos": "прощание (перед сном)",
+   "src": "tb",
+   "topic": "Приветствия и прощания"
+  },
+  {
+   "pl": "Cześć!",
+   "translit": "чэщьчь",
+   "ru": "Привет! / Пока!",
+   "pos": "приветствие и прощание (неофициально)",
+   "src": "tb",
+   "topic": "Приветствия и прощания"
+  },
+  {
+   "pl": "Do widzenia!",
+   "translit": "до ви-ДЗЭ-ня",
+   "ru": "До свидания!",
+   "pos": "прощание (официально)",
+   "src": "tb",
+   "topic": "Приветствия и прощания"
+  },
+  {
+   "pl": "Do zobaczenia!",
+   "translit": "до зо-ба-ЧЭ-ня",
+   "ru": "До встречи!",
+   "pos": "прощание",
+   "src": "tb",
+   "topic": "Приветствия и прощания"
+  },
+  {
+   "pl": "Do jutra!",
+   "translit": "до ЮТ-ра",
+   "ru": "До завтра!",
+   "pos": "прощание",
+   "src": "tb",
+   "topic": "Приветствия и прощания"
+  },
+  {
+   "pl": "Na razie!",
+   "translit": "на РА-же",
+   "ru": "Пока! До скорого!",
+   "pos": "прощание (неофициально)",
+   "src": "tb",
+   "topic": "Приветствия и прощания"
+  },
+  {
+   "pl": "Pa!",
+   "translit": "па",
+   "ru": "Пока!",
+   "pos": "прощание (неофициально)",
+   "src": "tb",
+   "topic": "Приветствия и прощания"
+  },
+  {
+   "pl": "powitanie",
+   "translit": "по-ви-ТА-не",
+   "ru": "приветствие",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Приветствия и прощания"
+  },
+  {
+   "pl": "pożegnanie",
+   "translit": "по-жэг-НА-не",
+   "ru": "прощание",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Приветствия и прощания"
+  },
+  {
+   "pl": "być",
+   "translit": "бычь",
+   "ru": "быть",
+   "pos": "глаг.: jestem, jesteś, jest, jesteśmy, jesteście, są",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "Jestem…",
+   "translit": "ЕС-тэм",
+   "ru": "Я … (представляюсь: Jestem Tom.)",
+   "pos": "być, 1-е л. ед. ч.",
+   "src": "tb",
+   "of": "być"
+  },
+  {
+   "pl": "Cześć, jestem Tom, a ty?",
+   "translit": "чэщьчь ЕС-тэм том а ты",
+   "ru": "Привет, я Том, а ты?",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "być"
+  },
+  {
+   "pl": "nazywać się",
+   "translit": "на-ЗЫ-вачь щен",
+   "ru": "называться; моя фамилия / меня зовут",
+   "pos": "глаг.: nazywam się, nazywasz się, nazywa się, nazywają się",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "Nazywam się…",
+   "translit": "на-ЗЫ-вам щен",
+   "ru": "Меня зовут… (имя и фамилия / фамилия)",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "nazywać się"
+  },
+  {
+   "pl": "Jak się nazywasz?",
+   "translit": "як щен на-ЗЫ-ваш",
+   "ru": "Как тебя зовут? (фамилия)",
+   "pos": "🔗 фраза, неофициально",
+   "src": "tb",
+   "of": "nazywać się"
+  },
+  {
+   "pl": "Jak się pan nazywa?",
+   "translit": "як щен пан на-ЗЫ-ва",
+   "ru": "Как вас зовут? (к мужчине)",
+   "pos": "🔗 фраза, официально",
+   "src": "tb",
+   "of": "nazywać się"
+  },
+  {
+   "pl": "Jak się pani nazywa?",
+   "translit": "як щен ПА-ни на-ЗЫ-ва",
+   "ru": "Как вас зовут? (к женщине)",
+   "pos": "🔗 фраза, официально",
+   "src": "tb",
+   "of": "nazywać się"
+  },
+  {
+   "pl": "mieć na imię",
+   "translit": "мечь на И-мье",
+   "ru": "иметь имя: меня зовут (только имя)",
+   "pos": "глаг.: mam, masz, ma na imię",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "Mam na imię…",
+   "translit": "мам на И-мье",
+   "ru": "Меня зовут… (имя)",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "mieć na imię"
+  },
+  {
+   "pl": "Jak masz na imię?",
+   "translit": "як маш на И-мье",
+   "ru": "Как тебя зовут? (имя)",
+   "pos": "🔗 фраза, неофициально",
+   "src": "tb",
+   "of": "mieć na imię"
+  },
+  {
+   "pl": "Jak pani ma na imię?",
+   "translit": "як ПА-ни ма на И-мье",
+   "ru": "Как вас зовут? (имя, к женщине)",
+   "pos": "🔗 фраза, официально",
+   "src": "tb",
+   "of": "mieć na imię"
+  },
+  {
+   "pl": "Miło mi.",
+   "translit": "МИ-ўо ми",
+   "ru": "Очень приятно.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "Bardzo mi miło.",
+   "translit": "БАР-дзо ми МИ-ўо",
+   "ru": "Мне очень приятно.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "Mnie również.",
+   "translit": "мне РУВ-неш",
+   "ru": "Мне тоже.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "poznać",
+   "translit": "ПОЗ-начь",
+   "ru": "познакомиться, узнать",
+   "pos": "глаг.: poznam, poznasz",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "Miło mi cię poznać.",
+   "translit": "МИ-ўо ми чен ПОЗ-начь",
+   "ru": "Приятно с тобой познакомиться.",
+   "pos": "🔗 неофициально",
+   "src": "tb",
+   "of": "poznać"
+  },
+  {
+   "pl": "Miło mi pana poznać.",
+   "translit": "МИ-ўо ми ПА-на ПОЗ-начь",
+   "ru": "Приятно с вами познакомиться (с мужчиной).",
+   "pos": "🔗 официально",
+   "src": "tb",
+   "of": "poznać"
+  },
+  {
+   "pl": "Miło mi panią poznać.",
+   "translit": "МИ-ўо ми ПА-нён ПОЗ-начь",
+   "ru": "Приятно с вами познакомиться (с женщиной).",
+   "pos": "🔗 официально",
+   "src": "tb",
+   "of": "poznać"
+  },
+  {
+   "pl": "pan",
+   "translit": "пан",
+   "ru": "господин; вы (к мужчине)",
+   "pos": "сущ., м. р.; вежливое «вы»",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "pani",
+   "translit": "ПА-ни",
+   "ru": "госпожа; вы (к женщине)",
+   "pos": "сущ., ж. р.; вежливое «вы»",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "ty",
+   "translit": "ты",
+   "ru": "ты",
+   "pos": "местоим.",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "przedstawić się",
+   "translit": "пшэт-СТА-вичь щен",
+   "ru": "представиться",
+   "pos": "глаг.: przedstawię się, przedstawisz się",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "Proszę się przedstawić.",
+   "translit": "ПРО-шэ щен пшэт-СТА-вичь",
+   "ru": "Представьтесь, пожалуйста.",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "przedstawić się"
+  },
+  {
+   "pl": "oficjalnie",
+   "translit": "о-фи-ЦЬЯЛЬ-не",
+   "ru": "официально",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "nieoficjalnie",
+   "translit": "не-о-фи-ЦЬЯЛЬ-не",
+   "ru": "неофициально",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Знакомство"
+  },
+  {
+   "pl": "dane personalne",
+   "translit": "ДА-нэ пэр-со-НАЛЬ-нэ",
+   "ru": "личные данные",
+   "pos": "сущ., мн. ч.",
+   "src": "tb",
+   "topic": "Личные данные"
+  },
+  {
+   "pl": "imię",
+   "translit": "И-мье",
+   "ru": "имя",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Личные данные"
+  },
+  {
+   "pl": "nazwisko",
+   "translit": "наз-ВИС-ко",
+   "ru": "фамилия",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Личные данные"
+  },
+  {
+   "pl": "narodowość",
+   "translit": "на-ро-ДО-вощьчь",
+   "ru": "национальность",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Личные данные"
+  },
+  {
+   "pl": "Japonka",
+   "translit": "я-ПОН-ка",
+   "ru": "японка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Личные данные"
+  },
+  {
+   "pl": "Jestem Japonką.",
+   "translit": "ЕС-тэм я-ПОН-кон",
+   "ru": "Я японка.",
+   "pos": "🔗 być + творительный",
+   "src": "tb",
+   "of": "Japonka"
+  },
+  {
+   "pl": "Niemiec",
+   "translit": "НЕ-мец",
+   "ru": "немец",
+   "pos": "сущ., м. р.",
+   "src": "wb",
+   "topic": "Личные данные"
+  },
+  {
+   "pl": "Jestem Niemcem.",
+   "translit": "ЕС-тэм НЕМ-цэм",
+   "ru": "Я немец.",
+   "pos": "🔗 być + творительный",
+   "src": "wb",
+   "of": "Niemiec"
+  },
+  {
+   "pl": "adres",
+   "translit": "АД-рэс",
+   "ru": "адрес",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Личные данные"
+  },
+  {
+   "pl": "ulica",
+   "translit": "у-ЛИ-ца",
+   "ru": "улица",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Личные данные"
+  },
+  {
+   "pl": "numer telefonu",
+   "translit": "НУ-мэр тэ-лэ-ФО-ну",
+   "ru": "номер телефона",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Личные данные"
+  },
+  {
+   "pl": "szkoła",
+   "translit": "ШКО-ўа",
+   "ru": "школа",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "pierwszy dzień w szkole",
+   "translit": "ПЕРФ-шы джень ф ШКО-ле",
+   "ru": "первый день в школе",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "szkoła"
+  },
+  {
+   "pl": "sekretariat",
+   "translit": "сэк-рэ-ТА-рьят",
+   "ru": "секретариат, приёмная",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "sekretarka",
+   "translit": "сэк-рэ-ТАР-ка",
+   "ru": "секретарь (женщина)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "klasa",
+   "translit": "КЛЯ-са",
+   "ru": "класс, учебная комната",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "nauczycielka",
+   "translit": "на-у-чы-ЧЕЛЬ-ка",
+   "ru": "учительница, преподавательница",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "student",
+   "translit": "СТУ-дэнт",
+   "ru": "студент, учащийся",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "studentka",
+   "translit": "сту-ДЭНТ-ка",
+   "ru": "студентка, учащаяся",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "koleżanka",
+   "translit": "ко-лэ-ЖАН-ка",
+   "ru": "подруга, однокурсница",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "lekcja",
+   "translit": "ЛЕК-цья",
+   "ru": "урок",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "lektor",
+   "translit": "ЛЕК-тор",
+   "ru": "диктор (на записи); преподаватель языка",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "dialog",
+   "translit": "ДЯ-лёк",
+   "ru": "диалог",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "ćwiczenie",
+   "translit": "чьфи-ЧЭ-не",
+   "ru": "упражнение",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "tekst",
+   "translit": "тэкст",
+   "ru": "текст",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "prezentacja",
+   "translit": "прэ-зэн-ТА-цья",
+   "ru": "знакомство, представление; презентация",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "przerwa",
+   "translit": "ПШЭР-ва",
+   "ru": "перерыв, перемена",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "komputer",
+   "translit": "ком-ПУ-тэр",
+   "ru": "компьютер",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "Internet",
+   "translit": "ин-ТЭР-нэт",
+   "ru": "интернет",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "gratis",
+   "translit": "ГРА-тис",
+   "ru": "бесплатно",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "program kulturalny",
+   "translit": "ПРОГ-рам куль-ту-РАЛЬ-ны",
+   "ru": "культурная программа",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "coś specjalnego",
+   "translit": "цощь спэ-цьяль-НЭ-го",
+   "ru": "что-то особенное",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "specjalny",
+   "translit": "спэ-ЦЬЯЛЬ-ны",
+   "ru": "специальный, особый",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "specjalna lekcja",
+   "translit": "спэ-ЦЬЯЛЬ-на ЛЕК-цья",
+   "ru": "специальный урок",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "specjalny"
+  },
+  {
+   "pl": "spotkanie",
+   "translit": "спот-КА-не",
+   "ru": "встреча",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "film",
+   "translit": "фильм",
+   "ru": "фильм",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "spacer",
+   "translit": "СПА-цэр",
+   "ru": "прогулка",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "spacer po Krakowie",
+   "translit": "СПА-цэр по кра-КО-ве",
+   "ru": "прогулка по Кракову",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "spacer"
+  },
+  {
+   "pl": "wycieczka",
+   "translit": "вы-ЧЕЧ-ка",
+   "ru": "экскурсия, поездка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "warsztaty fonetyczne",
+   "translit": "вар-ШТА-ты фо-нэ-ТЫЧ-нэ",
+   "ru": "фонетический практикум",
+   "pos": "сущ., мн. ч.",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "wieczór w pubie",
+   "translit": "ВЕ-чур ф ПА-бе",
+   "ru": "вечер в пабе",
+   "pos": "сочетание",
+   "src": "tb",
+   "topic": "Школа и класс"
+  },
+  {
+   "pl": "Proszę powtórzyć.",
+   "translit": "ПРО-шэ поф-ТУ-жычь",
+   "ru": "Повторите, пожалуйста.",
+   "pos": "фраза; powtórzyć — повторить",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Proszę przeliterować.",
+   "translit": "ПРО-шэ пшэ-ли-тэ-РО-вачь",
+   "ru": "Произнесите по буквам, пожалуйста.",
+   "pos": "фраза; przeliterować — произнести по буквам",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Proszę przeczytać.",
+   "translit": "ПРО-шэ пшэ-ЧЫ-тачь",
+   "ru": "Прочитайте, пожалуйста.",
+   "pos": "фраза; przeczytać — прочитать",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Proszę napisać.",
+   "translit": "ПРО-шэ на-ПИ-сачь",
+   "ru": "Напишите, пожалуйста.",
+   "pos": "фраза; napisać — написать",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Proszę posłuchać.",
+   "translit": "ПРО-шэ по-СЎУ-хачь",
+   "ru": "Послушайте, пожалуйста.",
+   "pos": "фраза; posłuchać — послушать",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Proszę uzupełnić.",
+   "translit": "ПРО-шэ у-зу-ПЭЎ-ничь",
+   "ru": "Дополните, пожалуйста.",
+   "pos": "фраза; uzupełnić — дополнить, заполнить",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Proszę dopasować.",
+   "translit": "ПРО-шэ до-па-СО-вачь",
+   "ru": "Подберите (соедините) пары.",
+   "pos": "фраза; dopasować — подобрать",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Proszę połączyć.",
+   "translit": "ПРО-шэ по-ЎОН-чычь",
+   "ru": "Соедините, пожалуйста.",
+   "pos": "фраза; połączyć — соединить",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Proszę uporządkować zdania.",
+   "translit": "ПРО-шэ у-по-жонт-КО-вачь ЗДА-ня",
+   "ru": "Расставьте слова в предложениях по порядку.",
+   "pos": "фраза; uporządkować — упорядочить",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Proszę skorygować litery.",
+   "translit": "ПРО-шэ ско-ры-ГО-вачь ли-ТЭ-ры",
+   "ru": "Исправьте буквы.",
+   "pos": "фраза; skorygować — исправить",
+   "src": "wb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Proszę zanotować.",
+   "translit": "ПРО-шэ за-но-ТО-вачь",
+   "ru": "Запишите, пожалуйста.",
+   "pos": "фраза; zanotować — записать",
+   "src": "wb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Co pasuje?",
+   "translit": "цо па-СУ-е",
+   "ru": "Что подходит?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Co mówi lektor?",
+   "translit": "цо МУ-ви ЛЕК-тор",
+   "ru": "Что говорит диктор?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "zdanie",
+   "translit": "ЗДА-не",
+   "ru": "предложение",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "litera",
+   "translit": "ли-ТЭ-ра",
+   "ru": "буква",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "otworzyć",
+   "translit": "от-ФО-жычь",
+   "ru": "открыть",
+   "pos": "глаг.: otworzę, otworzysz",
+   "src": "wb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Proszę otworzyć okno.",
+   "translit": "ПРО-шэ от-ФО-жычь ОК-но",
+   "ru": "Откройте, пожалуйста, окно.",
+   "pos": "🔗 фраза",
+   "src": "wb",
+   "of": "otworzyć"
+  },
+  {
+   "pl": "zamknąć",
+   "translit": "ЗАМ-кнончь",
+   "ru": "закрыть",
+   "pos": "глаг.: zamknę, zamkniesz",
+   "src": "wb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "Proszę zamknąć drzwi.",
+   "translit": "ПРО-шэ ЗАМ-кнончь джьви",
+   "ru": "Закройте, пожалуйста, дверь.",
+   "pos": "🔗 фраза",
+   "src": "wb",
+   "of": "zamknąć"
+  },
+  {
+   "pl": "okno",
+   "translit": "ОК-но",
+   "ru": "окно",
+   "pos": "сущ., ср. р.",
+   "src": "wb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "drzwi",
+   "translit": "джьви",
+   "ru": "дверь",
+   "pos": "сущ., только мн. ч.",
+   "src": "wb",
+   "topic": "Задания на уроке"
+  },
+  {
+   "pl": "rozumieć",
+   "translit": "ро-ЗУ-мечь",
+   "ru": "понимать",
+   "pos": "глаг.: rozumiem, rozumiesz, rozumieją",
+   "src": "tb",
+   "topic": "Если не понимаешь"
+  },
+  {
+   "pl": "Nie rozumiem.",
+   "translit": "не ро-ЗУ-мем",
+   "ru": "Я не понимаю.",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "rozumieć"
+  },
+  {
+   "pl": "Aha, rozumiem.",
+   "translit": "А-ха ро-ЗУ-мем",
+   "ru": "А, понятно.",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "rozumieć"
+  },
+  {
+   "pl": "Nie wiem.",
+   "translit": "не вем",
+   "ru": "Я не знаю.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Если не понимаешь"
+  },
+  {
+   "pl": "Nie pamiętam.",
+   "translit": "не па-МЕН-там",
+   "ru": "Я не помню.",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Если не понимаешь"
+  },
+  {
+   "pl": "Co to znaczy?",
+   "translit": "цо то ЗНА-чы",
+   "ru": "Что это значит?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Если не понимаешь"
+  },
+  {
+   "pl": "pytanie",
+   "translit": "пы-ТА-не",
+   "ru": "вопрос",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Если не понимаешь"
+  },
+  {
+   "pl": "Mam pytanie.",
+   "translit": "мам пы-ТА-не",
+   "ru": "У меня вопрос.",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "pytanie"
+  },
+  {
+   "pl": "Jak się mówi po polsku…?",
+   "translit": "як щен МУ-ви по ПОЛЬ-ску",
+   "ru": "Как сказать по-польски…?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Если не понимаешь"
+  },
+  {
+   "pl": "po polsku",
+   "translit": "по ПОЛЬ-ску",
+   "ru": "по-польски",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Если не понимаешь"
+  },
+  {
+   "pl": "po niemiecku",
+   "translit": "по не-МЕЦ-ку",
+   "ru": "по-немецки",
+   "pos": "нареч.",
+   "src": "wb",
+   "topic": "Если не понимаешь"
+  },
+  {
+   "pl": "tak",
+   "translit": "так",
+   "ru": "да",
+   "pos": "частица",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "nie",
+   "translit": "не",
+   "ru": "нет; не",
+   "pos": "частица",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "proszę",
+   "translit": "ПРО-шэ",
+   "ru": "пожалуйста; прошу; вот, пожалуйста (в ответ на «спасибо»)",
+   "pos": "proszę + инфинитив — вежливая просьба",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "dziękuję",
+   "translit": "джен-КУ-е",
+   "ru": "спасибо",
+   "pos": "глаг. 1-е л.: благодарю",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "Dziękuję bardzo.",
+   "translit": "джен-КУ-е БАР-дзо",
+   "ru": "Большое спасибо.",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "dziękuję"
+  },
+  {
+   "pl": "Dziękuję pani bardzo.",
+   "translit": "джен-КУ-е ПА-ни БАР-дзо",
+   "ru": "Большое вам спасибо (к женщине).",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "dziękuję"
+  },
+  {
+   "pl": "przepraszam",
+   "translit": "пшэ-ПРА-шам",
+   "ru": "извините; простите",
+   "pos": "глаг. 1-е л.",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "bardzo",
+   "translit": "БАР-дзо",
+   "ru": "очень",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "Czy tu można palić?",
+   "translit": "чы ту МОЖ-на ПА-личь",
+   "ru": "Здесь можно курить?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "można",
+   "translit": "МОЖ-на",
+   "ru": "можно",
+   "pos": "безличное",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "Co to jest?",
+   "translit": "цо то ест",
+   "ru": "Что это?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "To jest…",
+   "translit": "то ест",
+   "ru": "Это…",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "Czy to miejsce jest wolne?",
+   "translit": "чы то МЕЙС-цэ ест ВОЛЬ-нэ",
+   "ru": "Это место свободно?",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "miejsce",
+   "translit": "МЕЙС-цэ",
+   "ru": "место",
+   "pos": "сущ., ср. р.",
+   "src": "wb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "Na zdrowie!",
+   "translit": "на ЗДРО-вье",
+   "ru": "Будь здоров! (когда чихают); За здоровье!",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "Apsik!",
+   "translit": "АП-щик",
+   "ru": "Апчхи!",
+   "pos": "междом.",
+   "src": "wb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "Ojej!",
+   "translit": "О-ей",
+   "ru": "Ой!",
+   "pos": "междом.",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "zmęczony",
+   "translit": "змэн-ЧО-ны",
+   "ru": "уставший",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "Jestem bardzo zmęczony.",
+   "translit": "ЕС-тэм БАР-дзо змэн-ЧО-ны",
+   "ru": "Я очень устал.",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "zmęczony"
+  },
+  {
+   "pl": "skomplikowany",
+   "translit": "ском-пли-ко-ВА-ны",
+   "ru": "сложный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Базовые слова и фразы"
+  },
+  {
+   "pl": "Skomplikowane!",
+   "translit": "ском-пли-ко-ВА-нэ",
+   "ru": "Сложно!",
+   "pos": "🔗 восклицание",
+   "src": "tb",
+   "of": "skomplikowany"
+  },
+  {
+   "pl": "gdzie",
+   "translit": "гдже",
+   "ru": "где",
+   "pos": "вопросительное слово",
+   "src": "tb",
+   "topic": "Где? Тут, там"
+  },
+  {
+   "pl": "Przepraszam, gdzie jest toaleta?",
+   "translit": "пшэ-ПРА-шам гдже ест то-а-ЛЕ-та",
+   "ru": "Извините, где туалет?",
+   "pos": "🔗 фраза",
+   "src": "tb",
+   "of": "gdzie"
+  },
+  {
+   "pl": "toaleta",
+   "translit": "то-а-ЛЕ-та",
+   "ru": "туалет",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Где? Тут, там"
+  },
+  {
+   "pl": "tu",
+   "translit": "ту",
+   "ru": "здесь, тут",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Где? Тут, там"
+  },
+  {
+   "pl": "tutaj",
+   "translit": "ТУ-тай",
+   "ru": "здесь, тут",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Где? Тут, там"
+  },
+  {
+   "pl": "tam",
+   "translit": "там",
+   "ru": "там",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Где? Тут, там"
+  },
+  {
+   "pl": "na lewo",
+   "translit": "на ЛЕ-во",
+   "ru": "налево, слева",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Где? Тут, там"
+  },
+  {
+   "pl": "na prawo",
+   "translit": "на ПРА-во",
+   "ru": "направо, справа",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Где? Тут, там"
+  },
+  {
+   "pl": "zero",
+   "translit": "ЗЭ-ро",
+   "ru": "ноль",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "jeden",
+   "translit": "Е-дэн",
+   "ru": "один",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "dwa",
+   "translit": "два",
+   "ru": "два",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "trzy",
+   "translit": "тшы",
+   "ru": "три",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "cztery",
+   "translit": "ЧТЭ-ры",
+   "ru": "четыре",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "pięć",
+   "translit": "пеньчь",
+   "ru": "пять",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "sześć",
+   "translit": "шэщьчь",
+   "ru": "шесть",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "siedem",
+   "translit": "ЩЕ-дэм",
+   "ru": "семь",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "osiem",
+   "translit": "О-щем",
+   "ru": "восемь",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "dziewięć",
+   "translit": "ДЖЕ-веньчь",
+   "ru": "девять",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "dziesięć",
+   "translit": "ДЖЕ-щеньчь",
+   "ru": "десять",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "liczebniki",
+   "translit": "ли-ЧЭБ-ни-ки",
+   "ru": "числительные",
+   "pos": "сущ., мн. ч.",
+   "src": "tb",
+   "topic": "Числа 0–10"
+  },
+  {
+   "pl": "alfabet",
+   "translit": "аль-ФА-бэт",
+   "ru": "алфавит",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "ja",
+   "translit": "я",
+   "ru": "я",
+   "pos": "местоим.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "kto",
+   "translit": "кто",
+   "ru": "кто",
+   "pos": "вопросительное слово",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "co",
+   "translit": "цо",
+   "ru": "что",
+   "pos": "вопросительное слово",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "jak",
+   "translit": "як",
+   "ru": "как",
+   "pos": "вопросительное слово",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "dom",
+   "translit": "дом",
+   "ru": "дом",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "noc",
+   "translit": "ноц",
+   "ru": "ночь",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "syn",
+   "translit": "сын",
+   "ru": "сын",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "żona",
+   "translit": "ЖО-на",
+   "ru": "жена",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "dziecko",
+   "translit": "ДЖЕЦ-ко",
+   "ru": "ребёнок",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "zima",
+   "translit": "ЖИ-ма",
+   "ru": "зима",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "śnieg",
+   "translit": "щьнек",
+   "ru": "снег",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "rzeka",
+   "translit": "ЖЭ-ка",
+   "ru": "река",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "drzewo",
+   "translit": "ДЖЭ-во",
+   "ru": "дерево",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "kolor",
+   "translit": "КО-лёр",
+   "ru": "цвет",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "grupa",
+   "translit": "ГРУ-па",
+   "ru": "группа",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "książka",
+   "translit": "КЩЁНЖ-ка",
+   "ru": "книга",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "rower",
+   "translit": "РО-вэр",
+   "ru": "велосипед",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "kino",
+   "translit": "КИ-но",
+   "ru": "кино, кинотеатр",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "teatr",
+   "translit": "ТЭ-атр",
+   "ru": "театр",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "restauracja",
+   "translit": "рэс-тау-РА-цья",
+   "ru": "ресторан",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "łatwo",
+   "translit": "ЎАТ-фо",
+   "ru": "легко",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "źle",
+   "translit": "жьле",
+   "ru": "плохо",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "szybko",
+   "translit": "ШЫП-ко",
+   "ru": "быстро",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "rzadko",
+   "translit": "ЖАТ-ко",
+   "ru": "редко",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "ciemno",
+   "translit": "ЧЕМ-но",
+   "ru": "темно",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "zimno",
+   "translit": "ЖИМ-но",
+   "ru": "холодно",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  },
+  {
+   "pl": "interesujący",
+   "translit": "ин-тэ-рэ-су-ЁН-цы",
+   "ru": "интересный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Алфавит: слова-примеры"
+  }
+ ],
+ "exercises": [
+  {
+   "id": "tb-1-a1",
+   "src": "tb",
+   "ref": "A · Ćw. 1, s. 7",
+   "title": "Proszę posłuchać i uzupełnić dialogi.",
+   "title_ru": "Послушай и дополни диалоги",
+   "task_ru": "Диалоги — на странице учебника (кнопка 📄 ниже). Те же диалоги напечатаны на с. 6. Напиши пропущенное слово: «1 Nazywam 2 Bardzo …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "A) Studentka: Dzień dobry. ___ się Mami Takada.",
+     "answer": "Nazywam",
+     "ru": "Добрый день. Меня зовут Мами Такада.",
+     "full_pl": "Dzień dobry. Nazywam się Mami Takada.",
+     "translit": "на-ЗЫ-вам"
+    },
+    {
+     "q": "A) Sekretarka: ___ mi miło.",
+     "answer": "Bardzo",
+     "ru": "Мне очень приятно.",
+     "full_pl": "Bardzo mi miło.",
+     "translit": "БАР-дзо"
+    },
+    {
+     "q": "A) Studentka: Miło ___.",
+     "answer": "mi",
+     "ru": "Очень приятно.",
+     "full_pl": "Miło mi.",
+     "translit": "ми"
+    },
+    {
+     "q": "B) Student: Cześć, ___ Tom, a ty?",
+     "answer": "jestem",
+     "ru": "Привет, я Том, а ты?",
+     "full_pl": "Cześć, jestem Tom, a ty?",
+     "translit": "ЕС-тэм"
+    },
+    {
+     "q": "B) Studentka: ___, jestem Mami.",
+     "answer": "Cześć",
+     "ru": "Привет, я Мами.",
+     "full_pl": "Cześć, jestem Mami.",
+     "translit": "чэщьчь"
+    },
+    {
+     "q": "B) Student: ___ mi.",
+     "answer": "Miło",
+     "ru": "Очень приятно.",
+     "full_pl": "Miło mi.",
+     "translit": "МИ-ўо"
+    },
+    {
+     "q": "B) Studentka: Bardzo ___ miło.",
+     "answer": "mi",
+     "ru": "Мне очень приятно.",
+     "full_pl": "Bardzo mi miło.",
+     "translit": "ми",
+     "grammar": "на с. 6 в диалоге — «Mnie również», в упражнении — «Bardzo mi miło»"
+    }
+   ],
+   "audio": "101a3.mp3"
+  },
+  {
+   "id": "tb-1-a2",
+   "src": "tb",
+   "ref": "A · Ćw. 2, s. 7",
+   "title": "Proszę uzupełnić dialogi.",
+   "title_ru": "Дополни диалоги о себе",
+   "task_ru": "Ответь за себя (подставь своё имя). Официально — с секретарём, неофициально — с подругой. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "A) Ty i sekretarka. Sekretarka: Dzień dobry. Jestem Agnieszka Polańska. — Ty: ___",
+     "answer": "Dzień dobry. Nazywam się Mark Nowak.",
+     "ru": "Ты и секретарь. — Добрый день. Я Агнешка Поляньская. — Ты: …",
+     "grammar": "официально: Dzień dobry + Nazywam się / Jestem + имя и фамилия"
+    },
+    {
+     "q": "A) Sekretarka: Bardzo mi miło. — Ty: ___",
+     "answer": "Miło mi.",
+     "ru": "Мне очень приятно. — Ты: …",
+     "accepted": [
+      "Mnie również."
+     ]
+    },
+    {
+     "q": "B) Ty i koleżanka. Ty: ___ — Koleżanka: Cześć, jestem Mami.",
+     "answer": "Cześć, jestem Mark, a ty?",
+     "ru": "Ты и подруга. Ты: … — Привет, я Мами.",
+     "grammar": "неофициально: Cześć, jestem…, a ty?"
+    },
+    {
+     "q": "B) Ty: ___ — Koleżanka: Bardzo mi miło.",
+     "answer": "Miło mi.",
+     "ru": "Ты: … — Мне очень приятно."
+    }
+   ]
+  },
+  {
+   "id": "tb-1-c0",
+   "src": "tb",
+   "ref": "C · s. 9",
+   "title": "Jestem… Mam na imię… Nazywam się…",
+   "title_ru": "Представься тремя способами",
+   "task_ru": "Как James Bond на с. 9: «Jestem Bond. James Bond.», «Mam na imię James.», «Nazywam się James Bond.» Напиши о себе. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Jestem ___",
+     "answer": "Jestem Mark Nowak.",
+     "ru": "Я … (имя и фамилия или имя)",
+     "grammar": "Jestem + имя / имя и фамилия"
+    },
+    {
+     "q": "Mam na imię ___",
+     "answer": "Mam na imię Mark.",
+     "ru": "Меня зовут … (только имя)",
+     "grammar": "mieć na imię — только имя"
+    },
+    {
+     "q": "Nazywam się ___",
+     "answer": "Nazywam się Mark Nowak.",
+     "ru": "Меня зовут … (фамилия или имя и фамилия)",
+     "grammar": "nazywać się — фамилия или имя + фамилия"
+    }
+   ]
+  },
+  {
+   "id": "tb-1-c1",
+   "src": "tb",
+   "ref": "C · Ćw. 1, s. 9",
+   "title": "Proszę posłuchać i uzupełnić.",
+   "title_ru": "Послушай и дополни",
+   "task_ru": "Послушай запись (аудио выше) и напиши пропущенное слово: «1 Jestem 2 nie …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Nauczycielka: Dzień dobry. Nazywam się Iwona Stempek. ___ nauczycielką.",
+     "answer": "Jestem",
+     "ru": "Добрый день. Меня зовут Ивона Стемпек. Я учительница.",
+     "translit": "ЕС-тэм",
+     "grammar": "być + творительный: nauczycielka → nauczycielką"
+    },
+    {
+     "q": "Angela: Prze… prze… — ojej, ___ rozumiem!",
+     "answer": "nie",
+     "ru": "Пред… пред… — ой, не понимаю!",
+     "translit": "не"
+    },
+    {
+     "q": "Nauczycielka: „Przedstawić się” to znaczy: „Jak się pani ___?”",
+     "answer": "nazywa",
+     "ru": "«Представиться» значит: «Как вас зовут?»",
+     "translit": "на-ЗЫ-ва"
+    },
+    {
+     "q": "Angela: Aaa, nazywam ___ Angela Brown.",
+     "answer": "się",
+     "ru": "А-а, меня зовут Анджела Браун.",
+     "translit": "щен"
+    }
+   ],
+   "audio": "101C2.mp3"
+  },
+  {
+   "id": "tb-1-c2",
+   "src": "tb",
+   "ref": "C · Ćw. 2, s. 9",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Дополни диалог",
+   "task_ru": "Слова: dzień, jak, pan, nazywam, mi, miło. Два пропуска — через запятую: «Jak, pan».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Student: ___ dobry.",
+     "answer": "Dzień",
+     "ru": "Добрый день.",
+     "translit": "джень"
+    },
+    {
+     "q": "Sekretarka: Dzień dobry. ___ się ___ nazywa?",
+     "answer": "Jak, pan",
+     "ru": "Добрый день. Как вас зовут?",
+     "full_pl": "Dzień dobry. Jak się pan nazywa?",
+     "grammar": "официально: Jak się pan / pani nazywa?"
+    },
+    {
+     "q": "Student: ___ się Uwe Stein.",
+     "answer": "Nazywam",
+     "ru": "Меня зовут Уве Штайн.",
+     "translit": "на-ЗЫ-вам"
+    },
+    {
+     "q": "Sekretarka: Bardzo ___ miło.",
+     "answer": "mi",
+     "ru": "Мне очень приятно.",
+     "translit": "ми"
+    },
+    {
+     "q": "Student: ___ mi.",
+     "answer": "Miło",
+     "ru": "Очень приятно.",
+     "translit": "МИ-ўо"
+    }
+   ]
+  },
+  {
+   "id": "tb-1-e1",
+   "src": "tb",
+   "ref": "E · Ćw. 1, s. 11",
+   "title": "Proszę dopasować.",
+   "title_ru": "Соедини картинку и просьбу",
+   "task_ru": "Картинки из учебника — здесь описание. Выбери подходящую просьбу.",
+   "type": "match",
+   "items": [
+    {
+     "q": "📖 открытая книга",
+     "answer": "proszę przeczytać",
+     "ru": "картинка: книга",
+     "translit": "ПРО-шэ пшэ-ЧЫ-тачь"
+    },
+    {
+     "q": "💬 облачка речи (сказать ещё раз)",
+     "answer": "proszę powtórzyć",
+     "ru": "картинка: облачка речи",
+     "translit": "ПРО-шэ поф-ТУ-жычь"
+    },
+    {
+     "q": "✏️ карандаш",
+     "answer": "proszę napisać",
+     "ru": "картинка: карандаш",
+     "translit": "ПРО-шэ на-ПИ-сачь"
+    },
+    {
+     "q": "🔤 a-b-c",
+     "answer": "proszę przeliterować",
+     "ru": "картинка: буквы a-b-c",
+     "translit": "ПРО-шэ пшэ-ли-тэ-РО-вачь"
+    }
+   ],
+   "options": [
+    "proszę powtórzyć",
+    "proszę przeliterować",
+    "proszę przeczytać",
+    "proszę napisać"
+   ]
+  },
+  {
+   "id": "tb-1-e2",
+   "src": "tb",
+   "ref": "E · Ćw. 2, s. 11",
+   "title": "Co pasuje?",
+   "title_ru": "Что подходит? Ответ на просьбу",
+   "task_ru": "Выбери подходящий ответ на просьбу или вопрос.",
+   "type": "match",
+   "items": [
+    {
+     "q": "Proszę przeliterować „dom”.",
+     "answer": "„d-o-m”",
+     "ru": "Произнесите по буквам «dom».",
+     "full_pl": "Proszę przeliterować „dom”. — „d-o-m”"
+    },
+    {
+     "q": "Proszę powtórzyć „dziękuję”.",
+     "answer": "Dziękuję.",
+     "ru": "Повторите «dziękuję».",
+     "full_pl": "Proszę powtórzyć „dziękuję”. — Dziękuję."
+    },
+    {
+     "q": "Proszę powtórzyć „szkoła”.",
+     "answer": "Szkoła.",
+     "ru": "Повторите «szkoła».",
+     "full_pl": "Proszę powtórzyć „szkoła”. — Szkoła."
+    },
+    {
+     "q": "Co to znaczy „dziękuję”?",
+     "answer": "Thank you.",
+     "ru": "Что значит «dziękuję»?",
+     "full_pl": "Co to znaczy „dziękuję”? — Thank you."
+    },
+    {
+     "q": "Co to znaczy „dom”?",
+     "answer": "Nie wiem.",
+     "ru": "Что значит «dom»?",
+     "full_pl": "Co to znaczy „dom”? — Nie wiem.",
+     "grammar": "остался один вариант — «Не знаю»"
+    },
+    {
+     "q": "Proszę przeczytać „dom”.",
+     "answer": "Dom.",
+     "ru": "Прочитайте «dom».",
+     "full_pl": "Proszę przeczytać „dom”. — Dom."
+    }
+   ],
+   "options": [
+    "Dziękuję.",
+    "Szkoła.",
+    "Nie wiem.",
+    "„d-o-m”",
+    "Dom.",
+    "Thank you."
+   ]
+  },
+  {
+   "id": "tb-1-f1",
+   "src": "tb",
+   "ref": "F · Ćw. 1, s. 11",
+   "title": "Proszę posłuchać i uzupełnić.",
+   "title_ru": "Числа 0–10: впиши слово",
+   "task_ru": "Слова из рамки: siedem, dziesięć, sześć, jeden, dwa, zero, trzy, osiem, pięć, dziewięć, cztery. Напиши число словом: «0 zero 1 jeden …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "0",
+     "answer": "zero",
+     "ru": "ноль",
+     "translit": "ЗЭ-ро"
+    },
+    {
+     "q": "1",
+     "answer": "jeden",
+     "ru": "один",
+     "translit": "Е-дэн"
+    },
+    {
+     "q": "2",
+     "answer": "dwa",
+     "ru": "два",
+     "translit": "два"
+    },
+    {
+     "q": "3",
+     "answer": "trzy",
+     "ru": "три",
+     "translit": "тшы"
+    },
+    {
+     "q": "4",
+     "answer": "cztery",
+     "ru": "четыре",
+     "translit": "ЧТЭ-ры"
+    },
+    {
+     "q": "5",
+     "answer": "pięć",
+     "ru": "пять",
+     "translit": "пеньчь"
+    },
+    {
+     "q": "6",
+     "answer": "sześć",
+     "ru": "шесть",
+     "translit": "шэщьчь"
+    },
+    {
+     "q": "7",
+     "answer": "siedem",
+     "ru": "семь",
+     "translit": "ЩЕ-дэм"
+    },
+    {
+     "q": "8",
+     "answer": "osiem",
+     "ru": "восемь",
+     "translit": "О-щем"
+    },
+    {
+     "q": "9",
+     "answer": "dziewięć",
+     "ru": "девять",
+     "translit": "ДЖЕ-веньчь"
+    },
+    {
+     "q": "10",
+     "answer": "dziesięć",
+     "ru": "десять",
+     "translit": "ДЖЕ-щеньчь"
+    }
+   ],
+   "audio": "101f1.mp3"
+  },
+  {
+   "id": "tb-1-f2",
+   "src": "tb",
+   "ref": "F · Ćw. 2, s. 11",
+   "title": "Proszę uzupełnić i połączyć z cyfrą.",
+   "title_ru": "Впиши буквы и подбери цифру",
+   "task_ru": "Допиши слово целиком и цифру: «j_d_n → jeden 1».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "j_d_n",
+     "answer": "jeden 1",
+     "ru": "число от 0 до 10",
+     "translit": "Е-дэн",
+     "accepted": [
+      "jeden",
+      "jeden – 1",
+      "jeden (1)"
+     ]
+    },
+    {
+     "q": "_wa",
+     "answer": "dwa 2",
+     "ru": "число от 0 до 10",
+     "translit": "два",
+     "accepted": [
+      "dwa",
+      "dwa – 2",
+      "dwa (2)"
+     ]
+    },
+    {
+     "q": "t_z_",
+     "answer": "trzy 3",
+     "ru": "число от 0 до 10",
+     "translit": "тшы",
+     "accepted": [
+      "trzy",
+      "trzy – 3",
+      "trzy (3)"
+     ]
+    },
+    {
+     "q": "si_d_m",
+     "answer": "siedem 7",
+     "ru": "число от 0 до 10",
+     "translit": "ЩЕ-дэм",
+     "accepted": [
+      "siedem",
+      "siedem – 7",
+      "siedem (7)"
+     ]
+    },
+    {
+     "q": "sze_ _",
+     "answer": "sześć 6",
+     "ru": "число от 0 до 10",
+     "translit": "шэщьчь",
+     "accepted": [
+      "sześć",
+      "sześć – 6",
+      "sześć (6)"
+     ]
+    },
+    {
+     "q": "_ _tery",
+     "answer": "cztery 4",
+     "ru": "число от 0 до 10",
+     "translit": "ЧТЭ-ры",
+     "accepted": [
+      "cztery",
+      "cztery – 4",
+      "cztery (4)"
+     ]
+    },
+    {
+     "q": "d_ _esię_",
+     "answer": "dziesięć 10",
+     "ru": "число от 0 до 10",
+     "translit": "ДЖЕ-щеньчь",
+     "accepted": [
+      "dziesięć",
+      "dziesięć – 10",
+      "dziesięć (10)"
+     ]
+    },
+    {
+     "q": "dz_ewię_",
+     "answer": "dziewięć 9",
+     "ru": "число от 0 до 10",
+     "translit": "ДЖЕ-веньчь",
+     "accepted": [
+      "dziewięć",
+      "dziewięć – 9",
+      "dziewięć (9)"
+     ]
+    },
+    {
+     "q": "p_ę_",
+     "answer": "pięć 5",
+     "ru": "число от 0 до 10",
+     "translit": "пеньчь",
+     "accepted": [
+      "pięć",
+      "pięć – 5",
+      "pięć (5)"
+     ]
+    },
+    {
+     "q": "z_r_",
+     "answer": "zero 0",
+     "ru": "число от 0 до 10",
+     "translit": "ЗЭ-ро",
+     "accepted": [
+      "zero",
+      "zero – 0",
+      "zero (0)"
+     ]
+    },
+    {
+     "q": "os_em",
+     "answer": "osiem 8",
+     "ru": "число от 0 до 10",
+     "translit": "О-щем",
+     "accepted": [
+      "osiem",
+      "osiem – 8",
+      "osiem (8)"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-1-g1",
+   "src": "tb",
+   "ref": "G · Powtórzenie, s. 11",
+   "title": "Dane personalne",
+   "title_ru": "Личные данные — о себе",
+   "task_ru": "Как в диалоге на с. 11 (аудио выше): ответь секретарю о себе. Данные можно придумать. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Imię?",
+     "answer": "Mark.",
+     "ru": "Имя?",
+     "grammar": "коротко: только имя"
+    },
+    {
+     "q": "Nazwisko?",
+     "answer": "Nowak.",
+     "ru": "Фамилия?"
+    },
+    {
+     "q": "Narodowość?",
+     "answer": "Jestem Polakiem.",
+     "ru": "Национальность?",
+     "grammar": "Jestem + творительный: Polak → Polakiem, Polka → Polką",
+     "accepted": [
+      "Jestem Rosjaninem.",
+      "Jestem Białorusinem."
+     ]
+    },
+    {
+     "q": "Adres?",
+     "answer": "Kraków, ulica Długa 5.",
+     "ru": "Адрес?"
+    },
+    {
+     "q": "Numer telefonu?",
+     "answer": "12 345 67 89.",
+     "ru": "Номер телефона?"
+    },
+    {
+     "q": "Sekretarka: Dziękuję. — Ty: ___",
+     "answer": "Proszę.",
+     "ru": "Спасибо. — Ты: …",
+     "grammar": "ответ на «dziękuję» — «proszę»"
+    },
+    {
+     "q": "Nauczycielka: Dziękuję i do jutra. — Ty: ___",
+     "answer": "Dziękuję, do widzenia.",
+     "ru": "Спасибо и до завтра. — Ты: …",
+     "accepted": [
+      "Do jutra!",
+      "Do widzenia!"
+     ]
+    }
+   ],
+   "audio": [
+    "101g1.mp3",
+    "101g1-2.mp3"
+   ]
+  },
+  {
+   "id": "wb-1-1",
+   "src": "wb",
+   "ref": "Ćw. 1, s. 4",
+   "title": "Proszę uzupełnić litery.",
+   "title_ru": "Впиши пропущенные буквы",
+   "task_ru": "Перепиши фразу целиком, с пропущенными буквами: «Dzień dobry. Jestem Ewa Potocka.»",
+   "type": "gap",
+   "items": [
+    {
+     "q": "a) Sekretarka: D_ie_ dobr_. Je_te_ Ewa Potocka.",
+     "answer": "Dzień dobry. Jestem Ewa Potocka.",
+     "ru": "Добрый день. Я Эва Потоцкая."
+    },
+    {
+     "q": "a) Studentka: D_ie_ dobr_. Na_yw_m s_ _ Elena Sanchez.",
+     "answer": "Dzień dobry. Nazywam się Elena Sanchez.",
+     "ru": "Добрый день. Меня зовут Элена Санчес."
+    },
+    {
+     "q": "a) Sekretarka: Bar_ _ _o m_ m_ _o.",
+     "answer": "Bardzo mi miło.",
+     "ru": "Мне очень приятно."
+    },
+    {
+     "q": "a) Studentka: _ _ło mi.",
+     "answer": "Miło mi.",
+     "ru": "Очень приятно."
+    },
+    {
+     "q": "b) Student: C_e_ć, _est_m Jan, a t_?",
+     "answer": "Cześć, jestem Jan, a ty?",
+     "ru": "Привет, я Ян, а ты?"
+    },
+    {
+     "q": "b) Studentka: _ześ_, jes_e_ Elena.",
+     "answer": "Cześć, jestem Elena.",
+     "ru": "Привет, я Элена."
+    },
+    {
+     "q": "b) Student: _i_o mi.",
+     "answer": "Miło mi.",
+     "ru": "Очень приятно."
+    },
+    {
+     "q": "b) Studentka: M_ _e r_wn_e_.",
+     "answer": "Mnie również.",
+     "ru": "Мне тоже."
+    },
+    {
+     "q": "неофициально: Miło mi _ _ _ poznać.",
+     "answer": "cię",
+     "ru": "Приятно с тобой познакомиться.",
+     "full_pl": "Miło mi cię poznać.",
+     "translit": "чен"
+    },
+    {
+     "q": "официально, мужчине: Miło mi _ _ _ _ poznać.",
+     "answer": "pana",
+     "ru": "Приятно с вами познакомиться.",
+     "full_pl": "Miło mi pana poznać.",
+     "translit": "ПА-на"
+    },
+    {
+     "q": "официально, женщине: Miło mi _ _ _ _ _ poznać.",
+     "answer": "panią",
+     "ru": "Приятно с вами познакомиться.",
+     "full_pl": "Miło mi panią poznać.",
+     "translit": "ПА-нён"
+    }
+   ]
+  },
+  {
+   "id": "wb-1-2",
+   "src": "wb",
+   "ref": "Ćw. 2, s. 4",
+   "title": "Proszę uporządkować zdania.",
+   "title_ru": "Расставь слова по порядку",
+   "task_ru": "Составь предложение. Аудио — для проверки.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "A: dobry / jestem / Maria / dzień / Benini",
+     "answer": "Dzień dobry, jestem Maria Benini.",
+     "ru": "Добрый день, я Мария Бенини.",
+     "accepted": [
+      "Dzień dobry. Jestem Maria Benini."
+     ]
+    },
+    {
+     "q": "B: się / nazywam / dzień / Uwe / dobry / Stein",
+     "answer": "Dzień dobry, nazywam się Uwe Stein.",
+     "ru": "Добрый день, меня зовут Уве Штайн.",
+     "accepted": [
+      "Dzień dobry. Nazywam się Uwe Stein."
+     ]
+    },
+    {
+     "q": "A: mi / miło / bardzo",
+     "answer": "Bardzo mi miło.",
+     "ru": "Мне очень приятно."
+    },
+    {
+     "q": "B: również / mnie",
+     "answer": "Mnie również.",
+     "ru": "Мне тоже."
+    }
+   ],
+   "audio": "01_L01_cwiczenie2.mp3"
+  },
+  {
+   "id": "wb-1-3",
+   "src": "wb",
+   "ref": "Ćw. 3, s. 4",
+   "title": "Co pasuje?",
+   "title_ru": "Что подходит?",
+   "task_ru": "Выбери слово, которое образует приветствие, прощание или вежливую фразу.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "dobry ___",
+     "answer": "wieczór",
+     "ru": "добрый … (приветствие)",
+     "full_pl": "Dobry wieczór!",
+     "grammar": "«Dzień dobry» — порядок слов обратный",
+     "options": [
+      "dzień",
+      "wieczór",
+      "noc"
+     ]
+    },
+    {
+     "q": "do ___",
+     "answer": "widzenia",
+     "ru": "до … (прощание)",
+     "full_pl": "Do widzenia!",
+     "options": [
+      "dzień",
+      "razie",
+      "widzenia"
+     ]
+    },
+    {
+     "q": "na ___",
+     "answer": "razie",
+     "ru": "прощание (неофициально)",
+     "full_pl": "Na razie!",
+     "options": [
+      "widzenia",
+      "noc",
+      "razie"
+     ]
+    },
+    {
+     "q": "dziękuję ___",
+     "answer": "bardzo",
+     "ru": "спасибо …",
+     "full_pl": "Dziękuję bardzo.",
+     "options": [
+      "miło",
+      "bardzo",
+      "mi"
+     ]
+    },
+    {
+     "q": "miło ___",
+     "answer": "mi",
+     "ru": "приятно …",
+     "full_pl": "Miło mi.",
+     "options": [
+      "mi",
+      "bardzo",
+      "również"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-1-4",
+   "src": "wb",
+   "ref": "Ćw. 4, s. 4",
+   "title": "Proszę uzupełnić dialog.",
+   "title_ru": "Дополни диалог: анкета",
+   "task_ru": "Слова: Niemcem, proszę, 607 44 32 89, Fischer, ulica Studencka 3, Thomas, jestem, do. Напиши ответ студента.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Sekretarka: Imię? — Student: ___",
+     "answer": "Thomas",
+     "ru": "Имя? — Томас."
+    },
+    {
+     "q": "Sekretarka: Nazwisko? — Student: ___",
+     "answer": "Fischer",
+     "ru": "Фамилия? — Фишер."
+    },
+    {
+     "q": "Sekretarka: Narodowość? — Student: ___",
+     "answer": "Jestem Niemcem.",
+     "ru": "Национальность? — Я немец.",
+     "grammar": "być + творительный: Niemiec → Niemcem",
+     "accepted": [
+      "Jestem Niemcem"
+     ]
+    },
+    {
+     "q": "Sekretarka: Adres? — Student: Kraków, ___",
+     "answer": "ulica Studencka 3",
+     "ru": "Адрес? — Краков, улица Студенческая, 3."
+    },
+    {
+     "q": "Sekretarka: Numer telefonu? — Student: ___",
+     "answer": "607 44 32 89",
+     "ru": "Номер телефона? — 607 44 32 89."
+    },
+    {
+     "q": "Sekretarka: Dziękuję. — Student: ___ widzenia.",
+     "answer": "Proszę, do",
+     "ru": "Спасибо. — Пожалуйста, до свидания.",
+     "full_pl": "Proszę, do widzenia.",
+     "accepted": [
+      "Proszę, do widzenia.",
+      "proszę do"
+     ]
+    }
+   ],
+   "audio": "02_L01_cwiczenie4.mp3"
+  },
+  {
+   "id": "wb-1-5",
+   "src": "wb",
+   "ref": "Ćw. 5, s. 5",
+   "title": "Co pasuje?",
+   "title_ru": "Jestem, mam или nazywam się?",
+   "task_ru": "nazywać się + фамилия / имя и фамилия; mieć na imię + имя; być (jestem) + имя.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Ewa ___ Brown.",
+     "answer": "nazywa się",
+     "ru": "Эва … Браун.",
+     "full_pl": "Ewa nazywa się Brown.",
+     "options": [
+      "jest",
+      "ma",
+      "nazywa się"
+     ]
+    },
+    {
+     "q": "___ Joanna.",
+     "answer": "nazywam się",
+     "ru": "… Иоанна.",
+     "full_pl": "Nazywam się Joanna.",
+     "grammar": "«Jestem Joanna» тоже верно; «mam» — только «mam na imię»",
+     "accepted": [
+      "Jestem"
+     ],
+     "options": [
+      "Jestem",
+      "mam",
+      "nazywam się"
+     ]
+    },
+    {
+     "q": "One ___ Grant.",
+     "answer": "nazywają się",
+     "ru": "Они … Грант.",
+     "full_pl": "One nazywają się Grant.",
+     "options": [
+      "nazywają się",
+      "mają",
+      "są"
+     ]
+    },
+    {
+     "q": "On ___ na imię Piotr.",
+     "answer": "ma",
+     "ru": "Он … Пётр.",
+     "full_pl": "On ma na imię Piotr.",
+     "options": [
+      "ma",
+      "jest",
+      "nazywa się"
+     ]
+    },
+    {
+     "q": "Jak pani ___?",
+     "answer": "się nazywa",
+     "ru": "Как вас …?",
+     "full_pl": "Jak pani się nazywa?",
+     "options": [
+      "się nazywa",
+      "ma",
+      "jest"
+     ]
+    },
+    {
+     "q": "Adam i Anna ___ Kowalscy.",
+     "answer": "nazywają się",
+     "ru": "Адам и Анна … Ковальские.",
+     "full_pl": "Adam i Anna nazywają się Kowalscy.",
+     "options": [
+      "mają",
+      "nazywają się",
+      "jesteście"
+     ]
+    },
+    {
+     "q": "Czy ty ___ Mami?",
+     "answer": "jesteś",
+     "ru": "Ты … Мами?",
+     "full_pl": "Czy ty jesteś Mami?",
+     "grammar": "«masz» — без «na imię», «nazywasz» — без «się»",
+     "options": [
+      "jesteś",
+      "masz",
+      "nazywasz"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-1-6",
+   "src": "wb",
+   "ref": "Ćw. 6, s. 5",
+   "title": "Proszę posłuchać i uzupełnić.",
+   "title_ru": "Послушай и дополни",
+   "task_ru": "Послушай запись (аудио выше) и напиши пропущенное слово.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Tom: Czy to miejsce jest ___? — Mami: Tak, jest wolne.",
+     "answer": "wolne",
+     "ru": "Это место свободно? — Да, свободно.",
+     "translit": "ВОЛЬ-нэ"
+    },
+    {
+     "q": "Angela: Aaaapsik! — Uwe: ___ zdrowie! — Angela: Dziękuję.",
+     "answer": "Na",
+     "ru": "Апчхи! — Будь здорова! — Спасибо.",
+     "full_pl": "Na zdrowie!",
+     "translit": "на"
+    },
+    {
+     "q": "A: Proszę otworzyć ___!",
+     "answer": "okno",
+     "ru": "Откройте, пожалуйста, …!",
+     "translit": "ОК-но",
+     "accepted": [
+      "drzwi"
+     ]
+    },
+    {
+     "q": "B: ___ zamknąć drzwi!",
+     "answer": "Proszę",
+     "ru": "Закройте, пожалуйста, дверь!",
+     "translit": "ПРО-шэ"
+    }
+   ],
+   "audio": "03_L01_cwiczenie6.mp3"
+  },
+  {
+   "id": "wb-1-7",
+   "src": "wb",
+   "ref": "Ćw. 7, s. 5",
+   "title": "Proszę uporządkować zdania.",
+   "title_ru": "Расставь слова по порядку",
+   "task_ru": "Составь предложение.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "gdzie / toaleta / jest / przepraszam",
+     "answer": "Przepraszam, gdzie jest toaleta?",
+     "ru": "Извините, где туалет?"
+    },
+    {
+     "q": "tam / i / kawa / cukier / są",
+     "answer": "Kawa i cukier są tam.",
+     "ru": "Кофе и сахар — там.",
+     "accepted": [
+      "Tam są kawa i cukier."
+     ]
+    },
+    {
+     "q": "na / toaleta / jest / lewo / tam",
+     "answer": "Toaleta jest tam, na lewo.",
+     "ru": "Туалет там, налево.",
+     "accepted": [
+      "Toaleta jest na lewo, tam.",
+      "Tam, na lewo jest toaleta."
+     ]
+    },
+    {
+     "q": "pani / dziękuję / bardzo",
+     "answer": "Dziękuję pani bardzo.",
+     "ru": "Большое вам спасибо.",
+     "accepted": [
+      "Bardzo pani dziękuję.",
+      "Dziękuję bardzo pani."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-1-8",
+   "src": "wb",
+   "ref": "Ćw. 8, s. 5",
+   "title": "Gdzie jest sekretariat?",
+   "title_ru": "Где секретариат?",
+   "task_ru": "Картинки — здесь стрелки. Впиши буквы и напиши слово целиком.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "⬅️ рука влево: n_ _e_o",
+     "answer": "na lewo",
+     "ru": "налево",
+     "translit": "на ЛЕ-во"
+    },
+    {
+     "q": "⬇️ здесь, рядом: _u, _u_aj",
+     "answer": "tu, tutaj",
+     "ru": "здесь, тут",
+     "translit": "ту, ТУ-тай",
+     "accepted": [
+      "tu",
+      "tutaj"
+     ]
+    },
+    {
+     "q": "↗️ далеко: t_ _",
+     "answer": "tam",
+     "ru": "там",
+     "translit": "там"
+    },
+    {
+     "q": "➡️ рука вправо: _a _r_ _o",
+     "answer": "na prawo",
+     "ru": "направо",
+     "translit": "на ПРА-во"
+    }
+   ]
+  },
+  {
+   "id": "wb-1-9",
+   "src": "wb",
+   "ref": "Ćw. 9, s. 5",
+   "title": "Proszę uzupełnić dialogi.",
+   "title_ru": "Дополни диалоги",
+   "task_ru": "Слова (каждое — один раз): proszę, przeczytać, napisać, powtórzyć, to, przeliterować, rozumiem, mówi, znaczy, otworzyć. Аудио — для проверки.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "A: Proszę ___ dialog. — B: Dobrze.",
+     "answer": "napisać",
+     "ru": "Напишите, пожалуйста, диалог. — Хорошо.",
+     "translit": "на-ПИ-сачь"
+    },
+    {
+     "q": "A: Proszę ___ „dziękuję”. — B: D-z-i-ę-k-u-j-ę.",
+     "answer": "przeliterować",
+     "ru": "Произнесите по буквам «dziękuję».",
+     "translit": "пшэ-ли-тэ-РО-вачь"
+    },
+    {
+     "q": "A: Proszę ___ tekst. — B: Tekst numer 1? — A: Tak.",
+     "answer": "przeczytać",
+     "ru": "Прочитайте, пожалуйста, текст. — Текст номер 1? — Да.",
+     "translit": "пшэ-ЧЫ-тачь"
+    },
+    {
+     "q": "A: ___ powtórzyć „dziękuję”. — B: „Dziękuję”.",
+     "answer": "Proszę",
+     "ru": "Повторите, пожалуйста, «dziękuję».",
+     "translit": "ПРО-шэ"
+    },
+    {
+     "q": "A: Co to ___ „imię”? — B: „name”.",
+     "answer": "znaczy",
+     "ru": "Что значит «imię»? — «name».",
+     "translit": "ЗНА-чы"
+    },
+    {
+     "q": "A: Jak się ___ po niemiecku „dziękuję”? — B: „Danke”.",
+     "answer": "mówi",
+     "ru": "Как сказать по-немецки «спасибо»? — «Danke».",
+     "translit": "МУ-ви"
+    },
+    {
+     "q": "A: Proszę ___ „dziesięć”. — B: „Dziesięć”.",
+     "answer": "powtórzyć",
+     "ru": "Повторите, пожалуйста, «dziesięć».",
+     "translit": "поф-ТУ-жычь"
+    },
+    {
+     "q": "A: Proszę otworzyć okno. — B: Nie ___. Proszę powtórzyć.",
+     "answer": "rozumiem",
+     "ru": "Откройте, пожалуйста, окно. — Не понимаю. Повторите, пожалуйста.",
+     "translit": "ро-ЗУ-мем"
+    },
+    {
+     "q": "A: Proszę ___ okno.",
+     "answer": "otworzyć",
+     "ru": "Откройте, пожалуйста, окно.",
+     "translit": "от-ФО-жычь"
+    },
+    {
+     "q": "B: Co ___ znaczy „otworzyć”? — A: „open”.",
+     "answer": "to",
+     "ru": "Что значит «otworzyć»? — «open».",
+     "translit": "то"
+    }
+   ],
+   "audio": "04_L01_cwiczenie9.mp3"
+  },
+  {
+   "id": "wb-1-10",
+   "src": "wb",
+   "ref": "Ćw. 10, s. 6",
+   "title": "Co pasuje?",
+   "title_ru": "Что подходит? Закончи фразу",
+   "task_ru": "Соедини начало и конец фразы.",
+   "type": "match",
+   "items": [
+    {
+     "q": "Jak się …",
+     "answer": "mówi po polsku…?",
+     "ru": "Как …",
+     "full_pl": "Jak się mówi po polsku…?"
+    },
+    {
+     "q": "Co to …",
+     "answer": "znaczy?",
+     "ru": "Что это …",
+     "full_pl": "Co to znaczy?"
+    },
+    {
+     "q": "Proszę …",
+     "answer": "powtórzyć!",
+     "ru": "Пожалуйста, …",
+     "full_pl": "Proszę powtórzyć!"
+    },
+    {
+     "q": "Nie …",
+     "answer": "rozumiem.",
+     "ru": "Не …",
+     "full_pl": "Nie rozumiem."
+    },
+    {
+     "q": "Mam …",
+     "answer": "pytanie.",
+     "ru": "У меня …",
+     "full_pl": "Mam pytanie."
+    }
+   ],
+   "options": [
+    "znaczy?",
+    "pytanie.",
+    "rozumiem.",
+    "mówi po polsku…?",
+    "powtórzyć!"
+   ]
+  },
+  {
+   "id": "wb-1-12",
+   "src": "wb",
+   "ref": "Ćw. 12, s. 6",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Впиши буквы: фразы урока",
+   "task_ru": "Напиши фразу целиком: «nie rozumiem».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "n_e roz_m_em",
+     "answer": "nie rozumiem",
+     "ru": "я не понимаю",
+     "translit": "не ро-ЗУ-мем"
+    },
+    {
+     "q": "pro_z_ po_t_r_yć",
+     "answer": "proszę powtórzyć",
+     "ru": "повторите, пожалуйста",
+     "translit": "ПРО-шэ поф-ТУ-жычь"
+    },
+    {
+     "q": "p_os_ę _rz_li_e_owa_",
+     "answer": "proszę przeliterować",
+     "ru": "произнесите по буквам, пожалуйста",
+     "translit": "ПРО-шэ пшэ-ли-тэ-РО-вачь"
+    },
+    {
+     "q": "n_e _i_m",
+     "answer": "nie wiem",
+     "ru": "я не знаю",
+     "translit": "не вем"
+    },
+    {
+     "q": "_ie p_m_ę_a_",
+     "answer": "nie pamiętam",
+     "ru": "я не помню",
+     "translit": "не па-МЕН-там"
+    },
+    {
+     "q": "p_o_ _ę p_ _e_ _yta_",
+     "answer": "proszę przeczytać",
+     "ru": "прочитайте, пожалуйста",
+     "translit": "ПРО-шэ пшэ-ЧЫ-тачь"
+    },
+    {
+     "q": "c_ t_ zna_ _y",
+     "answer": "co to znaczy",
+     "ru": "что это значит",
+     "translit": "цо то ЗНА-чы",
+     "accepted": [
+      "co to znaczy?"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-1-13",
+   "src": "wb",
+   "ref": "Ćw. 13, s. 6",
+   "title": "Proszę skorygować litery.",
+   "title_ru": "Исправь ошибки в числах",
+   "task_ru": "Напиши число правильно: «sedem → siedem».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "sedem",
+     "answer": "siedem",
+     "ru": "семь",
+     "translit": "ЩЕ-дэм"
+    },
+    {
+     "q": "tszy",
+     "answer": "trzy",
+     "ru": "три",
+     "translit": "тшы"
+    },
+    {
+     "q": "szesc",
+     "answer": "sześć",
+     "ru": "шесть",
+     "translit": "шэщьчь"
+    },
+    {
+     "q": "osem",
+     "answer": "osiem",
+     "ru": "восемь",
+     "translit": "О-щем"
+    },
+    {
+     "q": "piec",
+     "answer": "pięć",
+     "ru": "пять",
+     "translit": "пеньчь"
+    },
+    {
+     "q": "dziewiec",
+     "answer": "dziewięć",
+     "ru": "девять",
+     "translit": "ДЖЕ-веньчь"
+    },
+    {
+     "q": "ctery",
+     "answer": "cztery",
+     "ru": "четыре",
+     "translit": "ЧТЭ-ры"
+    },
+    {
+     "q": "dziesiec",
+     "answer": "dziesięć",
+     "ru": "десять",
+     "translit": "ДЖЕ-щеньчь"
+    }
+   ]
+  },
+  {
+   "id": "wb-1-16",
+   "src": "wb",
+   "ref": "Ćw. 16, s. 6",
+   "title": "Proszę posłuchać i uzupełnić.",
+   "title_ru": "Города Польши: впиши буквы",
+   "task_ru": "Послушай запись (аудио выше) и напиши название города целиком: «Warszawa».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "War_ _awa",
+     "answer": "Warszawa",
+     "ru": "Варшава",
+     "translit": "вар-ША-ва"
+    },
+    {
+     "q": "_ódź",
+     "answer": "Łódź",
+     "ru": "Лодзь",
+     "translit": "ўуджь"
+    },
+    {
+     "q": "G_a_sk",
+     "answer": "Gdańsk",
+     "ru": "Гданьск",
+     "translit": "гданьск"
+    },
+    {
+     "q": "K_ak_w",
+     "answer": "Kraków",
+     "ru": "Краков",
+     "translit": "КРА-куф"
+    },
+    {
+     "q": "_ro_ław",
+     "answer": "Wrocław",
+     "ru": "Вроцлав",
+     "translit": "ВРОЦ-ўаф"
+    },
+    {
+     "q": "Kato_i_e",
+     "answer": "Katowice",
+     "ru": "Катовице",
+     "translit": "ка-то-ВИ-цэ"
+    },
+    {
+     "q": "_pol_",
+     "answer": "Opole",
+     "ru": "Ополе",
+     "translit": "о-ПО-ле"
+    },
+    {
+     "q": "Po_na_",
+     "answer": "Poznań",
+     "ru": "Познань",
+     "translit": "ПОЗ-нань"
+    },
+    {
+     "q": "To_u_",
+     "answer": "Toruń",
+     "ru": "Торунь",
+     "translit": "ТО-рунь"
+    },
+    {
+     "q": "Ol_ _t_n",
+     "answer": "Olsztyn",
+     "ru": "Ольштын",
+     "translit": "ОЛЬ-штын"
+    },
+    {
+     "q": "C_ęstoc_owa",
+     "answer": "Częstochowa",
+     "ru": "Ченстохова",
+     "translit": "чэн-сто-ХО-ва"
+    },
+    {
+     "q": "L_bl_n",
+     "answer": "Lublin",
+     "ru": "Люблин",
+     "translit": "ЛЮБ-лин"
+    },
+    {
+     "q": "K_el_e",
+     "answer": "Kielce",
+     "ru": "Кельце",
+     "translit": "КЕЛЬ-цэ"
+    },
+    {
+     "q": "_zesz_w",
+     "answer": "Rzeszów",
+     "ru": "Жешув",
+     "translit": "ЖЭ-шуф"
+    },
+    {
+     "q": "Bia_ysto_",
+     "answer": "Białystok",
+     "ru": "Белосток",
+     "translit": "бя-ЎЫС-ток"
+    },
+    {
+     "q": "Sz_ze_in",
+     "answer": "Szczecin",
+     "ru": "Щецин",
+     "translit": "ШЧЭ-чин"
+    },
+    {
+     "q": "B_dgos_c_",
+     "answer": "Bydgoszcz",
+     "ru": "Быдгощ",
+     "translit": "БЫД-гошч"
+    },
+    {
+     "q": "Gor_ów Wielko_ol_ki",
+     "answer": "Gorzów Wielkopolski",
+     "ru": "Гожув-Велькопольский",
+     "translit": "ГО-жуф вель-ко-ПОЛЬ-ски"
+    },
+    {
+     "q": "Z_elona _óra",
+     "answer": "Zielona Góra",
+     "ru": "Зелёна-Гура",
+     "translit": "же-ЛЁ-на ГУ-ра"
+    }
+   ],
+   "audio": "08_L01_cwiczenie16.mp3"
+  }
+ ]
+}

@@ -13,12 +13,15 @@
 в таблице book_ex — можно вернуться позже и продолжить. Шаг pending «bex»: {unit, ex, pick, sure, notes, msg}.
 """
 import asyncio
+import hashlib
+import json
 import os
+import re
 import unicodedata
 from pathlib import Path
 
 from ..core import textbook
-from ..ai.prompt import CHECK_HINT, CHECK_SCHEMA, check_prompt
+from ..ai.prompt import CHECK_HINT, CHECK_SCHEMA, RULES_HINT, RULES_SCHEMA, book_rule_prompt, check_prompt
 from ..ui import fmt
 from ..common import log
 from ..exercises import logic
@@ -72,6 +75,19 @@ def find_audio(audio_dir: str, name: str, root: Path | None = None) -> Path | No
 def audio_dir_of(unit: dict, src: str) -> str:
     d = unit.get("audio_dir") or ""
     return d.get(src) or d.get("tb", "") if isinstance(d, dict) else d
+
+
+RULE_ASK = re.compile(r"(?<![\d(])(\d{1,2})\s*\?")   # «3?» в ответе — прислать полное правило к пункту 3
+
+
+def rule_marks(text: str, n_items: int) -> tuple[list[int], str]:
+    """(номера пунктов с «N?», текст без этих отметок). «(почему?)» в скобках — это уточнение, не отметка."""
+    nums = []
+    for m in RULE_ASK.finditer(text):
+        k = int(m.group(1))
+        if 1 <= k <= n_items and k not in nums:
+            nums.append(k)
+    return nums, RULE_ASK.sub(" ", text).strip() if nums else text
 
 
 def _find(unit: dict, ex_id: str) -> dict | None:
@@ -133,6 +149,17 @@ class BookExMixin:
         unit_id, _, ex_id = arg.partition("|")
         unit = textbook.get_unit(unit_id)
         if not unit:
+            return
+        if kind == "R":   # 📖 меню: правило ко всему упражнению или к пункту
+            x = _find(unit, ex_id)
+            if x:
+                await self.tg.send_message(chat_id, *fmt.bex_rule_menu(unit, x))
+            return
+        if kind in ("y", "Y"):   # 📖 правило: bx:y:<юнит>|<упр>|<пункт, 0 — всё>; Y — объяснить заново
+            ex_id, _, n = ex_id.partition("|")
+            x = _find(unit, ex_id)
+            if x and n.isdigit() and int(n) <= len(x["items"]):
+                await self.bex_rule(chat_id, unit, x, int(n) or None, fresh=kind == "Y")
             return
         if kind == "l":
             text, buttons = fmt.bex_list_screen(unit, self.db.bex_results(user_id, unit["unit"]),
@@ -241,6 +268,11 @@ class BookExMixin:
         if voice and not text:
             await self.bex_voice(chat_id, user_id, pending, unit, x, voice)
             return
+        rule_for, text = rule_marks(text, len(x["items"]))
+        if rule_for and not text and not pending["pick"]:   # только «3?» — правило, без проверки
+            for n in rule_for:
+                await self.bex_rule(chat_id, unit, x, n)
+            return
         numeric = any(ch.isdigit() for it in x["items"] for ch in str(it.get("answer", "")))
         answers = logic.parse_answers(text, len(x["items"]), numeric=numeric)
         choice = x.get("type") in logic.CHOICE_TYPES
@@ -256,6 +288,8 @@ class BookExMixin:
             await self.tg.send_message(chat_id, "Не нашёл ответов. Пиши с номерами пунктов: «1 jestem 3 mam».")
             return
         await self.bex_check(chat_id, user_id, pending, unit, x, answers, text=text, gaps=True)
+        for n in rule_for:
+            await self.bex_rule(chat_id, unit, x, n)
 
     async def bex_voice(self, chat_id: int, user_id: int, pending: dict, unit: dict, x: dict, voice: dict) -> None:
         """🎙 Ответ голосом: «один — jestem, три — mam» (номера в любом порядке, «не знаю» — пропуск).
@@ -276,6 +310,17 @@ class BookExMixin:
             await self.tg.send_message(chat_id, "🎙 Не расслышал ответов. Называй номер пункта и ответ: "
                                                  "«один — jestem, три — mam».")
             return
+        rule_for = []
+        for n, v in list(verdicts.items()):   # «три — правило»: модель пишет в note «#правило»
+            if "#правило" in str(v.get("note") or ""):
+                rule_for.append(n)
+                v["note"] = str(v["note"]).replace("#правило", "").strip()
+                if str(v.get("heard") or "").strip() in ("", "-", "—"):
+                    verdicts.pop(n)   # только правило, ответа не было — пункт не трогаем
+        if not verdicts:
+            for n in sorted(rule_for):
+                await self.bex_rule(chat_id, unit, x, n)
+            return
         answers: dict[int, dict] = {}
         for n, v in verdicts.items():
             heard = str(v.get("heard") or "").strip()
@@ -283,6 +328,26 @@ class BookExMixin:
             answers[n] = {"answer": "" if skip else heard, "unsure": False, "sure": False,
                           "note": str(v.get("note") or "").strip(), **({"skip": True} if skip else {})}
         await self.bex_check(chat_id, user_id, pending, unit, x, answers, gaps=True, voice_verdicts=verdicts)
+        for n in sorted(rule_for):
+            await self.bex_rule(chat_id, unit, x, n)
+
+    async def bex_rule(self, chat_id: int, unit: dict, x: dict, n: int | None, fresh: bool = False) -> None:
+        """📖 Полное правило к упражнению (n=None) или к пункту n. Объяснение сохраняется (rule_cache): повторно —
+        мгновенно и без запроса к модели; «🔄 Объяснить по-другому» — заново (fresh). Ключ включает хэш текста
+        упражнения/пункта — поправили упражнение, объяснение составится заново."""
+        part = x["items"][n - 1] if n else x
+        h = hashlib.md5(json.dumps(part, ensure_ascii=False, sort_keys=True).encode()).hexdigest()[:10]
+        key = f"{unit['unit']}|{x['id']}|{n or 0}|{h}"
+        data = None if fresh else self.db.rule_cache_get(key)
+        if data is None:
+            data = await self.ask(chat_id, book_rule_prompt(x, n, self.cfg.level), RULES_SCHEMA, RULES_HINT,
+                                  wait=f"⏳ Составляю правило{f' к пункту {n}' if n else ''}…")
+            if data is None:
+                return
+            self.db.rule_cache_set(key, data)
+        head = f"📖 <b>{fmt.e(fmt.bex_name(x))}</b> · " + (f"пункт {n}" if n else "всё упражнение")
+        await self.tg.send_message(chat_id, head + "\n\n" + fmt.rules_message(data),
+                                   [[("🔄 Объяснить по-другому", f"bx:Y:{unit['unit']}|{x['id']}|{n or 0}")]])
 
     @staticmethod
     def bex_task(x: dict) -> str:

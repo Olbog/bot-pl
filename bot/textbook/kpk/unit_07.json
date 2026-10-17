@@ -284,6 +284,22 @@
    "topic": "Магазины и услуги"
   },
   {
+   "pl": "sklep samoobsługowy",
+   "translit": "склеп са-мо-обс-ўу-ГО-вы",
+   "ru": "магазин самообслуживания",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "sklep"
+  },
+  {
+   "pl": "sklep fotograficzny",
+   "translit": "склеп фо-то-гра-ФИЧ-ны",
+   "ru": "фотомагазин",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "sklep"
+  },
+  {
    "pl": "kasa",
    "translit": "КА-са",
    "ru": "касса",
@@ -371,6 +387,22 @@
     "жвачка"
    ],
    "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "miętowa guma do żucia",
+   "translit": "мьен-ТО-ва ГУ-ма до ЖУ-чя",
+   "ru": "мятная жвачка",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "guma do żucia"
+  },
+  {
+   "pl": "guma owocowa",
+   "translit": "ГУ-ма о-во-ЦО-ва",
+   "ru": "фруктовая жвачка",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "guma do żucia"
   },
   {
    "pl": "bilet",
@@ -648,6 +680,286 @@
    "ru": "Что-нибудь ещё?",
    "pos": "фраза",
    "topic": "Покупки и деньги"
+  },
+  {
+   "pl": "promocja",
+   "translit": "про-МО-цья",
+   "ru": "акция, скидка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Покупки и деньги"
+  },
+  {
+   "pl": "gratis",
+   "translit": "ГРА-тис",
+   "ru": "бесплатно, в подарок",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Покупки и деньги"
+  },
+  {
+   "pl": "typować",
+   "translit": "ты-ПО-вачь",
+   "ru": "угадывать, ставить (в лотерее)",
+   "pos": "гл., -uję / -ujesz: typuję, typujesz",
+   "src": "tb",
+   "topic": "Покупки и деньги"
+  },
+  {
+   "pl": "Czy to wszystko?",
+   "translit": "чы то ФШИСТ-ко",
+   "ru": "Это всё?",
+   "pos": "🗣 фраза продавца",
+   "src": "tb",
+   "topic": "Покупки и деньги"
+  },
+  {
+   "pl": "Słucham?",
+   "translit": "СЎУ-хам",
+   "ru": "Слушаю (вас)? Чем могу помочь?",
+   "pos": "🗣 фраза продавца",
+   "src": "tb",
+   "topic": "Покупки и деньги"
+  },
+  {
+   "pl": "Biorę ten.",
+   "translit": "БЁ-рэ тэн",
+   "ru": "Беру этот.",
+   "pos": "🗣 фраза (brać: biorę, bierzesz)",
+   "src": "tb",
+   "topic": "Покупки и деньги"
+  },
+  {
+   "pl": "supermarket",
+   "translit": "су-пэр-МАР-кет",
+   "ru": "супермаркет",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Магазины и услуги"
+  },
+  {
+   "pl": "bank",
+   "translit": "банк",
+   "ru": "банк",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Магазины и услуги"
+  },
+  {
+   "pl": "RTV",
+   "translit": "эр-тэ-ФАЎ",
+   "ru": "радио- и телетехника (отдел, магазин)",
+   "pos": "аббр.",
+   "src": "tb",
+   "topic": "Магазины и услуги"
+  },
+  {
+   "pl": "AGD",
+   "translit": "а-гэ-ДЭ",
+   "ru": "бытовая техника (отдел, магазин)",
+   "pos": "аббр.",
+   "src": "tb",
+   "topic": "Магазины и услуги"
+  },
+  {
+   "pl": "sprzedawca",
+   "translit": "спшэ-ДАФ-ца",
+   "ru": "продавец",
+   "pos": "сущ., м. р. (склоняется как ж. р.)",
+   "src": "tb",
+   "topic": "Магазины и услуги"
+  },
+  {
+   "pl": "notes",
+   "translit": "НО-тэс",
+   "ru": "блокнот",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "karta telefoniczna",
+   "translit": "КАР-та тэ-ле-фо-НИЧ-на",
+   "ru": "телефонная карта",
+   "pos": "сущ. + прил., ж. р.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "album",
+   "translit": "АЛЬ-бум",
+   "ru": "альбом",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "album na fotografie",
+   "translit": "АЛЬ-бум на фо-то-гра-ФИ-э",
+   "ru": "фотоальбом",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "album"
+  },
+  {
+   "pl": "okulary",
+   "translit": "о-ку-ЛЯ-ры",
+   "ru": "очки",
+   "pos": "сущ., только мн. ч.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "aspiryna",
+   "translit": "ас-пи-РЫ-на",
+   "ru": "аспирин",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "szampon",
+   "translit": "ШАМ-пон",
+   "ru": "шампунь",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "żel pod prysznic",
+   "translit": "жэль пот ПРЫШ-ниц",
+   "ru": "гель для душа",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "ciastko",
+   "translit": "ЧЯСТ-ко",
+   "ru": "пирожное, печенье",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "pączek",
+   "translit": "ПОН-чэк",
+   "ru": "пончик",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "buty",
+   "translit": "БУ-ты",
+   "ru": "обувь, ботинки",
+   "pos": "сущ., мн. ч.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "sandały",
+   "translit": "сан-ДА-ўы",
+   "ru": "сандалии",
+   "pos": "сущ., мн. ч.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "telewizor",
+   "translit": "тэ-ле-ВИ-зор",
+   "ru": "телевизор",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "bilet lotniczy",
+   "translit": "БИ-лет лот-НИ-чы",
+   "ru": "авиабилет",
+   "pos": "сущ. + прил., м. р.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "wczasy",
+   "translit": "ФЧА-сы",
+   "ru": "отпуск, путёвка (отдых)",
+   "pos": "сущ., только мн. ч.",
+   "src": "tb",
+   "topic": "Что покупаем в киоске и магазине"
+  },
+  {
+   "pl": "niedrogi",
+   "translit": "не-ДРО-ги",
+   "ru": "недорогой",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Описание"
+  },
+  {
+   "pl": "kolorowy",
+   "translit": "ко-ло-РО-вы",
+   "ru": "цветной, красочный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Описание"
+  },
+  {
+   "pl": "kolorowy magazyn",
+   "translit": "ко-ло-РО-вы ма-ГА-зын",
+   "ru": "цветной (глянцевый) журнал",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "kolorowy"
+  },
+  {
+   "pl": "sportowy",
+   "translit": "спор-ТО-вы",
+   "ru": "спортивный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Описание"
+  },
+  {
+   "pl": "sportowe auto",
+   "translit": "спор-ТО-вэ АЎ-то",
+   "ru": "спортивная машина",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "sportowy"
+  },
+  {
+   "pl": "inteligentny",
+   "translit": "ин-тэ-ли-ГЕНТ-ны",
+   "ru": "умный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Описание"
+  },
+  {
+   "pl": "funkcjonalny",
+   "translit": "функ-цьё-НАЛЬ-ны",
+   "ru": "функциональный, удобный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Описание"
+  },
+  {
+   "pl": "jaki? jakiego? jaką? jakie?",
+   "translit": "Я-ки, я-КЕ-го, Я-кон, Я-ке",
+   "ru": "какой? (вин. п.: м. р. неодуш. / м. р. одуш. / ж. р. / ср. р.)",
+   "pos": "вопрос, винительный падеж",
+   "src": "tb",
+   "topic": "Какой? Описание"
+  },
+  {
+   "pl": "kogo? co?",
+   "translit": "КО-го, цо",
+   "ru": "кого? что? (вопросы винительного падежа)",
+   "pos": "вопрос, винительный падеж",
+   "src": "tb",
+   "topic": "Какой? Описание"
   }
  ],
  "topics": [
@@ -655,5 +967,1881 @@
   "Магазины и услуги",
   "Что покупаем в киоске и магазине",
   "Какой? Описание"
+ ],
+ "exercises": [
+  {
+   "id": "tb-7-a1",
+   "src": "tb",
+   "ref": "A · Ćw. 1, s. 46",
+   "title": "Kto to mówi?",
+   "title_ru": "Кто это говорит?",
+   "task_ru": "По диалогу 1 (аудио выше): кто так говорит — Mami, Karol или Karolina? Текст — на странице учебника (кнопка 📄 ниже).",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Mam wolny czas.",
+     "answer": "Mami",
+     "ru": "У меня есть свободное время.",
+     "grammar": "Мами скучает (Nudzę się…) — значит, она свободна",
+     "options": [
+      "Mami",
+      "Karol",
+      "Karolina"
+     ]
+    },
+    {
+     "q": "Mam długą listę.",
+     "answer": "Mami",
+     "ru": "У меня длинный список.",
+     "grammar": "długa lista → biernik: długą listę",
+     "options": [
+      "Mami",
+      "Karol",
+      "Karolina"
+     ]
+    },
+    {
+     "q": "Mam sportowe auto.",
+     "answer": "Karol",
+     "ru": "У меня спортивная машина.",
+     "grammar": "ср. р.: biernik = mianownik",
+     "options": [
+      "Mami",
+      "Karol",
+      "Karolina"
+     ]
+    },
+    {
+     "q": "Mam inteligentnego brata.",
+     "answer": "Karolina",
+     "ru": "У меня умный брат.",
+     "grammar": "м. р. одушевл.: -ego, -a (inteligentnego brata)",
+     "options": [
+      "Mami",
+      "Karol",
+      "Karolina"
+     ]
+    }
+   ],
+   "audio": "107a1.mp3"
+  },
+  {
+   "id": "tb-7-a2",
+   "src": "tb",
+   "ref": "A · Ćw. 2, s. 47",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Что с каким глаголом?",
+   "task_ru": "Слова в рамке: bilet, makaron, piłkę nożną, listę, telewizję, gazetę, pracę domową, dyskotekę, film, książkę, zupę, zdjęcie, golfa, pomidora, list, zdanie, piwo, gimnastykę, kawę, słowo. К каждому глаголу — два слова (каждое слово один раз), через запятую: «gazetę, książkę». Проверяет модель — подходят и другие логичные пары.",
+   "type": "open",
+   "items": [
+    {
+     "q": "czytać ___, ___",
+     "answer": "gazetę, książkę",
+     "ru": "читать …",
+     "accepted": [
+      "książkę, gazetę"
+     ]
+    },
+    {
+     "q": "oglądać ___, ___",
+     "answer": "telewizję, film",
+     "ru": "смотреть …",
+     "accepted": [
+      "film, telewizję"
+     ]
+    },
+    {
+     "q": "robić ___, ___",
+     "answer": "zdjęcie, pracę domową",
+     "ru": "делать …",
+     "accepted": [
+      "pracę domową, zdjęcie",
+      "zdjęcie, listę"
+     ]
+    },
+    {
+     "q": "gotować ___, ___",
+     "answer": "makaron, zupę",
+     "ru": "варить, готовить …",
+     "accepted": [
+      "zupę, makaron"
+     ]
+    },
+    {
+     "q": "chodzić na ___, ___",
+     "answer": "dyskotekę, gimnastykę",
+     "ru": "ходить на …",
+     "accepted": [
+      "gimnastykę, dyskotekę"
+     ]
+    },
+    {
+     "q": "grać w ___, ___",
+     "answer": "piłkę nożną, golfa",
+     "ru": "играть в …",
+     "accepted": [
+      "golfa, piłkę nożną"
+     ]
+    },
+    {
+     "q": "kupować ___, ___",
+     "answer": "bilet, pomidora",
+     "ru": "покупать …",
+     "accepted": [
+      "pomidora, bilet",
+      "bilet, piwo"
+     ]
+    },
+    {
+     "q": "pisać ___, ___",
+     "answer": "list, listę",
+     "ru": "писать …",
+     "accepted": [
+      "listę, list",
+      "list, zdanie"
+     ]
+    },
+    {
+     "q": "powtórzyć ___, ___",
+     "answer": "zdanie, słowo",
+     "ru": "повторить …",
+     "accepted": [
+      "słowo, zdanie"
+     ]
+    },
+    {
+     "q": "lubić ___, ___",
+     "answer": "piwo, kawę",
+     "ru": "любить …",
+     "accepted": [
+      "kawę, piwo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-7-a3",
+   "src": "tb",
+   "ref": "A · Ćw. 3, s. 47",
+   "title": "Kogo? Co?",
+   "title_ru": "Кого? Что?",
+   "task_ru": "Kogo? — о людях и животных, co? — о вещах. Выбери вопрос.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "___ gotujesz?",
+     "answer": "Co",
+     "ru": "… ты готовишь?",
+     "full_pl": "Co gotujesz?",
+     "options": [
+      "Co",
+      "Kogo"
+     ]
+    },
+    {
+     "q": "___ czytasz? „Gazetę Wyborczą”?",
+     "answer": "Co",
+     "ru": "… ты читаешь? «Газету Выборчу»?",
+     "options": [
+      "Co",
+      "Kogo"
+     ]
+    },
+    {
+     "q": "___ znacie? Agnieszkę i Piotra?",
+     "answer": "Kogo",
+     "ru": "… вы знаете? Агнешку и Петра?",
+     "options": [
+      "Co",
+      "Kogo"
+     ]
+    },
+    {
+     "q": "___ oni piszą?",
+     "answer": "Co",
+     "ru": "… они пишут?",
+     "options": [
+      "Co",
+      "Kogo"
+     ]
+    },
+    {
+     "q": "___ lubisz? Brada Pitta?!",
+     "answer": "Kogo",
+     "ru": "… ты любишь? Брэда Питта?!",
+     "options": [
+      "Co",
+      "Kogo"
+     ]
+    },
+    {
+     "q": "___ robi mama? Pierogi ruskie!",
+     "answer": "Co",
+     "ru": "… делает мама? Вареники с картошкой и творогом!",
+     "options": [
+      "Co",
+      "Kogo"
+     ]
+    },
+    {
+     "q": "___ lubię? Hm, lubię kino i teatr.",
+     "answer": "Co",
+     "ru": "… я люблю? Хм, люблю кино и театр.",
+     "options": [
+      "Co",
+      "Kogo"
+     ]
+    },
+    {
+     "q": "W ___ dobrze grasz? W golfa czy w tenisa?",
+     "answer": "co",
+     "ru": "Во … ты хорошо играешь? В гольф или в теннис?",
+     "full_pl": "W co dobrze grasz?",
+     "grammar": "grać w + винительный: w co?",
+     "options": [
+      "co",
+      "kogo"
+     ]
+    },
+    {
+     "q": "___ masz w torbie?",
+     "answer": "Co",
+     "ru": "… у тебя в сумке?",
+     "options": [
+      "Co",
+      "Kogo"
+     ]
+    },
+    {
+     "q": "___ on fotografuje? On fotografuje moją koleżankę.",
+     "answer": "Kogo",
+     "ru": "… он фотографирует? Он фотографирует мою подругу.",
+     "options": [
+      "Co",
+      "Kogo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-7-a4",
+   "src": "tb",
+   "ref": "A · Ćw. 4, s. 47",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Поставь в винительный падеж",
+   "task_ru": "Слова в скобках поставь в винительный падеж (biernik). mój → mojego, twój → twojego (м. р. одушевл.).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Znam ___. (twój brat)",
+     "answer": "twojego brata",
+     "ru": "Я знаю твоего брата.",
+     "full_pl": "Znam twojego brata.",
+     "grammar": "м. р. одушевл.: -ego, -a"
+    },
+    {
+     "q": "Lubię ___. (zielona herbata)",
+     "answer": "zieloną herbatę",
+     "ru": "Я люблю зелёный чай.",
+     "full_pl": "Lubię zieloną herbatę.",
+     "grammar": "ж. р.: -ą, -ę"
+    },
+    {
+     "q": "Ona robi ___. (tajski masaż)",
+     "answer": "tajski masaż",
+     "ru": "Она делает тайский массаж.",
+     "full_pl": "Ona robi tajski masaż.",
+     "grammar": "м. р. неодушевл.: = именительный"
+    },
+    {
+     "q": "My piszemy ___. (długi e-mail)",
+     "answer": "długi e-mail",
+     "ru": "Мы пишем длинное письмо.",
+     "full_pl": "My piszemy długi e-mail.",
+     "grammar": "м. р. неодушевл.: = именительный"
+    },
+    {
+     "q": "Mama gotuje ___. (zupa pomidorowa)",
+     "answer": "zupę pomidorową",
+     "ru": "Мама варит томатный суп.",
+     "full_pl": "Mama gotuje zupę pomidorową.",
+     "grammar": "ж. р.: -ę, -ą"
+    },
+    {
+     "q": "Czy oglądasz ___? (polska telewizja)",
+     "answer": "polską telewizję",
+     "ru": "Ты смотришь польское телевидение?",
+     "full_pl": "Czy oglądasz polską telewizję?",
+     "grammar": "ж. р.: -ą, -ę"
+    },
+    {
+     "q": "Masz ___. (sympatyczna siostra)",
+     "answer": "sympatyczną siostrę",
+     "ru": "У тебя симпатичная сестра.",
+     "full_pl": "Masz sympatyczną siostrę.",
+     "grammar": "ж. р.: -ą, -ę"
+    },
+    {
+     "q": "Lubimy ___. (Krakowski Rynek)",
+     "answer": "Krakowski Rynek",
+     "ru": "Мы любим Краковскую Рыночную площадь.",
+     "full_pl": "Lubimy Krakowski Rynek.",
+     "grammar": "м. р. неодушевл.: = именительный"
+    }
+   ]
+  },
+  {
+   "id": "tb-7-b1",
+   "src": "tb",
+   "ref": "B · Ćw. 1, s. 48",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "В киоске: «Proszę…»",
+   "task_ru": "Список покупок Мами (на странице): Gazeta Krakowska, mała mapa, czerwony długopis, miętowa guma do żucia, bilet normalny, kolorowy magazyn. Попроси в киоске — после Proszę винительный падеж.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "🗺 Proszę ___ (mała mapa Krakowa)",
+     "answer": "małą mapę Krakowa",
+     "ru": "Дайте, пожалуйста, маленькую карту Кракова.",
+     "grammar": "ж. р.: -ą, -ę",
+     "accepted": [
+      "małą mapę",
+      "mapę Krakowa"
+     ]
+    },
+    {
+     "q": "🎫 Proszę ___ (bilet normalny)",
+     "answer": "bilet normalny",
+     "ru": "Дайте, пожалуйста, полный (не льготный) билет.",
+     "grammar": "м. р. неодушевл.: = именительный"
+    },
+    {
+     "q": "🍬 Proszę ___ (miętowa guma do żucia)",
+     "answer": "miętową gumę do żucia",
+     "ru": "Дайте, пожалуйста, мятную жвачку.",
+     "grammar": "ж. р.: -ą, -ę"
+    },
+    {
+     "q": "📰 Proszę ___ („Gazeta Krakowska”)",
+     "answer": "„Gazetę Krakowską”",
+     "ru": "Дайте, пожалуйста, «Газету Краковску».",
+     "grammar": "ж. р.: -ę, -ą",
+     "accepted": [
+      "Gazetę Krakowską"
+     ]
+    },
+    {
+     "q": "📖 Proszę ___ (kolorowy magazyn)",
+     "answer": "kolorowy magazyn",
+     "ru": "Дайте, пожалуйста, цветной журнал.",
+     "grammar": "м. р. неодушевл.: = именительный"
+    },
+    {
+     "q": "🖊 Proszę ___ (czerwony długopis)",
+     "answer": "czerwony długopis",
+     "ru": "Дайте, пожалуйста, красную ручку.",
+     "grammar": "м. р. неодушевл.: = именительный"
+    }
+   ],
+   "audio": "107b1.mp3"
+  },
+  {
+   "id": "tb-7-b2",
+   "src": "tb",
+   "ref": "B · Ćw. 2, s. 48",
+   "title": "Złote? Złotych? Grosze? Groszy?",
+   "title_ru": "Злотые и гроши",
+   "task_ru": "1 → złoty, grosz; 2, 3, 4 (и 22–24, 32–34…, кроме 12–14) → złote, grosze; 5 и больше, 11–19 → złotych, groszy. Напиши два слова через запятую: «złote, groszy».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "33 ___ 15 ___",
+     "answer": "złote, groszy",
+     "ru": "33 злотых 15 грошей",
+     "full_pl": "33 złote 15 groszy",
+     "grammar": "…3 → złote; 15 → groszy"
+    },
+    {
+     "q": "12 ___ 50 ___",
+     "answer": "złotych, groszy",
+     "ru": "12 злотых 50 грошей",
+     "full_pl": "12 złotych 50 groszy",
+     "grammar": "12 (12–14 — исключение) → złotych"
+    },
+    {
+     "q": "45 ___ 10 ___",
+     "answer": "złotych, groszy",
+     "ru": "45 злотых 10 грошей",
+     "full_pl": "45 złotych 10 groszy"
+    },
+    {
+     "q": "6 ___ 20 ___",
+     "answer": "złotych, groszy",
+     "ru": "6 злотых 20 грошей",
+     "full_pl": "6 złotych 20 groszy"
+    },
+    {
+     "q": "60 ___ 02 ___",
+     "answer": "złotych, grosze",
+     "ru": "60 злотых 2 гроша",
+     "full_pl": "60 złotych 2 grosze",
+     "grammar": "2 → grosze"
+    },
+    {
+     "q": "21 ___ 05 ___",
+     "answer": "złotych, groszy",
+     "ru": "21 злотый 5 грошей",
+     "full_pl": "21 złotych 5 groszy",
+     "grammar": "21 → złotych (польский ≠ русский!)"
+    },
+    {
+     "q": "99 ___ 99 ___",
+     "answer": "złotych, groszy",
+     "ru": "99 злотых 99 грошей",
+     "full_pl": "99 złotych 99 groszy"
+    },
+    {
+     "q": "34 ___ 80 ___",
+     "answer": "złote, groszy",
+     "ru": "34 злотых 80 грошей",
+     "full_pl": "34 złote 80 groszy",
+     "grammar": "…4 → złote"
+    }
+   ]
+  },
+  {
+   "id": "tb-7-b3",
+   "src": "tb",
+   "ref": "B · Ćw. 3, s. 48",
+   "title": "Proszę uzupełnić dialog.",
+   "title_ru": "В киоске: дополни диалог",
+   "task_ru": "Напиши пропущенные слова (несколько — через запятую). Образец — диалог 1 на той же странице.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Mami: Dzień dobry. Czy ___ Magazyn „Viva”?",
+     "answer": "jest",
+     "ru": "Здравствуйте. Есть журнал «Viva»?",
+     "translit": "ест"
+    },
+    {
+     "q": "Mami: Ile ___?",
+     "answer": "kosztuje",
+     "ru": "Сколько стоит?",
+     "translit": "кош-ТУ-е"
+    },
+    {
+     "q": "Pani: 9 ___ 99 ___. Czy coś ___?",
+     "answer": "złotych, groszy, jeszcze",
+     "ru": "9 злотых 99 грошей. Что-нибудь ещё?",
+     "full_pl": "9 złotych 99 groszy. Czy coś jeszcze?"
+    },
+    {
+     "q": "Mami: ___ jest ołówek?",
+     "answer": "Czy",
+     "ru": "Есть карандаш?",
+     "translit": "чы"
+    },
+    {
+     "q": "Pani: Nie ___.",
+     "answer": "ma",
+     "ru": "Нет.",
+     "full_pl": "Nie ma.",
+     "translit": "ма",
+     "grammar": "Nie ma — «нет (в наличии)»"
+    }
+   ]
+  },
+  {
+   "id": "tb-7-b4",
+   "src": "tb",
+   "ref": "B · Ćw. 4, s. 49",
+   "title": "Proszę napisać analogiczny dialog.",
+   "title_ru": "Напиши похожий диалог",
+   "task_ru": "Как в ćw. 3: мятная жвачка есть, стоит 3 zł; красной ручки нет. Напиши диалог Мами и продавщицы. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "miętowa guma do żucia / 3 zł; czerwony długopis (–)",
+     "answer": "Mami: Dzień dobry. Czy jest miętowa guma do żucia? Pani: Tak, jest. Mami: Ile kosztuje? Pani: 3 złote. Czy coś jeszcze? Mami: Czy jest czerwony długopis? Pani: Nie ma.",
+     "ru": "мятная жвачка — 3 злотых; красной ручки нет"
+    }
+   ]
+  },
+  {
+   "id": "tb-7-b6",
+   "src": "tb",
+   "ref": "B · Ćw. 6, s. 49",
+   "title": "Co mówi lektor?",
+   "title_ru": "Сотни: как правильно?",
+   "task_ru": "Выбери правильную форму (аудио — для проверки).",
+   "type": "choice",
+   "items": [
+    {
+     "q": "100",
+     "answer": "sto",
+     "ru": "число 100",
+     "translit": "сто",
+     "options": [
+      "sta",
+      "sto"
+     ]
+    },
+    {
+     "q": "200",
+     "answer": "dwieście",
+     "ru": "число 200",
+     "translit": "ДВЕ-щьче",
+     "options": [
+      "dwasto",
+      "dwieście"
+     ]
+    },
+    {
+     "q": "300",
+     "answer": "trzysta",
+     "ru": "число 300",
+     "translit": "ТШЫС-та",
+     "options": [
+      "trzysta",
+      "trzysto"
+     ]
+    },
+    {
+     "q": "400",
+     "answer": "czterysta",
+     "ru": "число 400",
+     "translit": "чтэ-РЫС-та",
+     "options": [
+      "czteryset",
+      "czterysta"
+     ]
+    },
+    {
+     "q": "500",
+     "answer": "pięćset",
+     "ru": "число 500",
+     "translit": "ПЕНЬЧЬ-сет",
+     "options": [
+      "pięćset",
+      "pięćsta"
+     ]
+    },
+    {
+     "q": "600",
+     "answer": "sześćset",
+     "ru": "число 600",
+     "translit": "ШЭЩЬЧЬ-сет",
+     "options": [
+      "sześćsto",
+      "sześćset"
+     ]
+    },
+    {
+     "q": "700",
+     "answer": "siedemset",
+     "ru": "число 700",
+     "translit": "ЩЕ-дэм-сет",
+     "options": [
+      "siedemście",
+      "siedemset"
+     ]
+    },
+    {
+     "q": "800",
+     "answer": "osiemset",
+     "ru": "число 800",
+     "translit": "О-щем-сет",
+     "options": [
+      "osiemset",
+      "osiemsta"
+     ]
+    },
+    {
+     "q": "900",
+     "answer": "dziewięćset",
+     "ru": "число 900",
+     "translit": "джэ-ВЕНЬЧЬ-сет",
+     "options": [
+      "dziewięćset",
+      "dziesięćset"
+     ]
+    },
+    {
+     "q": "1000",
+     "answer": "tysiąc",
+     "ru": "число 1000",
+     "translit": "ТЫ-щёнц",
+     "options": [
+      "tysiąc",
+      "tysięcy"
+     ]
+    }
+   ],
+   "audio": "107b6.mp3"
+  },
+  {
+   "id": "tb-7-b8",
+   "src": "tb",
+   "ref": "B · Ćw. 8, s. 49",
+   "title": "Proszę napisać numer słowami.",
+   "title_ru": "Напиши число словами",
+   "task_ru": "Напиши число словами: «sześćset siedemdziesiąt osiem».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "678",
+     "answer": "sześćset siedemdziesiąt osiem",
+     "ru": "678"
+    },
+    {
+     "q": "456",
+     "answer": "czterysta pięćdziesiąt sześć",
+     "ru": "456"
+    },
+    {
+     "q": "349",
+     "answer": "trzysta czterdzieści dziewięć",
+     "ru": "349"
+    },
+    {
+     "q": "212",
+     "answer": "dwieście dwanaście",
+     "ru": "212"
+    },
+    {
+     "q": "199",
+     "answer": "sto dziewięćdziesiąt dziewięć",
+     "ru": "199"
+    },
+    {
+     "q": "954",
+     "answer": "dziewięćset pięćdziesiąt cztery",
+     "ru": "954"
+    },
+    {
+     "q": "865",
+     "answer": "osiemset sześćdziesiąt pięć",
+     "ru": "865"
+    },
+    {
+     "q": "555",
+     "answer": "pięćset pięćdziesiąt pięć",
+     "ru": "555"
+    }
+   ]
+  },
+  {
+   "id": "tb-7-c-plan",
+   "src": "tb",
+   "ref": "C · Plan galerii, s. 50",
+   "title": "Plan galerii: co gdzie kupić?",
+   "title_ru": "План торгового центра: где это купить?",
+   "task_ru": "Картинки из учебника — здесь эмодзи и описание. В каком магазине из плана галереи это купить? Напиши название магазина: RTV, piekarnia, odzież, biżuteria, obuwie, herbaciarnia, optyk, fryzjer, cukiernia, biuro podróży, bank, kawiarnia, kwiaciarnia, kiosk, apteka, drogeria, delikatesy, pralnia, AGD. (Образец: 🫧 стиральная машина → 18 pralnia.)",
+   "type": "gap",
+   "items": [
+    {
+     "q": "🌹 розы в вазе",
+     "answer": "kwiaciarnia",
+     "ru": "цветы",
+     "translit": "кфя-ЧЯР-ня"
+    },
+    {
+     "q": "🍵 чай в чашке и пачки чая",
+     "answer": "herbaciarnia",
+     "ru": "чай",
+     "translit": "хэр-ба-ЧЯР-ня"
+    },
+    {
+     "q": "🧴 духи, шампунь, крем",
+     "answer": "drogeria",
+     "ru": "косметика",
+     "translit": "дро-ГЕ-рья"
+    },
+    {
+     "q": "💍 шкатулка, кольца, браслет",
+     "answer": "biżuteria",
+     "ru": "украшения",
+     "translit": "би-жу-ТЭ-рья"
+    },
+    {
+     "q": "🪮 щётка и расчёска для волос",
+     "answer": "fryzjer",
+     "ru": "щётка и расчёска",
+     "translit": "ФРЫЗ-ер"
+    },
+    {
+     "q": "🕶 солнечные очки",
+     "answer": "optyk",
+     "ru": "очки",
+     "translit": "ОП-тык"
+    },
+    {
+     "q": "👠 красные туфли",
+     "answer": "obuwie",
+     "ru": "туфли",
+     "translit": "о-БУ-вье"
+    },
+    {
+     "q": "🍹 блендер",
+     "answer": "AGD",
+     "ru": "блендер",
+     "translit": "а-гэ-ДЭ"
+    },
+    {
+     "q": "📰 газета",
+     "answer": "kiosk",
+     "ru": "газета",
+     "translit": "кёск"
+    },
+    {
+     "q": "👕 футболка",
+     "answer": "odzież",
+     "ru": "футболка",
+     "translit": "ОД-жеш"
+    },
+    {
+     "q": "📺 телевизор",
+     "answer": "RTV",
+     "ru": "телевизор",
+     "translit": "эр-тэ-ФАЎ"
+    },
+    {
+     "q": "☕ чашка кофе с печеньем",
+     "answer": "kawiarnia",
+     "ru": "кофе",
+     "translit": "ка-ВЯР-ня"
+    },
+    {
+     "q": "💊 таблетки",
+     "answer": "apteka",
+     "ru": "таблетки",
+     "translit": "ап-ТЭ-ка"
+    },
+    {
+     "q": "🍰 кусок торта",
+     "answer": "cukiernia",
+     "ru": "торт",
+     "translit": "цу-КЕР-ня"
+    },
+    {
+     "q": "🥖 хлеб и булки в корзинке",
+     "answer": "piekarnia",
+     "ru": "хлеб",
+     "translit": "пе-КАР-ня"
+    },
+    {
+     "q": "🌴 буклет «Egipt» — путёвка",
+     "answer": "biuro podróży",
+     "ru": "путёвка в Египет",
+     "translit": "БЮ-ро по-ДРУ-жы"
+    },
+    {
+     "q": "💳 карта «860 zł» — кредит до 10 тысяч",
+     "answer": "bank",
+     "ru": "кредит",
+     "translit": "банк"
+    },
+    {
+     "q": "🥝 киви и баночка джема",
+     "answer": "delikatesy",
+     "ru": "деликатесы",
+     "translit": "де-ли-ка-ТЭ-сы"
+    }
+   ]
+  },
+  {
+   "id": "tb-7-c1",
+   "src": "tb",
+   "ref": "C · Ćw. 1, s. 51",
+   "title": "Proszę uzupełnić dialogi.",
+   "title_ru": "Дополни диалоги в галерее",
+   "task_ru": "Слова над диалогами: A rozumiesz, restauracji, drogerii, sklep, mapę; B aparat, torba, ma, firmy, kosztuje, pan, dobry (×2), złotych, tani, słucham; C tam, wszystko, pięćset, kartę. Напиши слово в пропуск (несколько — через запятую). Текст — на странице учебника (кнопка 📄 ниже).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "A. Mami: A gdzie ja mogę kupić ___?",
+     "answer": "mapę",
+     "ru": "А где я могу купить карту?",
+     "translit": "МА-пэ"
+    },
+    {
+     "q": "A. Karolina: W Empiku. A kosmetyki w ___.",
+     "answer": "drogerii",
+     "ru": "В «Эмпике». А косметику — в магазине косметики.",
+     "translit": "дро-ГЕ-рьи",
+     "grammar": "w + местный падеж: drogeria → w drogerii"
+    },
+    {
+     "q": "A. Karolina: To ___ samoobsługowy.",
+     "answer": "sklep",
+     "ru": "Это магазин самообслуживания.",
+     "translit": "склеп"
+    },
+    {
+     "q": "A. Karolina: Ty sama decydujesz, co kupujesz, a tam jest kasa; ___?",
+     "answer": "rozumiesz",
+     "ru": "Ты сама решаешь, что покупаешь, а там касса; понимаешь?",
+     "translit": "ро-ЗУ-мешь"
+    },
+    {
+     "q": "A. Mami: Jak w ___ albo w supermarkecie?",
+     "answer": "restauracji",
+     "ru": "Как в ресторане или в супермаркете?",
+     "translit": "рэс-таў-РА-цьи"
+    },
+    {
+     "q": "B. Karolina: Dzień ___.",
+     "answer": "dobry",
+     "ru": "Здравствуйте.",
+     "translit": "ДОБ-ры"
+    },
+    {
+     "q": "B. Pan: Dzień dobry, ___?",
+     "answer": "słucham",
+     "ru": "Здравствуйте, слушаю вас?",
+     "translit": "СЎУ-хам"
+    },
+    {
+     "q": "B. Karolina: Czy jest ___, ale niedrogi ___ fotograficzny?",
+     "answer": "dobry, aparat",
+     "ru": "Есть хороший, но недорогой фотоаппарат?"
+    },
+    {
+     "q": "B. Pan: Jakiej ___?",
+     "answer": "firmy",
+     "ru": "Какой фирмы?",
+     "translit": "ФИР-мы"
+    },
+    {
+     "q": "B. Karolina: Nie wiem, jaką firmę ___ poleca?",
+     "answer": "pan",
+     "ru": "Не знаю, какую фирму вы посоветуете?",
+     "translit": "пан"
+    },
+    {
+     "q": "B. Pan: Ten aparat jest bardzo dobry: mały, ___, funkcjonalny. Kosztuje tylko 300 ___.",
+     "answer": "tani, złotych",
+     "ru": "Этот фотоаппарат очень хороший: маленький, дешёвый, функциональный. Стоит всего 300 злотых."
+    },
+    {
+     "q": "B. Pan: Ten ___ 422 złote, to promocja, bo karta pamięci i ___ są gratis.",
+     "answer": "kosztuje, torba",
+     "ru": "Этот стоит 422 злотых, это акция: карта памяти и сумка — бесплатно."
+    },
+    {
+     "q": "B. Pan: Niestety, nie ___.",
+     "answer": "ma",
+     "ru": "К сожалению, нет.",
+     "translit": "ма"
+    },
+    {
+     "q": "C. Karolina: Masz ___?",
+     "answer": "wszystko",
+     "ru": "У тебя всё есть?",
+     "translit": "ФШИСТ-ко"
+    },
+    {
+     "q": "C. Karolina: A masz ___ do bankomatu? Bo ___ jest bankomat.",
+     "answer": "kartę, tam",
+     "ru": "А у тебя есть карта для банкомата? Потому что там банкомат."
+    },
+    {
+     "q": "C. Karolina: Ile masz euro? — Mami: ___.",
+     "answer": "Pięćset",
+     "ru": "Сколько у тебя евро? — Пятьсот.",
+     "translit": "ПЕНЬЧЬ-сет"
+    }
+   ],
+   "audio": [
+    "107c2-a.mp3",
+    "107c2-b.mp3",
+    "107c2-c.mp3"
+   ]
+  },
+  {
+   "id": "tb-7-c2",
+   "src": "tb",
+   "ref": "C · Ćw. 2, s. 51",
+   "title": "Prawda czy nieprawda?",
+   "title_ru": "Правда или неправда?",
+   "task_ru": "По диалогам ćw. 1 (аудио выше). Правда (P) или неправда (N)? Текст — на странице учебника (кнопка 📄 ниже).",
+   "type": "tf",
+   "items": [
+    {
+     "q": "Karolina chce tani aparat.",
+     "answer": "prawda",
+     "ru": "Каролина хочет дешёвый фотоаппарат.",
+     "grammar": "«dobry, ale niedrogi aparat»"
+    },
+    {
+     "q": "Karolina kupuje aparat za 300 złotych.",
+     "answer": "nieprawda",
+     "ru": "Каролина покупает фотоаппарат за 300 злотых.",
+     "full_pl": "Karolina kupuje aparat za 422 złote."
+    },
+    {
+     "q": "Karolina nie płaci za kartę pamięci i torbę.",
+     "answer": "prawda",
+     "ru": "Каролина не платит за карту памяти и сумку.",
+     "grammar": "«karta pamięci i torba są gratis»"
+    },
+    {
+     "q": "Karolina kupuje też album na fotografie.",
+     "answer": "nieprawda",
+     "ru": "Каролина покупает ещё и фотоальбом.",
+     "grammar": "«Niestety, nie ma.»"
+    },
+    {
+     "q": "Sklep fotograficzny jest samoobsługowy.",
+     "answer": "nieprawda",
+     "ru": "Фотомагазин — самообслуживания.",
+     "grammar": "там продавец (Pan); самообслуживание — в drogerii"
+    },
+    {
+     "q": "Mami ma polskie pieniądze.",
+     "answer": "nieprawda",
+     "ru": "У Мами есть польские деньги.",
+     "full_pl": "Mami ma euro, nie ma polskich pieniędzy."
+    },
+    {
+     "q": "Mami lubi galerię handlową.",
+     "answer": "prawda",
+     "ru": "Мами нравится торговый центр.",
+     "grammar": "«tu jest tak interesująco!»"
+    }
+   ],
+   "audio": [
+    "107c2-a.mp3",
+    "107c2-b.mp3",
+    "107c2-c.mp3"
+   ]
+  },
+  {
+   "id": "tb-7-d1",
+   "src": "tb",
+   "ref": "D · Powtórzenie, s. 51",
+   "title": "Co pasuje?",
+   "title_ru": "Что подходит? Винительный падеж",
+   "task_ru": "Выбери форму винительного падежа (biernik).",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Mam ___.",
+     "answer": "brata",
+     "ru": "У меня есть брат.",
+     "full_pl": "Mam brata.",
+     "grammar": "м. р. одушевл.: -a",
+     "options": [
+      "brat",
+      "bratem",
+      "brata"
+     ]
+    },
+    {
+     "q": "Mam ___.",
+     "answer": "czas",
+     "ru": "У меня есть время.",
+     "full_pl": "Mam czas.",
+     "grammar": "м. р. неодушевл.: = именительный",
+     "options": [
+      "czas",
+      "czasem",
+      "czasu"
+     ]
+    },
+    {
+     "q": "Proszę ___.",
+     "answer": "pomidora",
+     "ru": "Дайте, пожалуйста, помидор.",
+     "full_pl": "Proszę pomidora.",
+     "grammar": "pomidor в разговорной речи — как одушевл.: -a",
+     "options": [
+      "pomidora",
+      "pomidorem",
+      "pomidor"
+     ]
+    },
+    {
+     "q": "Oglądam ___.",
+     "answer": "film",
+     "ru": "Я смотрю фильм.",
+     "full_pl": "Oglądam film.",
+     "options": [
+      "filmem",
+      "filmu",
+      "film"
+     ]
+    },
+    {
+     "q": "Piszę ___.",
+     "answer": "książkę",
+     "ru": "Я пишу книгу.",
+     "full_pl": "Piszę książkę.",
+     "grammar": "ж. р.: -ę",
+     "options": [
+      "książkę",
+      "książka",
+      "książką"
+     ]
+    },
+    {
+     "q": "Czytam ___.",
+     "answer": "list",
+     "ru": "Я читаю письмо.",
+     "full_pl": "Czytam list.",
+     "options": [
+      "list",
+      "lista",
+      "listem"
+     ]
+    },
+    {
+     "q": "Gotuję ___.",
+     "answer": "zupę",
+     "ru": "Я варю суп.",
+     "full_pl": "Gotuję zupę.",
+     "options": [
+      "zupa",
+      "zupą",
+      "zupę"
+     ]
+    },
+    {
+     "q": "Robię ___.",
+     "answer": "pizzę",
+     "ru": "Я делаю пиццу.",
+     "full_pl": "Robię pizzę.",
+     "options": [
+      "pizzę",
+      "pizza",
+      "pizzą"
+     ]
+    },
+    {
+     "q": "Mam ___.",
+     "answer": "mamę",
+     "ru": "У меня есть мама.",
+     "full_pl": "Mam mamę.",
+     "options": [
+      "mama",
+      "mamą",
+      "mamę"
+     ]
+    },
+    {
+     "q": "Znam ___.",
+     "answer": "Kraków",
+     "ru": "Я знаю Краков.",
+     "full_pl": "Znam Kraków.",
+     "grammar": "город — м. р. неодушевл.",
+     "options": [
+      "Krakowa",
+      "Krakowem",
+      "Kraków"
+     ]
+    },
+    {
+     "q": "Gram w ___.",
+     "answer": "golfa",
+     "ru": "Я играю в гольф.",
+     "full_pl": "Gram w golfa.",
+     "grammar": "w golfa, w tenisa — в разговорной речи -a",
+     "options": [
+      "golf",
+      "golfem",
+      "golfa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-7-1",
+   "src": "wb",
+   "ref": "Ćw. 1, s. 26",
+   "title": "Prawda czy nieprawda? Dlaczego?",
+   "title_ru": "Том и Уве: правда или неправда?",
+   "task_ru": "Послушай (аудио выше) — диалог напечатан в ćw. 2 на той же странице (кнопка 📄 ниже). Правда (P) или неправда (N)?",
+   "type": "tf",
+   "items": [
+    {
+     "q": "Uwe nie robi nic specjalnego.",
+     "answer": "prawda",
+     "ru": "Уве не делает ничего особенного."
+    },
+    {
+     "q": "Uwe czyta gazetę.",
+     "answer": "nieprawda",
+     "ru": "Уве читает газету.",
+     "full_pl": "Uwe czyta książkę."
+    },
+    {
+     "q": "Uwe czyta po niemiecku.",
+     "answer": "prawda",
+     "ru": "Уве читает по-немецки.",
+     "grammar": "«czytam niemiecką książkę»"
+    },
+    {
+     "q": "Tom pisze list.",
+     "answer": "nieprawda",
+     "ru": "Том пишет письмо.",
+     "full_pl": "Tom pisze zadanie domowe."
+    },
+    {
+     "q": "Tom ogląda dobrą komedię.",
+     "answer": "nieprawda",
+     "ru": "Том смотрит хорошую комедию.",
+     "full_pl": "Tom ogląda mecz, a mecz jest nudny."
+    },
+    {
+     "q": "Tom ma wolny czas i nie wie, co robić.",
+     "answer": "prawda",
+     "ru": "У Тома есть свободное время, и он не знает, что делать."
+    },
+    {
+     "q": "Uwe proponuje pub.",
+     "answer": "prawda",
+     "ru": "Уве предлагает паб.",
+     "grammar": "«Może pub?»"
+    },
+    {
+     "q": "Tom chce robić pizzę albo gotować spaghetti.",
+     "answer": "nieprawda",
+     "ru": "Том хочет сделать пиццу или сварить спагетти.",
+     "full_pl": "Tom chce robić pizzę albo gotować risotto."
+    },
+    {
+     "q": "Tom mówi, że telewizja nie jest interesująca.",
+     "answer": "prawda",
+     "ru": "Том говорит, что телевизор неинтересный.",
+     "grammar": "«telewizja jest nieciekawa»"
+    },
+    {
+     "q": "Tom chce iść na spacer i rozmawiać po polsku.",
+     "answer": "prawda",
+     "ru": "Том хочет пойти на прогулку и поговорить по-польски."
+    },
+    {
+     "q": "Uwe ma małego kota.",
+     "answer": "nieprawda",
+     "ru": "У Уве маленький кот.",
+     "full_pl": "Uwe ma dużego kota."
+    }
+   ],
+   "audio": "33_L07_cwiczenie1.mp3"
+  },
+  {
+   "id": "wb-7-2",
+   "src": "wb",
+   "ref": "Ćw. 2, s. 26",
+   "title": "Proszę uzupełnić tekst.",
+   "title_ru": "Том и Уве: дополни диалог",
+   "task_ru": "Слова: mecz, polsku, czytam, czas, pomysł, piszę, albo, książkę, rozmawiamy, robimy, domu, oglądasz, wiem, nieciekawa, spacer. Каждое — один раз; несколько пропусков — через запятую. Аудио — для проверки.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Uwe: Cześć Tom. Nic specjalnego. Czytam ___.",
+     "answer": "książkę",
+     "ru": "Привет, Том. Ничего особенного. Читаю книгу.",
+     "translit": "КСЁНЖ-кэ"
+    },
+    {
+     "q": "Tom: Po ___?",
+     "answer": "polsku",
+     "ru": "По-польски?",
+     "translit": "ПОЛЬ-ску"
+    },
+    {
+     "q": "Uwe: Nie, ___ niemiecką książkę.",
+     "answer": "czytam",
+     "ru": "Нет, читаю немецкую книгу.",
+     "translit": "ЧЫ-там"
+    },
+    {
+     "q": "Tom: Teraz ___ zadanie domowe i oglądam ___.",
+     "answer": "piszę, mecz",
+     "ru": "Сейчас пишу домашнее задание и смотрю матч."
+    },
+    {
+     "q": "Uwe: Piszesz zadanie i ___ mecz?",
+     "answer": "oglądasz",
+     "ru": "Ты пишешь задание и смотришь матч?",
+     "translit": "о-ГЛЁН-дашь"
+    },
+    {
+     "q": "Uwe: Aha, czyli masz wolny ___?",
+     "answer": "czas",
+     "ru": "Ага, значит, у тебя есть свободное время?",
+     "translit": "час"
+    },
+    {
+     "q": "Tom: Tak, mam wolny czas i nie ___, co robić.",
+     "answer": "wiem",
+     "ru": "Да, у меня есть время, и я не знаю, что делать.",
+     "translit": "вем"
+    },
+    {
+     "q": "Tom: Pub? Nie. W ___ mam dobre piwo.",
+     "answer": "domu",
+     "ru": "Паб? Нет. Дома у меня хорошее пиво.",
+     "translit": "ДО-му",
+     "grammar": "w domu — дома"
+    },
+    {
+     "q": "Tom: Spotykamy się u mnie, ___ dobrą pizzę ___ gotujemy risotto.",
+     "answer": "robimy, albo",
+     "ru": "Встречаемся у меня, делаем хорошую пиццу или готовим ризотто."
+    },
+    {
+     "q": "Uwe: To dobry ___. A co potem?",
+     "answer": "pomysł",
+     "ru": "Хорошая идея. А что потом?",
+     "translit": "ПО-мысў"
+    },
+    {
+     "q": "Tom: Nie, telewizja jest ___.",
+     "answer": "nieciekawa",
+     "ru": "Нет, телевизор неинтересный.",
+     "translit": "не-чье-КА-ва"
+    },
+    {
+     "q": "Tom: Potem idziemy na długi ___ i ___ po polsku.",
+     "answer": "spacer, rozmawiamy",
+     "ru": "Потом идём на долгую прогулку и разговариваем по-польски."
+    }
+   ],
+   "audio": "34_L07_cwiczenie2.mp3"
+  },
+  {
+   "id": "wb-7-3",
+   "src": "wb",
+   "ref": "Ćw. 3, s. 27",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Поставь в винительный падеж",
+   "task_ru": "Слова в скобках поставь в винительный падеж (biernik).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Znam ___ (twój brat).",
+     "answer": "twojego brata",
+     "ru": "Я знаю твоего брата.",
+     "grammar": "м. р. одушевл.: -ego, -a"
+    },
+    {
+     "q": "Angela pije ___ (czarna kawa).",
+     "answer": "czarną kawę",
+     "ru": "Анджела пьёт чёрный кофе.",
+     "grammar": "ж. р.: -ą, -ę"
+    },
+    {
+     "q": "Uwe ma ___ (nowy samochód).",
+     "answer": "nowy samochód",
+     "ru": "У Уве новая машина.",
+     "grammar": "м. р. неодушевл.: без изменений"
+    },
+    {
+     "q": "Tom ma ___ (duży pies).",
+     "answer": "dużego psa",
+     "ru": "У Тома большая собака.",
+     "grammar": "м. р. одушевл.: -ego, -a; pies → psa"
+    },
+    {
+     "q": "Pani Maj gotuje ___ (dobre risotto).",
+     "answer": "dobre risotto",
+     "ru": "Пани Май готовит хорошее ризотто.",
+     "grammar": "ср. р.: без изменений"
+    },
+    {
+     "q": "Karolina zna ___ (dobra dentystka).",
+     "answer": "dobrą dentystkę",
+     "ru": "Каролина знает хорошего стоматолога.",
+     "grammar": "ж. р.: -ą, -ę"
+    },
+    {
+     "q": "Grzegorz czyta ___ (ciekawy artykuł).",
+     "answer": "ciekawy artykuł",
+     "ru": "Гжегож читает интересную статью.",
+     "grammar": "м. р. неодушевл.: без изменений"
+    },
+    {
+     "q": "Ewa kocha ___ (twój brat).",
+     "answer": "twojego brata",
+     "ru": "Ева любит твоего брата.",
+     "grammar": "м. р. одушевл.: -ego, -a"
+    },
+    {
+     "q": "Tom ma ___ (sympatyczna dziewczyna).",
+     "answer": "sympatyczną dziewczynę",
+     "ru": "У Тома симпатичная девушка.",
+     "grammar": "ж. р.: -ą, -ę"
+    },
+    {
+     "q": "Javier lubi ___ (czerwone wino).",
+     "answer": "czerwone wino",
+     "ru": "Хавьер любит красное вино.",
+     "grammar": "ср. р.: без изменений"
+    },
+    {
+     "q": "Czy wy znacie ___ (moja nauczycielka)?",
+     "answer": "moją nauczycielkę",
+     "ru": "Вы знаете мою учительницу?",
+     "grammar": "ж. р.: -ą, -ę"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-4",
+   "src": "wb",
+   "ref": "Ćw. 4, s. 27",
+   "title": "Co pasuje?",
+   "title_ru": "Какой? — в винительном падеже",
+   "task_ru": "jakiego? — м. р. одушевл., jaki? — м. р. неодушевл., jaką? — ж. р., jakie? — ср. р.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Angela, ___ chcesz kawę?",
+     "answer": "jaką",
+     "ru": "Анджела, какой кофе ты хочешь?",
+     "grammar": "kawa — ж. р.",
+     "options": [
+      "jaka",
+      "jak",
+      "jaką"
+     ]
+    },
+    {
+     "q": "___ Uwe ma samochód?",
+     "answer": "Jaki",
+     "ru": "Какая у Уве машина?",
+     "grammar": "samochód — м. р. неодушевл.",
+     "options": [
+      "Jaki",
+      "Jakim",
+      "Jakiego"
+     ]
+    },
+    {
+     "q": "___ dziewczynę ma Tom?",
+     "answer": "Jaką",
+     "ru": "Какая девушка у Тома?",
+     "options": [
+      "Jaka",
+      "Jaką",
+      "Jakie"
+     ]
+    },
+    {
+     "q": "___ mleko lubisz?",
+     "answer": "Jakie",
+     "ru": "Какое молоко ты любишь?",
+     "grammar": "mleko — ср. р.",
+     "options": [
+      "Jakiego",
+      "Jakie",
+      "Jaki"
+     ]
+    },
+    {
+     "q": "___ muzykę lubi Angela?",
+     "answer": "Jaką",
+     "ru": "Какую музыку любит Анджела?",
+     "options": [
+      "Jaki",
+      "Jaka",
+      "Jaką"
+     ]
+    },
+    {
+     "q": "___ auto chce Karol?",
+     "answer": "Jakie",
+     "ru": "Какую машину хочет Кароль?",
+     "grammar": "auto — ср. р.",
+     "options": [
+      "Jakiego",
+      "Jaki",
+      "Jakie"
+     ]
+    },
+    {
+     "q": "___ kota ma Uwe?",
+     "answer": "Jakiego",
+     "ru": "Какой кот у Уве?",
+     "grammar": "kot — м. р. одушевл.",
+     "options": [
+      "Jakim",
+      "Jakiego",
+      "Jaki"
+     ]
+    },
+    {
+     "q": "___ sok lubicie?",
+     "answer": "Jaki",
+     "ru": "Какой сок вы любите?",
+     "grammar": "sok — м. р. неодушевл.",
+     "options": [
+      "Jakie",
+      "Jaki",
+      "Jakiego"
+     ]
+    },
+    {
+     "q": "___ chcesz pomidora? Tego dużego?",
+     "answer": "Jakiego",
+     "ru": "Какой помидор ты хочешь? Вот тот большой?",
+     "grammar": "pomidora — как одушевл.",
+     "options": [
+      "Jaki",
+      "Jakiego",
+      "Jakim"
+     ]
+    },
+    {
+     "q": "___ kompozytora lubisz?",
+     "answer": "Jakiego",
+     "ru": "Какого композитора ты любишь?",
+     "options": [
+      "Jaki",
+      "Jakim",
+      "Jakiego"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-7-5",
+   "src": "wb",
+   "ref": "Ćw. 5, s. 27",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "«Proszę…» — в киоске",
+   "task_ru": "После Proszę — винительный падеж. Напиши, как попросить.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Proszę ___ (sok pomarańczowy).",
+     "answer": "sok pomarańczowy",
+     "ru": "Дайте, пожалуйста, апельсиновый сок.",
+     "grammar": "м. р. неодушевл.: без изменений"
+    },
+    {
+     "q": "Proszę ___ (duży zeszyt).",
+     "answer": "duży zeszyt",
+     "ru": "Дайте, пожалуйста, большую тетрадь.",
+     "grammar": "м. р. неодушевл.: без изменений"
+    },
+    {
+     "q": "Proszę ___ („Gazeta Sportowa”).",
+     "answer": "„Gazetę Sportową”",
+     "ru": "Дайте, пожалуйста, «Спортивную газету».",
+     "grammar": "ж. р.: -ę, -ą",
+     "accepted": [
+      "Gazetę Sportową"
+     ]
+    },
+    {
+     "q": "Proszę ___ (niebieski długopis).",
+     "answer": "niebieski długopis",
+     "ru": "Дайте, пожалуйста, синюю ручку.",
+     "grammar": "м. р. неодушевл.: без изменений"
+    },
+    {
+     "q": "Proszę ___ (guma owocowa).",
+     "answer": "gumę owocową",
+     "ru": "Дайте, пожалуйста, фруктовую жвачку.",
+     "grammar": "ж. р.: -ę, -ą"
+    },
+    {
+     "q": "Proszę ___ (mała karta telefoniczna).",
+     "answer": "małą kartę telefoniczną",
+     "ru": "Дайте, пожалуйста, маленькую телефонную карту.",
+     "grammar": "ж. р.: -ą, -ę, -ą"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-6",
+   "src": "wb",
+   "ref": "Ćw. 6, s. 27",
+   "title": "Co ona ma? Co ona lubi?",
+   "title_ru": "Что у неё есть? Что она любит?",
+   "task_ru": "Картинка в тетради (кнопка 📄 ниже): женщина с чашкой мечтает о парне, велосипеде, доме, коте и собаке; вокруг — книга, плеер, кошелёк, шоколад, сок, молоко, словарь. Напиши 2–4 предложения с винительным падежом. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Co ona ma? Co ona lubi?",
+     "answer": "Ona ma kawę, książkę, słownik, portfel i odtwarzacz MP3. Lubi czekoladę, sok i mleko. Chce mieć dom, rower, kota, psa i chłopaka.",
+     "ru": "Что у неё есть? Что она любит?"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-7",
+   "src": "wb",
+   "ref": "Ćw. 7, s. 28",
+   "title": "Ile to kosztuje?",
+   "title_ru": "Сколько это стоит?",
+   "task_ru": "Цены — по картинкам в тетради. Напиши словами: «kosztują pięć złotych dwadzieścia groszy». Проверяет модель.",
+   "type": "open",
+   "items": [
+    {
+     "q": "Chipsy (5 zł 20 gr)",
+     "answer": "kosztują pięć złotych dwadzieścia groszy",
+     "ru": "Чипсы",
+     "grammar": "мн. ч. → kosztują"
+    },
+    {
+     "q": "Ołówek (1 zł)",
+     "answer": "kosztuje jeden złoty",
+     "ru": "Карандаш",
+     "grammar": "1 → złoty",
+     "accepted": [
+      "kosztuje złotówkę"
+     ]
+    },
+    {
+     "q": "Komórka (339 zł)",
+     "answer": "kosztuje trzysta trzydzieści dziewięć złotych",
+     "ru": "Мобильный телефон"
+    },
+    {
+     "q": "Miód (5 zł 20 gr)",
+     "answer": "kosztuje pięć złotych dwadzieścia groszy",
+     "ru": "Мёд"
+    },
+    {
+     "q": "Notes (12 zł)",
+     "answer": "kosztuje dwanaście złotych",
+     "ru": "Блокнот",
+     "grammar": "12 → złotych"
+    },
+    {
+     "q": "Bilet (2 zł 50 gr)",
+     "answer": "kosztuje dwa złote pięćdziesiąt groszy",
+     "ru": "Билет",
+     "grammar": "2 → złote"
+    },
+    {
+     "q": "Cola (3 zł)",
+     "answer": "kosztuje trzy złote",
+     "ru": "Кола",
+     "grammar": "3 → złote"
+    },
+    {
+     "q": "Papierosy (8 zł 50 gr)",
+     "answer": "kosztują osiem złotych pięćdziesiąt groszy",
+     "ru": "Сигареты",
+     "grammar": "мн. ч. → kosztują"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-8",
+   "src": "wb",
+   "ref": "Ćw. 8, s. 28",
+   "title": "Proszę uzupełnić dialog.",
+   "title_ru": "Кароль в киоске: дополни диалог",
+   "task_ru": "Напиши пропущенные слова (несколько — через запятую).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Karol: Dzień dobry. Czy ___ duży zeszyt?",
+     "answer": "jest",
+     "ru": "Здравствуйте. Есть большая тетрадь?",
+     "translit": "ест"
+    },
+    {
+     "q": "Karol: A ___ jest mały?",
+     "answer": "czy",
+     "ru": "А маленькая есть?",
+     "translit": "чы"
+    },
+    {
+     "q": "Karol: ___ kosztuje?",
+     "answer": "Ile",
+     "ru": "Сколько стоит?",
+     "translit": "И-ле"
+    },
+    {
+     "q": "Sprzedawca: 2 ___ 10 ___. Czy coś ___?",
+     "answer": "złote, groszy, jeszcze",
+     "ru": "2 злотых 10 грошей. Что-нибудь ещё?",
+     "full_pl": "2 złote 10 groszy. Czy coś jeszcze?"
+    },
+    {
+     "q": "Karol: ___ jest czarny długopis?",
+     "answer": "Czy",
+     "ru": "Есть чёрная ручка?",
+     "translit": "чы"
+    },
+    {
+     "q": "Sprzedawca: Nie ___.",
+     "answer": "ma",
+     "ru": "Нет.",
+     "full_pl": "Nie ma.",
+     "translit": "ма"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-9",
+   "src": "wb",
+   "ref": "Ćw. 9, s. 28",
+   "title": "Proszę napisać dialog.",
+   "title_ru": "Напиши диалог: Хавьер в киоске",
+   "task_ru": "Телефонная карта есть, стоит 25 zł; маленького блокнота нет. Напиши диалог Хавьера и продавца. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "karta telefoniczna / 25 zł; mały notes (–)",
+     "answer": "Javier: Dzień dobry, czy jest karta telefoniczna? Sprzedawca: Tak, jest. Javier: Ile kosztuje? Sprzedawca: 25 złotych. Czy coś jeszcze? Javier: Czy jest mały notes? Sprzedawca: Nie ma.",
+     "ru": "телефонная карта — 25 злотых; маленького блокнота нет"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-12",
+   "src": "wb",
+   "ref": "Ćw. 12, s. 29",
+   "title": "Ile to jest? Proszę napisać numer słowami.",
+   "title_ru": "Сколько будет? Ответ словами",
+   "task_ru": "Посчитай и напиши результат словами: «sześćset czterdzieści cztery».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "785 − 141 =",
+     "answer": "sześćset czterdzieści cztery",
+     "ru": "785 − 141 = 644"
+    },
+    {
+     "q": "902 + 99 =",
+     "answer": "tysiąc jeden",
+     "ru": "902 + 99 = ?",
+     "hint": "больше тысячи"
+    },
+    {
+     "q": "343 + 13 =",
+     "answer": "trzysta pięćdziesiąt sześć",
+     "ru": "343 + 13 = ?"
+    },
+    {
+     "q": "505 − 203 =",
+     "answer": "trzysta dwa",
+     "ru": "505 − 203 = ?"
+    },
+    {
+     "q": "412 + 412 =",
+     "answer": "osiemset dwadzieścia cztery",
+     "ru": "412 + 412 = ?"
+    }
+   ]
+  },
+  {
+   "id": "wb-7-13a",
+   "src": "wb",
+   "ref": "Ćw. 13, s. 29 (1/2)",
+   "title": "Proszę dopasować sklep do produktu.",
+   "title_ru": "Магазин → товар (1)",
+   "task_ru": "Что продают в этом магазине?",
+   "type": "match",
+   "items": [
+    {
+     "q": "RTV",
+     "answer": "telewizor, DVD",
+     "ru": "радио- и телетехника"
+    },
+    {
+     "q": "piekarnia",
+     "answer": "chleb, bułki",
+     "ru": "пекарня"
+    },
+    {
+     "q": "optyk",
+     "answer": "okulary",
+     "ru": "оптика"
+    },
+    {
+     "q": "cukiernia",
+     "answer": "ciastko, pączek",
+     "ru": "кондитерская"
+    },
+    {
+     "q": "biuro podróży",
+     "answer": "bilet lotniczy, wczasy all inclusive",
+     "ru": "турагентство"
+    }
+   ],
+   "options": [
+    "okulary",
+    "bilet lotniczy, wczasy all inclusive",
+    "telewizor, DVD",
+    "ciastko, pączek",
+    "chleb, bułki"
+   ]
+  },
+  {
+   "id": "wb-7-13b",
+   "src": "wb",
+   "ref": "Ćw. 13, s. 29 (2/2)",
+   "title": "Proszę dopasować sklep do produktu.",
+   "title_ru": "Магазин → товар (2)",
+   "task_ru": "Что продают в этом магазине?",
+   "type": "match",
+   "items": [
+    {
+     "q": "kawiarnia",
+     "answer": "kawa, herbata",
+     "ru": "кафе"
+    },
+    {
+     "q": "kiosk",
+     "answer": "gazeta, papierosy",
+     "ru": "киоск"
+    },
+    {
+     "q": "apteka",
+     "answer": "aspiryna",
+     "ru": "аптека"
+    },
+    {
+     "q": "drogeria",
+     "answer": "szampon, żel pod prysznic",
+     "ru": "магазин косметики и бытовой химии"
+    },
+    {
+     "q": "obuwie",
+     "answer": "buty, sandały",
+     "ru": "обувной магазин"
+    }
+   ],
+   "options": [
+    "buty, sandały",
+    "aspiryna",
+    "szampon, żel pod prysznic",
+    "kawa, herbata",
+    "gazeta, papierosy"
+   ]
+  },
+  {
+   "id": "wb-7-14a",
+   "src": "wb",
+   "ref": "Ćw. 14, s. 29",
+   "title": "Proszę uzupełnić tekst.",
+   "title_ru": "Покупки Каролины и Мами",
+   "task_ru": "Слова в скобках поставь в нужную форму (глаголы — 3-е лицо, после chce — винительный падеж).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Karolina interesuje się ___ (fotografia)",
+     "answer": "fotografią",
+     "ru": "Каролина интересуется фотографией",
+     "translit": "фо-то-гра-ФЬЁН",
+     "grammar": "interesować się + творительный"
+    },
+    {
+     "q": "… i ___ (chcieć) nowy aparat fotograficzny",
+     "answer": "chce",
+     "ru": "… и хочет новый фотоаппарат",
+     "translit": "хцэ"
+    },
+    {
+     "q": "bo stary nie ___ (robić) dobrych zdjęć.",
+     "answer": "robi",
+     "ru": "потому что старый не делает хороших снимков.",
+     "translit": "РО-би"
+    },
+    {
+     "q": "Chce też ___ (duży album)",
+     "answer": "duży album",
+     "ru": "Ещё она хочет большой альбом",
+     "grammar": "м. р. неодушевл.: без изменений"
+    },
+    {
+     "q": "i ___ (karta) pamięci do aparatu,",
+     "answer": "kartę",
+     "ru": "и карту памяти для фотоаппарата,",
+     "translit": "КАР-тэ"
+    },
+    {
+     "q": "no i może jeszcze ___ (ładna torba) na aparat",
+     "answer": "ładną torbę",
+     "ru": "ну и, может, ещё красивую сумку для фотоаппарата",
+     "grammar": "ж. р.: -ą, -ę"
+    },
+    {
+     "q": "albo ___ (statyw).",
+     "answer": "statyw",
+     "ru": "или штатив.",
+     "translit": "СТА-тыф"
+    },
+    {
+     "q": "Mami chce ___ (mała mapa) Krakowa,",
+     "answer": "małą mapę",
+     "ru": "Мами хочет маленькую карту Кракова,",
+     "grammar": "ж. р.: -ą, -ę"
+    },
+    {
+     "q": "___ (ołówek) i ___ (gumka),",
+     "answer": "ołówek, gumkę",
+     "ru": "карандаш и ластик,"
+    },
+    {
+     "q": "___ (czerwony długopis),",
+     "answer": "czerwony długopis",
+     "ru": "красную ручку,"
+    },
+    {
+     "q": "___ (kolorowy magazyn) i kosmetyki.",
+     "answer": "kolorowy magazyn",
+     "ru": "цветной журнал и косметику."
+    }
+   ]
+  },
+  {
+   "id": "wb-7-14b",
+   "src": "wb",
+   "ref": "Ćw. 14, s. 29",
+   "title": "Proszę odpowiedzieć na pytania.",
+   "title_ru": "Ответь на вопросы по тексту",
+   "task_ru": "Ответь по тексту ćw. 14 (можно коротко). Проверяет модель.",
+   "type": "open",
+   "items": [
+    {
+     "q": "Co Karolina chce kupić?",
+     "answer": "nowy aparat fotograficzny, duży album, kartę pamięci, ładną torbę na aparat albo statyw",
+     "ru": "Что Каролина хочет купить?",
+     "accepted": [
+      "Karolina chce kupić nowy aparat fotograficzny."
+     ]
+    },
+    {
+     "q": "Dlaczego ona chce kupić nowy aparat?",
+     "answer": "bo stary nie robi dobrych zdjęć",
+     "ru": "Почему она хочет купить новый фотоаппарат?"
+    },
+    {
+     "q": "Jaką torbę chce Karolina?",
+     "answer": "ładną torbę na aparat",
+     "ru": "Какую сумку хочет Каролина?",
+     "accepted": [
+      "ładną"
+     ]
+    },
+    {
+     "q": "Jaką mapę chce Mami?",
+     "answer": "małą mapę Krakowa",
+     "ru": "Какую карту хочет Мами?",
+     "accepted": [
+      "małą"
+     ]
+    },
+    {
+     "q": "Jaki długopis chce Mami?",
+     "answer": "czerwony długopis",
+     "ru": "Какую ручку хочет Мами?",
+     "accepted": [
+      "czerwony"
+     ]
+    }
+   ]
+  }
  ]
 }

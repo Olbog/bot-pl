@@ -1,0 +1,4231 @@
+{
+ "unit": "5",
+ "title": "Jesteś instruktorem tanga?",
+ "summary": "Знакомство и описание человека: кто это, откуда, где живёт, какой, сколько лет, кем работает, чем интересуется. Лексика: профессии (мужские и женские формы), внешность и характер, увлечения, семья, национальности. Грамматика: творительный падеж ед. ч. (Jestem lekarzem, Ona jest dobrą studentką; interesuję się sportem), числительные 20–100, возраст: rok / lata / lat.",
+ "source": "Krok po kroku. Polski A1 (I. Stempek), Lekcja 05, с. 34–39",
+ "topics": [
+  "Вопросы о человеке",
+  "Какой? Внешность и характер",
+  "Числа 12–100",
+  "Возраст: rok, lata, lat",
+  "Профессии",
+  "Профессии: женские формы",
+  "Интересы: czym się interesujesz?",
+  "Что любишь делать?",
+  "Семья и люди",
+  "Национальности",
+  "Фразы",
+  "Город и культура"
+ ],
+ "words": [
+  {
+   "pl": "Kto to jest?",
+   "translit": "кто то ЕСТ",
+   "ru": "Кто это?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "Kim jesteś?",
+   "translit": "ким ЕС-тэщь",
+   "ru": "Кто ты (по профессии)?",
+   "pos": "фраза; kim — творительный от kto",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "Kim jesteś z zawodu?",
+   "translit": "ким ЕС-тэщь з за-ВО-ду",
+   "ru": "Кто ты по профессии?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "zawód",
+   "translit": "ЗА-вут",
+   "ru": "профессия",
+   "pos": "сущ., м. р.; z zawodu — по профессии",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "Czym się interesujesz?",
+   "translit": "чым щен ин-тэ-рэ-СУ-еш",
+   "ru": "Чем ты интересуешься?",
+   "pos": "фраза; czym — творительный от co",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "Ile masz lat?",
+   "translit": "И-ле маш лят",
+   "ru": "Сколько тебе лет?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "Ile pani ma lat?",
+   "translit": "И-ле ПА-ни ма лят",
+   "ru": "Сколько вам лет? (женщине)",
+   "pos": "фраза, вежл.",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "Skąd jesteś?",
+   "translit": "сконт ЕС-тэщь",
+   "ru": "Откуда ты?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "Gdzie mieszkasz?",
+   "translit": "гдже МЕШ-каш",
+   "ru": "Где ты живёшь?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "Jaki on jest?",
+   "translit": "Я-ки он ест",
+   "ru": "Какой он?",
+   "pos": "фраза; ж. р. — Jaka ona jest?",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "Co lubisz robić?",
+   "translit": "цо ЛЮ-бишь РО-бичь",
+   "ru": "Что ты любишь делать?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "dlaczego",
+   "translit": "дла-ЧЭ-го",
+   "ru": "почему",
+   "pos": "вопр. слово; ответ — bo…",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "jakim? jaką?",
+   "translit": "Я-ким, Я-кон",
+   "ru": "каким? какой? (творительный)",
+   "pos": "вопр. слово: jakim — м. и ср. р., jaką — ж. р.",
+   "src": "tb",
+   "topic": "Вопросы о человеке"
+  },
+  {
+   "pl": "wysoki",
+   "translit": "вы-СО-ки",
+   "ru": "высокий",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "niski",
+   "translit": "НИС-ки",
+   "ru": "низкий",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "przystojny",
+   "translit": "пшы-СТОЙ-ны",
+   "ru": "красивый (о мужчине)",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "wysportowany",
+   "translit": "вы-спор-то-ВА-ны",
+   "ru": "спортивный, подтянутый",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "szczupły",
+   "translit": "ШЧУП-ўы",
+   "ru": "стройный, худой",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "gruby",
+   "translit": "ГРУ-бы",
+   "ru": "толстый",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "ładny",
+   "translit": "ЎАД-ны",
+   "ru": "красивый, симпатичный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "piękny",
+   "translit": "ПЕНК-ны",
+   "ru": "прекрасный, красивый",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "młody",
+   "translit": "МЎО-ды",
+   "ru": "молодой",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "atrakcyjny",
+   "translit": "ат-рак-ЦЫЙ-ны",
+   "ru": "привлекательный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "utalentowany",
+   "translit": "у-та-лэн-то-ВА-ны",
+   "ru": "талантливый",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "zdolny",
+   "translit": "ЗДОЛЬ-ны",
+   "ru": "способный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "ambitny",
+   "translit": "ам-БИТ-ны",
+   "ru": "амбициозный, целеустремлённый",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "świetny",
+   "translit": "ЩЬВЕТ-ны",
+   "ru": "отличный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "miły",
+   "translit": "МИ-ўы",
+   "ru": "милый, приятный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "wesoły",
+   "translit": "вэ-СО-ўы",
+   "ru": "весёлый",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "popularny",
+   "translit": "по-пу-ЛЯР-ны",
+   "ru": "популярный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "sympatyczny",
+   "translit": "сым-па-ТЫЧ-ны",
+   "ru": "симпатичный, приятный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "chory",
+   "translit": "ХО-ры",
+   "ru": "больной",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "skomplikowany",
+   "translit": "скомп-ли-ко-ВА-ны",
+   "ru": "сложный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "energiczny",
+   "translit": "э-нэр-ГИЧ-ны",
+   "ru": "энергичный",
+   "pos": "прил.",
+   "src": "wb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "inteligentny",
+   "translit": "ин-тэ-ли-ГЕНТ-ны",
+   "ru": "умный",
+   "pos": "прил.",
+   "src": "wb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "kreatywny",
+   "translit": "крэ-а-ТЫВ-ны",
+   "ru": "креативный, творческий",
+   "pos": "прил.",
+   "src": "wb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "pracowity",
+   "translit": "пра-цо-ВИ-ты",
+   "ru": "трудолюбивый",
+   "pos": "прил.",
+   "src": "wb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "spontaniczny",
+   "translit": "спон-та-НИЧ-ны",
+   "ru": "спонтанный",
+   "pos": "прил.",
+   "src": "wb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "profesjonalny",
+   "translit": "про-фэ-сьо-НАЛЬ-ны",
+   "ru": "профессиональный",
+   "pos": "прил.",
+   "src": "wb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "zdenerwowany",
+   "translit": "здэ-нэр-во-ВА-ны",
+   "ru": "взволнованный, раздражённый",
+   "pos": "прил.",
+   "src": "wb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "zdrowy",
+   "translit": "ЗДРО-вы",
+   "ru": "здоровый",
+   "pos": "прил.",
+   "src": "wb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "znany",
+   "translit": "ЗНА-ны",
+   "ru": "известный",
+   "pos": "прил.",
+   "src": "wb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "doskonały",
+   "translit": "дос-ко-НА-ўы",
+   "ru": "превосходный",
+   "pos": "прил.",
+   "src": "wb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "drogi",
+   "translit": "ДРО-ги",
+   "ru": "дорогой",
+   "pos": "прил.",
+   "src": "wb",
+   "topic": "Какой? Внешность и характер"
+  },
+  {
+   "pl": "dwanaście",
+   "translit": "два-НАЩЬ-че",
+   "ru": "двенадцать",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "trzynaście",
+   "translit": "тшы-НАЩЬ-че",
+   "ru": "тринадцать",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "czternaście",
+   "translit": "чтэр-НАЩЬ-че",
+   "ru": "четырнадцать",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "piętnaście",
+   "translit": "пент-НАЩЬ-че",
+   "ru": "пятнадцать",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "szesnaście",
+   "translit": "шэс-НАЩЬ-че",
+   "ru": "шестнадцать",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "siedemnaście",
+   "translit": "ще-дэм-НАЩЬ-че",
+   "ru": "семнадцать",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "osiemnaście",
+   "translit": "о-щем-НАЩЬ-че",
+   "ru": "восемнадцать",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "dziewiętnaście",
+   "translit": "дже-вьент-НАЩЬ-че",
+   "ru": "девятнадцать",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "dwadzieścia",
+   "translit": "два-ДЖЕЩЬ-ча",
+   "ru": "двадцать",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "trzydzieści",
+   "translit": "тшы-ДЖЕЩЬ-чи",
+   "ru": "тридцать",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "czterdzieści",
+   "translit": "чтэр-ДЖЕЩЬ-чи",
+   "ru": "сорок",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "pięćdziesiąt",
+   "translit": "пеньчь-ДЖЕ-щёнт",
+   "ru": "пятьдесят",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "sześćdziesiąt",
+   "translit": "шэщьчь-ДЖЕ-щёнт",
+   "ru": "шестьдесят",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "siedemdziesiąt",
+   "translit": "ще-дэм-ДЖЕ-щёнт",
+   "ru": "семьдесят",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "osiemdziesiąt",
+   "translit": "о-щем-ДЖЕ-щёнт",
+   "ru": "восемьдесят",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "dziewięćdziesiąt",
+   "translit": "дже-веньчь-ДЖЕ-щёнт",
+   "ru": "девяносто",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "sto",
+   "translit": "сто",
+   "ru": "сто",
+   "pos": "числ.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "plus",
+   "translit": "плюс",
+   "ru": "плюс",
+   "pos": "мат.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "minus",
+   "translit": "МИ-нус",
+   "ru": "минус",
+   "pos": "мат.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "liczebnik",
+   "translit": "ли-ЧЭБ-ник",
+   "ru": "числительное",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Числа 12–100"
+  },
+  {
+   "pl": "rok",
+   "translit": "рок",
+   "ru": "год: (1) rok",
+   "pos": "сущ., м. р.; 1 rok, 2–4 lata, 5+ lat",
+   "src": "tb",
+   "topic": "Возраст: rok, lata, lat"
+  },
+  {
+   "pl": "lata",
+   "translit": "ЛЯ-та",
+   "ru": "года: 2, 3, 4, 22, 33, 44… lata",
+   "pos": "форма после 2–4 (кроме 12–14)",
+   "src": "tb",
+   "topic": "Возраст: rok, lata, lat"
+  },
+  {
+   "pl": "lat",
+   "translit": "лят",
+   "ru": "лет: 5–21, 25–31… lat",
+   "pos": "форма после 5 и больше, 12–14, 1x, x0",
+   "src": "tb",
+   "topic": "Возраст: rok, lata, lat"
+  },
+  {
+   "pl": "mieć … lat",
+   "translit": "мечь … лят",
+   "ru": "кому-то … лет",
+   "pos": "глаг.: mam 20 lat, masz, ma",
+   "src": "tb",
+   "topic": "Возраст: rok, lata, lat"
+  },
+  {
+   "pl": "prawie",
+   "translit": "ПРА-ве",
+   "ru": "почти",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Возраст: rok, lata, lat"
+  },
+  {
+   "pl": "pół",
+   "translit": "пуў",
+   "ru": "половина, пол-",
+   "pos": "числ.; 17 i pół — 17 с половиной",
+   "src": "tb",
+   "topic": "Возраст: rok, lata, lat"
+  },
+  {
+   "pl": "aktor",
+   "translit": "АК-тор",
+   "ru": "актёр",
+   "pos": "сущ., м. р.; jest aktorem",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "fotograf",
+   "translit": "фо-ТО-граф",
+   "ru": "фотограф",
+   "pos": "сущ., м. р.; jest fotografem",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "policjant",
+   "translit": "по-ЛИ-цьянт",
+   "ru": "полицейский",
+   "pos": "сущ., м. р.; jest policjantem",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "inżynier",
+   "translit": "ин-ЖЫ-нер",
+   "ru": "инженер",
+   "pos": "сущ., м. р.; jest inżynierem",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "nauczyciel",
+   "translit": "на-у-ЧЫ-чель",
+   "ru": "учитель",
+   "pos": "сущ., м. р.; jest nauczycielem",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "muzyk",
+   "translit": "МУ-зык",
+   "ru": "музыкант",
+   "pos": "сущ., м. р.; jest muzykiem",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "emeryt",
+   "translit": "э-МЭ-рыт",
+   "ru": "пенсионер",
+   "pos": "сущ., м. р.; jest emerytem",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "rolnik",
+   "translit": "РОЛЬ-ник",
+   "ru": "фермер, крестьянин",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "kelner",
+   "translit": "КЭЛЬ-нэр",
+   "ru": "официант",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "biznesmen",
+   "translit": "биз-НЭС-мэн",
+   "ru": "бизнесмен",
+   "pos": "сущ., м. р.; jest biznesmenem",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "urzędnik",
+   "translit": "у-ЖЭНД-ник",
+   "ru": "чиновник, служащий",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "lekarz",
+   "translit": "ЛЕ-каш",
+   "ru": "врач",
+   "pos": "сущ., м. р.; jest lekarzem",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "tancerz",
+   "translit": "ТАН-цэш",
+   "ru": "танцор",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "dziennikarz",
+   "translit": "джен-НИ-каш",
+   "ru": "журналист",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "kucharz",
+   "translit": "КУ-хаш",
+   "ru": "повар",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "informatyk",
+   "translit": "ин-фор-МА-тык",
+   "ru": "айтишник, программист",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "dentysta",
+   "translit": "дэн-ТЫС-та",
+   "ru": "стоматолог",
+   "pos": "сущ., м. р. на -a; jest dentystą",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "barman",
+   "translit": "БАР-ман",
+   "ru": "бармен",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "artysta",
+   "translit": "ар-ТЫС-та",
+   "ru": "художник, артист",
+   "pos": "сущ., м. р. на -a; jest artystą",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "poeta",
+   "translit": "по-Э-та",
+   "ru": "поэт",
+   "pos": "сущ., м. р. на -a; jest poetą",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "malarz",
+   "translit": "МА-ляш",
+   "ru": "художник (живописец)",
+   "pos": "сущ., м. р.; jest malarzem",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "polityk",
+   "translit": "по-ЛИ-тык",
+   "ru": "политик",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "pisarz",
+   "translit": "ПИ-саш",
+   "ru": "писатель",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "dramaturg",
+   "translit": "дра-МА-турк",
+   "ru": "драматург",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "filozof",
+   "translit": "фи-ЛО-зоф",
+   "ru": "философ",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "instruktor tanga",
+   "translit": "инс-ТРУК-тор ТАН-га",
+   "ru": "инструктор танго",
+   "pos": "сущ., м. р.; jestem instruktorem tanga",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "architekt",
+   "translit": "ар-ХИ-тэкт",
+   "ru": "архитектор",
+   "pos": "сущ.; pan / pani architekt — одна форма для обоих родов",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "taksówkarz",
+   "translit": "так-СУФ-каш",
+   "ru": "таксист",
+   "pos": "сущ.; pan / pani taksówkarz",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "minister",
+   "translit": "ми-НИС-тэр",
+   "ru": "министр",
+   "pos": "сущ.; pan / pani minister",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "prezydent",
+   "translit": "прэ-ЗЫ-дэнт",
+   "ru": "президент",
+   "pos": "сущ.; pan / pani prezydent",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "kierowca",
+   "translit": "ке-РОФ-ца",
+   "ru": "водитель",
+   "pos": "сущ.; pan / pani kierowca",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "profesor",
+   "translit": "про-ФЭ-сор",
+   "ru": "профессор",
+   "pos": "сущ.; pan / pani profesor",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "lektor",
+   "translit": "ЛЕК-тор",
+   "ru": "преподаватель (иностранного языка)",
+   "pos": "сущ., м. р.; ж. р. lektorka",
+   "src": "tb",
+   "topic": "Профессии"
+  },
+  {
+   "pl": "lektorka języka angielskiego",
+   "translit": "лек-ТОР-ка ен-ЗЫ-ка ан-ГЕЛЬ-ске-го",
+   "ru": "преподавательница английского",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "lektor"
+  },
+  {
+   "pl": "barmanka",
+   "translit": "бар-МАН-ка",
+   "ru": "барменша",
+   "pos": "сущ., ж. р. (-ka)",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "aktorka",
+   "translit": "ак-ТОР-ка",
+   "ru": "актриса",
+   "pos": "сущ., ж. р.; jest aktorką",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "lekarka",
+   "translit": "ле-КАР-ка",
+   "ru": "врач (женщина)",
+   "pos": "сущ., ж. р.; lekarz → lekarka (rz : r)",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "artystka",
+   "translit": "ар-ТЫСТ-ка",
+   "ru": "художница, артистка",
+   "pos": "сущ., ж. р.; artysta → artystka",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "sekretarka",
+   "translit": "сэк-рэ-ТАР-ка",
+   "ru": "секретарь (женщина)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "emerytka",
+   "translit": "э-мэ-РЫТ-ка",
+   "ru": "пенсионерка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "kelnerka",
+   "translit": "кэль-НЭР-ка",
+   "ru": "официантка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "nauczycielka",
+   "translit": "на-у-чы-ЧЕЛЬ-ка",
+   "ru": "учительница",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "dziennikarka",
+   "translit": "джен-ни-КАР-ка",
+   "ru": "журналистка",
+   "pos": "сущ., ж. р. (rz : r)",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "kucharka",
+   "translit": "ку-ХАР-ка",
+   "ru": "повариха",
+   "pos": "сущ., ж. р. (rz : r)",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "tancerka",
+   "translit": "тан-ЦЭР-ка",
+   "ru": "танцовщица",
+   "pos": "сущ., ж. р. (rz : r)",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "poetka",
+   "translit": "по-ЭТ-ка",
+   "ru": "поэтесса",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "dentystka",
+   "translit": "дэн-ТЫСТ-ка",
+   "ru": "стоматолог (женщина)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "modelka",
+   "translit": "мо-ДЭЛЬ-ка",
+   "ru": "модель (манекенщица)",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Профессии: женские формы"
+  },
+  {
+   "pl": "interesować się",
+   "translit": "ин-тэ-рэ-СО-вачь щен",
+   "ru": "интересоваться (чем? — творительный)",
+   "pos": "глаг.: interesuję się, interesujesz się; + творительный без предлога",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "interesuję się sportem",
+   "translit": "ин-тэ-рэ-СУ-е щен СПОР-тэм",
+   "ru": "я интересуюсь спортом",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "interesować się"
+  },
+  {
+   "pl": "sport",
+   "translit": "спорт",
+   "ru": "спорт",
+   "pos": "сущ., м. р.; tw. sportem",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "sporty ekstremalne",
+   "translit": "СПОР-ты экс-трэ-МАЛЬ-нэ",
+   "ru": "экстремальные виды спорта",
+   "pos": "🔗 сочетание; tw. sportami ekstremalnymi",
+   "src": "tb",
+   "of": "sport"
+  },
+  {
+   "pl": "boks",
+   "translit": "бокс",
+   "ru": "бокс",
+   "pos": "сущ., м. р.; tw. boksem",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "malarstwo",
+   "translit": "ма-ЛЯР-ство",
+   "ru": "живопись",
+   "pos": "сущ., ср. р.; tw. malarstwem",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "malarstwo impresjonistyczne",
+   "translit": "ма-ЛЯР-ство им-прэ-сьо-ни-СТЫЧ-нэ",
+   "ru": "живопись импрессионистов",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "malarstwo"
+  },
+  {
+   "pl": "historia",
+   "translit": "хис-ТО-рья",
+   "ru": "история",
+   "pos": "сущ., ж. р.; tw. historią",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "piłka nożna",
+   "translit": "ПИЎ-ка НОЖ-на",
+   "ru": "футбол",
+   "pos": "сущ., ж. р.; tw. piłką nożną",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "muzyka",
+   "translit": "МУ-зы-ка",
+   "ru": "музыка",
+   "pos": "сущ., ж. р.; tw. muzyką",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "muzyka rockowa",
+   "translit": "МУ-зы-ка ро-КО-ва",
+   "ru": "рок-музыка",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "muzyka"
+  },
+  {
+   "pl": "muzyka klasyczna",
+   "translit": "МУ-зы-ка кля-СЫЧ-на",
+   "ru": "классическая музыка",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "muzyka"
+  },
+  {
+   "pl": "fotografia",
+   "translit": "фо-то-ГРА-фья",
+   "ru": "фотография (увлечение; снимок)",
+   "pos": "сущ., ж. р.; tw. fotografią",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "film",
+   "translit": "фильм",
+   "ru": "фильм, кино",
+   "pos": "сущ., м. р.; tw. filmem",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "francuskie filmy",
+   "translit": "фран-ЦУС-ке ФИЛЬ-мы",
+   "ru": "французские фильмы",
+   "pos": "🔗 сочетание; tw. francuskimi filmami",
+   "src": "tb",
+   "of": "film"
+  },
+  {
+   "pl": "książki kryminalne",
+   "translit": "КЩЁНЖ-ки кры-ми-НАЛЬ-нэ",
+   "ru": "детективы",
+   "pos": "мн. ч.; tw. książkami kryminalnymi",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "literatura",
+   "translit": "ли-тэ-ра-ТУ-ра",
+   "ru": "литература",
+   "pos": "сущ., ж. р.; tw. literaturą",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "sztuka",
+   "translit": "ШТУ-ка",
+   "ru": "искусство",
+   "pos": "сущ., ж. р.; tw. sztuką",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "architektura",
+   "translit": "ар-хи-тэк-ТУ-ра",
+   "ru": "архитектура",
+   "pos": "сущ., ж. р.; tw. architekturą",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "tenis",
+   "translit": "ТЭ-нис",
+   "ru": "теннис",
+   "pos": "сущ., м. р.; tw. tenisem",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "grafika komputerowa",
+   "translit": "ГРА-фи-ка ком-пу-тэ-РО-ва",
+   "ru": "компьютерная графика",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "moda",
+   "translit": "МО-да",
+   "ru": "мода",
+   "pos": "сущ., ж. р.; tw. modą",
+   "src": "wb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "polityka",
+   "translit": "по-ЛИ-ты-ка",
+   "ru": "политика",
+   "pos": "сущ., ж. р.; tw. polityką",
+   "src": "wb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "ekonomia",
+   "translit": "э-ко-НО-мья",
+   "ru": "экономика",
+   "pos": "сущ., ж. р.; tw. ekonomią",
+   "src": "wb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "folklor",
+   "translit": "ФОЛЬК-лор",
+   "ru": "фольклор",
+   "pos": "сущ., м. р.; tw. folklorem",
+   "src": "wb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "psychologia",
+   "translit": "псы-хо-ЛО-гья",
+   "ru": "психология",
+   "pos": "сущ., ж. р.; tw. psychologią",
+   "src": "wb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "współczesny teatr",
+   "translit": "фспуў-ЧЭС-ны ТЭ-атр",
+   "ru": "современный театр",
+   "pos": "м. р.; tw. współczesnym teatrem",
+   "src": "wb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "kino",
+   "translit": "КИ-но",
+   "ru": "кино",
+   "pos": "сущ., ср. р.; tw. kinem",
+   "src": "wb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "medycyna",
+   "translit": "мэ-ды-ЦЫ-на",
+   "ru": "медицина",
+   "pos": "сущ., ж. р.; tw. medycyną",
+   "src": "wb",
+   "topic": "Интересы: czym się interesujesz?"
+  },
+  {
+   "pl": "medycyna naturalna",
+   "translit": "мэ-ды-ЦЫ-на на-ту-РАЛЬ-на",
+   "ru": "народная (натуральная) медицина",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "medycyna"
+  },
+  {
+   "pl": "grać na gitarze",
+   "translit": "грачь на ги-ТА-жэ",
+   "ru": "играть на гитаре",
+   "pos": "глаг.: gram, grasz; grać na + местный",
+   "src": "tb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "grać na akordeonie",
+   "translit": "грачь на а-кор-дэ-О-не",
+   "ru": "играть на аккордеоне",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "grać na gitarze"
+  },
+  {
+   "pl": "grać na pianinie",
+   "translit": "грачь на пья-НИ-не",
+   "ru": "играть на пианино",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "grać na gitarze"
+  },
+  {
+   "pl": "grać w tenisa",
+   "translit": "грачь ф ТЭ-ни-са",
+   "ru": "играть в теннис",
+   "pos": "глаг.: grać w + винительный",
+   "src": "tb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "tańczyć tango",
+   "translit": "ТАНЬ-чычь ТАН-го",
+   "ru": "танцевать танго",
+   "pos": "глаг.: tańczę, tańczysz",
+   "src": "tb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "malować",
+   "translit": "ма-ЛЁ-вачь",
+   "ru": "рисовать (красками)",
+   "pos": "глаг.: maluję, malujesz",
+   "src": "tb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "robić zdjęcia",
+   "translit": "РО-бичь ЗДЬЕНЬ-ча",
+   "ru": "фотографировать",
+   "pos": "глаг.: robię, robisz",
+   "src": "tb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "śpiewać",
+   "translit": "ЩЬПЕ-вачь",
+   "ru": "петь",
+   "pos": "глаг., -am / -asz",
+   "src": "tb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "czytać książki",
+   "translit": "ЧЫ-тачь КЩЁНЖ-ки",
+   "ru": "читать книги",
+   "pos": "глаг., -am / -asz",
+   "src": "tb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "słuchać muzyki",
+   "translit": "СЎУ-хачь му-ЗЫ-ки",
+   "ru": "слушать музыку",
+   "pos": "глаг., -am / -asz; + родительный",
+   "src": "tb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "uczyć się",
+   "translit": "У-чычь щен",
+   "ru": "учиться, учить (что? — родительный)",
+   "pos": "глаг.: uczę się, uczysz się",
+   "src": "tb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "uczyć się języka polskiego",
+   "translit": "У-чычь щен ен-ЗЫ-ка поль-СКЕ-го",
+   "ru": "учить польский язык",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "uczyć się"
+  },
+  {
+   "pl": "studiować",
+   "translit": "сту-ДЬЁ-вачь",
+   "ru": "учиться в вузе, изучать",
+   "pos": "глаг.: studiuję, studiujesz",
+   "src": "tb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "ćwiczyć",
+   "translit": "ЧЬФИ-чычь",
+   "ru": "упражняться, тренировать",
+   "pos": "глаг.: ćwiczę, ćwiczysz",
+   "src": "tb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "pytać",
+   "translit": "ПЫ-тачь",
+   "ru": "спрашивать",
+   "pos": "глаг., -am / -asz",
+   "src": "tb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "biegać",
+   "translit": "БЕ-гачь",
+   "ru": "бегать",
+   "pos": "глаг., -am / -asz",
+   "src": "wb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "spacerować",
+   "translit": "спа-цэ-РО-вачь",
+   "ru": "гулять",
+   "pos": "глаг.: spaceruję, spacerujesz",
+   "src": "wb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "zostać",
+   "translit": "ЗОС-тачь",
+   "ru": "стать (кем? — творительный)",
+   "pos": "глаг.: zostanę, zostaniesz; chcę zostać lekarzem",
+   "src": "wb",
+   "topic": "Что любишь делать?"
+  },
+  {
+   "pl": "rodzina",
+   "translit": "ро-ДЖИ-на",
+   "ru": "семья",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Семья и люди"
+  },
+  {
+   "pl": "żona",
+   "translit": "ЖО-на",
+   "ru": "жена",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Семья и люди"
+  },
+  {
+   "pl": "mąż",
+   "translit": "монж",
+   "ru": "муж",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Семья и люди"
+  },
+  {
+   "pl": "syn",
+   "translit": "сын",
+   "ru": "сын",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Семья и люди"
+  },
+  {
+   "pl": "dziecko",
+   "translit": "ДЖЕЦ-ко",
+   "ru": "ребёнок",
+   "pos": "сущ., ср. р.; tw. dzieckiem",
+   "src": "tb",
+   "topic": "Семья и люди"
+  },
+  {
+   "pl": "mężczyzna",
+   "translit": "менж-ЧЫЗ-на",
+   "ru": "мужчина",
+   "pos": "сущ., м. р. на -a; tw. mężczyzną",
+   "src": "tb",
+   "topic": "Семья и люди"
+  },
+  {
+   "pl": "kobieta",
+   "translit": "ко-БЕ-та",
+   "ru": "женщина",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Семья и люди"
+  },
+  {
+   "pl": "córka",
+   "translit": "ЦУР-ка",
+   "ru": "дочь",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Семья и люди"
+  },
+  {
+   "pl": "tata",
+   "translit": "ТА-та",
+   "ru": "папа",
+   "pos": "сущ., м. р. на -a; tw. tatą",
+   "src": "wb",
+   "topic": "Семья и люди"
+  },
+  {
+   "pl": "chłopak",
+   "translit": "ХЎО-пак",
+   "ru": "парень",
+   "pos": "сущ., м. р.; tw. chłopakiem",
+   "src": "wb",
+   "topic": "Семья и люди"
+  },
+  {
+   "pl": "dziewczyna",
+   "translit": "джеф-ЧЫ-на",
+   "ru": "девушка",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Семья и люди"
+  },
+  {
+   "pl": "Anglik",
+   "translit": "АНГ-лик",
+   "ru": "англичанин",
+   "pos": "сущ.; ж. р. Angielka; язык — po angielsku",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Angielka",
+   "translit": "ан-ГЕЛЬ-ка",
+   "ru": "англичанка",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Niemiec",
+   "translit": "НЕ-мец",
+   "ru": "немец",
+   "pos": "сущ.; tw. Niemcem; язык — po niemiecku",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Niemka",
+   "translit": "НЕМ-ка",
+   "ru": "немка",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Francuz",
+   "translit": "ФРАН-цус",
+   "ru": "француз",
+   "pos": "сущ.; язык — po francusku",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Francuzka",
+   "translit": "фран-ЦУС-ка",
+   "ru": "француженка",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Hiszpan",
+   "translit": "ХИШ-пан",
+   "ru": "испанец",
+   "pos": "сущ.; язык — po hiszpańsku",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Hiszpanka",
+   "translit": "хиш-ПАН-ка",
+   "ru": "испанка",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Włoch",
+   "translit": "вўох",
+   "ru": "итальянец",
+   "pos": "сущ.; tw. Włochem; язык — po włosku",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Włoszka",
+   "translit": "ВЎОШ-ка",
+   "ru": "итальянка",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Portugalczyk",
+   "translit": "пор-ту-ГАЛЬ-чык",
+   "ru": "португалец",
+   "pos": "сущ.; язык — po portugalsku",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Portugalka",
+   "translit": "пор-ту-ГАЛЬ-ка",
+   "ru": "португалка",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Amerykanin",
+   "translit": "а-мэ-ры-КА-нин",
+   "ru": "американец",
+   "pos": "сущ.; tw. Amerykaninem",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Amerykanka",
+   "translit": "а-мэ-ры-КАН-ка",
+   "ru": "американка",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Japończyk",
+   "translit": "я-ПОНЬ-чык",
+   "ru": "японец",
+   "pos": "сущ.; язык — po japońsku",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Japonka",
+   "translit": "я-ПОН-ка",
+   "ru": "японка",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "Polka",
+   "translit": "ПОЛЬ-ка",
+   "ru": "полька",
+   "pos": "сущ., ж. р.; tw. Polką",
+   "src": "wb",
+   "topic": "Национальности"
+  },
+  {
+   "pl": "To skomplikowane.",
+   "translit": "то скомп-ли-ко-ВА-нэ",
+   "ru": "Это сложно.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Nie martw się!",
+   "translit": "не мартф щен",
+   "ru": "Не волнуйся!",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "To dla mnie czarna magia!",
+   "translit": "то дла мне ЧАР-на МА-гья",
+   "ru": "Для меня это тёмный лес!",
+   "pos": "фраза, идиома",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Niestety, nie znam.",
+   "translit": "не-СТЭ-ты не знам",
+   "ru": "К сожалению, не знаю (его).",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Dlaczego pytasz?",
+   "translit": "дла-ЧЭ-го ПЫ-таш",
+   "ru": "Почему ты спрашиваешь?",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Ćwiczę liczebniki.",
+   "translit": "ЧЬФИ-чэ ли-чэб-НИ-ки",
+   "ru": "Я тренирую числительные.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "W Polsce nie pytamy kobiet, ile mają lat.",
+   "translit": "ф ПОЛЬ-сцэ не пы-ТА-мы КО-бет И-ле МА-ён лят",
+   "ru": "В Польше женщин не спрашивают, сколько им лет.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "To trochę nieelegancko.",
+   "translit": "то ТРО-хэ не-э-лэ-ГАН-цко",
+   "ru": "Это немного невежливо.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Nie ma problemu.",
+   "translit": "не ма про-БЛЕ-му",
+   "ru": "Без проблем.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Co to znaczy?",
+   "translit": "цо то ЗНА-чы",
+   "ru": "Что это значит?",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "Nie rozumiem.",
+   "translit": "не ро-ЗУ-мем",
+   "ru": "Не понимаю.",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "To znaczy, że…",
+   "translit": "то ЗНА-чы жэ",
+   "ru": "Это значит, что…",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Фразы"
+  },
+  {
+   "pl": "oscypek",
+   "translit": "ос-ЦЫ-пэк",
+   "ru": "осцыпек — копчёный овечий сыр из Татр",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Город и культура"
+  },
+  {
+   "pl": "ser regionalny",
+   "translit": "сэр рэ-гьо-НАЛЬ-ны",
+   "ru": "региональный сыр",
+   "pos": "сущ., м. р.; tw. regionalnym serem",
+   "src": "tb",
+   "topic": "Город и культура"
+  },
+  {
+   "pl": "stolica",
+   "translit": "сто-ЛИ-ца",
+   "ru": "столица",
+   "pos": "сущ., ж. р.; stolica Polski",
+   "src": "tb",
+   "topic": "Город и культура"
+  },
+  {
+   "pl": "stare miasto",
+   "translit": "СТА-рэ МЯС-то",
+   "ru": "старый город",
+   "pos": "ср. р.; tw. starym miastem",
+   "src": "tb",
+   "topic": "Город и культура"
+  },
+  {
+   "pl": "nowoczesny budynek",
+   "translit": "но-во-ЧЭС-ны бу-ДЫ-нэк",
+   "ru": "современное здание",
+   "pos": "м. р.; tw. nowoczesnym budynkiem",
+   "src": "tb",
+   "topic": "Город и культура"
+  },
+  {
+   "pl": "teatr",
+   "translit": "ТЭ-атр",
+   "ru": "театр",
+   "pos": "сущ., м. р.; w teatrze — в театре",
+   "src": "tb",
+   "topic": "Город и культура"
+  },
+  {
+   "pl": "książka biograficzna",
+   "translit": "КЩЁНЖ-ка бьё-гра-ФИЧ-на",
+   "ru": "биографическая книга",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Город и культура"
+  }
+ ],
+ "exercises": [
+  {
+   "id": "tb-5-a1",
+   "src": "tb",
+   "ref": "A · Ćw. 1, s. 34",
+   "title": "Proszę posłuchać i uzupełnić.",
+   "title_ru": "Вопросы и ответы про Уве",
+   "task_ru": "Текст — на странице учебника (кнопка 📄 ниже). Допиши недостающее: вопрос или ответ полным предложением. Пример: a) Kto to jest? Проверяет модель.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "b) Skąd on jest? — ___",
+     "answer": "On jest z Niemiec.",
+     "ru": "Откуда он? — Он из Германии.",
+     "accepted": [
+      "Z Niemiec."
+     ]
+    },
+    {
+     "q": "c) ___? — On mieszka w Berlinie.",
+     "answer": "Gdzie on mieszka?",
+     "ru": "Где он живёт? — Он живёт в Берлине.",
+     "accepted": [
+      "Gdzie mieszka?"
+     ]
+    },
+    {
+     "q": "d) ___? — On jest wysoki, przystojny i wysportowany.",
+     "answer": "Jaki on jest?",
+     "ru": "Какой он? — Он высокий, красивый и спортивный.",
+     "accepted": [
+      "Jaki jest?"
+     ]
+    },
+    {
+     "q": "e) ___? — To jest biznesmen.",
+     "answer": "Kim on jest?",
+     "ru": "Кто он (по профессии)? — Бизнесмен.",
+     "grammar": "kim — творительный: Kim on jest? — On jest biznesmenem.",
+     "accepted": [
+      "Kim on jest z zawodu?",
+      "Kim jest?"
+     ]
+    },
+    {
+     "q": "f) Ile ma lat? — On ___",
+     "answer": "On ma 44 lata.",
+     "ru": "Сколько ему лет? — Ему 44 года.",
+     "grammar": "44 → lata (оканчивается на 2, 3, 4)",
+     "accepted": [
+      "ma 44 lata",
+      "On ma czterdzieści cztery lata."
+     ]
+    },
+    {
+     "q": "g) Co lubi robić? — ___",
+     "answer": "Lubi pracować.",
+     "ru": "Что он любит делать? — Любит работать.",
+     "accepted": [
+      "On lubi pracować."
+     ]
+    }
+   ],
+   "audio": "105a1.mp3"
+  },
+  {
+   "id": "tb-5-a2",
+   "src": "tb",
+   "ref": "A · Ćw. 2, s. 34",
+   "title": "Proszę napisać analogiczną prezentację Angeli.",
+   "title_ru": "Представь Анджелу",
+   "task_ru": "По образцу текста про Уве напиши текст про Анджелу. Данные: Anglia, Londyn, 27 lat, lektorka języka angielskiego, wysoka, szczupła, ładna, młoda, czytać książki. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Angela Brown",
+     "answer": "To jest Angela. Angela Brown. Ona jest z Anglii. Mieszka w Londynie. Jest wysoka, szczupła, ładna i młoda. Angela to lektorka języka angielskiego. Ma 27 lat. Lubi czytać książki.",
+     "ru": "Анджела Браун: из Англии, живёт в Лондоне, высокая, стройная, красивая, молодая, преподаёт английский, 27 лет, любит читать книги.",
+     "grammar": "27 → lat; z Anglii (родительный), w Londynie (местный)"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-a2b",
+   "src": "tb",
+   "ref": "A · Ćw. 2, s. 34",
+   "title": "Proszę ułożyć pytania do tekstu.",
+   "title_ru": "Вопросы к тексту про Анджелу",
+   "task_ru": "Задай вопрос, на который отвечает фраза. Проверяет модель.",
+   "type": "open",
+   "items": [
+    {
+     "q": "To jest Angela.",
+     "answer": "Kto to jest?",
+     "ru": "Это Анджела."
+    },
+    {
+     "q": "Ona jest z Anglii.",
+     "answer": "Skąd ona jest?",
+     "ru": "Она из Англии.",
+     "accepted": [
+      "Skąd jest Angela?"
+     ]
+    },
+    {
+     "q": "Mieszka w Londynie.",
+     "answer": "Gdzie ona mieszka?",
+     "ru": "Живёт в Лондоне.",
+     "accepted": [
+      "Gdzie mieszka?"
+     ]
+    },
+    {
+     "q": "Jest wysoka, szczupła, ładna i młoda.",
+     "answer": "Jaka ona jest?",
+     "ru": "Высокая, стройная, красивая и молодая.",
+     "grammar": "о женщине — jaka",
+     "accepted": [
+      "Jaka jest?"
+     ]
+    },
+    {
+     "q": "To lektorka języka angielskiego.",
+     "answer": "Kim ona jest?",
+     "ru": "Она преподаватель английского.",
+     "accepted": [
+      "Kim ona jest z zawodu?"
+     ]
+    },
+    {
+     "q": "Ma 27 lat.",
+     "answer": "Ile ona ma lat?",
+     "ru": "Ей 27 лет.",
+     "accepted": [
+      "Ile ma lat?"
+     ]
+    },
+    {
+     "q": "Lubi czytać książki.",
+     "answer": "Co ona lubi robić?",
+     "ru": "Любит читать книги.",
+     "accepted": [
+      "Co lubi robić?"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-5-a3",
+   "src": "tb",
+   "ref": "A · Ćw. 3, s. 34",
+   "title": "Proszę napisać autoprezentację.",
+   "title_ru": "Расскажи о себе",
+   "task_ru": "Ответь на вопросы о себе полным предложением. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Jak masz na imię?",
+     "answer": "Mam na imię Marek.",
+     "ru": "Как тебя зовут?"
+    },
+    {
+     "q": "Jak się nazywasz?",
+     "answer": "Nazywam się Marek Kowalski.",
+     "ru": "Как твоя фамилия? (Как тебя зовут полностью?)"
+    },
+    {
+     "q": "Skąd jesteś?",
+     "answer": "Jestem z Białorusi.",
+     "ru": "Откуда ты?"
+    },
+    {
+     "q": "Gdzie mieszkasz?",
+     "answer": "Mieszkam w Polsce, w Warszawie.",
+     "ru": "Где ты живёшь?"
+    },
+    {
+     "q": "Jaki / jaka jesteś?",
+     "answer": "Jestem wysoki, wesoły i energiczny.",
+     "ru": "Какой (какая) ты?"
+    },
+    {
+     "q": "Ile masz lat?",
+     "answer": "Mam 32 lata.",
+     "ru": "Сколько тебе лет?",
+     "grammar": "2, 3, 4 → lata; 5–21 → lat"
+    },
+    {
+     "q": "Co lubisz robić?",
+     "answer": "Lubię czytać książki i grać w tenisa.",
+     "ru": "Что ты любишь делать?"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-b1",
+   "src": "tb",
+   "ref": "B · Ćw. 1, s. 35",
+   "title": "Proszę uzupełnić i posłuchać.",
+   "title_ru": "Десятки 20–100",
+   "task_ru": "Напиши результат цифрами и словом: «3 × 10 = 30 trzydzieści». Можно только словом.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "3 × 10 = ___",
+     "answer": "trzydzieści",
+     "ru": "30",
+     "translit": "тшы-ДЖЕЩЬ-чи",
+     "accepted": [
+      "30",
+      "30 trzydzieści"
+     ]
+    },
+    {
+     "q": "4 × 10 = ___",
+     "answer": "czterdzieści",
+     "ru": "40",
+     "translit": "чтэр-ДЖЕЩЬ-чи",
+     "accepted": [
+      "40",
+      "40 czterdzieści"
+     ]
+    },
+    {
+     "q": "5 × 10 = ___",
+     "answer": "pięćdziesiąt",
+     "ru": "50",
+     "translit": "пеньчь-ДЖЕ-щёнт",
+     "accepted": [
+      "50",
+      "50 pięćdziesiąt"
+     ]
+    },
+    {
+     "q": "6 × 10 = ___",
+     "answer": "sześćdziesiąt",
+     "ru": "60",
+     "translit": "шэщьчь-ДЖЕ-щёнт",
+     "accepted": [
+      "60",
+      "60 sześćdziesiąt"
+     ]
+    },
+    {
+     "q": "7 × 10 = ___",
+     "answer": "siedemdziesiąt",
+     "ru": "70",
+     "translit": "ще-дэм-ДЖЕ-щёнт",
+     "accepted": [
+      "70",
+      "70 siedemdziesiąt"
+     ]
+    },
+    {
+     "q": "8 × 10 = ___",
+     "answer": "osiemdziesiąt",
+     "ru": "80",
+     "translit": "о-щем-ДЖЕ-щёнт",
+     "accepted": [
+      "80",
+      "80 osiemdziesiąt"
+     ]
+    },
+    {
+     "q": "9 × 10 = ___",
+     "answer": "dziewięćdziesiąt",
+     "ru": "90",
+     "translit": "дже-веньчь-ДЖЕ-щёнт",
+     "accepted": [
+      "90",
+      "90 dziewięćdziesiąt"
+     ]
+    },
+    {
+     "q": "10 × 10 = ___",
+     "answer": "sto",
+     "ru": "100",
+     "translit": "сто",
+     "accepted": [
+      "100",
+      "100 sto"
+     ]
+    }
+   ],
+   "audio": "105b1.mp3"
+  },
+  {
+   "id": "tb-5-b2",
+   "src": "tb",
+   "ref": "B · Ćw. 2, s. 35",
+   "title": "Proszę napisać.",
+   "title_ru": "Напиши число словом",
+   "task_ru": "Напиши число по-польски словом: «13 trzynaście».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "13",
+     "answer": "trzynaście",
+     "ru": "13",
+     "translit": "тшы-НАЩЬ-че"
+    },
+    {
+     "q": "30",
+     "answer": "trzydzieści",
+     "ru": "30",
+     "translit": "тшы-ДЖЕЩЬ-чи"
+    },
+    {
+     "q": "14",
+     "answer": "czternaście",
+     "ru": "14",
+     "translit": "чтэр-НАЩЬ-че"
+    },
+    {
+     "q": "40",
+     "answer": "czterdzieści",
+     "ru": "40",
+     "translit": "чтэр-ДЖЕЩЬ-чи"
+    },
+    {
+     "q": "15",
+     "answer": "piętnaście",
+     "ru": "15",
+     "translit": "пент-НАЩЬ-че"
+    },
+    {
+     "q": "50",
+     "answer": "pięćdziesiąt",
+     "ru": "50",
+     "translit": "пеньчь-ДЖЕ-щёнт"
+    },
+    {
+     "q": "16",
+     "answer": "szesnaście",
+     "ru": "16",
+     "translit": "шэс-НАЩЬ-че"
+    },
+    {
+     "q": "60",
+     "answer": "sześćdziesiąt",
+     "ru": "60",
+     "translit": "шэщьчь-ДЖЕ-щёнт"
+    },
+    {
+     "q": "17",
+     "answer": "siedemnaście",
+     "ru": "17",
+     "translit": "ще-дэм-НАЩЬ-че"
+    },
+    {
+     "q": "70",
+     "answer": "siedemdziesiąt",
+     "ru": "70",
+     "translit": "ще-дэм-ДЖЕ-щёнт"
+    },
+    {
+     "q": "18",
+     "answer": "osiemnaście",
+     "ru": "18",
+     "translit": "о-щем-НАЩЬ-че"
+    },
+    {
+     "q": "80",
+     "answer": "osiemdziesiąt",
+     "ru": "80",
+     "translit": "о-щем-ДЖЕ-щёнт"
+    },
+    {
+     "q": "19",
+     "answer": "dziewiętnaście",
+     "ru": "19",
+     "translit": "дже-вьент-НАЩЬ-че"
+    },
+    {
+     "q": "90",
+     "answer": "dziewięćdziesiąt",
+     "ru": "90",
+     "translit": "дже-веньчь-ДЖЕ-щёнт"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-b3",
+   "src": "tb",
+   "ref": "B · Ćw. 3, s. 35",
+   "title": "Matematyka. Ile to jest?",
+   "title_ru": "Математика: сколько будет?",
+   "task_ru": "Посчитай и напиши результат словом: «31 + 23 = pięćdziesiąt cztery». plus — плюс, minus — минус, jest — равно.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "14 + 33 = ___",
+     "answer": "czterdzieści siedem",
+     "ru": "47",
+     "accepted": [
+      "47"
+     ]
+    },
+    {
+     "q": "16 + 13 = ___",
+     "answer": "dwadzieścia dziewięć",
+     "ru": "29",
+     "accepted": [
+      "29"
+     ]
+    },
+    {
+     "q": "33 + 44 = ___",
+     "answer": "siedemdziesiąt siedem",
+     "ru": "77",
+     "accepted": [
+      "77"
+     ]
+    },
+    {
+     "q": "72 + 18 = ___",
+     "answer": "dziewięćdziesiąt",
+     "ru": "90",
+     "accepted": [
+      "90"
+     ]
+    },
+    {
+     "q": "79 – 11 = ___",
+     "answer": "sześćdziesiąt osiem",
+     "ru": "68",
+     "accepted": [
+      "68"
+     ]
+    },
+    {
+     "q": "65 – 22 = ___",
+     "answer": "czterdzieści trzy",
+     "ru": "43",
+     "accepted": [
+      "43"
+     ]
+    },
+    {
+     "q": "96 – 12 = ___",
+     "answer": "osiemdziesiąt cztery",
+     "ru": "84",
+     "accepted": [
+      "84"
+     ]
+    },
+    {
+     "q": "77 – 55 = ___",
+     "answer": "dwadzieścia dwa",
+     "ru": "22",
+     "accepted": [
+      "22"
+     ]
+    },
+    {
+     "q": "110 – 9 = ___",
+     "answer": "sto jeden",
+     "ru": "101",
+     "accepted": [
+      "101"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-5-b4",
+   "src": "tb",
+   "ref": "B · Ćw. 4, s. 36",
+   "title": "Rok? Lata? Lat?",
+   "title_ru": "Rok, lata или lat?",
+   "task_ru": "1 — rok; 2, 3, 4 (и 22, 33, 44…, но не 12–14) — lata; остальное — lat. Выбери форму.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "77 ___",
+     "answer": "lat",
+     "ru": "семьдесят семь",
+     "full_pl": "77 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "50 ___",
+     "answer": "lat",
+     "ru": "пятьдесят",
+     "full_pl": "50 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "44 ___",
+     "answer": "lata",
+     "ru": "сорок четыре",
+     "full_pl": "44 lata",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "65 ___",
+     "answer": "lat",
+     "ru": "шестьдесят пять",
+     "full_pl": "65 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "7 ___",
+     "answer": "lat",
+     "ru": "семь",
+     "full_pl": "7 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "57 ___",
+     "answer": "lat",
+     "ru": "пятьдесят семь",
+     "full_pl": "57 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "22 ___",
+     "answer": "lata",
+     "ru": "двадцать два",
+     "full_pl": "22 lata",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "34 ___",
+     "answer": "lata",
+     "ru": "тридцать четыре",
+     "full_pl": "34 lata",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "20 ___",
+     "answer": "lat",
+     "ru": "двадцать",
+     "full_pl": "20 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "33 ___",
+     "answer": "lata",
+     "ru": "тридцать три",
+     "full_pl": "33 lata",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "14 ___",
+     "answer": "lat",
+     "ru": "четырнадцать",
+     "full_pl": "14 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "18 ___",
+     "answer": "lat",
+     "ru": "восемнадцать",
+     "full_pl": "18 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "100 ___",
+     "answer": "lat",
+     "ru": "сто",
+     "full_pl": "100 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "13 ___",
+     "answer": "lat",
+     "ru": "тринадцать",
+     "full_pl": "13 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "1 ___",
+     "answer": "rok",
+     "ru": "один",
+     "full_pl": "1 rok",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "91 ___",
+     "answer": "lat",
+     "ru": "девяносто один",
+     "full_pl": "91 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "84 ___",
+     "answer": "lata",
+     "ru": "восемьдесят четыре",
+     "full_pl": "84 lata",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "63 ___",
+     "answer": "lata",
+     "ru": "шестьдесят три",
+     "full_pl": "63 lata",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-5-b5",
+   "src": "tb",
+   "ref": "B · Ćw. 5, s. 36",
+   "title": "Jak myślisz, ile on/ona/ono ma lat?",
+   "title_ru": "Сколько им лет, как думаешь?",
+   "task_ru": "Фото — на странице учебника (кнопка 📄 ниже). Угадай возраст; форма подсказана: rok / lata / lat. Проверяет модель — главное, чтобы число подходило к форме.",
+   "type": "free",
+   "items": [
+    {
+     "q": "👶 младенец: Ono ma ___ rok.",
+     "answer": "Ono ma rok.",
+     "ru": "Ему (ребёнку) год.",
+     "grammar": "rok — только 1",
+     "accepted": [
+      "Ono ma jeden rok."
+     ]
+    },
+    {
+     "q": "👴 старик в кепке: On ma ___ lata.",
+     "answer": "On ma osiemdziesiąt dwa lata.",
+     "ru": "Ему … года (число на 2, 3, 4).",
+     "grammar": "lata — 22, 23, 24, 32… 84"
+    },
+    {
+     "q": "🤠 мужчина в шляпе: On ma ___ lat.",
+     "answer": "On ma trzydzieści pięć lat.",
+     "ru": "Ему … лет.",
+     "grammar": "lat — 5–21, 25–31…"
+    },
+    {
+     "q": "👧 девочка: Ona ma ___ lat.",
+     "answer": "Ona ma dwanaście lat.",
+     "ru": "Ей … лет.",
+     "grammar": "12, 13, 14 — lat!"
+    },
+    {
+     "q": "👩 молодая женщина: Ona ma ___ lata.",
+     "answer": "Ona ma dwadzieścia trzy lata.",
+     "ru": "Ей … года.",
+     "grammar": "lata — 22, 23, 24…"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-b6",
+   "src": "tb",
+   "ref": "B · Ćw. 6, s. 36",
+   "title": "Lat? Lata?",
+   "title_ru": "Lat или lata?",
+   "task_ru": "Сколько лет героям учебника? Выбери форму. Диалоги о возрасте (Мами, Кароль, пани Май) — аудио выше.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Angela ma 27 ___",
+     "answer": "lat",
+     "ru": "Анджеле двадцать семь.",
+     "full_pl": "Angela ma 27 lat.",
+     "options": [
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "Javier ma 30 ___",
+     "answer": "lat",
+     "ru": "Хавьеру тридцать.",
+     "full_pl": "Javier ma 30 lat.",
+     "options": [
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "Pani Joanna ma 43 ___",
+     "answer": "lata",
+     "ru": "Пани Йоанне сорок три.",
+     "full_pl": "Pani Joanna ma 43 lata.",
+     "options": [
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "Pan Grzegorz ma 45 ___",
+     "answer": "lat",
+     "ru": "Пану Гжегожу сорок пять.",
+     "full_pl": "Pan Grzegorz ma 45 lat.",
+     "options": [
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "Mami ma 20 ___",
+     "answer": "lat",
+     "ru": "Мами двадцать.",
+     "full_pl": "Mami ma 20 lat.",
+     "options": [
+      "lata",
+      "lat"
+     ]
+    }
+   ],
+   "audio": [
+    "105b4-1.mp3",
+    "105b4-2.mp3"
+   ]
+  },
+  {
+   "id": "tb-5-c1",
+   "src": "tb",
+   "ref": "C · Ćw. 1, s. 36",
+   "title": "Kto to jest?",
+   "title_ru": "Кто это? Профессии",
+   "task_ru": "Фото из учебника — здесь эмодзи и русская подсказка. Напиши профессию по-польски (мужская форма): «1 kelner …».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "🍷 приносит еду в ресторане",
+     "answer": "kelner",
+     "ru": "официант",
+     "translit": "КЭЛЬ-нэр"
+    },
+    {
+     "q": "👨‍🏫 у доски в классе",
+     "answer": "nauczyciel",
+     "ru": "учитель",
+     "translit": "на-у-ЧЫ-чель"
+    },
+    {
+     "q": "📷 с большим фотоаппаратом",
+     "answer": "fotograf",
+     "ru": "фотограф",
+     "translit": "фо-ТО-граф"
+    },
+    {
+     "q": "💻 работает за компьютером",
+     "answer": "informatyk",
+     "ru": "айтишник",
+     "translit": "ин-фор-МА-тык"
+    },
+    {
+     "q": "🎻 играет на скрипке",
+     "answer": "muzyk",
+     "ru": "музыкант",
+     "translit": "МУ-зык"
+    },
+    {
+     "q": "👷 в каске, с чертежом",
+     "answer": "inżynier",
+     "ru": "инженер",
+     "translit": "ин-ЖЫ-нер"
+    },
+    {
+     "q": "👮 в форме, со значком",
+     "answer": "policjant",
+     "ru": "полицейский",
+     "translit": "по-ЛИ-цьянт"
+    },
+    {
+     "q": "👨‍🍳 в белом колпаке, готовит",
+     "answer": "kucharz",
+     "ru": "повар",
+     "translit": "КУ-хаш"
+    },
+    {
+     "q": "🦷 лечит зубы",
+     "answer": "dentysta",
+     "ru": "стоматолог",
+     "translit": "дэн-ТЫС-та"
+    },
+    {
+     "q": "💃 танцует в паре",
+     "answer": "tancerz",
+     "ru": "танцор",
+     "translit": "ТАН-цэш"
+    },
+    {
+     "q": "🩺 в белом халате, со стетоскопом",
+     "answer": "lekarz",
+     "ru": "врач",
+     "translit": "ЛЕ-каш"
+    },
+    {
+     "q": "💼 в костюме, улыбается",
+     "answer": "biznesmen",
+     "ru": "бизнесмен",
+     "translit": "биз-НЭС-мэн"
+    },
+    {
+     "q": "🎙️ в студии телевидения",
+     "answer": "dziennikarz",
+     "ru": "журналист",
+     "translit": "джен-НИ-каш"
+    },
+    {
+     "q": "🎭 мим в белом гриме",
+     "answer": "aktor",
+     "ru": "актёр",
+     "translit": "АК-тор"
+    }
+   ],
+   "audio": "105c1.mp3"
+  },
+  {
+   "id": "tb-5-c2",
+   "src": "tb",
+   "ref": "C · Ćw. 2, s. 37",
+   "title": "Kto to jest? Rodzaj żeński",
+   "title_ru": "Женская форма профессии",
+   "task_ru": "Образуй женскую форму: обычно -ka; rz → r (lekarz → lekarka); -ista → -istka. Напиши слово.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "emeryt → ___",
+     "answer": "emerytka",
+     "ru": "пенсионерка",
+     "translit": "э-мэ-РЫТ-ка"
+    },
+    {
+     "q": "kelner → ___",
+     "answer": "kelnerka",
+     "ru": "официантка",
+     "translit": "кэль-НЭР-ка"
+    },
+    {
+     "q": "nauczyciel → ___",
+     "answer": "nauczycielka",
+     "ru": "учительница",
+     "translit": "на-у-чы-ЧЕЛЬ-ка"
+    },
+    {
+     "q": "dziennikarz → ___",
+     "answer": "dziennikarka",
+     "ru": "журналистка",
+     "translit": "джен-ни-КАР-ка",
+     "grammar": "rz : r"
+    },
+    {
+     "q": "kucharz → ___",
+     "answer": "kucharka",
+     "ru": "повариха",
+     "translit": "ку-ХАР-ка",
+     "grammar": "rz : r"
+    },
+    {
+     "q": "tancerz → ___",
+     "answer": "tancerka",
+     "ru": "танцовщица",
+     "translit": "тан-ЦЭР-ка",
+     "grammar": "rz : r"
+    },
+    {
+     "q": "poeta → ___",
+     "answer": "poetka",
+     "ru": "поэтесса",
+     "translit": "по-ЭТ-ка"
+    },
+    {
+     "q": "dentysta → ___",
+     "answer": "dentystka",
+     "ru": "стоматолог (женщина)",
+     "translit": "дэн-ТЫСТ-ка"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-c3",
+   "src": "tb",
+   "ref": "C · Ćw. 3, s. 37",
+   "title": "Kto to jest? Jaki on jest?",
+   "title_ru": "Кто это? Какой он?",
+   "task_ru": "Карикатуры — на странице учебника (кнопка 📄 ниже). Опиши: «To jest + прилагательное + профессия + имя». Слова: aktor, aktorka, malarz, polityk, zdolna, dobry, utalentowany, atrakcyjny. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "2) Джонни Депп",
+     "answer": "To jest atrakcyjny aktor, Johnny Depp.",
+     "ru": "Это привлекательный актёр Джонни Депп.",
+     "accepted": [
+      "To jest dobry aktor. Johnny Depp."
+     ]
+    },
+    {
+     "q": "3) Винсент Ван Гог",
+     "answer": "To jest utalentowany malarz, Vincent van Gogh.",
+     "ru": "Это талантливый художник Ван Гог."
+    },
+    {
+     "q": "4) Лех Валенса",
+     "answer": "To jest dobry polityk, Lech Wałęsa.",
+     "ru": "Это хороший политик Лех Валенса.",
+     "grammar": "образец: To jest zdolna aktorka, Nicole Kidman."
+    }
+   ]
+  },
+  {
+   "id": "tb-5-d1",
+   "src": "tb",
+   "ref": "D · Ćw. 1, s. 37",
+   "title": "Prawda czy nieprawda?",
+   "title_ru": "Правда или неправда?",
+   "task_ru": "Диалог Хавьера и Уве — на странице учебника (кнопка 📄 ниже) и в аудио. Правда (P) или неправда (N)?",
+   "type": "tf",
+   "items": [
+    {
+     "q": "Syn ma na imię Eric.",
+     "answer": "prawda",
+     "ru": "Сына зовут Эрик.",
+     "full_pl": "Moja żona Anna i mój syn Eric."
+    },
+    {
+     "q": "Anna nie jest atrakcyjna.",
+     "answer": "nieprawda",
+     "ru": "Анна непривлекательна.",
+     "full_pl": "Twoja żona jest bardzo ładna — jest piękna!"
+    },
+    {
+     "q": "Uwe jest aktorem.",
+     "answer": "nieprawda",
+     "ru": "Уве — актёр.",
+     "full_pl": "Uwe jest biznesmenem, a Anna jest aktorką."
+    },
+    {
+     "q": "Javier umie tańczyć tango.",
+     "answer": "prawda",
+     "ru": "Хавьер умеет танцевать танго.",
+     "full_pl": "Jestem też instruktorem tanga."
+    },
+    {
+     "q": "Javier jest muzykiem.",
+     "answer": "prawda",
+     "ru": "Хавьер — музыкант.",
+     "full_pl": "Z zawodu jestem muzykiem."
+    }
+   ],
+   "audio": "105d1.mp3"
+  },
+  {
+   "id": "tb-5-d2",
+   "src": "tb",
+   "ref": "D · Ćw. 2, s. 38",
+   "title": "Mianownik czy narzędnik?",
+   "title_ru": "Именительный или творительный?",
+   "task_ru": "X to Y — именительный (dobry syn); X jest Y — творительный (dobrym synem). Перепиши сочетание в нужной форме: «b) ambitną studentką».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Kasia to ambitna studentka. Kasia jest ___",
+     "answer": "ambitną studentką",
+     "ru": "Кася — целеустремлённая студентка.",
+     "grammar": "jest + творительный, ж. р.: -ą / -ą"
+    },
+    {
+     "q": "To jest świetny kucharz. On jest ___",
+     "answer": "świetnym kucharzem",
+     "ru": "Это отличный повар. Он отличный повар.",
+     "grammar": "м. р.: -ym / -em"
+    },
+    {
+     "q": "Agnieszka jest miłą sekretarką. Agnieszka to ___",
+     "answer": "miła sekretarka",
+     "ru": "Агнешка — милая секретарша.",
+     "grammar": "to + именительный"
+    },
+    {
+     "q": "Jan jest wesołym mężczyzną. Jan to ___",
+     "answer": "wesoły mężczyzna",
+     "ru": "Ян — весёлый мужчина.",
+     "grammar": "to + именительный"
+    },
+    {
+     "q": "Warszawa to stolica Polski. Warszawa jest ___",
+     "answer": "stolicą Polski",
+     "ru": "Варшава — столица Польши.",
+     "grammar": "jest + творительный; Polski не меняется (родительный)"
+    },
+    {
+     "q": "Picasso to popularny malarz. Picasso jest ___",
+     "answer": "popularnym malarzem",
+     "ru": "Пикассо — популярный художник."
+    },
+    {
+     "q": "Kraków jest starym miastem. Kraków to ___",
+     "answer": "stare miasto",
+     "ru": "Краков — старый город.",
+     "grammar": "ср. р. именительный: -e / -o"
+    },
+    {
+     "q": "Oscypek jest regionalnym serem. Oscypek to ___",
+     "answer": "regionalny ser",
+     "ru": "Осцыпек — региональный сыр."
+    },
+    {
+     "q": "Centrum Manggha jest nowoczesnym budynkiem. Centrum Manggha to ___",
+     "answer": "nowoczesny budynek",
+     "ru": "Центр «Мангха» — современное здание."
+    }
+   ]
+  },
+  {
+   "id": "tb-5-d3",
+   "src": "tb",
+   "ref": "D · Ćw. 3, s. 38",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Витка́цы: вставь слово",
+   "task_ru": "Диалог Хавьера и Мами — на странице учебника (кнопка 📄 ниже). Слова: sztuką, malarz, fotograf, artysta, malarstwem (pisarz — уже вставлено).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "To bardzo popularny polski ___,",
+     "answer": "artysta",
+     "ru": "Это очень популярный польский художник (деятель искусства),"
+    },
+    {
+     "q": "pisarz, dramaturg, ___ i filozof,",
+     "answer": "malarz",
+     "ru": "писатель, драматург, живописец и философ,"
+    },
+    {
+     "q": "hmmm ___!",
+     "answer": "fotograf",
+     "ru": "хм… фотограф!"
+    },
+    {
+     "q": "Ja znam Witkacego, bo interesuję się ___ i ___.",
+     "answer": "sztuką, malarstwem",
+     "ru": "Я знаю Виткация, потому что интересуюсь искусством и живописью.",
+     "grammar": "interesować się + творительный: sztuka → sztuką, malarstwo → malarstwem",
+     "accepted": [
+      "malarstwem, sztuką"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-5-d4",
+   "src": "tb",
+   "ref": "D · Ćw. 4, s. 39",
+   "title": "Czym on/ona się interesuje?",
+   "title_ru": "Чем он/она интересуется?",
+   "task_ru": "Картинки — здесь эмодзи. Напиши увлечение в творительном: «1 malarstwem». Пример: 📚 → literaturą.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "🎨 палитра с красками",
+     "answer": "malarstwem",
+     "ru": "живописью",
+     "translit": "ма-ЛЯР-ствэм",
+     "accepted": [
+      "sztuką"
+     ]
+    },
+    {
+     "q": "🎾 теннисистка",
+     "answer": "tenisem",
+     "ru": "теннисом",
+     "translit": "ТЭ-ни-сэм",
+     "accepted": [
+      "sportem"
+     ]
+    },
+    {
+     "q": "🎸 гитара",
+     "answer": "muzyką",
+     "ru": "музыкой",
+     "translit": "МУ-зы-кон"
+    },
+    {
+     "q": "📷 фотоаппарат",
+     "answer": "fotografią",
+     "ru": "фотографией",
+     "translit": "фо-то-ГРА-фьон"
+    }
+   ]
+  },
+  {
+   "id": "tb-5-d5",
+   "src": "tb",
+   "ref": "D · Ćw. 5, s. 39",
+   "title": "Proszę zamienić obrazki na tekst.",
+   "title_ru": "Замени картинки словами",
+   "task_ru": "Текст про Марту Новак: вместо картинки напиши слово в нужной форме.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Ona jest z 🇵🇱 ___. Mieszka w Warszawie.",
+     "answer": "Polski",
+     "ru": "Она из Польши. Живёт в Варшаве.",
+     "grammar": "z + родительный"
+    },
+    {
+     "q": "Ma 23 lata. Jest 📏 (152 см) ___,",
+     "answer": "niska",
+     "ru": "Ей 23 года. Она невысокая,"
+    },
+    {
+     "q": "😊 ___",
+     "answer": "wesoła",
+     "ru": "весёлая",
+     "accepted": [
+      "sympatyczna",
+      "miła"
+     ]
+    },
+    {
+     "q": "i 🏋️ ___,",
+     "answer": "wysportowana",
+     "ru": "и спортивная,"
+    },
+    {
+     "q": "ale teraz jest 💊 ___.",
+     "answer": "chora",
+     "ru": "но сейчас она болеет (больна)."
+    },
+    {
+     "q": "Ona świetnie mówi po 🇬🇧 ___",
+     "answer": "angielsku",
+     "ru": "Она отлично говорит по-английски"
+    },
+    {
+     "q": "Interesuje się 📷 ___,",
+     "answer": "fotografią",
+     "ru": "Интересуется фотографией,"
+    },
+    {
+     "q": "🎾 ___",
+     "answer": "tenisem",
+     "ru": "теннисом",
+     "accepted": [
+      "sportem"
+     ]
+    },
+    {
+     "q": "i 🎺 ___.",
+     "answer": "muzyką",
+     "ru": "и музыкой.",
+     "accepted": [
+      "muzyką jazzową",
+      "jazzem",
+      "trąbką"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-5-e1",
+   "src": "tb",
+   "ref": "E · Powtórzenie, s. 39",
+   "title": "Proszę napisać pytania do podkreślonych form.",
+   "title_ru": "Вопросы к выделенным словам",
+   "task_ru": "Текст про Мами — на странице учебника (кнопка 📄 ниже). Задай вопрос к выделенной части. Проверяет модель.",
+   "type": "open",
+   "items": [
+    {
+     "q": "To jest *Mami*.",
+     "answer": "Kto to jest?",
+     "ru": "Это Мами."
+    },
+    {
+     "q": "Ona nazywa się *Mami Takada*.",
+     "answer": "Jak ona się nazywa?",
+     "ru": "Её зовут Мами Такада.",
+     "accepted": [
+      "Jak się nazywa?"
+     ]
+    },
+    {
+     "q": "Jest *z Japonii*.",
+     "answer": "Skąd ona jest?",
+     "ru": "Она из Японии.",
+     "accepted": [
+      "Skąd jest?"
+     ]
+    },
+    {
+     "q": "Teraz mieszka *w Krakowie*.",
+     "answer": "Gdzie ona teraz mieszka?",
+     "ru": "Сейчас живёт в Кракове.",
+     "accepted": [
+      "Gdzie teraz mieszka?"
+     ]
+    },
+    {
+     "q": "Ma *20 lat*.",
+     "answer": "Ile ona ma lat?",
+     "ru": "Ей 20 лет.",
+     "accepted": [
+      "Ile ma lat?"
+     ]
+    },
+    {
+     "q": "Jest *niska, szczupła i sympatyczna*.",
+     "answer": "Jaka ona jest?",
+     "ru": "Она невысокая, стройная и симпатичная.",
+     "accepted": [
+      "Jaka jest?"
+     ]
+    },
+    {
+     "q": "Zna trochę *polski*.",
+     "answer": "Jaki język ona zna trochę?",
+     "ru": "Немного знает польский.",
+     "accepted": [
+      "Co ona zna trochę?",
+      "Co zna?"
+     ]
+    },
+    {
+     "q": "Ona jest dobrą *studentką*.",
+     "answer": "Kim ona jest?",
+     "ru": "Она хорошая студентка.",
+     "accepted": [
+      "Jaką studentką ona jest?"
+     ]
+    },
+    {
+     "q": "Planuje studiować malarstwo *w Polsce*.",
+     "answer": "Gdzie ona planuje studiować malarstwo?",
+     "ru": "Планирует учиться живописи в Польше.",
+     "accepted": [
+      "Gdzie planuje studiować?"
+     ]
+    },
+    {
+     "q": "Interesuje się *muzyką rockową, malarstwem i architekturą*.",
+     "answer": "Czym ona się interesuje?",
+     "ru": "Интересуется рок-музыкой, живописью и архитектурой.",
+     "accepted": [
+      "Czym się interesuje?"
+     ]
+    },
+    {
+     "q": "Ona bardzo lubi *malować*.",
+     "answer": "Co ona bardzo lubi robić?",
+     "ru": "Она очень любит рисовать.",
+     "accepted": [
+      "Co lubi robić?"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-5-1",
+   "src": "wb",
+   "ref": "Ćw. 1, s. 18",
+   "title": "Proszę uporządkować tekst, a następnie posłuchać i skontrolować.",
+   "title_ru": "Расставь части текста",
+   "task_ru": "Части текста про Мами перепутаны. Номера 1 (To jest), 6 и 9 уже стоят. Напиши номер каждой части (2–11), потом послушай и проверь.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "bo chce studiować w Polsce.",
+     "answer": "7",
+     "ru": "потому что хочет учиться в Польше."
+    },
+    {
+     "q": "lubi słuchać muzyki.",
+     "answer": "11",
+     "ru": "любит слушать музыку."
+    },
+    {
+     "q": "z Japonii. Mieszka",
+     "answer": "3",
+     "ru": "из Японии. Живёт"
+    },
+    {
+     "q": "jest w Krakowie.",
+     "answer": "5",
+     "ru": "находится в Кракове."
+    },
+    {
+     "q": "Mami Takada. Ona jest",
+     "answer": "2",
+     "ru": "Мами Такада. Она"
+    },
+    {
+     "q": "Mami jest młoda,",
+     "answer": "8",
+     "ru": "Мами молодая,"
+    },
+    {
+     "q": "w Tokio, ale teraz",
+     "answer": "4",
+     "ru": "в Токио, но сейчас"
+    },
+    {
+     "q": "20 lat. Mami bardzo",
+     "answer": "10",
+     "ru": "20 лет. Мами очень"
+    }
+   ],
+   "audio": "18_L05_cwiczenie1.mp3"
+  },
+  {
+   "id": "wb-5-2",
+   "src": "wb",
+   "ref": "Ćw. 2, s. 18",
+   "title": "Proszę ułożyć pytania do tekstu z ćwiczenia 1.",
+   "title_ru": "Вопросы к тексту ćw. 1",
+   "task_ru": "Задай вопрос к фразе, используя слова: dlaczego, kto, gdzie, skąd, czy, co, jaka, ile. Проверяет модель.",
+   "type": "open",
+   "items": [
+    {
+     "q": "To jest Mami Takada.",
+     "answer": "Kto to jest?",
+     "ru": "Это Мами Такада."
+    },
+    {
+     "q": "Ona jest z Japonii.",
+     "answer": "Skąd jest Mami?",
+     "ru": "Она из Японии.",
+     "accepted": [
+      "Skąd ona jest?"
+     ]
+    },
+    {
+     "q": "Mieszka w Tokio, ale teraz jest w Krakowie.",
+     "answer": "Gdzie mieszka Mami?",
+     "ru": "Живёт в Токио, но сейчас в Кракове.",
+     "accepted": [
+      "Gdzie ona teraz jest?",
+      "Gdzie jest teraz Mami?"
+     ]
+    },
+    {
+     "q": "Mami uczy się języka polskiego, bo chce studiować w Polsce.",
+     "answer": "Dlaczego Mami uczy się języka polskiego?",
+     "ru": "Мами учит польский, потому что хочет учиться в Польше.",
+     "accepted": [
+      "Co robi Mami?"
+     ]
+    },
+    {
+     "q": "Mami jest młoda, szczupła i ładna.",
+     "answer": "Jaka jest Mami?",
+     "ru": "Мами молодая, стройная и красивая."
+    },
+    {
+     "q": "Ma 20 lat.",
+     "answer": "Ile lat ma Mami?",
+     "ru": "Ей 20 лет.",
+     "accepted": [
+      "Ile ona ma lat?"
+     ]
+    },
+    {
+     "q": "Mami bardzo lubi słuchać muzyki.",
+     "answer": "Czy Mami lubi słuchać muzyki?",
+     "ru": "Мами очень любит слушать музыку.",
+     "accepted": [
+      "Co Mami bardzo lubi?",
+      "Co lubi robić Mami?"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-5-3",
+   "src": "wb",
+   "ref": "Ćw. 3, s. 18",
+   "title": "Proszę uzupełnić tekst w 1 osobie l. poj.",
+   "title_ru": "Глагол в форме «я»",
+   "task_ru": "Поставь глагол в 1-е лицо ед. ч. (ja): «Nazywam się».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "___ (być) z Hiszpanii,",
+     "answer": "Jestem",
+     "ru": "Я из Испании,"
+    },
+    {
+     "q": "___ (mieszkać) w Barcelonie.",
+     "answer": "mieszkam",
+     "ru": "живу в Барселоне."
+    },
+    {
+     "q": "Teraz ___ (być) w Krakowie.",
+     "answer": "jestem",
+     "ru": "Сейчас я в Кракове."
+    },
+    {
+     "q": "___ (uczyć się) języka polskiego,",
+     "answer": "Uczę się",
+     "ru": "Я учу польский,"
+    },
+    {
+     "q": "żeby ___ (studiować) w Polsce.",
+     "answer": "studiować",
+     "ru": "чтобы учиться в Польше.",
+     "grammar": "żeby + инфинитив — форма не меняется"
+    },
+    {
+     "q": "___ (mieć) 22 lata.",
+     "answer": "Mam",
+     "ru": "Мне 22 года."
+    },
+    {
+     "q": "___ (być) wesoła i energiczna.",
+     "answer": "Jestem",
+     "ru": "Я весёлая и энергичная."
+    },
+    {
+     "q": "Bardzo ___ (lubić) śpiewać.",
+     "answer": "lubię",
+     "ru": "Я очень люблю петь."
+    },
+    {
+     "q": "Dobrze ___ (grać) w tenisa",
+     "answer": "gram",
+     "ru": "Хорошо играю в теннис"
+    },
+    {
+     "q": "i szybko ___ (biegać).",
+     "answer": "biegam",
+     "ru": "и быстро бегаю."
+    }
+   ]
+  },
+  {
+   "id": "wb-5-6",
+   "src": "wb",
+   "ref": "Ćw. 6, s. 18",
+   "title": "Co pasuje?",
+   "title_ru": "Собери число",
+   "task_ru": "Какое окончание подходит: -naście (11–19), -dzieści (20, 30, 40), -dziesiąt (50–90)?",
+   "type": "match",
+   "items": [
+    {
+     "q": "pięt-",
+     "answer": "-naście",
+     "ru": "корень «пять» (без ć)",
+     "full_pl": "piętnaście — 15"
+    },
+    {
+     "q": "sześć-",
+     "answer": "-dziesiąt",
+     "ru": "корень «шесть» (с ść)",
+     "full_pl": "sześćdziesiąt — 60"
+    },
+    {
+     "q": "szes-",
+     "answer": "-naście",
+     "ru": "корень «шесть» (без ć)",
+     "full_pl": "szesnaście — 16"
+    },
+    {
+     "q": "czter-",
+     "answer": "-dzieści",
+     "ru": "корень «четыре»",
+     "full_pl": "czterdzieści — 40"
+    },
+    {
+     "q": "dziewięt-",
+     "answer": "-naście",
+     "ru": "корень «девять» (без ć)",
+     "full_pl": "dziewiętnaście — 19"
+    },
+    {
+     "q": "dziewięć-",
+     "answer": "-dziesiąt",
+     "ru": "корень «девять» (с ć)",
+     "full_pl": "dziewięćdziesiąt — 90"
+    }
+   ],
+   "options": [
+    "-naście",
+    "-dzieści",
+    "-dziesiąt"
+   ]
+  },
+  {
+   "id": "wb-5-7",
+   "src": "wb",
+   "ref": "Ćw. 7, s. 18",
+   "title": "Lat czy lata?",
+   "title_ru": "Rok, lata или lat?",
+   "task_ru": "1 — rok; 2, 3, 4 (кроме 12–14) — lata; остальное — lat.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "7 ___",
+     "answer": "lat",
+     "ru": "семь",
+     "full_pl": "7 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "8 ___",
+     "answer": "lat",
+     "ru": "восемь",
+     "full_pl": "8 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "13 ___",
+     "answer": "lat",
+     "ru": "тринадцать",
+     "full_pl": "13 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "42 ___",
+     "answer": "lata",
+     "ru": "сорок два",
+     "full_pl": "42 lata",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "51 ___",
+     "answer": "lat",
+     "ru": "пятьдесят один",
+     "full_pl": "51 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "1 ___",
+     "answer": "rok",
+     "ru": "один",
+     "full_pl": "1 rok",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "64 ___",
+     "answer": "lata",
+     "ru": "шестьдесят четыре",
+     "full_pl": "64 lata",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "22 ___",
+     "answer": "lata",
+     "ru": "двадцать два",
+     "full_pl": "22 lata",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "40 ___",
+     "answer": "lat",
+     "ru": "сорок",
+     "full_pl": "40 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "14 ___",
+     "answer": "lat",
+     "ru": "четырнадцать",
+     "full_pl": "14 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "104 ___",
+     "answer": "lata",
+     "ru": "сто четыре",
+     "full_pl": "104 lata",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "101 ___",
+     "answer": "lat",
+     "ru": "сто один",
+     "full_pl": "101 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "17 ___",
+     "answer": "lat",
+     "ru": "семнадцать",
+     "full_pl": "17 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    },
+    {
+     "q": "12 ___",
+     "answer": "lat",
+     "ru": "двенадцать",
+     "full_pl": "12 lat",
+     "options": [
+      "rok",
+      "lata",
+      "lat"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-5-8",
+   "src": "wb",
+   "ref": "Ćw. 8, s. 19",
+   "title": "Jaki to zawód?",
+   "title_ru": "Какая это профессия?",
+   "task_ru": "Впиши пропущенные буквы — напиши слово целиком: «1 kelner».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "_a_cz_ci_l",
+     "answer": "nauczyciel",
+     "ru": "учитель",
+     "translit": "на-у-ЧЫ-чель"
+    },
+    {
+     "q": "_o_og_a_",
+     "answer": "fotograf",
+     "ru": "фотограф",
+     "translit": "фо-ТО-граф"
+    },
+    {
+     "q": "_nf_r_a_y_",
+     "answer": "informatyk",
+     "ru": "айтишник",
+     "translit": "ин-фор-МА-тык"
+    },
+    {
+     "q": "_ol_ik",
+     "answer": "rolnik",
+     "ru": "фермер",
+     "translit": "РОЛЬ-ник"
+    },
+    {
+     "q": "m_z__",
+     "answer": "muzyk",
+     "ru": "музыкант",
+     "translit": "МУ-зык"
+    },
+    {
+     "q": "i_ż_n__r",
+     "answer": "inżynier",
+     "ru": "инженер",
+     "translit": "ин-ЖЫ-нер"
+    },
+    {
+     "q": "p__ic_a_t",
+     "answer": "policjant",
+     "ru": "полицейский",
+     "translit": "по-ЛИ-цьянт"
+    },
+    {
+     "q": "k_c_ar_",
+     "answer": "kucharz",
+     "ru": "повар",
+     "translit": "КУ-хаш"
+    },
+    {
+     "q": "_e_t_s_a",
+     "answer": "dentysta",
+     "ru": "стоматолог",
+     "translit": "дэн-ТЫС-та"
+    },
+    {
+     "q": "ta_ce_z",
+     "answer": "tancerz",
+     "ru": "танцор",
+     "translit": "ТАН-цэш"
+    },
+    {
+     "q": "u___dn_k",
+     "answer": "urzędnik",
+     "ru": "чиновник",
+     "translit": "у-ЖЭНД-ник"
+    },
+    {
+     "q": "_ek_r_",
+     "answer": "lekarz",
+     "ru": "врач",
+     "translit": "ЛЕ-каш"
+    },
+    {
+     "q": "_iz_e_me_",
+     "answer": "biznesmen",
+     "ru": "бизнесмен",
+     "translit": "биз-НЭС-мэн"
+    },
+    {
+     "q": "d_ie_nika__",
+     "answer": "dziennikarz",
+     "ru": "журналист",
+     "translit": "джен-НИ-каш"
+    },
+    {
+     "q": "e_e_y_",
+     "answer": "emeryt",
+     "ru": "пенсионер",
+     "translit": "э-МЭ-рыт"
+    },
+    {
+     "q": "_k_or",
+     "answer": "aktor",
+     "ru": "актёр",
+     "translit": "АК-тор"
+    }
+   ],
+   "audio": "21_L05_cwiczenie8.mp3"
+  },
+  {
+   "id": "wb-5-9",
+   "src": "wb",
+   "ref": "Ćw. 9, s. 19",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Кто это? Вставь профессию",
+   "task_ru": "Слова: modelka, polityk, nauczycielka, fotograf, pisarz, poeta, aktorka, muzyk, dziennikarka (malarz — уже вставлено).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Angela Merkel to znany niemiecki ___.",
+     "answer": "polityk",
+     "ru": "Ангела Меркель — известный немецкий политик."
+    },
+    {
+     "q": "Oprah Winfrey to popularna ___, która prowadzi swój program w telewizji.",
+     "answer": "dziennikarka",
+     "ru": "Опра Уинфри — популярная журналистка, которая ведёт свою программу на телевидении."
+    },
+    {
+     "q": "Thomas Mann to doskonały niemiecki ___.",
+     "answer": "pisarz",
+     "ru": "Томас Манн — превосходный немецкий писатель."
+    },
+    {
+     "q": "Sylwia to bardzo dobra ___, która uczy polskiego.",
+     "answer": "nauczycielka",
+     "ru": "Сильвия — очень хорошая учительница, которая преподаёт польский."
+    },
+    {
+     "q": "Claudia Schiffer to atrakcyjna ___.",
+     "answer": "modelka",
+     "ru": "Клаудия Шиффер — привлекательная модель."
+    },
+    {
+     "q": "Nigel Kennedy to ___, który świetnie gra na skrzypcach.",
+     "answer": "muzyk",
+     "ru": "Найджел Кеннеди — музыкант, который отлично играет на скрипке."
+    },
+    {
+     "q": "Meryl Streep to doskonała ___ filmowa.",
+     "answer": "aktorka",
+     "ru": "Мерил Стрип — превосходная киноактриса."
+    },
+    {
+     "q": "David Doubilet to znany ___, który publikuje fotografie w National Geographic.",
+     "answer": "fotograf",
+     "ru": "Дэвид Дубиле — известный фотограф, который публикует снимки в National Geographic."
+    },
+    {
+     "q": "Shelley to angielski ___ romantyczny.",
+     "answer": "poeta",
+     "ru": "Шелли — английский поэт-романтик."
+    }
+   ]
+  },
+  {
+   "id": "wb-5-10",
+   "src": "wb",
+   "ref": "Ćw. 10, s. 19",
+   "title": "Co pasuje?",
+   "title_ru": "Какая форма подходит?",
+   "task_ru": "После jest + существительное в творительном — прилагательное тоже в творительном (-ym / -im для м. р., -ą для ж. р.).",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Magda jest ___ architektem.",
+     "answer": "zdolnym",
+     "ru": "Магда — способный архитектор.",
+     "grammar": "architekt — м. р. (одна форма для обоих полов) → zdolnym",
+     "options": [
+      "zdolny",
+      "zdolnym",
+      "zdolną"
+     ]
+    },
+    {
+     "q": "Łucja jest ___ dzieckiem.",
+     "answer": "zdrowym",
+     "ru": "Люция — здоровый ребёнок.",
+     "grammar": "dziecko — ср. р. → -ym",
+     "options": [
+      "zdrową",
+      "zdrowa",
+      "zdrowym"
+     ]
+    },
+    {
+     "q": "Schumacher jest ___ kierowcą.",
+     "answer": "świetnym",
+     "ru": "Шумахер — отличный водитель.",
+     "grammar": "kierowca — м. р. на -a: kierowcą, но прилагательное -ym",
+     "options": [
+      "świetny",
+      "świetnym",
+      "świetną"
+     ]
+    },
+    {
+     "q": "Miłosz jest ___ poetą.",
+     "answer": "polskim",
+     "ru": "Милош — польский поэт.",
+     "grammar": "poeta — м. р.: polskim poetą",
+     "options": [
+      "polskim",
+      "polską",
+      "polski"
+     ]
+    },
+    {
+     "q": "Maria jest ___ fotografem.",
+     "answer": "utalentowanym",
+     "ru": "Мария — талантливый фотограф.",
+     "grammar": "fotograf — м. р. → -ym",
+     "options": [
+      "utalentowana",
+      "utalentowaną",
+      "utalentowanym"
+     ]
+    },
+    {
+     "q": "Javier jest ___ artystą.",
+     "answer": "spontanicznym",
+     "ru": "Хавьер — спонтанный художник.",
+     "grammar": "artysta — м. р. → -ym",
+     "options": [
+      "spontanicznym",
+      "spontaniczną",
+      "spontaniczny"
+     ]
+    },
+    {
+     "q": "Ewa jest ___ inżynierem.",
+     "answer": "dobrym",
+     "ru": "Ева — хороший инженер.",
+     "grammar": "inżynier — м. р. → dobrym",
+     "options": [
+      "dobrym",
+      "dobry",
+      "dobrą"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-5-11",
+   "src": "wb",
+   "ref": "Ćw. 11, s. 19",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Творительный: прилагательное + существительное",
+   "task_ru": "Поставь сочетание в творительный: «Julia jest bardzo dobrą córką».",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Angela jest ___ (wysoka kobieta).",
+     "answer": "wysoką kobietą",
+     "ru": "Анджела — высокая женщина."
+    },
+    {
+     "q": "Uwe jest ___ (przystojny mężczyzna).",
+     "answer": "przystojnym mężczyzną",
+     "ru": "Уве — красивый мужчина.",
+     "grammar": "mężczyzna — м. р. на -a: -ym + -ą"
+    },
+    {
+     "q": "Michał jest ___ (małe dziecko).",
+     "answer": "małym dzieckiem",
+     "ru": "Михал — маленький ребёнок."
+    },
+    {
+     "q": "Tomek jest ___ (dobry tata).",
+     "answer": "dobrym tatą",
+     "ru": "Томек — хороший папа.",
+     "grammar": "tata: -ą, прилагательное -ym"
+    },
+    {
+     "q": "Aneta jest ___ (kreatywna nauczycielka).",
+     "answer": "kreatywną nauczycielką",
+     "ru": "Анета — творческая учительница."
+    },
+    {
+     "q": "Jonatan jest ___ (inteligentny student).",
+     "answer": "inteligentnym studentem",
+     "ru": "Джонатан — умный студент."
+    },
+    {
+     "q": "Toyota Prius jest ___ (drogie auto).",
+     "answer": "drogim autem",
+     "ru": "Тойота Приус — дорогая машина.",
+     "grammar": "g → -im"
+    },
+    {
+     "q": "Tom jest ___ (wysoki chłopak).",
+     "answer": "wysokim chłopakiem",
+     "ru": "Том — высокий парень.",
+     "grammar": "k → -im, -kiem"
+    },
+    {
+     "q": "Mami jest ___ (szczupła dziewczyna).",
+     "answer": "szczupłą dziewczyną",
+     "ru": "Мами — стройная девушка."
+    }
+   ]
+  },
+  {
+   "id": "wb-5-12",
+   "src": "wb",
+   "ref": "Ćw. 12, s. 20",
+   "title": "Czym oni się interesują?",
+   "title_ru": "Чем они интересуются?",
+   "task_ru": "Напиши фразу «Interesuje się …» — все увлечения в творительном.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "👨 sport, historia, współczesny teatr",
+     "answer": "Interesuje się sportem, historią i współczesnym teatrem.",
+     "ru": "Он интересуется спортом, историей и современным театром."
+    },
+    {
+     "q": "👩 fotografia, moda, hiszpański film",
+     "answer": "Interesuje się fotografią, modą i hiszpańskim filmem.",
+     "ru": "Она интересуется фотографией, модой и испанским кино.",
+     "grammar": "k → -im: hiszpańskim"
+    },
+    {
+     "q": "👨 polityka, polskie kino",
+     "answer": "Interesuje się polityką i polskim kinem.",
+     "ru": "Он интересуется политикой и польским кино.",
+     "grammar": "ср. р.: polskie kino → polskim kinem"
+    },
+    {
+     "q": "👨 ekonomia, polski folklor",
+     "answer": "Interesuje się ekonomią i polskim folklorem.",
+     "ru": "Он интересуется экономикой и польским фольклором."
+    },
+    {
+     "q": "👩 psychologia, muzyka klasyczna",
+     "answer": "Interesuje się psychologią i muzyką klasyczną.",
+     "ru": "Она интересуется психологией и классической музыкой."
+    }
+   ]
+  },
+  {
+   "id": "wb-5-13",
+   "src": "wb",
+   "ref": "Ćw. 13, s. 20",
+   "title": "Proszę uzupełnić tekst.",
+   "title_ru": "Текст про Юлию",
+   "task_ru": "Вставь слово в нужной форме (по подсказке в скобках или по картинке).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Jest ___ (Polka),",
+     "answer": "Polką",
+     "ru": "Она полька,",
+     "grammar": "jest + творительный"
+    },
+    {
+     "q": "mieszka ___ Krakowie.",
+     "answer": "w",
+     "ru": "живёт в Кракове."
+    },
+    {
+     "q": "Jest ___ (≠ gruby)",
+     "answer": "szczupła",
+     "ru": "Она стройная",
+     "grammar": "ж. р., именительный: Julia jest szczupła"
+    },
+    {
+     "q": "i ___ (🏋️ гантель).",
+     "answer": "wysportowana",
+     "ru": "и спортивная."
+    },
+    {
+     "q": "Julia jest ___ i ___ ___ (😊, sympatyczna dziewczyna).",
+     "answer": "wesołą i sympatyczną dziewczyną",
+     "ru": "Юлия — весёлая и симпатичная девушка.",
+     "grammar": "jest + прил. + сущ. → творительный"
+    },
+    {
+     "q": "Ona dobrze ___ po angielsku",
+     "answer": "mówi",
+     "ru": "Она хорошо говорит по-английски"
+    },
+    {
+     "q": "i trochę po ___ (🇪🇸).",
+     "answer": "hiszpańsku",
+     "ru": "и немного по-испански."
+    },
+    {
+     "q": "Julia ___ (lubić) śpiewać,",
+     "answer": "lubi",
+     "ru": "Юлия любит петь,"
+    },
+    {
+     "q": "tańczyć i ___ książki.",
+     "answer": "czytać",
+     "ru": "танцевать и читать книги."
+    },
+    {
+     "q": "Julia interesuje się ___ i ___ (muzyka i sport).",
+     "answer": "muzyką i sportem",
+     "ru": "Юлия интересуется музыкой и спортом.",
+     "accepted": [
+      "muzyką, sportem"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wb-5-14",
+   "src": "wb",
+   "ref": "Ćw. 14, s. 20",
+   "title": "Proszę uzupełnić dialog.",
+   "title_ru": "Диалог Паолы и Михаэля",
+   "task_ru": "Слова: znaczy, rozumiem, robić, grać, medycyną, być, słuchać, spacerować, czym (zawodu — уже вставлено). Два пропуска — через запятую. Потом послушай и проверь.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "„Zostać”? Nie ___. Co to ___?",
+     "answer": "rozumiem, znaczy",
+     "ru": "«Zostać»? Не понимаю. Что это значит?"
+    },
+    {
+     "q": "To znaczy, że chcę ___ lekarzem.",
+     "answer": "być",
+     "ru": "Это значит, что я хочу быть врачом."
+    },
+    {
+     "q": "___ się interesujesz?",
+     "answer": "Czym",
+     "ru": "Чем ты интересуешься?"
+    },
+    {
+     "q": "Interesuję się ___ naturalną i sportem.",
+     "answer": "medycyną",
+     "ru": "Я интересуюсь натуральной медициной и спортом."
+    },
+    {
+     "q": "Co lubisz ___ w weekendy?",
+     "answer": "robić",
+     "ru": "Что ты любишь делать по выходным?"
+    },
+    {
+     "q": "Bardzo lubię ___ i ___ muzyki.",
+     "answer": "spacerować, słuchać",
+     "ru": "Я очень люблю гулять и слушать музыку."
+    },
+    {
+     "q": "Lubię ___ w tenisa.",
+     "answer": "grać",
+     "ru": "Я люблю играть в теннис."
+    }
+   ],
+   "audio": "22_L05_cwiczenie14.mp3"
+  },
+  {
+   "id": "wb-5-15",
+   "src": "wb",
+   "ref": "Ćw. 15, s. 21",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Вставь вопросительное слово",
+   "task_ru": "Слова: Kim? Jaki? Co lubi robić? Czym? Ile? Gdzie? Jak? Skąd? Dlaczego? Jakim? Co robi? (Kto — уже вставлено).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "___ on jest? — Z Anglii.",
+     "answer": "Skąd",
+     "ru": "Откуда он? — Из Англии."
+    },
+    {
+     "q": "___ ma lat? — 20.",
+     "answer": "Ile",
+     "ru": "Сколько ему лет? — 20."
+    },
+    {
+     "q": "___ się nazywa? — Smith.",
+     "answer": "Jak",
+     "ru": "Как его фамилия? — Смит."
+    },
+    {
+     "q": "___ mieszka? — W Londynie.",
+     "answer": "Gdzie",
+     "ru": "Где он живёт? — В Лондоне."
+    },
+    {
+     "q": "___ jest studentem? — Zdolnym i inteligentnym.",
+     "answer": "Jakim",
+     "ru": "Какой он студент? — Способный и умный."
+    },
+    {
+     "q": "___ on jest? — Wysoki.",
+     "answer": "Jaki",
+     "ru": "Какой он? — Высокий."
+    },
+    {
+     "q": "___ on jest? — Architektem.",
+     "answer": "Kim",
+     "ru": "Кто он (по профессии)? — Архитектор."
+    },
+    {
+     "q": "___ w Krakowie? — Uczy się polskiego.",
+     "answer": "Co robi",
+     "ru": "Что он делает в Кракове? — Учит польский."
+    },
+    {
+     "q": "___? — Bardzo lubi słuchać muzyki.",
+     "answer": "Co lubi robić",
+     "ru": "Что он любит делать? — Очень любит слушать музыку."
+    },
+    {
+     "q": "___ się interesuje? — Architekturą.",
+     "answer": "Czym",
+     "ru": "Чем он интересуется? — Архитектурой."
+    },
+    {
+     "q": "___ uczy się polskiego? — Bo chce pracować w Warszawie.",
+     "answer": "Dlaczego",
+     "ru": "Почему он учит польский? — Потому что хочет работать в Варшаве."
+    }
+   ]
+  },
+  {
+   "id": "wb-5-16a",
+   "src": "wb",
+   "ref": "Ćw. 16, s. 21 (1–2, 4, 7–8)",
+   "title": "Co pasuje?",
+   "title_ru": "Вопрос — ответ",
+   "task_ru": "Подбери ответ к вопросу.",
+   "type": "match",
+   "items": [
+    {
+     "q": "Co lubisz robić?",
+     "answer": "Grać w tenisa.",
+     "ru": "Что ты любишь делать?"
+    },
+    {
+     "q": "Gdzie mieszkasz?",
+     "answer": "W Gdańsku.",
+     "ru": "Где ты живёшь?"
+    },
+    {
+     "q": "Kim on jest?",
+     "answer": "Policjantem.",
+     "ru": "Кто он (по профессии)?"
+    },
+    {
+     "q": "Skąd jest Ewa?",
+     "answer": "Z Gdańska.",
+     "ru": "Откуда Ева?"
+    },
+    {
+     "q": "Co robisz?",
+     "answer": "Gram w tenisa.",
+     "ru": "Что ты делаешь?"
+    }
+   ],
+   "options": [
+    "Grać w tenisa.",
+    "Gram w tenisa.",
+    "W Gdańsku.",
+    "Z Gdańska.",
+    "Policjantem."
+   ]
+  },
+  {
+   "id": "wb-5-16b",
+   "src": "wb",
+   "ref": "Ćw. 16, s. 21 (3, 5–6, 9–10)",
+   "title": "Co pasuje?",
+   "title_ru": "Вопрос — ответ",
+   "task_ru": "Подбери ответ к вопросу.",
+   "type": "match",
+   "items": [
+    {
+     "q": "Ile masz lat?",
+     "answer": "Prawie 18.",
+     "ru": "Сколько тебе лет?"
+    },
+    {
+     "q": "Dlaczego jesteś zdenerwowany?",
+     "answer": "Bo mam egzamin.",
+     "ru": "Почему ты нервничаешь?"
+    },
+    {
+     "q": "Jaką sekretarką jest Agnieszka?",
+     "answer": "Bardzo profesjonalną.",
+     "ru": "Какой секретарь Агнешка?"
+    },
+    {
+     "q": "Jakim studentem jest Jonatan?",
+     "answer": "Pracowitym.",
+     "ru": "Какой студент Джонатан?"
+    },
+    {
+     "q": "Jaka jest Dorota?",
+     "answer": "Bardzo sympatyczna.",
+     "ru": "Какая Дорота?"
+    }
+   ],
+   "options": [
+    "Prawie 18.",
+    "Bo mam egzamin.",
+    "Bardzo sympatyczna.",
+    "Bardzo profesjonalną.",
+    "Pracowitym."
+   ]
+  },
+  {
+   "id": "wb-5-17",
+   "src": "wb",
+   "ref": "Ćw. 17, s. 21",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Национальности и языки",
+   "task_ru": "Заполни таблицу. Для двух людей — через запятую: сначала она, потом он («Angielka, Anglik»). Если одна форма уже дана в книге — всё равно напиши обе.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Petra i Uwe są z Niemiec: to jest ___ / ___ (она / он)",
+     "answer": "Niemka, Niemiec",
+     "ru": "из Германии: это … (она / он)",
+     "accepted": [
+      "Niemka / Niemiec"
+     ]
+    },
+    {
+     "q": "Petra i Uwe są z Niemiec: ona jest ___ / on jest ___",
+     "answer": "Niemką, Niemcem",
+     "ru": "из Германии: она / он — … (творительный)",
+     "accepted": [
+      "Niemką / Niemcem"
+     ]
+    },
+    {
+     "q": "Petra i Uwe są z Niemiec: oni mówią ___",
+     "answer": "po niemiecku",
+     "ru": "из Германии: они говорят …"
+    },
+    {
+     "q": "Petra i Uwe są z Niemiec: oni znają (język) ___",
+     "answer": "niemiecki",
+     "ru": "из Германии: они знают … (язык)"
+    },
+    {
+     "q": "Adèle i Pierre są z Francji: to jest ___ / ___ (она / он)",
+     "answer": "Francuzka, Francuz",
+     "ru": "из Франции: это … (она / он)",
+     "accepted": [
+      "Francuzka / Francuz"
+     ]
+    },
+    {
+     "q": "Adèle i Pierre są z Francji: ona jest ___ / on jest ___",
+     "answer": "Francuzką, Francuzem",
+     "ru": "из Франции: она / он — … (творительный)",
+     "accepted": [
+      "Francuzką / Francuzem"
+     ]
+    },
+    {
+     "q": "Adèle i Pierre są z Francji: oni mówią ___",
+     "answer": "po francusku",
+     "ru": "из Франции: они говорят …"
+    },
+    {
+     "q": "Adèle i Pierre są z Francji: oni znają (język) ___",
+     "answer": "francuski",
+     "ru": "из Франции: они знают … (язык)"
+    },
+    {
+     "q": "Manuela i Pedro są z Hiszpanii: to jest ___ / ___ (она / он)",
+     "answer": "Hiszpanka, Hiszpan",
+     "ru": "из Испании: это … (она / он)",
+     "accepted": [
+      "Hiszpanka / Hiszpan"
+     ]
+    },
+    {
+     "q": "Manuela i Pedro są z Hiszpanii: ona jest ___ / on jest ___",
+     "answer": "Hiszpanką, Hiszpanem",
+     "ru": "из Испании: она / он — … (творительный)",
+     "accepted": [
+      "Hiszpanką / Hiszpanem"
+     ]
+    },
+    {
+     "q": "Manuela i Pedro są z Hiszpanii: oni mówią ___",
+     "answer": "po hiszpańsku",
+     "ru": "из Испании: они говорят …"
+    },
+    {
+     "q": "Maria i Paolo są z Włoch: to jest ___ / ___ (она / он)",
+     "answer": "Włoszka, Włoch",
+     "ru": "из Италии: это … (она / он)",
+     "accepted": [
+      "Włoszka / Włoch"
+     ]
+    },
+    {
+     "q": "Maria i Paolo są z Włoch: ona jest ___ / on jest ___",
+     "answer": "Włoszką, Włochem",
+     "ru": "из Италии: она / он — … (творительный)",
+     "accepted": [
+      "Włoszką / Włochem"
+     ]
+    },
+    {
+     "q": "Maria i Paolo są z Włoch: oni znają (język) ___",
+     "answer": "włoski",
+     "ru": "из Италии: они знают … (язык)"
+    },
+    {
+     "q": "Inês i Luis są z Portugalii: to jest ___ / ___ (она / он)",
+     "answer": "Portugalka, Portugalczyk",
+     "ru": "из Португалии: это … (она / он)",
+     "accepted": [
+      "Portugalka / Portugalczyk"
+     ]
+    },
+    {
+     "q": "Inês i Luis są z Portugalii: ona jest ___ / on jest ___",
+     "answer": "Portugalką, Portugalczykiem",
+     "ru": "из Португалии: она / он — … (творительный)",
+     "accepted": [
+      "Portugalką / Portugalczykiem"
+     ]
+    },
+    {
+     "q": "Inês i Luis są z Portugalii: oni mówią ___",
+     "answer": "po portugalsku",
+     "ru": "из Португалии: они говорят …"
+    },
+    {
+     "q": "Wendy i Tom są z USA: to jest ___ / ___ (она / он)",
+     "answer": "Amerykanka, Amerykanin",
+     "ru": "из США: это … (она / он)",
+     "accepted": [
+      "Amerykanka / Amerykanin"
+     ]
+    },
+    {
+     "q": "Wendy i Tom są z USA: ona jest ___ / on jest ___",
+     "answer": "Amerykanką, Amerykaninem",
+     "ru": "из США: она / он — … (творительный)",
+     "accepted": [
+      "Amerykanką / Amerykaninem"
+     ]
+    },
+    {
+     "q": "Wendy i Tom są z USA: oni mówią ___",
+     "answer": "po angielsku",
+     "ru": "из США: они говорят …"
+    },
+    {
+     "q": "Wendy i Tom są z USA: oni znają (język) ___",
+     "answer": "angielski",
+     "ru": "из США: они знают … (язык)"
+    },
+    {
+     "q": "Ajako i Satoshi są z Japonii: to jest ___ / ___ (она / он)",
+     "answer": "Japonka, Japończyk",
+     "ru": "из Японии: это … (она / он)",
+     "accepted": [
+      "Japonka / Japończyk"
+     ]
+    },
+    {
+     "q": "Ajako i Satoshi są z Japonii: ona jest ___ / on jest ___",
+     "answer": "Japonką, Japończykiem",
+     "ru": "из Японии: она / он — … (творительный)",
+     "accepted": [
+      "Japonką / Japończykiem"
+     ]
+    },
+    {
+     "q": "Ajako i Satoshi są z Japonii: oni mówią ___",
+     "answer": "po japońsku",
+     "ru": "из Японии: они говорят …"
+    },
+    {
+     "q": "Ajako i Satoshi są z Japonii: oni znają (język) ___",
+     "answer": "japoński",
+     "ru": "из Японии: они знают … (язык)"
+    }
+   ]
+  }
+ ]
+}

@@ -1685,7 +1685,7 @@ def test_book_no_units_message():
 def test_real_textbook_units_are_valid():
     real = Path(__file__).resolve().parent.parent / "bot" / "textbook"
     units = tb.load_units(real)
-    assert [u["unit"] for u in units if u["book"] == "kpk"][:3] == ["kpk:7", "kpk:7a", "kpk:8"]
+    assert [u["unit"] for u in units if u["book"] == "kpk"][:8] == ["kpk:1", "kpk:2", "kpk:3", "kpk:4", "kpk:5", "kpk:6", "kpk:7", "kpk:7a"]
     for u in units:
         assert u["title"] and u["summary"]
         for w in u["words"]:
@@ -2673,3 +2673,41 @@ def test_zvuki_voice_check_errors_and_not_error():
     app.clock.t += 31 * 60                                              # через 30+ мин голосовое — снова разговор
     run(app.handle(msg(voice={"file_id": "v", "duration": 3})))
     assert len(seen) == 2 and app.gemini.calls
+
+
+def test_book_rule_button_item_marks_and_cache():
+    app = bex_app()
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    flat = [b for r in app.tg.buttons[-1] for b in r]
+    assert ("📖 Правило", "bx:R:kpk:2|tb-2-1") in flat
+    run(app.on_callback(cb("bx:R:kpk:2|tb-2-1")))
+    menu = [b for r in app.tg.buttons[-1] for b in r]
+    assert menu[0] == ("📖 Всё упражнение", "bx:y:kpk:2|tb-2-1|0") and ("2", "bx:y:kpk:2|tb-2-1|2") in menu
+    n0 = len(app.gemini.prompts)
+    run(app.on_callback(cb("bx:y:kpk:2|tb-2-1|2")))
+    assert "пункт 2" in app.tg.sent[-1] and "📖" in app.tg.sent[-1] and "пункт 2 —" in app.gemini.prompts[-1]
+    assert app.tg.buttons[-1][0][0] == ("🔄 Объяснить по-другому", "bx:Y:kpk:2|tb-2-1|2")
+    run(app.on_callback(cb("bx:y:kpk:2|tb-2-1|2")))                     # повторно — из базы, без модели
+    assert len(app.gemini.prompts) == n0 + 1
+    run(app.on_callback(cb("bx:Y:kpk:2|tb-2-1|2")))                     # «по-другому» — заново
+    assert len(app.gemini.prompts) == n0 + 2
+    run(app.on_callback(cb("bx:y:kpk:2|tb-2-1|0")))
+    assert "всё упражнение" in app.tg.sent[-1] and "Пункты:" in app.gemini.prompts[-1]
+    # «3?» в ответе: только отметка — правило без проверки; вместе с ответами — проверка + правило
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    run(app.handle(msg(text="1?")))
+    assert "пункт 1" in app.tg.sent[-1] and not app.db.bex_results(42, "kpk:2")
+    app.gemini.check_verdict = {1: True, 3: True}
+    run(app.handle(msg(text="1 mam 3? 3 ma")))
+    assert "пункт 3" in app.tg.sent[-1] and "✅ 3. <b>ma</b>" in app.tg.sent[-3]
+    assert app.db.bex_results(42, "kpk:2")[("tb-2-1", 3)]["ok"] == 1
+
+
+def test_book_rule_by_voice():
+    app = bex_app()
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    app.gemini.voice_heard = {2: "-"}
+    app.gemini.voice_notes = {2: "#правило"}
+    run(app.handle(msg(voice={"file_id": "v", "duration": 3})))
+    assert "правило" in app.gemini.prompts[-2] and "пункт 2" in app.tg.sent[-1]
+    assert not app.db.bex_results(42, "kpk:2")                        # только правило — пункт не тронут

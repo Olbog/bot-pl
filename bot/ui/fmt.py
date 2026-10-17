@@ -1051,6 +1051,8 @@ def bex_message(unit: dict, x: dict, done: dict, notes: dict | None = None, wins
         lines.append("<i>" + "🎙 Можно и голосом: номер и ответ — «один — jestem, три — mam», «не знаю» — пропуск, «уточнение …» — вопрос к пункту." + "</i>")
         lines.append("<i>Засчитать пункт вручную (описка, спорный ответ) — «5+», несколько подряд — «4+8+»; "
                      "всё упражнение — кнопкой «✋ Засчитать всё».</i>")
+    lines.append("<i>📖 Полное правило — кнопкой ниже (ко всему упражнению или к пункту) или в ответе «3?» "
+                 "(голосом — «три — правило»).</i>")
     if answered and not complete:
         lines.append("<i>✅ — уже верно; ✋ — засчитано вручную; ❌ — была ошибка, можно ответить ещё раз.</i>")
     return "\n".join(lines)
@@ -1077,7 +1079,7 @@ def bex_keyboard(unit: dict, x: dict, done: dict, pick: dict, sure: list, wins: 
     if todo:
         rows.append([("✋ Засчитать всё упражнение", f"bx:m:{unit['unit']}|{x['id']}")])
     rows += page_row(unit, x)
-    rows.append([("📋 Все упражнения юнита", f"bx:l:{unit['unit']}")])
+    rows.append([("📖 Правило", f"bx:R:{unit['unit']}|{x['id']}"), ("📋 Все упражнения", f"bx:l:{unit['unit']}")])
     return rows
 
 
@@ -1135,8 +1137,17 @@ def bex_result_buttons(unit: dict, x: dict, done: dict, wins: int = 0,
     if nxt:
         rows.append([(f"➡️ {bex_name(nxt)}"[:60], f"bx:o:{u}|{nxt['id']}")])
     rows += again_rows(unit, x, done, wins)
-    rows.append([("📋 Все упражнения юнита", f"bx:l:{u}")])
+    rows.append([("📖 Правило", f"bx:R:{u}|{x['id']}"), ("📋 Все упражнения", f"bx:l:{u}")])
     return rows + page_row(unit, x)
+
+
+def bex_rule_menu(unit: dict, x: dict) -> tuple[str, list[list[tuple[str, str]]]]:
+    """📖 Правило: ко всему упражнению или к пункту."""
+    base = f"bx:y:{unit['unit']}|{x['id']}|"
+    nums = [(str(n), f"{base}{n}") for n in range(1, len(x["items"]) + 1)]
+    rows = [[("📖 Всё упражнение", f"{base}0")]] + [nums[i:i + 8] for i in range(0, len(nums), 8)]
+    return (f"📖 <b>Правило</b> · {e(bex_name(x))}\n<i>Ко всему упражнению или к пункту? "
+            "К пункту можно и прямо в ответе: «3?» — проверю ответы и пришлю правило к пункту 3.</i>", rows)
 
 
 # ---------- 📚 чтение ----------

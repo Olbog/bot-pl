@@ -170,6 +170,11 @@ CREATE TABLE IF NOT EXISTS zv_status (       -- 🗣 скороговорки: 0
     at REAL NOT NULL,
     PRIMARY KEY (user_id, item)
 );
+CREATE TABLE IF NOT EXISTS rule_cache (       -- 📖 объяснённые правила к упражнениям из книги (ключ — с хэшем текста)
+    key TEXT PRIMARY KEY,
+    data TEXT NOT NULL,
+    at REAL NOT NULL
+);
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
     mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
@@ -566,6 +571,15 @@ class DB:
     def zv_set(self, user_id: int, item: str, status: int) -> None:
         self.conn.execute("INSERT OR REPLACE INTO zv_status(user_id, item, status, at) VALUES (?,?,?,?)",
                           (user_id, item, status, self.clock()))
+        self.conn.commit()
+
+    def rule_cache_get(self, key: str) -> dict | None:
+        r = self.conn.execute("SELECT data FROM rule_cache WHERE key=?", (key,)).fetchone()
+        return json.loads(r["data"]) if r else None
+
+    def rule_cache_set(self, key: str, data: dict) -> None:
+        self.conn.execute("INSERT OR REPLACE INTO rule_cache(key, data, at) VALUES (?,?,?)",
+                          (key, json.dumps(data, ensure_ascii=False), self.clock()))
         self.conn.commit()
 
     def dict_has(self, user_id: int, pl: str) -> bool:
