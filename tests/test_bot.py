@@ -2711,3 +2711,27 @@ def test_book_rule_by_voice():
     run(app.handle(msg(voice={"file_id": "v", "duration": 3})))
     assert "правило" in app.gemini.prompts[-2] and "пункт 2" in app.tg.sent[-1]
     assert not app.db.bex_results(42, "kpk:2")                        # только правило — пункт не тронут
+
+
+def test_parse_answers_open_items():
+    p = exm.parse_answers("Na kolację jemy tosty, sałatkę z pomidorami, ogórkami", 3, open_items=[3])
+    assert list(p) == [3] and p[3]["answer"].startswith("Na kolację") and p[3]["answer"].endswith("ogórkami")
+    p = exm.parse_answers("mam, masz", 3, open_items=[2, 3])
+    assert p[2]["answer"] == "mam" and p[3]["answer"] == "masz" and 1 not in p
+
+
+def test_book_answers_do_not_override_done_items():
+    app = bex_app()
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    run(app.handle(msg(text="1+ 2+")))                                   # ✋ 1 и 2 вручную
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))                      # ▶️ Продолжить
+    app.gemini.check_verdict = {3: True}
+    run(app.handle(msg(text="ma, mam")))                                 # без номеров, один пункт остался
+    st = app.db.bex_results(42, "kpk:2")
+    assert st[("tb-2-1", 1)]["ok"] and st[("tb-2-1", 2)]["ok"] and st[("tb-2-1", 3)]["ok"]
+    run(app.on_callback(cb("bx:r:kpk:2|tb-2-1")))                      # заново
+    run(app.handle(msg(text="1+")))
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    app.gemini.check_verdict = {}
+    run(app.handle(msg(text="1 zle 2 ma")))                              # 1 уже засчитан — не трогаем
+    assert "уже засчитан" in " ".join(app.tg.sent[-3:]) and app.db.bex_results(42, "kpk:2")[("tb-2-1", 1)]["ok"]

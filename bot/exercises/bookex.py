@@ -274,7 +274,21 @@ class BookExMixin:
                 await self.bex_rule(chat_id, unit, x, n)
             return
         numeric = any(ch.isdigit() for it in x["items"] for ch in str(it.get("answer", "")))
-        answers = logic.parse_answers(text, len(x["items"]), numeric=numeric)
+        done_before = self.db.bex_results(user_id, unit["unit"])
+        open_items = [n for n in range(1, len(x["items"]) + 1)
+                      if not (done_before.get((x["id"], n)) or {}).get("ok")]
+        answers = logic.parse_answers(text, len(x["items"]), numeric=numeric, open_items=open_items)
+        if len(open_items) == 1 and open_items[0] not in answers and text.strip():
+            # остался один пункт, а в тексте его номера нет: весь текст — ответ на него (цифры внутри — часть ответа)
+            one = logic.parse_answers(text, 1, open_items=[1]).get(1)
+            if one:
+                answers = {open_items[0]: one}
+        kept = sorted(n for n, a in answers.items() if n not in open_items and not a.get("done"))
+        if kept:   # уже верные / засчитанные пункты ответом не перезаписываем
+            answers = {n: a for n, a in answers.items() if n not in kept}
+            await self.tg.send_message(chat_id, f"ℹ️ Пункт{'ы' if len(kept) > 1 else ''} {', '.join(map(str, kept))} "
+                                                "уже засчитан" + ("ы" if len(kept) > 1 else "") + " — не трогаю. "
+                                                "Переделать всё упражнение — «🔁 Выполнить заново».")
         choice = x.get("type") in logic.CHOICE_TYPES
         for n, a in answers.items():
             if choice and x.get("type") == "tf":

@@ -113,12 +113,13 @@ def _boundary(before: str) -> bool:
     return not tail or tail[-1] in "\n;."
 
 
-def parse_answers(text: str, n: int, numeric: bool = False) -> dict[int, dict]:
+def parse_answers(text: str, n: int, numeric: bool = False, open_items: list[int] | None = None) -> dict[int, dict]:
     """«1 piję (ja → -ę) 2 lubi (почему не lubią?) 3 mam!» → {1: {answer, unsure, sure, note}, ...}.
     Номера — в любом порядке (каждый пункт один раз, в пределах 1..n); всё до следующего номера — ответ,
     в скобках — уточнение. «4-» или «4-8-» — «не знаю»: пункт с пустым ответом и skip=True;
     «5+» или «4+8+» — засчитать вручную: пункт с пустым ответом и done=True.
-    numeric — в правильных ответах есть цифры: новый пункт начинается только с новой строки, после «;» или «.»."""
+    numeric — в правильных ответах есть цифры: новый пункт начинается только с новой строки, после «;» или «.».
+    open_items — пункты, которые ещё не сделаны: ответ без номеров идёт к ним (один остался — весь текст ему)."""
     text, notes = _hide_notes((text or "").replace("\n", " \n "))
     text, done = _marks(text, n, DONE_ONE_RE, DONE_RANGE_RE)
     text, skipped = _skips(text, n)
@@ -136,11 +137,15 @@ def parse_answers(text: str, n: int, numeric: bool = False) -> dict[int, dict]:
     out: dict[int, dict] = {k: {"answer": "", "unsure": False, "sure": False, "note": "", "skip": True}
                             for k in skipped}
     out.update({k: {"answer": "", "unsure": False, "sure": False, "note": "", "done": True} for k in done})
-    if not marks:  # без номеров: по строкам или через запятую, если ответов ровно n
+    if not marks:  # без номеров: один несделанный пункт — весь текст ему; иначе по строкам / через запятую
         parts = [p.strip() for p in re.split(r"\n|,|;", text) if p.strip()]
-        if not skipped and not done and len(parts) == n:
-            for i, raw in enumerate(parts, 1):
-                out[i] = _one(raw, notes)
+        targets = list(open_items) if open_items is not None else list(range(1, n + 1))
+        if not skipped and not done and text.strip():
+            if len(targets) == 1:
+                out[targets[0]] = _one(text.replace("\n", " ").strip(), notes)
+            elif len(parts) == len(targets):
+                for i, raw in zip(targets, parts):
+                    out[i] = _one(raw, notes)
         return out
     for i, (num, _, end) in enumerate(marks):
         stop = marks[i + 1][1] if i + 1 < len(marks) else len(text)

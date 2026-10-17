@@ -1051,6 +1051,9 @@ def bex_message(unit: dict, x: dict, done: dict, notes: dict | None = None, wins
         lines.append("<i>" + "🎙 Можно и голосом: номер и ответ — «один — jestem, три — mam», «не знаю» — пропуск, «уточнение …» — вопрос к пункту." + "</i>")
         lines.append("<i>Засчитать пункт вручную (описка, спорный ответ) — «5+», несколько подряд — «4+8+»; "
                      "всё упражнение — кнопкой «✋ Засчитать всё».</i>")
+    left = [n for n in range(1, len(x["items"]) + 1) if not (done.get((x["id"], n)) or {}).get("ok")]
+    if len(left) == 1 and len(x["items"]) > 1:
+        lines.append(f"<i>✍️ Остался пункт {left[0]} — можно ответить без номера.</i>")
     lines.append("<i>📖 Полное правило — кнопкой ниже (ко всему упражнению или к пункту) или в ответе «3?» "
                  "(голосом — «три — правило»).</i>")
     if answered and not complete:
