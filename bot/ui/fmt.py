@@ -8,7 +8,7 @@ from ..core.config import local_dt
 from ..core.rules import group
 from ..core.verbs import verb_line
 from ..core.textbook import topic_parts
-from ..exercises.logic import CHOICE_TYPES, LETTERS, book_options, book_pages
+from ..exercises.logic import CHOICE_TYPES, LETTERS, book_options, book_pages, items_mask
 from ..core.training import Criteria, WordStats, is_familiar, kind_of, num, progress_bar
 
 KIND_ICON = {"word": "🔤", "grammar": "📝", "pronunciation": "🗣"}
@@ -874,6 +874,21 @@ def ex_quiz_keyboard(ex: dict, pick: dict, sure: list, check: bool = True) -> li
 STATUS_ICON = {"ok": "✅", "wrong": "❌", "unsure": "❓"}
 
 
+TASK_HINT_MAX = 40   # задание длиннее — не повторяем в разборе, чтобы не загромождать
+
+
+def task_hint(it: dict) -> str:
+    """Под ошибкой / пропуском: что было в пункте — русский перевод и короткое задание (маска, вопрос).
+    Чтобы не листать вверх к упражнению. Пусто, если ни того, ни другого нет."""
+    parts = []
+    if it.get("ru"):
+        parts.append(f"🇷🇺 {e(it['ru'])}")
+    q = " ".join(str(it.get("q") or "").split())
+    if q and len(q) <= TASK_HINT_MAX:
+        parts.append(f"задание: {e(q)}")
+    return " · ".join(parts)
+
+
 def ex_results(ex: dict, results: list[dict], head: str | None = None, foot: str | None = None) -> str:
     """Разбор проверенных пунктов. head / foot — свои заголовок и подсказка внизу (для упражнений из книги)."""
     ok = sum(1 for r in results if r["final"] in ("ok", "unsure"))
@@ -892,6 +907,10 @@ def ex_results(ex: dict, results: list[dict], head: str | None = None, foot: str
         else:
             head = f"{icon} {r['n']}. <b>{e(user)}</b>"
         lines.append(head + (f" — <i>{e(it['grammar'])}</i>" if it.get("grammar") else ""))
+        if r["final"] != "ok" and not it.get("full_pl"):
+            hint = task_hint(it)
+            if hint:
+                lines.append(f"    {hint}")
         if verb_line(it):
             lines.append(f"    {verb_line(it)}")
         if r["final"] != "ok" or r.get("explanation"):  # верный ответ с «!» — без разбора
@@ -1144,13 +1163,18 @@ def bex_result_buttons(unit: dict, x: dict, done: dict, wins: int = 0,
     return rows + page_row(unit, x)
 
 
-def bex_rule_menu(unit: dict, x: dict) -> tuple[str, list[list[tuple[str, str]]]]:
-    """📖 Правило: ко всему упражнению или к пункту."""
-    base = f"bx:y:{unit['unit']}|{x['id']}|"
-    nums = [(str(n), f"{base}{n}") for n in range(1, len(x["items"]) + 1)]
-    rows = [[("📖 Всё упражнение", f"{base}0")]] + [nums[i:i + 8] for i in range(0, len(nums), 8)]
-    return (f"📖 <b>Правило</b> · {e(bex_name(x))}\n<i>Ко всему упражнению или к пункту? "
-            "К пункту можно и прямо в ответе: «3?» — проверю ответы и пришлю правило к пункту 3.</i>", rows)
+def bex_rule_menu(unit: dict, x: dict, sel=()) -> tuple[str, list[list[tuple[str, str]]]]:
+    """📖 Правило: ко всему упражнению или к выбранным пунктам. Номера — переключатели (☑️): отмеченные хранятся
+    прямо в кнопках (bx:t:<юнит>|<упр>|<маска>|<пункт>), «Объяснить выбранные» — bx:y:<юнит>|<упр>|m<маска>."""
+    u, sel = f"{unit['unit']}|{x['id']}", set(sel)
+    mask = items_mask(sel)
+    nums = [(f"☑️{n}" if n in sel else str(n), f"bx:t:{u}|{mask}|{n}") for n in range(1, len(x["items"]) + 1)]
+    rows = [[("📖 Всё упражнение", f"bx:y:{u}|0")]] + [nums[i:i + 8] for i in range(0, len(nums), 8)]
+    if sel:
+        rows.append([(f"📖 Объяснить выбранные ({len(sel)})", f"bx:y:{u}|m{mask}")])
+    return (f"📖 <b>Правило</b> · {e(bex_name(x))}\n<i>Ко всему упражнению или к пунктам? Отметь один или несколько "
+            "пунктов и нажми «Объяснить выбранные»: общее правило объясню один раз, разные — по отдельности. "
+            "Можно и прямо в ответе: «3? 5?» — проверю ответы и пришлю правило к пунктам 3 и 5.</i>", rows)
 
 
 # ---------- 📚 чтение ----------

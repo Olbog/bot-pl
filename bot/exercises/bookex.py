@@ -155,11 +155,26 @@ class BookExMixin:
             if x:
                 await self.tg.send_message(chat_id, *fmt.bex_rule_menu(unit, x))
             return
-        if kind in ("y", "Y"):   # 📖 правило: bx:y:<юнит>|<упр>|<пункт, 0 — всё>; Y — объяснить заново
+        if kind == "t":   # 📖 меню: отметить / снять пункт — bx:t:<юнит>|<упр>|<маска>|<пункт>
+            ex_id, _, rest = ex_id.partition("|")
+            mask, _, n = rest.partition("|")
+            x = _find(unit, ex_id)
+            if x and n.isdigit():
+                sel = set(logic.mask_items(mask, len(x["items"]))) ^ {int(n)}
+                sel &= set(range(1, len(x["items"]) + 1))
+                await self.tg.edit_markup(chat_id, message_id, fmt.bex_rule_menu(unit, x, sel)[1])
+            return
+        if kind in ("y", "Y"):   # 📖 правило: bx:y:<юнит>|<упр>|<пункт, 0 — всё | m<маска> — выбранные>; Y — заново
             ex_id, _, n = ex_id.partition("|")
             x = _find(unit, ex_id)
-            if x and n.isdigit() and int(n) <= len(x["items"]):
-                await self.bex_rule(chat_id, unit, x, int(n) or None, fresh=kind == "Y")
+            if not x:
+                return
+            if n.startswith("m"):
+                nums = logic.mask_items(n[1:], len(x["items"]))
+                if nums:
+                    await self.bex_rule(chat_id, unit, x, nums, fresh=kind == "Y")
+            elif n.isdigit() and int(n) <= len(x["items"]):
+                await self.bex_rule(chat_id, unit, x, [int(n)] if int(n) else None, fresh=kind == "Y")
             return
         if kind == "l":
             text, buttons = fmt.bex_list_screen(unit, self.db.bex_results(user_id, unit["unit"]),
@@ -270,8 +285,7 @@ class BookExMixin:
             return
         rule_for, text = rule_marks(text, len(x["items"]))
         if rule_for and not text and not pending["pick"]:   # только «3?» — правило, без проверки
-            for n in rule_for:
-                await self.bex_rule(chat_id, unit, x, n)
+            await self.bex_rule(chat_id, unit, x, rule_for)
             return
         numeric = any(ch.isdigit() for it in x["items"] for ch in str(it.get("answer", "")))
         done_before = self.db.bex_results(user_id, unit["unit"])
@@ -302,8 +316,8 @@ class BookExMixin:
             await self.tg.send_message(chat_id, "Не нашёл ответов. Пиши с номерами пунктов: «1 jestem 3 mam».")
             return
         await self.bex_check(chat_id, user_id, pending, unit, x, answers, text=text, gaps=True)
-        for n in rule_for:
-            await self.bex_rule(chat_id, unit, x, n)
+        if rule_for:
+            await self.bex_rule(chat_id, unit, x, rule_for)
 
     async def bex_voice(self, chat_id: int, user_id: int, pending: dict, unit: dict, x: dict, voice: dict) -> None:
         """🎙 Ответ голосом: «один — jestem, три — mam» (номера в любом порядке, «не знаю» — пропуск).
@@ -332,8 +346,8 @@ class BookExMixin:
                 if str(v.get("heard") or "").strip() in ("", "-", "—"):
                     verdicts.pop(n)   # только правило, ответа не было — пункт не трогаем
         if not verdicts:
-            for n in sorted(rule_for):
-                await self.bex_rule(chat_id, unit, x, n)
+            if rule_for:
+                await self.bex_rule(chat_id, unit, x, sorted(rule_for))
             return
         answers: dict[int, dict] = {}
         for n, v in verdicts.items():
@@ -342,26 +356,34 @@ class BookExMixin:
             answers[n] = {"answer": "" if skip else heard, "unsure": False, "sure": False,
                           "note": str(v.get("note") or "").strip(), **({"skip": True} if skip else {})}
         await self.bex_check(chat_id, user_id, pending, unit, x, answers, gaps=True, voice_verdicts=verdicts)
-        for n in sorted(rule_for):
-            await self.bex_rule(chat_id, unit, x, n)
+        if rule_for:
+            await self.bex_rule(chat_id, unit, x, sorted(rule_for))
 
-    async def bex_rule(self, chat_id: int, unit: dict, x: dict, n: int | None, fresh: bool = False) -> None:
-        """📖 Полное правило к упражнению (n=None) или к пункту n. Объяснение сохраняется (rule_cache): повторно —
-        мгновенно и без запроса к модели; «🔄 Объяснить по-другому» — заново (fresh). Ключ включает хэш текста
-        упражнения/пункта — поправили упражнение, объяснение составится заново."""
-        part = x["items"][n - 1] if n else x
+    async def bex_rule(self, chat_id: int, unit: dict, x: dict, nums: list[int] | None,
+                       fresh: bool = False) -> None:
+        """📖 Полное правило к упражнению (nums=None) или к выбранным пунктам — одним запросом: общее правило
+        объясняется один раз, разные — каждое отдельно. Объяснение сохраняется (rule_cache): повторно — мгновенно
+        и без запроса к модели; «🔄 Объяснить по-другому» — заново (fresh). Ключ включает хэш текста
+        упражнения/пунктов — поправили упражнение, объяснение составится заново."""
+        nums = sorted(set(nums)) if nums else None
+        part = [x["items"][n - 1] for n in nums] if nums else x
+        if nums and len(nums) == 1:
+            part = part[0]   # как раньше: ключ одного пункта не меняется — старые объяснения из базы годятся
         h = hashlib.md5(json.dumps(part, ensure_ascii=False, sort_keys=True).encode()).hexdigest()[:10]
-        key = f"{unit['unit']}|{x['id']}|{n or 0}|{h}"
+        key = f"{unit['unit']}|{x['id']}|{'.'.join(map(str, nums)) if nums else 0}|{h}"
+        label = (f"пункт {nums[0]}" if len(nums) == 1 else "пункты " + ", ".join(map(str, nums))) if nums \
+            else "всё упражнение"
         data = None if fresh else self.db.rule_cache_get(key)
         if data is None:
-            data = await self.ask(chat_id, book_rule_prompt(x, n, self.cfg.level), RULES_SCHEMA, RULES_HINT,
-                                  wait=f"⏳ Составляю правило{f' к пункту {n}' if n else ''}…")
+            data = await self.ask(chat_id, book_rule_prompt(x, nums, self.cfg.level), RULES_SCHEMA, RULES_HINT,
+                                  wait=f"⏳ Составляю правило{' — ' + label if nums else ''}…")
             if data is None:
                 return
             self.db.rule_cache_set(key, data)
-        head = f"📖 <b>{fmt.e(fmt.bex_name(x))}</b> · " + (f"пункт {n}" if n else "всё упражнение")
+        sel = (str(nums[0]) if len(nums) == 1 else "m" + logic.items_mask(nums)) if nums else "0"
+        head = f"📖 <b>{fmt.e(fmt.bex_name(x))}</b> · {label}"
         await self.tg.send_message(chat_id, head + "\n\n" + fmt.rules_message(data),
-                                   [[("🔄 Объяснить по-другому", f"bx:Y:{unit['unit']}|{x['id']}|{n or 0}")]])
+                                   [[("🔄 Объяснить по-другому", f"bx:Y:{unit['unit']}|{x['id']}|{sel}")]])
 
     @staticmethod
     def bex_task(x: dict) -> str:

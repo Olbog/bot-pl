@@ -212,3 +212,17 @@ def needs_model(results: list[dict], explain_all: bool = True) -> list[dict]:
             return True
         return explain_all and not r.get("sure")
     return [r for r in results if need(r)]
+
+
+def items_mask(nums) -> str:
+    """Набор номеров пунктов → короткая строка для кнопки (битовая маска в hex): {1, 3} → «5»."""
+    return format(sum(1 << (n - 1) for n in set(nums) if n >= 1), "x")
+
+
+def mask_items(mask: str, n_items: int) -> list[int]:
+    """Обратно: «5» → [1, 3]; номера вне упражнения и мусор — отбрасываются."""
+    try:
+        bits = int(mask or "0", 16)
+    except ValueError:
+        return []
+    return [n for n in range(1, n_items + 1) if bits >> (n - 1) & 1]

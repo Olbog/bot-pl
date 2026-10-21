@@ -246,8 +246,12 @@ def rules_by_name_prompt(rule_names: list[str], examples: dict[str, list[str]], 
 {_RULE_STYLE}"""
 
 
-def book_rule_prompt(x: dict, n: int | None, level: str) -> str:
-    """📖 Правило к упражнению из учебника (n=None) или к его пункту n — полностью, с таблицей и исключениями."""
+def book_rule_prompt(x: dict, n, level: str) -> str:
+    """📖 Правило к упражнению из учебника (n=None), к его пункту n или к нескольким пунктам (список) —
+    полностью, с таблицей и исключениями. Несколько пунктов: общее правило — один раз, разные — по отдельности."""
+    if isinstance(n, (list, tuple)):
+        n = sorted(set(n))
+        n = n[0] if len(n) == 1 else (n or None)
     def line(k, it):
         out = f"{k}. {it.get('q', '')} → {it.get('answer', '')}"
         if it.get("full_pl"):
@@ -259,7 +263,16 @@ def book_rule_prompt(x: dict, n: int | None, level: str) -> str:
         return out
     task = " — ".join(t for t in (x.get("title"), x.get("title_ru"), x.get("task_ru")) if t)
     items = x.get("items") or []
-    if n:
+    if isinstance(n, list):
+        lst = "\n".join(line(k, items[k - 1]) for k in n)
+        nums = ", ".join(map(str, n))
+        what = (f"Ученик просит объяснить пункты {nums}. Для каждого пункта определи, на каком правиле он построен "
+                "(почему здесь именно такая форма: род, число, падеж, лицо, вид, время, управление — что применимо). "
+                "Если у нескольких пунктов ОДНО правило — объясни его ОДИН раз, одним элементом rules; если правила "
+                "разные — отдельный элемент rules на каждое. В title каждого правила в конце укажи, к каким пунктам "
+                "оно относится: «… (пункты 3, 5)» или «… (пункт 7)». Каждое правило — целиком.\n"
+                f"Пункты:\n{lst}")
+    elif n:
         what = (f"Объясни ПОЛНОЕ правило, на котором построен пункт {n} — почему здесь именно такая форма "
                 f"(род, число, падеж, лицо, вид, время, управление — что применимо), и всё правило целиком.\n"
                 f"Пункт: {line(n, items[n - 1])}")

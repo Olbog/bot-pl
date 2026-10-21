@@ -2682,7 +2682,8 @@ def test_book_rule_button_item_marks_and_cache():
     assert ("📖 Правило", "bx:R:kpk:2|tb-2-1") in flat
     run(app.on_callback(cb("bx:R:kpk:2|tb-2-1")))
     menu = [b for r in app.tg.buttons[-1] for b in r]
-    assert menu[0] == ("📖 Всё упражнение", "bx:y:kpk:2|tb-2-1|0") and ("2", "bx:y:kpk:2|tb-2-1|2") in menu
+    assert menu[0] == ("📖 Всё упражнение", "bx:y:kpk:2|tb-2-1|0") and ("2", "bx:t:kpk:2|tb-2-1|0|2") in menu
+    assert not any("выбранные" in t for t, _ in menu)                  # пока ничего не отмечено — кнопки нет
     n0 = len(app.gemini.prompts)
     run(app.on_callback(cb("bx:y:kpk:2|tb-2-1|2")))
     assert "пункт 2" in app.tg.sent[-1] and "📖" in app.tg.sent[-1] and "пункт 2 —" in app.gemini.prompts[-1]
@@ -2701,6 +2702,40 @@ def test_book_rule_button_item_marks_and_cache():
     run(app.handle(msg(text="1 mam 3? 3 ma")))
     assert "пункт 3" in app.tg.sent[-1] and "✅ 3. <b>ma</b>" in app.tg.sent[-3]
     assert app.db.bex_results(42, "kpk:2")[("tb-2-1", 3)]["ok"] == 1
+
+
+def test_book_rule_several_items():
+    """📖 Несколько пунктов: отметки-переключатели в кнопках, одно объяснение на всех, кэш на набор."""
+    app = bex_app()
+    run(app.on_callback(cb("bx:R:kpk:2|tb-2-1")))
+    run(app.on_callback(cb("bx:t:kpk:2|tb-2-1|0|1", mid=7)))             # отметить 1
+    mid, rows = app.tg.markups[-1]
+    flat = [b for r in rows for b in r]
+    assert mid == 7 and ("☑️1", "bx:t:kpk:2|tb-2-1|1|1") in flat and ("3", "bx:t:kpk:2|tb-2-1|1|3") in flat
+    assert ("📖 Объяснить выбранные (1)", "bx:y:kpk:2|tb-2-1|m1") in flat
+    run(app.on_callback(cb("bx:t:kpk:2|tb-2-1|1|3", mid=7)))             # + 3
+    flat = [b for r in app.tg.markups[-1][1] for b in r]
+    assert ("📖 Объяснить выбранные (2)", "bx:y:kpk:2|tb-2-1|m5") in flat and ("☑️3", "bx:t:kpk:2|tb-2-1|5|3") in flat
+    run(app.on_callback(cb("bx:t:kpk:2|tb-2-1|5|1", mid=7)))             # снять 1
+    flat = [b for r in app.tg.markups[-1][1] for b in r]
+    assert ("1", "bx:t:kpk:2|tb-2-1|4|1") in flat and ("📖 Объяснить выбранные (1)", "bx:y:kpk:2|tb-2-1|m4") in flat
+    n0 = len(app.gemini.prompts)
+    run(app.on_callback(cb("bx:y:kpk:2|tb-2-1|m5")))                     # объяснить 1 и 3 — один запрос
+    assert len(app.gemini.prompts) == n0 + 1 and "пункты 1, 3" in app.tg.sent[-1]
+    assert "Ученик просит объяснить пункты 1, 3" in app.gemini.prompts[-1] and "ОДИН раз" in app.gemini.prompts[-1]
+    assert app.tg.buttons[-1][0][0] == ("🔄 Объяснить по-другому", "bx:Y:kpk:2|tb-2-1|m5")
+    run(app.on_callback(cb("bx:y:kpk:2|tb-2-1|m5")))                     # повторно — из базы
+    assert len(app.gemini.prompts) == n0 + 1
+    run(app.on_callback(cb("bx:Y:kpk:2|tb-2-1|m5")))                     # по-другому — заново
+    assert len(app.gemini.prompts) == n0 + 2
+    run(app.on_callback(cb("bx:y:kpk:2|tb-2-1|m0")))                     # пустой выбор / мусор — ничего
+    run(app.on_callback(cb("bx:y:kpk:2|tb-2-1|mzz")))
+    assert len(app.gemini.prompts) == n0 + 2
+    # «1? 3?» в ответе — тоже одно объяснение на оба пункта
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    run(app.handle(msg(text="1? 3?")))
+    assert len(app.gemini.prompts) == n0 + 2 and "пункты 1, 3" in app.tg.sent[-1]   # тот же набор — из базы
+    assert exm.items_mask([1, 3]) == "5" and exm.mask_items("5", 3) == [1, 3] and exm.mask_items("ff", 2) == [1, 2]
 
 
 def test_book_rule_by_voice():
@@ -2735,3 +2770,20 @@ def test_book_answers_do_not_override_done_items():
     app.gemini.check_verdict = {}
     run(app.handle(msg(text="1 zle 2 ma")))                              # 1 уже засчитан — не трогаем
     assert "уже засчитан" in " ".join(app.tg.sent[-3:]) and app.db.bex_results(42, "kpk:2")[("tb-2-1", 1)]["ok"]
+
+
+def test_results_show_ru_and_short_task_for_mistakes():
+    """Под ошибкой / пропуском — русский перевод и короткое задание, чтобы не листать вверх."""
+    from bot.ui import fmt
+    ex = {"items": [
+        {"q": "😀 w_śm__n__y", "answer": "wyśmienity", "ru": "изумительный"},
+        {"q": "😀 _ma__n_", "answer": "smaczny", "ru": "вкусный"},
+        {"q": "Bardzo długie zadanie, które ma więcej niż czterdzieści znaków ___", "answer": "x", "ru": "длинное"},
+        {"q": "Ma ___ lat.", "answer": "trzydzieści", "ru": "Ему 30 лет.", "full_pl": "Ma trzydzieści lat."},
+    ]}
+    res = fmt.ex_results(ex, [{"n": 1, "user": "", "final": "wrong"}, {"n": 2, "user": "smaczny", "final": "ok"},
+                              {"n": 3, "user": "y", "final": "wrong"}, {"n": 4, "user": "trzy", "final": "wrong"}], head="h", foot="")
+    assert "🇷🇺 изумительный · задание: 😀 w_śm__n__y" in res
+    assert "вкусный" not in res                                         # верный пункт — без подсказки
+    assert "🇷🇺 длинное" in res and "czterdzieści znaków" not in res     # длинное задание не повторяем
+    assert res.count("Ему 30 лет") == 1                                 # есть полное предложение — без дубля
