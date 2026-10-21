@@ -40,9 +40,7 @@ class ReportsMixin:
 
     async def send_export(self, chat_id: int, user_id: int, period: str) -> None:
         if period == "d_":  # только словарь
-            items = list(self.db.dict_items(user_id))
-            text = "Словарь ⭐\n==========\n\n" + "\n".join(
-                f"{i['pl']} [{i['translit']}] — {i['ru']}" for i in items) + "\n"
+            text = fmt.dict_export(self.db.dict_items(user_id))
             await self.tg.send_document(chat_id, "bot-pl_dict.txt", text.encode("utf-8"), "⭐ Словарь")
             return
         name, data = self.export_bytes(user_id, period)

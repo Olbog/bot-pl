@@ -317,18 +317,29 @@ PHRASES_SCHEMA = {
                     "pl": {"type": "STRING"},
                     "translit": {"type": "STRING"},
                     "ru": {"type": "STRING"},
+                    "topic": {"type": "STRING"},
                 },
-                "required": ["pl", "translit", "ru"],
+                "required": ["pl", "translit", "ru", "topic"],
             },
         },
     },
     "required": ["phrases"],
 }
 PHRASES_HINT = """Отвечай ТОЛЬКО одним JSON-объектом без markdown:
-{"phrases": [{"pl": "...", "translit": "...", "ru": "..."}]}"""
+{"phrases": [{"pl": "...", "translit": "...", "ru": "...", "topic": "..."}]}"""
 
 
-def phrases_prompt(reply_pl: str, corrected_pl: str, corrections: list[dict], level: str) -> str:
+def topic_rule(topics: list[str]) -> str:
+    """Как выбирать тему для слова словаря: слова раскладываются по наборам тем (⭐ <тема> N)."""
+    have = "; ".join(f"«{t}»" for t in topics) or "пока нет"
+    return ("topic — тема по-русски, 1–2 слова, широкая, чтобы в ней набиралось много слов: например «Еда», "
+            "«Покупки», «Путешествия», «Работа», «Дом и быт», «Семья», «Чувства и характер», «Время и планы», "
+            "«Связки и вводные фразы», «Глаголы с управлением». Уже есть темы ученика: " + have + ". Если слово "
+            "подходит к одной из них — бери её ДОСЛОВНО; новую тему — только если ни одна не подходит.")
+
+
+def phrases_prompt(reply_pl: str, corrected_pl: str, corrections: list[dict], level: str,
+                   topics: list[str] | None = None) -> str:
     corr = "; ".join(f"{c.get('original', '')} → {c.get('correct', '')}" for c in corrections) or "—"
     return f"""Из этих польских фраз выбери 7–8 выражений, которые ученику (уровень {level}) полезно ввести в активную речь.
 Реплика собеседника: {reply_pl}
@@ -336,13 +347,38 @@ def phrases_prompt(reply_pl: str, corrected_pl: str, corrections: list[dict], le
 Исправления: {corr}
 
 Что брать в первую очередь: связки и вводные конструкции (tak jak mówię, najbardziej lubię, szczerze mówiąc, wydaje mi się, czy wolisz…?, po południu), устойчивые сочетания, полезные глагольные конструкции с управлением (czekać na kogoś). Отдельные очевидные слова (kawa, dom) — только если больше нечего взять.
-pl — выражение ровно в полезной форме (2–5 слов), translit — транскрипция русскими буквами с ударным слогом заглавными, ru — перевод."""
+pl — выражение ровно в полезной форме (2–5 слов), translit — транскрипция русскими буквами с ударным слогом заглавными, ru — перевод.
+{topic_rule(topics or [])}"""
 
 
-def own_phrases_prompt(raw: str, level: str) -> str:
-    return f"""Ученик (уровень {level}) хочет сохранить в свой словарь выражения (по-польски или по-русски, возможно с ошибками):
+def own_phrases_prompt(raw: str, level: str, topics: list[str] | None = None) -> str:
+    return f"""Ученик (уровень {level}) хочет сохранить в свой словарь слова и выражения (по-польски или по-русски, возможно с ошибками):
 {raw}
-Для каждого дай правильное польское выражение (русское — переведи), транскрипцию русскими буквами с ударным слогом заглавными и перевод."""
+Для каждого дай правильное польское слово или выражение (русское — переведи, польское с ошибкой — исправь), транскрипцию русскими буквами с ударным слогом заглавными и перевод.
+Ничего не добавляй от себя и не пропускай: один пункт ученика — один элемент phrases.
+{topic_rule(topics or [])}"""
+
+
+TOPICS_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {"items": {"type": "ARRAY", "items": {
+        "type": "OBJECT",
+        "properties": {"n": {"type": "INTEGER"}, "topic": {"type": "STRING"}},
+        "required": ["n", "topic"]}}},
+    "required": ["items"],
+}
+TOPICS_HINT = """Отвечай ТОЛЬКО одним JSON-объектом без markdown: {"items": [{"n": 1, "topic": "..."}]}"""
+
+
+def topics_prompt(items: list[tuple[str, str]], topics: list[str]) -> str:
+    """Разложить слова словаря по темам. items: (польское, перевод)."""
+    lines = "\n".join(f"{n}. {pl} — {ru}" for n, (pl, ru) in enumerate(items, 1))
+    return f"""Ученик сохраняет польские слова и выражения в словарь, словарь разложен по темам. Для каждого пункта ниже выбери тему.
+{topic_rule(topics)}
+Слова, близкие по смыслу, клади в одну тему — темы должны быть крупными, а не по одной на слово.
+n — номер пункта, ответь на КАЖДЫЙ пункт.
+
+{lines}"""
 
 
 # ---------- раскладка старых ошибок по каталогу ----------

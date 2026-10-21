@@ -4,6 +4,10 @@ import sqlite3
 import time
 from pathlib import Path
 
+from ..settings import DICT_SET_SIZE
+
+DICT_OTHER = "Разное"     # тема словаря по умолчанию (слово без темы)
+
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS sessions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -75,6 +79,13 @@ CREATE TABLE IF NOT EXISTS dict_items (
     translit TEXT NOT NULL DEFAULT '',
     ru TEXT NOT NULL DEFAULT '',
     used_in_set INTEGER NOT NULL DEFAULT 0,
+    created_at REAL NOT NULL
+);
+-- Темы словаря ⭐: слово словаря лежит в наборе своей темы («⭐ Еда 1», по DICT_SET_SIZE слов)
+CREATE TABLE IF NOT EXISTS dict_topics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
     created_at REAL NOT NULL
 );
 -- Предложения выражений для ⭐ по конкретному ответу бота
@@ -218,6 +229,12 @@ class DB:
             # ✋ пункт упражнения из книги засчитан пользователем вручную
             "book_ex": [("manual", "INTEGER NOT NULL DEFAULT 0")],
             "book_ex_done": [("manual", "TEXT NOT NULL DEFAULT '[]'")],
+            # ⭐ словарь по темам: тема слова и его строка в наборе темы; набор темы — sets.topic_id
+            "dict_items": [("topic_id", "INTEGER"), ("word_id", "INTEGER"), ("src", "TEXT NOT NULL DEFAULT ''")],
+            "sets": [("topic_id", "INTEGER")],
+            # меню «⭐ В словарь»: мои ошибки, подобрано из ответа бота, отмеченное, своя тема («» — 🤖 сам)
+            "dict_offers": [("errs", "TEXT NOT NULL DEFAULT '[]'"), ("sel", "TEXT NOT NULL DEFAULT '[]'"),
+                            ("bot_ready", "INTEGER NOT NULL DEFAULT 0"), ("topic", "TEXT NOT NULL DEFAULT ''")],
         }
         two_level = "test_streak" not in self._columns("book_stats")
         for table, cols in adds.items():
@@ -228,6 +245,9 @@ class DB:
         # ключи юнитов стали «книга:номер»: старые «8» — это Krok po kroku
         self.conn.execute("UPDATE book_stats SET unit = 'kpk:' || unit WHERE unit NOT LIKE '%:%'")
         self.conn.execute("UPDATE set_words SET unit = 'kpk:' || unit WHERE unit IS NOT NULL AND unit NOT LIKE '%:%'")
+        # слова словаря без темы (из старой базы) — в тему «Разное», каждое в набор этой темы
+        for r in self.conn.execute("SELECT id, user_id FROM dict_items WHERE word_id IS NULL").fetchall():
+            self._dict_place(r["user_id"], r["id"], DICT_OTHER)
         if two_level:  # прошлый прогресс по учебнику засчитываем как «узнаю», «знаю» копится заново
             self.conn.execute("UPDATE book_stats SET test_streak = streak, "
                               "last_ok = CASE WHEN streak = 0 AND wrong > 0 THEN 0 ELSE 1 END")
@@ -651,46 +671,177 @@ class DB:
 
     # ---------- словарь ⭐ ----------
 
-    def dict_add(self, user_id: int, pl: str, translit: str, ru: str) -> bool:
-        """False — такое выражение уже есть."""
+    # Слово словаря = строка dict_items (тема, откуда) + строка set_words в наборе своей темы (прогресс, тренировка).
+    # Набор темы — обычный набор (sets.topic_id не NULL): «⭐ <тема> <N>», не больше DICT_SET_SIZE слов,
+    # создаётся в 📚 архиве (текущий набор не сбивается); из архива — разговор и упражнения, как у любого набора.
+
+    @staticmethod
+    def _topic_name(name: str) -> str:
+        name = " ".join(str(name or "").split()).strip(" .«»\"'")[:40]
+        return (name[:1].upper() + name[1:]) if name else DICT_OTHER
+
+    def topic_get(self, user_id: int, name: str) -> int:
+        """id темы словаря (без учёта регистра); нет такой — создаётся."""
+        name = self._topic_name(name)
+        row = self.conn.execute("SELECT id FROM dict_topics WHERE user_id=? AND lower(name)=lower(?)",
+                                (user_id, name)).fetchone()
+        if row:
+            return row["id"]
+        return self.conn.execute("INSERT INTO dict_topics(user_id, name, created_at) VALUES (?,?,?)",
+                                 (user_id, name, self.clock())).lastrowid
+
+    def topic(self, topic_id: int):
+        return self.conn.execute("SELECT * FROM dict_topics WHERE id=?", (topic_id,)).fetchone()
+
+    def dict_topics(self, user_id: int) -> list[dict]:
+        """Темы, где есть слова: [{id, name, n, done}], по алфавиту, «Разное» — в конце."""
+        rows = self.conn.execute(
+            "SELECT t.id, t.name, COUNT(d.id) AS n, "
+            "SUM(CASE WHEN w.mastered_at IS NOT NULL THEN 1 ELSE 0 END) AS done "
+            "FROM dict_topics t JOIN dict_items d ON d.topic_id = t.id LEFT JOIN set_words w ON w.id = d.word_id "
+            "WHERE t.user_id=? GROUP BY t.id", (user_id,)).fetchall()
+        out = [dict(r, done=r["done"] or 0) for r in rows]
+        out.sort(key=lambda r: (r["name"] == DICT_OTHER, r["name"].lower()))
+        return out
+
+    def topic_names(self, user_id: int) -> list[str]:
+        return [t["name"] for t in self.dict_topics(user_id)]
+
+    def _topic_set(self, user_id: int, topic_id: int, size: int = DICT_SET_SIZE) -> int:
+        """Набор темы, где есть место; все полные — новый «⭐ <тема> <N>» в архиве."""
+        rows = self.conn.execute(
+            "SELECT s.id, s.title, COUNT(w.id) AS n FROM sets s LEFT JOIN set_words w ON w.set_id = s.id "
+            "WHERE s.user_id=? AND s.topic_id=? GROUP BY s.id ORDER BY s.id", (user_id, topic_id)).fetchall()
+        for r in rows:
+            if r["n"] < size:
+                return r["id"]
+        name = self.topic(topic_id)["name"]
+        nums = [int(t.rsplit(" ", 1)[1]) for t in (r["title"] for r in rows) if t.rsplit(" ", 1)[-1].isdigit()]
+        return self.conn.execute("INSERT INTO sets(user_id, title, status, topic_id, created_at) VALUES (?,?,?,?,?)",
+                                 (user_id, f"⭐ {name} {max(nums, default=0) + 1}", "done", topic_id,
+                                  self.clock())).lastrowid
+
+    def _drop_empty_topic_set(self, set_id: int | None) -> None:
+        """Пустой набор темы (последнее слово ушло) удаляется, если его сейчас не тренируют."""
+        if not set_id:
+            return
+        st = self.get_set(set_id)
+        if st and st["topic_id"] and st["status"] != "active" and not self.set_words(set_id):
+            self.conn.execute("DELETE FROM sets WHERE id=?", (set_id,))
+
+    def _dict_place(self, user_id: int, item_id: int, topic: str) -> None:
+        """Положить слово словаря в набор темы (новая строка set_words) — для слова, у которого строки ещё нет."""
+        it = self.conn.execute("SELECT * FROM dict_items WHERE id=?", (item_id,)).fetchone()
+        topic_id = self.topic_get(user_id, topic)
+        set_id = self._topic_set(user_id, topic_id)
+        word_id = self.conn.execute(
+            "INSERT INTO set_words(set_id, user_id, pl, translit, ru, pos, kind, created_at) VALUES (?,?,?,?,?,?,?,?)",
+            (set_id, user_id, it["pl"], it["translit"], it["ru"], "выраж", "phrase", self.clock())).lastrowid
+        self.conn.execute("UPDATE dict_items SET topic_id=?, word_id=?, used_in_set=1 WHERE id=?",
+                          (topic_id, word_id, item_id))
+
+    def dict_add(self, user_id: int, pl: str, translit: str, ru: str, topic: str = DICT_OTHER,
+                 src: str = "") -> bool:
+        """Слово в словарь и сразу в набор своей темы. False — такое выражение уже есть."""
         pl = pl.strip()
-        if not pl:
+        if not pl or self.dict_has(user_id, pl):
             return False
-        exists = self.conn.execute("SELECT 1 FROM dict_items WHERE user_id=? AND lower(pl)=lower(?)",
-                                   (user_id, pl)).fetchone()
-        if exists:
-            return False
-        self.conn.execute("INSERT INTO dict_items(user_id, pl, translit, ru, created_at) VALUES (?,?,?,?,?)",
-                          (user_id, pl, translit, ru, self.clock()))
+        item_id = self.conn.execute(
+            "INSERT INTO dict_items(user_id, pl, translit, ru, src, created_at) VALUES (?,?,?,?,?,?)",
+            (user_id, pl, translit, ru, src, self.clock())).lastrowid
+        self._dict_place(user_id, item_id, topic)
         self.conn.commit()
         return True
 
-    def dict_remove(self, user_id: int, pl: str) -> None:
-        self.conn.execute("DELETE FROM dict_items WHERE user_id=? AND lower(pl)=lower(?)", (user_id, pl.strip()))
+    def dict_item(self, item_id: int):
+        return self.conn.execute(
+            "SELECT d.*, t.name AS topic, w.set_id, w.mastered_at, s.title AS set_title FROM dict_items d "
+            "LEFT JOIN dict_topics t ON t.id = d.topic_id LEFT JOIN set_words w ON w.id = d.word_id "
+            "LEFT JOIN sets s ON s.id = w.set_id WHERE d.id=?", (item_id,)).fetchone()
+
+    def dict_remove_id(self, user_id: int, item_id: int) -> None:
+        """Убрать слово из словаря и из набора темы (прогресс слова удаляется вместе с ним)."""
+        it = self.dict_item(item_id)
+        if not it or it["user_id"] != user_id:
+            return
+        self.conn.execute("DELETE FROM dict_items WHERE id=?", (item_id,))
+        if it["word_id"]:
+            self.conn.execute("DELETE FROM word_uses WHERE word_id=?", (it["word_id"],))
+            self.conn.execute("DELETE FROM set_words WHERE id=?", (it["word_id"],))
+            self._drop_empty_topic_set(it["set_id"])
         self.conn.commit()
 
+    def dict_remove(self, user_id: int, pl: str) -> None:
+        for r in self.conn.execute("SELECT id FROM dict_items WHERE user_id=? AND lower(pl)=lower(?)",
+                                   (user_id, pl.strip())).fetchall():
+            self.dict_remove_id(user_id, r["id"])
+
+    def dict_move(self, user_id: int, item_id: int, topic: str, commit: bool = True) -> str | None:
+        """📂 Сменить тему: слово переезжает в набор новой темы вместе с прогрессом (та же строка set_words).
+        Возвращает название набора, куда попало слово."""
+        it = self.dict_item(item_id)
+        if not it or it["user_id"] != user_id:
+            return None
+        topic_id = self.topic_get(user_id, topic)
+        if topic_id == it["topic_id"] and it["word_id"]:
+            return it["set_title"]
+        if it["word_id"]:
+            set_id = self._topic_set(user_id, topic_id)
+            self.conn.execute("UPDATE set_words SET set_id=? WHERE id=?", (set_id, it["word_id"]))
+            self.conn.execute("UPDATE dict_items SET topic_id=? WHERE id=?", (topic_id, item_id))
+            self._drop_empty_topic_set(it["set_id"])
+        else:
+            self._dict_place(user_id, item_id, topic)
+            set_id = self.dict_item(item_id)["set_id"]
+        if commit:
+            self.conn.commit()
+        return self.get_set(set_id)["title"]
+
     def dict_items(self, user_id: int, only_unused: bool = False) -> list:
-        q = "SELECT * FROM dict_items WHERE user_id=?" + (" AND used_in_set=0" if only_unused else "") + " ORDER BY id"
-        return self.conn.execute(q, (user_id,)).fetchall()
+        """Все слова словаря с темой, набором и отметкой «освоено»: по темам, внутри темы — по порядку добавления."""
+        q = ("SELECT d.*, COALESCE(t.name, ?) AS topic, w.set_id, w.mastered_at, s.title AS set_title "
+             "FROM dict_items d LEFT JOIN dict_topics t ON t.id = d.topic_id LEFT JOIN set_words w ON w.id = d.word_id "
+             "LEFT JOIN sets s ON s.id = w.set_id WHERE d.user_id=?" + (" AND d.used_in_set=0" if only_unused else "")
+             + " ORDER BY d.id")
+        rows = self.conn.execute(q, (DICT_OTHER, user_id)).fetchall()
+        order = {name: i for i, name in enumerate(self.topic_names(user_id))}
+        return sorted(rows, key=lambda r: (order.get(r["topic"], len(order)), r["id"]))
+
+    def topic_items(self, user_id: int, topic_id: int) -> list:
+        return [r for r in self.dict_items(user_id) if r["topic_id"] == topic_id]
+
+    def dict_sets(self, user_id: int, topic_id: int | None = None) -> list[dict]:
+        """Наборы из словаря (по темам) с прогрессом: [{id, title, status, total, done}]."""
+        rows = self.conn.execute(
+            "SELECT s.id, s.title, s.status, s.topic_id, COUNT(w.id) AS total, "
+            "SUM(CASE WHEN w.mastered_at IS NOT NULL THEN 1 ELSE 0 END) AS done "
+            "FROM sets s LEFT JOIN set_words w ON w.set_id = s.id WHERE s.user_id=? AND s.topic_id IS NOT NULL"
+            + (" AND s.topic_id=?" if topic_id else "") + " GROUP BY s.id ORDER BY s.title",
+            (user_id, topic_id) if topic_id else (user_id,)).fetchall()
+        return [dict(r, done=r["done"] or 0) for r in rows if r["total"]]
 
     def dict_since(self, user_id: int, since: float) -> list:
         return self.conn.execute("SELECT * FROM dict_items WHERE user_id=? AND created_at>=? ORDER BY id",
                                  (user_id, since)).fetchall()
 
-    def dict_mark_used(self, ids: list[int]) -> None:
-        for i in ids:
-            self.conn.execute("UPDATE dict_items SET used_in_set=1 WHERE id=?", (i,))
-        self.conn.commit()
-
     def offer_get(self, msg_id: int):
+        """Меню «⭐ В словарь» к ответу бота: errs — мои ошибки, phrases — подобрано из ответа (bot_ready),
+        sel — отмеченные ключи («e0», «b3»), saved — уже сохранённые ключи, topic — своя тема («» — 🤖 сам)."""
         row = self.conn.execute("SELECT * FROM dict_offers WHERE msg_id=?", (msg_id,)).fetchone()
         if not row:
             return None
-        return {"user_id": row["user_id"], "phrases": json.loads(row["phrases"]), "saved": json.loads(row["saved"])}
+        saved = [f"b{x}" if isinstance(x, int) else x for x in json.loads(row["saved"])]   # старые записи — индексы
+        return {"user_id": row["user_id"], "phrases": json.loads(row["phrases"]), "saved": saved,
+                "errs": json.loads(row["errs"]), "sel": json.loads(row["sel"]),
+                "bot_ready": bool(row["bot_ready"]) or bool(json.loads(row["phrases"])), "topic": row["topic"] or ""}
 
-    def offer_save(self, msg_id: int, user_id: int, phrases: list[dict], saved: list[int]) -> None:
-        self.conn.execute("INSERT OR REPLACE INTO dict_offers(msg_id, user_id, phrases, saved) VALUES (?,?,?,?)",
-                          (msg_id, user_id, json.dumps(phrases, ensure_ascii=False), json.dumps(saved)))
+    def offer_save(self, msg_id: int, user_id: int, phrases: list[dict], saved: list, errs: list[dict] | None = None,
+                   sel: list[str] | None = None, bot_ready: bool = False, topic: str = "") -> None:
+        self.conn.execute(
+            "INSERT OR REPLACE INTO dict_offers(msg_id, user_id, phrases, saved, errs, sel, bot_ready, topic) "
+            "VALUES (?,?,?,?,?,?,?,?)",
+            (msg_id, user_id, json.dumps(phrases, ensure_ascii=False), json.dumps(saved),
+             json.dumps(errs or [], ensure_ascii=False), json.dumps(sel or []), int(bot_ready), topic or ""))
         self.conn.commit()
 
     def corrections_by(self, user_id: int, key: str, value) -> list[dict]:

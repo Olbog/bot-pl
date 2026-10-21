@@ -15,6 +15,7 @@ from .core import textbook
 from .ai.prompt import RULES_HINT, RULES_SCHEMA, read_question_prompt
 from .ui import fmt
 
+READ_TOPIC = "Из чтения"   # ⭐ слова из 📚 чтения — своя тема словаря (сменить можно в /dict)
 READ_RATE = "+0%"   # обычный темп речи (для слов юнита — медленнее, cfg.tts_rate)
 PREGEN_PAUSE = 3                  # секунд между абзацами при озвучке заранее
 PREGEN_RETRY = (60, 300, 1800)    # повтор после ошибки: 1, 5, 30 мин, дальше раз в 30 мин
@@ -212,7 +213,7 @@ class ReadingMixin:
                         all_words: bool) -> str:
         words = unit["paragraphs"][idx].get("words") or []
         if all_words:
-            added = sum(self.db.dict_add(user_id, w["pl"], "", w["ru"]) for w in words)
+            added = sum(self.db.dict_add(user_id, w["pl"], "", w["ru"], READ_TOPIC, src="read") for w in words)
             note = f"⭐ Добавлено в словарь: {added}"
         else:
             k = int(parts[2]) if len(parts) > 2 and parts[2].isdigit() else -1
@@ -223,7 +224,7 @@ class ReadingMixin:
                 self.db.dict_remove(user_id, w["pl"])
                 note = f"Убрано из словаря: {w['pl']}"
             else:
-                self.db.dict_add(user_id, w["pl"], "", w["ru"])
+                self.db.dict_add(user_id, w["pl"], "", w["ru"], READ_TOPIC, src="read")
                 note = f"⭐ В словаре: {w['pl']} — {w['ru']}"
         _, buttons = fmt.read_words(unit, idx, self.read_in_dict(user_id, unit, idx))
         await self.tg.edit_markup(chat_id, message_id, buttons)

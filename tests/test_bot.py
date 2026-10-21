@@ -236,10 +236,13 @@ def test_gemma_body_and_fenced_json():
 
 
 def test_thinking_config_per_family():
-    g = Gemini("https://w", "t", ["x"], "low", "A1")
+    g = Gemini("https://w", "t", ["x"], "medium", "A1")
     req = {"system": "S", "schema": {}, "hint": "H", "history": [], "text": "x", "audio": None}
     assert g._body("gemini-2.5-flash-lite", req, True)["generationConfig"]["thinkingConfig"] == {"thinkingBudget": 1024}
-    assert g._body("gemini-3.8-flash", req, True)["generationConfig"]["thinkingConfig"] == {"thinkingLevel": "low"}
+    assert g._body("gemini-3.8-flash", req, True)["generationConfig"]["thinkingConfig"] == {"thinkingLevel": "medium"}
+    low = {**req, "thinking": "low"}                                   # запрос просит полегче (⭐ словарь)
+    assert g._body("gemini-2.5-flash-lite", low, True)["generationConfig"]["thinkingConfig"] == {"thinkingBudget": 256}
+    assert g._body("gemini-3.8-flash", low, True)["generationConfig"]["thinkingConfig"] == {"thinkingLevel": "low"}
 
 
 def test_check_models_drops_missing():
@@ -406,9 +409,10 @@ class FakeGemini:
                         "note_comment": f"комментарий {n}" if note else ""})
         return {"items": out}
 
-    async def ask_json(self, prompt, schema, hint, audio=None):
+    async def ask_json(self, prompt, schema, hint, audio=None, thinking=None):
         self.prompts.append(prompt)
         self.audios.append(audio)
+        self.thinkings = getattr(self, "thinkings", []) + [thinking]
         props = schema.get("properties", {})
         item_props = props.get("items", {}).get("items", {}).get("properties", {})
         if "q" in item_props:
@@ -425,8 +429,15 @@ class FakeGemini:
                                "examples": [{"pl": "Nie lubię cukru.", "translit": "не ЛЮ-бе ЦУ-кру",
                                              "ru": "Не люблю сахар."}]}]}
         if "phrases" in props:
-            return {"phrases": [{"pl": "najbardziej lubię", "translit": "най-бар-ДЗЕЙ ЛЮ-бе", "ru": "больше всего люблю"},
-                                {"pl": "tak jak mówię", "translit": "так як МУ-ве", "ru": "как я говорю"}]}
+            return {"phrases": [{"pl": "najbardziej lubię", "translit": "най-бар-ДЗЕЙ ЛЮ-бе", "ru": "больше всего люблю",
+                                 "topic": "Связки"},
+                                {"pl": "tak jak mówię", "translit": "так як МУ-ве", "ru": "как я говорю",
+                                 "topic": "связки "}]}
+        if "topic" in item_props:                                # ⭐ раскладка по темам
+            import re as _re
+            nums = [int(x) for x in _re.findall(r"^(\d+)\. ", prompt, _re.M)]
+            topic = getattr(self, "topic", "Покупки")
+            return {"items": [{"n": n, "topic": topic(n) if callable(topic) else topic} for n in nums]}
         if "items" in props and "rule" in props["items"]["items"]["properties"]:
             return {"items": [{"id": i, "rule": "Родительный падеж после отрицания"} for i in range(1, 50)]}
         return self.words
@@ -774,25 +785,91 @@ def test_rule_question_command_and_pending():
     assert "а почему cukru?" in app.gemini.prompts[-1] and not app.gemini.calls
 
 
-def test_star_offer_toggle_and_dict():
+def test_star_offer_menu_errors_bot_own_and_topics():
     app = make_app()
     run(app.handle(msg(text="x")))
     did = app.tg.buttons[0][0][1][1]
     mid = int(did[2:])
-    run(app.on_callback(cb(did)))
-    assert "najbardziej lubię" in app.tg.sent[-1]
-    run(app.on_callback(cb(f"ds:{mid}:0")))
-    run(app.on_callback(cb(f"ds:{mid}:1")))
-    assert [i["pl"] for i in app.db.dict_items(42)] == ["najbardziej lubię", "tak jak mówię"]
-    run(app.on_callback(cb(f"ds:{mid}:1")))                    # повторное нажатие убирает
-    assert [i["pl"] for i in app.db.dict_items(42)] == ["najbardziej lubię"]
     n = len(app.gemini.prompts)
-    run(app.on_callback(cb(did)))                              # повторное открытие — без нового запроса
-    assert len(app.gemini.prompts) == n and "✅" in app.tg.sent[-1]
-    run(app.on_callback(cb(f"dx:{mid}")))
-    assert "Сохранено в словарь: 1" in app.tg.edits[-1][0]
+    run(app.on_callback(cb(did)))                              # меню — сразу, без запроса к модели
+    menu = app.tg.sent[-1]
+    assert len(app.gemini.prompts) == n and "🧩 <b>Мои ошибки</b>" in menu
+    assert "<b>w sklepie</b> [в СКЛЕ-пе] — в магазине" in menu and "🤖 темы подберёт ИИ" in menu
+    assert "💬 Подобрать из ответа" in str(app.tg.buttons[-1]) and f"dn:own:{mid}" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb(f"dg:{mid}", mid=50)))              # 💬 подобрать из ответа: «low», с темой
+    assert app.gemini.thinkings[-1] == "low" and "najbardziej lubię</b> [най-бар-ДЗЕЙ ЛЮ-бе]" in app.tg.edits[-1][0]
+    assert "💬 Подобрать" not in str(app.tg.edits[-1][1])
+    run(app.on_callback(cb(f"ds:{mid}:e0", mid=50)))
+    run(app.on_callback(cb(f"ds:{mid}:b0", mid=50)))
+    run(app.on_callback(cb(f"ds:{mid}:b1", mid=50)))
+    run(app.on_callback(cb(f"ds:{mid}:b1", mid=50)))          # повторное нажатие снимает отметку
+    assert "✅ Готово (2)" in str(app.tg.edits[-1][1]) and not app.db.dict_items(42)
+    n = len(app.gemini.prompts)
+    run(app.on_callback(cb(f"dk:{mid}", mid=50)))              # ✅ Готово: тема нужна только ошибке
+    assert len(app.gemini.prompts) == n + 1 and "w sklepie" in app.gemini.prompts[-1]
+    assert "najbardziej" not in app.gemini.prompts[-1] and app.gemini.thinkings[-1] == "low"
+    items = {i["pl"]: i for i in app.db.dict_items(42)}
+    assert items["w sklepie"]["topic"] == "Покупки" and items["w sklepie"]["src"] == "err"
+    assert items["w sklepie"]["translit"] == "в СКЛЕ-пе"
+    assert items["najbardziej lubię"]["topic"] == "Связки" and items["najbardziej lubię"]["set_title"] == "⭐ Связки 1"
+    assert "Добавлено в словарь: 2" in app.tg.edits[-1][0] and "⭐ Покупки 1" in app.tg.edits[-1][0]
+    assert app.db.active_set(42) is None                       # наборы тем — в архиве, текущий не сбит
+    run(app.on_callback(cb(did)))                              # снова меню: сохранённое помечено ⭐
+    assert "⭐ <b>w sklepie</b>" in app.tg.sent[-1] and len(app.gemini.prompts) == n + 1
+    run(app.on_callback(cb(f"dg:{mid}", mid=51)))              # подобранное запомнено — без нового запроса
+    assert len(app.gemini.prompts) == n + 1
+    run(app.on_callback(cb("dn:own")))                         # ✍️ свои слова: перевод + тема одним запросом
+    run(app.handle(msg(text="tak jak mówię, больше всего люблю")))
+    assert "«Покупки»" in app.gemini.prompts[-1]                # модель видит уже существующие темы
+    assert app.db.dict_has(42, "tak jak mówię") and "Добавлено в словарь: 1" in app.tg.sent[-1]
+    assert {t["name"] for t in app.db.dict_topics(42)} == {"Покупки", "Связки"}   # «связки » — та же тема
+
+
+def test_star_offer_own_topic_choice():
+    """📂 В меню «⭐ В словарь» можно не доверять ИИ, а положить всё отмеченное в свою тему (свой набор)."""
+    app = make_app()
+    app.db.dict_add(42, "kawa", "КА-ва", "кофе", "Еда")
+    run(app.handle(msg(text="x")))
+    mid = int(app.tg.buttons[0][0][1][1][2:])
+    run(app.on_callback(cb(f"d:{mid}")))
+    run(app.on_callback(cb(f"dp:{mid}", mid=60)))              # экран «Куда положить»
+    tid = app.db.dict_topics(42)[0]["id"]
+    assert f"dq:{mid}:{tid}" in str(app.tg.edits[-1][1]) and f"dq:{mid}:0" in str(app.tg.edits[-1][1])
+    run(app.on_callback(cb(f"dQ:{mid}", mid=60)))              # ✍️ новая тема текстом
+    run(app.handle(msg(text="мой набор")))
+    assert "тема «Мой набор»" in app.tg.sent[-1] and "📂 Тема: Мой набор" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb(f"dg:{mid}", mid=61)))
+    run(app.on_callback(cb(f"ds:{mid}:e0", mid=61)))
+    run(app.on_callback(cb(f"ds:{mid}:b0", mid=61)))
+    n = len(app.gemini.prompts)
+    run(app.on_callback(cb(f"dk:{mid}", mid=61)))              # своя тема — модель для темы не нужна
+    assert len(app.gemini.prompts) == n
+    assert {i["pl"]: i["topic"] for i in app.db.dict_items(42)} == {
+        "kawa": "Еда", "w sklepie": "Мой набор", "najbardziej lubię": "Мой набор"}
+    assert "⭐ Мой набор 1" in app.tg.edits[-1][0]
+    run(app.on_callback(cb(f"dn:own:{mid}")))                  # свои слова из этого меню — тоже в «Мой набор»
+    run(app.handle(msg(text="tak jak mówię")))
+    assert app.db.dict_item(app.db.dict_items(42)[-1]["id"])["topic"] == "Мой набор"
+    run(app.on_callback(cb(f"dq:{mid}:0", mid=61)))            # 🤖 обратно на авто
+    assert "🤖 темы подберёт ИИ" in app.tg.edits[-1][0]
+
+
+def test_dict_relayout_other_by_model_keeps_progress():
+    app = make_app()
+    for pl in ("chleb", "mleko", "pociąg"):
+        app.db.dict_add(42, pl, "", pl)                          # старые слова — в «Разном»
+    w = app.db.dict_items(42)[0]
+    app.db.add_use(w["word_id"], 42, "chleba", True, "2026-10-21")
     run(app.handle(msg(text="/dict")))
-    assert "najbardziej lubię" in app.tg.sent[-1]
+    assert ("🤖 Разложить «Разное» по темам", "dS") in app.tg.buttons[-1][-3]
+    app.gemini.topic = lambda n: {1: "Еда", 2: "Еда", 3: "Разное"}[n]
+    run(app.on_callback(cb("dS", mid=70)))
+    topics = {i["pl"]: i["topic"] for i in app.db.dict_items(42)}
+    assert topics == {"chleb": "Еда", "mleko": "Еда", "pociąg": "Разное"}
+    assert "Разложено по темам: 2 из 3" in app.tg.sent[-1] and "осталось: 1" in app.tg.sent[-1]
+    moved = app.db.dict_item(w["id"])
+    assert moved["word_id"] == w["word_id"] and len(app.db.word_uses(w["word_id"])) == 1   # прогресс сохранён
+    assert moved["set_title"] == "⭐ Еда 1"
 
 
 def test_dict_add_command_dedup():
@@ -803,17 +880,80 @@ def test_dict_add_command_dedup():
     assert "уже в словаре" in app.tg.sent[-1]
 
 
-def test_set_from_dict_marks_used():
+def test_dict_sets_by_topic_ten_each_and_training():
     app = make_app()
-    app.db.dict_add(42, "tak jak mówię", "так як МУ-ве", "как я говорю")
-    app.db.dict_add(42, "po południu", "по по-ЎУ-дню", "после обеда")
-    run(app.on_callback(cb("s:dict")))
-    assert "tak jak mówię" in app.tg.sent[-1]
-    run(app.on_callback(cb("p:1")))                            # убрать po południu
-    run(app.on_callback(cb("p:ok")))
-    words = app.db.set_words(app.db.active_set(42)["id"])
-    assert [w["pl"] for w in words] == ["tak jak mówię"] and words[0]["kind"] == "phrase"
-    assert [i["pl"] for i in app.db.dict_items(42, only_unused=True)] == ["po południu"]
+    for i in range(12):
+        app.db.dict_add(42, f"słowo{i}", "", f"слово{i}", "Путешествия")
+    app.db.dict_add(42, "tak jak mówię", "так як МУ-ве", "как я говорю", "Связки")
+    sets = app.db.dict_sets(42)
+    assert [(s_["title"], s_["total"]) for s_ in sets] == [("⭐ Путешествия 1", 10), ("⭐ Путешествия 2", 2),
+                                                          ("⭐ Связки 1", 1)]
+    assert all(s_["status"] == "done" for s_ in sets) and app.db.active_set(42) is None
+    run(app.on_callback(cb("s:dict")))                         # /new → ➕ → ⭐ из словаря: какой набор
+    assert "Наборы из словаря" in app.tg.sent[-1] and f"ar:go:{sets[1]['id']}" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb(f"ar:go:{sets[1]['id']}")))         # разговор по набору темы
+    assert app.db.active_set(42)["title"] == "⭐ Путешествия 2" and app.db.get_state(42)["mode"] == "set"
+    # /ex → слова → 📚 набор из архива
+    run(app.on_callback(cb("x:k:words")))
+    run(app.on_callback(cb("x:s:arch")))
+    assert "🎯 ⭐ Путешествия 2" in str(app.tg.buttons[-1]) and "⭐ Путешествия 1" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb(f"x:sa:{sets[0]['id']}")))
+    assert "słowo0" in app.tg.sent[-1] and "słowo9" in app.tg.sent[-1] and "słowo10" not in app.tg.sent[-1]
+
+
+def test_dict_screen_move_topic_keeps_progress_and_delete():
+    app = make_app()
+    app.db.dict_add(42, "pracować", "пра-ЦО-вачь", "работать", "Работа")
+    app.db.dict_add(42, "tak jak mówię", "так як МУ-ве", "как я говорю", "Связки")
+    it = app.db.dict_items(42)[0]
+    old_set = it["set_id"]
+    app.db.add_use(it["word_id"], 42, "pracuję", True, "2026-10-20")
+    run(app.handle(msg(text="/dict")))
+    text, rows = app.tg.sent[-1], app.tg.buttons[-1]
+    assert "всего 2, тем: 2" in text and "🗂 <b>Работа</b>" in text and "pracować</b> [пра-ЦО-вачь] — работать" in text
+    assert ("🗂 Работа (1)", f"dt:{it['topic_id']}") in rows[0]
+    run(app.on_callback(cb(f"dt:{it['topic_id']}", mid=9)))   # тема: слова и наборы
+    assert "⭐ Работа 1" in app.tg.edits[-1][0] and ("🏋️ Упражнение", f"dy:{old_set}") in app.tg.edits[-1][1][1]
+    run(app.on_callback(cb(f"dw:{it['id']}", mid=9)))          # слово: куда перенести
+    tid = next(t["id"] for t in app.db.dict_topics(42) if t["name"] == "Связки")
+    assert f"dm:{it['id']}:{tid}" in str(app.tg.edits[-1][1])
+    run(app.on_callback(cb(f"dm:{it['id']}:{tid}", mid=9)))
+    moved = app.db.dict_item(it["id"])
+    assert moved["topic"] == "Связки" and moved["set_title"] == "⭐ Связки 1" and moved["word_id"] == it["word_id"]
+    assert len(app.db.word_uses(it["word_id"])) == 1           # прогресс переехал вместе со словом
+    assert app.db.get_set(old_set) is None                     # пустой набор «Работа 1» удалён
+    run(app.on_callback(cb(f"dz:{it['id']}", mid=9)))          # ✍️ новая тема текстом
+    run(app.handle(msg(text="глаголы")))
+    assert app.db.dict_item(it["id"])["topic"] == "Глаголы" and "Прогресс сохранён" in app.tg.sent[-1]
+    run(app.on_callback(cb(f"dr:{it['id']}", mid=9)))          # 🗑 — с подтверждением
+    assert app.db.dict_has(42, "pracować")
+    run(app.on_callback(cb(f"dR:{it['id']}", mid=9)))
+    assert not app.db.dict_has(42, "pracować") and app.db.word(it["word_id"]) is None
+    run(app.on_callback(cb("i:dict")))                         # 📄 файлом — по темам
+    assert "■ Связки" in app.tg.docs[-1][1]
+    assert "[ ] tak jak mówię [так як МУ-ве] — как я говорю   (⭐ Связки 1)" in app.tg.docs[-1][1]
+
+
+def test_dict_exercise_from_topic_set():
+    app = make_app()
+    for w in ("czekać na", "myśleć o", "pytać o"):
+        app.db.dict_add(42, w, "", "x", "Глаголы с управлением")
+    st = app.db.dict_sets(42)[0]
+    run(app.on_callback(cb(f"dy:{st['id']}")))
+    assert "czekać na" in app.tg.sent[-1] and "pytać o" in app.tg.sent[-1] and "Сколько" in app.tg.sent[-1]
+
+
+def test_old_dict_items_get_topic_on_start(tmp_path):
+    path = str(tmp_path / "bot.db")
+    db = DB(path)
+    db.conn.execute("INSERT INTO dict_items(user_id, pl, translit, ru, created_at) "
+                    "VALUES (42, 'po południu', 'по по-ЎУ-дню', 'после обеда', 1)")
+    db.conn.commit()
+    db.conn.close()
+    db = DB(path)                                               # перезапуск: миграция раскладывает старые слова
+    it = db.dict_items(42)[0]
+    assert it["topic"] == "Разное" and it["set_title"] == "⭐ Разное 1" and it["word_id"]
+    assert db.word(it["word_id"])["translit"] == "по по-ЎУ-дню"
 
 
 def test_itog_periods_and_files():

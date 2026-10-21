@@ -18,11 +18,26 @@ class ExerciseMenuMixin:
 
     def ex_words_from_set(self, user_id: int) -> list[str]:
         active = self.db.active_set(user_id)
-        if not active:
-            return []
-        words = [w for w in self.db.set_words(active["id"]) if training.kind_of(w) != "rule"]
+        return self.ex_words_of_set(active["id"]) if active else []
+
+    def ex_words_of_set(self, set_id: int) -> list[str]:
+        words = [w for w in self.db.set_words(set_id) if training.kind_of(w) != "rule"]
         words.sort(key=lambda w: w["mastered_at"] is not None)  # сначала неосвоенные
         return [w["pl"] for w in words]
+
+    def ex_sets(self, user_id: int) -> list[dict]:
+        """Наборы для упражнения: текущий первым, потом архив (наборы тем словаря — там же)."""
+        out = []
+        active = self.db.active_set(user_id)
+        if active:
+            words = self.db.set_words(active["id"])
+            out.append({"id": active["id"], "title": active["title"], "total": len(words), "active": True,
+                        "done": sum(w["mastered_at"] is not None for w in words)})
+        return out + [r for r in self.db.sets_archive(user_id) if r["total"]]
+
+    async def ex_from_set(self, chat_id: int, user_id: int, set_id: int) -> None:
+        """🏋️ Упражнение по набору (из /dict → тема): слова набора → сколько упражнений."""
+        await self.ex_after_words(chat_id, user_id, {"kind": "words"}, self.ex_words_of_set(set_id))
 
     def ex_top_rules(self, user_id: int, k: int = 3) -> tuple[list[str], dict[str, list[str]]]:
         groups = [g for g in rules.group(self.db.corrections_since(user_id, 0))
@@ -88,7 +103,7 @@ class ExerciseMenuMixin:
                           action: str) -> None:
         ex = dict((pending or {}).get("ex") or {})
         step = (pending or {}).get("step")
-        need = {"s:": "ex_src", "f:": "ex_fmt", "n:": "ex_count", "next": "ex_review", "t:": "ex_gtopic",
+        need = {"s:": "ex_src", "sa:": "ex_set", "f:": "ex_fmt", "n:": "ex_count", "next": "ex_review", "t:": "ex_gtopic",
                 "p:": "ex_pick", "c:": "ex_card", "b:u:": "ex_book", "b:m:": "ex_bunit", "b:d:": "ex_bdir"}
         for prefix, want in need.items():
             if action.startswith(prefix) and step != want:
@@ -139,14 +154,16 @@ class ExerciseMenuMixin:
             kind = "book_card" if ex.get("mode") == "card" else "book_test"
             await self.ex_ask_count(chat_id, user_id, {**ex, "kind": kind, "dir": d,
                                                        "fmt": "test" if kind == "book_test" else "gap"})
+        elif action.startswith("sa:"):
+            st = self.db.get_set(int(action[3:])) if action[3:].isdigit() else None
+            if st and st["user_id"] == user_id:
+                await self.ex_after_words(chat_id, user_id, ex, self.ex_words_of_set(st["id"]))
         elif action.startswith("s:"):
             src = action[2:]
             if src == "set":
                 await self.ex_after_words(chat_id, user_id, ex, self.ex_words_from_set(user_id))
-            elif src == "dict":
-                items = list(self.db.dict_items(user_id))
-                items.sort(key=lambda i: i["used_in_set"])
-                await self.ex_after_words(chat_id, user_id, ex, [i["pl"] for i in items[:12]])
+            elif src in ("arch", "dict"):   # 📚 набор из архива (в т.ч. наборы тем словаря); dict — старая кнопка
+                await self.show(chat_id, user_id, {"step": "ex_set", "ex": ex}, *fmt.ex_set_pick(self.ex_sets(user_id)))
             elif src == "own":
                 await self.show(chat_id, user_id, {"step": "ex_words", "ex": ex},
                                 "Пришли слова через запятую — по-польски (лучше) или по-русски.")

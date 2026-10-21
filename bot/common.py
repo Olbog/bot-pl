@@ -5,7 +5,7 @@ import re
 log = logging.getLogger("bot-pl")
 
 WEEKDAYS = ["понедельник", "вторник", "среду", "четверг", "пятницу", "субботу", "воскресенье"]
-TEXT_STEPS = ("topic", "own", "add", "dict_own", "rule", "new_topic", "read_q")   # шаги, где ждём текст, а не реплику разговора
+TEXT_STEPS = ("topic", "own", "add", "dict_own", "dict_topic_new", "dict_offer_topic", "rule", "new_topic", "read_q")   # шаги, где ждём текст, а не реплику разговора
 QUESTION_RE = re.compile(r"^\s*(\d{1,2})\s*[:.)\-]\s*(.+)$", re.S)   # «5: почему…» — вопрос по пункту упражнения
 
 AUTO = object()                       # show(): предыдущий шаг определить автоматически

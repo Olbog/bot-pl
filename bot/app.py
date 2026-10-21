@@ -101,7 +101,13 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
                                      topic_words_prompt(text, n, self.cfg.level, exclude))
         elif step == "dict_own":
             self.db.set_pending(user_id, None)
-            await self.dict_add_text(chat_id, user_id, text)
+            await self.dict_add_text(chat_id, user_id, text, pending.get("msg"))
+        elif step == "dict_topic_new":   # 📂 новая тема для слова словаря
+            self.db.set_pending(user_id, None)
+            await self.dict_moved(chat_id, user_id, None, pending["item"], text.strip()[:40])
+        elif step == "dict_offer_topic":   # 📂 новая тема для меню «⭐ В словарь»
+            self.db.set_pending(user_id, None)
+            await self.offer_topic_text(chat_id, user_id, pending["msg"], text)
         elif step == "rule":
             self.db.set_pending(user_id, None)
             await self.rule_question(chat_id, text)
@@ -111,13 +117,16 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
                                      own_words_prompt(text, self.cfg.level))
 
     async def ask(self, chat_id: int, prompt: str, schema: dict, hint: str, wait: str = "⏳ Думаю…",
-                  audio: bytes | None = None) -> dict | None:
-        """Запрос к Gemini с видимым статусом: сообщение «⏳ …» удаляется, когда ответ готов."""
+                  audio: bytes | None = None, thinking: str | None = None) -> dict | None:
+        """Запрос к Gemini с видимым статусом: сообщение «⏳ …» удаляется, когда ответ готов.
+        thinking — «обдумывание» для этого запроса (DICT_THINKING и т.п.), None — из .env."""
         note = await self.tg.send_message(chat_id, wait) if wait else None
         await self.tg.send_action(chat_id, "typing")
         try:
-            return await self.gemini.ask_json(prompt, schema, hint, audio=audio) if audio else \
-                await self.gemini.ask_json(prompt, schema, hint)
+            kw = {"audio": audio} if audio else {}
+            if thinking:
+                kw["thinking"] = thinking
+            return await self.gemini.ask_json(prompt, schema, hint, **kw)
         except GeminiError as e:
             await self.report_gemini_error(chat_id, e)
             return None
@@ -184,8 +193,7 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             await self.new_menu(chat_id, user_id, message_id)
         elif prev.get("step") == "dict_menu":
             self.db.set_pending(user_id, None)
-            await self.tg.edit_message(chat_id, message_id, fmt.dict_message(list(self.db.dict_items(user_id))),
-                                       fmt.dict_buttons())
+            await self.dict_show(chat_id, user_id, message_id)
         else:
             text, buttons = prev["screen"]
             buttons = [[tuple(b) for b in row] for row in buttons]
@@ -272,8 +280,9 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
                 self.db.set_mastered(w["id"], None if w["mastered_at"] is not None else "user")
                 await self.tg.edit_message(chat_id, message_id, fmt.mastered_message(active["title"]),
                                            fmt.mastered_buttons(self.db.set_words(active["id"])))
-        elif data == "s:dict":
-            await self.preview_from_dict(chat_id, user_id, prev=self.set_src_prev(user_id))
+        elif data == "s:dict":   # ⭐ из словаря: наборы тем словаря — какой тренировать
+            await self.show(chat_id, user_id, {"step": "dict_sets"}, *fmt.dict_sets_screen(self.db.dict_sets(user_id)),
+                            prev=self.set_src_prev(user_id))
         elif data.startswith("p:"):
             if data == "p:cancel" and pending and pending.get("step") == "errsel":
                 self.db.set_pending(user_id, None)
@@ -290,15 +299,28 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         elif data.startswith("d:"):
             await self.offer_phrases(chat_id, user_id, int(data[2:]))
         elif data.startswith("ds:"):
-            _, mid, i = data.split(":")
-            await self.offer_toggle(chat_id, user_id, message_id, int(mid), int(i))
-        elif data.startswith("dx:"):
-            offer = self.db.offer_get(int(data[3:]))
-            n = len(offer["saved"]) if offer else 0
-            await self.tg.edit_message(chat_id, message_id, f"⭐ Сохранено в словарь: {n}. Весь словарь — /dict")
-        elif data == "dn:own":
-            await self.show(chat_id, user_id, {"step": "dict_own"},
-                            "Пришли выражения через запятую — по-польски или по-русски.", prev=DICT_MENU)
+            _, mid, key = data.split(":")
+            await self.offer_toggle(chat_id, user_id, message_id, int(mid), key)
+        elif data.startswith("dg:"):
+            await self.offer_bot(chat_id, user_id, message_id, int(data[3:]))
+        elif data.startswith(("dk:", "dx:")):   # dx — «✅ Готово» со старых сообщений
+            await self.offer_done(chat_id, user_id, message_id, int(data[3:]))
+        elif data.startswith("dp:"):            # 📂 куда положить: экран выбора темы
+            await self.offer_topic(chat_id, user_id, message_id, int(data[3:]), None)
+        elif data.startswith("dq:"):            # 📂 выбрана тема / 🤖 авто / назад
+            _, mid, arg = data.split(":")
+            await self.offer_topic(chat_id, user_id, message_id, int(mid), arg)
+        elif data.startswith("dQ:"):            # 📂 ✍️ новая тема для меню — текстом
+            await self.show(chat_id, user_id, {"step": "dict_offer_topic", "msg": int(data[3:])},
+                            "✍️ Напиши название темы — по-русски, 1–3 слова (например «Мой набор», «Кафе»). "
+                            "Отмеченное в меню «⭐ В словарь» ляжет туда.", prev=None)
+        elif data == "dl" or data == "dS" or data.startswith(("dt:", "dw:", "dm:", "dz:", "dr:", "dR:", "dy:")):
+            await self.dict_callback(chat_id, user_id, message_id, data)
+        elif data == "dn:own" or data.startswith("dn:own:"):
+            mid = data[7:]
+            await self.show(chat_id, user_id, {"step": "dict_own", **({"msg": int(mid)} if mid.isdigit() else {})},
+                            "Пришли слова и выражения через запятую — по-польски или по-русски.",
+                            prev=None if mid else DICT_MENU)
         elif data.startswith("nd:"):
             await self.dispute_callback(chat_id, user_id, message_id, data[3:])
         elif data == "ig:list":
@@ -332,10 +354,9 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
                     await self.dict_add_text(chat_id, user_id, raw)
                 else:
                     await self.show(chat_id, user_id, {"step": "dict_own"},
-                                    "Пришли выражения через запятую — по-польски или по-русски.", prev=None)
+                                    "Пришли слова и выражения через запятую — по-польски или по-русски.", prev=None)
             else:
-                await self.tg.send_message(chat_id, fmt.dict_message(list(self.db.dict_items(user_id))),
-                                           fmt.dict_buttons())
+                await self.dict_show(chat_id, user_id)
         elif cmd == "/rule":
             if arg:
                 await self.rule_question(chat_id, arg)

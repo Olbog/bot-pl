@@ -100,19 +100,6 @@ class SetsMixin:
         pending.setdefault("off", [])
         await self.show(chat_id, user_id, pending, fmt.preview_message(pending), fmt.preview_buttons(pending))
 
-    async def preview_from_dict(self, chat_id: int, user_id: int, prev=AUTO) -> None:
-        n = self.cfg.set_size
-        items = self.db.dict_items(user_id, only_unused=True)[:n]
-        if not items:
-            await self.tg.send_message(chat_id, "⭐ В словаре нет новых выражений для набора. "
-                                                 "Сохраняй их кнопкой «⭐ В словарь» под ответами или /dict add.")
-            return
-        pending = {"step": "preview", "title": "Из словаря", "off": [], "dict_ids": [i["id"] for i in items],
-                   "words": [{"pl": i["pl"], "translit": i["translit"], "ru": i["ru"], "pos": "выраж",
-                              "kind": "phrase"} for i in items]}
-        await self.show(chat_id, user_id, pending, fmt.preview_message(pending), fmt.preview_buttons(pending),
-                        prev=prev)
-
     # ---------- 📘 набор из юнита ----------
 
     def unit_candidates(self, user_id: int, unit: dict, exclude: set[str]) -> list[dict]:
@@ -209,10 +196,6 @@ class SetsMixin:
                 await self.tg.send_message(chat_id, "В наборе не осталось слов.")
                 return
             self.db.create_set(user_id, pending.get("title") or "Набор", words)
-            if pending.get("dict_ids"):
-                kept_pl = {w["pl"].lower() for w in words}
-                self.db.dict_mark_used([i for i, w in zip(pending["dict_ids"], pending["words"])
-                                        if w["pl"].lower() in kept_pl])
             self.db.set_pending(user_id, None)
             await self.tg.edit_message(chat_id, message_id, fmt.preview_message(
                 {**pending, "words": words, "off": []}).replace(

@@ -198,7 +198,7 @@ class Telegram:
             {"command": "read", "description": "📚 Чтение: легенды по абзацам, аудио, слова в словарь"},
             {"command": "set", "description": "🎯 Наборы слов: прогресс, новый, 📚 архив"},
             {"command": "itog", "description": "📋 Итог: ошибки и слова за час / сутки / разговор"},
-            {"command": "dict", "description": "⭐ Мой словарь выражений"},
+            {"command": "dict", "description": "⭐ Словарь по темам: наборы по 10, сменить тему, файлом"},
             {"command": "rule", "description": "📖 Вопрос о правиле: /rule почему do niej?"},
             {"command": "export", "description": "🗂 Выгрузить всё файлом: ошибки, слова, словарь"},
             {"command": "cancel", "description": "✖️ Отменить текущий выбор (разговор и набор остаются)"},

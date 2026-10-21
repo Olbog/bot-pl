@@ -241,10 +241,11 @@ class Gemini:
             "temperature": 0.7,
         }
         if with_thinking:
+            level = req.get("thinking") or self.thinking_level   # запрос может попросить «low» — быстрее
             if model.startswith("gemini-2.5"):
-                gen["thinkingConfig"] = {"thinkingBudget": 1024}
-            elif self.thinking_level:
-                gen["thinkingConfig"] = {"thinkingLevel": self.thinking_level}
+                gen["thinkingConfig"] = {"thinkingBudget": 256 if level == "low" else 1024}
+            elif level:
+                gen["thinkingConfig"] = {"thinkingLevel": level}
         return {
             "systemInstruction": {"parts": [{"text": req["system"]}]},
             "contents": build_contents(req["history"], req["text"], req["audio"]),
@@ -277,10 +278,12 @@ class Gemini:
                "history": history, "text": text, "audio": audio}
         return await self._run(req, parse_turn)
 
-    async def ask_json(self, prompt: str, schema: dict, hint: str, audio: bytes | None = None) -> dict:
-        """Разовый запрос с JSON-ответом (составить набор, упражнение, проверить ответы…)."""
+    async def ask_json(self, prompt: str, schema: dict, hint: str, audio: bytes | None = None,
+                       thinking: str | None = None) -> dict:
+        """Разовый запрос с JSON-ответом (составить набор, упражнение, проверить ответы…).
+        thinking — своё «обдумывание» для этого запроса (например «low» для лёгких задач), иначе из .env."""
         req = {"system": "Ты помогаешь русскоязычному ученику учить польский. Отвечай строго в заданном JSON-формате.",
-               "schema": schema, "hint": hint, "history": [], "text": prompt, "audio": audio}
+               "schema": schema, "hint": hint, "history": [], "text": prompt, "audio": audio, "thinking": thinking}
         return await self._run(req, parse_json)
 
     async def _run(self, req: dict, parse):
