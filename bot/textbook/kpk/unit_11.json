@@ -1,0 +1,3528 @@
+{
+ "unit": "11",
+ "title": "Rodzina",
+ "summary": "Семья: родители, дети, братья и сёстры, бабушки и дедушки, дяди, тёти, двоюродные, племянники, родня по браку (teść, teściowa, synowa, szwagier, bratowa); семейное положение (żonaty, mężatka, kawaler, panna, rozwiedziony), генеалогическое древо, модель польской семьи. Время суток (rano, przed południem, w południe, po południu, wieczorem, w nocy, o północy) и как часто (zawsze, codziennie, zwykle, często, od czasu do czasu, rzadko, nigdy nie). Грамматика: притяжательные местоимения (mój, twój, jego, jej, nasz, wasz, ich) и вопрос Czyj? Czyja? Czyje?",
+ "source": "Krok po kroku. Polski A1 (I. Stempek), Lekcja 11, с. 70–77; тетрадь с. 42–45",
+ "topics": [
+  "Семья: родители и дети",
+  "Бабушки, дедушки и родня",
+  "Родня по браку",
+  "Семейное положение",
+  "Чей? Притяжательные местоимения",
+  "Время суток",
+  "Как часто?",
+  "Мой день: дела",
+  "Разное"
+ ],
+ "words": [
+  {
+   "pl": "rodzina",
+   "translit": "ро-ДЖИ-на",
+   "ru": "семья",
+   "pos": "сущ., ж. р.; o rodzinie, z rodziną",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "Czyja to rodzina?",
+   "translit": "ЧЫ-я то ро-ДЖИ-на",
+   "ru": "Чья это семья?",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "rodzina"
+  },
+  {
+   "pl": "duża rodzina",
+   "translit": "ДУ-жа ро-ДЖИ-на",
+   "ru": "большая семья",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "rodzina"
+  },
+  {
+   "pl": "cała rodzina",
+   "translit": "ЦА-ўа ро-ДЖИ-на",
+   "ru": "вся семья",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "rodzina"
+  },
+  {
+   "pl": "spotykać się z rodziną",
+   "translit": "спо-ТЫ-качь щен з ро-ДЖИ-нон",
+   "ru": "встречаться с семьёй",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "rodzina"
+  },
+  {
+   "pl": "rodzice",
+   "translit": "ро-ДЖИ-цэ",
+   "ru": "родители",
+   "pos": "сущ., мн. ч.; род. п. rodziców, z rodzicami",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "matka",
+   "translit": "МАТ-ка",
+   "ru": "мать",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "ojciec",
+   "translit": "ОЙ-чец",
+   "ru": "отец",
+   "pos": "сущ., м. р.; род. п. ojca",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "mama",
+   "translit": "МА-ма",
+   "ru": "мама",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "tata",
+   "translit": "ТА-та",
+   "ru": "папа",
+   "pos": "сущ., м. р. (склоняется как ж. р.: tatę, taty)",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "syn",
+   "translit": "сын",
+   "ru": "сын",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "córka",
+   "translit": "ЦУР-ка",
+   "ru": "дочь",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "dziecko",
+   "translit": "ДЖЕЦ-ко",
+   "ru": "ребёнок",
+   "pos": "сущ., ср. р.; мн. ч. dzieci, z dziećmi",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "dwoje dzieci",
+   "translit": "ДВО-е ДЖЕ-чи",
+   "ru": "двое детей",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "dziecko"
+  },
+  {
+   "pl": "troje dzieci",
+   "translit": "ТРО-е ДЖЕ-чи",
+   "ru": "трое детей",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "dziecko"
+  },
+  {
+   "pl": "jedno dziecko",
+   "translit": "ЕД-но ДЖЕЦ-ко",
+   "ru": "один ребёнок",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "dziecko"
+  },
+  {
+   "pl": "brat",
+   "translit": "брат",
+   "ru": "брат",
+   "pos": "сущ., м. р.; мн. ч. bracia",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "siostra",
+   "translit": "ЩЁС-тра",
+   "ru": "сестра",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "starsza siostra",
+   "translit": "СТАР-ша ЩЁС-тра",
+   "ru": "старшая сестра",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "siostra"
+  },
+  {
+   "pl": "młodsza siostra",
+   "translit": "МЛОТ-ша ЩЁС-тра",
+   "ru": "младшая сестра",
+   "pos": "🔗 сочетание",
+   "src": "wb",
+   "of": "siostra"
+  },
+  {
+   "pl": "rodzeństwo",
+   "translit": "ро-ДЗЭНЬ-ство",
+   "ru": "братья и сёстры (брат и сестра)",
+   "pos": "сущ., ср. р. (собир.); род. п. rodzeństwa",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "bliźniak",
+   "translit": "БЛИЖЬ-няк",
+   "ru": "близнец",
+   "pos": "сущ., м. р.; мн. ч. bliźniaki",
+   "src": "tb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "jedynaczka",
+   "translit": "е-ды-НАЧ-ка",
+   "ru": "единственная дочь (без братьев и сестёр)",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "jedynak",
+   "translit": "е-ДЫ-нак",
+   "ru": "единственный сын (без братьев и сестёр)",
+   "pos": "сущ., м. р.",
+   "src": "wb",
+   "topic": "Семья: родители и дети"
+  },
+  {
+   "pl": "dziadek",
+   "translit": "ДЖЯ-дэк",
+   "ru": "дедушка",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "babcia",
+   "translit": "БАП-чя",
+   "ru": "бабушка",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "dziadkowie",
+   "translit": "джят-КО-ве",
+   "ru": "дедушка и бабушка; дедушки",
+   "pos": "сущ., мн. ч.",
+   "src": "tb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "prababcia",
+   "translit": "пра-БАП-чя",
+   "ru": "прабабушка",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "kuzyn",
+   "translit": "КУ-зын",
+   "ru": "двоюродный брат",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "kuzynka",
+   "translit": "ку-ЗЫН-ка",
+   "ru": "двоюродная сестра",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "ciocia",
+   "translit": "ЧЁ-чя",
+   "ru": "тётя",
+   "pos": "сущ., ж. р.; род. п. cioci",
+   "src": "tb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "wujek",
+   "translit": "ВУ-ек",
+   "ru": "дядя",
+   "pos": "сущ., м. р.; род. п. wujka",
+   "src": "tb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "bratanek",
+   "translit": "бра-ТА-нэк",
+   "ru": "племянник (сын брата)",
+   "pos": "сущ., м. р.; z bratankiem",
+   "src": "wb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "bratanica",
+   "translit": "бра-та-НИ-ца",
+   "ru": "племянница (дочь брата)",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "siostrzeniec",
+   "translit": "щёст-ШЭ-нец",
+   "ru": "племянник (сын сестры)",
+   "pos": "сущ., м. р.",
+   "src": "wb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "siostrzenica",
+   "translit": "щёст-шэ-НИ-ца",
+   "ru": "племянница (дочь сестры)",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "drzewo genealogiczne",
+   "translit": "ДЖЭ-во гэ-нэ-а-ло-ГИЧ-нэ",
+   "ru": "генеалогическое древо",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "genealogia",
+   "translit": "гэ-нэ-а-ЛЁ-гья",
+   "ru": "генеалогия, родословная",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "historia rodziny",
+   "translit": "хис-ТО-рья ро-ДЖИ-ны",
+   "ru": "история семьи",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Бабушки, дедушки и родня"
+  },
+  {
+   "pl": "teść",
+   "translit": "тэщчь",
+   "ru": "тесть, свёкор (отец мужа или жены)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Родня по браку"
+  },
+  {
+   "pl": "teściowa",
+   "translit": "тэщь-ЧЁ-ва",
+   "ru": "тёща, свекровь (мать мужа или жены)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Родня по браку"
+  },
+  {
+   "pl": "synowa",
+   "translit": "сы-НО-ва",
+   "ru": "невестка (жена сына)",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Родня по браку"
+  },
+  {
+   "pl": "szwagier",
+   "translit": "ШВА-гер",
+   "ru": "зять (муж сестры), шурин, деверь",
+   "pos": "сущ., м. р.: szwagier — mąż siostry",
+   "src": "wb",
+   "topic": "Родня по браку"
+  },
+  {
+   "pl": "bratowa",
+   "translit": "бра-ТО-ва",
+   "ru": "невестка (жена брата)",
+   "pos": "сущ., ж. р.: bratowa — żona brata",
+   "src": "wb",
+   "topic": "Родня по браку"
+  },
+  {
+   "pl": "narzeczona",
+   "translit": "на-жэ-ЧО-на",
+   "ru": "невеста",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Родня по браку"
+  },
+  {
+   "pl": "narzeczony",
+   "translit": "на-жэ-ЧО-ны",
+   "ru": "жених",
+   "pos": "сущ., м. р.",
+   "src": "wb",
+   "topic": "Родня по браку"
+  },
+  {
+   "pl": "mąż",
+   "translit": "монш",
+   "ru": "муж",
+   "pos": "сущ., м. р.; род. п. męża, мн. ч. mężowie",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "żona",
+   "translit": "ЖО-на",
+   "ru": "жена",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "małżeństwo",
+   "translit": "маў-ЖЭНЬ-ство",
+   "ru": "супруги (муж и жена); брак",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "żonaty",
+   "translit": "жо-НА-ты",
+   "ru": "женатый",
+   "pos": "прил. (о мужчине)",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "Jestem drugi raz żonaty.",
+   "translit": "ЕС-тэм ДРУ-ги рас жо-НА-ты",
+   "ru": "Я женат второй раз.",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "żonaty"
+  },
+  {
+   "pl": "mężatka",
+   "translit": "мэн-ЖАТ-ка",
+   "ru": "замужняя женщина",
+   "pos": "сущ., ж. р.: Jest mężatką. — Она замужем.",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "kawaler",
+   "translit": "ка-ВА-лер",
+   "ru": "холостяк, неженатый",
+   "pos": "сущ., м. р.: Jestem kawalerem.",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "panna",
+   "translit": "ПАН-на",
+   "ru": "незамужняя девушка",
+   "pos": "сущ., ж. р.: Jestem panną.",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "rozwiedziony",
+   "translit": "роз-ве-ДЖЁ-ны",
+   "ru": "разведённый",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "rozwiedziona",
+   "translit": "роз-ве-ДЖЁ-на",
+   "ru": "разведённая",
+   "pos": "прил., ж. р.",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "chłopak",
+   "translit": "ХЎО-пак",
+   "ru": "парень (бойфренд)",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "dziewczyna",
+   "translit": "джеф-ЧЫ-на",
+   "ru": "девушка (подруга)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "znajoma",
+   "translit": "зна-Ё-ма",
+   "ru": "знакомая",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "przyjaciółka",
+   "translit": "пшы-я-ЧУЎ-ка",
+   "ru": "подруга (близкая)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "kochać się",
+   "translit": "КО-хачь щен",
+   "ru": "любить друг друга",
+   "pos": "глаг., -am / -asz: kochamy się",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "Bardzo się kochamy.",
+   "translit": "БАР-дзо щен ко-ХА-мы",
+   "ru": "Мы очень любим друг друга.",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "kochać się"
+  },
+  {
+   "pl": "nie żyje",
+   "translit": "не ЖЫ-е",
+   "ru": "умер(ла), его / её нет в живых",
+   "pos": "фраза: już nie żyje; oni nie żyją",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "żyć",
+   "translit": "жычь",
+   "ru": "жить, быть живым",
+   "pos": "глаг.: żyję, żyjesz",
+   "src": "tb",
+   "topic": "Семейное положение"
+  },
+  {
+   "pl": "czyj?",
+   "translit": "чый",
+   "ru": "чей?",
+   "pos": "местоим., м. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "Czyj to samochód?",
+   "translit": "чый то са-МО-хут",
+   "ru": "Чья это машина?",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "czyj?"
+  },
+  {
+   "pl": "czyja?",
+   "translit": "ЧЫ-я",
+   "ru": "чья?",
+   "pos": "местоим., ж. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "Czyja to książka?",
+   "translit": "ЧЫ-я то КШЁНЖ-ка",
+   "ru": "Чья это книга?",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "czyja?"
+  },
+  {
+   "pl": "czyje?",
+   "translit": "ЧЫ-е",
+   "ru": "чьё? чьи?",
+   "pos": "местоим., ср. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "Czyje to zdjęcie?",
+   "translit": "ЧЫ-е то ЗДЬЕН-че",
+   "ru": "Чья это фотография?",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "czyje?"
+  },
+  {
+   "pl": "zaimki dzierżawcze",
+   "translit": "за-ИМ-ки джер-ЖАФ-чэ",
+   "ru": "притяжательные местоимения",
+   "pos": "термин",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "mój",
+   "translit": "муй",
+   "ru": "мой",
+   "pos": "местоим., м. р. (moja, moje)",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "moja",
+   "translit": "МО-я",
+   "ru": "моя",
+   "pos": "местоим., ж. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "moje",
+   "translit": "МО-е",
+   "ru": "моё",
+   "pos": "местоим., ср. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "twój",
+   "translit": "тфуй",
+   "ru": "твой",
+   "pos": "местоим., м. р. (twoja, twoje)",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "twoja",
+   "translit": "ТФО-я",
+   "ru": "твоя",
+   "pos": "местоим., ж. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "twoje",
+   "translit": "ТФО-е",
+   "ru": "твоё",
+   "pos": "местоим., ср. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "jego",
+   "translit": "Е-го",
+   "ru": "его",
+   "pos": "местоим. (не меняется: jego brat, jego siostra)",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "jej",
+   "translit": "ей",
+   "ru": "её",
+   "pos": "местоим. (не меняется: jej brat, jej siostra)",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "nasz",
+   "translit": "наш",
+   "ru": "наш",
+   "pos": "местоим., м. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "nasza",
+   "translit": "НА-ша",
+   "ru": "наша",
+   "pos": "местоим., ж. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "nasze",
+   "translit": "НА-шэ",
+   "ru": "наше",
+   "pos": "местоим., ср. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "wasz",
+   "translit": "ваш",
+   "ru": "ваш",
+   "pos": "местоим., м. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "wasza",
+   "translit": "ВА-ша",
+   "ru": "ваша",
+   "pos": "местоим., ж. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "wasze",
+   "translit": "ВА-шэ",
+   "ru": "ваше",
+   "pos": "местоим., ср. р.",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "ich",
+   "translit": "их",
+   "ru": "их",
+   "pos": "местоим. (не меняется: ich syn, ich córka)",
+   "src": "tb",
+   "topic": "Чей? Притяжательные местоимения"
+  },
+  {
+   "pl": "pora dnia",
+   "translit": "ПО-ра ДНЯ",
+   "ru": "время суток",
+   "pos": "сущ., ж. р.; мн. ч. pory dnia",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "doba",
+   "translit": "ДО-ба",
+   "ru": "сутки",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "kiedy?",
+   "translit": "КЕ-ды",
+   "ru": "когда?",
+   "pos": "вопрос",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "rano",
+   "translit": "РА-но",
+   "ru": "утром",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "przed południem",
+   "translit": "пшэт по-ЎУД-нем",
+   "ru": "до полудня (в первой половине дня)",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "południe",
+   "translit": "по-ЎУД-не",
+   "ru": "полдень",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "w południe",
+   "translit": "ф по-ЎУД-не",
+   "ru": "в полдень",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "południe"
+  },
+  {
+   "pl": "po południu",
+   "translit": "по по-ЎУД-ню",
+   "ru": "после полудня, во второй половине дня",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "wieczorem",
+   "translit": "ве-ЧО-рэм",
+   "ru": "вечером",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "w nocy",
+   "translit": "в НО-цы",
+   "ru": "ночью",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "północ",
+   "translit": "ПУЎ-ноц",
+   "ru": "полночь",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "o północy",
+   "translit": "о пуў-НО-цы",
+   "ru": "в полночь",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "północ"
+  },
+  {
+   "pl": "w dzień",
+   "translit": "в джень",
+   "ru": "днём",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "od rana do wieczora",
+   "translit": "от РА-на до ве-ЧО-ра",
+   "ru": "с утра до вечера",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "sjesta",
+   "translit": "СЬЕС-та",
+   "ru": "сиеста (дневной отдых)",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Время суток"
+  },
+  {
+   "pl": "jak często?",
+   "translit": "як ЧЭН-сто",
+   "ru": "как часто?",
+   "pos": "вопрос",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "zawsze",
+   "translit": "ЗАФ-шэ",
+   "ru": "всегда",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "codziennie",
+   "translit": "цо-ДЖЕН-не",
+   "ru": "каждый день, ежедневно",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "zwykle",
+   "translit": "ЗВЫК-ле",
+   "ru": "обычно",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "często",
+   "translit": "ЧЭН-сто",
+   "ru": "часто",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "od czasu do czasu",
+   "translit": "от ЧА-су до ЧА-су",
+   "ru": "время от времени",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "czasami",
+   "translit": "ча-СА-ми",
+   "ru": "иногда",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "rzadko",
+   "translit": "ЖАТ-ко",
+   "ru": "редко",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "bardzo rzadko",
+   "translit": "БАР-дзо ЖАТ-ко",
+   "ru": "очень редко",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "rzadko"
+  },
+  {
+   "pl": "nigdy",
+   "translit": "НИГ-ды",
+   "ru": "никогда",
+   "pos": "нареч.: с глаголом — nigdy nie (Nigdy nie chodzę…)",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "prawie nigdy",
+   "translit": "ПРА-ве НИГ-ды",
+   "ru": "почти никогда",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "nigdy"
+  },
+  {
+   "pl": "raz w roku",
+   "translit": "рас в РО-ку",
+   "ru": "раз в год",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "dwa razy w roku",
+   "translit": "два РА-зы в РО-ку",
+   "ru": "два раза в год",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "raz w roku"
+  },
+  {
+   "pl": "raz w miesiącu",
+   "translit": "рас в ме-ЩЁН-цу",
+   "ru": "раз в месяц",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "raz w roku"
+  },
+  {
+   "pl": "siedem razy w tygodniu",
+   "translit": "ЩЕ-дэм РА-зы ф ты-ГОД-ню",
+   "ru": "семь раз в неделю",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "raz w roku"
+  },
+  {
+   "pl": "później",
+   "translit": "ПУЖЬ-нэй",
+   "ru": "позже, потом",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "potem",
+   "translit": "ПО-тэм",
+   "ru": "потом",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "praktycznie",
+   "translit": "прак-ТЫЧ-не",
+   "ru": "практически",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Как часто?"
+  },
+  {
+   "pl": "wstawać",
+   "translit": "ФСТА-вачь",
+   "ru": "вставать",
+   "pos": "глаг.: wstaję, wstajesz",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "ubierać się",
+   "translit": "у-БЕ-рачь щен",
+   "ru": "одеваться",
+   "pos": "глаг., -am / -asz",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "odpocząć",
+   "translit": "от-ПО-чёнчь",
+   "ru": "отдохнуть",
+   "pos": "глаг.: odpocznę, odpoczniesz",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "spotykać się",
+   "translit": "спо-ТЫ-качь щен",
+   "ru": "встречаться",
+   "pos": "глаг., -am / -asz; z + творит.: z chłopakiem",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "rozmawiać",
+   "translit": "роз-МА-вячь",
+   "ru": "разговаривать",
+   "pos": "глаг., -am / -asz; o + предл.: o rodzinie",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "powiedzieć",
+   "translit": "по-ВЕ-джечь",
+   "ru": "сказать",
+   "pos": "глаг.: powiem, powiesz",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "dzwonić do żony",
+   "translit": "ДЗВО-ничь до ЖО-ны",
+   "ru": "звонить жене",
+   "pos": "фраза; dzwonić: dzwonię, dzwonisz",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "jeździć do klientów",
+   "translit": "ЕЖЬ-джичь до кли-ЭН-туф",
+   "ru": "ездить к клиентам",
+   "pos": "фраза; jeździć: jeżdżę, jeździsz",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "jeździć samochodem",
+   "translit": "ЕЖЬ-джичь са-мо-ХО-дэм",
+   "ru": "ездить на машине",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "jeździć do klientów"
+  },
+  {
+   "pl": "jeździć taksówką",
+   "translit": "ЕЖЬ-джичь так-СУФ-кон",
+   "ru": "ездить на такси",
+   "pos": "🔗 сочетание",
+   "src": "tb",
+   "of": "jeździć do klientów"
+  },
+  {
+   "pl": "mieć zajęcia",
+   "translit": "мечь за-ЕН-ча",
+   "ru": "иметь занятия (пары, уроки)",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "drugie śniadanie",
+   "translit": "ДРУ-ге щня-ДА-не",
+   "ru": "второй завтрак (перекус в школе / на работе)",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "być na diecie",
+   "translit": "бычь на ди-Е-че",
+   "ru": "быть на диете",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "sprzątać",
+   "translit": "СПШОН-тачь",
+   "ru": "убирать (в доме)",
+   "pos": "глаг., -am / -asz",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "odbierać dzieci ze szkoły",
+   "translit": "од-БЕ-рачь ДЖЕ-чи зэ ШКО-ўы",
+   "ru": "забирать детей из школы",
+   "pos": "фраза; odbierać, -am / -asz",
+   "src": "wb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "wychodzić z domu",
+   "translit": "вы-ХО-джичь з ДО-му",
+   "ru": "выходить из дома",
+   "pos": "фраза; wychodzić: wychodzę, wychodzisz",
+   "src": "wb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "robić zakupy na targu",
+   "translit": "РО-бичь за-КУ-пы на ТАР-гу",
+   "ru": "делать покупки на рынке",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "hipermarket",
+   "translit": "хи-пэр-МАР-кет",
+   "ru": "гипермаркет",
+   "pos": "сущ., м. р.; w hipermarkecie",
+   "src": "wb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "zajmować się domem i dziećmi",
+   "translit": "зай-МО-вачь щен ДО-мэм и ДЖЕЩЬ-ми",
+   "ru": "заниматься домом и детьми",
+   "pos": "фраза; zajmować się: zajmuję się + творит.",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "pracować zawodowo",
+   "translit": "пра-ЦО-вачь за-во-ДО-во",
+   "ru": "работать по профессии (вне дома)",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "pracoholik",
+   "translit": "пра-цо-ХО-лик",
+   "ru": "трудоголик",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "urlop",
+   "translit": "УР-лоп",
+   "ru": "отпуск",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "dyskoteka",
+   "translit": "ды-ско-ТЭ-ка",
+   "ru": "дискотека",
+   "pos": "сущ., ж. р.; chodzić na dyskotekę",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "mecz",
+   "translit": "мэч",
+   "ru": "матч",
+   "pos": "сущ., м. р.; chodzić na mecze",
+   "src": "wb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "Jestem za stary.",
+   "translit": "ЕС-тэм за СТА-ры",
+   "ru": "Я слишком стар.",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "woleć",
+   "translit": "ВО-лечь",
+   "ru": "предпочитать",
+   "pos": "глаг.: wolę, wolisz",
+   "src": "tb",
+   "topic": "Мой день: дела"
+  },
+  {
+   "pl": "aktualnie",
+   "translit": "ак-ту-АЛЬ-не",
+   "ru": "в настоящее время, сейчас",
+   "pos": "нареч.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "aktualny",
+   "translit": "ак-ту-АЛЬ-ны",
+   "ru": "нынешний, текущий",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "Nie mam kontaktu z…",
+   "translit": "не мам кон-ТАК-ту з",
+   "ru": "Я не поддерживаю связь с…",
+   "pos": "фраза; kontakt — м. р.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "stuprocentowy",
+   "translit": "сту-про-цэн-ТО-вы",
+   "ru": "стопроцентный",
+   "pos": "прил.: stuprocentowa Polka",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "na sto procent",
+   "translit": "на сто ПРО-цэнт",
+   "ru": "на сто процентов",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "pół Polka, pół Angielka",
+   "translit": "пуў ПОЛЬ-ка пуў ан-ГЕЛЬ-ка",
+   "ru": "наполовину полька, наполовину англичанка",
+   "pos": "фраза",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "arystokratyczny",
+   "translit": "а-ры-сто-кра-ТЫЧ-ны",
+   "ru": "аристократический",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "pilot",
+   "translit": "ПИ-лот",
+   "ru": "пилот, лётчик",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "znany aktor",
+   "translit": "ЗНА-ны АК-тор",
+   "ru": "известный актёр",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "wszyscy",
+   "translit": "ФШЫС-цы",
+   "ru": "все (люди)",
+   "pos": "местоим., мн. ч.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "uporządkowany",
+   "translit": "у-по-жонт-ко-ВА-ны",
+   "ru": "упорядоченный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "model rodziny",
+   "translit": "МО-дэль ро-ДЖИ-ны",
+   "ru": "модель семьи",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "tradycyjny",
+   "translit": "тра-ды-ЦЫЙ-ны",
+   "ru": "традиционный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "partnerski",
+   "translit": "парт-НЭР-ски",
+   "ru": "партнёрский",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "mieszany",
+   "translit": "ме-ША-ны",
+   "ru": "смешанный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "typowy",
+   "translit": "ты-ПО-вы",
+   "ru": "типичный",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "sytuacja formalna",
+   "translit": "сы-ту-А-цья фор-МАЛЬ-на",
+   "ru": "официальная ситуация",
+   "pos": "сущ., ж. р.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "pielęgniarka",
+   "translit": "пе-лэн-ГНЯР-ка",
+   "ru": "медсестра",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "uczennica",
+   "translit": "у-чэн-НИ-ца",
+   "ru": "ученица",
+   "pos": "сущ., ж. р.",
+   "src": "wb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "historyk",
+   "translit": "хис-ТО-рык",
+   "ru": "историк",
+   "pos": "сущ., м. р.",
+   "src": "wb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "inżynier elektronik",
+   "translit": "ин-ЖЫ-нер э-лек-ТРО-ник",
+   "ru": "инженер-электронщик",
+   "pos": "сущ., м. р.",
+   "src": "wb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "prawdziwy",
+   "translit": "прав-ДЖИ-вы",
+   "ru": "настоящий",
+   "pos": "прил.",
+   "src": "wb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "za młody",
+   "translit": "за МЛО-ды",
+   "ru": "слишком молодой",
+   "pos": "фраза",
+   "src": "wb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "pióro",
+   "translit": "ПЮ-ро",
+   "ru": "ручка (перьевая), перо",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "portfel",
+   "translit": "ПОРТ-фэль",
+   "ru": "кошелёк, бумажник",
+   "pos": "сущ., м. р.; w portfelu",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "garaż",
+   "translit": "ГА-раш",
+   "ru": "гараж",
+   "pos": "сущ., м. р.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "blokować",
+   "translit": "бло-КО-вачь",
+   "ru": "блокировать, загораживать",
+   "pos": "глаг.: blokuję, blokujesz",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "zadanie domowe",
+   "translit": "за-ДА-не до-МО-вэ",
+   "ru": "домашнее задание",
+   "pos": "сущ., ср. р.",
+   "src": "tb",
+   "topic": "Разное"
+  },
+  {
+   "pl": "ulubiony",
+   "translit": "у-лю-БЁ-ны",
+   "ru": "любимый",
+   "pos": "прил.",
+   "src": "tb",
+   "topic": "Разное"
+  }
+ ],
+ "exercises": [
+  {
+   "id": "tb-11-a1",
+   "src": "tb",
+   "ref": "A · Ćw. 1, s. 70",
+   "title": "Czyja to rodzina?",
+   "title_ru": "Чья это семья?",
+   "task_ru": "Пять человек рассказывают о своей семье (записи и тексты ćw. 2 — на странице учебника, кнопка 📄 ниже). Кто это говорит? Выбери имя.",
+   "type": "match",
+   "items": [
+    {
+     "q": "Aktualnie mam żonę i dwoje dzieci. Jestem drugi raz żonaty.",
+     "answer": "Uwe",
+     "ru": "Сейчас у меня жена и двое детей. Я женат второй раз."
+    },
+    {
+     "q": "Mam mamę, tatę, brata i siostrę. Nie lubię rozmawiać o mojej rodzinie.",
+     "answer": "Mami",
+     "ru": "У меня есть мама, папа, брат и сестра. Не люблю говорить о своей семье."
+    },
+    {
+     "q": "Już nie mam męża. Jestem pół Polką, pół Angielką.",
+     "answer": "Angela",
+     "ru": "У меня уже нет мужа. Я наполовину полька, наполовину англичанка."
+    },
+    {
+     "q": "Mam dużą rodzinę. Nie mam żony, jestem kawalerem.",
+     "answer": "Javier",
+     "ru": "У меня большая семья. У меня нет жены, я холостяк."
+    },
+    {
+     "q": "Mieszkam z rodzicami i bratem. Mój brat i ja jesteśmy bliźniakami.",
+     "answer": "Karolina",
+     "ru": "Я живу с родителями и братом. Мы с братом близнецы."
+    }
+   ],
+   "audio": [
+    "111a1-1.mp3",
+    "111a1-2.mp3",
+    "111a1-3.mp3",
+    "111a1-4.mp3",
+    "111a1-5.mp3"
+   ],
+   "options": [
+    "Uwe",
+    "Mami",
+    "Angela",
+    "Javier",
+    "Karolina"
+   ]
+  },
+  {
+   "id": "tb-11-a2",
+   "src": "tb",
+   "ref": "A · Ćw. 2, s. 70–71",
+   "title": "Proszę posłuchać i uzupełnić.",
+   "title_ru": "Послушай и дополни",
+   "task_ru": "Тексты a–e — на странице учебника (кнопка 📄 ниже). Впиши слово из рамки над текстом (a: męża, żonę, dzieci, żonaty, dzieci; b: brata, tatę, siostrę, mamę, rodzinie; c: ojciec, rozwiedziona, dziadek, żyje, babcia; d: kawalerem, rodziców, kuzynki; e: ciocię, rodzeństwa, wujka).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "a. Aktualnie mam żonę i dwoje ___.",
+     "answer": "dzieci",
+     "ru": "Сейчас у меня жена и двое детей.",
+     "translit": "ДЖЕ-чи"
+    },
+    {
+     "q": "a. Jestem drugi raz ___.",
+     "answer": "żonaty",
+     "ru": "Я женат второй раз.",
+     "translit": "жо-НА-ты"
+    },
+    {
+     "q": "a. Nie mam kontaktu z pierwszą żoną, ale wiem, że ona ma drugiego ___.",
+     "answer": "męża",
+     "ru": "Я не общаюсь с первой женой, но знаю, что у неё второй муж.",
+     "translit": "МЭН-жа",
+     "grammar": "mąż → męża (винительный)"
+    },
+    {
+     "q": "a. Nie wiem, czy ma ___.",
+     "answer": "dzieci",
+     "ru": "Не знаю, есть ли у неё дети.",
+     "translit": "ДЖЕ-чи"
+    },
+    {
+     "q": "b. Normalnie, mam ___, ___. (2 слова)",
+     "answer": "mamę, tatę",
+     "ru": "Обычно: у меня есть мама, папа.",
+     "grammar": "mieć + винительный: mama → mamę, tata → tatę",
+     "accepted": [
+      "tatę, mamę",
+      "mamę tatę",
+      "tatę mamę",
+      "mamę i tatę"
+     ]
+    },
+    {
+     "q": "b. Też mam ___ i ___. (2 слова)",
+     "answer": "brata i siostrę",
+     "ru": "Ещё у меня есть брат и сестра.",
+     "accepted": [
+      "siostrę i brata",
+      "brata, siostrę",
+      "siostrę, brata"
+     ]
+    },
+    {
+     "q": "b. Ale nie lubię rozmawiać o mojej ___.",
+     "answer": "rodzinie",
+     "ru": "Но я не люблю говорить о своей семье.",
+     "translit": "ро-ДЖИ-не",
+     "grammar": "o + предложный: rodzina → rodzinie"
+    },
+    {
+     "q": "c. Już nie mam męża. To po polsku się mówi, że jestem ___, tak?",
+     "answer": "rozwiedziona",
+     "ru": "У меня уже нет мужа. По-польски говорят, что я разведена, да?",
+     "translit": "роз-ве-ДЖЁ-на"
+    },
+    {
+     "q": "c. Wiem, że ___ mojej matki, a mój ___ był pilotem w RAF-ie. (2 слова)",
+     "answer": "ojciec, dziadek",
+     "ru": "Я знаю, что отец моей матери, то есть мой дедушка, был лётчиком в RAF.",
+     "full_pl": "Wiem, że ojciec mojej matki, a mój dziadek, był pilotem w RAF-ie.",
+     "accepted": [
+      "ojciec dziadek"
+     ]
+    },
+    {
+     "q": "c. Moja ___ była stuprocentową Polką z bardzo arystokratycznej rodziny.",
+     "answer": "babcia",
+     "ru": "Моя бабушка была стопроцентной полькой из очень аристократической семьи.",
+     "translit": "БАП-чя"
+    },
+    {
+     "q": "c. Niestety, już nie ___.",
+     "answer": "żyje",
+     "ru": "К сожалению, её уже нет в живых.",
+     "translit": "ЖЫ-е"
+    },
+    {
+     "q": "d. Mam dużą rodzinę: ___, braci, siostry, kuzynów i ___. (2 слова)",
+     "answer": "rodziców, kuzynki",
+     "ru": "У меня большая семья: родители, братья, сёстры, двоюродные братья и сёстры.",
+     "grammar": "mieć + винительный мн. ч.: rodziców, kuzynki",
+     "accepted": [
+      "rodziców kuzynki"
+     ]
+    },
+    {
+     "q": "d. Nie mam żony, jestem ___.",
+     "answer": "kawalerem",
+     "ru": "У меня нет жены, я холостяк.",
+     "translit": "ка-ва-ЛЕ-рэм",
+     "grammar": "być + творительный"
+    },
+    {
+     "q": "e. Mam też ___ – siostrę mojego taty.",
+     "answer": "ciocię",
+     "ru": "Ещё у меня есть тётя — сестра моего папы.",
+     "translit": "ЧЁ-че"
+    },
+    {
+     "q": "e. …i ___ – brata mojego taty.",
+     "answer": "wujka",
+     "ru": "…и дядя — брат моего папы.",
+     "translit": "ВУЙ-ка"
+    },
+    {
+     "q": "e. Moja mama nie ma ___.",
+     "answer": "rodzeństwa",
+     "ru": "У моей мамы нет ни братьев, ни сестёр.",
+     "translit": "ро-ДЗЭНЬ-ства",
+     "grammar": "nie mieć + родительный"
+    }
+   ],
+   "audio": [
+    "111a2.mp3",
+    "111a2-b.mp3",
+    "111a2-c.mp3",
+    "111a2-d.mp3",
+    "111a2-e.mp3"
+   ]
+  },
+  {
+   "id": "tb-11-a3",
+   "src": "tb",
+   "ref": "A · Ćw. 3, s. 71",
+   "title": "Prawda czy nieprawda?",
+   "title_ru": "Правда или неправда?",
+   "task_ru": "По текстам ćw. 2 (на странице учебника, кнопка 📄 ниже): a — Uwe, b — Mami, c — Angela, d — Javier, e — Karolina. Правда или неправда?",
+   "type": "tf",
+   "items": [
+    {
+     "q": "Uwe: jest rozwiedziony i żonaty.",
+     "answer": "prawda",
+     "ru": "Уве разведён и женат.",
+     "grammar": "с первой женой развёлся, сейчас женат второй раз"
+    },
+    {
+     "q": "Uwe: ma troje (3) dzieci.",
+     "answer": "nieprawda",
+     "ru": "У Уве трое детей.",
+     "full_pl": "Uwe ma dwoje dzieci."
+    },
+    {
+     "q": "Mami: ma brata i siostrę.",
+     "answer": "prawda",
+     "ru": "У Мами есть брат и сестра."
+    },
+    {
+     "q": "Mami: ma rodziców, to znaczy mamę i tatę.",
+     "answer": "prawda",
+     "ru": "У Мами есть родители, то есть мама и папа."
+    },
+    {
+     "q": "Angela: teraz już nie ma męża.",
+     "answer": "prawda",
+     "ru": "У Анджелы сейчас уже нет мужа."
+    },
+    {
+     "q": "Angela: jej matka jest Angielką, a ojciec Polakiem.",
+     "answer": "nieprawda",
+     "ru": "Её мать англичанка, а отец поляк.",
+     "full_pl": "Jej matka jest Polką, a ojciec Anglikiem."
+    },
+    {
+     "q": "Javier: często spotyka się z rodziną.",
+     "answer": "prawda",
+     "ru": "Хавьер часто встречается с семьёй."
+    },
+    {
+     "q": "Javier: Maria Elena to jest jego dziewczyna.",
+     "answer": "prawda",
+     "ru": "Мария Элена — его девушка."
+    },
+    {
+     "q": "Javier: jest kawalerem, to znaczy nie ma żony.",
+     "answer": "prawda",
+     "ru": "Хавьер холост, то есть у него нет жены."
+    },
+    {
+     "q": "Karolina: ma brata – bliźniaka.",
+     "answer": "prawda",
+     "ru": "У Каролины есть брат-близнец."
+    },
+    {
+     "q": "Karolina: jej mama nie ma rodzeństwa, to znaczy nie ma brata ani siostry.",
+     "answer": "prawda",
+     "ru": "У её мамы нет братьев и сестёр."
+    },
+    {
+     "q": "Karolina: jej dziadkowie mieszkają daleko, dlatego nie spotykają się często.",
+     "answer": "prawda",
+     "ru": "Её бабушки и дедушки живут далеко, поэтому они видятся нечасто.",
+     "grammar": "w Gdańsku i w Poznaniu; raz, dwa razy w roku"
+    },
+    {
+     "q": "Karolina: nie ma męża, jest panną.",
+     "answer": "prawda",
+     "ru": "У Каролины нет мужа, она не замужем."
+    }
+   ]
+  },
+  {
+   "id": "tb-11-a4-1",
+   "src": "tb",
+   "ref": "A · Ćw. 4, s. 71 (1/2)",
+   "title": "Proszę dopasować definicje do słów.",
+   "title_ru": "Слово и определение",
+   "task_ru": "Выбери определение к слову.",
+   "type": "match",
+   "items": [
+    {
+     "q": "panna",
+     "answer": "kobieta, która jeszcze nie ma męża",
+     "ru": "незамужняя девушка",
+     "translit": "ПАН-на"
+    },
+    {
+     "q": "mężatka",
+     "answer": "kobieta, która ma męża",
+     "ru": "замужняя женщина",
+     "translit": "мэн-ЖАТ-ка"
+    },
+    {
+     "q": "żonaty",
+     "answer": "mężczyzna, który ma żonę",
+     "ru": "женатый",
+     "translit": "жо-НА-ты"
+    },
+    {
+     "q": "rozwiedziony",
+     "answer": "mężczyzna, który teraz już formalnie nie ma żony",
+     "ru": "разведённый",
+     "translit": "роз-ве-ДЖЁ-ны"
+    },
+    {
+     "q": "kawaler",
+     "answer": "mężczyzna, który jeszcze nie ma żony",
+     "ru": "холостяк",
+     "translit": "ка-ВА-лер"
+    }
+   ],
+   "options": [
+    "kobieta, która jeszcze nie ma męża",
+    "kobieta, która ma męża",
+    "mężczyzna, który ma żonę",
+    "mężczyzna, który teraz już formalnie nie ma żony",
+    "mężczyzna, który jeszcze nie ma żony"
+   ]
+  },
+  {
+   "id": "tb-11-a4-2",
+   "src": "tb",
+   "ref": "A · Ćw. 4, s. 71 (2/2)",
+   "title": "Proszę dopasować definicje do słów.",
+   "title_ru": "Слово и определение",
+   "task_ru": "Выбери определение к слову.",
+   "type": "match",
+   "items": [
+    {
+     "q": "rodzeństwo",
+     "answer": "brat i siostra",
+     "ru": "братья и сёстры",
+     "translit": "ро-ДЗЭНЬ-ство"
+    },
+    {
+     "q": "ciocia",
+     "answer": "siostra matki lub siostra ojca",
+     "ru": "тётя",
+     "translit": "ЧЁ-чя"
+    },
+    {
+     "q": "wujek",
+     "answer": "brat matki lub brat ojca",
+     "ru": "дядя",
+     "translit": "ВУ-ек"
+    },
+    {
+     "q": "małżeństwo",
+     "answer": "mąż i żona",
+     "ru": "супруги",
+     "translit": "маў-ЖЭНЬ-ство"
+    }
+   ],
+   "options": [
+    "brat i siostra",
+    "siostra matki lub siostra ojca",
+    "brat matki lub brat ojca",
+    "mąż i żona"
+   ]
+  },
+  {
+   "id": "tb-11-a5-1",
+   "src": "tb",
+   "ref": "A · Ćw. 5, s. 71 (1/2)",
+   "title": "Proszę dopasować pary.",
+   "title_ru": "Пары: мужчина — женщина",
+   "task_ru": "Подбери пару женского рода к слову.",
+   "type": "match",
+   "items": [
+    {
+     "q": "brat",
+     "answer": "siostra",
+     "ru": "брат"
+    },
+    {
+     "q": "ojciec",
+     "answer": "matka",
+     "ru": "отец"
+    },
+    {
+     "q": "mąż",
+     "answer": "żona",
+     "ru": "муж"
+    },
+    {
+     "q": "dziadek",
+     "answer": "babcia",
+     "ru": "дедушка"
+    },
+    {
+     "q": "kuzyn",
+     "answer": "kuzynka",
+     "ru": "двоюродный брат"
+    },
+    {
+     "q": "wujek",
+     "answer": "ciocia",
+     "ru": "дядя"
+    }
+   ],
+   "options": [
+    "siostra",
+    "matka",
+    "żona",
+    "babcia",
+    "kuzynka",
+    "ciocia"
+   ]
+  },
+  {
+   "id": "tb-11-a5-2",
+   "src": "tb",
+   "ref": "A · Ćw. 5, s. 71 (2/2)",
+   "title": "Proszę dopasować pary.",
+   "title_ru": "Пары: мужчина — женщина",
+   "task_ru": "Подбери пару женского рода к слову.",
+   "type": "match",
+   "items": [
+    {
+     "q": "chłopak",
+     "answer": "dziewczyna",
+     "ru": "парень (бойфренд)"
+    },
+    {
+     "q": "tata",
+     "answer": "mama",
+     "ru": "папа"
+    },
+    {
+     "q": "kawaler",
+     "answer": "panna",
+     "ru": "холостяк"
+    },
+    {
+     "q": "żonaty",
+     "answer": "mężatka",
+     "ru": "женатый"
+    },
+    {
+     "q": "rozwiedziony",
+     "answer": "rozwiedziona",
+     "ru": "разведённый"
+    }
+   ],
+   "options": [
+    "dziewczyna",
+    "mama",
+    "panna",
+    "mężatka",
+    "rozwiedziona"
+   ]
+  },
+  {
+   "id": "tb-11-a6",
+   "src": "tb",
+   "ref": "A · Ćw. 6, s. 72",
+   "title": "Proszę posłuchać, a następnie przeczytać tekst i uzupełnić genealogię rodziny.",
+   "title_ru": "Кто есть кто в семье Яцека?",
+   "task_ru": "Текст «Gdzie kto jest?» и древо — на странице учебника (кнопка 📄 ниже). Рассказывает Яцек. Напиши, кем ему приходится человек (одно-два слова, в именительном падеже).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Basia to ___ Jacka.",
+     "answer": "siostra",
+     "ru": "Бася — … Яцека.",
+     "translit": "ЩЁС-тра"
+    },
+    {
+     "q": "Amelka to ___ Basi.",
+     "answer": "córka",
+     "ru": "Амелька — … Баси.",
+     "translit": "ЦУР-ка"
+    },
+    {
+     "q": "Amelka to ___ Jacka (córka siostry).",
+     "answer": "siostrzenica",
+     "ru": "Амелька — … Яцека (дочь сестры).",
+     "translit": "щёст-шэ-НИ-ца"
+    },
+    {
+     "q": "Robert to ___ Basi.",
+     "answer": "mąż",
+     "ru": "Роберт — … Баси.",
+     "translit": "монш"
+    },
+    {
+     "q": "Robert to ___ Jacka (mąż siostry).",
+     "answer": "szwagier",
+     "ru": "Роберт — … Яцека (муж сестры).",
+     "translit": "ШВА-гер"
+    },
+    {
+     "q": "Barbara to ___ Jacka i Basi.",
+     "answer": "matka",
+     "ru": "Барбара — … Яцека и Баси.",
+     "translit": "МАТ-ка",
+     "accepted": [
+      "mama"
+     ]
+    },
+    {
+     "q": "Tadeusz to ___ Jacka.",
+     "answer": "ojciec",
+     "ru": "Тадеуш — … Яцека.",
+     "translit": "ОЙ-чец",
+     "accepted": [
+      "tata"
+     ]
+    },
+    {
+     "q": "Krystyna i Zygmunt to ___ Jacka.",
+     "answer": "dziadkowie",
+     "ru": "Кристина и Зыгмунт — … Яцека.",
+     "translit": "джят-КО-ве",
+     "accepted": [
+      "babcia i dziadek",
+      "dziadek i babcia"
+     ]
+    },
+    {
+     "q": "Zosia to ___ Jacka.",
+     "answer": "żona",
+     "ru": "Зося — … Яцека.",
+     "translit": "ЖО-на"
+    },
+    {
+     "q": "Janek to ___ Jacka.",
+     "answer": "syn",
+     "ru": "Янек — … Яцека.",
+     "translit": "сын"
+    },
+    {
+     "q": "Małgosia to ___ Jacka.",
+     "answer": "córka",
+     "ru": "Малгося — … Яцека.",
+     "translit": "ЦУР-ка"
+    },
+    {
+     "q": "Janek i Małgosia to ___ (brat i siostra).",
+     "answer": "rodzeństwo",
+     "ru": "Янек и Малгося — … (брат и сестра).",
+     "translit": "ро-ДЗЭНЬ-ство"
+    },
+    {
+     "q": "Dorota to ___ Janka.",
+     "answer": "dziewczyna",
+     "ru": "Дорота — … Янека.",
+     "translit": "джеф-ЧЫ-на"
+    }
+   ],
+   "audio": "111a6.mp3"
+  },
+  {
+   "id": "tb-11-a7",
+   "src": "tb",
+   "ref": "A · Ćw. 7, s. 72",
+   "title": "Prawda czy nieprawda?",
+   "title_ru": "Модель польской семьи",
+   "task_ru": "По тексту «Model polskiej rodziny» (на странице учебника, кнопка 📄 ниже). Правда или неправда?",
+   "type": "tf",
+   "items": [
+    {
+     "q": "W modelu tradycyjnym rodziny kobieta pracuje, a mężczyzna nie.",
+     "answer": "nieprawda",
+     "ru": "В традиционной модели семьи женщина работает, а мужчина нет.",
+     "full_pl": "W modelu tradycyjnym tylko mąż pracuje, żona zajmuje się domem i dziećmi."
+    },
+    {
+     "q": "W typowym modelu polskiej rodziny kobieta i pracuje, i zajmuje się domem.",
+     "answer": "prawda",
+     "ru": "В типичной модели польской семьи женщина и работает, и занимается домом.",
+     "grammar": "model mieszany — 26%, самый частый"
+    },
+    {
+     "q": "W modelu partnerskim kobieta i mężczyzna tak samo pracują oraz zajmują się domem i dziećmi.",
+     "answer": "prawda",
+     "ru": "В партнёрской модели женщина и мужчина одинаково работают и занимаются домом и детьми."
+    }
+   ]
+  },
+  {
+   "id": "tb-11-a8",
+   "src": "tb",
+   "ref": "A · Ćw. 8, s. 72",
+   "title": "Gdzie są słowa?",
+   "title_ru": "Найди слова (филворд)",
+   "task_ru": "В строке букв спрятаны слова о семье (matka — уже найдено). Напиши слово по-польски по подсказке (в скобках — число букв).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "брат (4)",
+     "answer": "brat",
+     "ru": "брат",
+     "translit": "брат"
+    },
+    {
+     "q": "жена (4)",
+     "answer": "żona",
+     "ru": "жена",
+     "translit": "ЖО-на"
+    },
+    {
+     "q": "замужняя женщина (7)",
+     "answer": "mężatka",
+     "ru": "замужняя женщина",
+     "translit": "мэн-ЖАТ-ка"
+    },
+    {
+     "q": "незамужняя девушка (5)",
+     "answer": "panna",
+     "ru": "незамужняя девушка",
+     "translit": "ПАН-на"
+    },
+    {
+     "q": "холостяк (7)",
+     "answer": "kawaler",
+     "ru": "холостяк",
+     "translit": "ка-ВА-лер"
+    },
+    {
+     "q": "разведённая (12)",
+     "answer": "rozwiedziona",
+     "ru": "разведённая",
+     "translit": "роз-ве-ДЖЁ-на"
+    },
+    {
+     "q": "бабушка (6)",
+     "answer": "babcia",
+     "ru": "бабушка",
+     "translit": "БАП-чя"
+    },
+    {
+     "q": "дедушка (7)",
+     "answer": "dziadek",
+     "ru": "дедушка",
+     "translit": "ДЖЯ-дэк"
+    },
+    {
+     "q": "тётя (6)",
+     "answer": "ciocia",
+     "ru": "тётя",
+     "translit": "ЧЁ-чя"
+    },
+    {
+     "q": "муж (3)",
+     "answer": "mąż",
+     "ru": "муж",
+     "translit": "монш"
+    }
+   ]
+  },
+  {
+   "id": "tb-11-b1",
+   "src": "tb",
+   "ref": "B · Ćw. 1, s. 73",
+   "title": "Proszę posłuchać i uzupełnić.",
+   "title_ru": "Чей? Чья? Чьё?",
+   "task_ru": "Короткие диалоги. Впиши слово из рамки: nasz, moja, moja, czyja, czyje (czyj — уже вставлено).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Pani Joanna: Czyj samochód blokuje garaż? — Pan Grzegorz: Nie wiem, na pewno nie ___.",
+     "answer": "nasz",
+     "ru": "— Чья машина загораживает гараж? — Не знаю, точно не наша.",
+     "translit": "наш",
+     "grammar": "samochód — м. р.: nasz"
+    },
+    {
+     "q": "Nauczycielka: Przepraszam, ___ to książka?",
+     "answer": "czyja",
+     "ru": "Простите, чья это книга?",
+     "translit": "ЧЫ-я",
+     "grammar": "książka — ж. р.: czyja?"
+    },
+    {
+     "q": "Mami: Nie ___. Myślę, że Javiera.",
+     "answer": "moja",
+     "ru": "Не моя. Думаю, что Хавьера.",
+     "translit": "МО-я"
+    },
+    {
+     "q": "Angela: ___ to zdjęcie?",
+     "answer": "Czyje",
+     "ru": "Чья это фотография?",
+     "translit": "ЧЫ-е",
+     "grammar": "zdjęcie — ср. р.: czyje?"
+    },
+    {
+     "q": "Javier: To? To moje. To ___ koleżanka, Maria Elena.",
+     "answer": "moja",
+     "ru": "Это? Это моя. Это моя подруга, Мария Элена.",
+     "translit": "МО-я"
+    }
+   ],
+   "audio": [
+    "111b1-a.mp3",
+    "111b1-b.mp3",
+    "111b1-c.mp3"
+   ]
+  },
+  {
+   "id": "tb-11-b2",
+   "src": "tb",
+   "ref": "B · Ćw. 2, s. 73",
+   "title": "Proszę dopasować.",
+   "title_ru": "Мой, моя или моё?",
+   "task_ru": "Выбери форму: mój (м. р.), moja (ж. р.), moje (ср. р.). Внимание: tata, wujek — мужчины, значит mój!",
+   "type": "match",
+   "items": [
+    {
+     "q": "auto",
+     "answer": "moje",
+     "ru": "машина"
+    },
+    {
+     "q": "matka",
+     "answer": "moja",
+     "ru": "мать"
+    },
+    {
+     "q": "babcia",
+     "answer": "moja",
+     "ru": "бабушка"
+    },
+    {
+     "q": "miasto",
+     "answer": "moje",
+     "ru": "город"
+    },
+    {
+     "q": "wujek",
+     "answer": "mój",
+     "ru": "дядя"
+    },
+    {
+     "q": "dziecko",
+     "answer": "moje",
+     "ru": "ребёнок"
+    },
+    {
+     "q": "teściowa",
+     "answer": "moja",
+     "ru": "тёща / свекровь"
+    },
+    {
+     "q": "ciocia",
+     "answer": "moja",
+     "ru": "тётя"
+    },
+    {
+     "q": "syn",
+     "answer": "mój",
+     "ru": "сын"
+    },
+    {
+     "q": "dziadek",
+     "answer": "mój",
+     "ru": "дедушка"
+    },
+    {
+     "q": "zdjęcie",
+     "answer": "moje",
+     "ru": "фотография"
+    },
+    {
+     "q": "ojciec",
+     "answer": "mój",
+     "ru": "отец"
+    },
+    {
+     "q": "teść",
+     "answer": "mój",
+     "ru": "тесть / свёкор"
+    },
+    {
+     "q": "ćwiczenie",
+     "answer": "moje",
+     "ru": "упражнение"
+    }
+   ],
+   "options": [
+    "mój",
+    "moja",
+    "moje"
+   ]
+  },
+  {
+   "id": "tb-11-b3",
+   "src": "tb",
+   "ref": "B · Ćw. 3, s. 73",
+   "title": "Transformacje.",
+   "title_ru": "Замени притяжательное местоимение",
+   "task_ru": "Перепиши предложение для лица в скобках. Напиши только новое притяжательное местоимение (Syn twojej siostry… → (ja) mojej).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Moja matka jest lekarką. → (on) ___ matka jest lekarką.",
+     "answer": "Jego",
+     "ru": "Его мать — врач.",
+     "full_pl": "Jego matka jest lekarką.",
+     "translit": "Е-го"
+    },
+    {
+     "q": "Jej lekcje są bardzo ciekawe. → (my) ___ lekcje są bardzo ciekawe.",
+     "answer": "Nasze",
+     "ru": "Наши уроки очень интересные.",
+     "full_pl": "Nasze lekcje są bardzo ciekawe.",
+     "translit": "НА-шэ",
+     "grammar": "lekcje — мн. ч. (не муж.-личн.): nasze"
+    },
+    {
+     "q": "Jaka jest twoja ulubiona restauracja? → (one) Jaka jest ___ ulubiona restauracja?",
+     "answer": "ich",
+     "ru": "Какой их любимый ресторан?",
+     "full_pl": "Jaka jest ich ulubiona restauracja?",
+     "translit": "их"
+    },
+    {
+     "q": "Twoja nauczycielka ma na imię Aneta. → (oni) ___ nauczycielka ma na imię Aneta.",
+     "answer": "Ich",
+     "ru": "Их учительницу зовут Анета.",
+     "full_pl": "Ich nauczycielka ma na imię Aneta.",
+     "translit": "их"
+    },
+    {
+     "q": "Twoje zadanie domowe jest bardzo dobre. → (on) ___ zadanie domowe jest bardzo dobre.",
+     "answer": "Jego",
+     "ru": "Его домашнее задание очень хорошее.",
+     "full_pl": "Jego zadanie domowe jest bardzo dobre.",
+     "translit": "Е-го"
+    },
+    {
+     "q": "Idziemy do kina z naszym gospodarzem. → (wy) Idziemy do kina z ___ gospodarzem.",
+     "answer": "waszym",
+     "ru": "Мы идём в кино с вашим хозяином.",
+     "full_pl": "Idziemy do kina z waszym gospodarzem.",
+     "translit": "ВА-шым",
+     "grammar": "z + творительный: naszym → waszym"
+    },
+    {
+     "q": "Jakie jest wasze ulubione kino? → (ona) Jakie jest ___ ulubione kino?",
+     "answer": "jej",
+     "ru": "Какой её любимый кинотеатр?",
+     "full_pl": "Jakie jest jej ulubione kino?",
+     "translit": "ей"
+    }
+   ]
+  },
+  {
+   "id": "tb-11-b4",
+   "src": "tb",
+   "ref": "B · Ćw. 4, s. 73",
+   "title": "Proszę przeczytać dialog i wybrać odpowiednią formę.",
+   "title_ru": "Выбери верную форму",
+   "task_ru": "Анджела и Мами разговаривают в «Глоссе». Выбери верную форму.",
+   "type": "choice",
+   "items": [
+    {
+     "q": "Angela: Cześć, Mami! ___ to pióro?",
+     "answer": "Czyje",
+     "ru": "Привет, Мами! Чья это ручка?",
+     "grammar": "pióro — ср. р.",
+     "options": [
+      "Czyje",
+      "Czyj",
+      "Czyja"
+     ]
+    },
+    {
+     "q": "Mami: Nie wiem, nie ___. Myślę, że Uwego albo Javiera.",
+     "answer": "moje",
+     "ru": "Не знаю, не моя. Думаю, Уве или Хавьера.",
+     "options": [
+      "mój",
+      "moja",
+      "moje"
+     ]
+    },
+    {
+     "q": "Angela: A gdzie ___ są?",
+     "answer": "oni",
+     "ru": "А где они?",
+     "grammar": "Uwe i Javier — мужчины: oni",
+     "options": [
+      "oni",
+      "one",
+      "wy"
+     ]
+    },
+    {
+     "q": "Mami: Uwe, ___ żona…",
+     "answer": "jego",
+     "ru": "Уве, его жена…",
+     "options": [
+      "jego",
+      "moja",
+      "jej"
+     ]
+    },
+    {
+     "q": "…i ___ dzieci są na obiedzie.",
+     "answer": "ich",
+     "ru": "…и их дети обедают.",
+     "options": [
+      "twoje",
+      "ich",
+      "on"
+     ]
+    },
+    {
+     "q": "Ale to chyba nie ___ koleżanka…",
+     "answer": "jego",
+     "ru": "Но это, наверное, не его подруга…",
+     "options": [
+      "ona",
+      "on",
+      "jego"
+     ]
+    },
+    {
+     "q": "…tylko ___ dziewczyna.",
+     "answer": "jego",
+     "ru": "…а его девушка.",
+     "options": [
+      "ona",
+      "on",
+      "jego"
+     ]
+    },
+    {
+     "q": "Angela: Tak, ___ ma dużo koleżanek, hi, hi.",
+     "answer": "on",
+     "ru": "Да, у него много подруг, хи-хи.",
+     "options": [
+      "on",
+      "my",
+      "ty"
+     ]
+    },
+    {
+     "q": "Zawsze mówi: „___ koleżanka”!",
+     "answer": "moja",
+     "ru": "Всегда говорит: «моя подруга»!",
+     "options": [
+      "moja",
+      "mój",
+      "moje"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tb-11-c1",
+   "src": "tb",
+   "ref": "C · Ćw. 1, s. 74",
+   "title": "Proszę dopasować zdania do scenek.",
+   "title_ru": "День Мами: какое время?",
+   "task_ru": "Картинки с часами — на странице учебника (кнопка 📄 ниже). Подбери к предложению время сценки.",
+   "type": "match",
+   "items": [
+    {
+     "q": "Rano pani Joanna robi dla mnie smaczne śniadanie.",
+     "answer": "07:00–09:00",
+     "ru": "Утром пани Йоанна готовит мне вкусный завтрак."
+    },
+    {
+     "q": "Przed południem mam lekcje polskiego w „Glossie”.",
+     "answer": "10:00–12:00",
+     "ru": "До полудня у меня уроки польского в «Глоссе»."
+    },
+    {
+     "q": "W południe jem obiad, zwykle zupę.",
+     "answer": "12:00",
+     "ru": "В полдень я обедаю, обычно ем суп."
+    },
+    {
+     "q": "Po południu jestem bardzo zmęczona i muszę odpocząć.",
+     "answer": "13:00–16:00",
+     "ru": "После обеда я очень устаю, и мне нужно отдохнуть."
+    },
+    {
+     "q": "Wieczorem spotykam się z Angelą i innymi znajomymi ze szkoły.",
+     "answer": "19:00–22:00",
+     "ru": "Вечером встречаюсь с Анджелой и другими знакомыми из школы."
+    },
+    {
+     "q": "O północy wracam do domu.",
+     "answer": "24:00",
+     "ru": "В полночь возвращаюсь домой."
+    },
+    {
+     "q": "W nocy śpię. Jutro jest nowy pracowity dzień.",
+     "answer": "00:20–07:00",
+     "ru": "Ночью я сплю. Завтра новый рабочий день."
+    }
+   ],
+   "options": [
+    "07:00–09:00",
+    "10:00–12:00",
+    "12:00",
+    "13:00–16:00",
+    "19:00–22:00",
+    "24:00",
+    "00:20–07:00"
+   ]
+  },
+  {
+   "id": "tb-11-c2",
+   "src": "tb",
+   "ref": "C · Ćw. 2, s. 75",
+   "title": "Gdzie są przeciwieństwa?",
+   "title_ru": "Найди противоположность",
+   "task_ru": "Подбери противоположное время суток (rano ↔ wieczorem).",
+   "type": "match",
+   "items": [
+    {
+     "q": "rano",
+     "answer": "wieczorem",
+     "ru": "утром"
+    },
+    {
+     "q": "przed południem",
+     "answer": "po południu",
+     "ru": "до полудня"
+    },
+    {
+     "q": "w południe",
+     "answer": "o północy",
+     "ru": "в полдень"
+    },
+    {
+     "q": "w dzień",
+     "answer": "w nocy",
+     "ru": "днём"
+    }
+   ],
+   "options": [
+    "w nocy",
+    "wieczorem",
+    "o północy",
+    "po południu"
+   ]
+  },
+  {
+   "id": "tb-11-c3",
+   "src": "tb",
+   "ref": "C · Ćw. 3, s. 75",
+   "title": "Proszę przeczytać tekst, a następnie uzupełnić tabelkę.",
+   "title_ru": "Распорядок дня семьи Май",
+   "task_ru": "Текст — на странице учебника (кнопка 📄 ниже). Напиши, что делает человек: rano, przed południem, w południe, po południu, wieczorem (по одной короткой фразе на каждое время). Проверяет модель.",
+   "type": "open",
+   "items": [
+    {
+     "q": "Pan Grzegorz: co robi rano, przed południem, w południe, po południu, wieczorem?",
+     "answer": "Rano pije kawę. Przed południem jeździ do klientów. W południe dzwoni do żony. Po południu jeszcze pracuje. Wieczorem je kolację z rodziną i ogląda telewizję.",
+     "ru": "Что делает пан Гжегож в течение дня?"
+    },
+    {
+     "q": "Pani Joanna: co robi rano, przed południem, w południe, po południu, wieczorem?",
+     "answer": "Rano robi śniadanie dla wszystkich. Przed południem pracuje w domu. W południe rozmawia z mężem przez telefon. Po południu gotuje obiad albo pisze e-maile. Wieczorem je kolację z rodziną i ogląda telewizję.",
+     "ru": "Что делает пани Йоанна в течение дня?",
+     "grammar": "в полдень прямо не сказано — ей звонит муж"
+    },
+    {
+     "q": "Karolina: co robi rano, przed południem, w południe, po południu, wieczorem?",
+     "answer": "Rano nie je śniadania, bo jest na diecie. Przed południem ma zajęcia. W południe spotyka się z chłopakiem. Po południu robi zakupy. Wieczorem je kolację z rodziną i gra na komputerze.",
+     "ru": "Что делает Каролина в течение дня?",
+     "grammar": "nie je + родительный: śniadania"
+    },
+    {
+     "q": "Karol: co robi rano, przed południem, w południe, po południu, wieczorem?",
+     "answer": "Rano je śniadanie. Przed południem ma zajęcia. W południe ma przerwę i je drugie śniadanie. Po południu robi zakupy. Wieczorem je kolację z rodziną i uczy się.",
+     "ru": "Что делает Кароль в течение дня?"
+    }
+   ]
+  },
+  {
+   "id": "tb-11-c4",
+   "src": "tb",
+   "ref": "C · Ćw. 4, s. 75",
+   "title": "Proszę zapytać kolegów w klasie, co robią dziś w południe, po południu, wieczorem.",
+   "title_ru": "Что ты делаешь сегодня?",
+   "task_ru": "Ответь о себе одним-двумя предложениями. Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Co robisz dziś w południe?",
+     "answer": "W południe jem obiad w kawiarni.",
+     "ru": "Что ты делаешь сегодня в полдень?"
+    },
+    {
+     "q": "Co robisz dziś po południu?",
+     "answer": "Po południu robię zakupy i odpoczywam.",
+     "ru": "Что ты делаешь сегодня после обеда?"
+    },
+    {
+     "q": "Co robisz dziś wieczorem?",
+     "answer": "Wieczorem spotykam się z przyjaciółmi.",
+     "ru": "Что ты делаешь сегодня вечером?"
+    }
+   ]
+  },
+  {
+   "id": "tb-11-d1",
+   "src": "tb",
+   "ref": "D · Ćw. 1, s. 76",
+   "title": "Proszę posłuchać dialogu, a następnie uzupełnić tabelkę znakiem „+”.",
+   "title_ru": "Как часто Уве…?",
+   "task_ru": "Диалог Анджелы и Уве — на странице учебника (кнопка 📄 ниже). Выбери, как часто Уве это делает (pracuje — zawsze, уже дано).",
+   "type": "match",
+   "items": [
+    {
+     "q": "dzwoni do żony",
+     "answer": "codziennie",
+     "ru": "звонит жене"
+    },
+    {
+     "q": "jeździ samochodem",
+     "answer": "zwykle",
+     "ru": "ездит на машине"
+    },
+    {
+     "q": "jeździ taksówką",
+     "answer": "od czasu do czasu",
+     "ru": "ездит на такси"
+    },
+    {
+     "q": "ma urlop",
+     "answer": "rzadko",
+     "ru": "бывает в отпуске"
+    },
+    {
+     "q": "chodzi na dyskotekę",
+     "answer": "nigdy nie",
+     "ru": "ходит на дискотеку"
+    }
+   ],
+   "audio": "111d1.mp3",
+   "options": [
+    "zawsze",
+    "codziennie",
+    "zwykle",
+    "od czasu do czasu",
+    "rzadko",
+    "nigdy nie"
+   ]
+  },
+  {
+   "id": "tb-11-d2",
+   "src": "tb",
+   "ref": "D · Ćw. 2, s. 76",
+   "title": "Proszę pogrupować frazy.",
+   "title_ru": "Как часто? От максимума к минимуму",
+   "task_ru": "Расставь слова по частоте от max (zawsze — 1-е место, уже дано) до min: nigdy, często, codziennie, od czasu do czasu, rzadko, zwykle, prawie nigdy, bardzo rzadko. Напиши слово для каждого места.",
+   "type": "gap",
+   "items": [
+    {
+     "q": "2. (после zawsze)",
+     "answer": "codziennie",
+     "ru": "2-е место",
+     "translit": "цо-ДЖЕН-не",
+     "accepted": [
+      "zwykle"
+     ]
+    },
+    {
+     "q": "3.",
+     "answer": "zwykle",
+     "ru": "3-е место",
+     "translit": "ЗВЫК-ле",
+     "accepted": [
+      "codziennie",
+      "często"
+     ]
+    },
+    {
+     "q": "4.",
+     "answer": "często",
+     "ru": "4-е место",
+     "translit": "ЧЭН-сто",
+     "accepted": [
+      "zwykle"
+     ]
+    },
+    {
+     "q": "5.",
+     "answer": "od czasu do czasu",
+     "ru": "5-е место",
+     "translit": "от ЧА-су до ЧА-су"
+    },
+    {
+     "q": "6.",
+     "answer": "rzadko",
+     "ru": "6-е место",
+     "translit": "ЖАТ-ко"
+    },
+    {
+     "q": "7.",
+     "answer": "bardzo rzadko",
+     "ru": "7-е место",
+     "translit": "БАР-дзо ЖАТ-ко"
+    },
+    {
+     "q": "8.",
+     "answer": "prawie nigdy",
+     "ru": "8-е место",
+     "translit": "ПРА-ве НИГ-ды"
+    },
+    {
+     "q": "9. (min)",
+     "answer": "nigdy",
+     "ru": "9-е место (минимум)",
+     "translit": "НИГ-ды"
+    }
+   ]
+  },
+  {
+   "id": "tb-11-d3",
+   "src": "tb",
+   "ref": "D · Ćw. 3, s. 76",
+   "title": "Quiz. Czy to prawda, że…",
+   "title_ru": "Викторина: правда ли, что…",
+   "task_ru": "Правда или неправда? Отвечай по здравому смыслу и по материалам урока.",
+   "type": "tf",
+   "items": [
+    {
+     "q": "…w Afryce zawsze jest słońce?",
+     "answer": "nieprawda",
+     "ru": "…в Африке всегда солнце?",
+     "grammar": "там тоже бывают дожди"
+    },
+    {
+     "q": "…w Polsce zwykle na śniadanie jemy bigos?",
+     "answer": "nieprawda",
+     "ru": "…в Польше на завтрак обычно едят бигос?",
+     "grammar": "bigos — обеденное блюдо"
+    },
+    {
+     "q": "…zwykle w polskich rodzinach i mąż, i żona pracują?",
+     "answer": "prawda",
+     "ru": "…в польских семьях обычно работают и муж, и жена?",
+     "grammar": "model mieszany 26% + partnerski 19% (ćw. A7)"
+    },
+    {
+     "q": "…nigdy nie mówimy „ty” w sytuacji formalnej?",
+     "answer": "prawda",
+     "ru": "…в официальной ситуации никогда не говорят «ты»?",
+     "grammar": "официально: pan / pani"
+    }
+   ]
+  },
+  {
+   "id": "tb-11-e1",
+   "src": "tb",
+   "ref": "E · Ćw. 1, s. 77",
+   "title": "Proszę narysować drzewo genealogiczne swojej rodziny i krótko je zaprezentować.",
+   "title_ru": "Твоё генеалогическое древо",
+   "task_ru": "Коротко расскажи о своей семье (4–6 предложений). Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "Moja rodzina: kto to jest? Jak mają na imię? Gdzie mieszkają?",
+     "answer": "Mam mamę i tatę. Moja mama ma na imię Anna, a mój tata ma na imię Piotr. Mam też starszego brata, jest żonaty i ma dwoje dzieci. Moi dziadkowie mieszkają w Gdańsku. Mam jedną ciocię i dwóch wujków.",
+     "ru": "Моя семья: кто это? Как их зовут? Где они живут?"
+    }
+   ]
+  },
+  {
+   "id": "wb-11-1",
+   "src": "wb",
+   "ref": "Ćw. 1, s. 42",
+   "title": "Proszę uzupełnić.",
+   "title_ru": "Кто они друг другу?",
+   "task_ru": "Допиши слово по буквам-подсказкам (картинка — на странице тетради).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "1. Kasia i Wojtek to ___s___ i brat.",
+     "answer": "siostra",
+     "ru": "Кася и Войтек — сестра и брат.",
+     "translit": "ЩЁС-тра"
+    },
+    {
+     "q": "1. Kasia i Wojtek to __d____s__o.",
+     "answer": "rodzeństwo",
+     "ru": "Кася и Войтек — брат и сестра (одним словом).",
+     "translit": "ро-ДЗЭНЬ-ство"
+    },
+    {
+     "q": "2. Dominik i Alina to _ą_ i _o__.",
+     "answer": "mąż i żona",
+     "ru": "Доминик и Алина — муж и жена.",
+     "translit": "монш и ЖО-на"
+    },
+    {
+     "q": "3. Dominik i Alina to ____ i mama.",
+     "answer": "tata",
+     "ru": "Доминик и Алина — папа и мама.",
+     "translit": "ТА-та",
+     "accepted": [
+      "ojciec"
+     ]
+    },
+    {
+     "q": "3. Dominik i Alina to r___i__.",
+     "answer": "rodzice",
+     "ru": "Доминик и Алина — родители.",
+     "translit": "ро-ДЖИ-цэ"
+    },
+    {
+     "q": "4. Sabina i Wacław to babcia i _______.",
+     "answer": "dziadek",
+     "ru": "Сабина и Вацлав — бабушка и дедушка.",
+     "translit": "ДЖЯ-дэк"
+    },
+    {
+     "q": "4. Sabina i Wacław to ______owie.",
+     "answer": "dziadkowie",
+     "ru": "Сабина и Вацлав — бабушка с дедушкой (одним словом).",
+     "translit": "джят-КО-ве"
+    },
+    {
+     "q": "5. Sabina i Wacław, Dominik i Alina, Kasia i Wojtek to ___z___.",
+     "answer": "rodzina",
+     "ru": "Сабина и Вацлав, Доминик и Алина, Кася и Войтек — это…",
+     "translit": "ро-ДЖИ-на"
+    }
+   ]
+  },
+  {
+   "id": "wb-11-2",
+   "src": "wb",
+   "ref": "Ćw. 2, s. 42",
+   "title": "Proszę uzupełnić tekst.",
+   "title_ru": "Семья Лукаша",
+   "task_ru": "Текст — на странице тетради (кнопка 📄 ниже). Впиши слово из рамки: bratanica, rodziną, teść, bratankiem, narzeczonej, dziadek, jedynaczką, żonę, wujek, kawalerem, cioci (żonaty — уже вставлено).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Jego mama mówi, że on woli być ___.",
+     "answer": "kawalerem",
+     "ru": "Его мама говорит, что он предпочитает быть холостяком.",
+     "translit": "ка-ва-ЛЕ-рэм"
+    },
+    {
+     "q": "Brat Łukasza, Andrzej, ma sympatyczną ___ Joannę i dwoje dzieci.",
+     "answer": "żonę",
+     "ru": "У брата Лукаша, Анджея, симпатичная жена Йоанна и двое детей.",
+     "translit": "ЖО-нэ"
+    },
+    {
+     "q": "Łukasz bardzo lubi spędzać czas z ___ Andrzeja.",
+     "answer": "rodziną",
+     "ru": "Лукаш очень любит проводить время с семьёй Анджея.",
+     "translit": "ро-ДЖИ-нон",
+     "grammar": "z + творительный"
+    },
+    {
+     "q": "Czasami chodzi do kina z ___ na filmy dla dzieci.",
+     "answer": "bratankiem",
+     "ru": "Иногда ходит в кино с племянником на детские фильмы.",
+     "translit": "бра-ТАН-кем"
+    },
+    {
+     "q": "Zuzia lubi, kiedy ___ Łukasz ogląda z nią książki.",
+     "answer": "wujek",
+     "ru": "Зузя любит, когда дядя Лукаш смотрит с ней книжки.",
+     "translit": "ВУ-ек"
+    },
+    {
+     "q": "Łukasz mówi, że jego mała ___ jest bardzo inteligentna.",
+     "answer": "bratanica",
+     "ru": "Лукаш говорит, что его маленькая племянница очень умная.",
+     "translit": "бра-та-НИ-ца"
+    },
+    {
+     "q": "Zuzia i Mateusz nie mają ___, bo ich tata nie ma siostry…",
+     "answer": "cioci",
+     "ru": "У Зузи и Матеуша нет тёти, потому что у их папы нет сестры…",
+     "translit": "ЧЁ-чи",
+     "grammar": "nie mieć + родительный"
+    },
+    {
+     "q": "…a mama jest ___.",
+     "answer": "jedynaczką",
+     "ru": "…а мама — единственный ребёнок в семье.",
+     "translit": "е-ды-НАЧ-кон",
+     "grammar": "być + творительный"
+    },
+    {
+     "q": "Zawsze są jego rodzice, ___ i teściowa – ojciec i matka Joanny.",
+     "answer": "teść",
+     "ru": "Всегда приходят его родители, тесть и тёща — отец и мать Йоанны.",
+     "translit": "тэщчь"
+    },
+    {
+     "q": "Od czasu do czasu jest też ___ Ignacy z babcią Zosią.",
+     "answer": "dziadek",
+     "ru": "Время от времени бывает и дедушка Игнаций с бабушкой Зосей.",
+     "translit": "ДЖЯ-дэк"
+    },
+    {
+     "q": "…on mówi, że jeszcze nie ma prawdziwej ___.",
+     "answer": "narzeczonej",
+     "ru": "…он говорит, что у него ещё нет настоящей невесты.",
+     "translit": "на-жэ-ЧО-нэй",
+     "grammar": "nie mieć + родительный"
+    }
+   ],
+   "audio": "45_L11_cwiczenie2.mp3"
+  },
+  {
+   "id": "wb-11-3",
+   "src": "wb",
+   "ref": "Ćw. 3, s. 43",
+   "title": "Proszę przeczytać tekst „Rodzina Łukasza” i odpowiedzieć na pytania.",
+   "title_ru": "Ответь на вопросы о семье Лукаша",
+   "task_ru": "Текст ćw. 2 — на странице тетради (кнопка 📄 ниже). Ответь коротко по-польски. Проверяет модель.",
+   "type": "open",
+   "items": [
+    {
+     "q": "Kim Łukasz jest z zawodu?",
+     "answer": "Jest inżynierem elektronikiem.",
+     "ru": "Кто Лукаш по профессии?"
+    },
+    {
+     "q": "Czy on ma dziewczynę?",
+     "answer": "Tak, ma dziewczynę, ale nie jest pewien, czy to ta.",
+     "ru": "У него есть девушка?"
+    },
+    {
+     "q": "Co mówi jego mama?",
+     "answer": "Mówi, że on woli być kawalerem.",
+     "ru": "Что говорит его мама?"
+    },
+    {
+     "q": "Czy brat Łukasza jest kawalerem?",
+     "answer": "Nie, jest żonaty. Ma żonę Joannę.",
+     "ru": "Брат Лукаша холост?"
+    },
+    {
+     "q": "Ile dzieci ma Andrzej?",
+     "answer": "Andrzej ma dwoje dzieci: syna Mateusza i córkę Zuzię.",
+     "ru": "Сколько детей у Анджея?"
+    },
+    {
+     "q": "Z kim Łukasz gra w tenisa?",
+     "answer": "Z bratową Joanną.",
+     "ru": "С кем Лукаш играет в теннис?"
+    },
+    {
+     "q": "Jakie filmy Łukasz ogląda z bratankiem?",
+     "answer": "Filmy dla dzieci.",
+     "ru": "Какие фильмы Лукаш смотрит с племянником?"
+    },
+    {
+     "q": "Co lubi Zuzia?",
+     "answer": "Lubi, kiedy wujek Łukasz ogląda z nią książki.",
+     "ru": "Что любит Зузя?"
+    },
+    {
+     "q": "Dlaczego Zuzia i Mateusz nie mają cioci?",
+     "answer": "Bo ich tata nie ma siostry, a mama jest jedynaczką.",
+     "ru": "Почему у Зузи и Матеуша нет тёти?"
+    },
+    {
+     "q": "Kogo Andrzej zaprasza na obiad w niedzielę?",
+     "answer": "Całą rodzinę: swoich rodziców, teścia i teściową, brata Łukasza, czasem dziadka Ignacego z babcią Zosią.",
+     "ru": "Кого Анджей приглашает на обед в воскресенье?"
+    },
+    {
+     "q": "O co pyta babcia Łukasza?",
+     "answer": "Pyta, kiedy pozna jego narzeczoną.",
+     "ru": "О чём спрашивает бабушка Лукаша?"
+    },
+    {
+     "q": "Na kogo czekają rodzice Łukasza?",
+     "answer": "Czekają na synową.",
+     "ru": "Кого ждут родители Лукаша?"
+    }
+   ]
+  },
+  {
+   "id": "wb-11-4",
+   "src": "wb",
+   "ref": "Ćw. 4, s. 43",
+   "title": "Proszę podać przeciwieństwo.",
+   "title_ru": "Пара: противоположный пол",
+   "task_ru": "Напиши слово-пару противоположного пола (teściowa — teść, уже дано).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "matka — ___",
+     "answer": "ojciec",
+     "ru": "мать — …",
+     "translit": "ОЙ-чец",
+     "accepted": [
+      "tata"
+     ]
+    },
+    {
+     "q": "dziadek — ___",
+     "answer": "babcia",
+     "ru": "дедушка — …",
+     "translit": "БАП-чя"
+    },
+    {
+     "q": "kawaler — ___",
+     "answer": "panna",
+     "ru": "холостяк — …",
+     "translit": "ПАН-на"
+    },
+    {
+     "q": "siostra — ___",
+     "answer": "brat",
+     "ru": "сестра — …",
+     "translit": "брат"
+    },
+    {
+     "q": "żonaty — ___",
+     "answer": "mężatka",
+     "ru": "женатый — …",
+     "translit": "мэн-ЖАТ-ка",
+     "accepted": [
+      "zamężna"
+     ]
+    },
+    {
+     "q": "ciocia — ___",
+     "answer": "wujek",
+     "ru": "тётя — …",
+     "translit": "ВУ-ек"
+    },
+    {
+     "q": "chłopak — ___",
+     "answer": "dziewczyna",
+     "ru": "парень — …",
+     "translit": "джеф-ЧЫ-на"
+    },
+    {
+     "q": "syn — ___",
+     "answer": "córka",
+     "ru": "сын — …",
+     "translit": "ЦУР-ка"
+    },
+    {
+     "q": "rozwiedziony — ___",
+     "answer": "rozwiedziona",
+     "ru": "разведённый — …",
+     "translit": "роз-ве-ДЖЁ-на"
+    }
+   ]
+  },
+  {
+   "id": "wb-11-5",
+   "src": "wb",
+   "ref": "Ćw. 5, s. 43",
+   "title": "Proszę napisać prezentacje.",
+   "title_ru": "Напиши презентацию",
+   "task_ru": "По заметкам напиши связный рассказ о человеке (5–7 предложений). Проверяет модель.",
+   "type": "free",
+   "items": [
+    {
+     "q": "A. Iza: 31 l., pielęgniarka; Poznań; mężatka (mąż – Grzegorz: lekarz, brat – kawaler); 1 dziecko (córka – Ewa, 7 l.); 2 x siostra (starsza – panna, młodsza – mężatka)",
+     "answer": "Iza ma 31 lat. Jest pielęgniarką i mieszka w Poznaniu. Jest mężatką, jej mąż ma na imię Grzegorz i jest lekarzem. Grzegorz ma brata, który jest kawalerem. Iza i Grzegorz mają jedno dziecko – córkę Ewę, która ma 7 lat. Iza ma dwie siostry: starsza jest panną, a młodsza jest mężatką.",
+     "ru": "Иза: 31 год, медсестра; Познань; замужем (муж Гжегож — врач, у него брат-холостяк); 1 ребёнок (дочь Эва, 7 лет); 2 сестры (старшая не замужем, младшая замужем)."
+    },
+    {
+     "q": "B. Julia: 12 l., uczennica; Kraków; 1 siostra (Łucja – 9 l.), 1 brat (Michał – 1 r.); mama – nauczycielka, pracować szkoła; tata – historyk; babcia i dziadek – nie pracować (emeryt); 2 x ciocia + 1 wujek; Julia – kochać – cała rodzina",
+     "answer": "Julia ma 12 lat, jest uczennicą i mieszka w Krakowie. Ma jedną siostrę, Łucję, która ma 9 lat, i brata Michała, który ma rok. Jej mama jest nauczycielką i pracuje w szkole, a tata jest historykiem. Babcia i dziadek nie pracują, są emerytami. Julia ma dwie ciocie i jednego wujka. Julia kocha całą rodzinę.",
+     "ru": "Юлия: 12 лет, школьница; Краков; 1 сестра (Лючия, 9 лет), 1 брат (Михал, 1 год); мама — учительница, работает в школе; папа — историк; бабушка и дедушка не работают (пенсионеры); 2 тёти + 1 дядя; Юлия любит всю семью."
+    }
+   ]
+  },
+  {
+   "id": "wb-11-6",
+   "src": "wb",
+   "ref": "Ćw. 6, s. 43",
+   "title": "Proszę pogrupować.",
+   "title_ru": "Твой, твоя или твоё?",
+   "task_ru": "Выбери форму: twój (м. р.), twoja (ж. р.), twoje (ср. р.). Внимание: dentysta, kierowca — мужчины, значит twój! (synowa — twoja, уже дано).",
+   "type": "match",
+   "items": [
+    {
+     "q": "bratanek",
+     "answer": "twój",
+     "ru": "племянник"
+    },
+    {
+     "q": "prababcia",
+     "answer": "twoja",
+     "ru": "прабабушка"
+    },
+    {
+     "q": "tata",
+     "answer": "twój",
+     "ru": "папа"
+    },
+    {
+     "q": "dziecko",
+     "answer": "twoje",
+     "ru": "ребёнок"
+    },
+    {
+     "q": "żona",
+     "answer": "twoja",
+     "ru": "жена"
+    },
+    {
+     "q": "imię",
+     "answer": "twoje",
+     "ru": "имя"
+    },
+    {
+     "q": "szwagier",
+     "answer": "twój",
+     "ru": "зять / шурин"
+    },
+    {
+     "q": "dentysta",
+     "answer": "twój",
+     "ru": "стоматолог"
+    },
+    {
+     "q": "kierowca",
+     "answer": "twój",
+     "ru": "водитель"
+    },
+    {
+     "q": "bratanica",
+     "answer": "twoja",
+     "ru": "племянница"
+    },
+    {
+     "q": "zdanie",
+     "answer": "twoje",
+     "ru": "предложение; мнение"
+    }
+   ],
+   "options": [
+    "twój",
+    "twoja",
+    "twoje"
+   ]
+  },
+  {
+   "id": "wb-11-7",
+   "src": "wb",
+   "ref": "Ćw. 7, s. 44",
+   "title": "Czyj? Czyja? Czyje?",
+   "title_ru": "Чей? Чья? Чьё?",
+   "task_ru": "Выбери вопросительное слово по роду существительного (ryba → Czyja, уже дано).",
+   "type": "match",
+   "items": [
+    {
+     "q": "___ to jest sok?",
+     "answer": "Czyj",
+     "ru": "Чей это сок?"
+    },
+    {
+     "q": "___ to jest jabłko?",
+     "answer": "Czyje",
+     "ru": "Чьё это яблоко?"
+    },
+    {
+     "q": "___ to jest owoc?",
+     "answer": "Czyj",
+     "ru": "Чей это фрукт?"
+    },
+    {
+     "q": "___ to jest sałatka?",
+     "answer": "Czyja",
+     "ru": "Чей это салат?"
+    },
+    {
+     "q": "___ to jest kiwi?",
+     "answer": "Czyje",
+     "ru": "Чьё это киви?",
+     "grammar": "kiwi — ср. р."
+    },
+    {
+     "q": "___ to jest pomarańcza?",
+     "answer": "Czyja",
+     "ru": "Чей это апельсин?"
+    },
+    {
+     "q": "___ to jest piwo?",
+     "answer": "Czyje",
+     "ru": "Чьё это пиво?"
+    },
+    {
+     "q": "___ to jest arbuz?",
+     "answer": "Czyj",
+     "ru": "Чей это арбуз?"
+    },
+    {
+     "q": "___ to jest banan?",
+     "answer": "Czyj",
+     "ru": "Чей это банан?"
+    }
+   ],
+   "options": [
+    "Czyj",
+    "Czyja",
+    "Czyje"
+   ]
+  },
+  {
+   "id": "wb-11-8",
+   "src": "wb",
+   "ref": "Ćw. 8, s. 44",
+   "title": "Czyj? Czyja? Czyje?",
+   "title_ru": "Притяжательное местоимение",
+   "task_ru": "Впиши притяжательное местоимение для лица в скобках ((ja) Moja ciocia… — уже дано).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "(ty) ___ kuzyn dobrze gra w tenisa.",
+     "answer": "Twój",
+     "ru": "Твой двоюродный брат хорошо играет в теннис.",
+     "translit": "тфуй"
+    },
+    {
+     "q": "(oni) ___ syn mieszka w Paryżu.",
+     "answer": "Ich",
+     "ru": "Их сын живёт в Париже.",
+     "translit": "их"
+    },
+    {
+     "q": "(my) ___ teść codziennie robi zakupy.",
+     "answer": "Nasz",
+     "ru": "Наш тесть каждый день ходит за покупками.",
+     "translit": "наш"
+    },
+    {
+     "q": "(on) ___ brat zwykle jeździ konno w niedzielę.",
+     "answer": "Jego",
+     "ru": "Его брат обычно ездит верхом в воскресенье.",
+     "translit": "Е-го"
+    },
+    {
+     "q": "(ja) ___ dziecko dobrze mówi po hiszpańsku.",
+     "answer": "Moje",
+     "ru": "Мой ребёнок хорошо говорит по-испански.",
+     "translit": "МО-е",
+     "grammar": "dziecko — ср. р."
+    },
+    {
+     "q": "(wy) ___ matka jest pracowita.",
+     "answer": "Wasza",
+     "ru": "Ваша мать трудолюбивая.",
+     "translit": "ВА-ша"
+    },
+    {
+     "q": "(on) ___ pies lubi chodzić na spacery.",
+     "answer": "Jego",
+     "ru": "Его собака любит гулять.",
+     "translit": "Е-го"
+    },
+    {
+     "q": "(ty) ___ ojciec jest stary, ale energiczny.",
+     "answer": "Twój",
+     "ru": "Твой отец старый, но энергичный.",
+     "translit": "тфуй"
+    },
+    {
+     "q": "(ona) ___ siostra ma 26 lat.",
+     "answer": "Jej",
+     "ru": "Её сестре 26 лет.",
+     "translit": "ей"
+    }
+   ]
+  },
+  {
+   "id": "wb-11-9",
+   "src": "wb",
+   "ref": "Ćw. 9, s. 44",
+   "title": "Jakie to słowo?",
+   "title_ru": "Собери слово",
+   "task_ru": "Соедини начало и конец слова (ni- + -gdy = nigdy, уже дано).",
+   "type": "match",
+   "items": [
+    {
+     "q": "pół-",
+     "answer": "noc",
+     "ru": "начало слова «pół-»"
+    },
+    {
+     "q": "rza-",
+     "answer": "dko",
+     "ru": "начало слова «rza-»"
+    },
+    {
+     "q": "wieczo-",
+     "answer": "rem",
+     "ru": "начало слова «wieczo-»"
+    },
+    {
+     "q": "czę-",
+     "answer": "sto",
+     "ru": "начало слова «czę-»"
+    },
+    {
+     "q": "połu-",
+     "answer": "dnie",
+     "ru": "начало слова «połu-»"
+    },
+    {
+     "q": "za-",
+     "answer": "wsze",
+     "ru": "начало слова «za-»"
+    },
+    {
+     "q": "po połu-",
+     "answer": "dniu",
+     "ru": "начало «po połu-»"
+    }
+   ],
+   "options": [
+    "rem",
+    "dniu",
+    "dnie",
+    "noc",
+    "wsze",
+    "dko",
+    "sto"
+   ]
+  },
+  {
+   "id": "wb-11-10",
+   "src": "wb",
+   "ref": "Ćw. 10, s. 44",
+   "title": "Proszę uporządkować tekst.",
+   "title_ru": "День Юстины: порядок",
+   "task_ru": "Расставь предложения по порядку: напиши номер 2–6 (1 — «Justyna wstaje codziennie o siódmej rano…», уже дано).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Po południu Justyna ma lekcję muzyki. Ona uczy się grać na pianinie.",
+     "answer": "4",
+     "ru": "После обеда у Юстины урок музыки. Она учится играть на пианино."
+    },
+    {
+     "q": "Ona zwykle już śpi o północy.",
+     "answer": "6",
+     "ru": "В полночь она обычно уже спит."
+    },
+    {
+     "q": "Przerwę na obiad ma zawsze w południe.",
+     "answer": "3",
+     "ru": "Перерыв на обед у неё всегда в полдень."
+    },
+    {
+     "q": "Przed południem ma dwie lekcje – gramatykę i słownictwo.",
+     "answer": "2",
+     "ru": "До полудня у неё два урока — грамматика и лексика."
+    },
+    {
+     "q": "Justyna bardzo rzadko uczy się wieczorem. Ona zwykle spotyka się z chłopakiem.",
+     "answer": "5",
+     "ru": "Юстина очень редко учится вечером. Обычно она встречается с парнем."
+    }
+   ]
+  },
+  {
+   "id": "wb-11-11",
+   "src": "wb",
+   "ref": "Ćw. 11, s. 44",
+   "title": "Quiz. Czy to prawda, że…",
+   "title_ru": "Викторина: правда ли, что…",
+   "task_ru": "Правда или неправда? Отвечай по здравому смыслу (1 — «в Кракове снег только раз в год» — неправда, уже дано).",
+   "type": "tf",
+   "items": [
+    {
+     "q": "…Polacy codziennie jedzą pierogi?",
+     "answer": "nieprawda",
+     "ru": "…поляки каждый день едят пироги (вареники)?"
+    },
+    {
+     "q": "…dzieci zwykle nie lubią szpinaku?",
+     "answer": "prawda",
+     "ru": "…дети обычно не любят шпинат?"
+    },
+    {
+     "q": "…eleganckie kobiety chodzą do fryzjera minimum raz w miesiącu?",
+     "answer": "prawda",
+     "ru": "…элегантные женщины ходят к парикмахеру минимум раз в месяц?"
+    },
+    {
+     "q": "…Polacy nigdy nie piją herbaty z mlekiem?",
+     "answer": "nieprawda",
+     "ru": "…поляки никогда не пьют чай с молоком?",
+     "grammar": "nigdy — слишком сильно: некоторые пьют (bawarka)"
+    }
+   ]
+  },
+  {
+   "id": "wb-11-12",
+   "src": "wb",
+   "ref": "Ćw. 12, s. 45",
+   "title": "Proszę uzupełnić tekst.",
+   "title_ru": "Как часто? День Магды",
+   "task_ru": "Текст — на странице тетради (кнопка 📄 ниже). Впиши слово из рамки по буквам-подсказкам: zawsze, w południe, od czasu do czasu, rzadko, zwykle, przed południem, wieczorem, później (codziennie — уже вставлено).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "_ó_____ ubiera się i idzie z dziećmi do szkoły.",
+     "answer": "Później",
+     "ru": "Потом она одевается и идёт с детьми в школу.",
+     "translit": "ПУЖЬ-нэй"
+    },
+    {
+     "q": "_r_e_ ____d_____ chodzi na zakupy.",
+     "answer": "Przed południem",
+     "ru": "До полудня ходит за покупками.",
+     "translit": "пшэт по-ЎУД-нем"
+    },
+    {
+     "q": "_w____ robi zakupy na targu…",
+     "answer": "Zwykle",
+     "ru": "Обычно делает покупки на рынке…",
+     "translit": "ЗВЫК-ле"
+    },
+    {
+     "q": "…ale __ _____ d_ _z___ też w hipermarkecie.",
+     "answer": "od czasu do czasu",
+     "ru": "…но время от времени и в гипермаркете.",
+     "translit": "от ЧА-су до ЧА-су"
+    },
+    {
+     "q": "_ __ł_____ często spotyka się z koleżanką na kawie.",
+     "answer": "W południe",
+     "ru": "В полдень часто встречается с подругой за кофе.",
+     "translit": "ф по-ЎУД-не"
+    },
+    {
+     "q": "______r__ wraca do domu mąż Magdy – Piotrek.",
+     "answer": "Wieczorem",
+     "ru": "Вечером домой возвращается муж Магды — Петрек.",
+     "translit": "ве-ЧО-рэм"
+    },
+    {
+     "q": "On __w__e długo pracuje.",
+     "answer": "zawsze",
+     "ru": "Он всегда долго работает.",
+     "translit": "ЗАФ-шэ"
+    },
+    {
+     "q": "Oni r_____ wychodzą z domu.",
+     "answer": "rzadko",
+     "ru": "Они редко выходят из дома.",
+     "translit": "ЖАТ-ко"
+    }
+   ],
+   "audio": "46_L11_cwiczenie12.mp3"
+  },
+  {
+   "id": "wb-11-12b",
+   "src": "wb",
+   "ref": "Ćw. 12, s. 45",
+   "title": "Prawda czy nieprawda?",
+   "title_ru": "День Магды: правда или неправда?",
+   "task_ru": "По тексту ćw. 12 (на странице тетради, кнопка 📄 ниже). Правда или неправда? (1 — «Magda bardzo rzadko wstaje rano» — неправда, уже дано)",
+   "type": "tf",
+   "items": [
+    {
+     "q": "Mateusz jest bratem Ani.",
+     "answer": "prawda",
+     "ru": "Матеуш — брат Ани."
+    },
+    {
+     "q": "Dzieci chodzą same do szkoły.",
+     "answer": "nieprawda",
+     "ru": "Дети ходят в школу сами.",
+     "full_pl": "Magda idzie z dziećmi do szkoły."
+    },
+    {
+     "q": "Magda często robi zakupy w hipermarkecie.",
+     "answer": "nieprawda",
+     "ru": "Магда часто делает покупки в гипермаркете.",
+     "full_pl": "Magda robi zakupy w hipermarkecie od czasu do czasu."
+    },
+    {
+     "q": "Magda często spotyka się z koleżanką po południu.",
+     "answer": "nieprawda",
+     "ru": "Магда часто встречается с подругой после обеда.",
+     "full_pl": "Magda często spotyka się z koleżanką w południe."
+    },
+    {
+     "q": "Magda jest rozwiedziona.",
+     "answer": "nieprawda",
+     "ru": "Магда разведена.",
+     "full_pl": "Magda ma męża – Piotrka."
+    },
+    {
+     "q": "Piotrek ma córkę i syna.",
+     "answer": "prawda",
+     "ru": "У Петрека есть дочь и сын."
+    },
+    {
+     "q": "Rodzina Magdy nigdy nie wychodzi z domu.",
+     "answer": "nieprawda",
+     "ru": "Семья Магды никогда не выходит из дома.",
+     "full_pl": "Oni rzadko wychodzą z domu."
+    }
+   ],
+   "audio": "46_L11_cwiczenie12.mp3"
+  },
+  {
+   "id": "wb-11-13",
+   "src": "wb",
+   "ref": "Ćw. 13, s. 45",
+   "title": "Proszę odmienić czasowniki i ułożyć zdania.",
+   "title_ru": "Составь предложение",
+   "task_ru": "Составь предложение из слов, глагол в скобках поставь в нужную форму (Mój dziadek nigdy nie chodzi do dentysty. — образец). Проверяет модель.",
+   "type": "open",
+   "items": [
+    {
+     "q": "zakupy / (robić) / moja / południem. / zwykle / mama / przed",
+     "answer": "Moja mama zwykle robi zakupy przed południem.",
+     "ru": "Моя мама обычно делает покупки до полудня.",
+     "accepted": [
+      "Moja mama przed południem zwykle robi zakupy."
+     ]
+    },
+    {
+     "q": "Adam / i / herbatę / jego / (pić) / zawsze / piątej. / o / wujek",
+     "answer": "Adam i jego wujek zawsze piją herbatę o piątej.",
+     "ru": "Адам и его дядя всегда пьют чай в пять.",
+     "grammar": "двое → мн. ч.: piją"
+    },
+    {
+     "q": "nigdy / klasycznej / i / (słuchać) / Ewa / muzyki / Paweł / nie / nocy. / w",
+     "answer": "Ewa i Paweł nigdy nie słuchają muzyki klasycznej w nocy.",
+     "ru": "Эва и Павел никогда не слушают классическую музыку ночью.",
+     "grammar": "nie słuchać + родительный: muzyki",
+     "accepted": [
+      "Ewa i Paweł w nocy nigdy nie słuchają muzyki klasycznej."
+     ]
+    },
+    {
+     "q": "po / często / obiad / Patrycja / południu. / (gotować)",
+     "answer": "Patrycja często gotuje obiad po południu.",
+     "ru": "Патриция часто готовит обед после полудня.",
+     "accepted": [
+      "Patrycja po południu często gotuje obiad."
+     ]
+    },
+    {
+     "q": "w / (jeść) / my / restauracji. / rzadko / kolację",
+     "answer": "My rzadko jemy kolację w restauracji.",
+     "ru": "Мы редко ужинаем в ресторане.",
+     "accepted": [
+      "Rzadko jemy kolację w restauracji."
+     ]
+    },
+    {
+     "q": "na / Sylwia / nigdy / wakacje. / (jeździć) / nie",
+     "answer": "Sylwia nigdy nie jeździ na wakacje.",
+     "ru": "Сильвия никогда не ездит в отпуск (на каникулы).",
+     "grammar": "jeździć: jeżdżę, jeździsz, jeździ"
+    }
+   ]
+  },
+  {
+   "id": "wb-11-14",
+   "src": "wb",
+   "ref": "Ćw. 14, s. 45",
+   "title": "Proszę skorygować zdania.",
+   "title_ru": "Исправь наречие частоты",
+   "task_ru": "В предложении наречие частоты не подходит по смыслу. Напиши верное (zawsze → nigdy nie — образец).",
+   "type": "gap",
+   "items": [
+    {
+     "q": "Mój brat rzadko chodzi na dyskotekę, bo bardzo lubi tańczyć.",
+     "answer": "często",
+     "ru": "Мой брат редко ходит на дискотеку, потому что очень любит танцевать.",
+     "full_pl": "Mój brat często chodzi na dyskotekę, bo bardzo lubi tańczyć.",
+     "translit": "ЧЭН-сто",
+     "accepted": [
+      "zawsze",
+      "codziennie",
+      "zwykle"
+     ]
+    },
+    {
+     "q": "Teściowa Jana nigdy nie gotuje i on je świeży obiad.",
+     "answer": "codziennie",
+     "ru": "Тёща Яна никогда не готовит, и он ест свежий обед.",
+     "full_pl": "Teściowa Jana codziennie gotuje i on je świeży obiad.",
+     "translit": "цо-ДЖЕН-не",
+     "accepted": [
+      "zawsze",
+      "zwykle",
+      "często"
+     ]
+    },
+    {
+     "q": "Mój teść często chodzi na mecze, bo nie ma czasu.",
+     "answer": "rzadko",
+     "ru": "Мой тесть часто ходит на матчи, потому что у него нет времени.",
+     "full_pl": "Mój teść rzadko chodzi na mecze, bo nie ma czasu.",
+     "translit": "ЖАТ-ко",
+     "accepted": [
+      "nigdy nie",
+      "bardzo rzadko",
+      "prawie nigdy nie"
+     ]
+    },
+    {
+     "q": "Rzadko na śniadanie piję kawę, tylko w niedzielę herbatę.",
+     "answer": "Zwykle",
+     "ru": "Редко на завтрак пью кофе, только в воскресенье — чай.",
+     "full_pl": "Zwykle na śniadanie piję kawę, tylko w niedzielę herbatę.",
+     "translit": "ЗВЫК-ле",
+     "accepted": [
+      "codziennie",
+      "zawsze"
+     ]
+    }
+   ]
+  }
+ ]
+}
