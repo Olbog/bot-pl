@@ -409,7 +409,8 @@ def ignores_screen(rows: list) -> tuple[str, list[list[tuple[str, str]]]]:
 
 def _offer_items(offer: dict) -> list[tuple[str, dict]]:
     return ([(f"e{i}", it) for i, it in enumerate(offer.get("errs") or [])]
-            + [(f"b{i}", it) for i, it in enumerate(offer.get("phrases") or [])])
+            + [(f"b{i}", it) for i, it in enumerate(offer.get("phrases") or [])]
+            + [(f"o{i}", it) for i, it in enumerate(offer.get("own") or [])])
 
 
 def _get(it, key: str) -> str:
@@ -450,10 +451,8 @@ def offer_message(offer: dict, have: dict) -> str:
         return f"{mark} {dict_line({'translit': '', 'ru': '', **it})}{ctx}{where}"
 
     head = "⭐ <b>Что добавить в словарь?</b>" + (f" · {e(offer.get('title') or '')}" if src else "")
-    note = ("<i>Ошибки и пропуски уже отмечены — сними лишнее, добавь нужное, жми «✅ Готово». Слово сохранится "
-            "в той форме, как в ответе, с пометкой падежа; разложится по темам в наборы по 10.</i>" if src else
-            "<i>Отмечай кнопками и жми «✅ Готово» — слова разложатся "
-            "по темам в наборы по 10, их можно тренировать в разговоре и упражнениях.</i>")
+    note = ("<i>Ошибки и пропуски уже отмечены — сними лишнее, добавь нужное. Слово сохранится в той форме, как "
+            "в ответе, с пометкой падежа.</i>" if src else "<i>Отмечай нужное кнопками.</i>")
     lines = [head, note, "", "❌ <b>Ошибки и пропуски</b>" if src else "🧩 <b>Мои ошибки</b>"]
     errs = [(k, it) for k, it in _offer_items(offer) if k.startswith("e")]
     lines += [line(k, it) for k, it in errs] or ["<i>ошибок нет</i>" if src else "<i>в этом сообщении ошибок нет</i>"]
@@ -468,10 +467,11 @@ def offer_message(offer: dict, have: dict) -> str:
             lines += [line(k, it) for k, it in bots] or ["<i>не нашлось, что предложить</i>"]
         else:
             lines.append("<i>нажми «💬 Подобрать из ответа» — бот выберет 7–8 выражений (5–15 с)</i>")
-    lines += ["", "✍️ <b>Свои слова</b> — кнопка ниже, напишешь через запятую"]
-    topic = offer.get("topic") or ""
-    lines += ["", f"📂 <b>Куда:</b> {'тема «' + e(topic) + '» — всё отмеченное туда' if topic else '🤖 темы подберёт ИИ'}"
-              " <i>(сменить — кнопкой «📂»)</i>"]
+    own = [(k, it) for k, it in _offer_items(offer) if k.startswith("o")]
+    lines += ["", "✍️ <b>Свои слова</b>"]
+    lines += [line(k, it) for k, it in own] or ["<i>кнопка ниже — напишешь через запятую</i>"]
+    lines += ["", "Дальше <b>«✅ Готово»</b> — выберешь, куда положить: 📘 тема юнита, твоя тема или 🤖 ИИ разложит "
+              "по темам. Слова попадут в наборы по 10 для тренировки."]
     if have:
         lines.append("\n<i>⭐ — уже в словаре в той же форме, повторно не добавится; нажми — где лежит и перенести.</i>")
     return "\n".join(lines)
@@ -485,24 +485,54 @@ def offer_buttons(msg_id: int, offer: dict, have: dict) -> list[list[tuple[str, 
         rows.append([((mark + it["pl"])[:40], f"ds:{msg_id}:{k}")])
     tools = [] if offer.get("bot_ready") else [("💬 Подобрать из ответа", f"dg:{msg_id}")]
     rows.append(tools + [("✍️ Свои слова", f"dn:own:{msg_id}")])
-    topic = offer.get("topic") or ""
-    rows.append([((f"📂 Тема: {topic}" if topic else "📂 Тема: 🤖 авто")[:40], f"dp:{msg_id}"),
-                 (f"✅ Готово ({len(sel)})" if sel else "✅ Готово", f"dk:{msg_id}")])
+    rows.append([(f"✅ Готово — отмечено {len(sel)}", f"dk:{msg_id}")])
     return rows
 
 
-def offer_topic_screen(msg_id: int, topics: list[dict], cur: str) -> tuple[str, list]:
-    """📂 Куда положить отмеченное: 🤖 ИИ подберёт тему каждому слову — или все в одну мою тему."""
-    text = ("📂 <b>Куда положить слова?</b>\n\n🤖 <b>Авто</b> — ИИ подберёт тему каждому слову.\n"
-            "🗂 <b>Тема</b> — всё отмеченное (и свои слова из этого меню) ляжет в выбранную тему — "
-            "так можно собрать свой набор.\n✍️ <b>Новая тема</b> — напишешь название.\n\n"
-            f"Сейчас: {'тема «' + e(cur) + '»' if cur else '🤖 авто'}")
-    btns = [((("✅ " if t["name"] == cur else "") + f"🗂 {t['name']}")[:40], f"dq:{msg_id}:{t['id']}")
-            for t in topics[:30]]
-    rows = [[(("✅ " if not cur else "") + "🤖 Авто (ИИ)", f"dq:{msg_id}:0")]]
+def offer_topic_screen(msg_id: int, n: int, unit_topic: str, recent: list[dict]) -> tuple[str, list]:
+    """📂 Куда положить отмеченные слова: тема юнита, недавние темы, 🤖 ИИ разложит, ✍️ новая тема."""
+    text = (f"📂 <b>Куда положить {n} {plural(n, 'слово', 'слова', 'слов')}?</b>\n\n"
+            + (f"📘 <b>{e(unit_topic)}</b> — тема юнита: слова будут вместе со словами этого урока.\n" if unit_topic else "")
+            + "🗂 Твоя тема — все слова туда.\n🤖 ИИ разложит — каждому слову свою тему (Еда, Работа…).\n"
+            "✍️ Новая тема — напишешь название (например «Мой набор»).\n\n"
+            "<i>Каждая тема — наборы по 10 слов для тренировки в разговоре и упражнениях.</i>")
+    rows = [[(f"📘 {unit_topic}"[:60], f"dq:{msg_id}:u")]] if unit_topic else []
+    btns = [(f"🗂 {t['name']} ({t['n']})"[:40], f"dq:{msg_id}:{t['id']}") for t in recent if t["name"] != unit_topic][:6]
     rows += [btns[i:i + 2] for i in range(0, len(btns), 2)]
-    rows.append([("✍️ Новая тема", f"dQ:{msg_id}"), ("⬅️ Назад", f"dq:{msg_id}:-")])
+    rows.append([("🤖 Пусть ИИ разложит по темам", f"dq:{msg_id}:0")])
+    rows.append([("✍️ Новая тема", f"dQ:{msg_id}"), ("⬅️ Назад к словам", f"dq:{msg_id}:-")])
     return text, rows
+
+
+def plural(n: int, one: str, few: str, many: str) -> str:
+    n = abs(n) % 100
+    return many if 11 <= n <= 14 else one if n % 10 == 1 else few if 2 <= n % 10 <= 4 else many
+
+
+from ..settings import DICT_SET_SIZE  # noqa: E402
+
+
+def dict_saved(rows: list, topic: str, sets: list[tuple[str, int]], dups: list) -> str:
+    """Итог «✅ Готово»: сколько сохранено и куда (тема, набор для тренировки), дубли — отдельно."""
+    parts = []
+    if rows:
+        n = len(rows)
+        if topic:
+            head = f"⭐ <b>Сохранил {n} {plural(n, 'слово', 'слова', 'слов')} в тему «{e(topic)}»</b>"
+        else:
+            counts = {}
+            for r in rows:
+                counts[r["topic"]] = counts.get(r["topic"], 0) + 1
+            head = (f"⭐ <b>Сохранил {n} {plural(n, 'слово', 'слова', 'слов')}</b> — ИИ разложил по темам: "
+                    + ", ".join(f"{e(t)} — {k}" for t, k in counts.items()))
+        lines = [head]
+        lines += [f"• {dict_line(r)}" + ("" if topic else f"  <i>· {e(r['topic'])}</i>") for r in rows]
+        lines.append("")
+        lines += [f"🎯 Набор для тренировки: «{e(title)}» — {k} из {DICT_SET_SIZE}" for title, k in sets if title]
+        parts.append("\n".join(lines))
+    if dups:
+        parts.append(dict_dups(dups))
+    return "\n\n".join(parts) or "⭐ Ничего нового."
 
 
 def dict_added(rows: list) -> str:
@@ -593,7 +623,7 @@ def dict_word_screen(it, topics: list[dict], fixed=None) -> tuple[str, list]:
     btns = [(f"🗂 {t['name']}"[:40], f"dm:{it['id']}:{t['id']}") for t in topics if t["id"] != it["topic_id"]][:30]
     rows = [btns[i:i + 2] for i in range(0, len(btns), 2)]
     if fixed and fixed["id"] != it["topic_id"]:
-        rows.insert(0, [(f"📂 В мою тему «{fixed['name']}»"[:60], f"dm:{it['id']}:{fixed['id']}")])
+        rows.insert(0, [(f"📂 В тему «{fixed['name']}»"[:60], f"dm:{it['id']}:{fixed['id']}")])
     rows.append([("✍️ Новая тема", f"dz:{it['id']}"), ("🗑 Удалить", f"dr:{it['id']}")])
     rows.append([("⬅️ К теме", f"dt:{it['topic_id']}"), ("📚 Словарь", "dl")])
     return text, rows

@@ -238,7 +238,9 @@ class DB:
             "dict_offers": [("errs", "TEXT NOT NULL DEFAULT '[]'"), ("sel", "TEXT NOT NULL DEFAULT '[]'"),
                             ("bot_ready", "INTEGER NOT NULL DEFAULT 0"), ("topic", "TEXT NOT NULL DEFAULT ''"),
                             # меню не к ответу бота, а к разделу (msg_id < 0): откуда («b:kpk:5|wb-5-5», «e:12»…)
-                            ("src", "TEXT NOT NULL DEFAULT ''"), ("title", "TEXT NOT NULL DEFAULT ''")],
+                            ("src", "TEXT NOT NULL DEFAULT ''"), ("title", "TEXT NOT NULL DEFAULT ''"),
+                            # свои слова, дописанные в меню; юнит — для кнопки «📘 тема юнита» при сохранении
+                            ("own", "TEXT NOT NULL DEFAULT '[]'"), ("unit", "TEXT NOT NULL DEFAULT ''")],
         }
         two_level = "test_streak" not in self._columns("book_stats")
         for table, cols in adds.items():
@@ -849,7 +851,8 @@ class DB:
         return {"user_id": row["user_id"], "phrases": json.loads(row["phrases"]), "saved": saved,
                 "errs": json.loads(row["errs"]), "sel": json.loads(row["sel"]),
                 "bot_ready": bool(row["bot_ready"]) or bool(json.loads(row["phrases"])), "topic": row["topic"] or "",
-                "src": row["src"] or "", "title": row["title"] or "", "key": row["msg_id"]}
+                "src": row["src"] or "", "title": row["title"] or "", "key": row["msg_id"],
+                "own": json.loads(row["own"] or "[]"), "unit": row["unit"] or ""}
 
     def offer_by_src(self, user_id: int, src: str):
         row = self.conn.execute("SELECT * FROM dict_offers WHERE user_id=? AND src=? ORDER BY msg_id LIMIT 1",
@@ -863,14 +866,30 @@ class DB:
 
     def offer_save(self, msg_id: int, user_id: int, phrases: list[dict], saved: list, errs: list[dict] | None = None,
                    sel: list[str] | None = None, bot_ready: bool = False, topic: str = "", src: str = "",
-                   title: str = "") -> None:
+                   title: str = "", own: list[dict] | None = None, unit: str = "") -> None:
         self.conn.execute(
-            "INSERT OR REPLACE INTO dict_offers(msg_id, user_id, phrases, saved, errs, sel, bot_ready, topic, src, title) "
-            "VALUES (?,?,?,?,?,?,?,?,?,?)",
+            "INSERT OR REPLACE INTO dict_offers(msg_id, user_id, phrases, saved, errs, sel, bot_ready, topic, src, title, "
+            "own, unit) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
             (msg_id, user_id, json.dumps(phrases, ensure_ascii=False), json.dumps(saved),
              json.dumps(errs or [], ensure_ascii=False), json.dumps(sel or []), int(bot_ready), topic or "",
-             src or "", title or ""))
+             src or "", title or "", json.dumps(own or [], ensure_ascii=False), unit or ""))
         self.conn.commit()
+
+    def recent_units(self, user_id: int, limit: int = 10) -> list[str]:
+        """Юниты, с которыми работал недавно (упражнения из книги, слова юнита), новые первыми."""
+        rows = self.conn.execute(
+            "SELECT unit, MAX(t) AS t FROM (SELECT unit, at AS t FROM book_ex WHERE user_id=? "
+            "UNION ALL SELECT unit, last_at AS t FROM book_stats WHERE user_id=? AND last_at IS NOT NULL) "
+            "GROUP BY unit ORDER BY t DESC LIMIT ?", (user_id, user_id, limit)).fetchall()
+        return [r["unit"] for r in rows]
+
+    def recent_topics(self, user_id: int, limit: int = 6) -> list[dict]:
+        """Темы словаря, куда недавно добавлялись слова: [{id, name, n}], новые первыми."""
+        rows = self.conn.execute(
+            "SELECT t.id, t.name, COUNT(d.id) AS n, MAX(d.created_at) AS last FROM dict_topics t "
+            "JOIN dict_items d ON d.topic_id = t.id WHERE t.user_id=? GROUP BY t.id ORDER BY last DESC LIMIT ?",
+            (user_id, limit)).fetchall()
+        return [dict(r) for r in rows]
 
     def corrections_by(self, user_id: int, key: str, value) -> list[dict]:
         """Ошибки вне разговора (msg_id NULL) с полем data[key] == value, вместе с оспоренными."""
