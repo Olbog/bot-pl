@@ -28,7 +28,7 @@ class ReportsMixin:
     async def show_itog(self, chat_id: int, user_id: int, period: str) -> None:
         turns, corrs, words, dct = self.period_data(user_id, period)
         await self.tg.send_message(chat_id, fmt.itog_message(period, turns, corrs, words, len(dct)),
-                                   fmt.itog_buttons(period, bool(corrs)))
+                                   fmt.itog_buttons(period, bool(corrs), bool(words)))
 
     def export_bytes(self, user_id: int, period: str) -> tuple[str, bytes]:
         turns, corrs, words, dct = self.period_data(user_id, period)

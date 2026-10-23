@@ -412,44 +412,72 @@ def _offer_items(offer: dict) -> list[tuple[str, dict]]:
             + [(f"b{i}", it) for i, it in enumerate(offer.get("phrases") or [])])
 
 
+def _get(it, key: str) -> str:
+    return (it[key] if key in it.keys() else "") or ""
+
+
 def _tr(it) -> str:
-    t = it["translit"] if "translit" in it.keys() else ""
+    t = _get(it, "translit")
     return f" [{e(t)}]" if t else ""
 
 
 def dict_line(it) -> str:
-    """«<b>pl</b> [транскрипция] — перевод» для строки словаря или пункта меню."""
-    return f"<b>{e(it['pl'])}</b>{_tr(it)}" + (f" — {e(it['ru'])}" if it["ru"] else "")
+    """«<b>pl</b> (B.) [транскрипция] — перевод (вин.)» для строки словаря или пункта меню; падеж — если слово
+    сохранено не в словарной форме."""
+    fp, fr, ru = _get(it, "form_pl"), _get(it, "form_ru"), _get(it, "ru")
+    return (f"<b>{e(it['pl'])}</b>" + (f" ({e(fp)})" if fp else "") + _tr(it)
+            + (f" — {e(ru)}" + (f" ({e(fr)})" if fr else "") if ru else ""))
 
 
-def offer_message(offer: dict, have: set[str]) -> str:
-    """Меню «⭐ В словарь»: 🧩 мои ошибки, 💬 из ответа бота, ✍️ свои слова. have — ключи, которые уже в словаре."""
+def dict_dups(rows: list) -> str:
+    """🛡 Уже в словаре в той же форме — не добавлено; где лежит."""
+    lines = [f"🛡 <b>Уже в словаре — не добавлял: {len(rows)}</b>"]
+    lines += [f"• {dict_line(r)}\n   🗂 тема «{e(r['topic'] or '—')}» · {e(r['set_title'] or '—')}" for r in rows]
+    lines.append("<i>Перенести в другую тему — кнопкой ниже (прогресс сохранится).</i>")
+    return "\n".join(lines)
+
+
+def offer_message(offer: dict, have: dict) -> str:
+    """Меню «⭐ В словарь»: под ответом бота — 🧩 мои ошибки, 💬 из ответа бота; под разделом (src) — ❌ ошибки и
+    пропуски (отмечены сразу), ✅ остальное; ✍️ свои слова. have — {ключ: тема} того, что уже в словаре."""
     sel = set(offer.get("sel") or [])
+    src = offer.get("src") or ""
 
     def line(k, it):
         mark = "⭐" if k in have else "☑️" if k in sel else "▫️"
-        return f"{mark} {dict_line({'translit': '', 'ru': '', **it})}"
+        where = f" <i>· уже в «{e(have[k])}»</i>" if k in have else ""
+        ctx = f" — <i>{e(it['ctx_ru'])}</i>" if not it.get("ru") and it.get("ctx_ru") else ""
+        return f"{mark} {dict_line({'translit': '', 'ru': '', **it})}{ctx}{where}"
 
-    lines = ["⭐ <b>Что добавить в словарь?</b>", "<i>Отмечай кнопками и жми «✅ Готово» — слова разложатся "
-             "по темам в наборы по 10, их можно тренировать в разговоре и упражнениях.</i>", "", "🧩 <b>Мои ошибки</b>"]
+    head = "⭐ <b>Что добавить в словарь?</b>" + (f" · {e(offer.get('title') or '')}" if src else "")
+    note = ("<i>Ошибки и пропуски уже отмечены — сними лишнее, добавь нужное, жми «✅ Готово». Слово сохранится "
+            "в той форме, как в ответе, с пометкой падежа; разложится по темам в наборы по 10.</i>" if src else
+            "<i>Отмечай кнопками и жми «✅ Готово» — слова разложатся "
+            "по темам в наборы по 10, их можно тренировать в разговоре и упражнениях.</i>")
+    lines = [head, note, "", "❌ <b>Ошибки и пропуски</b>" if src else "🧩 <b>Мои ошибки</b>"]
     errs = [(k, it) for k, it in _offer_items(offer) if k.startswith("e")]
-    lines += [line(k, it) for k, it in errs] or ["<i>в этом сообщении ошибок нет</i>"]
-    lines += ["", "💬 <b>Из ответа бота</b>"]
+    lines += [line(k, it) for k, it in errs] or ["<i>ошибок нет</i>" if src else "<i>в этом сообщении ошибок нет</i>"]
     bots = [(k, it) for k, it in _offer_items(offer) if k.startswith("b")]
-    if offer.get("bot_ready"):
-        lines += [line(k, it) for k, it in bots] or ["<i>не нашлось, что предложить</i>"]
+    if src:
+        if bots:
+            lines += ["", "🗣 <b>Сказал по-русски</b>" if src.startswith("i:") else "✅ <b>Остальное</b>"]
+            lines += [line(k, it) for k, it in bots]
     else:
-        lines.append("<i>нажми «💬 Подобрать из ответа» — бот выберет 7–8 выражений (5–15 с)</i>")
+        lines += ["", "💬 <b>Из ответа бота</b>"]
+        if offer.get("bot_ready"):
+            lines += [line(k, it) for k, it in bots] or ["<i>не нашлось, что предложить</i>"]
+        else:
+            lines.append("<i>нажми «💬 Подобрать из ответа» — бот выберет 7–8 выражений (5–15 с)</i>")
     lines += ["", "✍️ <b>Свои слова</b> — кнопка ниже, напишешь через запятую"]
     topic = offer.get("topic") or ""
     lines += ["", f"📂 <b>Куда:</b> {'тема «' + e(topic) + '» — всё отмеченное туда' if topic else '🤖 темы подберёт ИИ'}"
               " <i>(сменить — кнопкой «📂»)</i>"]
     if have:
-        lines.append("\n<i>⭐ — уже в словаре</i>")
+        lines.append("\n<i>⭐ — уже в словаре в той же форме, повторно не добавится; нажми — где лежит и перенести.</i>")
     return "\n".join(lines)
 
 
-def offer_buttons(msg_id: int, offer: dict, have: set[str]) -> list[list[tuple[str, str]]]:
+def offer_buttons(msg_id: int, offer: dict, have: dict) -> list[list[tuple[str, str]]]:
     sel = set(offer.get("sel") or [])
     rows = []
     for k, it in _offer_items(offer):
@@ -521,7 +549,9 @@ def dict_export(items: list) -> str:
             cur = it["topic"]
             out += ["", f"■ {cur}"]
         out.append(f"   {'[x]' if it['mastered_at'] is not None else '[ ]'} {it['pl']}"
+                   + (f" ({it['form_pl']})" if it["form_pl"] else "")
                    + (f" [{it['translit']}]" if it["translit"] else "") + f" — {it['ru']}"
+                   + (f" ({it['form_ru']})" if it["form_ru"] else "")
                    + (f"   ({it['set_title']})" if it["set_title"] else ""))
     return "\n".join(out) + "\n\n[x] — освоено. Сменить тему слова: /dict → тема → слово → 📂.\n"
 
@@ -554,13 +584,16 @@ def dict_topic_screen(topic, items: list, sets: list[dict]) -> tuple[str, list]:
     return "\n".join(lines), rows
 
 
-def dict_word_screen(it, topics: list[dict]) -> tuple[str, list]:
+def dict_word_screen(it, topics: list[dict], fixed=None) -> tuple[str, list]:
+    """Слово словаря: где лежит, перенести в другую тему (fixed — своя тема меню «⭐ В словарь», первой кнопкой)."""
     state = "✅ освоено" if it["mastered_at"] is not None else "в работе"
     text = (dict_line(it) + f"\n🗂 Тема: {e(it['topic'] or '—')} · набор {e(it['set_title'] or '—')} · {state}"
             "\n\n📂 <b>В какую тему перенести?</b> Слово переедет в набор этой темы вместе с прогрессом. "
             "Своя тема («✍️ Новая тема») — это и есть свой набор: переноси туда слова из разных тем.")
     btns = [(f"🗂 {t['name']}"[:40], f"dm:{it['id']}:{t['id']}") for t in topics if t["id"] != it["topic_id"]][:30]
     rows = [btns[i:i + 2] for i in range(0, len(btns), 2)]
+    if fixed and fixed["id"] != it["topic_id"]:
+        rows.insert(0, [(f"📂 В мою тему «{fixed['name']}»"[:60], f"dm:{it['id']}:{fixed['id']}")])
     rows.append([("✍️ Новая тема", f"dz:{it['id']}"), ("🗑 Удалить", f"dr:{it['id']}")])
     rows.append([("⬅️ К теме", f"dt:{it['topic_id']}"), ("📚 Словарь", "dl")])
     return text, rows
@@ -636,11 +669,11 @@ def itog_message(period: str, turns: int, corrections: list[dict], words: list[d
     return "\n\n".join(out)
 
 
-def itog_buttons(period: str, has_errors: bool) -> list[list[tuple[str, str]]]:
+def itog_buttons(period: str, has_errors: bool, has_words: bool = False) -> list[list[tuple[str, str]]]:
     row = [("📄 Файлом", f"i:f{period}")]
     if has_errors:
         row.append(("🎯 Тренировать эти ошибки", f"e:p:{period}"))
-    return [row]
+    return [row] + ([[("⭐ В словарь", f"dX:i:{period}")]] if has_errors or has_words else [])
 
 
 def _dt(ts: float) -> str:
@@ -1086,7 +1119,8 @@ def ex_results(ex: dict, results: list[dict], head: str | None = None, foot: str
 
 
 def ex_result_buttons(ex_id: int, left: int) -> list[list[tuple[str, str]]]:
-    rows = [[("📖 Правила по ошибкам", f"x:rr:{ex_id}"), ("🙅 Оспорить", f"x:dp:{ex_id}")]]
+    rows = [[("📖 Правила по ошибкам", f"x:rr:{ex_id}"), ("🙅 Оспорить", f"x:dp:{ex_id}")],
+            [("⭐ В словарь", f"dX:e:{ex_id}")]]
     if left > 0:
         rows.append([(f"➡️ Следующее (осталось {left})", "x:next"), ("⏹ Закончить", "x:stop")])
         rows.append([("🔁 Повторить серию", f"x:rp:{ex_id}")])
@@ -1311,6 +1345,8 @@ def bex_result_buttons(unit: dict, x: dict, done: dict, wins: int = 0,
         rows.append([(f"➡️ {bex_name(nxt)}"[:60], f"bx:o:{u}|{nxt['id']}")])
     rows += again_rows(unit, x, done, wins)
     rows.append([("📖 Правило", f"bx:R:{u}|{x['id']}"), ("📋 Все упражнения", f"bx:l:{u}")])
+    if x.get("type") not in ("tf", "free"):
+        rows.append([("⭐ В словарь", f"dX:b:{u}|{x['id']}")])
     return rows + page_row(unit, x)
 
 

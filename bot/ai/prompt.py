@@ -381,6 +381,53 @@ n — номер пункта, ответь на КАЖДЫЙ пункт.
 {lines}"""
 
 
+CASES_PL = "M. (mianownik), D. (dopełniacz), C. (celownik), B. (biernik), N. (narzędnik), Ms. (miejscownik), W. (wołacz)"
+CASES_RU = "им., род., дат., вин., твор., предл., зв."
+
+NORM_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {"items": {"type": "ARRAY", "items": {
+        "type": "OBJECT",
+        "properties": {"n": {"type": "INTEGER"}, "pl": {"type": "STRING"}, "translit": {"type": "STRING"},
+                       "ru": {"type": "STRING"}, "form_pl": {"type": "STRING"}, "form_ru": {"type": "STRING"},
+                       "topic": {"type": "STRING"}},
+        "required": ["n", "pl", "translit", "ru", "form_pl", "form_ru", "topic"]}}},
+    "required": ["items"],
+}
+NORM_HINT = ('Отвечай ТОЛЬКО одним JSON-объектом без markdown: {"items": [{"n": 1, "pl": "...", "translit": "...", '
+             '"ru": "...", "form_pl": "", "form_ru": "", "topic": "..."}]}')
+
+
+def norm_prompt(items: list[dict], topics: list[str], need_topic: bool) -> str:
+    """Словарные записи для «⭐ В словарь» из упражнений, ошибок, скороговорок. items: {pl, ru, translit, ctx, norm}.
+    Слово остаётся В ТОЙ ФОРМЕ, как в ответе; падеж — пометкой. Пункты без norm — только тема."""
+    lines = []
+    for n, it in enumerate(items, 1):
+        line = f"{n}. «{it['pl']}»"
+        if it.get("ctx"):
+            line += f" | в предложении: {it['ctx']}"
+        if it.get("ru"):
+            line += f" | перевод: {it['ru']}"
+        if it.get("ctx_ru"):
+            line += f" | перевод предложения: {it['ctx_ru']}"
+        if not it.get("norm"):
+            line += " | (только тема — остальные поля повтори как есть)"
+        lines.append(line)
+    topic = topic_rule(topics) if need_topic else "topic — пустая строка (тему выбрал ученик)."
+    return f"""Ученик сохраняет польские слова в словарь. Для каждого пункта сделай словарную запись.
+- pl — слово или выражение РОВНО в той форме, как в кавычках (не приводи к начальной форме, не меняй, не добавляй слов).
+- translit — транскрипция pl русскими буквами, ударный слог ЗАГЛАВНЫМИ.
+- ru — короткий перевод именно этого слова / выражения (не всего предложения), в той же форме по-русски, если можно.
+- form_pl / form_ru — если pl (существительное, прилагательное, местоимение, числительное или сочетание с ними) стоит НЕ в
+  именительном падеже единственного числа — его падеж сокращённо: form_pl из {CASES_PL}, form_ru из {CASES_RU};
+  множественное число — добавь « lm.» / « мн.» (например «D. lm.» / «род. мн.»). Именительный мн. ч. — «M. lm.» / «им. мн.».
+  Глаголы, наречия, словарная форма — пустые строки.
+- {topic}
+n — номер пункта, ответь на КАЖДЫЙ пункт.
+
+{chr(10).join(lines)}"""
+
+
 # ---------- раскладка старых ошибок по каталогу ----------
 
 CLASSIFY_SCHEMA = {

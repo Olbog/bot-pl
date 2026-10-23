@@ -316,9 +316,12 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
                             "Отмеченное в меню «⭐ В словарь» ляжет туда.", prev=None)
         elif data == "dl" or data == "dS" or data.startswith(("dt:", "dw:", "dm:", "dz:", "dr:", "dR:", "dy:")):
             await self.dict_callback(chat_id, user_id, message_id, data)
+        elif data.startswith("dX:"):            # ⭐ В словарь из раздела: упражнение, итог, скороговорка
+            await self.offer_source(chat_id, user_id, data[3:])
         elif data == "dn:own" or data.startswith("dn:own:"):
             mid = data[7:]
-            await self.show(chat_id, user_id, {"step": "dict_own", **({"msg": int(mid)} if mid.isdigit() else {})},
+            mid = mid if mid.lstrip("-").isdigit() else ""
+            await self.show(chat_id, user_id, {"step": "dict_own", **({"msg": int(mid)} if mid else {})},
                             "Пришли слова и выражения через запятую — по-польски или по-русски.",
                             prev=None if mid else DICT_MENU)
         elif data.startswith("nd:"):

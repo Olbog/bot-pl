@@ -84,7 +84,7 @@ def item_message(it: dict, status: int, nxt: dict | None) -> tuple[str, list]:
 
 def result_rows(it: dict, status: int, attempt: str, has_errors: bool) -> list:
     """Кнопки под результатом проверки; attempt — «<id>:<мс>»."""
-    rows = [[("🙅 Не ошибка", f"tw:d:{attempt}")]] if has_errors else []
+    rows = [[("🙅 Не ошибка", f"tw:d:{attempt}"), ("⭐ В словарь", f"dX:t:{attempt}")]] if has_errors else []
     rows.append([("🐢 Образец медленно", f"tw:a:{it['id']}:s"), ("🔊 Образец", f"tw:a:{it['id']}:n")])
     rows.append([(NEXT_LABEL[status], f"tw:S:{attempt}"), ("📋 Список", "tw:l")])
     return rows

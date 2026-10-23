@@ -433,6 +433,16 @@ class FakeGemini:
                                  "topic": "Связки"},
                                 {"pl": "tak jak mówię", "translit": "так як МУ-ве", "ru": "как я говорю",
                                  "topic": "связки "}]}
+        if "form_ru" in item_props:                              # ⭐ словарные записи: форма, перевод, тема
+            import re as _re
+            out = []
+            for n, pl in _re.findall(r"^(\d+)\. «([^»]*)»", prompt, _re.M):
+                case = pl.endswith("ę")
+                topic = getattr(self, "topic", "Покупки")
+                out.append({"n": int(n), "pl": pl, "translit": f"тр-{pl}", "ru": f"пер-{pl}",
+                            "form_pl": "B." if case else "", "form_ru": "вин." if case else "",
+                            "topic": topic(int(n)) if callable(topic) else topic})
+            return {"items": out}
         if "topic" in item_props:                                # ⭐ раскладка по темам
             import re as _re
             nums = [int(x) for x in _re.findall(r"^(\d+)\. ", prompt, _re.M)]
@@ -842,8 +852,9 @@ def test_star_offer_own_topic_choice():
     run(app.on_callback(cb(f"ds:{mid}:e0", mid=61)))
     run(app.on_callback(cb(f"ds:{mid}:b0", mid=61)))
     n = len(app.gemini.prompts)
-    run(app.on_callback(cb(f"dk:{mid}", mid=61)))              # своя тема — модель для темы не нужна
-    assert len(app.gemini.prompts) == n
+    run(app.on_callback(cb(f"dk:{mid}", mid=61)))              # своя тема: модель — только падеж ошибки
+    assert len(app.gemini.prompts) == n + 1 and "тему выбрал ученик" in app.gemini.prompts[-1]
+    assert "najbardziej" not in app.gemini.prompts[-1]
     assert {i["pl"]: i["topic"] for i in app.db.dict_items(42)} == {
         "kawa": "Еда", "w sklepie": "Мой набор", "najbardziej lubię": "Мой набор"}
     assert "⭐ Мой набор 1" in app.tg.edits[-1][0]
@@ -877,7 +888,8 @@ def test_dict_add_command_dedup():
     run(app.handle(msg(text="/dict add najbardziej lubię")))
     assert "Добавлено" in app.tg.sent[-1]
     run(app.handle(msg(text="/dict add najbardziej lubię")))
-    assert "уже в словаре" in app.tg.sent[-1]
+    assert "Уже в словаре — не добавлял" in app.tg.sent[-1] and "тема «Связки»" in app.tg.sent[-1]
+    assert "dw:" in str(app.tg.buttons[-1])                    # 🛡 дубль: открыть слово, сменить тему
 
 
 def test_dict_sets_by_topic_ten_each_and_training():
@@ -966,7 +978,7 @@ def test_itog_periods_and_files():
     run(app.on_callback(cb("i:d")))
     assert "Ошибки — 1" in app.tg.sent[-1] and "×1" in app.tg.sent[-1]
     btns = [d for row in app.tg.buttons[-1] for _, d in row]
-    assert btns == ["i:fd", "e:p:d"]
+    assert btns == ["i:fd", "e:p:d", "dX:i:d"]
     run(app.on_callback(cb("i:fd")))
     assert "за сутки" in app.tg.docs[-1][2] and "w sklepie" in app.tg.docs[-1][1]
     app.db.dict_add(42, "po południu", "", "после обеда")
@@ -2927,3 +2939,74 @@ def test_results_show_ru_and_short_task_for_mistakes():
     assert "вкусный" not in res                                         # верный пункт — без подсказки
     assert "🇷🇺 длинное" in res and "czterdzieści znaków" not in res     # длинное задание не повторяем
     assert res.count("Ему 30 лет") == 1                                 # есть полное предложение — без дубля
+
+
+def test_star_from_book_exercise_preselects_errors_and_guards_dups():
+    """⭐ из упражнения книги: ошибки и пропуски отмечены сразу; дубль в той же форме не добавляется, видна тема."""
+    app = bex_app()
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    app.db.bex_save(42, "kpk:2", "tb-2-1", 1, True, "mam", "")
+    app.db.bex_save(42, "kpk:2", "tb-2-1", 2, False, "mam", "")
+    app.db.bex_save(42, "kpk:2", "tb-2-1", 3, False, "", "")
+    app.db.dict_add(42, "ma", "ма", "имеет", "Глаголы")
+    run(app.on_callback(cb("dX:b:kpk:2|tb-2-1")))
+    menu, rows = app.tg.sent[-1], app.tg.buttons[-1]
+    assert "❌ <b>Ошибки и пропуски</b>" in menu and "☑️ <b>masz</b>" in menu and "✅ <b>Остальное</b>" in menu
+    assert "⭐ <b>ma</b>" in menu and "уже в «Глаголы»" in menu and "✅ Готово (1)" in str(rows)
+    key = int(rows[0][0][1].split(":")[1])
+    assert key < 0                                              # меню раздела — свой ключ, не id сообщения
+    run(app.on_callback(cb(f"ds:{key}:e1")))                   # ⭐ дубль: где лежит и куда перенести
+    assert "Тема: Глаголы" in app.tg.sent[-1] and "dz:" in str(app.tg.buttons[-1])   # одна тема — только «новая»
+    n = len(app.gemini.prompts)
+    run(app.on_callback(cb(f"dk:{key}", mid=80)))
+    assert len(app.gemini.prompts) == n + 1 and "«masz» | в предложении: Ty masz (mieć) siostrę." in app.gemini.prompts[-1]
+    assert "перевод предложения: У тебя есть сестра." in app.gemini.prompts[-1]
+    it = app.db.dict_find(42, "masz")
+    assert it["ru"] == "пер-masz" and it["translit"] == "тр-masz" and it["src"] == "b"
+    assert "Добавлено в словарь: 1" in app.tg.edits[-1][0]
+    run(app.on_callback(cb("dX:b:kpk:2|wb-2-1")))               # правда/неправда — не слова
+    assert "нечего добавить" in app.tg.sent[-1]
+
+
+def test_star_from_generated_exercise_keeps_case_form():
+    """⭐ из упражнения бота: слово — в той форме, как в ответе, с пометкой падежа; дубль — с кнопкой переноса."""
+    app = make_app()
+    items = [{"q": "Piję ___.", "answer": "kawę", "full_pl": "Piję kawę.", "ru": "Я пью кофе.", "_key": "k1"},
+             {"q": "Mam ___.", "answer": "kota", "full_pl": "Mam kota.", "ru": "У меня есть кот.", "_key": "k2"}]
+    ex_id = app.db.ex_create(42, "words", "gap", "Слова", items)
+    app.db.ex_save_results(ex_id, [{"n": 1, "final": "wrong", "user": "kawa"}, {"n": 2, "final": "ok", "user": "kota"}])
+    assert ("⭐ В словарь", f"dX:e:{ex_id}") in [b for r in fmt_buttons_ex(ex_id) for b in r]
+    run(app.on_callback(cb(f"dX:e:{ex_id}")))
+    key = int(app.tg.buttons[-1][0][0][1].split(":")[1])
+    run(app.on_callback(cb(f"dp:{key}", mid=81)))              # своя тема
+    run(app.on_callback(cb(f"dQ:{key}", mid=81)))
+    run(app.handle(msg(text="Мой набор")))
+    run(app.on_callback(cb(f"dk:{key}", mid=82)))
+    it = app.db.dict_find(42, "kawę")
+    assert it["form_pl"] == "B." and it["form_ru"] == "вин." and it["topic"] == "Мой набор"
+    assert "<b>kawę</b> (B.) [тр-kawę] — пер-kawę (вин.)" in app.tg.edits[-1][0]
+    assert app.db.word(it["word_id"])["ru"] == "пер-kawę (вин.)"   # в наборе — с пометкой падежа
+    app.db.dict_add(42, "kota", "КО-та", "кота", "Животные")
+    run(app.on_callback(cb(f"ds:{key}:b0")))                    # дубль «kota» — сразу перенести в мою тему
+    assert any(d.startswith("dm:") and "В мою тему «Мой набор»" in t for r in app.tg.buttons[-1] for t, d in r)
+    run(app.on_callback(cb("i:dict")))
+    assert "kawę (B.) [тр-kawę] — пер-kawę (вин.)" in app.tg.docs[-1][1]
+
+
+def fmt_buttons_ex(ex_id):
+    from bot.ui import fmt
+    return fmt.ex_result_buttons(ex_id, 0)
+
+
+def test_star_from_itog_and_tongue_twister():
+    app = make_app()
+    run(app.handle(msg(text="x")))
+    run(app.on_callback(cb("i:d")))
+    assert ("⭐ В словарь", "dX:i:d") in app.tg.buttons[-1][-1]
+    run(app.on_callback(cb("dX:i:d")))
+    assert "📋 Итог за сутки" in app.tg.sent[-1] and "☑️ <b>w sklepie</b>" in app.tg.sent[-1]
+    app.db.add_corrections(app.db.current_session(42), 42, [
+        {"kind": "pronunciation", "original": "sosą", "correct": "szosą", "translit": "ШО-сон", "ru": "по шоссе",
+         "tw": "t01", "tw_attempt": "t01:5"}])
+    run(app.on_callback(cb("dX:t:t01:5")))
+    assert "🗣 Скороговорка" in app.tg.sent[-1] and "☑️ <b>szosą</b> [ШО-сон] — по шоссе" in app.tg.sent[-1]

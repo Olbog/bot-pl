@@ -230,11 +230,15 @@ class DB:
             "book_ex": [("manual", "INTEGER NOT NULL DEFAULT 0")],
             "book_ex_done": [("manual", "TEXT NOT NULL DEFAULT '[]'")],
             # ⭐ словарь по темам: тема слова и его строка в наборе темы; набор темы — sets.topic_id
-            "dict_items": [("topic_id", "INTEGER"), ("word_id", "INTEGER"), ("src", "TEXT NOT NULL DEFAULT ''")],
+            "dict_items": [("topic_id", "INTEGER"), ("word_id", "INTEGER"), ("src", "TEXT NOT NULL DEFAULT ''"),
+                           # падежная форма слова, как оно сохранено: «B.» / «вин.» (пусто — словарная форма)
+                           ("form_pl", "TEXT NOT NULL DEFAULT ''"), ("form_ru", "TEXT NOT NULL DEFAULT ''")],
             "sets": [("topic_id", "INTEGER")],
             # меню «⭐ В словарь»: мои ошибки, подобрано из ответа бота, отмеченное, своя тема («» — 🤖 сам)
             "dict_offers": [("errs", "TEXT NOT NULL DEFAULT '[]'"), ("sel", "TEXT NOT NULL DEFAULT '[]'"),
-                            ("bot_ready", "INTEGER NOT NULL DEFAULT 0"), ("topic", "TEXT NOT NULL DEFAULT ''")],
+                            ("bot_ready", "INTEGER NOT NULL DEFAULT 0"), ("topic", "TEXT NOT NULL DEFAULT ''"),
+                            # меню не к ответу бота, а к разделу (msg_id < 0): откуда («b:kpk:5|wb-5-5», «e:12»…)
+                            ("src", "TEXT NOT NULL DEFAULT ''"), ("title", "TEXT NOT NULL DEFAULT ''")],
         }
         two_level = "test_streak" not in self._columns("book_stats")
         for table, cols in adds.items():
@@ -602,6 +606,12 @@ class DB:
                           (key, json.dumps(data, ensure_ascii=False), self.clock()))
         self.conn.commit()
 
+    def dict_find(self, user_id: int, pl: str):
+        """Слово словаря в той же форме (без учёта регистра) — с темой; None — нет."""
+        row = self.conn.execute("SELECT id FROM dict_items WHERE user_id=? AND lower(pl)=lower(?)",
+                                (user_id, pl.strip())).fetchone()
+        return self.dict_item(row["id"]) if row else None
+
     def dict_has(self, user_id: int, pl: str) -> bool:
         return self.conn.execute("SELECT 1 FROM dict_items WHERE user_id=? AND lower(pl)=lower(?)",
                                  (user_id, pl.strip())).fetchone() is not None
@@ -736,19 +746,21 @@ class DB:
         set_id = self._topic_set(user_id, topic_id)
         word_id = self.conn.execute(
             "INSERT INTO set_words(set_id, user_id, pl, translit, ru, pos, kind, created_at) VALUES (?,?,?,?,?,?,?,?)",
-            (set_id, user_id, it["pl"], it["translit"], it["ru"], "выраж", "phrase", self.clock())).lastrowid
+            (set_id, user_id, it["pl"], it["translit"], it["ru"] + (f" ({it['form_ru']})" if it["form_ru"] else ""),
+             "выраж", "phrase", self.clock())).lastrowid
         self.conn.execute("UPDATE dict_items SET topic_id=?, word_id=?, used_in_set=1 WHERE id=?",
                           (topic_id, word_id, item_id))
 
     def dict_add(self, user_id: int, pl: str, translit: str, ru: str, topic: str = DICT_OTHER,
-                 src: str = "") -> bool:
-        """Слово в словарь и сразу в набор своей темы. False — такое выражение уже есть."""
+                 src: str = "", form_pl: str = "", form_ru: str = "") -> bool:
+        """Слово в словарь и сразу в набор своей темы. False — такое выражение (в той же форме) уже есть.
+        form_pl / form_ru — падеж, если слово сохранено не в словарной форме: «B.» / «вин.»."""
         pl = pl.strip()
         if not pl or self.dict_has(user_id, pl):
             return False
         item_id = self.conn.execute(
-            "INSERT INTO dict_items(user_id, pl, translit, ru, src, created_at) VALUES (?,?,?,?,?,?)",
-            (user_id, pl, translit, ru, src, self.clock())).lastrowid
+            "INSERT INTO dict_items(user_id, pl, translit, ru, src, form_pl, form_ru, created_at) VALUES (?,?,?,?,?,?,?,?)",
+            (user_id, pl, translit, ru, src, form_pl.strip(), form_ru.strip(), self.clock())).lastrowid
         self._dict_place(user_id, item_id, topic)
         self.conn.commit()
         return True
@@ -825,23 +837,39 @@ class DB:
                                  (user_id, since)).fetchall()
 
     def offer_get(self, msg_id: int):
-        """Меню «⭐ В словарь» к ответу бота: errs — мои ошибки, phrases — подобрано из ответа (bot_ready),
-        sel — отмеченные ключи («e0», «b3»), saved — уже сохранённые ключи, topic — своя тема («» — 🤖 сам)."""
+        """Меню «⭐ В словарь»: к ответу бота (msg_id — его id) или к разделу (msg_id < 0, src — откуда).
+        errs — ошибки, phrases — подобрано из ответа бота / остальное из раздела (bot_ready), sel — отмеченные
+        ключи («e0», «b3»), saved — уже сохранённые ключи, topic — своя тема («» — 🤖 сам)."""
         row = self.conn.execute("SELECT * FROM dict_offers WHERE msg_id=?", (msg_id,)).fetchone()
-        if not row:
-            return None
+        return self._offer(row) if row else None
+
+    @staticmethod
+    def _offer(row) -> dict:
         saved = [f"b{x}" if isinstance(x, int) else x for x in json.loads(row["saved"])]   # старые записи — индексы
         return {"user_id": row["user_id"], "phrases": json.loads(row["phrases"]), "saved": saved,
                 "errs": json.loads(row["errs"]), "sel": json.loads(row["sel"]),
-                "bot_ready": bool(row["bot_ready"]) or bool(json.loads(row["phrases"])), "topic": row["topic"] or ""}
+                "bot_ready": bool(row["bot_ready"]) or bool(json.loads(row["phrases"])), "topic": row["topic"] or "",
+                "src": row["src"] or "", "title": row["title"] or "", "key": row["msg_id"]}
+
+    def offer_by_src(self, user_id: int, src: str):
+        row = self.conn.execute("SELECT * FROM dict_offers WHERE user_id=? AND src=? ORDER BY msg_id LIMIT 1",
+                                (user_id, src)).fetchone()
+        return self._offer(row) if row else None
+
+    def offer_new_key(self) -> int:
+        """Ключ меню раздела: отрицательный, чтобы не пересекаться с id сообщений бота."""
+        low = self.conn.execute("SELECT MIN(msg_id) FROM dict_offers").fetchone()[0]
+        return min(low or 0, 0) - 1
 
     def offer_save(self, msg_id: int, user_id: int, phrases: list[dict], saved: list, errs: list[dict] | None = None,
-                   sel: list[str] | None = None, bot_ready: bool = False, topic: str = "") -> None:
+                   sel: list[str] | None = None, bot_ready: bool = False, topic: str = "", src: str = "",
+                   title: str = "") -> None:
         self.conn.execute(
-            "INSERT OR REPLACE INTO dict_offers(msg_id, user_id, phrases, saved, errs, sel, bot_ready, topic) "
-            "VALUES (?,?,?,?,?,?,?,?)",
+            "INSERT OR REPLACE INTO dict_offers(msg_id, user_id, phrases, saved, errs, sel, bot_ready, topic, src, title) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?)",
             (msg_id, user_id, json.dumps(phrases, ensure_ascii=False), json.dumps(saved),
-             json.dumps(errs or [], ensure_ascii=False), json.dumps(sel or []), int(bot_ready), topic or ""))
+             json.dumps(errs or [], ensure_ascii=False), json.dumps(sel or []), int(bot_ready), topic or "",
+             src or "", title or ""))
         self.conn.commit()
 
     def corrections_by(self, user_id: int, key: str, value) -> list[dict]:

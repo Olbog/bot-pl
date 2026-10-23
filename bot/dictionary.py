@@ -1,18 +1,21 @@
 """Словарь ⭐ и «🙅 Не ошибка»: выражения из ответов, оспоренные исправления, исключения."""
 from html import escape
 
-from .ai.prompt import (PHRASES_HINT, PHRASES_SCHEMA, TOPICS_HINT, TOPICS_SCHEMA, own_phrases_prompt,
-                        phrases_prompt, topics_prompt)
+from .ai.prompt import (NORM_HINT, NORM_SCHEMA, PHRASES_HINT, PHRASES_SCHEMA, TOPICS_HINT, TOPICS_SCHEMA,
+                        norm_prompt, own_phrases_prompt, phrases_prompt, topics_prompt)
+from .core import textbook
 from .core.db import DICT_OTHER
 from .ui import fmt
 from .exercises import logic as exercises
 from .settings import DICT_THINKING, IGNORE_PROMPT
 
 RELAYOUT_CHUNK = 40   # 🤖 «Разложить Разное»: слов в одном запросе к модели
+OFFER_MAX = 30        # ⭐ из раздела: не больше стольких пунктов в меню (лимит кнопок Telegram)
+SKIP_TYPES = ("tf", "free")   # упражнения, где ответ — не слово (правда/неправда, свободный ответ)
 
 
 def offer_items(offer: dict) -> list[tuple[str, dict]]:
-    """Пункты меню «⭐ В словарь» по порядку: («e0», ошибка) …, («b0», из ответа бота) …"""
+    """Пункты меню «⭐ В словарь» по порядку: («e0», ошибка) …, («b0», из ответа бота / остальное) …"""
     return ([(f"e{i}", it) for i, it in enumerate(offer.get("errs") or [])]
             + [(f"b{i}", it) for i, it in enumerate(offer.get("phrases") or [])])
 
@@ -22,41 +25,84 @@ def _phrase(p: dict) -> dict:
             "ru": str(p.get("ru") or "").strip(), "topic": str(p.get("topic") or "").strip()}
 
 
+def _uniq(items: list[dict], seen: set | None = None) -> list[dict]:
+    seen = set() if seen is None else seen
+    out = []
+    for it in items:
+        k = it["pl"].lower()
+        if it["pl"] and k not in seen:
+            seen.add(k)
+            out.append(it)
+    return out
+
+
+def _short(text: str, words: int = 5) -> bool:
+    return 0 < len(str(text).split()) <= words
+
+
+def _fill(q: str, answer: str) -> str:
+    return q.replace("___", answer, 1) if "___" in q else ""
+
+
+def ex_entry(it: dict) -> dict | None:
+    """Пункт упражнения → кандидат в словарь {pl, translit, ru, ctx, norm}. Слово-пункт (маска, карточка) — как есть;
+    пропуск в предложении — ответ в той же форме, падеж и перевод слова уточнит модель (norm)."""
+    if it.get("card"):   # 📘 карточки и тест по словам юнита: слово юнита
+        return {"pl": it.get("lemma") or it.get("full_pl") or "", "translit": it.get("translit", ""),
+                "ru": it.get("ru", ""), "norm": False}
+    answer = str(it.get("answer") or "").strip()
+    if not _short(answer):
+        return None
+    q, ru = str(it.get("q") or ""), str(it.get("ru") or "")
+    sentence = it.get("full_pl") or _fill(q, answer)
+    if not sentence and it.get("translit") and _short(ru, 4):   # маска / слово с переводом: как есть
+        return {"pl": answer, "translit": it["translit"], "ru": ru, "norm": False}
+    return {"pl": answer, "translit": "", "ru": "", "ctx": sentence or q, "ctx_ru": ru, "norm": True}
+
+
 class DictionaryMixin:
-    # ---------- ⭐ В словарь: меню под ответом бота ----------
-    # Сразу (без модели): 🧩 мои ошибки из этого сообщения. По кнопке: 💬 подобрать из ответа бота (модель, «low»),
-    # ✍️ свои слова (текстом). 📂 Куда: 🤖 авто — тему каждому слову даёт модель; или своя тема — всё отмеченное туда.
-    # «✅ Готово»: слово ложится в набор своей темы «⭐ <тема> N» (db.dict_add).
+    # ---------- ⭐ В словарь: меню под ответом бота или под результатом раздела ----------
+    # Под ответом бота: 🧩 мои ошибки из этого сообщения, 💬 подобрать из ответа (модель, «low»), ✍️ свои слова.
+    # Под упражнением / итогом / скороговоркой (dX:<откуда>): ❌ ошибки и пропуски — отмечены сразу, ✅ остальное.
+    # 📂 Куда: 🤖 авто — тему каждому слову даёт модель; или своя тема — всё отмеченное туда.
+    # «✅ Готово»: слово (в той форме, как было, с пометкой падежа) ложится в набор своей темы «⭐ <тема> N».
+    # 🛡 Дубли: слово в той же форме уже в словаре — не добавляется, показано, в какой оно теме, можно перенести.
 
     def offer_errs(self, msg_id: int) -> list[dict]:
-        """Мои ошибки в этом сообщении — правильные фрагменты без повторов: [{pl, translit, ru}]."""
-        seen, out = set(), []
-        for c in self.db.corrections_for_msg(msg_id):
-            pl = str(c.get("correct") or "").strip()
-            if pl and pl.lower() not in seen:
-                seen.add(pl.lower())
-                out.append({"pl": pl, "translit": str(c.get("translit") or "").strip(),
-                            "ru": str(c.get("ru") or "").strip()})
-        return out[:8]
+        """Мои ошибки в этом сообщении — правильные фрагменты без повторов: [{pl, translit, ru, norm}]."""
+        return _uniq([{"pl": str(c.get("correct") or "").strip(), "translit": str(c.get("translit") or "").strip(),
+                       "ru": str(c.get("ru") or "").strip(), "norm": True}
+                      for c in self.db.corrections_for_msg(msg_id)])[:8]
 
     def offer_load(self, user_id: int, msg_id: int) -> dict | None:
         offer = self.db.offer_get(msg_id)
         if offer:
             return offer if offer["user_id"] == user_id else None
+        if msg_id < 0:
+            return None
         row = self.db.model_message(msg_id)
         if not row or row["user_id"] != user_id:
             return None
         offer = {"user_id": user_id, "phrases": [], "saved": [], "errs": self.offer_errs(msg_id), "sel": [],
-                 "bot_ready": False, "topic": ""}
+                 "bot_ready": False, "topic": "", "src": "", "title": "", "key": msg_id}
         self.offer_store(msg_id, offer)
         return offer
 
     def offer_store(self, msg_id: int, offer: dict) -> None:
         self.db.offer_save(msg_id, offer["user_id"], offer["phrases"], offer["saved"], offer["errs"], offer["sel"],
-                           offer["bot_ready"], offer.get("topic") or "")
+                           offer["bot_ready"], offer.get("topic") or "", offer.get("src") or "", offer.get("title") or "")
+
+    def offer_have(self, user_id: int, offer: dict) -> dict[str, str]:
+        """Пункты, которые уже есть в словаре в той же форме: {ключ: тема}."""
+        out = {}
+        for k, it in offer_items(offer):
+            found = self.db.dict_find(user_id, it["pl"])
+            if found:
+                out[k] = found["topic"] or DICT_OTHER
+        return out
 
     def offer_view(self, user_id: int, msg_id: int, offer: dict) -> tuple[str, list]:
-        have = {k for k, it in offer_items(offer) if self.db.dict_has(user_id, it["pl"])}
+        have = self.offer_have(user_id, offer)
         return fmt.offer_message(offer, have), fmt.offer_buttons(msg_id, offer, have)
 
     async def offer_phrases(self, chat_id: int, user_id: int, msg_id: int) -> None:
@@ -64,6 +110,68 @@ class DictionaryMixin:
         offer = self.offer_load(user_id, msg_id)
         if offer:
             await self.tg.send_message(chat_id, *self.offer_view(user_id, msg_id, offer))
+
+    # ---------- ⭐ из разделов: что предложить ----------
+
+    def offer_source_items(self, user_id: int, src: str) -> tuple[str, list[dict], list[dict]] | None:
+        """(заголовок, ошибки, остальное) для раздела. src: b:<юнит>|<упр> — упражнение из книги; e:<id> — упражнение
+        бота / слова юнита; i:<период> — итог; t:<попытка> — скороговорка."""
+        kind, _, arg = src.partition(":")
+        if kind == "b":
+            unit_id, _, ex_id = arg.partition("|")
+            unit = textbook.get_unit(unit_id)
+            x = next((e for e in (unit or {}).get("exercises") or [] if e["id"] == ex_id), None)
+            if not x or x.get("type") in SKIP_TYPES:
+                return None
+            done = self.db.bex_results(user_id, unit["unit"])
+            errs, rest = [], []
+            for n, it in enumerate(x["items"], 1):
+                row = done.get((x["id"], n))
+                entry = ex_entry(it) if row else None
+                if entry:
+                    (rest if row["ok"] else errs).append(entry)
+            return fmt.bex_name(x), errs, rest
+        if kind == "e" and arg.isdigit():
+            saved = self.db.ex_get(int(arg))
+            if not saved or saved["user_id"] != user_id or not saved.get("results"):
+                return None
+            errs, rest = [], []
+            for r in saved["results"]:
+                entry = ex_entry(saved["items"][r["n"] - 1])
+                if entry:
+                    (rest if r.get("final") == "ok" else errs).append(entry)
+            return f"🏋️ Упражнение #{saved['id']}", errs, rest
+        if kind == "i" and arg in fmt.PERIODS:
+            _, corrs, words, _ = self.period_data(user_id, arg)
+            errs = [{"pl": str(c.get("correct") or "").strip(), "translit": str(c.get("translit") or "").strip(),
+                     "ru": str(c.get("ru") or "").strip(), "norm": True} for c in corrs]
+            rest = [{"pl": str(w.get("pl") or "").strip(), "translit": str(w.get("translit") or "").strip(),
+                     "ru": str(w.get("ru") or "").strip(), "norm": False} for w in words]
+            return f"📋 Итог за {fmt.PERIODS[arg][0]}", errs, rest
+        if kind == "t":
+            corrs = self.db.corrections_by(user_id, "tw_attempt", arg)
+            errs = [{"pl": str(c.get("correct") or "").strip(), "translit": str(c.get("translit") or "").strip(),
+                     "ru": str(c.get("ru") or "").strip(), "norm": True} for c in corrs if not c["_disputed"]]
+            return "🗣 Скороговорка", errs, []
+        return None
+
+    async def offer_source(self, chat_id: int, user_id: int, src: str) -> None:
+        """dX:<откуда> — ⭐ В словарь из раздела. Ошибки отмечены сразу (кроме уже сохранённых), меню запоминается."""
+        offer = None   # каждый раз собираем заново: результаты раздела могли измениться
+        if not offer:
+            got = self.offer_source_items(user_id, src)
+            if not got:
+                await self.tg.send_message(chat_id, "Здесь нечего добавить в словарь. Своё — /dict add слово, слово")
+                return
+            title, errs, rest = got
+            seen: set = set()
+            errs = _uniq(errs, seen)[:OFFER_MAX]
+            rest = _uniq(rest, seen)[:max(0, OFFER_MAX - len(errs))]
+            offer = {"user_id": user_id, "phrases": rest, "saved": [], "errs": errs, "sel": [], "bot_ready": True,
+                     "topic": "", "src": src, "title": title, "key": self.db.offer_new_key()}
+            offer["sel"] = [k for k, it in offer_items(offer) if k.startswith("e") and not self.db.dict_has(user_id, it["pl"])]
+            self.offer_store(offer["key"], offer)
+        await self.tg.send_message(chat_id, *self.offer_view(user_id, offer["key"], offer))
 
     async def offer_bot(self, chat_id: int, user_id: int, message_id: int, msg_id: int) -> None:
         """💬 Подобрать из ответа бота: 7–8 выражений сразу с темой; результат запоминается."""
@@ -92,7 +200,12 @@ class DictionaryMixin:
             return
         key = f"b{key}" if key.isdigit() else key          # старые кнопки — номер выражения
         item = dict(offer_items(offer)).get(key)
-        if not item or self.db.dict_has(user_id, item["pl"]):
+        if not item:
+            return
+        found = self.db.dict_find(user_id, item["pl"])
+        if found:   # 🛡 уже в словаре: где лежит и куда перенести
+            await self.tg.send_message(chat_id, *fmt.dict_word_screen(found, self.db.dict_topics(user_id),
+                                                                      self.offer_fixed_topic(user_id, offer)))
             return
         offer["sel"] = sorted(set(offer["sel"]) ^ {key})
         self.offer_store(msg_id, offer)
@@ -127,34 +240,73 @@ class DictionaryMixin:
         self.offer_store(msg_id, offer)
         await self.tg.send_message(chat_id, *self.offer_view(user_id, msg_id, offer))
 
+    def offer_fixed_topic(self, user_id: int, offer: dict):
+        """Своя тема меню (строка dict_topics) — для кнопки «перенести туда» у дубля; None — 🤖 авто."""
+        name = offer.get("topic") or ""
+        return self.db.topic(self.db.topic_get(user_id, name)) if name else None
+
     async def offer_done(self, chat_id: int, user_id: int, message_id: int, msg_id: int) -> None:
-        """✅ Готово: отмеченное — в словарь, каждое в набор своей темы (или все — в выбранную тему)."""
+        """✅ Готово: отмеченное — в словарь, каждое в набор своей темы (или все — в выбранную тему).
+        Слова из предложений / ошибок — в той же форме, модель даёт перевод слова и пометку падежа (один запрос
+        «low», вместе с темами). Что уже было в словаре в той же форме — не добавляется, показано где лежит."""
         offer = self.offer_load(user_id, msg_id)
         if not offer:
             return
         items = dict(offer_items(offer))
-        picked = [(k, items[k]) for k in offer["sel"] if k in items and not self.db.dict_has(user_id, items[k]["pl"])]
+        picked = [(k, dict(items[k])) for k in offer["sel"] if k in items]
+        again = [("⭐ Ещё отсюда", f"d:{msg_id}"), ("📚 Словарь", "dl")]
         if not picked:
             await self.tg.edit_message(chat_id, message_id,
-                                       "⭐ Ничего не отмечено — словарь не изменился. Весь словарь — /dict",
-                                       [[("⭐ Ещё раз из этого ответа", f"d:{msg_id}")]])
+                                       "⭐ Ничего не отмечено — словарь не изменился. Весь словарь — /dict", [again])
             return
         fixed = offer.get("topic") or ""
-        if not fixed:
-            need = [it for _, it in picked if not it.get("topic")]
-            if need:
-                topics = await self.classify_topics(chat_id, user_id, need)
-                for it, t in zip(need, topics):
-                    it["topic"] = t
-        added = []
+        fresh = [(k, it) for k, it in picked if not self.db.dict_has(user_id, it["pl"])]
+        need = [it for _, it in fresh if it.get("norm") or (not fixed and not it.get("topic"))]
+        if need:
+            await self.norm_items(chat_id, user_id, need, need_topic=not fixed)
+        added, dups = [], []
         for k, it in picked:
+            src = ("err" if k.startswith("e") else "bot") if not offer.get("src") else offer["src"].split(":", 1)[0]
             if self.db.dict_add(user_id, it["pl"], it.get("translit", ""), it.get("ru", ""),
-                                fixed or it.get("topic") or DICT_OTHER, src="err" if k.startswith("e") else "bot"):
+                                fixed or it.get("topic") or DICT_OTHER, src=src, form_pl=it.get("form_pl", ""),
+                                form_ru=it.get("form_ru", "")):
                 added.append(it["pl"])
+            else:
+                dups.append(self.db.dict_find(user_id, it["pl"]))
         offer["sel"] = []
         self.offer_store(msg_id, offer)
-        await self.tg.edit_message(chat_id, message_id, fmt.dict_added(self.dict_rows_for(user_id, added)),
-                                   [[("⭐ Ещё из этого ответа", f"d:{msg_id}"), ("📚 Словарь", "dl")]])
+        text, rows = self.added_report(user_id, added, [d for d in dups if d], self.offer_fixed_topic(user_id, offer))
+        await self.tg.edit_message(chat_id, message_id, text, rows + [again])
+
+    def added_report(self, user_id: int, added: list[str], dups: list, fixed=None) -> tuple[str, list]:
+        """Текст «добавлено / уже было» и кнопки к дублям: 📂 перенести в свою тему (если выбрана) или открыть слово."""
+        parts = [fmt.dict_added(self.dict_rows_for(user_id, added))] if added else []
+        if dups:
+            parts.append(fmt.dict_dups(dups))
+        rows = []
+        for d in dups[:8]:
+            if fixed and d["topic_id"] != fixed["id"]:
+                rows.append([(f"📂 {d['pl']} → {fixed['name']}"[:60], f"dm:{d['id']}:{fixed['id']}")])
+            else:
+                rows.append([(f"📂 {d['pl']}: сменить тему"[:60], f"dw:{d['id']}")])
+        return "\n\n".join(parts) or "⭐ Ничего нового.", rows
+
+    async def norm_items(self, chat_id: int, user_id: int, items: list[dict], need_topic: bool) -> None:
+        """Словарные записи на месте: перевод слова, транскрипция, падеж (если norm), тема (если need_topic).
+        Слово остаётся как было. Модель не ответила — сохраняем как есть, тема «Разное»."""
+        data = await self.ask(chat_id, norm_prompt(items, self.db.topic_names(user_id), need_topic),
+                              NORM_SCHEMA, NORM_HINT, wait="⏳ Готовлю записи для словаря…", thinking=DICT_THINKING)
+        by_n = {x.get("n"): x for x in (data or {}).get("items") or [] if isinstance(x, dict)}
+        for n, it in enumerate(items, 1):
+            x = by_n.get(n) or {}
+            if it.get("norm"):   # падеж — всегда от модели; транскрипция и перевод — только если их не было
+                it["form_pl"] = str(x.get("form_pl") or "").strip()
+                it["form_ru"] = str(x.get("form_ru") or "").strip()
+                for f in ("translit", "ru"):
+                    if not it.get(f):
+                        it[f] = str(x.get(f) or "").strip() or (it.get("ctx_ru", "") if f == "ru" else "")
+            if need_topic and not it.get("topic"):
+                it["topic"] = str(x.get("topic") or "").strip() or DICT_OTHER
 
     async def classify_topics(self, chat_id: int, user_id: int, items: list[dict], wait: str = "⏳ Раскладываю по темам…",
                               topics: list[str] | None = None) -> list[str]:
@@ -182,19 +334,19 @@ class DictionaryMixin:
                               thinking=DICT_THINKING)
         if data is None:
             return
-        added = []
+        added, dups = [], []
         for p in data.get("phrases") or []:
             if not isinstance(p, dict):
                 continue
             p = _phrase(p)
-            if p["pl"] and self.db.dict_add(user_id, p["pl"], p["translit"], p["ru"],
-                                            fixed or p["topic"] or DICT_OTHER, src="own"):
+            if not p["pl"]:
+                continue
+            if self.db.dict_add(user_id, p["pl"], p["translit"], p["ru"], fixed or p["topic"] or DICT_OTHER, src="own"):
                 added.append(p["pl"])
-        if added:
-            await self.tg.send_message(chat_id, fmt.dict_added(self.dict_rows_for(user_id, added)),
-                                       [[("📚 Словарь", "dl")]])
-        else:
-            await self.tg.send_message(chat_id, "Ничего нового — эти выражения уже в словаре. Весь словарь — /dict")
+            elif self.db.dict_find(user_id, p["pl"]):
+                dups.append(self.db.dict_find(user_id, p["pl"]))
+        text, rows = self.added_report(user_id, added, dups, self.offer_fixed_topic(user_id, offer) if offer else None)
+        await self.tg.send_message(chat_id, text, rows + [[("📚 Словарь", "dl")]])
 
     # ---------- 📚 /dict: все слова по темам, смена темы ----------
 
