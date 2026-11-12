@@ -229,6 +229,8 @@ class DictionaryMixin:
         """Юнит для кнопки «📘 тема юнита»: откуда слова (упражнение юнита) или последний юнит, с которым работал."""
         for uid in ([offer["unit"]] if offer.get("unit") else []) + self.db.recent_units(user_id):
             u = textbook.get_unit(uid)
+            if u and u.get("rev"):   # 🔁 повторение → сам юнит (несколько юнитов — последний из них)
+                u = textbook.get_unit(u.get("base") or (u.get("units_list") or [""])[-1])
             if u and not u.get("phrases") and not u.get("reading"):
                 return u
         return None

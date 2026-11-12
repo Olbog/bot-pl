@@ -3156,5 +3156,228 @@
   "Какой? Вкус, форма, свойства",
   "Рынок и покупки",
   "Отделы супермаркета"
- ]
+ ],
+ "review": {
+  "hard": [
+   "tb-9-b5",
+   "tb-9-c2",
+   "tb-9-d2",
+   "wb-9-3",
+   "wb-9-8",
+   "wb-9-10"
+  ],
+  "rules": [
+   {
+    "title": "Мн. ч. существительных (не о людях): -y / -i / -e / -a",
+    "explanation": "Фрукты, овощи, продукты, вещи, животные во мн. ч. получают окончание по последней согласной основы. Так отвечаем на вопрос co? (что?): To są pomidory — это помидоры. Род смотри по ед. ч.",
+    "table": [
+     {
+      "when": "м. р. и ж. р., твёрдая основа",
+      "form": "-y",
+      "example": "pomidor → pomidory, ryba → ryby"
+     },
+     {
+      "when": "после k, g",
+      "form": "-i",
+      "example": "ogórek → ogórki, gruszka → gruszki"
+     },
+     {
+      "when": "мягкая основа и c, cz, sz, rz, ż, l, j",
+      "form": "-e",
+      "example": "cebula → cebule, owoc → owoce, pomarańcza → pomarańcze"
+     },
+     {
+      "when": "ж. р. на -ia",
+      "form": "-ie",
+      "example": "brzoskwinia → brzoskwinie"
+     },
+     {
+      "when": "ср. р. на -o / -e",
+      "form": "-a",
+      "example": "jabłko → jabłka, jajko → jajka, warzywo → warzywa"
+     }
+    ],
+    "exceptions": [
+     "Беглое e выпадает: ogórek → ogórki",
+     "После k / g всегда -i, а не -y: ziemniak → ziemniaki, truskawka → truskawki",
+     "Только о людях-мужчинах другое окончание (studenci, Polacy) — в этом юните их нет"
+    ],
+    "examples": [
+     {
+      "pl": "To są dojrzałe pomidory.",
+      "translit": "то сон дой-ЖА-ўэ по-ми-ДО-ры",
+      "ru": "Это спелые помидоры."
+     },
+     {
+      "pl": "Na stole są jabłka i gruszki.",
+      "translit": "на СТО-ле сон ЯП-ка и ГРУШ-ки",
+      "ru": "На столе яблоки и груши."
+     },
+     {
+      "pl": "Lubię owoce.",
+      "translit": "ЛЮ-бье о-ВО-цэ",
+      "ru": "Я люблю фрукты."
+     }
+    ]
+   },
+   {
+    "title": "Винительный мн. ч. = именительный мн. ч. (не о людях)",
+    "explanation": "После глаголов kupować, lubić, mieć, jeść, potrzebować (кого? что?) у неличных существительных и прилагательных во мн. ч. форма та же, что в именительном: ничего нового учить не нужно. В ед. ч. меняется только женский род: kawa → kawę, ryba → rybę.",
+    "table": [
+     {
+      "when": "мн. ч. — как именительный",
+      "form": "без изменений",
+      "example": "Kupuję pomidory, świeże ryby, zielone jabłka"
+     },
+     {
+      "when": "ж. р. ед. ч.",
+      "form": "-ę",
+      "example": "ryba → rybę, marchewka → marchewkę"
+     },
+     {
+      "when": "м. р. неодуш. и ср. р. ед. ч.",
+      "form": "без изменений",
+      "example": "Mam ser i mleko"
+     }
+    ],
+    "exceptions": [
+     "Мужской род одушевлённый в ед. ч. — как родительный: Mam brata, Mam psa",
+     "После отрицания вместо винительного — родительный (юнит 10): Nie lubię marchewki"
+    ],
+    "examples": [
+     {
+      "pl": "Kupuję świeże ryby.",
+      "translit": "ку-ПУ-е ЩЬВЕ-жэ РЫ-бы",
+      "ru": "Я покупаю свежую рыбу (рыб)."
+     },
+     {
+      "pl": "Lubisz marchewkę?",
+      "translit": "ЛЮ-бишь мар-ХЕФ-кэ",
+      "ru": "Ты любишь морковь?"
+     },
+     {
+      "pl": "Mamy pomidory i cebule.",
+      "translit": "МА-мы по-ми-ДО-ры и це-БУ-ле",
+      "ru": "У нас есть помидоры и лук."
+     }
+    ]
+   },
+   {
+    "title": "Прилагательные во мн. ч. (не о людях): -e / -ie",
+    "explanation": "Прилагательное согласуется с существительным: во мн. ч. неличных одна форма для всех родов — на -e, после k, g — на -ie. Так же ведут себя «как приготовлено»: gotowany, smażony, pieczony, wędzony.",
+    "table": [
+     {
+      "when": "твёрдая основа",
+      "form": "-e",
+      "example": "dojrzały / dojrzała / dojrzałe → dojrzałe pomidory"
+     },
+     {
+      "when": "после k, g",
+      "form": "-ie",
+      "example": "słodki → słodkie truskawki, długi → długie ogórki"
+     },
+     {
+      "when": "«как приготовлено»",
+      "form": "-e",
+      "example": "smażony → smażone ryby, gotowany → gotowane ziemniaki"
+     }
+    ],
+    "exceptions": [
+     "Ед. ч. — по роду: dojrzały pomidor, dojrzała gruszka, dojrzałe jabłko",
+     "После мягкой основы тоже -e: świeży → świeże"
+    ],
+    "examples": [
+     {
+      "pl": "Kupuję słodkie truskawki.",
+      "translit": "ку-ПУ-е СЎОТ-ке трус-КАФ-ки",
+      "ru": "Я покупаю сладкую клубнику."
+     },
+     {
+      "pl": "Lubię smażone ryby.",
+      "translit": "ЛЮ-бье сма-ЖО-нэ РЫ-бы",
+      "ru": "Я люблю жареную рыбу."
+     },
+     {
+      "pl": "Te jabłka są kwaśne.",
+      "translit": "тэ ЯП-ка сон КФАЩЬ-нэ",
+      "ru": "Эти яблоки кислые."
+     }
+    ]
+   },
+   {
+    "title": "2, 3, 4 + мн. ч.; dwa или dwie?",
+    "explanation": "После 2, 3, 4 существительное стоит во мн. ч. в именительном падеже (как в «To są…»). «Два» зависит от рода: dwa — с мужским и средним, dwie — с женским. Trzy и cztery не меняются.",
+    "table": [
+     {
+      "when": "м. р. и ср. р.",
+      "form": "dwa",
+      "example": "dwa pomidory, dwa jabłka"
+     },
+     {
+      "when": "ж. р.",
+      "form": "dwie",
+      "example": "dwie gruszki, dwie cebule"
+     },
+     {
+      "when": "3 и 4 — для всех",
+      "form": "trzy / cztery",
+      "example": "trzy ryby, cztery jajka"
+     }
+    ],
+    "exceptions": [
+     "С 5 и дальше — родительный мн. ч.: pięć pomidorów (это будет позже)",
+     "kilo / kilogram + родительный: kilo pomidorów, kilo jabłek — просто запомни как готовые фразы"
+    ],
+    "examples": [
+     {
+      "pl": "Poproszę dwie gruszki.",
+      "translit": "по-ПРО-шэ две ГРУШ-ки",
+      "ru": "Дайте, пожалуйста, две груши."
+     },
+     {
+      "pl": "Mam dwa ogórki i trzy pomidory.",
+      "translit": "мам два о-ГУР-ки и тшы по-ми-ДО-ры",
+      "ru": "У меня два огурца и три помидора."
+     }
+    ]
+   },
+   {
+    "title": "Sałatka z czym? — z + творительный",
+    "explanation": "Состав блюда — предлог z (с) + творительный падеж: с чем? Ед. ч.: м. р. и ср. р. -em, ж. р. -ą; мн. ч. — -ami.",
+    "table": [
+     {
+      "when": "м. р. и ср. р. ед. ч.",
+      "form": "-em",
+      "example": "ser → z serem, jajko → z jajkiem"
+     },
+     {
+      "when": "ж. р. ед. ч.",
+      "form": "-ą",
+      "example": "cebula → z cebulą, oliwa → z oliwą"
+     },
+     {
+      "when": "мн. ч.",
+      "form": "-ami",
+      "example": "pomidory → z pomidorami, ogórki → z ogórkami"
+     }
+    ],
+    "exceptions": [
+     "Перед группой согласных — ze: ze śmietaną, ze szpinakiem",
+     "После k, g в м. р. и ср. р. — -iem: jajko → z jajkiem"
+    ],
+    "examples": [
+     {
+      "pl": "Sałatka z pomidorami i serem.",
+      "translit": "са-ЎАТ-ка с по-ми-до-РА-ми и СЭ-рэм",
+      "ru": "Салат с помидорами и сыром."
+     },
+     {
+      "pl": "Ryba z cebulą.",
+      "translit": "РЫ-ба с це-БУ-лён",
+      "ru": "Рыба с луком."
+     }
+    ]
+   }
+  ]
+ }
 }

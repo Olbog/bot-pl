@@ -2827,5 +2827,278 @@
    ],
    "audio": "08_L01_cwiczenie16.mp3"
   }
- ]
+ ],
+ "review": {
+  "hard": [
+   "tb-1-a1",
+   "tb-1-c2",
+   "tb-1-f2",
+   "wb-1-9",
+   "wb-1-12",
+   "wb-1-16"
+  ],
+  "rules": [
+   {
+    "title": "Чтение букв и сочетаний",
+    "explanation": "В польском одна буква или сочетание всегда читается одинаково. Главное — запомнить сочетания и буквы с «хвостиками» и чёрточками.",
+    "table": [
+     {
+      "when": "sz / cz",
+      "form": "ш / ч (твёрдые)",
+      "example": "szkoła — ШКО-ўа, czarny — ЧАР-ны"
+     },
+     {
+      "when": "rz и ż",
+      "form": "ж (звучат одинаково)",
+      "example": "rzeka — ЖЭ-ка, żaba — ЖА-ба"
+     },
+     {
+      "when": "ś, ć, ź, ń (= si, ci, zi, ni перед гласной)",
+      "form": "щь, чь, жь, нь",
+      "example": "ciocia — ЧЁ-ча, siostra — ЩЁСТ-ра"
+     },
+     {
+      "when": "dz / dź (dzi) / dż",
+      "form": "дз / джь / дж",
+      "example": "dzwonek — ДЗВО-нэк, dzień — джень"
+     },
+     {
+      "when": "ł / w",
+      "form": "ў (как англ. w) / в",
+      "example": "łóżko — ЎУЖ-ко, woda — ВО-да"
+     },
+     {
+      "when": "ó = u, ch = h",
+      "form": "у / х",
+      "example": "góra — ГУ-ра, chleb — хлеп"
+     },
+     {
+      "when": "ą / ę",
+      "form": "носовые: он (ом) / эн (эм); ę в конце слова — почти э",
+      "example": "są — сон, dziękuję — джень-КУ-е"
+     },
+     {
+      "when": "y / i",
+      "form": "ы / и (смягчает согласную)",
+      "example": "ty — ты, kino — КИ-но"
+     }
+    ],
+    "exceptions": [
+     "Ударение почти всегда на предпоследний слог: Warszawa — вар-ША-ва, rozumiem — ро-ЗУ-мем",
+     "В конце слова звонкие оглушаются: chleb — хлеп, Łódź — ўучь"
+    ],
+    "examples": [
+     {
+      "pl": "Nie rozumiem.",
+      "translit": "не ро-ЗУ-мем",
+      "ru": "Я не понимаю."
+     },
+     {
+      "pl": "Dziękuję bardzo.",
+      "translit": "джень-КУ-е БАР-дзо",
+      "ru": "Большое спасибо."
+     },
+     {
+      "pl": "Cześć, jestem Mark.",
+      "translit": "чещьчь, ЕС-тэм марк",
+      "ru": "Привет, я Марк."
+     }
+    ]
+   },
+   {
+    "title": "Приветствие и знакомство: официально и неофициально",
+    "explanation": "С незнакомыми и старшими — официально (Dzień dobry, pan / pani), с друзьями — Cześć. Представиться можно тремя способами: Jestem… (я…), Mam na imię… (меня зовут — имя), Nazywam się… (фамилия или имя и фамилия).",
+    "table": [
+     {
+      "when": "официально: здравствуйте / до свидания",
+      "form": "Dzień dobry / Do widzenia",
+      "example": "Dzień dobry, pani!"
+     },
+     {
+      "when": "вечером",
+      "form": "Dobry wieczór / Dobranoc",
+      "example": "Dobranoc — спокойной ночи"
+     },
+     {
+      "when": "неофициально: привет / пока",
+      "form": "Cześć / Na razie, Pa",
+      "example": "Cześć! Na razie!"
+     },
+     {
+      "when": "кто я",
+      "form": "Jestem + имя",
+      "example": "Jestem Anna."
+     },
+     {
+      "when": "имя",
+      "form": "Mam na imię + имя",
+      "example": "Mam na imię Tom."
+     },
+     {
+      "when": "фамилия",
+      "form": "Nazywam się + фамилия",
+      "example": "Nazywam się Kowalski."
+     },
+     {
+      "when": "ответ при знакомстве",
+      "form": "Miło mi / Bardzo mi miło",
+      "example": "Miło mi! — Приятно!"
+     }
+    ],
+    "exceptions": [
+     "Cześć — и «привет», и «пока»",
+     "Dobranoc — только перед сном, а не «добрый вечер»"
+    ],
+    "examples": [
+     {
+      "pl": "Dzień dobry, nazywam się Anna Nowak.",
+      "translit": "джень ДОБ-ры, на-ЗЫ-вам ще АН-на НО-вак",
+      "ru": "Здравствуйте, меня зовут Анна Новак."
+     },
+     {
+      "pl": "Mam na imię Mark. Miło mi.",
+      "translit": "мам на И-мье марк. МИ-ўо ми",
+      "ru": "Меня зовут Марк. Приятно."
+     },
+     {
+      "pl": "Do widzenia!",
+      "translit": "до ви-ДЗЭ-ня",
+      "ru": "До свидания!"
+     }
+    ]
+   },
+   {
+    "title": "Фразы урока: Proszę + инфинитив",
+    "explanation": "Вежливая просьба = proszę (пожалуйста) + инфинитив на -ć. Так звучат все задания в учебнике.",
+    "table": [
+     {
+      "when": "повторите",
+      "form": "Proszę powtórzyć",
+      "example": "Proszę powtórzyć, nie rozumiem."
+     },
+     {
+      "when": "скажите по буквам",
+      "form": "Proszę przeliterować",
+      "example": "Proszę przeliterować nazwisko."
+     },
+     {
+      "when": "послушайте / прочитайте / напишите",
+      "form": "Proszę posłuchać / przeczytać / napisać",
+      "example": "Proszę napisać dialog."
+     },
+     {
+      "when": "дополните / соедините",
+      "form": "Proszę uzupełnić / połączyć",
+      "example": "Proszę uzupełnić tekst."
+     },
+     {
+      "when": "если не понимаешь",
+      "form": "Nie rozumiem. Co to znaczy?",
+      "example": "Co to znaczy „okno”?"
+     },
+     {
+      "when": "вопрос",
+      "form": "Mam pytanie.",
+      "example": "Przepraszam, mam pytanie."
+     }
+    ],
+    "exceptions": [
+     "Proszę ещё значит «пожалуйста» (в ответ на dziękuję) и «прошу» (протягивая вещь)"
+    ],
+    "examples": [
+     {
+      "pl": "Proszę powtórzyć.",
+      "translit": "ПРО-шэ поф-ТУ-жычь",
+      "ru": "Повторите, пожалуйста."
+     },
+     {
+      "pl": "Co to znaczy?",
+      "translit": "цо то ЗНА-чы",
+      "ru": "Что это значит?"
+     },
+     {
+      "pl": "Mam pytanie.",
+      "translit": "мам пы-ТА-не",
+      "ru": "У меня вопрос."
+     }
+    ]
+   },
+   {
+    "title": "Где? Tu, tam, na lewo, na prawo",
+    "explanation": "На вопрос gdzie? (где?) отвечают наречием места. Gdzie jest…? — где находится…?",
+    "table": [
+     {
+      "when": "здесь",
+      "form": "tu / tutaj",
+      "example": "Sekretariat jest tutaj."
+     },
+     {
+      "when": "там",
+      "form": "tam",
+      "example": "Toaleta jest tam."
+     },
+     {
+      "when": "слева / справа",
+      "form": "na lewo / na prawo",
+      "example": "Biblioteka jest na lewo."
+     },
+     {
+      "when": "прямо",
+      "form": "prosto",
+      "example": "Proszę iść prosto."
+     }
+    ],
+    "exceptions": [],
+    "examples": [
+     {
+      "pl": "Gdzie jest sekretariat?",
+      "translit": "гдже ест сэ-крэ-ТА-рьят",
+      "ru": "Где секретариат?"
+     },
+     {
+      "pl": "Tam, na prawo.",
+      "translit": "там, на ПРА-во",
+      "ru": "Там, справа."
+     }
+    ]
+   },
+   {
+    "title": "Числа 0–10",
+    "explanation": "Базовые числа нужны для телефона и адреса. Номер телефона обычно говорят по одной цифре или парами.",
+    "table": [
+     {
+      "when": "0–3",
+      "form": "zero, jeden, dwa, trzy",
+      "example": "zero — ЗЭ-ро, trzy — тшы"
+     },
+     {
+      "when": "4–6",
+      "form": "cztery, pięć, sześć",
+      "example": "cztery — ЧТЭ-ры, pięć — пеньчь, sześć — шэщьчь"
+     },
+     {
+      "when": "7–10",
+      "form": "siedem, osiem, dziewięć, dziesięć",
+      "example": "siedem — ЩЕ-дэм, dziewięć — ДЖЕ-веньчь"
+     }
+    ],
+    "exceptions": [
+     "trzy читается «тшы» (rz после t оглушается)",
+     "dwa — с мужским и средним родом, dwie — с женским (юнит 9)"
+    ],
+    "examples": [
+     {
+      "pl": "Mój numer telefonu to pięć, zero, siedem…",
+      "translit": "муй НУ-мэр тэ-ле-ФО-ну то пеньчь, ЗЭ-ро, ЩЕ-дэм",
+      "ru": "Мой номер телефона — пять, ноль, семь…"
+     },
+     {
+      "pl": "Sala numer osiem.",
+      "translit": "СА-ля НУ-мэр О-щем",
+      "ru": "Аудитория номер восемь."
+     }
+    ]
+   }
+  ]
+ }
 }

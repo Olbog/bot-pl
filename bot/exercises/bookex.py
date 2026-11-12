@@ -176,6 +176,9 @@ class BookExMixin:
             elif n.isdigit() and int(n) <= len(x["items"]):
                 await self.bex_rule(chat_id, unit, x, [int(n)] if int(n) else None, fresh=kind == "Y")
             return
+        if kind == "l" and unit.get("rev"):   # 🔁 повторение: список — очередь сложных упражнений
+            await self.review_hard(chat_id, user_id)
+            return
         if kind == "l":
             text, buttons = fmt.bex_list_screen(unit, self.db.bex_results(user_id, unit["unit"]),
                                                 self.db.bex_done(user_id, unit["unit"]))

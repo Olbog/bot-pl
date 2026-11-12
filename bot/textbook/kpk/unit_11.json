@@ -3524,5 +3524,255 @@
     }
    ]
   }
- ]
+ ],
+ "review": {
+  "hard": [
+   "tb-11-b3",
+   "tb-11-b4",
+   "tb-11-a6",
+   "wb-11-8",
+   "wb-11-14",
+   "wb-11-1"
+  ],
+  "rules": [
+   {
+    "title": "Притяжательные местоимения: mój, twój, nasz, wasz + jego, jej, ich",
+    "explanation": "Mój, twój, nasz, wasz согласуются с тем, ЧТО принадлежит (род и число): mój brat, moja siostra, moje dziecko. Jego (его), jej (её), ich (их) не меняются никогда.",
+    "table": [
+     {
+      "when": "м. р.",
+      "form": "mój / twój / nasz / wasz",
+      "example": "mój brat, nasz dom"
+     },
+     {
+      "when": "ж. р.",
+      "form": "moja / twoja / nasza / wasza",
+      "example": "moja mama, wasza córka"
+     },
+     {
+      "when": "ср. р. и мн. ч. неличных",
+      "form": "moje / twoje / nasze / wasze",
+      "example": "moje dziecko, nasze dzieci"
+     },
+     {
+      "when": "мн. ч. мужчин (лично-мужской)",
+      "form": "moi / twoi / nasi / wasi",
+      "example": "moi bracia, nasi rodzice"
+     },
+     {
+      "when": "не меняются",
+      "form": "jego / jej / ich",
+      "example": "jego siostra, jej brat, ich dzieci"
+     }
+    ],
+    "exceptions": [
+     "Jego / jej / ich зависят от владельца, а не от вещи: jej brat — брат её (у неё)",
+     "Swój (свой) — позже; пока: To jest mój pokój, a to twój"
+    ],
+    "examples": [
+     {
+      "pl": "To jest moja siostra, a to jej mąż.",
+      "translit": "то ест МО-я ЩЁСТ-ра, а то ей монж",
+      "ru": "Это моя сестра, а это её муж."
+     },
+     {
+      "pl": "Nasi rodzice mieszkają w Krakowie.",
+      "translit": "НА-щи ро-ДЖИ-цэ ме-ШКА-йон ф кра-КО-ве",
+      "ru": "Наши родители живут в Кракове."
+     }
+    ]
+   },
+   {
+    "title": "Czyj? Czyja? Czyje? — чей?",
+    "explanation": "Вопрос о принадлежности согласуется с существительным, как mój / moja / moje.",
+    "table": [
+     {
+      "when": "м. р.",
+      "form": "Czyj?",
+      "example": "Czyj to jest samochód? — Mój."
+     },
+     {
+      "when": "ж. р.",
+      "form": "Czyja?",
+      "example": "Czyja to jest torba? — Jej."
+     },
+     {
+      "when": "ср. р. и мн. ч.",
+      "form": "Czyje?",
+      "example": "Czyje to jest dziecko? Czyje to są klucze?"
+     },
+     {
+      "when": "мн. ч. мужчин",
+      "form": "Czyi?",
+      "example": "Czyi to są synowie?"
+     }
+    ],
+    "exceptions": [
+     "Ответ часто одним словом: Twój? — Nie, jego."
+    ],
+    "examples": [
+     {
+      "pl": "Czyja to jest książka? — Moja.",
+      "translit": "ЧЫ-я то ест КЩОН-шка? — МО-я",
+      "ru": "Чья это книга? — Моя."
+     },
+     {
+      "pl": "Czyje to są dzieci? — Nasze.",
+      "translit": "ЧЫ-е то сон ДЖЕ-чи? — НА-шэ",
+      "ru": "Чьи это дети? — Наши."
+     }
+    ]
+   },
+   {
+    "title": "Семейное положение: żonaty / mężatka и być + кем?",
+    "explanation": "О мужчине и о женщине — разные слова. Прилагательное после być — в именительном (Jestem żonaty), существительное — в творительном (Ona jest mężatką, On jest kawalerem).",
+    "table": [
+     {
+      "when": "мужчина в браке",
+      "form": "żonaty (прил.)",
+      "example": "Mój brat jest żonaty."
+     },
+     {
+      "when": "женщина в браке",
+      "form": "mężatka (сущ.) → być mężatką",
+      "example": "Moja siostra jest mężatką."
+     },
+     {
+      "when": "не в браке",
+      "form": "kawaler / panna → kawalerem / panną",
+      "example": "On jest kawalerem."
+     },
+     {
+      "when": "в разводе",
+      "form": "rozwiedziony / rozwiedziona",
+      "example": "Ona jest rozwiedziona."
+     }
+    ],
+    "exceptions": [
+     "Żona — жена, mąż — муж, ale żonaty — только о мужчине",
+     "Teść / teściowa — родители жены или мужа; synowa — невестка (жена сына)"
+    ],
+    "examples": [
+     {
+      "pl": "Jesteś żonaty? — Nie, jestem kawalerem.",
+      "translit": "ЕС-тэщь жо-НА-ты? — не, ЕС-тэм ка-ва-ЛЕ-рэм",
+      "ru": "Ты женат? — Нет, я холост."
+     },
+     {
+      "pl": "Moja mama jest rozwiedziona.",
+      "translit": "МО-я МА-ма ест роз-ве-ДЖЁ-на",
+      "ru": "Моя мама в разводе."
+     }
+    ]
+   },
+   {
+    "title": "Время суток: rano, po południu, wieczorem, w nocy",
+    "explanation": "Когда? — готовые выражения: их не склоняют, просто учат целиком.",
+    "table": [
+     {
+      "when": "утром",
+      "form": "rano",
+      "example": "Rano piję kawę."
+     },
+     {
+      "when": "до полудня",
+      "form": "przed południem",
+      "example": "Przed południem pracuję."
+     },
+     {
+      "when": "в полдень",
+      "form": "w południe",
+      "example": "W południe jem lunch."
+     },
+     {
+      "when": "после полудня, днём",
+      "form": "po południu",
+      "example": "Po południu odpoczywam."
+     },
+     {
+      "when": "вечером",
+      "form": "wieczorem",
+      "example": "Wieczorem oglądam film."
+     },
+     {
+      "when": "ночью / в полночь",
+      "form": "w nocy / o północy",
+      "example": "W nocy śpię."
+     }
+    ],
+    "exceptions": [
+     "Rano — без предлога; w nocy — с предлогом w"
+    ],
+    "examples": [
+     {
+      "pl": "Wieczorem gotuję obiad.",
+      "translit": "ве-ЧО-рэм го-ТУ-е О-бят",
+      "ru": "Вечером я готовлю обед."
+     },
+     {
+      "pl": "Po południu spotykam się z mamą.",
+      "translit": "по по-ЎУД-ню спо-ТЫ-кам ще з МА-мон",
+      "ru": "После обеда я встречаюсь с мамой."
+     }
+    ]
+   },
+   {
+    "title": "Как часто: zawsze … nigdy nie",
+    "explanation": "Наречие частоты стоит перед глаголом. Nigdy (никогда) всегда с nie: двойное отрицание, как в русском.",
+    "table": [
+     {
+      "when": "всегда",
+      "form": "zawsze",
+      "example": "Zawsze piję kawę rano."
+     },
+     {
+      "when": "каждый день",
+      "form": "codziennie",
+      "example": "Codziennie gotuję."
+     },
+     {
+      "when": "обычно",
+      "form": "zwykle",
+      "example": "Zwykle jem w domu."
+     },
+     {
+      "when": "часто",
+      "form": "często",
+      "example": "Często dzwonię do mamy."
+     },
+     {
+      "when": "время от времени / иногда",
+      "form": "od czasu do czasu / czasami",
+      "example": "Od czasu do czasu chodzę do kina."
+     },
+     {
+      "when": "редко",
+      "form": "rzadko",
+      "example": "Rzadko piję wino."
+     },
+     {
+      "when": "никогда",
+      "form": "nigdy nie + глагол",
+      "example": "Nigdy nie jem mięsa."
+     }
+    ],
+    "exceptions": [
+     "Без nie нельзя: Nigdy nie piję kawy (не «Nigdy piję kawę»)",
+     "После nigdy nie — родительный: Nigdy nie piję kawy"
+    ],
+    "examples": [
+     {
+      "pl": "Nigdy nie oglądam telewizji.",
+      "translit": "НИГ-ды не ог-ЛЁН-дам тэ-ле-ВИ-зьи",
+      "ru": "Я никогда не смотрю телевизор."
+     },
+     {
+      "pl": "Zwykle wstaję o siódmej.",
+      "translit": "ЗВЫК-ле ФСТА-е о ЩЮД-мэй",
+      "ru": "Обычно я встаю в семь."
+     }
+    ]
+   }
+  ]
+ }
 }

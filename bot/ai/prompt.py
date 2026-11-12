@@ -228,6 +228,55 @@ _RULE_STYLE = """Как объяснять — правило должно бы�
 - examples — 3–4 примера: сначала пример с ошибкой ученика в правильной форме (если есть ошибки), потом ещё 2–3 простых. pl — польская фраза, translit — транскрипция русскими буквами с ударным слогом заглавными, ru — перевод."""
 
 
+def review_rules_prompt(unit: dict, parts: list[str], level: str) -> str:
+    """🔁 Выжимка правил юнита для повторения (запасной вариант, если готовой выжимки в файле юнита нет)."""
+    exs = [x for x in unit.get("exercises") or [] if x.get("src", "tb") in parts]
+    grammar = sorted({it.get("grammar") for x in exs for it in x.get("items") or [] if it.get("grammar")})[:30]
+    titles = "; ".join(x.get("title_ru") or x.get("title", "") for x in exs[:40])
+    return f"""Ученик (уровень {level}) повторяет урок учебника польского «{unit.get('title', '')}».
+Суть урока: {unit.get('summary', '')}
+Упражнения урока: {titles}
+Грамматические пометки из упражнений: {'; '.join(grammar) or '—'}
+Составь ВЫЖИМКУ ОСНОВНЫХ правил этого урока для повторения: 3–5 правил — сначала грамматика урока, потом важные
+модели и лексические конструкции (например «lubić + винительный», «nigdy nie»). Только то, что есть в уроке, без забеганий
+вперёд. Каждое правило — отдельный элемент rules, кратко, но полностью.
+{_RULE_STYLE}"""
+
+
+QA_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {
+        "answer": {"type": "STRING"},
+        "examples": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+            "pl": {"type": "STRING"}, "translit": {"type": "STRING"}, "ru": {"type": "STRING"}},
+            "required": ["pl", "translit", "ru"]}},
+    },
+    "required": ["answer", "examples"],
+}
+QA_HINT = ('Отвечай ТОЛЬКО одним JSON-объектом без markdown: {"answer": "...", '
+           '"examples": [{"pl": "...", "translit": "...", "ru": "..."}]}')
+
+
+def review_qa_prompt(rule: dict, unit_title: str, history: list[tuple[str, str]], question: str, level: str,
+                     voice: bool = False) -> str:
+    """❓ Вопрос ученика по конкретному правилу из выжимки (диалог: прошлые вопросы и ответы — в history)."""
+    table = "; ".join(f"{t.get('when', '')} → {t.get('form', '')} ({t.get('example', '')})"
+                      for t in rule.get("table") or [] if isinstance(t, dict))
+    hist = "\n".join(f"{'Ученик' if who == 'user' else 'Учитель'}: {text}" for who, text in history[-8:]) or "—"
+    q = ("Ученик задал вопрос ГОЛОСОМ (во вложении, по-русски или по-польски) — сначала пойми вопрос."
+         if voice else f"Вопрос ученика: «{question}»")
+    return f"""Ты — учитель польского, ученик (уровень {level}) повторяет урок «{unit_title}».
+Правило, о котором речь: «{rule.get('title', '')}». {rule.get('explanation', '')}
+Таблица: {table or '—'}
+Исключения: {'; '.join(rule.get('exceptions') or []) or '—'}
+Разговор до этого:
+{hist}
+{q}
+Ответь по-русски, просто и по делу (2–6 предложений), опираясь на это правило; если вопрос шире — ответь, но свяжи с правилом.
+В examples — 2–4 польских примера к ответу: pl, translit — транскрипция русскими буквами с ударным слогом заглавными, ru — перевод.
+Если вопрос не по-польскому языку — вежливо верни к теме урока."""
+
+
 def rules_for_errors_prompt(corrections: list[dict], level: str) -> str:
     lines = "\n".join(f"- {c.get('original', '')} → {c.get('correct', '')} (правило: {c.get('rule', '')})"
                        for c in corrections)

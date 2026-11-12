@@ -560,5 +560,119 @@
   "Десятки 20–90",
   "Сотни и тысяча",
   "Цифры и номера (jedynka, dwójka…)"
- ]
+ ],
+ "review": {
+  "hard": [],
+  "rules": [
+   {
+    "title": "Числа 0–19",
+    "explanation": "0–10 учим как слова, 11–19 = основа + -naście. Ударение — на предпоследний слог.",
+    "table": [
+     {
+      "when": "0–5",
+      "form": "zero, jeden, dwa, trzy, cztery, pięć",
+      "example": "ЗЭ-ро, Е-дэн, два, тшы, ЧТЭ-ры, пеньчь"
+     },
+     {
+      "when": "6–10",
+      "form": "sześć, siedem, osiem, dziewięć, dziesięć",
+      "example": "шэщьчь, ЩЕ-дэм, О-щем, ДЖЕ-веньчь, ДЖЕ-щеньчь"
+     },
+     {
+      "when": "11–19",
+      "form": "jedenaście … dziewiętnaście",
+      "example": "czternaście, piętnaście, szesnaście — с упрощением"
+     }
+    ],
+    "exceptions": [
+     "piętnaście (не pięćnaście), szesnaście (не sześćnaście), czternaście (не czteronaście)"
+    ],
+    "examples": [
+     {
+      "pl": "Mam szesnaście złotych.",
+      "translit": "мам шэс-НАЩЬ-че ЗЎО-тых",
+      "ru": "У меня шестнадцать злотых."
+     }
+    ]
+   },
+   {
+    "title": "Десятки, сотни, тысяча",
+    "explanation": "20–40 оканчиваются на -dzieści, 50–90 — на -dziesiąt; 200 — dwieście, 300–400 — -sta, 500–900 — -set.",
+    "table": [
+     {
+      "when": "20 / 30 / 40",
+      "form": "dwadzieścia / trzydzieści / czterdzieści",
+      "example": "два-ДЖЕЩЬ-ча, тшы-ДЖЕЩЬ-чи"
+     },
+     {
+      "when": "50–90",
+      "form": "pięćdziesiąt … dziewięćdziesiąt",
+      "example": "пеньч-ДЖЕ-щёнт"
+     },
+     {
+      "when": "100 / 200 / 300 / 400",
+      "form": "sto / dwieście / trzysta / czterysta",
+      "example": "сто, ДВЕЩЬ-че"
+     },
+     {
+      "when": "500–900",
+      "form": "pięćset … dziewięćset",
+      "example": "ПЕНЬЧЬ-сэт"
+     },
+     {
+      "when": "1000",
+      "form": "tysiąc",
+      "example": "ТЫ-щёнц"
+     }
+    ],
+    "exceptions": [
+     "czternaście (14) ≠ czterdzieści (40) ≠ czterysta (400)"
+    ],
+    "examples": [
+     {
+      "pl": "Sto dwadzieścia pięć.",
+      "translit": "сто два-ДЖЕЩЬ-ча пеньчь",
+      "ru": "Сто двадцать пять."
+     },
+     {
+      "pl": "Tysiąc złotych to dużo.",
+      "translit": "ТЫ-щёнц ЗЎО-тых то ДУ-жо",
+      "ru": "Тысяча злотых — это много."
+     }
+    ]
+   },
+   {
+    "title": "Цифры как слова: jedynka, dwójka, trójka…",
+    "explanation": "Названия цифр — существительные ж. р. Так называют номера трамваев и автобусов, оценки в школе.",
+    "table": [
+     {
+      "when": "1–3",
+      "form": "jedynka, dwójka, trójka",
+      "example": "е-ДЫН-ка, ДВУЙ-ка, ТРУЙ-ка"
+     },
+     {
+      "when": "4–6",
+      "form": "czwórka, piątka, szóstka",
+      "example": "ЧВУР-ка, ПЬЁНТ-ка, ШУСТ-ка"
+     },
+     {
+      "when": "7–10",
+      "form": "siódemka, ósemka, dziewiątka, dziesiątka",
+      "example": "щю-ДЭМ-ка, у-СЭМ-ка"
+     }
+    ],
+    "exceptions": [
+     "Jadę szóstką — еду на шестёрке (творительный)",
+     "В Польше оценки 1–6, piątka и szóstka — лучшие"
+    ],
+    "examples": [
+     {
+      "pl": "Mam piątkę z polskiego!",
+      "translit": "мам ПЬЁНТ-кэ с поль-СКЕ-го",
+      "ru": "У меня пятёрка по польскому!"
+     }
+    ]
+   }
+  ]
+ }
 }

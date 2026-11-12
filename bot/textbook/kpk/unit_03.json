@@ -3726,5 +3726,218 @@
     "Ta kawa jest czarna."
    ]
   }
- ]
+ ],
+ "review": {
+  "hard": [
+   "tb-3-c3",
+   "tb-3-c4",
+   "tb-3-d3",
+   "wb-3-9",
+   "wb-3-10",
+   "wb-3-12"
+  ],
+  "rules": [
+   {
+    "title": "Род существительного — по окончанию",
+    "explanation": "В именительном падеже ед. ч. род почти всегда видно по последней букве. Род нужен, чтобы выбрать ten / ta / to и окончание прилагательного.",
+    "table": [
+     {
+      "when": "он (м. р.)",
+      "form": "согласная",
+      "example": "dom, stół, klucz, zeszyt, student"
+     },
+     {
+      "when": "она (ж. р.)",
+      "form": "-a, иногда -i",
+      "example": "szkoła, mapa, tablica; pani"
+     },
+     {
+      "when": "оно (ср. р.)",
+      "form": "-o, -e, -ę, -um",
+      "example": "okno, krzesło, zdjęcie, imię, muzeum"
+     }
+    ],
+    "exceptions": [
+     "Мужчины на -a — мужского рода: kolega, mężczyzna, poeta (ten kolega)",
+     "Ж. р. на мягкую согласную надо запоминать: noc, rzecz, twarz",
+     "-um в ед. ч. не склоняется: to muzeum, w muzeum"
+    ],
+    "examples": [
+     {
+      "pl": "To jest okno.",
+      "translit": "то ест ОК-но",
+      "ru": "Это окно."
+     },
+     {
+      "pl": "To jest tablica.",
+      "translit": "то ест таб-ЛИ-ца",
+      "ru": "Это доска."
+     },
+     {
+      "pl": "Ten kolega jest miły.",
+      "translit": "тэн ко-ЛЕ-га ест МИ-ўы",
+      "ru": "Этот коллега милый."
+     }
+    ]
+   },
+   {
+    "title": "Ten, ta, to — этот, эта, это",
+    "explanation": "Указательное местоимение согласуется с родом. Не путать: «To jest…» (это есть…) — неизменяемое представление, а to перед существительным среднего рода — «это / этот».",
+    "table": [
+     {
+      "when": "м. р.",
+      "form": "ten",
+      "example": "ten klucz, ten student"
+     },
+     {
+      "when": "ж. р.",
+      "form": "ta",
+      "example": "ta mapa, ta szkoła"
+     },
+     {
+      "when": "ср. р.",
+      "form": "to",
+      "example": "to krzesło, to dziecko"
+     }
+    ],
+    "exceptions": [
+     "To jest mapa (это карта) — но Ta mapa jest nowa (эта карта новая)",
+     "Ошибка «To mapa jest nowa» → Ta mapa jest nowa"
+    ],
+    "examples": [
+     {
+      "pl": "Ta szkoła jest dobra.",
+      "translit": "та ШКО-ўа ест ДОБ-ра",
+      "ru": "Эта школа хорошая."
+     },
+     {
+      "pl": "To dziecko jest małe.",
+      "translit": "то ДЖЕЦ-ко ест МА-ўэ",
+      "ru": "Этот ребёнок маленький."
+     }
+    ]
+   },
+   {
+    "title": "Jaki? jaka? jakie? — согласование прилагательного",
+    "explanation": "Прилагательное повторяет род существительного: м. р. -y, ж. р. -a, ср. р. -e. После k, g в м. р. -i, в ср. р. -ie. Вопрос тоже согласуется: jaki? jaka? jakie?",
+    "table": [
+     {
+      "when": "м. р. (jaki?)",
+      "form": "-y / после k, g -i",
+      "example": "dobry słownik, nowy dom; wysoki, drogi"
+     },
+     {
+      "when": "ж. р. (jaka?)",
+      "form": "-a",
+      "example": "dobra komórka, nowa szkoła, wysoka"
+     },
+     {
+      "when": "ср. р. (jakie?)",
+      "form": "-e / после k, g -ie",
+      "example": "dobre radio, nowe okno; wysokie, drogie"
+     }
+    ],
+    "exceptions": [
+     "Dziecko — средний род: to dziecko jest małe (не mały)",
+     "Порядок обычно прилагательное + существительное, но названия бывают наоборот: Biały Dom, ser żółty"
+    ],
+    "examples": [
+     {
+      "pl": "Jaki to jest film? — Interesujący.",
+      "translit": "Я-ки то ест фильм — ин-тэ-рэ-су-ЁН-цы",
+      "ru": "Какой это фильм? — Интересный."
+     },
+     {
+      "pl": "To jest stare radio.",
+      "translit": "то ест СТА-рэ РА-дьё",
+      "ru": "Это старое радио."
+     },
+     {
+      "pl": "Jaka jest ta komórka? — Nowa.",
+      "translit": "Я-ка ест та ко-МУР-ка — НО-ва",
+      "ru": "Какой этот мобильник? — Новый."
+     }
+    ]
+   },
+   {
+    "title": "Kto to jest? Co to jest? Czy to jest…?",
+    "explanation": "Kto? — о людях (и животных), co? — о вещах. Czy в начале превращает утверждение в вопрос «да / нет». Отрицание: to nie jest…",
+    "table": [
+     {
+      "when": "кто это?",
+      "form": "Kto to jest? — To jest…",
+      "example": "Kto to jest? — To jest Mami."
+     },
+     {
+      "when": "что это?",
+      "form": "Co to jest? — To jest…",
+      "example": "Co to jest? — To jest klucz."
+     },
+     {
+      "when": "это …? (да / нет)",
+      "form": "Czy to jest…? — Tak, to jest… / Nie, to nie jest…",
+      "example": "Czy to jest klucz? — Nie, to nie jest klucz."
+     }
+    ],
+    "exceptions": [
+     "О животных обычно kto: Kto to jest? — To jest pies",
+     "В разговоре czy часто опускают и задают вопрос интонацией"
+    ],
+    "examples": [
+     {
+      "pl": "Czy to jest tablica? — Tak, to jest tablica.",
+      "translit": "чы то ест таб-ЛИ-ца — так, то ест таб-ЛИ-ца",
+      "ru": "Это доска? — Да, это доска."
+     },
+     {
+      "pl": "Nie, to nie jest krzesło. To jest stół.",
+      "translit": "не, то не ест КШЭС-ўо. то ест стуў",
+      "ru": "Нет, это не стул. Это стол."
+     }
+    ]
+   },
+   {
+    "title": "Цвета — тоже прилагательные",
+    "explanation": "Цвет согласуется с родом, как любое прилагательное: -y / -a / -e, после k, g — -i / -a / -ie.",
+    "table": [
+     {
+      "when": "твёрдая основа",
+      "form": "-y / -a / -e",
+      "example": "czarny, biały, zielony, czerwony, żółty, brązowy, szary"
+     },
+     {
+      "when": "после k",
+      "form": "-i / -a / -ie",
+      "example": "niebieski — niebieska — niebieskie"
+     },
+     {
+      "when": "«оранжевый, розовый»",
+      "form": "-owy",
+      "example": "pomarańczowy, różowy, fioletowy"
+     }
+    ],
+    "exceptions": [
+     "Jaki to kolor? — Czerwony (вопрос о цвете — в м. р., т. к. kolor м. р.)",
+     "Niebieski — голубой / синий (ближе к синему), granatowy — тёмно-синий"
+    ],
+    "examples": [
+     {
+      "pl": "Ta tablica jest czarna.",
+      "translit": "та таб-ЛИ-ца ест ЧАР-на",
+      "ru": "Эта доска чёрная."
+     },
+     {
+      "pl": "To krzesło jest zielone.",
+      "translit": "то КШЭС-ўо ест же-ЛЁ-нэ",
+      "ru": "Этот стул зелёный."
+     },
+     {
+      "pl": "Mam niebieski zeszyt.",
+      "translit": "мам не-БЕС-ки ЗЭ-шыт",
+      "ru": "У меня синяя тетрадь."
+     }
+    ]
+   }
+  ]
+ }
 }

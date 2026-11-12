@@ -4227,5 +4227,213 @@
     }
    ]
   }
- ]
+ ],
+ "review": {
+  "hard": [
+   "tb-5-d2",
+   "tb-5-b4",
+   "tb-5-e1",
+   "wb-5-11",
+   "wb-5-13",
+   "wb-5-17"
+  ],
+  "rules": [
+   {
+    "title": "Творительный падеж ед. ч.: być + кто? какой?",
+    "explanation": "После być (кем быть?) существительное с прилагательным ставится в творительный: Jestem lekarzem. Окончания: м. р. и ср. р. -em (прил. -ym / -im), ж. р. -ą (прил. -ą).",
+    "table": [
+     {
+      "when": "м. р.",
+      "form": "-em; прил. -ym (после k, g -im)",
+      "example": "lekarz → lekarzem, dobry student → dobrym studentem"
+     },
+     {
+      "when": "м. р. на k, g",
+      "form": "-iem; прил. -im",
+      "example": "Polak → Polakiem, wysoki → wysokim"
+     },
+     {
+      "when": "ж. р.",
+      "form": "-ą; прил. -ą",
+      "example": "studentka → studentką, ambitna → ambitną"
+     },
+     {
+      "when": "ср. р.",
+      "form": "-em; прил. -ym",
+      "example": "dziecko → dzieckiem, małe → małym"
+     }
+    ],
+    "exceptions": [
+     "To jest + именительный (без изменений): To jest lekarz. Но On jest lekarzem",
+     "Мужчины на -a — как ж. р.: mężczyzna → mężczyzną, kolega → kolegą",
+     "Одно прилагательное без существительного — именительный: On jest wysoki"
+    ],
+    "examples": [
+     {
+      "pl": "Jestem lekarzem.",
+      "translit": "ЕС-тэм ле-КА-жэм",
+      "ru": "Я врач."
+     },
+     {
+      "pl": "Kasia jest ambitną studentką.",
+      "translit": "КА-ща ест ам-БИТ-нон сту-ДЭНТ-кон",
+      "ru": "Кася — целеустремлённая студентка."
+     },
+     {
+      "pl": "Uwe jest przystojnym mężczyzną.",
+      "translit": "У-вэ ест пши-СТОЙ-ным мэнж-ЧЫЗ-нон",
+      "ru": "Уве — красивый мужчина."
+     }
+    ]
+   },
+   {
+    "title": "Interesować się + творительный",
+    "explanation": "Чем интересуешься? — Czym się interesujesz? После interesować się — творительный падеж: -em (м. р., ср. р.), -ą (ж. р.). Глагол на -ować → interesuję, interesujesz.",
+    "table": [
+     {
+      "when": "м. р. / ср. р.",
+      "form": "-em",
+      "example": "sport → sportem, teatr → teatrem, kino → kinem"
+     },
+     {
+      "when": "ж. р.",
+      "form": "-ą",
+      "example": "muzyka → muzyką, polityka → polityką, historia → historią"
+     },
+     {
+      "when": "вопрос",
+      "form": "Czym się interesujesz?",
+      "example": "— Interesuję się fotografią."
+     }
+    ],
+    "exceptions": [
+     "Się стоит рядом с глаголом и не меняется: interesujemy się, oni się interesują",
+     "Кем? — kim (Kim jesteś?), чем? — czym"
+    ],
+    "examples": [
+     {
+      "pl": "Interesuję się sportem i muzyką.",
+      "translit": "ин-тэ-рэ-СУ-е ще СПОР-тэм и МУ-зы-кон",
+      "ru": "Я интересуюсь спортом и музыкой."
+     },
+     {
+      "pl": "Czym się interesujesz?",
+      "translit": "чым ще ин-тэ-рэ-СУ-ешь",
+      "ru": "Чем ты интересуешься?"
+     }
+    ]
+   },
+   {
+    "title": "Возраст: rok / lata / lat",
+    "explanation": "Ile masz lat? — Mam … lat. Форма слова «год» зависит от последней цифры числа, как в русском «год / года / лет».",
+    "table": [
+     {
+      "when": "1",
+      "form": "rok",
+      "example": "Mam rok. (ребёнку год)"
+     },
+     {
+      "when": "2, 3, 4 и 22–24, 32–34…",
+      "form": "lata",
+      "example": "Mam dwadzieścia trzy lata."
+     },
+     {
+      "when": "5–21, 25–31 и всё, что оканчивается на 0, 1, 5–9",
+      "form": "lat",
+      "example": "Mam trzydzieści pięć lat. Mam dwadzieścia jeden lat."
+     }
+    ],
+    "exceptions": [
+     "12, 13, 14 — lat (как «-надцать лет»): Mam czternaście lat",
+     "21, 31, 41 — lat, а не rok: dwadzieścia jeden lat"
+    ],
+    "examples": [
+     {
+      "pl": "Ile masz lat? — Mam trzydzieści dwa lata.",
+      "translit": "И-ле маш лят — мам тшы-ДЖЕЩЬ-чи два ЛЯ-та",
+      "ru": "Сколько тебе лет? — Мне тридцать два года."
+     },
+     {
+      "pl": "On ma pięćdziesiąt lat.",
+      "translit": "он ма пеньч-ДЖЕ-щёнт лят",
+      "ru": "Ему пятьдесят лет."
+     }
+    ]
+   },
+   {
+    "title": "Числа 20–100",
+    "explanation": "Десятки: 20 dwadzieścia, 30 trzydzieści, 40 czterdzieści, с 50 — -dziesiąt. Составные числа — через пробел.",
+    "table": [
+     {
+      "when": "20, 30, 40",
+      "form": "dwadzieścia, trzydzieści, czterdzieści",
+      "example": "два-ДЖЕЩЬ-ча, тшы-ДЖЕЩЬ-чи, чтэр-ДЖЕЩЬ-чи"
+     },
+     {
+      "when": "50–90",
+      "form": "pięćdziesiąt, sześćdziesiąt, siedemdziesiąt, osiemdziesiąt, dziewięćdziesiąt",
+      "example": "пеньч-ДЖЕ-щёнт, шэщь-ДЖЕ-щёнт"
+     },
+     {
+      "when": "100",
+      "form": "sto",
+      "example": "сто"
+     },
+     {
+      "when": "составные",
+      "form": "десятки + единицы",
+      "example": "45 — czterdzieści pięć"
+     }
+    ],
+    "exceptions": [
+     "Pięćdziesiąt, sześćdziesiąt — ударение на -dzie-",
+     "Не путать: czternaście (14) и czterdzieści (40)"
+    ],
+    "examples": [
+     {
+      "pl": "Pięćdziesiąt plus dwadzieścia to siedemdziesiąt.",
+      "translit": "пеньч-ДЖЕ-щёнт плюс два-ДЖЕЩЬ-ча то ще-дэм-ДЖЕ-щёнт",
+      "ru": "Пятьдесят плюс двадцать — семьдесят."
+     }
+    ]
+   },
+   {
+    "title": "Профессии и национальности: мужская и женская форма",
+    "explanation": "Женская форма чаще всего — суффикс -ka: student → studentka. Национальности пишутся с большой буквы.",
+    "table": [
+     {
+      "when": "+ -ka",
+      "form": "student → studentka, aktor → aktorka",
+      "example": "nauczyciel → nauczycielka, lekarz → lekarka"
+     },
+     {
+      "when": "особые",
+      "form": "kucharz → kucharka, kelner → kelnerka",
+      "example": "Polak → Polka, Niemiec → Niemka"
+     },
+     {
+      "when": "одна форма для обоих",
+      "form": "pani + профессия",
+      "example": "pani dyrektor, pani profesor, pani inżynier"
+     }
+    ],
+    "exceptions": [
+     "В творительном: Ona jest Polką, On jest Polakiem / Niemcem (беглое e: Niemiec → Niemcem)",
+     "Прилагательное от страны пишется с маленькой: polski, niemiecki"
+    ],
+    "examples": [
+     {
+      "pl": "Ona jest nauczycielką, a on jest kucharzem.",
+      "translit": "О-на ест на-у-чы-ЧЕЛЬ-кон, а он ест ку-ХА-жэм",
+      "ru": "Она учительница, а он повар."
+     },
+     {
+      "pl": "Petra jest Niemką.",
+      "translit": "ПЭТ-ра ест НЕМ-кон",
+      "ru": "Петра — немка."
+     }
+    ]
+   }
+  ]
+ }
 }

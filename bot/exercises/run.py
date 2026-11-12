@@ -39,7 +39,8 @@ class ExerciseRunMixin:
             reuse = []  # учебник: ошибки и так первыми; «🔁 Повторить»: вместо старых — новые предложения
         prompt = ex_prompt(kind, f, self.cfg.level, rules.catalog_text(), self.db.ex_recent(user_id),
                            words=ex.get("words"), rules_list=ex.get("rules"), examples=ex.get("examples"),
-                           voice=kind == "voice", present_only=EX_PRESENT_ONLY, cases=EX_CASES,
+                           voice=kind == "voice", present_only=EX_PRESENT_ONLY and not ex.get("review"),
+                           cases=None if ex.get("review") else EX_CASES,   # 🔁 повторение: грамматика юнитов как есть
                            redo=ex.get("redo"))
         data = await self.ask(chat_id, prompt, EX_SCHEMA, EX_HINT,
                               wait=f"⏳ Составляю упражнение {idx}/{ex['total']}… (10–20 секунд)")

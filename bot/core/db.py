@@ -186,6 +186,10 @@ CREATE TABLE IF NOT EXISTS rule_cache (       -- 📖 объяснённые п�
     data TEXT NOT NULL,
     at REAL NOT NULL
 );
+CREATE TABLE IF NOT EXISTS review_state (    -- 🔁 повторение: выбранные юниты и части, очередь сложных упражнений
+    user_id INTEGER PRIMARY KEY,
+    data TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
     mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
@@ -598,6 +602,22 @@ class DB:
         self.conn.execute("INSERT OR REPLACE INTO zv_status(user_id, item, status, at) VALUES (?,?,?,?)",
                           (user_id, item, status, self.clock()))
         self.conn.commit()
+
+    def review_get(self, user_id: int) -> dict | None:
+        row = self.conn.execute("SELECT data FROM review_state WHERE user_id=?", (user_id,)).fetchone()
+        return json.loads(row["data"]) if row else None
+
+    def review_set(self, user_id: int, data: dict) -> None:
+        self.conn.execute("INSERT OR REPLACE INTO review_state(user_id, data) VALUES (?,?)",
+                          (user_id, json.dumps(data, ensure_ascii=False)))
+        self.conn.commit()
+
+    def unit_errors(self, user_id: int, unit: str) -> dict[str, int]:
+        """Трудность упражнений юнита по основному прогрессу: {id упражнения: неверных пунктов + засчитанных вручную ✋}."""
+        rows = self.conn.execute("SELECT ex_id, SUM(1 - ok) + SUM(manual) AS bad FROM book_ex WHERE user_id=? AND unit=? "
+                                 "GROUP BY ex_id",
+                                 (user_id, unit_key(unit))).fetchall()
+        return {r["ex_id"]: r["bad"] or 0 for r in rows}
 
     def rule_cache_get(self, key: str) -> dict | None:
         r = self.conn.execute("SELECT data FROM rule_cache WHERE key=?", (key,)).fetchone()

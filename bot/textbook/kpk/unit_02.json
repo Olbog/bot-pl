@@ -4059,5 +4059,278 @@
   "Города: где?",
   "Числа 11–29",
   "Как? Оценки"
- ]
+ ],
+ "review": {
+  "hard": [
+   "tb-2-c1",
+   "tb-2-d1",
+   "tb-2-b2",
+   "wb-2-8",
+   "wb-2-11",
+   "wb-2-15"
+  ],
+  "rules": [
+   {
+    "title": "Глагол być (быть) — полное спряжение",
+    "explanation": "В польском być в настоящем времени не пропускается, в отличие от русского: Ja jestem Polakiem — я поляк. Местоимение обычно опускают — форма глагола и так показывает лицо.",
+    "table": [
+     {
+      "when": "ja / ty",
+      "form": "jestem / jesteś",
+      "example": "Jestem z Polski. Gdzie jesteś?"
+     },
+     {
+      "when": "on, ona, ono, pan, pani",
+      "form": "jest",
+      "example": "Pani jest z Niemiec?"
+     },
+     {
+      "when": "my / wy",
+      "form": "jesteśmy / jesteście",
+      "example": "Jesteśmy w domu."
+     },
+     {
+      "when": "oni, one, państwo",
+      "form": "są",
+      "example": "Oni są tutaj."
+     }
+    ],
+    "exceptions": [
+     "Вопрос — с czy или интонацией, порядок слов тот же: Czy jesteś w domu?",
+     "Отрицание: nie jestem, nie jest — nie пишется отдельно"
+    ],
+    "examples": [
+     {
+      "pl": "Jestem Mark, jestem z Białorusi.",
+      "translit": "ЕС-тэм марк, ЕС-тэм з бя-ЎО-руси",
+      "ru": "Я Марк, я из Беларуси."
+     },
+     {
+      "pl": "Gdzie jesteście?",
+      "translit": "гдже ес-ТЭЩЬ-че",
+      "ru": "Где вы?"
+     },
+     {
+      "pl": "One są w szkole.",
+      "translit": "О-нэ сон ф ШКО-ле",
+      "ru": "Они (женщины) в школе."
+     }
+    ]
+   },
+   {
+    "title": "Спряжение -m / -sz: mieszkać, mieć, rozumieć",
+    "explanation": "Самая простая группа: основа + -m, -sz, -ø, -my, -cie, -ją. Сюда входят глаголы на -ać и -eć: mieszkać, czytać, grać, nazywać się, mieć, rozumieć, umieć.",
+    "table": [
+     {
+      "when": "ja",
+      "form": "-m",
+      "example": "mieszkam, mam, rozumiem"
+     },
+     {
+      "when": "ty",
+      "form": "-sz",
+      "example": "mieszkasz, masz, rozumiesz"
+     },
+     {
+      "when": "on / ona / pan / pani",
+      "form": "-ø",
+      "example": "mieszka, ma, rozumie"
+     },
+     {
+      "when": "my",
+      "form": "-my",
+      "example": "mieszkamy, mamy, rozumiemy"
+     },
+     {
+      "when": "wy",
+      "form": "-cie",
+      "example": "mieszkacie, macie, rozumiecie"
+     },
+     {
+      "when": "oni / one / państwo",
+      "form": "-ją",
+      "example": "mieszkają, mają, rozumieją"
+     }
+    ],
+    "exceptions": [
+     "mieć: mam, masz, ma, mamy, macie, mają — основа ma-, а не mie-",
+     "Возвратное się стоит отдельно: nazywam się, nazywasz się"
+    ],
+    "examples": [
+     {
+      "pl": "Gdzie mieszkasz?",
+      "translit": "гдже мьеш-КАШ",
+      "ru": "Где ты живёшь?"
+     },
+     {
+      "pl": "Oni mieszkają w Krakowie.",
+      "translit": "О-ни мьеш-КА-йон ф кра-КО-ве",
+      "ru": "Они живут в Кракове."
+     },
+     {
+      "pl": "Nie rozumiem, co pan mówi.",
+      "translit": "не ро-ЗУ-мем, цо пан МУ-ви",
+      "ru": "Я не понимаю, что вы говорите."
+     }
+    ]
+   },
+   {
+    "title": "Местоимения и вежливое pan / pani / państwo",
+    "explanation": "Вежливое «вы» в польском — это pan (мужчине), pani (женщине), państwo (группе / паре) с глаголом в 3-м лице, как «он / она / они». Wy — только неофициальное «вы» (ребята).",
+    "table": [
+     {
+      "when": "я, ты",
+      "form": "ja, ty",
+      "example": "Ja jestem, ty jesteś"
+     },
+     {
+      "when": "он / она / оно",
+      "form": "on / ona / ono",
+      "example": "On jest, ona jest"
+     },
+     {
+      "when": "мы, вы (неофиц.)",
+      "form": "my, wy",
+      "example": "My jesteśmy, wy jesteście"
+     },
+     {
+      "when": "они: есть мужчина / только женщины, вещи",
+      "form": "oni / one",
+      "example": "Tom i Anna — oni; Anna i Ewa — one"
+     },
+     {
+      "when": "вежливо: вы (ед. ч.)",
+      "form": "pan / pani + 3 л. ед. ч.",
+      "example": "Skąd pan jest?"
+     },
+     {
+      "when": "вежливо: вы (мн. ч.)",
+      "form": "państwo + 3 л. мн. ч. / panowie, panie",
+      "example": "Skąd państwo są?"
+     }
+    ],
+    "exceptions": [
+     "Oni — если в группе хотя бы один мужчина; one — женщины, дети, животные, вещи",
+     "Неофициально → официально: Skąd jesteś? → Skąd pan / pani jest?"
+    ],
+    "examples": [
+     {
+      "pl": "Skąd pani jest?",
+      "translit": "сконт ПА-ни ест",
+      "ru": "Откуда вы (женщине)?"
+     },
+     {
+      "pl": "Czy państwo mieszkają w Warszawie?",
+      "translit": "чы ПАНЬСТ-во мьеш-КА-йон в вар-ША-ве",
+      "ru": "Вы (пара) живёте в Варшаве?"
+     }
+    ]
+   },
+   {
+    "title": "Откуда и где: z + страна, w + город",
+    "explanation": "Пока как готовые фразы: Jestem z… (откуда) — страна в родительном падеже, Mieszkam w… (где) — город в предложном. Падежи разберём позже, сейчас запоминаем формы целиком.",
+    "table": [
+     {
+      "when": "откуда? skąd?",
+      "form": "z + род. п.",
+      "example": "z Polski, z Niemiec, z Białorusi, z Japonii"
+     },
+     {
+      "when": "где? gdzie?",
+      "form": "w + предл. п.",
+      "example": "w Krakowie, w Warszawie, w Londynie, w Tokio"
+     }
+    ],
+    "exceptions": [
+     "Перед словами на s-, z-, ś- и группой согласных z → ze: ze Szwecji, ze Stanów",
+     "Перед w, f и группой согласных w → we: we Wrocławiu, we Francji"
+    ],
+    "examples": [
+     {
+      "pl": "Jestem z Polski, ale mieszkam w Londynie.",
+      "translit": "ЕС-тэм с ПОЛЬ-ски, а-ле МЬЕШ-кам в лон-ДЫ-не",
+      "ru": "Я из Польши, но живу в Лондоне."
+     },
+     {
+      "pl": "Skąd jesteś?",
+      "translit": "сконт ЕС-тэщь",
+      "ru": "Откуда ты?"
+     }
+    ]
+   },
+   {
+    "title": "Почему? Зачем? — bo и żeby",
+    "explanation": "Dlaczego? (почему?) → bo + причина (полное предложение). Po co? (зачем?) → żeby + инфинитив (цель).",
+    "table": [
+     {
+      "when": "причина",
+      "form": "bo + предложение",
+      "example": "Uczę się polskiego, bo mama jest z Polski."
+     },
+     {
+      "when": "цель",
+      "form": "żeby + инфинитив",
+      "example": "Uczę się polskiego, żeby studiować w Krakowie."
+     }
+    ],
+    "exceptions": [
+     "Bo в начале ответа — разговорно: Dlaczego? — Bo lubię Polskę.",
+     "После żeby не ставится лицо глагола, только инфинитив (на этом уровне)"
+    ],
+    "examples": [
+     {
+      "pl": "Uczę się polskiego, bo mieszkam w Polsce.",
+      "translit": "У-чэ ще поль-СКЕ-го, бо МЬЕШ-кам в ПОЛЬ-сцэ",
+      "ru": "Я учу польский, потому что живу в Польше."
+     },
+     {
+      "pl": "Uczę się polskiego, żeby pracować w Polsce.",
+      "translit": "У-чэ ще поль-СКЕ-го, ЖЭ-бы пра-ЦО-вачь в ПОЛЬ-сцэ",
+      "ru": "Я учу польский, чтобы работать в Польше."
+     }
+    ]
+   },
+   {
+    "title": "Числа 11–29",
+    "explanation": "11–19 — основа + -naście (как русское «-надцать»), 20–29 — dwadzieścia + единица отдельно.",
+    "table": [
+     {
+      "when": "11–13",
+      "form": "jedenaście, dwanaście, trzynaście",
+      "example": "е-дэ-НАЩЬ-че, два-НАЩЬ-че, тшы-НАЩЬ-че"
+     },
+     {
+      "when": "14–16",
+      "form": "czternaście, piętnaście, szesnaście",
+      "example": "чтэр-НАЩЬ-че, пьент-НАЩЬ-че, шэс-НАЩЬ-че"
+     },
+     {
+      "when": "17–19",
+      "form": "siedemnaście, osiemnaście, dziewiętnaście",
+      "example": "ще-дэм-НАЩЬ-че, о-щем-НАЩЬ-че"
+     },
+     {
+      "when": "20–29",
+      "form": "dwadzieścia (jeden, dwa…)",
+      "example": "dwadzieścia pięć — два-ДЖЕЩЬ-ча пеньчь"
+     }
+    ],
+    "exceptions": [
+     "Пишутся с ошибкой часто: czternaście (не czteronaście), piętnaście (не pięćnaście), szesnaście"
+    ],
+    "examples": [
+     {
+      "pl": "Mam dwadzieścia dwa lata.",
+      "translit": "мам два-ДЖЕЩЬ-ча два ЛЯ-та",
+      "ru": "Мне двадцать два года."
+     },
+     {
+      "pl": "Pokój numer siedemnaście.",
+      "translit": "ПО-куй НУ-мэр ще-дэм-НАЩЬ-че",
+      "ru": "Комната номер семнадцать."
+     }
+    ]
+   }
+  ]
+ }
 }

@@ -111,6 +111,7 @@ HELP = (
     "/phr — 💬 полезные выражения: с транскрипцией, переводом и правилом; карточки, тест, набор для разговора\n"
     "/tw — 🗣 скороговорки и песенки: текст, транскрипция, аудио медленно и в обычном темпе, отметки ⚪🟡✅\n"
     "/read — 📚 чтение: легенды по абзацам с переводом и аудио, слова абзаца в ⭐ словарь, вопросы к главе\n"
+    "/review — 🔁 повторение юнитов: правила (и вопросы по ним), сложные упражнения, лексика, упражнения от Gemini\n"
     "/set — 🎯 наборы слов: прогресс, новый набор, 📚 архив, отметить освоенные\n"
     "/itog — 📋 итог: ошибки и слова за час / сутки / разговор, всё время — файлом\n"
     "/dict — ⭐ словарь: все слова по темам, наборы по 10 для разговора и упражнений, 📂 сменить тему, 📄 файлом; 🙅 исключения\n"
@@ -200,7 +201,8 @@ def main_menu(status: str) -> tuple[str, list[list[tuple[str, str]]]]:
              [("🎯 Наборы слов", "go:set"), ("📋 Итог", "go:itog")],
              [("⭐ Словарь", "go:dict"), ("📖 Слова учебника", "go:words")],
              [("💬 Полезные выражения", "go:phr"), ("📚 Чтение", "go:read")],
-             [("🗣 Скороговорки", "go:tw"), ("🗂 Выгрузка", "go:export")]])
+             [("🗣 Скороговорки", "go:tw"), ("🔁 Повторение", "go:review")],
+             [("🗂 Выгрузка", "go:export")]])
 
 
 def new_menu(status: str, active: dict | None, done: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
@@ -1316,7 +1318,7 @@ def bex_keyboard(unit: dict, x: dict, done: dict, pick: dict, sure: list, wins: 
     if todo:
         rows.append([("✋ Засчитать всё упражнение", f"bx:m:{unit['unit']}|{x['id']}")])
     rows += page_row(unit, x)
-    rows.append([("📖 Правило", f"bx:R:{unit['unit']}|{x['id']}"), ("📋 Все упражнения", f"bx:l:{unit['unit']}")])
+    rows.append([("📖 Правило", f"bx:R:{unit['unit']}|{x['id']}"), list_button(unit)])
     return rows
 
 
@@ -1358,6 +1360,11 @@ def page_row(unit: dict, x: dict) -> list[list[tuple[str, str]]]:
     return [[(f"📄 Страница {what} (s. {nums})", f"bx:p:{unit['unit']}|{x['id']}")]]
 
 
+def list_button(unit: dict) -> tuple[str, str]:
+    """«📋 Все упражнения» юнита; в 🔁 повторении — назад к очереди сложных упражнений."""
+    return ("🏋️ К повторению", "rv:e") if unit.get("rev") else ("📋 Все упражнения", f"bx:l:{unit['unit']}")
+
+
 def bex_result_buttons(unit: dict, x: dict, done: dict, wins: int = 0,
                        wrong: list[int] | None = None) -> list[list[tuple[str, str]]]:
     u = unit["unit"]
@@ -1370,11 +1377,13 @@ def bex_result_buttons(unit: dict, x: dict, done: dict, wins: int = 0,
     if ok < len(x["items"]):
         rows.append([(f"▶️ Продолжить (осталось {len(x['items']) - ok})", f"bx:o:{u}|{x['id']}")])
     i = next((k for k, y in enumerate(exs) if y["id"] == x["id"]), -1)
-    nxt = next((y for y in exs[i + 1:] if bex_icon(y, done) != "✅"), None)
-    if nxt:
+    nxt = None if unit.get("rev") else next((y for y in exs[i + 1:] if bex_icon(y, done) != "✅"), None)
+    if unit.get("rev"):   # 🔁 повторение: дальше — по очереди сложных упражнений
+        rows.append([("➡️ Следующее в повторении", "rv:n")])
+    elif nxt:
         rows.append([(f"➡️ {bex_name(nxt)}"[:60], f"bx:o:{u}|{nxt['id']}")])
     rows += again_rows(unit, x, done, wins)
-    rows.append([("📖 Правило", f"bx:R:{u}|{x['id']}"), ("📋 Все упражнения", f"bx:l:{u}")])
+    rows.append([("📖 Правило", f"bx:R:{u}|{x['id']}"), list_button(unit)])
     if x.get("type") not in ("tf", "free"):
         rows.append([("⭐ В словарь", f"dX:b:{u}|{x['id']}")])
     return rows + page_row(unit, x)
@@ -1488,3 +1497,109 @@ def read_end(unit: dict, nxt: dict | None) -> tuple[str, list[list[tuple[str, st
         rows.append([(f"➡️ {nxt['name']} — {nxt['title']}"[:60], f"rd:o:{nxt['unit']}")])
     rows.append([("📑 Главы", f"rd:c:{unit['book']}")])
     return text, rows
+
+
+# ---------- 🔁 повторение ----------
+
+PART_NAMES = {"tb": "📗 учебник", "wb": "📒 тетрадь"}
+
+
+def review_units_label(units: list[dict]) -> str:
+    """«KpK 9, 10, 11 · Hurra 3» — юниты по учебникам."""
+    by_book: dict[str, list[str]] = {}
+    for u in units:
+        by_book.setdefault(u["book_short"], []).append(u["num"])
+    return " · ".join(f"{b} {', '.join(ns)}" for b, ns in by_book.items())
+
+
+def review_sel_screen(books: list[dict], sel: dict) -> tuple[str, list]:
+    """Выбор для повторения: учебники, части, юниты — переключатели ☑️."""
+    chosen = [u for b in books for u in b["units"] if u["unit"] in sel["units"]]
+    text = ("🔁 <b>Повторение</b> — что повторяем?\n\n"
+            f"Юниты: <b>{e(review_units_label(chosen)) if chosen else '— не выбраны'}</b>\n"
+            f"Части: {' + '.join(PART_NAMES[p] for p in sel['parts'])}\n\n"
+            "<i>Отметь учебник, части и юниты, потом «▶️ Дальше». Там — 📖 правила, 🏋️ сложные упражнения, "
+            "🔤 лексика и 🤖 упражнения от Gemini. Прогресс повторения отдельный: результаты в самих юнитах не "
+            "меняются.</i>")
+    rows = []
+    if len(books) > 1:
+        rows.append([(("☑️ " if b["id"] in sel["books"] else "") + b["short"], f"rv:b:{b['id']}") for b in books])
+    rows.append([(("☑️ " if p in sel["parts"] else "") + PART_NAMES[p], f"rv:p:{p}") for p in ("tb", "wb")])
+    for b in books:
+        if b["id"] not in sel["books"]:
+            continue
+        btns = [(("☑️" if u["unit"] in sel["units"] else "") + f"{b['short']} {u['num']}", f"rv:u:{u['unit']}")
+                for u in b["units"]]
+        rows += [btns[i:i + 4] for i in range(0, len(btns), 4)]
+    rows.append([("🕘 Последние 3", "rv:last"), ("✅ Всё пройденное", "rv:all"), ("✖️ Снять", "rv:none")])
+    rows.append([(f"▶️ Дальше (юнитов: {len(chosen)})", "rv:go")])
+    return text, rows
+
+
+def review_home(units: list[dict], parts: list[str], queue: list, known: int, words: int) -> tuple[str, list]:
+    done = sum(1 for *_, complete in queue if complete)
+    ok = sum(c[0] for _, _, c, _ in queue)
+    total = sum(c[1] for _, _, c, _ in queue)
+    text = (f"🔁 <b>Повторение: {e(review_units_label(units))}</b>\n"
+            f"Части: {' + '.join(PART_NAMES[p] for p in parts)}\n\n"
+            f"🏋️ Сложные упражнения: сделано {done} из {len(queue)}"
+            + (f" · верно {round(100 * ok / total)}% пунктов" if total and ok else "") + "\n"
+            f"🔤 Лексика: {words} слов, ✅ знаю {known}\n\n"
+            "<i>📖 Правила — главное по каждому юниту, под правилом «❓» — спросить. 🏋️ — по 2–3 самых трудных "
+            "упражнения из каждого юнита и части. 🔤 — карточки, тест и пропуски по словам юнитов. 🤖 — новые "
+            "упражнения от Gemini на темы юнитов.</i>")
+    rows = [[("📖 Правила", "rv:r"), (f"🏋️ Сложные упражнения ({done}/{len(queue)})", "rv:e")],
+            [("🔤 Лексика", "rv:l"), ("🤖 Упражнения от Gemini", "rv:g")],
+            [("⚙️ Изменить выбор", "rv:s")]]
+    return text, rows
+
+
+def review_rules_message(unit: dict, rules: list[dict]) -> tuple[str, list]:
+    head = f"📖 <b>{e(unit['book_short'])} {e(unit['num'])} · {e(unit.get('title', ''))}</b> — главное для повторения\n\n"
+    buttons = [[(f"❓ {r.get('title', '')}"[:60], f"rv:q:{unit['unit']}:{i}")] for i, r in enumerate(rules)]
+    return head + rules_message({"rules": rules}), buttons
+
+
+def review_answer(rule: dict, answer: str, examples: list) -> str:
+    lines = [f"🧑‍🏫 <i>{e(rule.get('title', ''))}</i>", "", e(answer)]
+    exs = [x for x in examples if isinstance(x, dict) and x.get("pl")]
+    if exs:
+        lines += ["", "✏️ <b>Примеры</b>"]
+        lines += [f"• <b>{e(x['pl'])}</b>" + (f" [{e(x.get('translit', ''))}]" if x.get("translit") else "")
+                  + (f" — {e(x.get('ru', ''))}" if x.get("ru") else "") for x in exs]
+    lines += ["", "<i>Ещё вопрос — просто напиши или скажи.</i>"]
+    return "\n".join(lines)
+
+
+def review_hard_screen(queue: list) -> tuple[str, list]:
+    """🏋️ Очередь сложных упражнений: юнит, упражнение, прогресс повторения."""
+    if not queue:
+        return "В выбранных юнитах нет упражнений для повторения.", [[("🔁 К повторению", "rv:h")]]
+    done = sum(1 for *_, complete in queue if complete)
+    lines = [f"🏋️ <b>Сложные упражнения</b> — сделано {done} из {len(queue)}", ""]
+    rows = []
+    for i, (unit, x, (ok, total), complete) in enumerate(queue):
+        icon = "✅" if complete else ("◐" if ok else "○")
+        name = f"{unit['book_short']} {unit['num']} · {bex_name(x)}"
+        lines.append(f"{icon} {e(name)}" + (f" — {ok}/{total}" if ok and not complete else ""))
+        rows.append([(f"{icon} {name}"[:60], f"rv:o:{i}")])
+    lines.append("\n<i>Прогресс повторения отдельный: в самих юнитах результаты не меняются.</i>")
+    nxt = [("▶️ Следующее", "rv:n")] if done < len(queue) else [("🔁 Пройти заново", "rv:R")]
+    rows.append(nxt + [("🔁 К повторению", "rv:h")])
+    return "\n".join(lines), rows
+
+
+def review_lex_screen(unit: dict, known: int) -> tuple[str, list]:
+    text = (f"🔤 <b>Лексика: {e(unit['title'])}</b>\n{len(unit['words'])} слов, ✅ знаю {known}\n\n"
+            "<i>Сначала — слова с ошибками и ещё не выученные. Прогресс — отдельный для этого повторения.</i>")
+    rows = [[("🃏 🇵🇱→🇷🇺", "rv:l:pl"), ("🃏 🇷🇺→🇵🇱", "rv:l:ru"), ("🃏 🔀", "rv:l:mix")],
+            [("✅ Тест (выбор из 3)", "rv:l:test")],
+            [("✍️ Пропуски в предложениях (Gemini)", "rv:l:gap")],
+            [("🔁 К повторению", "rv:h")]]
+    return text, rows
+
+
+def review_gemini_screen(titles: list[str]) -> tuple[str, list]:
+    text = ("🤖 <b>Упражнения от Gemini</b> по темам юнитов:\n" + "\n".join(f"• {e(t)}" for t in titles[:10])
+            + "\n\nКакой формат?")
+    return text, [[("✅ Тест (варианты)", "rv:g:test"), ("✍️ Свой ввод", "rv:g:gap")], [("🔁 К повторению", "rv:h")]]

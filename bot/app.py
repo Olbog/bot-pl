@@ -26,11 +26,12 @@ from .exercises.book import BookMixin
 from .exercises.bookex import BookExMixin
 from .reading import ReadingMixin
 from .zvuki import ZvukiMixin
+from .review import ReviewMixin
 
 
 class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
           ExerciseMenuMixin, ExerciseRunMixin, BookMixin, BookExMixin, ReadingMixin,
-          ZvukiMixin):
+          ZvukiMixin, ReviewMixin):
     """Бот целиком: ядро здесь, остальное — в модулях-миксинах."""
     def __init__(self, cfg: cfg_mod.Config, tg: Telegram, gemini: Gemini, db: DB, tts=synthesize,
                  clock=time.time):
@@ -71,6 +72,9 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         if tw_item and voice and not text:   # 🗣 голосовое после открытой скороговорки — проверка произношения
             await self.tw_voice(chat_id, user_id, tw_item, voice)
             return
+        if pending and pending.get("step") == "rv_q" and voice and not text:   # 🔁 вопрос по правилу голосом
+            await self.review_answer(chat_id, user_id, pending, "", voice)
+            return
         if pending and pending.get("step") == "bex" and (text or voice):
             await self.bex_text(chat_id, user_id, pending, text, voice)
             return
@@ -99,6 +103,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             exclude = self.db.known_words(user_id)[-80:]
             await self.build_preview(chat_id, user_id, {"topic": text},
                                      topic_words_prompt(text, n, self.cfg.level, exclude))
+        elif step == "rv_q":   # 🔁 вопрос по правилу повторения — диалог, шаг остаётся
+            await self.review_answer(chat_id, user_id, pending, text)
         elif step == "dict_own":
             self.db.set_pending(user_id, None)
             await self.dict_add_text(chat_id, user_id, text, pending.get("msg"))
@@ -316,6 +322,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
                             "Отмеченное в меню «⭐ В словарь» ляжет туда.", prev=None)
         elif data == "dl" or data == "dS" or data.startswith(("dt:", "dw:", "dm:", "dz:", "dr:", "dR:", "dy:")):
             await self.dict_callback(chat_id, user_id, message_id, data)
+        elif data.startswith("rv:"):            # 🔁 повторение
+            await self.review_callback(chat_id, user_id, message_id, pending, data[3:])
         elif data.startswith("dX:"):            # ⭐ В словарь из раздела: упражнение, итог, скороговорка
             await self.offer_source(chat_id, user_id, data[3:])
         elif data == "dn:own" or data.startswith("dn:own:"):
@@ -376,6 +384,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             await self.tw_menu(chat_id, user_id)
         elif cmd == "/read":
             await self.read_menu(chat_id, user_id)
+        elif cmd == "/review":
+            await self.review_menu(chat_id, user_id)
         elif cmd == "/export":
             await self.send_export(chat_id, user_id, "a")
         elif cmd == "/cancel":
@@ -397,7 +407,7 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         """Кнопки главного меню — как соответствующие команды (незаконченный выбор отменяется)."""
         self.db.set_pending(user_id, None)
         cmd = {"new": "/new", "ex": "/ex", "set": "/set", "itog": "/itog", "dict": "/dict", "export": "/export",
-               "words": "/words", "phr": "/phr", "read": "/read", "tw": "/tw"}
+               "words": "/words", "phr": "/phr", "read": "/read", "tw": "/tw", "review": "/review"}
         if where in cmd:
             await self.command(chat_id, user_id, cmd[where])
 

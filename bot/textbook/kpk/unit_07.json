@@ -2843,5 +2843,180 @@
     }
    ]
   }
- ]
+ ],
+ "review": {
+  "hard": [
+   "tb-7-a4",
+   "tb-7-b2",
+   "tb-7-c1",
+   "wb-7-3",
+   "wb-7-5",
+   "wb-7-12"
+  ],
+  "rules": [
+   {
+    "title": "Винительный падеж ед. ч. (kogo? co?)",
+    "explanation": "После mieć, lubić, kupować, znać, jeść, pić, czytać, proszę… — винительный. Меняется женский род и мужской одушевлённый; мужской неодушевлённый и средний — без изменений.",
+    "table": [
+     {
+      "when": "ж. р.",
+      "form": "сущ. -ę; прил. -ą",
+      "example": "czarna kawa → czarną kawę, gazeta → gazetę"
+     },
+     {
+      "when": "м. р. одушевл. (люди, животные)",
+      "form": "сущ. -a; прил. -ego",
+      "example": "twój brat → twojego brata, pies → psa"
+     },
+     {
+      "when": "м. р. неодушевл.",
+      "form": "без изменений",
+      "example": "Proszę sok pomarańczowy, duży zeszyt"
+     },
+     {
+      "when": "ср. р.",
+      "form": "без изменений",
+      "example": "Mam nowe radio, piję mleko"
+     }
+    ],
+    "exceptions": [
+     "Ta → tę, ten (одуш.) → tego, mój / moja → mojego / moją",
+     "Kogo? — о людях и животных, co? — о вещах: Kogo znasz? Co kupujesz?",
+     "После отрицания вместо винительного — родительный (юнит 10)"
+    ],
+    "examples": [
+     {
+      "pl": "Znam twojego brata.",
+      "translit": "знам тфо-Е-го БРА-та",
+      "ru": "Я знаю твоего брата."
+     },
+     {
+      "pl": "Angela pije czarną kawę.",
+      "translit": "ан-ГЕ-ля ПИ-е ЧАР-нон КА-вэ",
+      "ru": "Анджела пьёт чёрный кофе."
+     },
+     {
+      "pl": "Proszę bilet i gazetę.",
+      "translit": "ПРО-шэ БИ-лет и га-ЗЭ-тэ",
+      "ru": "Дайте, пожалуйста, билет и газету."
+     }
+    ]
+   },
+   {
+    "title": "Ile kosztuje? Ile kosztują?",
+    "explanation": "Цена одной вещи — kosztuje, нескольких — kosztują. Просьба в магазине: Proszę + винительный.",
+    "table": [
+     {
+      "when": "одна вещь",
+      "form": "Ile kosztuje…?",
+      "example": "Ile kosztuje ta książka?"
+     },
+     {
+      "when": "несколько",
+      "form": "Ile kosztują…?",
+      "example": "Ile kosztują te bilety?"
+     },
+     {
+      "when": "ответ",
+      "form": "… kosztuje / kosztują … złotych",
+      "example": "Kosztuje dwadzieścia złotych."
+     },
+     {
+      "when": "просьба",
+      "form": "Proszę + вин. п. / Poproszę…",
+      "example": "Poproszę wodę mineralną."
+     }
+    ],
+    "exceptions": [
+     "Ile płacę? — сколько с меня?",
+     "Drogi ≠ tani: To jest za drogie (слишком дорого)"
+    ],
+    "examples": [
+     {
+      "pl": "Ile kosztuje ta kawa? — Osiem złotych.",
+      "translit": "И-ле кош-ТУ-е та КА-ва — О-щем ЗЎО-тых",
+      "ru": "Сколько стоит этот кофе? — Восемь злотых."
+     },
+     {
+      "pl": "Poproszę bilet normalny.",
+      "translit": "по-ПРО-шэ БИ-лет нор-МАЛЬ-ны",
+      "ru": "Мне, пожалуйста, полный билет."
+     }
+    ]
+   },
+   {
+    "title": "Złoty / złote / złotych, grosz / grosze / groszy",
+    "explanation": "Форма денег зависит от числа — как rok / lata / lat. 1 — złoty, grosz; 2–4 (кроме 12–14) — złote, grosze; остальное — złotych, groszy.",
+    "table": [
+     {
+      "when": "1",
+      "form": "złoty / grosz",
+      "example": "jeden złoty, jeden grosz"
+     },
+     {
+      "when": "2–4, 22–24, 33…",
+      "form": "złote / grosze",
+      "example": "dwa złote, trzydzieści trzy złote, cztery grosze"
+     },
+     {
+      "when": "5–21, 25–31, 0, круглые",
+      "form": "złotych / groszy",
+      "example": "pięć złotych, dwanaście złotych, piętnaście groszy"
+     }
+    ],
+    "exceptions": [
+     "12, 13, 14 — złotych: dwanaście złotych",
+     "33 zł 15 gr = trzydzieści trzy złote piętnaście groszy"
+    ],
+    "examples": [
+     {
+      "pl": "To kosztuje dwa złote pięćdziesiąt groszy.",
+      "translit": "то кош-ТУ-е два ЗЎО-тэ пеньч-ДЖЕ-щёнт ГРО-шы",
+      "ru": "Это стоит два злотых пятьдесят грошей."
+     },
+     {
+      "pl": "Dwanaście złotych, proszę.",
+      "translit": "два-НАЩЬ-че ЗЎО-тых, ПРО-шэ",
+      "ru": "Двенадцать злотых, пожалуйста."
+     }
+    ]
+   },
+   {
+    "title": "Числа 100–1000",
+    "explanation": "Сотни: 100 sto, 200 dwieście, 300 trzysta, 400 czterysta, 500–900 — -set. 1000 — tysiąc.",
+    "table": [
+     {
+      "when": "100–400",
+      "form": "sto, dwieście, trzysta, czterysta",
+      "example": "сто, ДВЕЩЬ-че, ТШЫС-та, чтэ-РЫС-та"
+     },
+     {
+      "when": "500–900",
+      "form": "pięćset, sześćset, siedemset, osiemset, dziewięćset",
+      "example": "ПЕНЬЧЬ-сэт, ШЭЩЬЧЬ-сэт"
+     },
+     {
+      "when": "1000",
+      "form": "tysiąc",
+      "example": "ТЫ-щёнц"
+     },
+     {
+      "when": "составные",
+      "form": "сотни + десятки + единицы",
+      "example": "644 — sześćset czterdzieści cztery"
+     }
+    ],
+    "exceptions": [
+     "Dwieście (не dwasta), trzysta и czterysta — без -set"
+    ],
+    "examples": [
+     {
+      "pl": "Ten telefon kosztuje dziewięćset złotych.",
+      "translit": "тэн тэ-ЛЕ-фон кош-ТУ-е ДЖЕ-веньчь-сэт ЗЎО-тых",
+      "ru": "Этот телефон стоит девятьсот злотых."
+     }
+    ]
+   }
+  ]
+ }
 }

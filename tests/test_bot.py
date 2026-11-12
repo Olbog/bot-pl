@@ -424,6 +424,9 @@ class FakeGemini:
             import re as _re
             nums = [int(x) for x in _re.findall(r"^(\d+)\. ", prompt, _re.M)]
             return {"items": [{"n": n, "wrong": [f"blisko{n}a", f"blisko{n}b"]} for n in nums]}
+        if "answer" in props and "examples" in props:            # 🔁 вопрос по правилу повторения
+            return {"answer": "Потому что nie + глагол требует родительного.",
+                    "examples": [{"pl": "Nie piję kawy.", "translit": "не ПИ-е КА-вы", "ru": "Не пью кофе."}]}
         if "rules" in props:
             return {"rules": [{"title": "Родительный после отрицания", "explanation": "nie + глагол → kogo? czego?",
                                "examples": [{"pl": "Nie lubię cukru.", "translit": "не ЛЮ-бе ЦУ-кру",
@@ -3041,3 +3044,83 @@ def test_star_from_itog_and_tongue_twister():
          "tw": "t01", "tw_attempt": "t01:5"}])
     run(app.on_callback(cb("dX:t:t01:5")))
     assert "🗣 Скороговорка" in app.tg.sent[-1] and "☑️ <b>szosą</b> [ШО-сон] — по шоссе" in app.tg.sent[-1]
+
+
+REAL_TEXTBOOK = Path(__file__).resolve().parent.parent / "bot" / "textbook"
+
+
+def test_review_select_rules_qa_hard_lexicon_gemini():
+    """🔁 Повторение KpK 9–11: выбор, правила из файла юнита, ❓ диалог по правилу, сложные упражнения (отдельный
+    прогресс), лексика юнитов, упражнения от Gemini по темам юнитов."""
+    tb.UNITS_DIR = REAL_TEXTBOOK
+    from bot.ui import fmt
+    app = make_app()
+    run(app.handle(msg(text="/review")))
+    assert "🔁 <b>Повторение</b>" in app.tg.sent[-1] and "rv:u:kpk:9" in str(app.tg.buttons[-1])
+    for c in ("rv:none", "rv:u:kpk:9", "rv:u:kpk:11", "rv:u:kpk:10", "rv:p:wb", "rv:p:wb"):
+        run(app.on_callback(cb(c, mid=5)))
+    assert "KpK 9, 10, 11" in app.tg.edits[-1][0] and "📗 учебник + 📒 тетрадь" in app.tg.edits[-1][0]
+    run(app.on_callback(cb("rv:go", mid=5)))
+    home = app.tg.edits[-1][0]
+    assert "Повторение: KpK 9, 10, 11" in home and "сделано 0 из 18" in home
+    st = app.db.review_get(42)
+    assert st["units"] == ["kpk:9", "kpk:10", "kpk:11"] and ["kpk:10", "tb-10-b2"] in st["queue"]
+    n = len(app.gemini.prompts)
+    run(app.on_callback(cb("rv:r")))                            # 📖 правила — из файла, без Gemini
+    assert len(app.gemini.prompts) == n
+    rules_msgs = [t for t in app.tg.sent if "главное для повторения" in t]
+    assert len(rules_msgs) == 3 and "Отрицание + родительный" in rules_msgs[1]
+    assert ("❓ Отрицание + родительный падеж ед. ч.", "rv:q:kpk:10:0") in [b for r in app.tg.buttons[-3] for b in r]
+    run(app.on_callback(cb("rv:q:kpk:10:0")))                   # ❓ диалог по правилу
+    assert app.db.get_state(42)["pending"]["step"] == "rv_q"
+    run(app.handle(msg(text="почему kawy, а не kawę?")))
+    assert "почему kawy, а не kawę?" in app.gemini.prompts[-1] and "Отрицание + родительный" in app.gemini.prompts[-1]
+    assert "🧑‍🏫" in app.tg.sent[-1] and "Nie piję kawy" in app.tg.sent[-1]
+    run(app.handle(msg(text="а с mieć тоже?")))                 # следующий вопрос — с историей
+    assert "почему kawy, а не kawę?" in app.gemini.prompts[-1] and "а с mieć тоже?" in app.gemini.prompts[-1]
+    run(app.on_callback(cb("rv:x", mid=6)))
+    assert app.db.get_state(42)["pending"] is None
+    run(app.on_callback(cb("rv:e")))                            # 🏋️ сложные упражнения
+    assert "сделано 0 из 18" in app.tg.sent[-1] and "rv:o:0" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("rv:n")))
+    pend = app.db.get_state(42)["pending"]
+    assert pend["step"] == "bex" and pend["unit"] == "rev:kpk:9"
+    unit = tb.get_unit("rev:kpk:9")
+    x = next(e for e in unit["exercises"] if e["id"] == pend["ex"])
+    rows = [b for r in fmt.bex_result_buttons(unit, x, {}) for b in r]
+    assert ("➡️ Следующее в повторении", "rv:n") in rows and ("🏋️ К повторению", "rv:e") in rows
+    for k in range(1, len(x["items"]) + 1):                     # всё упражнение верно — в повторении
+        app.db.bex_save(42, "rev:kpk:9", x["id"], k, True, "a", "")
+    assert not app.db.bex_results(42, "kpk:9")                  # прогресс в самом юните не тронут
+    run(app.on_callback(cb("rv:h")))
+    assert "сделано 1 из 18" in app.tg.sent[-1]
+    run(app.on_callback(cb("rv:l")))                            # 🔤 лексика выбранных юнитов
+    assert "🔤 <b>Лексика: KpK 9, KpK 10, KpK 11</b>" in app.tg.sent[-1]
+    run(app.on_callback(cb("rv:l:pl")))
+    assert app.db.get_state(42)["pending"]["ex"]["unit"] == "rev:kpk:9,10,11@tb,wb"
+    run(app.on_callback(cb("x:n:1")))
+    assert "Повторение" in app.tg.sent[-1] and "Упражнение 1/1" in app.tg.sent[-1]
+    run(app.on_callback(cb("rv:g")))                            # 🤖 упражнения от Gemini по темам юнитов
+    assert "Притяжательные местоимения" in app.tg.sent[-1]
+    run(app.on_callback(cb("rv:g:test")))
+    ex = app.db.get_state(42)["pending"]["ex"]
+    assert ex["kind"] == "grammar" and ex["review"] and ex["fmt"] == "test" and len(ex["rules"]) == 10
+
+
+def test_review_rules_fallback_gemini_cached_and_hard_pick():
+    """Нет готовой выжимки — правила составляет Gemini, второй раз — из кэша. Сложные: сначала с ошибками ученика."""
+    from bot.review import hard_pick
+    with_exercises()
+    app = make_app()
+    run(app.handle(msg(text="/review")))
+    run(app.on_callback(cb("rv:go", mid=5)))
+    assert "KpK 2" in app.tg.edits[-1][0]
+    n = len(app.gemini.prompts)
+    run(app.on_callback(cb("rv:r")))
+    assert len(app.gemini.prompts) == n + 1 and "ВЫЖИМКУ" in app.gemini.prompts[-1]
+    assert "Родительный после отрицания" in app.tg.sent[-2]
+    run(app.on_callback(cb("rv:r")))
+    assert len(app.gemini.prompts) == n + 1                     # из кэша
+    unit = tb.get_unit("kpk:2")
+    assert hard_pick(unit, ["tb", "wb"], {}) == ["tb-2-1", "wb-2-2"]
+    assert hard_pick(unit, ["wb"], {"wb-2-2": 0}) == ["wb-2-2"]   # tf не берём

@@ -3695,5 +3695,217 @@
     "W parku, siedzę i czytam."
    ]
   }
- ]
+ ],
+ "review": {
+  "hard": [
+   "tb-6-a6",
+   "tb-6-b1",
+   "tb-6-c1",
+   "wb-6-6",
+   "wb-6-7",
+   "wb-6-9"
+  ],
+  "rules": [
+   {
+    "title": "Три спряжения настоящего времени",
+    "explanation": "Тип спряжения видно по формам ja и ty. Остальные формы строятся от формы ty: убираем -sz и добавляем -my, -cie (у -m/-sz) или берём основу.",
+    "table": [
+     {
+      "when": "-m, -sz (-ać, -eć)",
+      "form": "mam, masz, ma, mamy, macie, mają",
+      "example": "czytać, grać, mieszkać, rozumieć, umieć"
+     },
+     {
+      "when": "-ę, -isz / -ysz (-ić, -yć, часть -eć)",
+      "form": "robię, robisz, robi, robimy, robicie, robią",
+      "example": "mówić, lubić, uczyć, tańczyć, myśleć"
+     },
+     {
+      "when": "-ę, -esz (-ować и другие)",
+      "form": "piszę, piszesz, pisze, piszemy, piszecie, piszą",
+      "example": "pisać, gotować, pracować, pić, jechać"
+     }
+    ],
+    "exceptions": [
+     "Форма oni: в 1-й группе -ją (mają), во 2-й и 3-й — -ą (robią, piszą)",
+     "pisać → piszę (s → sz во всех формах)"
+    ],
+    "examples": [
+     {
+      "pl": "Co robisz? — Nudzę się!",
+      "translit": "цо РО-бишь — НУ-дзэ ще",
+      "ru": "Что ты делаешь? — Скучаю!"
+     },
+     {
+      "pl": "Piszę SMS do mamy.",
+      "translit": "ПИ-шэ эс-эм-эс до МА-мы",
+      "ru": "Пишу эсэмэску маме."
+     },
+     {
+      "pl": "Oni dużo czytają.",
+      "translit": "О-ни ДУ-жо чы-ТА-йон",
+      "ru": "Они много читают."
+     }
+    ]
+   },
+   {
+    "title": "Глаголы на -ować → -uję, -ujesz",
+    "explanation": "Все глаголы на -ować в настоящем времени меняют -ow- на -uj-: gotować → gotuję. Это 3-е спряжение (-ę, -esz).",
+    "table": [
+     {
+      "when": "ja / ty",
+      "form": "-uję / -ujesz",
+      "example": "gotuję, gotujesz; pracuję, pracujesz"
+     },
+     {
+      "when": "on / ona",
+      "form": "-uje",
+      "example": "podróżuje, interesuje się"
+     },
+     {
+      "when": "my / wy",
+      "form": "-ujemy / -ujecie",
+      "example": "pracujemy, gotujecie"
+     },
+     {
+      "when": "oni",
+      "form": "-ują",
+      "example": "podróżują, pracują"
+     }
+    ],
+    "exceptions": [
+     "Инфинитив остаётся -ować: Lubię gotować",
+     "Так же: kupować → kupuję, studiować → studiuję, rysować → rysuję, malować → maluję"
+    ],
+    "examples": [
+     {
+      "pl": "Co ty teraz gotujesz?",
+      "translit": "цо ты ТЭ-раз го-ТУ-ешь",
+      "ru": "Что ты сейчас готовишь?"
+     },
+     {
+      "pl": "Oni dużo podróżują po Europie.",
+      "translit": "О-ни ДУ-жо под-ру-ЖУ-йон по эў-РО-пье",
+      "ru": "Они много путешествуют по Европе."
+     },
+     {
+      "pl": "Pracuję w restauracji.",
+      "translit": "пра-ЦУ-е в рэс-таў-РАЦ-ьи",
+      "ru": "Я работаю в ресторане."
+     }
+    ]
+   },
+   {
+    "title": "Grać w / grać na; jeździć na",
+    "explanation": "Игры и спорт — grać w + винительный (w tenisa, w piłkę). Музыкальные инструменты — grać na + предложный (na gitarze). Велосипед, лыжи, коньки — jeździć na + предложный.",
+    "table": [
+     {
+      "when": "спорт, игры",
+      "form": "grać w + вин. п.",
+      "example": "w tenisa, w piłkę nożną, w karty, w szachy"
+     },
+     {
+      "when": "инструменты",
+      "form": "grać na + предл. п.",
+      "example": "na gitarze, na pianinie, na saksofonie"
+     },
+     {
+      "when": "кататься на",
+      "form": "jeździć na + предл. п.",
+      "example": "na rowerze, na nartach, na łyżwach, konno"
+     }
+    ],
+    "exceptions": [
+     "Ошибка «gram na tenisa» → gram w tenisa; «gra w saksofonie» → gra na saksofonie",
+     "Oglądać, słuchać — без предлога: oglądam telewizję, słucham muzyki"
+    ],
+    "examples": [
+     {
+      "pl": "Gram w tenisa i na gitarze.",
+      "translit": "грам ф тэ-НИ-са и на ги-ТА-жэ",
+      "ru": "Я играю в теннис и на гитаре."
+     },
+     {
+      "pl": "Lubię jeździć na rowerze.",
+      "translit": "ЛЮ-бье ЕЖЬ-джичь на ро-ВЭ-жэ",
+      "ru": "Я люблю кататься на велосипеде."
+     }
+    ]
+   },
+   {
+    "title": "Lubić / umieć + инфинитив",
+    "explanation": "Co lubisz robić? — Lubię + инфинитив. Umieć (уметь) + инфинитив. Инфинитив почти всегда на -ć.",
+    "table": [
+     {
+      "when": "любить делать",
+      "form": "lubię / lubisz + инф.",
+      "example": "Lubię czytać, gotować, tańczyć."
+     },
+     {
+      "when": "уметь",
+      "form": "umiem / umiesz + инф.",
+      "example": "Umiem pływać. On umie tańczyć."
+     },
+     {
+      "when": "любить что-то",
+      "form": "lubię + вин. п.",
+      "example": "Lubię muzykę, lubię sport."
+     }
+    ],
+    "exceptions": [
+     "Ошибка «Lubić czytasz?» → Lubisz czytać? — спрягается только первый глагол",
+     "umieć идёт по типу -m, -sz: umiem, umiesz, umie, umieją"
+    ],
+    "examples": [
+     {
+      "pl": "Co lubisz robić w wolnym czasie?",
+      "translit": "цо ЛЮ-бишь РО-бичь в ВОЛЬ-ным ЧА-ще",
+      "ru": "Что ты любишь делать в свободное время?"
+     },
+     {
+      "pl": "Javier umie świetnie tańczyć.",
+      "translit": "ХА-вьер У-мье ЩЬВЕТ-не ТАНЬ-чычь",
+      "ru": "Хавьер отлично умеет танцевать."
+     }
+    ]
+   },
+   {
+    "title": "Mój, twój — мой, твой",
+    "explanation": "Притяжательные местоимения согласуются с родом вещи, а не владельца: mój brat, moja siostra, moje radio.",
+    "table": [
+     {
+      "when": "м. р.",
+      "form": "mój / twój",
+      "example": "mój brat, twój dom"
+     },
+     {
+      "when": "ж. р.",
+      "form": "moja / twoja",
+      "example": "moja mama, twoja siostra"
+     },
+     {
+      "when": "ср. р.",
+      "form": "moje / twoje",
+      "example": "moje dziecko, twoje zdjęcie"
+     }
+    ],
+    "exceptions": [
+     "Jego (его), jej (её) не меняются: jego siostra, jej brat",
+     "Вежливо: pana / pani: Czy to pana telefon?"
+    ],
+    "examples": [
+     {
+      "pl": "To jest moja siostra, a to mój brat.",
+      "translit": "то ест МО-я ЩЁСТ-ра, а то муй брат",
+      "ru": "Это моя сестра, а это мой брат."
+     },
+     {
+      "pl": "Gdzie jest twoje zdjęcie?",
+      "translit": "гдже ест ТФО-е ЗДЬЕН-че",
+      "ru": "Где твоя фотография?"
+     }
+    ]
+   }
+  ]
+ }
 }

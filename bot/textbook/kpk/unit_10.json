@@ -3575,5 +3575,216 @@
     }
    ]
   }
- ]
+ ],
+ "review": {
+  "hard": [
+   "tb-10-b2",
+   "tb-10-c2",
+   "tb-10-b1",
+   "wb-10-6",
+   "wb-10-13",
+   "wb-10-7"
+  ],
+  "rules": [
+   {
+    "title": "Отрицание + родительный падеж ед. ч.",
+    "explanation": "Если глагол с прямым дополнением (lubić, mieć, jeść, pić, kupować) стоит с nie, дополнение переходит из винительного в родительный: Lubię kawę → Nie lubię kawy. Прилагательное тоже: м. р. и ср. р. -ego, ж. р. -ej.",
+    "table": [
+     {
+      "when": "м. р.",
+      "form": "-a / -u",
+      "example": "chleb → nie mam chleba; sok → nie piję soku; ser → nie lubię sera"
+     },
+     {
+      "when": "ж. р.",
+      "form": "-y / -i",
+      "example": "kawa → nie piję kawy; herbata → herbaty; szarlotka → szarlotki"
+     },
+     {
+      "when": "ср. р.",
+      "form": "-a",
+      "example": "wino → nie piję wina; mleko → mleka; piwo → piwa"
+     },
+     {
+      "when": "прилагательное м. р. и ср. р.",
+      "form": "-ego",
+      "example": "zimny sok → zimnego soku; czerwone wino → czerwonego wina"
+     },
+     {
+      "when": "прилагательное ж. р.",
+      "form": "-ej",
+      "example": "biała kawa → białej kawy"
+     }
+    ],
+    "exceptions": [
+     "Być не требует родительного: To jest kawa → To nie jest kawa",
+     "Mieć: Nie mam czasu (не «czas»)",
+     "-a или -u в м. р. — учить со словом: chleba, sera, ale soku, czasu"
+    ],
+    "examples": [
+     {
+      "pl": "Nie lubię białej kawy.",
+      "translit": "не ЛЮ-бье БЯ-ўэй КА-вы",
+      "ru": "Я не люблю кофе с молоком."
+     },
+     {
+      "pl": "Nie piję czerwonego wina.",
+      "translit": "не ПИ-е чэр-во-НЭ-го ВИ-на",
+      "ru": "Я не пью красное вино."
+     },
+     {
+      "pl": "Nie mam chleba.",
+      "translit": "не мам ХЛЕ-ба",
+      "ru": "У меня нет хлеба."
+     }
+    ]
+   },
+   {
+    "title": "Uwielbiam / lubię / nie lubię / nie cierpię",
+    "explanation": "Шкала от «обожаю» до «терпеть не могу». С существительным: в утверждении — винительный, с nie — родительный. С глаголом — инфинитив.",
+    "table": [
+     {
+      "when": "обожаю",
+      "form": "uwielbiam + B.",
+      "example": "Uwielbiam pierogi."
+     },
+     {
+      "when": "люблю",
+      "form": "lubię + B.",
+      "example": "Lubię barszcz."
+     },
+     {
+      "when": "не люблю",
+      "form": "nie lubię + D.",
+      "example": "Nie lubię bigosu."
+     },
+     {
+      "when": "терпеть не могу",
+      "form": "nie cierpię + D.",
+      "example": "Nie cierpię zupy grzybowej."
+     },
+     {
+      "when": "+ действие",
+      "form": "+ инфинитив",
+      "example": "Lubię gotować. Uwielbiam jeść pierogi."
+     }
+    ],
+    "exceptions": [
+     "Uwielbiać спрягается как -am: uwielbiam, uwielbiasz, uwielbia; cierpieć — cierpię, cierpisz",
+     "Мн. ч. неличных в винительном и родительном различается: Lubię pierogi — Nie lubię pierogów"
+    ],
+    "examples": [
+     {
+      "pl": "Uwielbiam polskie jedzenie!",
+      "translit": "у-ВЕЛЬ-бям ПОЛЬ-ске е-ДЖЕ-не",
+      "ru": "Обожаю польскую еду!"
+     },
+     {
+      "pl": "Nie cierpię kawy bez cukru.",
+      "translit": "не ЧЕР-пье КА-вы бэс ЦУК-ру",
+      "ru": "Терпеть не могу кофе без сахара."
+     }
+    ]
+   },
+   {
+    "title": "Личные местоимения в творительном: z kim? — ze mną, z tobą…",
+    "explanation": "С кем? — предлог z + местоимение в творительном падеже. Перед mną предлог становится ze.",
+    "table": [
+     {
+      "when": "ja",
+      "form": "ze mną",
+      "example": "Idziesz ze mną?"
+     },
+     {
+      "when": "ty",
+      "form": "z tobą",
+      "example": "Idę z tobą."
+     },
+     {
+      "when": "on / ono",
+      "form": "z nim",
+      "example": "Rozmawiam z nim."
+     },
+     {
+      "when": "ona",
+      "form": "z nią",
+      "example": "Jem obiad z nią."
+     },
+     {
+      "when": "my",
+      "form": "z nami",
+      "example": "Chodź z nami!"
+     },
+     {
+      "when": "wy",
+      "form": "z wami",
+      "example": "Idę z wami."
+     },
+     {
+      "when": "oni / one",
+      "form": "z nimi",
+      "example": "Spotykam się z nimi."
+     }
+    ],
+    "exceptions": [
+     "После предлога — формы с n-: z nim, z nią, z nimi (не «z jim»)",
+     "Ze mną пишется отдельно: ze mną"
+    ],
+    "examples": [
+     {
+      "pl": "Pójdziesz ze mną do restauracji?",
+      "translit": "ПУЙ-джешь зэ мнон до рэс-таў-РА-цьи",
+      "ru": "Пойдёшь со мной в ресторан?"
+     },
+     {
+      "pl": "Lubię rozmawiać z nią.",
+      "translit": "ЛЮ-бье роз-МА-вячь з нён",
+      "ru": "Я люблю с ней разговаривать."
+     }
+    ]
+   },
+   {
+    "title": "Как на вкус: pyszny, taki sobie, okropny, za tłusty",
+    "explanation": "Оценка блюда — прилагательное в роде существительного: Zupa jest pyszna, bigos jest pyszny. «Слишком» — za + прилагательное. «Не очень» — niezbyt / nie za bardzo.",
+    "table": [
+     {
+      "when": "очень вкусно",
+      "form": "pyszny / wyśmienity / znakomity",
+      "example": "Barszcz jest pyszny."
+     },
+     {
+      "when": "так себе",
+      "form": "taki sobie / niezły",
+      "example": "Kotlet jest taki sobie."
+     },
+     {
+      "when": "невкусно",
+      "form": "niedobry / okropny / bez smaku",
+      "example": "Zupa jest okropna."
+     },
+     {
+      "when": "слишком…",
+      "form": "za + прилагательное",
+      "example": "za tłusty, za słony, za ostry"
+     }
+    ],
+    "exceptions": [
+     "Taki sobie тоже согласуется: taka sobie zupa, takie sobie ciasto",
+     "Nie ze словом пишется слитно: niedobry, niezły"
+    ],
+    "examples": [
+     {
+      "pl": "Ta zupa jest za słona.",
+      "translit": "та ЗУ-па ест за СЎО-на",
+      "ru": "Этот суп слишком солёный."
+     },
+     {
+      "pl": "Pierogi są pyszne!",
+      "translit": "пе-РО-ги сон ПЫШ-нэ",
+      "ru": "Вареники вкусные!"
+     }
+    ]
+   }
+  ]
+ }
 }

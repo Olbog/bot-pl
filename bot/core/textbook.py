@@ -141,9 +141,57 @@ def _order(u: dict) -> tuple:
     return (int(m.group(1)), m.group(2)) if m else (10**6, u["num"])
 
 
+REVIEW = "rev:"   # 🔁 повторение: «rev:kpk:10» — юнит с отдельным прогрессом; «rev:kpk:9,10;hurra:3@tb,wb» — слова юнитов
+
+
+def review_id(units: list[str], parts: list[str] | None = None) -> str:
+    """Ключ повторения: юниты [«kpk:9», «kpk:10»] (+ части) → «rev:kpk:9,10@tb,wb». Один юнит без частей — «rev:kpk:9»."""
+    books: dict[str, list[str]] = {}
+    for u in units:
+        b, _, n = u.partition(":")
+        books.setdefault(b, []).append(n)
+    spec = ";".join(f"{b}:{','.join(ns)}" for b, ns in books.items())
+    return REVIEW + spec + (f"@{','.join(parts)}" if parts else "")
+
+
+def review_units(rid: str, path: Path | None = None) -> tuple[list[dict], list[str]]:
+    """«rev:kpk:9,10@tb» → ([юниты], [части]); части по умолчанию — все."""
+    spec, _, parts = str(rid).removeprefix(REVIEW).partition("@")
+    units = []
+    for chunk in spec.split(";"):
+        b, _, nums = chunk.partition(":")
+        for n in nums.split(","):
+            u = get_unit(f"{b}:{n}", path) if b and n else None
+            if u:
+                units.append(u)
+    return units, [p for p in parts.split(",") if p] or ["tb", "wb"]
+
+
+def review_unit(rid: str, path: Path | None = None) -> dict | None:
+    """Юнит повторения. Один юнит без частей («rev:kpk:10») — тот же юнит (упражнения из книги), но прогресс
+    отдельный: ключ в базе — «rev:kpk:10». Несколько юнитов / с частями — слова выбранных юнитов и частей вместе
+    (для карточек, теста и пропусков), упражнений нет."""
+    units, parts = review_units(rid, path)
+    if not units:
+        return None
+    if len(units) == 1 and "@" not in rid:
+        return {**units[0], "unit": rid, "rev": True, "base": units[0]["unit"]}
+    seen, words = set(), []
+    for u in units:
+        for w in u["words"]:
+            if w.get("src", "tb") in parts and w["pl"].lower() not in seen:
+                seen.add(w["pl"].lower())
+                words.append(w)
+    nums = ", ".join(f"{u['book_short']} {u['num']}" for u in units)
+    return {**units[0], "unit": rid, "rev": True, "base": None, "words": words, "exercises": [],
+            "num": nums, "name": "🔁 Повторение", "title": nums, "units_list": [u["unit"] for u in units]}
+
+
 def get_unit(unit_id: str, path: Path | None = None) -> dict | None:
-    """«kpk:8» → юнит; старое «8» (без книги) — юнит Krok po kroku."""
+    """«kpk:8» → юнит; старое «8» (без книги) — юнит Krok po kroku; «rev:…» — юнит повторения."""
     unit_id = str(unit_id or "")
+    if unit_id.startswith(REVIEW):
+        return review_unit(unit_id, path)
     if ":" not in unit_id:
         unit_id = f"{DEFAULT_BOOK}:{unit_id}"
     return next((u for u in load_units(path) if u["unit"] == unit_id), None)

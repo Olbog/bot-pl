@@ -3340,5 +3340,212 @@
   "Прилагательные от продуктов (-owy)",
   "Какой? Вкус и свойства",
   "Посуда и приборы"
- ]
+ ],
+ "review": {
+  "hard": [
+   "tb-8-c3",
+   "tb-8-c4",
+   "tb-8-b3",
+   "wb-8-11",
+   "wb-8-6",
+   "wb-8-9"
+  ],
+  "rules": [
+   {
+    "title": "Jeść и pić — неправильные глаголы",
+    "explanation": "Оба нужно выучить наизусть. После них — винительный: jem kanapkę, piję kawę.",
+    "table": [
+     {
+      "when": "jeść (есть)",
+      "form": "jem, jesz, je, jemy, jecie, jedzą",
+      "example": "Co jesz na śniadanie?"
+     },
+     {
+      "when": "pić (пить)",
+      "form": "piję, pijesz, pije, pijemy, pijecie, piją",
+      "example": "Piję herbatę z cytryną."
+     },
+     {
+      "when": "хотеть (chcieć)",
+      "form": "chcę, chcesz, chce, chcemy, chcecie, chcą",
+      "example": "Chcę pić."
+     }
+    ],
+    "exceptions": [
+     "oni jedzą (не jeją), wy jecie",
+     "На завтрак / обед / ужин: na śniadanie, na obiad, na kolację + вин. п."
+    ],
+    "examples": [
+     {
+      "pl": "Łucja i Julia jedzą płatki z mlekiem.",
+      "translit": "ЎУЦ-я и ЮЛЬ-я ЕДЗ-он ПЎАТ-ки з МЛЕ-кем",
+      "ru": "Луция и Юлия едят хлопья с молоком."
+     },
+     {
+      "pl": "Co wy jecie na obiad?",
+      "translit": "цо вы Е-че на О-бьят",
+      "ru": "Что вы едите на обед?"
+     },
+     {
+      "pl": "Oni piją mocną herbatę.",
+      "translit": "О-ни ПИ-йон МОЦ-нон хэр-БА-тэ",
+      "ru": "Они пьют крепкий чай."
+     }
+    ]
+   },
+   {
+    "title": "Z + творительный ед. ч. (с чем?)",
+    "explanation": "«С чем» — z + творительный: м. р. и ср. р. -em (прил. -ym / -im), ж. р. -ą (прил. -ą).",
+    "table": [
+     {
+      "when": "м. р.",
+      "form": "-em; прил. -ym",
+      "example": "ser → z serem, żółty ser → z żółtym serem"
+     },
+     {
+      "when": "м. р. на k, g",
+      "form": "-iem",
+      "example": "twarożek → z twarożkiem, serek → z serkiem"
+     },
+     {
+      "when": "ср. р.",
+      "form": "-em",
+      "example": "masło → z masłem, mleko → z mlekiem"
+     },
+     {
+      "when": "ж. р.",
+      "form": "-ą; прил. -ą",
+      "example": "szynka → z szynką, chuda szynka → z chudą szynką"
+     }
+    ],
+    "exceptions": [
+     "Беглое e: cukier → cukrem, twarożek → twarożkiem",
+     "Перед группой согласных z → ze: ze śmietaną, ze szpinakiem",
+     "Сама еда после jeść / pić — винительный: Jem kanapkę z serem"
+    ],
+    "examples": [
+     {
+      "pl": "Jem chleb z masłem i z chudą szynką.",
+      "translit": "ем хлеп з МАС-ўэм и з ХУ-дон ШЫН-кон",
+      "ru": "Я ем хлеб с маслом и постной ветчиной."
+     },
+     {
+      "pl": "Karol pije mocną kawę z cukrem.",
+      "translit": "КА-роль ПИ-е МОЦ-нон КА-вэ с ЦУК-рэм",
+      "ru": "Кароль пьёт крепкий кофе с сахаром."
+     }
+    ]
+   },
+   {
+    "title": "Творительный мн. ч.: -ami / -ymi",
+    "explanation": "Во мн. ч. творительный одинаков для всех родов: сущ. -ami, прил. -ymi (после k, g -imi).",
+    "table": [
+     {
+      "when": "существительное",
+      "form": "-ami",
+      "example": "pomidory → z pomidorami, frytki → z frytkami, ziemniaki → z ziemniakami"
+     },
+     {
+      "when": "прилагательное",
+      "form": "-ymi / -imi",
+      "example": "pieczone ziemniaki → z pieczonymi ziemniakami, słodkie → słodkimi"
+     },
+     {
+      "when": "мн. ч. в форме ед. ч. слова",
+      "form": "rodzynki → z rodzynkami",
+      "example": "ciasto z rodzynkami"
+     }
+    ],
+    "exceptions": [
+     "Исключения на -mi: ludzie → z ludźmi, dzieci → z dziećmi, przyjaciele → z przyjaciółmi",
+     "Ед. ч. ziemniak → мн. ч. ziemniaki → z ziemniakami"
+    ],
+    "examples": [
+     {
+      "pl": "Ryba z pieczonymi ziemniakami.",
+      "translit": "РЫ-ба с пье-чо-НЫ-ми жем-ня-КА-ми",
+      "ru": "Рыба с печёной картошкой."
+     },
+     {
+      "pl": "Lubię kanapki z pomidorami.",
+      "translit": "ЛЮ-бье ка-НАП-ки с по-ми-до-РА-ми",
+      "ru": "Я люблю бутерброды с помидорами."
+     }
+    ]
+   },
+   {
+    "title": "Прилагательные от продуктов: -owy",
+    "explanation": "Из чего / со вкусом чего — прилагательное на -owy (-owa, -owe). Чаще всего стоит после существительного.",
+    "table": [
+     {
+      "when": "фрукты",
+      "form": "-owy",
+      "example": "malina → sok malinowy, truskawka → dżem truskawkowy"
+     },
+     {
+      "when": "другое",
+      "form": "-owy / -ny",
+      "example": "pomarańcza → pomarańczowy, czekolada → czekoladowy"
+     },
+     {
+      "when": "иначе",
+      "form": "особые формы",
+      "example": "jabłko → jabłkowy, mleko → mleczny, ryba → rybny, mięso → mięsny"
+     }
+    ],
+    "exceptions": [
+     "Порядок: sok pomarańczowy, zupa pomidorowa — прилагательное-классификатор после существительного",
+     "-owy — о вкусе и составе; цвет pomarańczowy — тоже от pomarańcza"
+    ],
+    "examples": [
+     {
+      "pl": "Poproszę sok pomarańczowy.",
+      "translit": "по-ПРО-шэ сок по-ма-рань-ЧО-вы",
+      "ru": "Мне апельсиновый сок, пожалуйста."
+     },
+     {
+      "pl": "Na obiad jest zupa pomidorowa.",
+      "translit": "на О-бьят ест ЗУ-па по-ми-до-РО-ва",
+      "ru": "На обед томатный суп."
+     }
+    ]
+   },
+   {
+    "title": "Wolę … niż … (предпочитаю)",
+    "explanation": "Wolę (от woleć: wolę, wolisz, woli) + винительный или инфинитив; «чем» — niż + та же форма.",
+    "table": [
+     {
+      "when": "что предпочитаю",
+      "form": "wolę + вин. п. + niż + вин. п.",
+      "example": "Wolę herbatę niż kawę."
+     },
+     {
+      "when": "что делать",
+      "form": "wolę + инф. + niż + инф.",
+      "example": "Wolę gotować niż jeść w restauracji."
+     },
+     {
+      "when": "вопрос",
+      "form": "Co wolisz: …czy…?",
+      "example": "Co wolisz: rybę czy mięso?"
+     }
+    ],
+    "exceptions": [
+     "Woleć спрягается как -ę / -isz: wolę, wolisz, woli, wolimy, wolicie, wolą"
+    ],
+    "examples": [
+     {
+      "pl": "Wolę rybę niż mięso.",
+      "translit": "ВО-лэ РЫ-бэ ниш МЬЕН-со",
+      "ru": "Я предпочитаю рыбу мясу."
+     },
+     {
+      "pl": "Co wolisz: kawę czy herbatę?",
+      "translit": "цо ВО-лишь: КА-вэ чы хэр-БА-тэ",
+      "ru": "Что предпочитаешь: кофе или чай?"
+     }
+    ]
+   }
+  ]
+ }
 }
