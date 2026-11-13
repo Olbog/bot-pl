@@ -253,6 +253,10 @@ class ExerciseMenuMixin:
             self.db.set_pending(user_id, None)
             await self.tg.send_message(chat_id, "⏹ Упражнения закончены.")
             await self.main_menu(chat_id, user_id)
+        elif action.startswith("fx:"):
+            await self.ex_fix_open(chat_id, user_id, pending, int(action[3:]))
+        elif action.startswith(("au:", "aa:")):
+            await self.ex_speak(chat_id, user_id, action)
         elif action.startswith("rp:"):
             await self.ex_repeat(chat_id, user_id, int(action[3:]))
         elif action.startswith("rr:"):
@@ -272,11 +276,13 @@ class ExerciseMenuMixin:
     async def ex_answer_to(self, chat_id: int, user_id: int, saved: dict, pending: dict | None, text: str,
                            voice: dict | None) -> None:
         """Ответ через «Ответить» на конкретное упражнение."""
-        if saved["results"]:
-            await self.tg.send_message(chat_id, f"Упражнение #{saved['id']} уже проверено. "
-                                                 "Вопрос по пункту — «5: почему…» обычным сообщением.")
-            return
         ex = dict((pending or {}).get("ex") or {})
+        fixing = (pending or {}).get("step") == "ex_answer" and ex.get("ex_id") == saved["id"] and ex.get("fix")
+        if saved["results"] and not fixing:
+            await self.tg.send_message(chat_id, f"Упражнение #{saved['id']} уже проверено. "
+                                                 "Вопрос по пункту — «5: почему…» обычным сообщением, "
+                                                 "ответить ещё раз на ошибки — «▶️ Продолжить».")
+            return
         if ex.get("ex_id") != saved["id"]:
             ex = {k: v for k, v in ex.items() if k != "quiz"}
             ex["ex_id"] = saved["id"]

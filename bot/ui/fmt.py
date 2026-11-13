@@ -922,10 +922,11 @@ def hint_of(it: dict) -> str:
     return m.group(1) if m else ""
 
 
-def ex_hint_rows(ex: dict) -> list[list[tuple[str, str]]]:
-    """Кнопки 💡1…💡10: перевод пропущенного слова только этого пункта — всплывающей подсказкой."""
-    btns = [(f"💡{n}", f"x:h:{ex['id']}:{n}") for n, it in enumerate(ex["items"], 1) if hint_of(it)]
-    return [btns[i:i + 5] for i in range(0, len(btns), 5)]
+def ex_hint_rows(ex: dict, only: list[int] | None = None) -> list[list[tuple[str, str]]]:
+    """Кнопки 💡1…💡10: перевод пропущенного слова только этого пункта — всплывающей подсказкой; ниже — 🔊."""
+    btns = [(f"💡{n}", f"x:h:{ex['id']}:{n}") for n, it in enumerate(ex["items"], 1)
+            if hint_of(it) and (not only or n in only)]
+    return [btns[i:i + 5] for i in range(0, len(btns), 5)] + [[speak_button(ex["id"])]]
 
 
 # ---------- 📖 слова юнита (/words) ----------
@@ -1031,9 +1032,17 @@ def ex_count_prompt() -> tuple[str, list[list[tuple[str, str]]]]:
 
 
 def ex_message(ex: dict, idx: int, total: int, voice: bool, quiz: bool = False,
-               notes: dict | None = None) -> str:
-    lines = [f"🏋️ <b>Упражнение {idx}/{total}</b> · #{ex['id']} — {e(ex['title'])}", ""]
+               notes: dict | None = None, only: list[int] | None = None) -> str:
+    """only — «▶️ Продолжить»: только пункты с ошибкой, номера прежние."""
+    if only:
+        n_all = len(ex["items"])
+        lines = [f"✍️ <b>Исправляем ошибки</b> · #{ex['id']} — {e(ex['title'])}",
+                 f"<i>✅ Верно {n_all - len(only)} из {n_all} — эти пункты скрыты. Номера прежние.</i>", ""]
+    else:
+        lines = [f"🏋️ <b>Упражнение {idx}/{total}</b> · #{ex['id']} — {e(ex['title'])}", ""]
     for i, it in enumerate(ex["items"], 1):
+        if only and i not in only:
+            continue
         q = e(it.get("q", "")).replace("___", "<b>___</b>")
         rep = " 🔁" if it.get("_reuse_id") else ""
         lines.append(f"{i}. {q}{rep}")
@@ -1064,6 +1073,9 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool, quiz: bool = False,
     if not voice:
         lines.append("<i>" + "🎙 Можно и голосом: номер и ответ — «один — jestem, три — mam», «не знаю» — пропуск, «уточнение …» — вопрос к пункту." + "</i>")
     lines.append("<i>Ответ засчитается этому упражнению. Можно и через «Ответить» на это сообщение.</i>")
+    if only:
+        lines.append("<i>Можно не все: проверю названные пункты, остальные — потом. Засчитать пункт вручную "
+                     "(описка) — «5+», несколько — «4+8+».</i>")
     if any(it.get("_reuse_id") for it in ex["items"]):
         lines.append("<i>🔁 — пункт на повтор: в прошлый раз была ошибка или сомнение.</i>")
     return "\n".join(lines)
@@ -1071,20 +1083,30 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool, quiz: bool = False,
 
 # ---------- интерактивный тест: одно сообщение, под ним кнопки a / b / c по строке на пункт ----------
 
-def ex_quiz_keyboard(ex: dict, pick: dict, sure: list, check: bool = True) -> list[list[tuple[str, str]]]:
-    """Строка на пункт: «1 a» «1 b» «1 c» «1 !»; выбранное — ✅, «уверен» — ❗. Внизу «📨 Проверить (N/10)»."""
+def ex_quiz_keyboard(ex: dict, pick: dict, sure: list, check: bool = True,
+                     only: list[int] | None = None) -> list[list[tuple[str, str]]]:
+    """Строка на пункт: «1 a» «1 b» «1 c» «1 !»; выбранное — ✅, «уверен» — ❗. Внизу «📨 Проверить (N/10)».
+    only — исправление ошибок: строки только для этих пунктов."""
     rows = []
     for n, it in enumerate(ex["items"], 1):
+        if only and n not in only:
+            continue
         chosen = pick.get(str(n))
         row = [((f"✅{n}{L}" if chosen == L else f"{n} {L}"), f"x:a:{ex['id']}:{n}:{L}")
                for L in "abcd"[:len(it.get("options") or [])]]
         row.append((f"❗{n}" if n in sure else f"{n} !", f"x:a:{ex['id']}:{n}:!"))
         rows.append(row)
     if check:
-        total = len(ex["items"])
+        total = len(only) if only else len(ex["items"])
         rows.append([(f"📨 Проверить ({len(pick)}/{total})", f"x:go:{ex['id']}")])
+        rows.append([speak_button(ex["id"])])
         rows.append([("✖️ Закончить без проверки", "nav:c:ex_answer")])
     return rows
+
+
+def speak_button(ex_id: int) -> tuple[str, str]:
+    """🔊 Озвучить задание упражнения (польские слова / предложения, пропуск — пауза)."""
+    return ("🔊 Озвучить задание", f"x:au:{ex_id}")
 
 
 STATUS_ICON = {"ok": "✅", "wrong": "❌", "unsure": "❓"}
@@ -1115,7 +1137,7 @@ def ex_results(ex: dict, results: list[dict], head: str | None = None, foot: str
         it = ex["items"][r["n"] - 1]
         right = it.get("answer", "")
         user = r.get("heard") or r.get("user") or "—"
-        icon = "❓✅" if r["final"] == "unsure" else STATUS_ICON[r["final"]]
+        icon = "❓✅" if r["final"] == "unsure" else "✋" if r.get("manual") else STATUS_ICON[r["final"]]
         if r.get("logic_wrong"):
             head = f"❌ {r['n']}. <b>{e(user)}</b> ✓ ответ верный, ошибка в рассуждении"
         elif r["final"] == "wrong":
@@ -1150,9 +1172,11 @@ def ex_results(ex: dict, results: list[dict], head: str | None = None, foot: str
     return "\n".join(lines)
 
 
-def ex_result_buttons(ex_id: int, left: int) -> list[list[tuple[str, str]]]:
-    rows = [[("📖 Правила по ошибкам", f"x:rr:{ex_id}"), ("🙅 Оспорить", f"x:dp:{ex_id}")],
-            [("⭐ В словарь", f"dX:e:{ex_id}")]]
+def ex_result_buttons(ex_id: int, left: int, wrong: int = 0) -> list[list[tuple[str, str]]]:
+    """wrong — сколько пунктов ещё с ошибкой: «▶️ Продолжить» — ответить на них ещё раз, как в упражнениях из книги."""
+    rows = [[(f"▶️ Продолжить (осталось {wrong})", f"x:fx:{ex_id}")]] if wrong else []
+    rows += [[("📖 Правила по ошибкам", f"x:rr:{ex_id}"), ("🙅 Оспорить", f"x:dp:{ex_id}")],
+             [("⭐ В словарь", f"dX:e:{ex_id}"), ("🔊 Правильные ответы", f"x:aa:{ex_id}")]]
     if left > 0:
         rows.append([(f"➡️ Следующее (осталось {left})", "x:next"), ("⏹ Закончить", "x:stop")])
         rows.append([("🔁 Повторить серию", f"x:rp:{ex_id}")])
@@ -1318,8 +1342,17 @@ def bex_keyboard(unit: dict, x: dict, done: dict, pick: dict, sure: list, wins: 
     if todo:
         rows.append([("✋ Засчитать всё упражнение", f"bx:m:{unit['unit']}|{x['id']}")])
     rows += page_row(unit, x)
+    rows += bex_speak_row(unit, x, "s")
     rows.append([("📖 Правило", f"bx:R:{unit['unit']}|{x['id']}"), list_button(unit)])
     return rows
+
+
+def bex_speak_row(unit: dict, x: dict, what: str) -> list[list[tuple[str, str]]]:
+    """🔊 упражнения из книги: s — задание, S — правильные ответы."""
+    data = f"bx:{what}:{unit['unit']}|{x['id']}"
+    if len(data.encode()) > 64:
+        return []
+    return [[("🔊 Озвучить задание" if what == "s" else "🔊 Правильные ответы", data)]]
 
 
 def again_rows(unit: dict, x: dict, done: dict, wins: int) -> list[list[tuple[str, str]]]:
@@ -1384,6 +1417,8 @@ def bex_result_buttons(unit: dict, x: dict, done: dict, wins: int = 0,
         rows.append([(f"➡️ {bex_name(nxt)}"[:60], f"bx:o:{u}|{nxt['id']}")])
     rows += again_rows(unit, x, done, wins)
     rows.append([("📖 Правило", f"bx:R:{u}|{x['id']}"), list_button(unit)])
+    if x.get("type") != "free":
+        rows += bex_speak_row(unit, x, "S")
     if x.get("type") not in ("tf", "free"):
         rows.append([("⭐ В словарь", f"dX:b:{u}|{x['id']}")])
     return rows + page_row(unit, x)

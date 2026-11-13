@@ -24,7 +24,7 @@ from ..core import textbook
 from ..ai.prompt import CHECK_HINT, CHECK_SCHEMA, RULES_HINT, RULES_SCHEMA, book_rule_prompt, check_prompt
 from ..ui import fmt
 from ..common import log
-from ..exercises import logic
+from ..exercises import logic, speech
 from ..settings import BOOKS_DIR, EX_EXPLAIN_ALL, PAGE_DPI
 
 ROOT = Path(__file__).resolve().parent.parent.parent   # корень проекта: там папка Books (на сервере, не в git)
@@ -175,6 +175,19 @@ class BookExMixin:
                     await self.bex_rule(chat_id, unit, x, nums, fresh=kind == "Y")
             elif n.isdigit() and int(n) <= len(x["items"]):
                 await self.bex_rule(chat_id, unit, x, [int(n)] if int(n) else None, fresh=kind == "Y")
+            return
+        if kind in ("s", "S"):   # 🔊 задание / правильные ответы
+            x = _find(unit, ex_id)
+            if not x:
+                return
+            choice = x.get("type") == "choice"   # варианты вслух — только в выборе (в соединении их слишком много)
+            items = [{**it, "options": logic.book_options(x, it)} if choice else it for it in x["items"]]
+            if kind == "S":   # только проверенные пункты: ответы на остальные не подсказываем
+                done = self.db.bex_results(user_id, unit["unit"])
+                items = [it if (x["id"], n) in done else {} for n, it in enumerate(items, 1)]
+                await self.speak(chat_id, speech.answers_text(items), "🔊 В ответах нет польского текста.")
+            else:
+                await self.speak(chat_id, speech.task_text(items), "🔊 В задании нет польского текста.")
             return
         if kind == "l" and unit.get("rev"):   # 🔁 повторение: список — очередь сложных упражнений
             await self.review_hard(chat_id, user_id)

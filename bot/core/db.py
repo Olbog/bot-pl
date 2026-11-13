@@ -958,7 +958,8 @@ class DB:
                           (json.dumps(results, ensure_ascii=False), ex_id))
         rows = self.conn.execute("SELECT id FROM ex_items WHERE exercise_id=? ORDER BY id", (ex_id,)).fetchall()
         for row, r in zip(rows, results):
-            self.conn.execute("UPDATE ex_items SET status=? WHERE id=?", (r["final"], row["id"]))
+            status = "wrong" if r.get("fixed") else r["final"]   # исправлено со 2-й попытки — остаётся на повтор
+            self.conn.execute("UPDATE ex_items SET status=? WHERE id=?", (status, row["id"]))
         self.conn.commit()
 
     def ex_set_tg_msg(self, ex_id: int, tg_msg_id: int) -> None:

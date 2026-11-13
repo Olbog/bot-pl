@@ -1710,7 +1710,7 @@ def test_quiz_buttons_pick_notes_and_check():
     kb = app.tg.buttons[-1]
     assert kb[0] == [("1 a", f"x:a:{ex_id}:1:a"), ("1 b", f"x:a:{ex_id}:1:b"), ("1 c", f"x:a:{ex_id}:1:c"),
                      ("1 !", f"x:a:{ex_id}:1:!")]
-    assert len(kb) == 12 and "Проверить (0/10)" in str(kb[10])
+    assert len(kb) == 13 and "Проверить (0/10)" in str(kb[10]) and kb[11] == [("🔊 Озвучить задание", f"x:au:{ex_id}")]
     saved = app.db.ex_get(ex_id)
     run(app.on_callback(cb(f"x:go:{ex_id}")))
     assert app.tg.toasts[-1] == "Отмечено 0 из 10 — выбери остальные" and not app.db.ex_get(ex_id)["results"]
@@ -3124,3 +3124,120 @@ def test_review_rules_fallback_gemini_cached_and_hard_pick():
     unit = tb.get_unit("kpk:2")
     assert hard_pick(unit, ["tb", "wb"], {}) == ["tb-2-1", "wb-2-2"]
     assert hard_pick(unit, ["wb"], {"wb-2-2": 0}) == ["wb-2-2"]   # tf не берём
+
+
+def start_cards(app, d="pl"):
+    run(app.handle(msg(text="/ex")))
+    for c in ("x:k:book", "x:b:u:2", "x:b:m:card", f"x:b:d:{d}", "x:n:1"):
+        run(app.on_callback(cb(c)))
+    return app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+
+
+def test_fix_mistakes_continue_like_book():
+    """▶️ Продолжить: ещё раз только пункты с ❌ (номера прежние); верные засчитываются, «5+» — вручную ✋."""
+    with_unit()
+    app = make_app()
+    ex = start_cards(app)
+    n = {it["lemma"]: i for i, it in enumerate(ex["items"], 1)}
+    ans = " ".join(f"{i} {'неверно' if it['lemma'] in ('siostra', 'brat') else it['answer']}"
+                   for i, it in enumerate(ex["items"], 1))
+    run(app.handle(msg(text=ans)))
+    assert "1 из 3" in app.tg.sent[-1]
+    kb = app.tg.buttons[-1]
+    assert kb[0] == [("▶️ Продолжить (осталось 2)", f"x:fx:{ex['id']}")]
+    assert ("🔊 Правильные ответы", f"x:aa:{ex['id']}") in kb[2]
+    run(app.on_callback(cb(f"x:fx:{ex['id']}")))
+    text = app.tg.sent[-1]
+    assert "Исправляем ошибки" in text and "Верно 1 из 3" in text
+    assert f"{n['siostra']}. siostra" in text and "rodzeństwo" not in text          # только ошибки, номера прежние
+    assert app.db.get_state(42)["pending"]["ex"]["fix"] == sorted([n["siostra"], n["brat"]])
+    run(app.handle(msg(text=f"{n['rodzeństwo']} что-то")))                            # верный пункт — не трогаем
+    assert "Не нашёл ответов на пункты с ошибкой" in app.tg.sent[-1]
+    run(app.handle(msg(text=f"{n['siostra']} сестра")))                               # можно не все
+    assert "Исправлено 1 из 1" in app.tg.sent[-1] and "Всего верно 2 из 3" in app.tg.sent[-1]
+    assert app.tg.buttons[-1][0] == [("▶️ Продолжить (осталось 1)", f"x:fx:{ex['id']}")]
+    st = app.db.book_stats(42, "2")
+    assert st[("siostra", "pl")]["wrong"] == 1 and st[("siostra", "pl")]["streak"] == 1   # верный ответ засчитан
+    saved = app.db.ex_get(ex["id"])
+    r = saved["results"][n["siostra"] - 1]
+    assert r["final"] == "ok" and r["fixed"] and saved["results"][n["brat"] - 1]["final"] == "wrong"
+    status = [row["status"] for row in app.db.conn.execute(
+        "SELECT status FROM ex_items WHERE exercise_id=? ORDER BY id", (ex["id"],))]
+    assert status[n["siostra"] - 1] == "wrong"                     # исправленное — всё равно на повтор позже
+    assert app.db.get_state(42)["pending"]["step"] == "ex_review"
+    run(app.on_callback(cb(f"x:fx:{ex['id']}")))
+    run(app.handle(msg(text=f"{n['brat']}+")))                    # описка — засчитать вручную
+    assert "✋ Засчитано вручную: " + str(n["brat"]) in app.tg.sent[-1] and "Теперь всё верно" in app.tg.sent[-1]
+    assert "Продолжить" not in str(app.tg.buttons[-1])
+    run(app.on_callback(cb(f"x:fx:{ex['id']}")))
+    assert "ошибок не осталось" in app.tg.sent[-1]
+    run(app.on_callback(cb(f"x:rp:{ex['id']}")))                   # 🔁 Повторить: исправленное — тоже первым,
+    assert "ошибок на повтор — 1" in app.tg.sent[-2]                # ✋ вручную (описка) — нет
+
+
+def test_fix_mistakes_quiz_only_wrong_rows():
+    gem = FakeGemini()
+    app = make_app(gem=gem)
+    ex_flow(app, "x:k:grammar", "x:f:test", "x:t:mix", "x:n:1")
+    ex_id = quiz_state(app)["ex_id"]
+    saved = app.db.ex_get(ex_id)
+    right = {i: "abcd"[it["options"].index(it["answer"])] for i, it in enumerate(saved["items"], 1)}
+    for i, L in right.items():
+        pick = L if i not in (2, 5) else ("c" if L != "c" else "b")
+        run(app.on_callback(cb(f"x:a:{ex_id}:{i}:{pick}")))
+    run(app.on_callback(cb(f"x:go:{ex_id}")))
+    assert "8 из 10" in app.tg.sent[-1]
+    run(app.on_callback(cb(f"x:fx:{ex_id}")))
+    kb = app.tg.buttons[-1]
+    assert [row[0][0] for row in kb[:2]] == ["2 a", "5 a"] and "Проверить (0/2)" in str(kb[2])
+    run(app.on_callback(cb(f"x:a:{ex_id}:3:a")))                   # пункт без ошибки — не выбирается
+    assert app.db.get_state(42)["pending"]["ex"]["quiz"]["pick"] == {}
+    run(app.on_callback(cb(f"x:a:{ex_id}:2:{right[2]}")))
+    run(app.on_callback(cb(f"x:go:{ex_id}")))
+    assert app.tg.toasts[-1] == "Отмечено 1 из 2 — выбери остальные"
+    run(app.on_callback(cb(f"x:a:{ex_id}:5:{right[5]}")))
+    run(app.on_callback(cb(f"x:go:{ex_id}")))
+    assert "Исправлено 2 из 2" in app.tg.sent[-1] and "Теперь всё верно" in app.tg.sent[-1]
+
+
+def test_speak_exercise_task_and_answers():
+    from bot.exercises import speech
+    with_unit()
+    app = make_app()
+    ex = start_cards(app, "pl")
+    assert ("🔊 Озвучить задание", f"x:au:{ex['id']}") in app.tg.buttons[-1][-2]
+    run(app.on_callback(cb(f"x:au:{ex['id']}")))
+    said = app.tg.voices[-1].decode()
+    assert said.startswith("OGG:jeden. ") and "rodzeństwo" in said and "ро-" not in said   # без транскрипции
+    ex2 = start_cards(app, "ru")                                    # ru→pl: в задании польского нет
+    n_voices = len(app.tg.voices)
+    run(app.on_callback(cb(f"x:au:{ex2['id']}")))
+    assert len(app.tg.voices) == n_voices and "Правильные ответы" in app.tg.sent[-1]
+    run(app.on_callback(cb(f"x:aa:{ex2['id']}")))
+    assert "siostra" in app.tg.voices[-1].decode()
+    items = [{"q": "Ja ___ (mieć) brata.", "answer": "mam"}, {"q": "j_d_n", "answer": "jeden 1"},
+             {"q": "a) ___ szkoła jest dobry / dobra.", "answer": "Ta szkoła jest dobra."},
+             {"q": "Mami: ___ tutaj, a on ___ tam.", "answer": "Jestem, jest"},
+             {"q": "🔑 Czy to jest klucz? (ключ)", "answer": "Tak, to jest klucz.", "options": ["tak", "nie"]}]
+    assert speech.task_text(items) == ("jeden. Ja … mieć brata. trzy. … szkoła jest dobry / dobra. "
+                                       "cztery. Mami: … tutaj, a on … tam. pięć. Czy to jest klucz? a, tak; b, nie.")
+    assert speech.answers_text(items) == ("jeden. Ja mam brata. dwa. jeden. trzy. Ta szkoła jest dobra. "
+                                          "cztery. Mami: Jestem tutaj, a on jest tam. pięć. Tak, to jest klucz.")
+    assert speech.num(21) == "dwadzieścia jeden"
+
+
+def test_speak_book_exercise():
+    app = bex_app()
+    run(app.on_callback(cb("bx:o:kpk:2|tb-2-1")))
+    assert [("🔊 Озвучить задание", "bx:s:kpk:2|tb-2-1")] in app.tg.buttons[-1]
+    run(app.on_callback(cb("bx:s:kpk:2|tb-2-1")))
+    assert app.tg.voices[-1].decode().startswith("OGG:jeden. Ja … mieć brata.")
+    n_voices = len(app.tg.voices)
+    run(app.on_callback(cb("bx:S:kpk:2|tb-2-1")))                    # ничего не проверено — ответы не звучат
+    assert len(app.tg.voices) == n_voices and "нет польского" in app.tg.sent[-1]
+    app.gemini.check_verdict = {}
+    run(app.handle(msg(text="1 mam")))
+    assert [("🔊 Правильные ответы", "bx:S:kpk:2|tb-2-1")] in app.tg.buttons[-1]
+    run(app.on_callback(cb("bx:S:kpk:2|tb-2-1")))
+    said = app.tg.voices[-1].decode()
+    assert said.startswith("OGG:jeden. Ja mam") and "dwa." not in said   # только проверенный пункт

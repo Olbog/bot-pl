@@ -7,6 +7,7 @@ from ..ai.prompt import (CHECK_HINT, CHECK_SCHEMA, EX_HINT, EX_SCHEMA, RULES_HIN
 from ..ui import fmt
 from ..common import log
 from ..exercises import logic as exercises
+from ..exercises import speech
 from ..settings import (EX_CASES, EX_EXPLAIN_ALL, EX_PRESENT_ONLY, EX_QUIZ_BUTTONS, EX_REUSE, EX_WEIGHT_TEST,
                         EX_WEIGHT_TYPED, VOICE_MIN_SEC, VOICE_SEC_PER_ANSWER)
 
@@ -110,7 +111,8 @@ class ExerciseRunMixin:
         if not cfg.get("kind"):
             await self.tg.send_message(chat_id, "Это упражнение старое — повторить его настройки нельзя. /ex")
             return
-        wrong = [(r, saved["items"][r["n"] - 1]) for r in saved["results"] if r["final"] == "wrong"]
+        wrong = [(r, saved["items"][r["n"] - 1]) for r in saved["results"]
+                 if r["final"] == "wrong" or r.get("fixed")]   # исправленные со 2-й попытки — тоже на повтор
         total = int(cfg.get("total") or 1)
         ex = {**cfg, "total": total, "left": total}
         if cfg["kind"] in ("book_card", "book_test"):
@@ -180,7 +182,8 @@ class ExerciseRunMixin:
         if (pending or {}).get("step") != "ex_answer" or ex.get("ex_id") != ex_id or not quiz:
             return "Это упражнение уже проверено или закрыто"
         saved = self.db.ex_get(ex_id)
-        total = len(saved["items"])
+        only = quiz.get("only")
+        total = len(only) if only else len(saved["items"])
         if parts[1] == "go":
             picked = len(quiz["pick"])
             if picked < total:
@@ -190,7 +193,7 @@ class ExerciseRunMixin:
             await self.ex_check(chat_id, user_id, ex, None, None, answers=answers)
             return None
         n, choice = int(parts[3]), parts[4]
-        if not 1 <= n <= total:
+        if not 1 <= n <= len(saved["items"]) or (only and n not in only):
             return None
         if choice == "!":
             quiz["sure"] = sorted(set(quiz["sure"]) ^ {n})
@@ -200,7 +203,8 @@ class ExerciseRunMixin:
             quiz["pick"][str(n)] = choice
         self.db.set_pending(user_id, {"step": "ex_answer", "ex": {**ex, "quiz": quiz}})
         if quiz.get("msg"):
-            await self.tg.edit_markup(chat_id, quiz["msg"], fmt.ex_quiz_keyboard(saved, quiz["pick"], quiz["sure"]))
+            await self.tg.edit_markup(chat_id, quiz["msg"], fmt.ex_quiz_keyboard(saved, quiz["pick"], quiz["sure"],
+                                                                                 only=only))
         return None
 
     async def ex_quiz_notes(self, chat_id: int, user_id: int, ex: dict, notes: dict[int, str]) -> None:
@@ -214,8 +218,8 @@ class ExerciseRunMixin:
         if quiz.get("msg"):
             await self.tg.edit_message(chat_id, quiz["msg"],
                                        fmt.ex_message(saved, quiz.get("idx", 1), ex.get("total", 1), False,
-                                                      quiz=True, notes=quiz["notes"]),
-                                       fmt.ex_quiz_keyboard(saved, quiz["pick"], quiz["sure"]))
+                                                      quiz=True, notes=quiz["notes"], only=quiz.get("only")),
+                                       fmt.ex_quiz_keyboard(saved, quiz["pick"], quiz["sure"], only=quiz.get("only")))
         await self.tg.send_message(chat_id, "💭 Уточнение к пункту " + ", ".join(str(n) for n in notes)
                                    + " добавлено — уйдёт на проверку вместе с ответами.")
 
@@ -226,6 +230,9 @@ class ExerciseRunMixin:
             return
         items, f = saved["items"], saved["fmt"]
         quiz = ex.get("quiz") if ex.get("ex_id") == saved["id"] else None
+        fix = ex.get("fix") if ex.get("ex_id") == saved["id"] and saved["results"] else None  # ▶️ Продолжить
+        nums = list(fix or range(1, len(items) + 1))
+        manual: list[int] = []
         if answers is None and not voice:
             answers = exercises.parse_answers(text or "", len(items))
             if quiz:  # ответ текстом поверх нажатых кнопок: чего нет в тексте — берём из кнопок
@@ -240,13 +247,13 @@ class ExerciseRunMixin:
         verdicts: dict[int, dict] = {}
         spoken = voice and kind != "voice"   # 🎙 ответ голосом на обычное упражнение: «один … три …»
         if spoken:
-            got = await self.ask_voice(chat_id, user_id, list(enumerate(items, 1)), voice,
+            got = await self.ask_voice(chat_id, user_id, [(n, items[n - 1]) for n in nums], voice,
                                        wait=f"⏳ Слушаю и проверяю упражнение #{saved['id']}…", cards=cards)
             if got is None:
                 return  # шаг ex_answer сохраняется — можно прислать ещё раз
             verdicts = got
             results = []
-            for i in range(1, len(items) + 1):
+            for i in nums:
                 v = verdicts.get(i) or {}
                 heard = str(v.get("heard") or "").strip()
                 said = bool(heard) and heard not in ("-", "—")
@@ -256,12 +263,19 @@ class ExerciseRunMixin:
             todo = []
         elif voice:
             audio = await self.tg.download_file(voice["file_id"])
-            results = [{"n": i, "user": "", "unsure": False, "note": "", "status": "check"}
-                       for i in range(1, len(items) + 1)]
+            results = [{"n": i, "user": "", "unsure": False, "note": "", "status": "check"} for i in nums]
             todo = exercises.needs_model(results, EX_EXPLAIN_ALL and not cards)
         else:
             audio = None
             results = exercises.quick_check(items, answers, f)
+            if fix:   # исправление: только названные пункты с ошибкой; «5+» — засчитать вручную ✋
+                manual = sorted(n for n, a in answers.items() if a.get("done") and n in fix)
+                results = [r for r in results if r["n"] in fix and r["n"] not in manual and r["status"] != "missing"]
+                if not results and not manual:
+                    await self.tg.send_message(chat_id, "Не нашёл ответов на пункты с ошибкой ("
+                                               + ", ".join(map(str, fix)) + "). Пиши с номерами: «"
+                                               + " ".join(f"{n} …" for n in fix[:2]) + "».")
+                    return
             todo = exercises.needs_model(results, EX_EXPLAIN_ALL and not cards)  # карточки: объясняем только ошибки
         if todo:
             prompt = check_prompt([(r["n"], items[r["n"] - 1], r["user"], r["unsure"], r.get("note", "")) for r in todo],
@@ -297,6 +311,9 @@ class ExerciseRunMixin:
         if text and exercises.unclosed_note(text):
             await self.tg.send_message(chat_id, "⚠️ Не закрыта скобка — всё после «(» до конца сообщения "
                                                  "я посчитал уточнением.")
+        if fix:
+            await self.ex_fix_done(chat_id, user_id, ex, saved, results, manual)
+            return
         self.db.ex_save_results(saved["id"], results)
         if quiz and saved.get("tg_msg_id"):  # выбор остаётся виден, «Проверить» и «Закончить» убираем
             await self.tg.edit_markup(chat_id, saved["tg_msg_id"],
@@ -306,7 +323,92 @@ class ExerciseRunMixin:
         self.ex_record(user_id, saved, results)
         self.db.set_pending(user_id, {"step": "ex_review", "ex": ex})
         await self.tg.send_message(chat_id, fmt.ex_results(saved, results),
-                                   fmt.ex_result_buttons(saved["id"], ex.get("left", 0)))
+                                   fmt.ex_result_buttons(saved["id"], ex.get("left", 0),
+                                                         sum(r["final"] == "wrong" for r in results)))
+
+    # ---------- ▶️ Продолжить: ответить ещё раз на пункты с ошибкой (как в упражнениях из книги) ----------
+
+    async def ex_fix_open(self, chat_id: int, user_id: int, pending: dict | None, ex_id: int) -> None:
+        saved = self.db.ex_get(ex_id)
+        if not saved or saved["user_id"] != user_id or not saved["results"]:
+            return
+        todo = [r["n"] for r in saved["results"] if r["final"] == "wrong"]
+        if not todo:
+            await self.tg.send_message(chat_id, "В этом упражнении ошибок не осталось 👍")
+            return
+        ex = dict((pending or {}).get("ex") or {})
+        if ex.get("ex_id") != ex_id:   # старое упражнение: серия уже не продолжится
+            cfg = saved.get("cfg") or {}
+            ex = {**cfg, "ex_id": ex_id, "total": int(cfg.get("total") or 1), "left": 0}
+        ex = {k: v for k, v in ex.items() if k not in ("quiz", "fix", "fix_msg")}
+        ex["fix"] = todo
+        kind = ex.get("kind") or saved.get("kind")
+        if saved["fmt"] == "test" and kind != "voice" and EX_QUIZ_BUTTONS:
+            sent = await self.tg.send_message(chat_id, fmt.ex_message(saved, 1, 1, False, quiz=True, only=todo),
+                                              fmt.ex_quiz_keyboard(saved, {}, [], only=todo))
+            msg = (sent or {}).get("message_id")
+            ex["quiz"] = {"msg": msg, "idx": 1, "pick": {}, "sure": [], "notes": {}, "only": todo}
+        else:
+            sent = await self.tg.send_message(chat_id, fmt.ex_message(saved, 1, 1, kind == "voice", only=todo),
+                                              fmt.ex_hint_rows(saved, todo)
+                                              + [[("✖️ Закончить без проверки", "nav:c:ex_answer")]])
+            msg = (sent or {}).get("message_id")
+        ex["fix_msg"] = msg
+        self.db.set_pending(user_id, {"step": "ex_answer", "ex": ex})
+
+    async def ex_fix_done(self, chat_id: int, user_id: int, ex: dict, saved: dict, results: list[dict],
+                          manual: list[int]) -> None:
+        """Итог исправления: верные пункты засчитываются (✅, «fixed» — для повтора ошибок позже), остальные — ❌,
+        можно продолжить ещё раз. В статистику идут только верные ответы: ошибка первой попытки уже записана."""
+        merged = [dict(r) for r in saved["results"]]
+        for r in results:
+            if r["final"] != "wrong":
+                r["fixed"] = True
+            merged[r["n"] - 1] = r
+        for n in manual:
+            merged[n - 1] = {**merged[n - 1], "final": "ok", "manual": True}
+        self.db.ex_save_results(saved["id"], merged)
+        self.ex_record(user_id, saved, [r for r in results if r["final"] != "wrong"])
+        if ex.get("fix_msg"):
+            await self.tg.edit_markup(chat_id, ex["fix_msg"])
+        ex = {k: v for k, v in ex.items() if k not in ("quiz", "fix", "fix_msg")}
+        self.db.set_pending(user_id, {"step": "ex_review", "ex": ex})
+        left = sum(r["final"] == "wrong" for r in merged)
+        ok_all = len(merged) - left
+        ok_now = sum(r["final"] != "wrong" for r in results)
+        head = (f"✍️ <b>Исправлено {ok_now} из {len(results)}</b> · #{saved['id']} — {fmt.e(saved['title'])}\n"
+                + (f"✋ Засчитано вручную: {', '.join(map(str, manual))}\n" if manual else "")
+                + ("🎉 <b>Теперь всё верно!</b>" if not left else f"<i>Всего верно {ok_all} из {len(merged)}.</i>"))
+        text = fmt.ex_results(saved, results, head=head) if results else head
+        await self.tg.send_message(chat_id, text, fmt.ex_result_buttons(saved["id"], ex.get("left", 0), left))
+
+    # ---------- 🔊 озвучка упражнения ----------
+
+    async def ex_speak(self, chat_id: int, user_id: int, action: str) -> None:
+        """x:au:<ex> — задание, x:aa:<ex> — правильные ответы."""
+        what, _, ex_id = action.partition(":")
+        saved = self.db.ex_get(int(ex_id)) if ex_id.isdigit() else None
+        if not saved or saved["user_id"] != user_id:
+            return
+        if what == "aa":
+            await self.speak(chat_id, speech.answers_text(saved["items"]), "🔊 В ответах нет польского текста.")
+        else:
+            await self.speak(chat_id, speech.task_text(saved["items"]),
+                             "🔊 В задании нет польского текста (русские слова) — польское произношение "
+                             "будет в «🔊 Правильные ответы» после проверки.")
+
+    async def speak(self, chat_id: int, text: str, empty: str) -> None:
+        if not text:
+            await self.tg.send_message(chat_id, empty)
+            return
+        await self.tg.send_action(chat_id, "record_voice")
+        try:
+            ogg = await self.tts(text, self.cfg.tts_voice, self.cfg.tts_rate)
+        except Exception as err:
+            log.warning("Озвучка упражнения: %s", err)
+            await self.tg.send_message(chat_id, "🔇 Озвучка не получилась — попробуй позже.")
+            return
+        await self.tg.send_voice(chat_id, ogg)
 
     def ex_record(self, user_id: int, saved: dict, results: list[dict]) -> None:
         """Ошибки — в общий пул; ответы по словам и правилам набора — в прогресс с весом 0.1.
