@@ -111,6 +111,7 @@ HELP = (
     "/phr — 💬 полезные выражения: с транскрипцией, переводом и правилом; карточки, тест, набор для разговора\n"
     "/tw — 🗣 скороговорки и песенки: текст, транскрипция, аудио медленно и в обычном темпе, отметки ⚪🟡✅\n"
     "/read — 📚 чтение: легенды по абзацам с переводом и аудио, слова абзаца в ⭐ словарь, вопросы к главе\n"
+    "/learn — 📜 тексты наизусть: по юнитам и по своей теме; рассказать голосом или текстом — наизусть или пересказом\n"
     "/review — 🔁 повторение юнитов: правила (и вопросы по ним), сложные упражнения, лексика, упражнения от Gemini\n"
     "/set — 🎯 наборы слов: прогресс, новый набор, 📚 архив, отметить освоенные\n"
     "/itog — 📋 итог: ошибки и слова за час / сутки / разговор, всё время — файлом\n"
@@ -202,7 +203,7 @@ def main_menu(status: str) -> tuple[str, list[list[tuple[str, str]]]]:
              [("⭐ Словарь", "go:dict"), ("📖 Слова учебника", "go:words")],
              [("💬 Полезные выражения", "go:phr"), ("📚 Чтение", "go:read")],
              [("🗣 Скороговорки", "go:tw"), ("🔁 Повторение", "go:review")],
-             [("🗂 Выгрузка", "go:export")]])
+             [("📜 Тексты наизусть", "go:learn"), ("🗂 Выгрузка", "go:export")]])
 
 
 def new_menu(status: str, active: dict | None, done: int, total: int) -> tuple[str, list[list[tuple[str, str]]]]:
@@ -1172,9 +1173,12 @@ def ex_results(ex: dict, results: list[dict], head: str | None = None, foot: str
     return "\n".join(lines)
 
 
-def ex_result_buttons(ex_id: int, left: int, wrong: int = 0) -> list[list[tuple[str, str]]]:
-    """wrong — сколько пунктов ещё с ошибкой: «▶️ Продолжить» — ответить на них ещё раз, как в упражнениях из книги."""
+def ex_result_buttons(ex_id: int, left: int, wrong: int = 0, fresh: int = 0) -> list[list[tuple[str, str]]]:
+    """wrong — сколько пунктов ещё с ошибкой: «▶️ Продолжить» — ответить на них ещё раз, как в упражнениях из книги.
+    fresh — карточки / тест юнита без ошибок: сколько слов юнита ещё ни разу не отвечено верно («🆕 Новые слова»)."""
     rows = [[(f"▶️ Продолжить (осталось {wrong})", f"x:fx:{ex_id}")]] if wrong else []
+    if not wrong and fresh:
+        rows.append([(f"🆕 Новые слова (ещё {fresh})", f"x:nw:{ex_id}")])
     rows += [[("📖 Правила по ошибкам", f"x:rr:{ex_id}"), ("🙅 Оспорить", f"x:dp:{ex_id}")],
              [("⭐ В словарь", f"dX:e:{ex_id}"), ("🔊 Правильные ответы", f"x:aa:{ex_id}")]]
     if left > 0:
@@ -1638,3 +1642,52 @@ def review_gemini_screen(titles: list[str]) -> tuple[str, list]:
     text = ("🤖 <b>Упражнения от Gemini</b> по темам юнитов:\n" + "\n".join(f"• {e(t)}" for t in titles[:10])
             + "\n\nКакой формат?")
     return text, [[("✅ Тест (варианты)", "rv:g:test"), ("✍️ Свой ввод", "rv:g:gap")], [("🔁 К повторению", "rv:h")]]
+
+
+# ---------- 📜 тексты наизусть ----------
+
+def mt_result(t: dict, mode: str, heard: str, voice: bool, corrs: list[dict], diffs: list[dict], missed: list[str],
+              corrected: dict, score: int, comment: str, status: int, now_done: bool) -> str:
+    """Разбор рассказа: что прозвучало, ошибки языка (как в разговоре), отличия от текста / пропуски, правильная версия."""
+    head = "🎯 Наизусть" if mode == "e" else "💬 Пересказ"
+    out = [f"{head} · <b>{e(t['title'])}</b> — {'передано смысла' if mode == 'r' else 'точно'} {score}%"]
+    if voice:
+        out.append(f"🎙 <i>{e(heard)}</i>")
+    if corrs:
+        lines = [f"✏️ <b>Исправления ({len(corrs)})</b>"]
+        for c in corrs:
+            icon = KIND_ICON.get(str(c.get("kind", "")).lower(), "•")
+            line = f"{icon} {e(c.get('original', ''))} → <b>{e(c.get('correct', ''))}</b>"
+            if c.get("translit"):
+                line += f" [{e(c['translit'])}]"
+            if c.get("ru"):
+                line += f" — {e(c['ru'])}"
+            if c.get("why"):
+                line += f"\n   <i>{e(c['why'])}</i>"
+            if verb_line(c):
+                line += f"\n   {verb_line(c)}"
+            lines.append(line)
+        out.append("\n".join(lines))
+    else:
+        out.append("✅ Ошибок языка нет")
+    if diffs:
+        out.append("📝 <b>Не как в тексте</b> <i>(по-польски верно, но в тексте иначе)</i>\n"
+                   + "\n".join(f"• {e(str(d.get('said') or '—'))} → в тексте: <b>{e(str(d.get('text') or '—'))}</b>"
+                               for d in diffs))
+    if missed:
+        what = "🕳 <b>Пропущено</b>" if mode == "e" else "🕳 <b>Не передано</b>"
+        out.append(what + "\n" + "\n".join(f"• {e(m)}" for m in missed))
+    if corrected.get("pl") and corrs:
+        block = f"✔️ <b>Правильно:</b> {e(corrected['pl'])}"
+        if corrected.get("translit"):
+            block += f"\n[{e(corrected['translit'])}]"
+        if corrected.get("ru"):
+            block += f"\n— {e(corrected['ru'])}"
+        out.append(block)
+    if comment:
+        out.append(f"💬 {e(comment)}")
+    if now_done:
+        out.append("🎉 <b>Текст выучен</b> — отметка ✅.")
+    out.append(f"<i>Отметка: {['⚪', '🟡', '✅'][status]}. Ещё раз — просто пришли снова голосом или текстом; "
+               "режим — кнопками ниже.</i>")
+    return "\n\n".join(out)

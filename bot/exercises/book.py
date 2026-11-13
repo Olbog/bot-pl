@@ -29,7 +29,12 @@ class BookMixin:
         stats = self.db.book_stats(user_id, unit["unit"])
         first = [tuple(x) for x in ex.get("redo_words") or []]   # «🔁 Повторить»: ошибки прошлого упражнения
         items = [textbook.card_item(w, d)
-                 for w, d in textbook.pick_words(unit, stats, 10, ex.get("dir", "mix"), first=first)]
+                 for w, d in textbook.pick_words(unit, stats, 10, ex.get("dir", "mix"), first=first,
+                                                 fresh=bool(ex.get("fresh")))]
+        if not items:   # 🆕 новых слов не осталось
+            await self.tg.send_message(chat_id, f"🎉 В {unit['name']} все слова уже хотя бы раз отвечены верно. "
+                                                 "Дальше — обычная тренировка: «🔁 Повторить» или /ex → 📘.")
+            return None
         for it in items:
             it["unit"] = unit["unit"]
             it["_key"] = f"card:{unit['unit']}:{it['dir']}:{it['lemma']}:{self.clock()}"

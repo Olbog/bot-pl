@@ -209,11 +209,26 @@ def recognized(stats: dict, pl: str) -> bool:
                                         for d in ("pl", "ru"))
 
 
+def _dirs(direction: str) -> tuple[str, ...]:
+    return ("pl", "ru") if direction == "mix" else ("ru",) if direction == "gap" else (direction,)
+
+
+def fresh_dirs(stats: dict, pl: str, direction: str) -> list[str]:
+    """🆕 Направления, в которых слово ещё ни разу не отвечено верно."""
+    return [d for d in _dirs(direction) if not stats.get((pl, d), {}).get("right", 0)]
+
+
+def fresh_count(unit: dict, stats: dict, direction: str) -> int:
+    """Сколько слов юнита ещё ни разу не отвечено верно (в направлении упражнения; mix — хоть в одну сторону)."""
+    return sum(1 for w in unit["words"] if fresh_dirs(stats, w["pl"], direction))
+
+
 def pick_words(unit: dict, stats: dict, n: int, direction: str,
-               first: list[tuple[str, str]] | None = None) -> list[tuple[dict, str]]:
+               first: list[tuple[str, str]] | None = None, fresh: bool = False) -> list[tuple[dict, str]]:
     """Слова для упражнения: first — обязательно (ошибки прошлого упражнения при «🔁 Повторить»),
     дальше с последней ошибкой, потом ещё не «знаю», потом реже всего тренированные.
-    direction: pl / ru / mix / gap (пропуски считаются тренировкой RU→PL — вспомнить польское слово)."""
+    direction: pl / ru / mix / gap (пропуски считаются тренировкой RU→PL — вспомнить польское слово).
+    fresh — «🆕 Новые слова»: только слова, ещё ни разу не отвеченные верно (в этом направлении)."""
     by_pl = {w["pl"]: w for w in unit["words"]}
     forced = [(by_pl[pl], d) for pl, d in (first or []) if pl in by_pl][:n]
     taken = {w["pl"] for w, _ in forced}
@@ -221,7 +236,13 @@ def pick_words(unit: dict, stats: dict, n: int, direction: str,
     words = [w for w in unit["words"] if w["pl"] not in taken]
     random.shuffle(words)
     for w in words:
-        d = random.choice(("pl", "ru")) if direction == "mix" else ("ru" if direction == "gap" else direction)
+        if fresh:
+            dirs = fresh_dirs(stats, w["pl"], direction)
+            if not dirs:
+                continue
+            d = random.choice(dirs)
+        else:
+            d = random.choice(("pl", "ru")) if direction == "mix" else ("ru" if direction == "gap" else direction)
         st = stats.get((w["pl"], d), {})
         failed = (st.get("right", 0) + st.get("wrong", 0)) > 0 and not st.get("last_ok", 1)
         out.append((0 if failed else 1, int(known(stats, w["pl"])), st.get("right", 0) + st.get("wrong", 0), w, d))

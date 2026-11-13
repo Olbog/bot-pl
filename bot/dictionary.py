@@ -152,11 +152,14 @@ class DictionaryMixin:
             rest = [{"pl": str(w.get("pl") or "").strip(), "translit": str(w.get("translit") or "").strip(),
                      "ru": str(w.get("ru") or "").strip(), "norm": False} for w in words]
             return f"📋 Итог за {fmt.PERIODS[arg][0]}", errs, rest
-        if kind == "t":
-            corrs = self.db.corrections_by(user_id, "tw_attempt", arg)
+        if kind in ("t", "m"):   # 🗣 скороговорка / 📜 текст наизусть: ошибки попытки
+            corrs = self.db.corrections_by(user_id, "tw_attempt" if kind == "t" else "mt_attempt", arg)
             errs = [{"pl": str(c.get("correct") or "").strip(), "translit": str(c.get("translit") or "").strip(),
                      "ru": str(c.get("ru") or "").strip(), "norm": True} for c in corrs if not c["_disputed"]]
-            return "🗣 Скороговорка", errs, []
+            if kind == "m":
+                key = arg.rpartition("@")[0]
+                self._src_unit = key.rpartition("#")[0] if "#" in key else ""
+            return ("🗣 Скороговорка" if kind == "t" else "📜 Текст наизусть"), errs, []
         return None
 
     async def offer_source(self, chat_id: int, user_id: int, src: str) -> None:

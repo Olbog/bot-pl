@@ -253,6 +253,8 @@ class ExerciseMenuMixin:
             self.db.set_pending(user_id, None)
             await self.tg.send_message(chat_id, "⏹ Упражнения закончены.")
             await self.main_menu(chat_id, user_id)
+        elif action.startswith("nw:"):
+            await self.ex_new_words(chat_id, user_id, int(action[3:]))
         elif action.startswith("fx:"):
             await self.ex_fix_open(chat_id, user_id, pending, int(action[3:]))
         elif action.startswith(("au:", "aa:")):

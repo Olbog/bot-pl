@@ -190,6 +190,13 @@ CREATE TABLE IF NOT EXISTS review_state (    -- 🔁 повторение: вы�
     user_id INTEGER PRIMARY KEY,
     data TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS memo_texts (      -- 📜 свои тексты наизусть (Gemini по теме ученика): {title, pl, translit, ru}
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    topic TEXT NOT NULL,
+    data TEXT NOT NULL,
+    created_at REAL NOT NULL
+);
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
     mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
@@ -601,6 +608,25 @@ class DB:
     def zv_set(self, user_id: int, item: str, status: int) -> None:
         self.conn.execute("INSERT OR REPLACE INTO zv_status(user_id, item, status, at) VALUES (?,?,?,?)",
                           (user_id, item, status, self.clock()))
+        self.conn.commit()
+
+    def memo_add(self, user_id: int, topic: str, data: dict) -> int:
+        cur = self.conn.execute("INSERT INTO memo_texts(user_id, topic, data, created_at) VALUES (?,?,?,?)",
+                                (user_id, topic, json.dumps(data, ensure_ascii=False), self.clock()))
+        self.conn.commit()
+        return cur.lastrowid
+
+    def memo_list(self, user_id: int) -> list[dict]:
+        return [{**json.loads(r["data"]), "id": r["id"], "topic": r["topic"]} for r in self.conn.execute(
+            "SELECT * FROM memo_texts WHERE user_id=? ORDER BY id", (user_id,))]
+
+    def memo_get(self, user_id: int, text_id: int) -> dict | None:
+        r = self.conn.execute("SELECT * FROM memo_texts WHERE user_id=? AND id=?", (user_id, text_id)).fetchone()
+        return {**json.loads(r["data"]), "id": r["id"], "topic": r["topic"]} if r else None
+
+    def memo_delete(self, user_id: int, text_id: int) -> None:
+        self.conn.execute("DELETE FROM memo_texts WHERE user_id=? AND id=?", (user_id, text_id))
+        self.conn.execute("DELETE FROM zv_status WHERE user_id=? AND item=?", (user_id, f"mt:my{text_id}"))
         self.conn.commit()
 
     def review_get(self, user_id: int) -> dict | None:

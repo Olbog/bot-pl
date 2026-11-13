@@ -424,6 +424,17 @@ class FakeGemini:
             import re as _re
             nums = [int(x) for x in _re.findall(r"^(\d+)\. ", prompt, _re.M)]
             return {"items": [{"n": n, "wrong": [f"blisko{n}a", f"blisko{n}b"]} for n in nums]}
+        if "diffs" in props:                                     # 📜 проверка текста наизусть / пересказа
+            return getattr(self, "mt", None) or {
+                "heard": "Dzień dobry! Jestem Mark. Mam na imie Mark.",
+                "corrections": [{"kind": "pronunciation", "original": "imie", "correct": "imię", "translit": "И-мье",
+                                 "ru": "имя", "why": "носовое ę в конце", "rule": "Другое"}],
+                "diffs": [{"text": "a nazywam się Nowak", "said": "nazywam się Nowak"}],
+                "missed": ["Przepraszam, gdzie jest sekretariat?"], "corrected_pl": "", "corrected_translit": "",
+                "corrected_ru": "", "score": 60, "comment": "Хорошее начало, вторую половину — ещё раз."}
+        if "pl" in props and "title" in props and "translit" in props:   # 📜 свой текст по теме
+            return {"title": "В кафе", "pl": "Jestem w kawiarni. Piję kawę z mlekiem.",
+                    "translit": "ЕС-тэм ф ка-ВЯР-ни. ПИ-е КА-вэ з МЛЕ-кем.", "ru": "Я в кафе. Пью кофе с молоком."}
         if "answer" in props and "examples" in props:            # 🔁 вопрос по правилу повторения
             return {"answer": "Потому что nie + глагол требует родительного.",
                     "examples": [{"pl": "Nie piję kawy.", "translit": "не ПИ-е КА-вы", "ru": "Не пью кофе."}]}
@@ -3241,3 +3252,123 @@ def test_speak_book_exercise():
     run(app.on_callback(cb("bx:S:kpk:2|tb-2-1")))
     said = app.tg.voices[-1].decode()
     assert said.startswith("OGG:jeden. Ja mam") and "dwa." not in said   # только проверенный пункт
+
+
+
+def mt_app():
+    import tempfile
+    tb.UNITS_DIR = REAL_TEXTBOOK
+    app = make_app()
+    app.mt_audio_dir = Path(tempfile.mkdtemp())
+    return app
+
+
+def test_memorize_unit_text_exact_voice_errors_dispute_dictionary():
+    """📜 Тексты наизусть: меню → юнит → карточка (текст, спойлеры, аудио) → голосовое наизусть → ошибки в пуле,
+    отличия и пропуски отдельно, «🙅 Не ошибка», «⭐ В словарь»."""
+    app = mt_app()
+    run(app.handle(msg(text="/learn")))
+    assert "📜 <b>Тексты наизусть</b>" in app.tg.sent[-1] and "ml:u:kpk:1" in str(app.tg.buttons[-1])
+    assert "ml:u:kpk:11" in str(app.tg.buttons[-1]) and "ml:u:kpk:7a" not in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("ml:u:kpk:1", mid=5)))
+    assert "ml:o:kpk:1#1" in str(app.tg.edits[-1][1])
+    run(app.on_callback(cb("ml:o:kpk:1#1")))
+    card = app.tg.sent[-1]
+    assert "Первый день в школе" in card and "<tg-spoiler>джень ДОБ-ры" in card and "Здравствуйте" in card
+    assert app.tg.voices[-1].startswith(b"OGG:Dzie\xc5\x84 dobry!")
+    assert ("✅ 🎯 Наизусть", "ml:g:kpk:1#1:e") in app.tg.buttons[-1][1]
+    assert app.db.get_state(42)["pending"]["step"] == "mt"
+    run(app.handle(msg(voice={"file_id": "v1", "duration": 12})))
+    p = app.gemini.prompts[-1]
+    assert "НАИЗУСТЬ" in p and "Przepraszam, gdzie jest sekretariat?" in p and app.gemini.audios[-1]
+    res = app.tg.sent[-1]
+    assert "🎯 Наизусть" in res and "точно 60%" in res and "imie → <b>imię</b>" in res
+    assert "Не как в тексте" in res and "Пропущено" in res and "Хорошее начало" in res
+    assert app.db.zv_status(42)["mt:kpk:1#1"] == 1                          # ⚪ → 🟡 учу
+    kb = str(app.tg.buttons[-1])
+    attempt = app.db.corrections_by(42, "mt", "kpk:1#1")[0]["mt_attempt"]
+    assert f"ml:d:{attempt}" in kb and f"dX:m:{attempt}" in kb and f"ml:r:{attempt}" in kb
+    run(app.on_callback(cb(f"dX:m:{attempt}")))
+    assert "imię" in app.tg.sent[-1]
+    run(app.on_callback(cb(f"ml:d:{attempt}")))
+    c = app.db.corrections_by(42, "mt_attempt", attempt)[0]
+    run(app.on_callback(cb(f"ml:x:{c['_id']}", mid=9)))
+    assert app.db.corrections_by(42, "mt_attempt", attempt)[0]["_disputed"]
+    assert app.db.ignores(42)                                                # такая пара дальше не ошибка
+    # ещё раз, без ошибок и ≥ 90 % — ✅ сам
+    app.gemini.mt = {"heard": "...", "corrections": [], "diffs": [], "missed": [], "corrected_pl": "",
+                     "corrected_translit": "", "corrected_ru": "", "score": 95, "comment": "Отлично!"}
+    run(app.handle(msg(text="Dzień dobry! Jestem Mark…")))
+    assert "Текст выучен" in app.tg.sent[-1] and "Ошибок языка нет" in app.tg.sent[-1]
+    assert "ОТВЕТ УЧЕНИКА:\nDzień dobry! Jestem Mark…" in app.gemini.prompts[-1]
+    assert app.db.zv_status(42)["mt:kpk:1#1"] == 2
+    run(app.on_callback(cb("ml:q")))                                         # ⏹ — дальше обычный разговор
+    assert app.db.get_state(42)["pending"] is None
+    run(app.handle(msg(text="hej")))
+    assert app.gemini.calls
+
+
+def test_memorize_retell_mode_and_own_text():
+    app = mt_app()
+    run(app.on_callback(cb("ml:o:kpk:10#2")))
+    run(app.on_callback(cb("ml:g:kpk:10#2:r", mid=7)))
+    assert app.tg.toasts[-1].startswith("💬 Пересказ")
+    assert ("✅ 💬 Пересказ", "ml:g:kpk:10#2:r") in app.tg.markups[-1][1][1]
+    app.gemini.mt = {"heard": "Lubię pierogi z mięsem. Nie lubię biała kawa.",
+                     "corrections": [{"kind": "grammar", "original": "biała kawa", "correct": "białej kawy",
+                                      "translit": "БЯ-ўэй КА-вы", "ru": "кофе с молоком", "why": "nie + род. п.",
+                                      "rule": "Другое"}],
+                     "diffs": [], "missed": ["что коллега не ест мясо"],
+                     "corrected_pl": "Lubię pierogi z mięsem. Nie lubię białej kawy.", "corrected_translit": "…",
+                     "corrected_ru": "…", "score": 50, "comment": "Неплохо."}
+    run(app.handle(msg(text="Lubię pierogi z mięsem. Nie lubię biała kawa.")))
+    assert "ПЕРЕСКАЗЫВАЕТ" in app.gemini.prompts[-1]
+    res = app.tg.sent[-1]
+    assert "💬 Пересказ" in res and "передано смысла 50%" in res and "Не передано" in res
+    assert "✔️ <b>Правильно:</b> Lubię pierogi z mięsem. Nie lubię białej kawy." in res
+    assert app.db.zv_status(42)["mt:kpk:10#2"] == 1                         # пересказ ✅ сам не ставит
+    # ➕ свой текст
+    app.db.book_record(42, "kpk:5", "brat", "pl", True, True)              # работал с юнитом 5 — рамки до него
+    run(app.on_callback(cb("ml:new")))
+    run(app.handle(msg(text="в кафе")))
+    p = app.gemini.prompts[-1]
+    assert "«в кафе»" in p and "KpK 5:" in p and "KpK 6:" not in p and "KpK 1:" in p
+    own = app.db.memo_list(42)
+    assert own and own[0]["title"] == "В кафе"
+    assert "✍️ Мой текст · в кафе" in app.tg.sent[-1] and app.db.get_state(42)["pending"]["key"] == f"my{own[0]['id']}"
+    run(app.on_callback(cb("ml:my", mid=3)))
+    assert "1. В кафе" in str(app.tg.edits[-1][1])
+    run(app.on_callback(cb(f"ml:DEL:{own[0]['id']}", mid=3)))
+    assert app.db.memo_list(42) == []
+
+
+def test_book_cards_new_words_button():
+    """🆕 Новые слова: после карточек без ошибок — та же серия того же юнита, только ещё не отвеченные верно слова."""
+    tb.UNITS_DIR = REAL_TEXTBOOK
+    app = make_app()
+    total = len(tb.get_unit("kpk:1")["words"])
+    run(app.ex_make(42, 42, {"kind": "book_card", "unit": "kpk:1", "dir": "pl", "total": 1, "left": 1}))
+
+    import re as _re
+
+    def answer_all(wrong=()):   # ответ со «(…)» — уточнение, решает модель: верно всё, кроме wrong
+        ex = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+        app.gemini.check_verdict = {n: n not in wrong for n in range(1, 11)}
+        run(app.handle(msg(text=" ".join(f"{i} {'zzz' if i in wrong else _re.sub(r' *[(].*?[)]', '', it['answer'])}"
+                                         for i, it in enumerate(ex["items"], 1)))))
+        return ex
+    ex1 = answer_all(wrong=(1,))
+    assert "Новые слова" not in str(app.tg.buttons[-1])                    # есть ошибка — сначала «Продолжить»
+    run(app.on_callback(cb(f"x:fx:{ex1['id']}")))
+    app.gemini.check_verdict = {1: True}
+    run(app.handle(msg(text=f"1 {ex1['items'][0]['answer']}")))
+    assert ("🆕 Новые слова (ещё %d)" % (total - 10), f"x:nw:{ex1['id']}") in app.tg.buttons[-1][0]
+    run(app.on_callback(cb(f"x:nw:{ex1['id']}")))
+    ex2 = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+    first = {it["lemma"] for it in ex1["items"]}
+    assert len(ex2["items"]) == 10 and not first & {it["lemma"] for it in ex2["items"]}   # только новые
+    assert ex2["cfg"]["unit"] == "kpk:1" and ex2["cfg"]["dir"] == "pl"
+    answer_all()
+    assert "(ещё %d)" % (total - 20) in str(app.tg.buttons[-1])
+    run(app.on_callback(cb(f"x:rp:{ex2['id']}")))                           # 🔁 Повторить — обычный подбор
+    assert not app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])["cfg"].get("fresh")

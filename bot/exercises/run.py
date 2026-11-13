@@ -107,7 +107,7 @@ class ExerciseRunMixin:
         saved = self.db.ex_get(ex_id)
         if not saved or saved["user_id"] != user_id or not saved["results"]:
             return
-        cfg = dict(saved.get("cfg") or {})
+        cfg = {k: v for k, v in (saved.get("cfg") or {}).items() if k != "fresh"}   # 🔁 — обычный подбор слов
         if not cfg.get("kind"):
             await self.tg.send_message(chat_id, "Это упражнение старое — повторить его настройки нельзя. /ex")
             return
@@ -324,7 +324,8 @@ class ExerciseRunMixin:
         self.db.set_pending(user_id, {"step": "ex_review", "ex": ex})
         await self.tg.send_message(chat_id, fmt.ex_results(saved, results),
                                    fmt.ex_result_buttons(saved["id"], ex.get("left", 0),
-                                                         sum(r["final"] == "wrong" for r in results)))
+                                                         sum(r["final"] == "wrong" for r in results),
+                                                         self.ex_fresh_left(user_id, saved)))
 
     # ---------- ▶️ Продолжить: ответить ещё раз на пункты с ошибкой (как в упражнениях из книги) ----------
 
@@ -380,7 +381,32 @@ class ExerciseRunMixin:
                 + (f"✋ Засчитано вручную: {', '.join(map(str, manual))}\n" if manual else "")
                 + ("🎉 <b>Теперь всё верно!</b>" if not left else f"<i>Всего верно {ok_all} из {len(merged)}.</i>"))
         text = fmt.ex_results(saved, results, head=head) if results else head
-        await self.tg.send_message(chat_id, text, fmt.ex_result_buttons(saved["id"], ex.get("left", 0), left))
+        await self.tg.send_message(chat_id, text, fmt.ex_result_buttons(saved["id"], ex.get("left", 0), left,
+                                                                       self.ex_fresh_left(user_id, saved)))
+
+    # ---------- 🆕 Новые слова: та же серия карточек / теста юнита, только ещё не отвеченные верно слова ----------
+
+    def ex_fresh_left(self, user_id: int, saved: dict) -> int:
+        cfg = saved.get("cfg") or {}
+        if cfg.get("kind") not in ("book_card", "book_test"):
+            return 0
+        unit = textbook.get_unit(cfg.get("unit", ""))
+        if not unit:
+            return 0
+        return textbook.fresh_count(unit, self.db.book_stats(user_id, unit["unit"]), cfg.get("dir", "mix"))
+
+    async def ex_new_words(self, chat_id: int, user_id: int, ex_id: int) -> None:
+        saved = self.db.ex_get(ex_id)
+        if not saved or saved["user_id"] != user_id:
+            return
+        cfg = dict(saved.get("cfg") or {})
+        if cfg.get("kind") not in ("book_card", "book_test"):
+            return
+        n = self.ex_fresh_left(user_id, saved)
+        total = int(cfg.get("total") or 1)
+        await self.tg.send_message(chat_id, f"🆕 Новые слова: {total} {'упражнение' if total == 1 else 'упр.'}, "
+                                            f"неотвеченных верно слов в юните — {n}.")
+        await self.ex_make(chat_id, user_id, {**cfg, "fresh": True, "total": total, "left": total})
 
     # ---------- 🔊 озвучка упражнения ----------
 
