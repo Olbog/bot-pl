@@ -28,11 +28,12 @@ from .reading import ReadingMixin
 from .zvuki import ZvukiMixin
 from .review import ReviewMixin
 from .memorize import MemorizeMixin
+from .lesson import LessonMixin
 
 
 class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
           ExerciseMenuMixin, ExerciseRunMixin, BookMixin, BookExMixin, ReadingMixin,
-          ZvukiMixin, ReviewMixin, MemorizeMixin):
+          ZvukiMixin, ReviewMixin, MemorizeMixin, LessonMixin):
     """Бот целиком: ядро здесь, остальное — в модулях-миксинах."""
     def __init__(self, cfg: cfg_mod.Config, tg: Telegram, gemini: Gemini, db: DB, tts=synthesize,
                  clock=time.time):
@@ -76,6 +77,9 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         mt = self.mt_listening(pending)
         if mt and (text or voice):   # 📜 после открытой карточки текста — рассказ наизусть / пересказ на проверку
             await self.mt_answer(chat_id, user_id, mt, text, voice)
+            return
+        if pending and pending.get("step") in ("ls_in", "ls_talk", "ls_q") and (text or voice):   # 🎓 урок
+            await self.lesson_input(chat_id, user_id, pending, text, voice)
             return
         if pending and pending.get("step") == "rv_q" and voice and not text:   # 🔁 вопрос по правилу голосом
             await self.review_answer(chat_id, user_id, pending, "", voice)
@@ -240,6 +244,10 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             note = await self.read_callback(chat_id, user_id, message_id, data[3:])
             await self.tg.answer_callback(cq["id"], note)
             return
+        if data.startswith("ls:"):  # 🎓 урок по юниту
+            note = await self.lesson_callback(chat_id, user_id, message_id, pending, data[3:])
+            await self.tg.answer_callback(cq["id"], note)
+            return
         if data.startswith("ml:"):  # 📜 тексты наизусть: ответ — всплывашка или пусто
             note = await self.mt_callback(chat_id, user_id, message_id, pending, data[3:])
             await self.tg.answer_callback(cq["id"], note)
@@ -395,6 +403,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             await self.tw_menu(chat_id, user_id)
         elif cmd == "/read":
             await self.read_menu(chat_id, user_id)
+        elif cmd == "/lesson":
+            await self.lesson_menu(chat_id, user_id)
         elif cmd == "/learn":
             await self.mt_menu(chat_id, user_id)
         elif cmd == "/review":
@@ -420,7 +430,7 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         """Кнопки главного меню — как соответствующие команды (незаконченный выбор отменяется)."""
         self.db.set_pending(user_id, None)
         cmd = {"new": "/new", "ex": "/ex", "set": "/set", "itog": "/itog", "dict": "/dict", "export": "/export",
-               "words": "/words", "phr": "/phr", "read": "/read", "tw": "/tw", "review": "/review", "learn": "/learn"}
+               "words": "/words", "phr": "/phr", "read": "/read", "tw": "/tw", "review": "/review", "learn": "/learn", "lesson": "/lesson"}
         if where in cmd:
             await self.command(chat_id, user_id, cmd[where])
 
@@ -453,6 +463,7 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         await self.read_pregen()
         await self.tw_pregen()
         await self.mt_pregen()
+        await self.ls_pregen()
 
     async def dispatch(self, upd: dict) -> None:
         """Обработка одного обновления. Пока запрос пользователя в работе, новые не встают в очередь,

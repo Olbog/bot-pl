@@ -190,6 +190,24 @@ CREATE TABLE IF NOT EXISTS review_state (    -- 🔁 повторение: вы�
     user_id INTEGER PRIMARY KEY,
     data TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS lesson_state (    -- 🎓 урок по юниту: где остановился, пройденные уроки, заметки учителя (unit '' — активный юнит)
+    user_id INTEGER NOT NULL,
+    unit TEXT NOT NULL,
+    data TEXT NOT NULL,
+    PRIMARY KEY (user_id, unit)
+);
+CREATE TABLE IF NOT EXISTS lesson_errors (   -- 🎓 дневник ошибок юнита: фраза на перепроверку, закрыта после streak верных ответов
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    unit TEXT NOT NULL,
+    lesson TEXT NOT NULL,
+    pl TEXT NOT NULL,
+    data TEXT NOT NULL,                       -- {ru, translit, said, why, src}
+    wrong INTEGER NOT NULL DEFAULT 1,
+    streak INTEGER NOT NULL DEFAULT 0,
+    created_at REAL NOT NULL,
+    last_at REAL NOT NULL
+);
 CREATE TABLE IF NOT EXISTS memo_texts (      -- 📜 свои тексты наизусть (Gemini по теме ученика): {title, pl, translit, ru}
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
@@ -608,6 +626,49 @@ class DB:
     def zv_set(self, user_id: int, item: str, status: int) -> None:
         self.conn.execute("INSERT OR REPLACE INTO zv_status(user_id, item, status, at) VALUES (?,?,?,?)",
                           (user_id, item, status, self.clock()))
+        self.conn.commit()
+
+    # ---------- 🎓 урок по юниту ----------
+
+    def lesson_get(self, user_id: int, unit: str) -> dict:
+        row = self.conn.execute("SELECT data FROM lesson_state WHERE user_id=? AND unit=?", (user_id, unit)).fetchone()
+        return json.loads(row["data"]) if row else {}
+
+    def lesson_set(self, user_id: int, unit: str, data: dict) -> None:
+        self.conn.execute("INSERT OR REPLACE INTO lesson_state(user_id, unit, data) VALUES (?,?,?)",
+                          (user_id, unit, json.dumps(data, ensure_ascii=False)))
+        self.conn.commit()
+
+    def lesson_err_add(self, user_id: int, unit: str, lesson: str, pl: str, data: dict) -> None:
+        """Ошибка в дневник юнита; та же фраза ещё раз — счётчик ошибок +1 и серия верных с нуля."""
+        pl = pl.strip()
+        if not pl:
+            return
+        now = self.clock()
+        row = self.conn.execute("SELECT id FROM lesson_errors WHERE user_id=? AND unit=? AND lower(pl)=lower(?)",
+                                (user_id, unit, pl)).fetchone()
+        if row:
+            self.conn.execute("UPDATE lesson_errors SET wrong=wrong+1, streak=0, last_at=? WHERE id=?", (now, row["id"]))
+        else:
+            self.conn.execute("INSERT INTO lesson_errors(user_id, unit, lesson, pl, data, created_at, last_at) "
+                              "VALUES (?,?,?,?,?,?,?)",
+                              (user_id, unit, lesson, pl, json.dumps(data, ensure_ascii=False), now, now))
+        self.conn.commit()
+
+    def lesson_errs(self, user_id: int, unit: str, open_only: bool = True, need: int = 2) -> list[dict]:
+        """Дневник ошибок юнита: [{id, lesson, pl, wrong, streak, ru, translit, …}], давние первыми."""
+        rows = self.conn.execute("SELECT * FROM lesson_errors WHERE user_id=? AND unit=? ORDER BY last_at, id",
+                                 (user_id, unit)).fetchall()
+        return [{**json.loads(r["data"]), "id": r["id"], "lesson": r["lesson"], "pl": r["pl"], "wrong": r["wrong"],
+                 "streak": r["streak"]} for r in rows if not open_only or r["streak"] < need]
+
+    def lesson_err_result(self, user_id: int, err_id: int, ok: bool) -> None:
+        if ok:
+            self.conn.execute("UPDATE lesson_errors SET streak=streak+1, last_at=? WHERE id=? AND user_id=?",
+                              (self.clock(), err_id, user_id))
+        else:
+            self.conn.execute("UPDATE lesson_errors SET streak=0, wrong=wrong+1, last_at=? WHERE id=? AND user_id=?",
+                              (self.clock(), err_id, user_id))
         self.conn.commit()
 
     def memo_add(self, user_id: int, topic: str, data: dict) -> int:

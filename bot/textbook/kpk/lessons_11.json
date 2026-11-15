@@ -1,0 +1,770 @@
+{
+ "unit": "11",
+ "lessons": [
+  {
+   "id": "1",
+   "title": "Моя семья: кто есть кто",
+   "can_do": [
+    "назвать членов своей семьи",
+    "сказать, кто у тебя есть и кого нет: Mam brata. Nie mam siostry.",
+    "спросить другого о его семье"
+   ],
+   "probe": {
+    "task": "Расскажи в 2–3 предложениях о своей семье: кто у тебя есть.",
+    "sample": "Mam mamę, tatę i brata. Nie mam siostry.",
+    "sample_translit": "мам МА-мэ, ТА-тэ и БРА-та. не мам ЩЁСТ-ры",
+    "sample_ru": "У меня есть мама, папа и брат. Сестры у меня нет."
+   },
+   "dialog": {
+    "title": "Семейное фото",
+    "pl": "— Kto to jest na tym zdjęciu?\n— To jest moja rodzina. To są moi rodzice, a to mój brat Piotr.\n— A ta dziewczyna?\n— To moja siostra Ania. Ma dwadzieścia lat.\n— Masz duże rodzeństwo!\n— Tak, mam brata i siostrę. A ty? Masz rodzeństwo?\n— Nie, nie mam. Jestem jedynakiem. Ale mam dużo kuzynów!",
+    "translit": "— кто то ест на тым ЗДЬЕН-чу?\n— то ест МО-я ро-ДЖИ-на. то сон МО-и ро-ДЖИ-цэ, а то муй брат пётр.\n— а та джеф-ЧЫ-на?\n— то МО-я ЩЁСТ-ра А-ня. ма два-ДЖЕЩЬ-ча лят.\n— маш ДУ-жэ ро-ДЖЕНЬ-ство!\n— так, мам БРА-та и ЩЁСТ-рэ. а ты? маш ро-ДЖЕНЬ-ство?\n— не, не мам. ЕС-тэм е-ды-НА-кем. А-ле мам ДУ-жо ку-ЗЫ-нуф!",
+    "ru": "— Кто это на этой фотографии?\n— Это моя семья. Это мои родители, а это мой брат Пётр.\n— А эта девушка?\n— Это моя сестра Аня. Ей двадцать лет.\n— У тебя много братьев и сестёр!\n— Да, у меня есть брат и сестра. А у тебя? Есть братья или сёстры?\n— Нет. Я единственный ребёнок. Зато у меня много двоюродных братьев!",
+    "questions": [
+     {
+      "q": "Kto to jest Piotr?",
+      "ru": "Кто такой Пётр?",
+      "answer": "brat",
+      "options": [
+       "brat",
+       "ojciec",
+       "kuzyn"
+      ]
+     },
+     {
+      "q": "Ile lat ma Ania?",
+      "ru": "Сколько лет Ане?",
+      "answer": "dwadzieścia",
+      "options": [
+       "dwadzieścia",
+       "dwanaście",
+       "trzydzieści"
+      ]
+     },
+     {
+      "q": "Czy kolega ma rodzeństwo?",
+      "ru": "У друга есть братья или сёстры?",
+      "answer": "nie, jest jedynakiem",
+      "options": [
+       "nie, jest jedynakiem",
+       "tak, ma brata",
+       "tak, ma siostrę"
+      ]
+     }
+    ]
+   },
+   "chunks": [
+    {
+     "pl": "To jest moja rodzina.",
+     "translit": "то ест МО-я ро-ДЖИ-на",
+     "ru": "Это моя семья."
+    },
+    {
+     "pl": "To są moi rodzice.",
+     "translit": "то сон МО-и ро-ДЖИ-цэ",
+     "ru": "Это мои родители."
+    },
+    {
+     "pl": "Mam brata i siostrę.",
+     "translit": "мам БРА-та и ЩЁСТ-рэ",
+     "ru": "У меня есть брат и сестра."
+    },
+    {
+     "pl": "Masz rodzeństwo?",
+     "translit": "маш ро-ДЖЕНЬ-ство",
+     "ru": "У тебя есть братья или сёстры?"
+    },
+    {
+     "pl": "Nie mam rodzeństwa.",
+     "translit": "не мам ро-ДЖЕНЬ-ства",
+     "ru": "У меня нет братьев и сестёр."
+    },
+    {
+     "pl": "Jestem jedynakiem. / Jestem jedynaczką.",
+     "translit": "ЕС-тэм е-ды-НА-кем / ЕС-тэм е-ды-НАЧ-кон",
+     "ru": "Я единственный ребёнок (м. / ж.)."
+    },
+    {
+     "pl": "Mam dwoje dzieci.",
+     "translit": "мам ДВО-е ДЖЕ-чи",
+     "ru": "У меня двое детей."
+    },
+    {
+     "pl": "mój dziadek i moja babcia",
+     "translit": "муй ДЖЯ-дэк и МО-я БАП-ча",
+     "ru": "мой дедушка и моя бабушка"
+    },
+    {
+     "pl": "Jak ma na imię twój brat?",
+     "translit": "як ма на И-мье твуй брат",
+     "ru": "Как зовут твоего брата?"
+    },
+    {
+     "pl": "Ile lat ma twoja siostra?",
+     "translit": "И-ле лят ма ТФО-я ЩЁСТ-ра",
+     "ru": "Сколько лет твоей сестре?"
+    }
+   ],
+   "own": "Составь 3 предложения о своей настоящей семье: кто у тебя есть, кого нет, как зовут и сколько лет.",
+   "discover": {
+    "examples": [
+     {
+      "pl": "Mam brata.",
+      "translit": "мам БРА-та",
+      "ru": "У меня есть брат."
+     },
+     {
+      "pl": "Mam siostrę.",
+      "translit": "мам ЩЁСТ-рэ",
+      "ru": "У меня есть сестра."
+     },
+     {
+      "pl": "Nie mam brata.",
+      "translit": "не мам БРА-та",
+      "ru": "У меня нет брата."
+     },
+     {
+      "pl": "Nie mam siostry.",
+      "translit": "не мам ЩЁСТ-ры",
+      "ru": "У меня нет сестры."
+     }
+    ],
+    "question": "Как меняются слова brat и siostra после mam и после nie mam?",
+    "answer": "После mam — винительный: brata (м. р. одушевлённый: -a), siostrę (ж. р.: -ę). После nie mam — родительный: brata, siostry (ж. р.: -y / -i). У мужского рода обе формы совпадают, у женского — разные: siostrę, но nie mam siostry."
+   },
+   "practice": [
+    "tb-11-a6",
+    "wb-11-1",
+    "wb-11-4"
+   ],
+   "task": {
+    "title": "Расскажи о семье и расспроси Касю",
+    "brief": "Ты знакомишься с Касей на языковых курсах. Расскажи ей о своей семье (родители, братья и сёстры: как зовут, сколько лет) и узнай о её семье — задай минимум два вопроса.",
+    "bot_role": "Ты — Кася. У тебя мама Эва, папа Ян и старший брат Марек (30 лет, живёт в Гданьске), сестёр нет. Спрашивай ученика о его семье: есть ли братья и сёстры, как их зовут, сколько им лет. На его вопросы отвечай коротко.",
+    "goal": "рассказать о своей семье и задать Касе два вопроса о её семье",
+    "targets": [
+     "Mam brata / siostrę.",
+     "Nie mam rodzeństwa.",
+     "To jest moja rodzina.",
+     "Masz rodzeństwo?",
+     "Jak ma na imię twój brat?",
+     "Ile lat ma…?"
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Cześć! Jestem Kasia. Masz dużą rodzinę?",
+     "translit": "чещьчь! ЕС-тэм КА-ща. маш ДУ-жон ро-ДЖИ-нэ?",
+     "ru": "Привет! Я Кася. У тебя большая семья?"
+    }
+   }
+  },
+  {
+   "id": "2",
+   "title": "Женат? Замужем? Родня по браку",
+   "can_do": [
+    "сказать о семейном положении: женат, замужем, холост, в разводе",
+    "назвать родню по браку: тесть, тёща, шурин, невестка",
+    "спросить об этом другого"
+   ],
+   "probe": {
+    "task": "Скажи, женат ты или нет (замужем или нет) и есть ли у тебя девушка / парень.",
+    "sample": "Nie jestem żonaty, ale mam dziewczynę.",
+    "sample_translit": "не ЕС-тэм жо-НА-ты, А-ле мам джеф-ЧЫ-нэ",
+    "sample_ru": "Я не женат, но у меня есть девушка."
+   },
+   "dialog": {
+    "title": "На вечеринке",
+    "pl": "— To jest twój mąż?\n— Nie, to mój brat. Nie jestem mężatką, jestem panną.\n— A twój brat? Jest żonaty?\n— Tak, jego żona ma na imię Ewa. To moja bratowa.\n— A ja jestem rozwiedziony. Mam syna, ma pięć lat.\n— A masz teraz dziewczynę?\n— Nie, jestem sam. A ty masz chłopaka?\n— Tak, mam. Jest tam, rozmawia z moim szwagrem.",
+    "translit": "— то ест твуй монш?\n— не, то муй брат. не ЕС-тэм мэн-ЖАТ-кон, ЕС-тэм ПАН-нон.\n— а твуй брат? ест жо-НА-ты?\n— так, Е-го ЖО-на ма на И-мье Э-ва. то МО-я бра-ТО-ва.\n— а я ЕС-тэм роз-ве-ДЖО-ны. мам СЫ-на, ма пеньчь лят.\n— а маш ТЭ-раз джеф-ЧЫ-нэ?\n— не, ЕС-тэм сам. а ты маш хўо-ПА-ка?\n— так, мам. ест там, роз-МА-вя з МО-им ШФА-грэм.",
+    "ru": "— Это твой муж?\n— Нет, это мой брат. Я не замужем.\n— А твой брат? Женат?\n— Да, его жену зовут Эва. Это моя невестка.\n— А я разведён. У меня сын, ему пять лет.\n— А девушка у тебя сейчас есть?\n— Нет, я один. А у тебя есть парень?\n— Да, есть. Он вон там, разговаривает с моим зятем.",
+    "questions": [
+     {
+      "q": "Kto to jest ten mężczyzna?",
+      "ru": "Кто этот мужчина?",
+      "answer": "jej brat",
+      "options": [
+       "jej brat",
+       "jej mąż",
+       "jej chłopak"
+      ]
+     },
+     {
+      "q": "Kto to jest Ewa?",
+      "ru": "Кто такая Эва?",
+      "answer": "żona brata",
+      "options": [
+       "żona brata",
+       "siostra",
+       "teściowa"
+      ]
+     },
+     {
+      "q": "Czy on jest żonaty?",
+      "ru": "Он женат?",
+      "answer": "nie, jest rozwiedziony",
+      "options": [
+       "nie, jest rozwiedziony",
+       "tak, jest żonaty",
+       "nie, jest kawalerem"
+      ]
+     }
+    ]
+   },
+   "chunks": [
+    {
+     "pl": "Jestem żonaty. / Jestem mężatką.",
+     "translit": "ЕС-тэм жо-НА-ты / ЕС-тэм мэн-ЖАТ-кон",
+     "ru": "Я женат. / Я замужем."
+    },
+    {
+     "pl": "Jestem kawalerem. / Jestem panną.",
+     "translit": "ЕС-тэм ка-ва-ЛЕ-рэм / ЕС-тэм ПАН-нон",
+     "ru": "Я холост. / Я не замужем."
+    },
+    {
+     "pl": "Jestem rozwiedziony. / Jestem rozwiedziona.",
+     "translit": "ЕС-тэм роз-ве-ДЖО-ны / ЕС-тэм роз-ве-ДЖО-на",
+     "ru": "Я разведён. / Я разведена."
+    },
+    {
+     "pl": "Mam dziewczynę. / Mam chłopaka.",
+     "translit": "мам джеф-ЧЫ-нэ / мам хўо-ПА-ка",
+     "ru": "У меня есть девушка. / У меня есть парень."
+    },
+    {
+     "pl": "mój mąż / moja żona",
+     "translit": "муй монш / МО-я ЖО-на",
+     "ru": "мой муж / моя жена"
+    },
+    {
+     "pl": "teść i teściowa",
+     "translit": "тэщьчь и тэщь-ЧО-ва",
+     "ru": "тесть (свёкор) и тёща (свекровь)"
+    },
+    {
+     "pl": "szwagier",
+     "translit": "ШФА-гер",
+     "ru": "шурин, деверь; муж сестры"
+    },
+    {
+     "pl": "bratowa",
+     "translit": "бра-ТО-ва",
+     "ru": "невестка (жена брата)"
+    },
+    {
+     "pl": "Jesteś żonaty? / Jesteś mężatką?",
+     "translit": "ЕС-тэщь жо-НА-ты / ЕС-тэщь мэн-ЖАТ-кон",
+     "ru": "Ты женат? / Ты замужем?"
+    }
+   ],
+   "own": "Составь 3 предложения о семейном положении — своём и двух своих знакомых или родственников.",
+   "discover": {
+    "examples": [
+     {
+      "pl": "On jest żonaty.",
+      "translit": "он ест жо-НА-ты",
+      "ru": "Он женат."
+     },
+     {
+      "pl": "Ona jest mężatką.",
+      "translit": "О-на ест мэн-ЖАТ-кон",
+      "ru": "Она замужем."
+     },
+     {
+      "pl": "On jest kawalerem.",
+      "translit": "он ест ка-ва-ЛЕ-рэм",
+      "ru": "Он холост."
+     },
+     {
+      "pl": "Ona jest panną.",
+      "translit": "О-на ест ПАН-нон",
+      "ru": "Она не замужем."
+     }
+    ],
+    "question": "Почему żonaty после jest не меняется, а mężatka, kawaler, panna получают другие окончания?",
+    "answer": "Żonaty — прилагательное: после jest оно остаётся в именительном. Mężatka, kawaler, panna — существительные: после jest «кем?» нужен творительный: -em у мужского рода (kawalerem), -ą у женского (mężatką, panną)."
+   },
+   "rules": [
+    2
+   ],
+   "practice": [
+    "tb-11-a4-1",
+    "wb-11-2",
+    "tb-11-a5-1"
+   ],
+   "task": {
+    "title": "На вечеринке: познакомься с Мартой",
+    "brief": "Ты на вечеринке знакомишься с Мартой. Узнай: замужем ли она, есть ли у неё дети и кто тот мужчина рядом с ней. Расскажи о своём семейном положении.",
+    "bot_role": "Ты — Марта, 32 года, разведена, у тебя дочь Зося (6 лет). Мужчина рядом — твой брат Адам, он женат, его жена Ола — твоя bratowa. Отвечай на вопросы и спрашивай ученика: женат ли он (замужем ли она), есть ли дети.",
+    "goal": "узнать семейное положение Марты и кто мужчина рядом, рассказать о своём",
+    "targets": [
+     "Jesteś mężatką?",
+     "Jestem żonaty / kawalerem / mężatką / panną.",
+     "Mam dziewczynę / chłopaka.",
+     "To jest twój mąż?",
+     "Masz dzieci?",
+     "bratowa / szwagier"
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Cześć, jestem Marta. Fajna impreza, prawda?",
+     "translit": "чещьчь, ЕС-тэм МАР-та. ФАЙ-на им-ПРЭ-за, ПРАВ-да?",
+     "ru": "Привет, я Марта. Классная вечеринка, правда?"
+    }
+   }
+  },
+  {
+   "id": "3",
+   "title": "Чей это? Мой, твой, его, её",
+   "can_do": [
+    "спросить, чья это вещь: czyj? czyja? czyje?",
+    "ответить: мой, твой, его, её, наш, ваш, их",
+    "сказать, чьи это родственники: jego brat, jej mąż"
+   ],
+   "probe": {
+    "task": "Спроси, чей это телефон, и скажи, что он не твой, а его (твоего брата).",
+    "sample": "Czyj to jest telefon? To nie jest mój, to jest jego telefon.",
+    "sample_translit": "чый то ест тэ-ЛЕ-фон? то не ест муй, то ест Е-го тэ-ЛЕ-фон",
+    "sample_ru": "Чей это телефон? Это не мой, это его телефон."
+   },
+   "dialog": {
+    "title": "После вечеринки",
+    "pl": "— Czyj to jest telefon?\n— Nie mój. Może Karola?\n— Nie, jego telefon jest czarny. A czyja to jest kurtka?\n— To kurtka Angeli. A to jej torba.\n— A czyje to jest zdjęcie?\n— O, to nasze zdjęcie! To ja i moja siostra.\n— A te klucze? Wasze?\n— Nie, nie nasze. To chyba ich klucze — Toma i Mami.",
+    "translit": "— чый то ест тэ-ЛЕ-фон?\n— не муй. МО-же ка-РО-ля?\n— не, Е-го тэ-ЛЕ-фон ест ЧАР-ны. а ЧЫ-я то ест КУРТ-ка?\n— то КУРТ-ка ан-ГЕ-ли. а то ей ТОР-ба.\n— а ЧЫ-е то ест ЗДЬЕН-че?\n— о, то НА-шэ ЗДЬЕН-че! то я и МО-я ЩЁСТ-ра.\n— а тэ КЛЮ-чэ? ВА-шэ?\n— не, не НА-шэ. то ХЫ-ба их КЛЮ-чэ — ТО-ма и МА-ми.",
+    "ru": "— Чей это телефон?\n— Не мой. Может, Кароля?\n— Нет, его телефон чёрный. А чья это куртка?\n— Это куртка Анджелы. А это её сумка.\n— А чья это фотография?\n— О, это наша фотография! Это я и моя сестра.\n— А эти ключи? Ваши?\n— Нет, не наши. Это, наверное, их ключи — Тома и Мами.",
+    "questions": [
+     {
+      "q": "Czyja jest kurtka?",
+      "ru": "Чья куртка?",
+      "answer": "Angeli",
+      "options": [
+       "Angeli",
+       "Karola",
+       "Mami"
+      ]
+     },
+     {
+      "q": "Kto jest na zdjęciu?",
+      "ru": "Кто на фотографии?",
+      "answer": "dwie siostry",
+      "options": [
+       "dwie siostry",
+       "Karol i Tom",
+       "Angela i Mami"
+      ]
+     },
+     {
+      "q": "Czyje są klucze?",
+      "ru": "Чьи ключи?",
+      "answer": "Toma i Mami",
+      "options": [
+       "Toma i Mami",
+       "Karola",
+       "Angeli"
+      ]
+     }
+    ]
+   },
+   "chunks": [
+    {
+     "pl": "Czyj to jest telefon?",
+     "translit": "чый то ест тэ-ЛЕ-фон",
+     "ru": "Чей это телефон?"
+    },
+    {
+     "pl": "Czyja to jest kurtka?",
+     "translit": "ЧЫ-я то ест КУРТ-ка",
+     "ru": "Чья это куртка?"
+    },
+    {
+     "pl": "Czyje to jest zdjęcie?",
+     "translit": "ЧЫ-е то ест ЗДЬЕН-че",
+     "ru": "Чья это фотография?"
+    },
+    {
+     "pl": "To jest mój telefon.",
+     "translit": "то ест муй тэ-ЛЕ-фон",
+     "ru": "Это мой телефон."
+    },
+    {
+     "pl": "To nie jest moje.",
+     "translit": "то не ест МО-е",
+     "ru": "Это не моё."
+    },
+    {
+     "pl": "jego brat, jej siostra",
+     "translit": "Е-го брат, ей ЩЁСТ-ра",
+     "ru": "его брат, её сестра",
+     "note": "jego, jej не меняются"
+    },
+    {
+     "pl": "nasz dom, nasza rodzina",
+     "translit": "наш дом, НА-ша ро-ДЖИ-на",
+     "ru": "наш дом, наша семья"
+    },
+    {
+     "pl": "wasz syn, wasze dziecko",
+     "translit": "ваш сын, ВА-шэ ДЖЕЦ-ко",
+     "ru": "ваш сын, ваш ребёнок"
+    },
+    {
+     "pl": "ich dzieci",
+     "translit": "их ДЖЕ-чи",
+     "ru": "их дети"
+    }
+   ],
+   "own": "Составь 3 предложения о вещах и людях вокруг тебя: чьи они (мой, её, наш, их…).",
+   "discover": {
+    "examples": [
+     {
+      "pl": "mój brat, moja siostra, moje dziecko",
+      "translit": "муй брат, МО-я ЩЁСТ-ра, МО-е ДЖЕЦ-ко",
+      "ru": "мой брат, моя сестра, мой ребёнок"
+     },
+     {
+      "pl": "jego brat, jego siostra, jego dziecko",
+      "translit": "Е-го брат, Е-го ЩЁСТ-ра, Е-го ДЖЕЦ-ко",
+      "ru": "его брат, его сестра, его ребёнок"
+     },
+     {
+      "pl": "jej brat, jej siostra, jej dziecko",
+      "translit": "ей брат, ей ЩЁСТ-ра, ей ДЖЕЦ-ко",
+      "ru": "её брат, её сестра, её ребёнок"
+     }
+    ],
+    "question": "Какие из этих слов меняются по роду, а какие нет? От чьего рода зависит форма?",
+    "answer": "Mój (а также twój, nasz, wasz) меняется по роду того, ЧЕМ владеют: mój brat, moja siostra, moje dziecko. Jego, jej, ich не меняются никогда — как в русском «его, её, их»."
+   },
+   "rules": [
+    0,
+    1
+   ],
+   "practice": [
+    "tb-11-b3",
+    "tb-11-b4",
+    "wb-11-8"
+   ],
+   "task": {
+    "title": "Чьи это вещи?",
+    "brief": "После вечеринки у тебя дома остались вещи: чёрный телефон, зелёная куртка и книга. Позвони Каролю и выясни, чьи они — про каждую вещь спроси «чей / чья?».",
+    "bot_role": "Ты — Кароль. Телефон — не твой, это телефон Тома (jego telefon). Куртка — твоей сестры Каролины (jej kurtka). Книга — твоя (moja książka). Отвечай на вопросы по одному, не называй всё сразу. В конце спроси, не ученика ли ключи, которые остались у тебя.",
+    "goal": "выяснить, чьи телефон, куртка и книга",
+    "targets": [
+     "Czyj to jest telefon?",
+     "Czyja to jest kurtka?",
+     "Czyja to jest książka?",
+     "To jest jego / jej…",
+     "To nie jest moje.",
+     "To jest mój / moja / moje…"
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Halo? Cześć! Co słychać po imprezie?",
+     "translit": "ХА-лё? чещьчь! цо СЎЫ-хачь по им-ПРЭ-же?",
+     "ru": "Алло? Привет! Как дела после вечеринки?"
+    }
+   }
+  },
+  {
+   "id": "4",
+   "title": "Когда и как часто",
+   "can_do": [
+    "сказать, когда ты что-то делаешь: rano, po południu, wieczorem",
+    "сказать, как часто: zawsze, często, rzadko, nigdy nie",
+    "расспросить другого о его привычках"
+   ],
+   "probe": {
+    "task": "Скажи: «Утром я всегда пью кофе, а вечером никогда не пью».",
+    "sample": "Rano zawsze piję kawę, a wieczorem nigdy nie piję.",
+    "sample_translit": "РА-но ЗАФ-шэ ПИ-е КА-вэ, а ве-ЧО-рэм НИГ-ды не ПИ-е",
+    "sample_ru": "Утром я всегда пью кофе, а вечером никогда не пью."
+   },
+   "dialog": {
+    "title": "Ты часто готовишь?",
+    "pl": "— Często gotujesz?\n— Rzadko. Zwykle jem obiad w pracy. A ty?\n— Ja gotuję codziennie! Rano robię śniadanie, a wieczorem kolację.\n— A w weekend?\n— W sobotę zawsze jemy obiad u babci. A w niedzielę czasami idziemy do restauracji.\n— A ja w niedzielę nigdy nie gotuję. Śpię do południa!",
+    "translit": "— ЧЕНС-то го-ТУ-ешь?\n— ЖАТ-ко. ЗВЫК-ле ем О-бьят ф ПРА-цы. а ты?\n— я го-ТУ-е цо-ДЖЕН-не! РА-но РО-бье щьня-ДА-не, а ве-ЧО-рэм ко-ЛЯ-цьэ.\n— а в ЎИ-кэнт?\n— ф со-БО-тэ ЗАФ-шэ Е-мы О-бьят у БАП-чи. а в не-ДЖЕ-лэ ча-ЩА-ми и-ДЖЕ-мы до рэс-таў-РАЦ-ьи.\n— а я в не-ДЖЕ-лэ НИГ-ды не го-ТУ-е. щьпье до по-ЎУД-ня!",
+    "ru": "— Ты часто готовишь?\n— Редко. Обычно я обедаю на работе. А ты?\n— Я готовлю каждый день! Утром делаю завтрак, а вечером ужин.\n— А на выходных?\n— В субботу мы всегда обедаем у бабушки. А в воскресенье иногда идём в ресторан.\n— А я в воскресенье никогда не готовлю. Сплю до полудня!",
+    "questions": [
+     {
+      "q": "Gdzie on zwykle je obiad?",
+      "ru": "Где он обычно обедает?",
+      "answer": "w pracy",
+      "options": [
+       "w pracy",
+       "w domu",
+       "u babci"
+      ]
+     },
+     {
+      "q": "Co oni robią w sobotę?",
+      "ru": "Что они делают в субботу?",
+      "answer": "jedzą obiad u babci",
+      "options": [
+       "jedzą obiad u babci",
+       "idą do restauracji",
+       "śpią do południa"
+      ]
+     },
+     {
+      "q": "Jak często ona gotuje?",
+      "ru": "Как часто она готовит?",
+      "answer": "codziennie",
+      "options": [
+       "codziennie",
+       "rzadko",
+       "nigdy"
+      ]
+     }
+    ]
+   },
+   "chunks": [
+    {
+     "pl": "rano, przed południem",
+     "translit": "РА-но, пшэт по-ЎУД-нем",
+     "ru": "утром, до обеда"
+    },
+    {
+     "pl": "w południe, po południu",
+     "translit": "ф по-ЎУД-не, по по-ЎУД-ню",
+     "ru": "в полдень, после обеда"
+    },
+    {
+     "pl": "wieczorem, w nocy",
+     "translit": "ве-ЧО-рэм, в НО-цы",
+     "ru": "вечером, ночью"
+    },
+    {
+     "pl": "zawsze, zwykle",
+     "translit": "ЗАФ-шэ, ЗВЫК-ле",
+     "ru": "всегда, обычно"
+    },
+    {
+     "pl": "często, czasami",
+     "translit": "ЧЕНС-то, ча-ЩА-ми",
+     "ru": "часто, иногда"
+    },
+    {
+     "pl": "rzadko",
+     "translit": "ЖАТ-ко",
+     "ru": "редко"
+    },
+    {
+     "pl": "codziennie",
+     "translit": "цо-ДЖЕН-не",
+     "ru": "каждый день"
+    },
+    {
+     "pl": "od czasu do czasu",
+     "translit": "от ЧА-су до ЧА-су",
+     "ru": "время от времени"
+    },
+    {
+     "pl": "Nigdy nie piję kawy wieczorem.",
+     "translit": "НИГ-ды не ПИ-е КА-вы ве-ЧО-рэм",
+     "ru": "Я никогда не пью кофе вечером.",
+     "note": "nigdy всегда с nie"
+    },
+    {
+     "pl": "Jak często gotujesz?",
+     "translit": "як ЧЕНС-то го-ТУ-ешь",
+     "ru": "Как часто ты готовишь?"
+    }
+   ],
+   "own": "Составь 3 предложения о своих привычках: что ты делаешь всегда, что редко и чего не делаешь никогда — и в какое время суток.",
+   "discover": {
+    "examples": [
+     {
+      "pl": "Zawsze piję kawę rano.",
+      "translit": "ЗАФ-шэ ПИ-е КА-вэ РА-но",
+      "ru": "Я всегда пью кофе утром."
+     },
+     {
+      "pl": "Często gotuję.",
+      "translit": "ЧЕНС-то го-ТУ-е",
+      "ru": "Я часто готовлю."
+     },
+     {
+      "pl": "Nigdy nie piję kawy.",
+      "translit": "НИГ-ды не ПИ-е КА-вы",
+      "ru": "Я никогда не пью кофе."
+     },
+     {
+      "pl": "Nigdy nie oglądam telewizji.",
+      "translit": "НИГ-ды не ог-ЛЁН-дам тэ-ле-ВИ-зьи",
+      "ru": "Я никогда не смотрю телевизор."
+     }
+    ],
+    "question": "Где в предложении стоит слово частоты? И что особенного в предложениях с nigdy?",
+    "answer": "Слово частоты стоит перед глаголом. С nigdy всегда нужно nie — двойное отрицание, как в русском «никогда не». А после nie дополнение стоит в родительном: kawę → kawy, telewizję → telewizji."
+   },
+   "rules": [
+    3,
+    4
+   ],
+   "practice": [
+    "tb-11-d2",
+    "wb-11-13",
+    "wb-11-14"
+   ],
+   "task": {
+    "title": "Опрос: как часто ты…?",
+    "brief": "Кася проводит опрос о привычках. Ответь на её вопросы — когда и как часто ты что-то делаешь — и задай ей два своих вопроса «Jak często…?».",
+    "bot_role": "Ты — Кася, проводишь опрос. Задай по очереди три вопроса: как часто ученик готовит, когда он занимается спортом (утром или вечером), пьёт ли он кофе вечером. На его вопросы отвечай: готовишь редко, спортом занимаешься каждый день утром, в кино ходишь время от времени.",
+    "goal": "ответить на три вопроса с временем суток или частотой и задать два своих вопроса",
+    "targets": [
+     "zawsze",
+     "zwykle",
+     "często",
+     "rzadko",
+     "nigdy nie…",
+     "rano / wieczorem",
+     "Jak często…?"
+    ],
+    "min_targets": 4,
+    "opening": {
+     "pl": "Cześć! Mam krótką ankietę. Jak często gotujesz?",
+     "translit": "чещьчь! мам КРУТ-кон ан-КЕ-тэ. як ЧЕНС-то го-ТУ-ешь?",
+     "ru": "Привет! У меня короткий опрос. Как часто ты готовишь?"
+    }
+   }
+  },
+  {
+   "id": "5",
+   "final": true,
+   "title": "Итог юнита 11",
+   "can_do": [
+    "рассказать о своей семье",
+    "сказать о семейном положении",
+    "спросить и сказать, чьё это",
+    "сказать, когда и как часто ты что-то делаешь"
+   ],
+   "text": 1,
+   "task": {
+    "title": "Семейное фото",
+    "brief": "Покажи Касе воображаемое фото своей семьи и расскажи: кто на нём, кто женат или замужем, чьи это дети, как часто вы видитесь. Отвечай на её вопросы.",
+    "bot_role": "Ты — Кася, смотришь фото семьи ученика. Задавай вопросы: кто это, женат ли брат (замужем ли сестра), чей это ребёнок, как часто они встречаются. Реагируй коротко и с интересом.",
+    "goal": "описать минимум трёх родственников: кто это, семейное положение, чьи дети, как часто видитесь",
+    "targets": [
+     "To jest mój / moja…",
+     "To są moi rodzice.",
+     "jego żona / jej mąż",
+     "Jest żonaty. / Jest mężatką.",
+     "często / rzadko / zawsze",
+     "Mam brata / siostrę."
+    ],
+    "min_targets": 4,
+    "opening": {
+     "pl": "O, to twoja rodzina? Kto to jest?",
+     "translit": "о, то ТФО-я ро-ДЖИ-на? кто то ест?",
+     "ru": "О, это твоя семья? Кто это?"
+    }
+   },
+   "test": [
+    {
+     "q": "To jest ___ (ja) brat.",
+     "answer": "mój",
+     "ru": "Это мой брат."
+    },
+    {
+     "q": "To jest ___ (ja) siostra.",
+     "answer": "moja",
+     "ru": "Это моя сестра."
+    },
+    {
+     "q": "To jest ___ (ja) dziecko.",
+     "answer": "moje",
+     "ru": "Это мой ребёнок.",
+     "grammar": "dziecko — ср. р."
+    },
+    {
+     "q": "___ to jest telefon? — Mój.",
+     "answer": "Czyj",
+     "ru": "Чей это телефон? — Мой."
+    },
+    {
+     "q": "___ to jest książka?",
+     "answer": "Czyja",
+     "ru": "Чья это книга?"
+    },
+    {
+     "q": "___ to jest zdjęcie?",
+     "answer": "Czyje",
+     "ru": "Чья это фотография?"
+    },
+    {
+     "q": "To jest Adam, a to ___ (on) żona.",
+     "answer": "jego",
+     "ru": "Это Адам, а это его жена."
+    },
+    {
+     "q": "To jest Ania, a to ___ (ona) mąż.",
+     "answer": "jej",
+     "ru": "Это Аня, а это её муж."
+    },
+    {
+     "q": "To są Tom i Mami, a to ___ (oni) dom.",
+     "answer": "ich",
+     "ru": "Это Том и Мами, а это их дом."
+    },
+    {
+     "q": "To jest ___ (my) rodzina.",
+     "answer": "nasza",
+     "ru": "Это наша семья."
+    },
+    {
+     "q": "Mój brat ma żonę. On jest ___.",
+     "answer": "żonaty",
+     "ru": "У моего брата есть жена. Он женат."
+    },
+    {
+     "q": "Moja siostra ma męża. Ona jest ___.",
+     "answer": "mężatką",
+     "ru": "У моей сестры есть муж. Она замужем.",
+     "grammar": "jest + твор. п.: mężatką"
+    },
+    {
+     "q": "Mam ___ (brat).",
+     "answer": "brata",
+     "ru": "У меня есть брат.",
+     "grammar": "вин. п., м. р. одуш.: -a"
+    },
+    {
+     "q": "Mam ___ (siostra).",
+     "answer": "siostrę",
+     "ru": "У меня есть сестра."
+    },
+    {
+     "q": "Nie mam ___ (rodzeństwo).",
+     "answer": "rodzeństwa",
+     "ru": "У меня нет братьев и сестёр.",
+     "grammar": "nie mam + род. п."
+    },
+    {
+     "q": "Nigdy ___ piję kawy wieczorem.",
+     "answer": "nie",
+     "ru": "Я никогда не пью кофе вечером."
+    },
+    {
+     "q": "Matka mojej żony to moja ___.",
+     "answer": "teściowa",
+     "ru": "Мать моей жены — это моя тёща."
+    },
+    {
+     "q": "Brat i siostra to ___.",
+     "answer": "rodzeństwo",
+     "ru": "Брат и сестра — это … (одним словом)."
+    },
+    {
+     "q": "___ (каждый день) dzwonię do mamy.",
+     "answer": "Codziennie",
+     "ru": "Каждый день я звоню маме."
+    },
+    {
+     "q": "Rano piję kawę, a ___ (вечером) herbatę.",
+     "answer": "wieczorem",
+     "ru": "Утром я пью кофе, а вечером чай."
+    }
+   ]
+  }
+ ]
+}

@@ -189,6 +189,9 @@ class BookExMixin:
             else:
                 await self.speak(chat_id, speech.task_text(items), "🔊 В задании нет польского текста.")
             return
+        if kind == "l" and unit.get("les"):   # 🎓 урок: список — текущий шаг урока
+            await self.lesson_step(chat_id, user_id)
+            return
         if kind == "l" and unit.get("rev"):   # 🔁 повторение: список — очередь сложных упражнений
             await self.review_hard(chat_id, user_id)
             return
@@ -493,6 +496,8 @@ class BookExMixin:
                 + (f"🎉 <b>Упражнение выполнено на 100%!</b>" if ok_all == total
                    else f"<i>Всего в упражнении верно {ok_all} из {total}.</i>"))
         wrong = [r["n"] for r in results if r["final"] != "ok"]
+        if unit.get("les"):   # 🎓 урок: ошибки — в дневник юнита
+            self.lesson_after_bex(user_id, unit, x, items, results)
         await self.tg.send_message(chat_id, fmt.ex_results({"items": items}, results, head=head, foot=""),
                                    fmt.bex_result_buttons(unit, x, done, self.bex_wins(user_id, unit, x), wrong))
 

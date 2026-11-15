@@ -83,6 +83,24 @@ def _fill(q: str, answer: str) -> str:
     return q
 
 
+def fill(q: str, answer: str) -> str:
+    return _fill(q, answer)
+
+
+def phrase(it: dict) -> str:
+    """Правильный ответ пункта фразой целиком (для дневника ошибок урока); пусто — фразы нет или она не польская."""
+    if it.get("card"):
+        s = it.get("lemma", "")
+    elif it.get("full_pl"):
+        s = it["full_pl"]
+    else:
+        s = _fill(str(it.get("q", "")), str(it.get("answer", "")))
+    if _MASK.search(str(s).replace("___", " ")):
+        return ""
+    s = clean(re.sub(r"\([^)]*\)", "", str(s)))
+    return s if s and is_pl(s) else ""
+
+
 def answers_text(items: list[dict]) -> str:
     """Правильные ответы по порядку (только польские)."""
     parts = []

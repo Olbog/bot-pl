@@ -424,6 +424,23 @@ class FakeGemini:
             import re as _re
             nums = [int(x) for x in _re.findall(r"^(\d+)\. ", prompt, _re.M)]
             return {"items": [{"n": n, "wrong": [f"blisko{n}a", f"blisko{n}b"]} for n in nums]}
+        if "used" in props:                                      # 🎓 ролевая игра урока
+            return {"user_text": "", "reply_pl": "Świetnie! A w niedzielę?", "reply_translit": "ЩЬВЕТ-не",
+                    "reply_ru": "Отлично! А в воскресенье?", "done": getattr(self, "talk_done", False),
+                    "used": getattr(self, "talk_used", ["Chętnie!"]),
+                    "corrections": [{"kind": "grammar", "original": "do koncert", "correct": "na koncert",
+                                     "translit": "на КОН-цэрт", "ru": "на концерт", "why": "событие — na", "rule": "Другое"}],
+                    "better_pl": "Masz ochotę pójść na koncert?", "better_ru": "Хочешь пойти на концерт?"}
+        if "better_pl" in props:                                 # 🎓 проба / свои предложения
+            return {"heard": "", "ok": True,
+                    "corrections": [{"kind": "grammar", "original": "do kino", "correct": "do kina", "translit": "до КИ-на",
+                                     "ru": "в кино", "why": "do + род. п.", "rule": "Другое"}],
+                    "better_pl": "Masz ochotę pójść do kina?", "better_translit": "маш о-ХО-тэ", "better_ru": "Хочешь в кино?",
+                    "comment": "Хорошо."}
+        if "notes" in props:                                     # 🎓 заметки учителя
+            return {"notes": "путает do и na"}
+        if set(props) == {"ok", "comment"}:                      # 🎓 вывод правила из примеров
+            return {"ok": True, "comment": "Верно: do — место, na — событие."}
         if "diffs" in props:                                     # 📜 проверка текста наизусть / пересказа
             return getattr(self, "mt", None) or {
                 "heard": "Dzień dobry! Jestem Mark. Mam na imie Mark.",
@@ -3372,3 +3389,193 @@ def test_book_cards_new_words_button():
     assert "(ещё %d)" % (total - 20) in str(app.tg.buttons[-1])
     run(app.on_callback(cb(f"x:rp:{ex2['id']}")))                           # 🔁 Повторить — обычный подбор
     assert not app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])["cfg"].get("fresh")
+
+
+
+def ls_app():
+    import tempfile
+    tb.UNITS_DIR = REAL_TEXTBOOK
+    app = make_app()
+    app.ls_audio_dir = Path(tempfile.mkdtemp())
+    app.mt_audio_dir = Path(tempfile.mkdtemp())
+    return app
+
+
+def ls_state(app, unit="kpk:12"):
+    return app.db.lesson_get(42, unit)
+
+
+def ex_now(app):
+    return app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
+
+
+def test_real_lesson_plans_are_valid():
+    """🎓 Планы уроков: упражнения и правила существуют, у вопросов 3 варианта, кнопки и тексты в лимитах Telegram."""
+    tb.UNITS_DIR = REAL_TEXTBOOK
+    units = tb.lesson_units()
+    assert {u["unit"] for u in units} >= {"kpk:11", "kpk:12"}
+    for u in units:
+        plan = tb.lessons(u["unit"])
+        ids = {x["id"] for x in u["exercises"]}
+        assert plan[-1].get("final") and len(plan[-1]["test"]) >= 15 and len({x["id"] for x in plan}) == len(plan)
+        for x in plan:
+            assert x["title"] and x["can_do"] and x["task"]["opening"]["pl"] and x["task"]["targets"]
+            assert all(i in ids for i in x.get("practice") or [])
+            assert all(0 <= i < len(u["review"]["rules"]) for i in x.get("rules") or [])
+            for c in x.get("chunks") or []:
+                assert c["pl"] and c["translit"] and c["ru"]
+            for q in (x.get("dialog") or {}).get("questions") or []:
+                assert q["answer"] in q["options"] and len(set(q["options"])) == 3
+            for t in x.get("test") or []:
+                assert "___" in t["q"] and t["answer"] and t["ru"]
+            if not x.get("final"):
+                assert x["probe"]["sample"] and x["dialog"]["pl"] and 8 <= len(x["chunks"]) <= 12 and x["discover"]["answer"]
+                assert len(x["dialog"]["pl"]) + len(x["dialog"]["translit"]) + len(x["dialog"]["ru"]) < 3500
+
+
+def test_lesson_full_flow_steps_diary_task_and_wrap():
+    """🎓 Урок 1 юнита 12 целиком: проба → образец → вопросы → фразы → свои предложения → правило → упражнения из книги
+    (отдельный прогресс) → добивка → ролевая игра с разбором после → итог; ошибки — в дневник и общий пул."""
+    app = ls_app()
+    gem = app.gemini
+    run(app.handle(msg(text="/lesson")))
+    assert "ls:u:kpk:12" in str(app.tg.buttons[-1]) and "ls:u:kpk:11" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("ls:u:kpk:12", mid=3)))
+    assert "Урок 1.</b> Приглашаем и отвечаем" in app.tg.edits[-1][0] and "ls:s:kpk:12|1" in str(app.tg.edits[-1][1])
+    run(app.on_callback(cb("ls:s:kpk:12|1")))
+    assert "🎯 Проба" in app.tg.sent[-1] and "шаг 2/13" in app.tg.sent[-1]      # разминки нет: первый урок, дневник пуст
+    assert app.db.get_state(42)["pending"] == {"step": "ls_in", "mode": "probe"}
+    run(app.handle(msg(text="chcesz kino jutro?")))
+    assert "ПРОБА" in gem.prompts[-1] and "Можно так" in app.tg.sent[-1] and "в ошибки не записываю" in app.tg.sent[-1]
+    assert app.db.corrections_since(42, 0) == [] and app.db.lesson_errs(42, "kpk:12") == []   # проба — не ошибка
+    run(app.on_callback(cb("ls:n")))
+    assert "👂 Образец" in app.tg.sent[-1] and "Masz ochotę pójść ze mną?" in app.tg.sent[-1]
+    assert app.tg.voices[-1].startswith(b"OGG:")
+    run(app.on_callback(cb("ls:n")))                                               # вопросы на понимание — тест кнопками
+    ex = ex_now(app)
+    assert ex["fmt"] == "test" and len(ex["items"]) == 3 and "ls:n" not in str(app.tg.buttons[-1])
+    for i, it in enumerate(ex["items"], 1):
+        L = "abcd"[it["options"].index(it["answer"])]
+        run(app.on_callback(cb(f"x:a:{ex['id']}:{i}:{L if i > 1 else 'abc'.replace(L, '')[0]}")))
+    run(app.on_callback(cb(f"x:go:{ex['id']}")))
+    assert "2 из 3" in app.tg.sent[-1] and ("🎓 Дальше по уроку", "ls:n") in app.tg.buttons[-1][-1]
+    assert app.db.corrections_since(42, 0) == [] and app.db.lesson_errs(42, "kpk:12") == []   # понимание — не в ошибки
+    run(app.on_callback(cb("ls:n")))
+    assert "🧩 Фразы" in app.tg.sent[-1] and "Świetny pomysł!" in app.tg.sent[-1]
+    run(app.on_callback(cb("ls:n")))                                               # вспомнить фразы: карточки RU → PL
+    ex = ex_now(app)
+    assert len(ex["items"]) == 10 and all(it["card"] for it in ex["items"])
+    gem.check_verdict = {}
+    run(app.handle(msg(text=" ".join(f"{i} {'zzz' if i == 1 else it['answer']}" for i, it in enumerate(ex["items"], 1)))))
+    diary = app.db.lesson_errs(42, "kpk:12")
+    assert [d["pl"] for d in diary] == [ex["items"][0]["answer"].rstrip(".?!")] or diary[0]["pl"] in ex["items"][0]["answer"]
+    run(app.on_callback(cb("ls:n")))
+    assert "✍️ Свои предложения" in app.tg.sent[-1]
+    run(app.handle(msg(text="Masz ochotę pójść do kino? Chętnie!")))
+    assert "do kino → <b>do kina</b>" in app.tg.sent[-1] and "ls:D:kpk:12#1@" in str(app.tg.buttons[-1])
+    assert len(app.db.lesson_errs(42, "kpk:12")) == 2 and app.db.corrections_by(42, "ls", "kpk:12")
+    run(app.on_callback(cb("ls:n")))
+    assert "🔎 Найди правило" in app.tg.sent[-1] and "Idziemy na film." in app.tg.sent[-1]
+    run(app.handle(msg(text="do это место, na это событие")))
+    assert "📖 Правило" in app.tg.sent[-1] and "Куда пойти? do + род. п. или na + вин. п." in app.tg.sent[-1]
+    assert "Верно: do — место" in app.tg.sent[-2]
+    run(app.on_callback(cb("ls:n")))                                               # упражнение из книги, прогресс отдельный
+    pend = app.db.get_state(42)["pending"]
+    assert pend["step"] == "bex" and pend["unit"] == "les:kpk:12" and pend["ex"] == "tb-12-a3"
+    run(app.handle(msg(text="1 do spektakl 2 do kina")))
+    assert ("🎓 Дальше по уроку", "ls:n") in [b for r in app.tg.buttons[-1] for b in r]
+    assert app.db.bex_results(42, "kpk:12") == {} and app.db.bex_results(42, "les:kpk:12")
+    assert ls_state(app)["cur"]["redo"]
+    n_diary = len(app.db.lesson_errs(42, "kpk:12"))
+    assert n_diary >= 3
+    run(app.on_callback(cb("ls:n")))
+    assert app.db.get_state(42)["pending"]["ex"] == "wb-12-3"
+    run(app.on_callback(cb("ls:n")))
+    assert app.db.get_state(42)["pending"]["ex"] == "wb-12-6"
+    run(app.on_callback(cb("ls:n")))                                               # добивка от Gemini на свежие ошибки
+    ex = ex_now(app)
+    assert ex["cfg"]["kind"] == "grammar" and ex["cfg"]["lesson"] == "n" and any("В отработке было ошибок" in m for m in app.tg.sent[-4:])
+    run(app.on_callback(cb("ls:n")))                                               # ролевая игра
+    assert "Cześć! Co słychać?" in app.tg.sent[-1] and "🎯 Цель" in app.tg.sent[-2]
+    assert app.db.get_state(42)["pending"]["step"] == "ls_talk"
+    n_pool = len(app.db.corrections_by(42, "ls", "kpk:12"))
+    run(app.handle(msg(text="Cześć! Masz ochotę pójść do koncert?")))
+    assert "Ролевая игра" in gem.prompts[-1] and "Томек" in gem.prompts[-1]
+    assert "Świetnie! A w niedzielę?" in app.tg.sent[-1] and "Исправления" not in app.tg.sent[-1]   # не перебивает
+    assert len(app.db.corrections_by(42, "ls", "kpk:12")) == n_pool                 # ошибки — только после игры
+    gem.talk_done, gem.talk_used = True, ["Niestety, nie mogę.", "Świetny pomysł!"]
+    run(app.handle(msg(voice={"file_id": "v", "duration": 4}, text="")))
+    assert "🎙 Не расслышал" in app.tg.sent[-1]                                      # пустая расшифровка — ещё раз
+    run(app.handle(msg(text="Niestety, nie mogę. Świetny pomysł!")))
+    res = app.tg.sent[-1]
+    assert "🎭 <b>Разбор" in res and "✅ Цель достигнута" in res and "Фразы урока: 3 из 6" in res
+    assert "do koncert → <b>na koncert</b>" in res and "Как сказать лучше" in res and "Задача выполнена" in res
+    assert len(app.db.corrections_by(42, "ls", "kpk:12")) == n_pool + 1 and app.db.get_state(42)["pending"] is None
+    run(app.on_callback(cb("ls:n")))                                               # итог урока
+    wrap = app.tg.sent[-1]
+    assert "Урок 1 пройден" in wrap and "✅ пригласить друга" in wrap and "путает do и na" in wrap
+    assert "ls:s:kpk:12|2" in str(app.tg.buttons[-1])
+    st = ls_state(app)
+    assert "1" in st["done"] and st["notes"] == "путает do и na"
+    # урок 2 начинается с разминки: ошибки из дневника + фразы урока 1; заметки учителя идут в запросы
+    run(app.on_callback(cb("ls:s:kpk:12|2")))
+    ex = ex_now(app)
+    assert "Разминка" in ex["title"] and any(it.get("_diary") for it in ex["items"])
+    d = next(it for it in ex["items"] if it.get("_diary"))
+    run(app.handle(msg(text=" ".join(f"{i} {it['answer']}" for i, it in enumerate(ex["items"], 1)))))
+    row = next(x for x in app.db.lesson_errs(42, "kpk:12", open_only=False) if x["id"] == d["_diary"])
+    assert row["streak"] == 1                                                      # ещё один верный — и закрыта
+    run(app.on_callback(cb("ls:n")))
+    run(app.handle(msg(text="O której film?")))
+    assert "Заметки учителя об этом ученике (что он путает): путает do и na" in gem.prompts[-1]
+    run(app.on_callback(cb("ls:ask")))                                             # вопрос учителю и возврат к шагу
+    assert app.db.get_state(42)["pending"]["step"] == "ls_q"
+    run(app.handle(msg(text="почему o szesnastej?")))
+    assert "🧑‍🏫" in app.tg.sent[-1]
+    run(app.on_callback(cb("ls:qx")))
+    assert app.db.get_state(42)["pending"] == {"step": "ls_in", "mode": "probe"}
+    run(app.on_callback(cb("ls:h")))                                               # пауза → юнит: где остановился
+    assert "▶️ Продолжить: урок 2" in str(app.tg.buttons[-1]) and "📓 Дневник ошибок: открыто" in app.tg.sent[-1]
+    run(app.on_callback(cb("ls:d")))
+    assert "Дневник ошибок · KpK 12" in app.tg.sent[-1] and "do kina" in app.tg.sent[-1]
+
+
+def test_lesson_final_test_result_and_errors_work():
+    """🎓 Итоговый урок: текст наизусть → игра → тест (первая попытка) → результат; работа над ошибками закрывает дневник."""
+    app = ls_app()
+    run(app.on_callback(cb("ls:s:kpk:12|5")))
+    assert "Разминка" in ex_now(app)["title"] and len(ex_now(app)["items"]) == 6   # фразы всех уроков юнита
+    run(app.on_callback(cb("ls:n")))
+    assert "📜 Текст наизусть" in app.tg.sent[-1] and "ml:o:kpk:12#2" in str(app.tg.buttons[-1])
+    run(app.on_callback(cb("ls:n")))
+    assert app.db.get_state(42)["pending"]["step"] == "ls_talk"
+    run(app.on_callback(cb("ls:tf")))
+    assert "Игра не началась" in app.tg.sent[-1]
+    run(app.on_callback(cb("ls:n")))
+    ex = ex_now(app)
+    assert len(ex["items"]) == 20 and ex["cfg"]["ltest"]
+    app.gemini.check_verdict = {i: i > 4 for i in range(1, 21)}
+    run(app.handle(msg(text=" ".join(f"{i} {'zzz' if i <= 4 else it['answer']}" for i, it in enumerate(ex["items"], 1)))))
+    assert ls_state(app)["test"]["ok"] == 16
+    run(app.on_callback(cb(f"x:fx:{ex['id']}")))                                    # «Продолжить» тест не пересчитывает
+    run(app.handle(msg(text="1 do")))
+    assert ls_state(app)["test"]["ok"] == 16
+    run(app.on_callback(cb("ls:n")))
+    res = app.tg.sent[-1]
+    assert "Тест: 16 из 20 — 80 %" in res and "Пока рано идти дальше" in res and "Итоговый урок заново" in str(app.tg.buttons[-1])
+    assert not ls_state(app).get("passed") and len(app.db.lesson_errs(42, "kpk:12")) == 4
+    for _ in range(2):                                                             # работа над ошибками: 2 верных подряд
+        run(app.on_callback(cb("ls:err")))
+        ex = ex_now(app)
+        assert ex["cfg"]["lesson"] == "h"
+        run(app.handle(msg(text=" ".join(f"{i} {it['answer']}" for i, it in enumerate(ex["items"], 1)))))
+        assert ("🎓 К уроку", "ls:h") in app.tg.buttons[-1][-1]
+    assert app.db.lesson_errs(42, "kpk:12") == []
+    run(app.on_callback(cb("ls:s:kpk:12|5")))                                      # итоговый урок заново — тест на 100 %
+    for _ in range(3):
+        run(app.on_callback(cb("ls:n")))
+    ex = ex_now(app)
+    assert ex["cfg"].get("ltest")
+    run(app.handle(msg(text=" ".join(f"{i} {it['answer']}" for i, it in enumerate(ex["items"], 1)))))
+    run(app.on_callback(cb("ls:n")))
+    assert "Юнит пройден" in app.tg.sent[-1] and ls_state(app)["passed"]

@@ -187,11 +187,39 @@ def review_unit(rid: str, path: Path | None = None) -> dict | None:
             "num": nums, "name": "🔁 Повторение", "title": nums, "units_list": [u["unit"] for u in units]}
 
 
+LESSON = "les:"   # 🎓 урок по юниту: «les:kpk:12» — тот же юнит, но прогресс упражнений из книги — отдельный
+
+
+def lesson_unit(lid: str, path: Path | None = None) -> dict | None:
+    base = get_unit(str(lid).removeprefix(LESSON), path)
+    return {**base, "unit": LESSON + base["unit"], "les": True, "base": base["unit"]} if base else None
+
+
+def lessons(unit_id: str, path: Path | None = None) -> list[dict]:
+    """План уроков юнита: <книга>/lessons_<номер>.json → [{id, title, …}] (пишет Claude). Нет файла — []."""
+    unit = get_unit(str(unit_id).removeprefix(LESSON), path)
+    if not unit:
+        return []
+    num = unit["num"].zfill(2) if unit["num"].isdigit() else unit["num"]
+    try:
+        data = json.loads(((path or UNITS_DIR) / unit["book"] / f"lessons_{num}.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    return [x for x in data.get("lessons") or [] if isinstance(x, dict) and x.get("id")]
+
+
+def lesson_units(path: Path | None = None) -> list[dict]:
+    """Юниты, для которых есть план уроков."""
+    return [u for u in load_units(path) if lessons(u["unit"], path)]
+
+
 def get_unit(unit_id: str, path: Path | None = None) -> dict | None:
-    """«kpk:8» → юнит; старое «8» (без книги) — юнит Krok po kroku; «rev:…» — юнит повторения."""
+    """«kpk:8» → юнит; старое «8» (без книги) — юнит Krok po kroku; «rev:…» — юнит повторения; «les:…» — урока."""
     unit_id = str(unit_id or "")
     if unit_id.startswith(REVIEW):
         return review_unit(unit_id, path)
+    if unit_id.startswith(LESSON):
+        return lesson_unit(unit_id, path)
     if ":" not in unit_id:
         unit_id = f"{DEFAULT_BOOK}:{unit_id}"
     return next((u for u in load_units(path) if u["unit"] == unit_id), None)

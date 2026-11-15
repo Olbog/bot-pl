@@ -1,0 +1,844 @@
+{
+ "unit": "12",
+ "lessons": [
+  {
+   "id": "1",
+   "title": "Приглашаем и отвечаем",
+   "can_do": [
+    "пригласить друга в кино, на кофе, на концерт",
+    "согласиться или вежливо отказаться и сказать почему",
+    "выбрать do или na: do kina, но na film"
+   ],
+   "probe": {
+    "task": "Пригласи меня (своего друга) завтра вечером в кино.",
+    "sample": "Masz ochotę pójść jutro wieczorem do kina?",
+    "sample_translit": "маш о-ХО-тэ пуйщьчь ЮТ-ро ве-ЧО-рэм до КИ-на",
+    "sample_ru": "Хочешь пойти завтра вечером в кино?"
+   },
+   "dialog": {
+    "title": "Может, на концерт?",
+    "pl": "— Cześć, Marta! Co robisz w sobotę wieczorem?\n— Jeszcze nie wiem. A co?\n— Mam dwa bilety na koncert. Masz ochotę pójść ze mną?\n— Na koncert? Chętnie! A gdzie jest ten koncert?\n— W klubie „Alchemia”. Potem możemy pójść na pizzę.\n— Świetny pomysł! A może pójdziemy też do kina w niedzielę?\n— Niestety, w niedzielę nie mogę. Idę do babci na obiad.\n— Szkoda. To do soboty!",
+    "translit": "— чещьчь, МАР-та! цо РО-бишь ф со-БО-тэ ве-ЧО-рэм?\n— ЕЩ-чэ не вьем. а цо?\n— мам два би-ЛЕ-ты на КОН-цэрт. маш о-ХО-тэ пуйщьчь зэ мнон?\n— на КОН-цэрт? ХЭНТ-не! а гдже ест тэн КОН-цэрт?\n— ф КЛЮ-бе аль-ХЭ-мья. ПО-тэм мо-ЖЭ-мы пуйщьчь на ПИ-цэ.\n— ЩЬВЕТ-ны ПО-мысў! а МО-же пуй-ДЖЕ-мы тэж до КИ-на в не-ДЖЕ-лэ?\n— не-СТЭ-ты, в не-ДЖЕ-лэ не МО-гэ. И-дэ до БАП-чи на О-бьят.\n— ШКО-да. то до со-БО-ты!",
+    "ru": "— Привет, Марта! Что делаешь в субботу вечером?\n— Ещё не знаю. А что?\n— У меня два билета на концерт. Хочешь пойти со мной?\n— На концерт? С удовольствием! А где этот концерт?\n— В клубе «Алхимия». Потом можем пойти на пиццу.\n— Отличная идея! А может, пойдём ещё в кино в воскресенье?\n— К сожалению, в воскресенье не могу. Иду к бабушке на обед.\n— Жаль. Тогда до субботы!",
+    "questions": [
+     {
+      "q": "Dokąd idą Marta i jej kolega w sobotę?",
+      "ru": "Куда идут Марта и её друг в субботу?",
+      "answer": "na koncert",
+      "options": [
+       "na koncert",
+       "do kina",
+       "do babci"
+      ]
+     },
+     {
+      "q": "Co mogą zrobić po koncercie?",
+      "ru": "Что они могут сделать после концерта?",
+      "answer": "pójść na pizzę",
+      "options": [
+       "pójść na pizzę",
+       "pójść do kina",
+       "pójść do domu"
+      ]
+     },
+     {
+      "q": "Dlaczego kolega nie może w niedzielę?",
+      "ru": "Почему друг не может в воскресенье?",
+      "answer": "idzie do babci na obiad",
+      "options": [
+       "idzie do babci na obiad",
+       "ma kurs",
+       "pracuje"
+      ]
+     }
+    ]
+   },
+   "chunks": [
+    {
+     "pl": "Masz ochotę pójść do kina?",
+     "translit": "маш о-ХО-тэ пуйщьчь до КИ-на",
+     "ru": "Хочешь пойти в кино?",
+     "note": "mieć ochotę + инфинитив"
+    },
+    {
+     "pl": "Masz ochotę na kawę?",
+     "translit": "маш о-ХО-тэ на КА-вэ",
+     "ru": "Хочешь кофе?",
+     "note": "mieć ochotę na + что"
+    },
+    {
+     "pl": "Może pójdziemy na spacer?",
+     "translit": "МО-же пуй-ДЖЕ-мы на СПА-цэр",
+     "ru": "Может, пойдём на прогулку?"
+    },
+    {
+     "pl": "Chętnie!",
+     "translit": "ХЭНТ-не",
+     "ru": "С удовольствием!"
+    },
+    {
+     "pl": "Świetny pomysł!",
+     "translit": "ЩЬВЕТ-ны ПО-мысў",
+     "ru": "Отличная идея!"
+    },
+    {
+     "pl": "Niestety, nie mogę.",
+     "translit": "не-СТЭ-ты, не МО-гэ",
+     "ru": "К сожалению, не могу."
+    },
+    {
+     "pl": "Nie mam czasu.",
+     "translit": "не мам ЧА-су",
+     "ru": "У меня нет времени."
+    },
+    {
+     "pl": "Szkoda.",
+     "translit": "ШКО-да",
+     "ru": "Жаль."
+    },
+    {
+     "pl": "Mam bilety na koncert.",
+     "translit": "мам би-ЛЕ-ты на КОН-цэрт",
+     "ru": "У меня билеты на концерт."
+    },
+    {
+     "pl": "Potem możemy pójść na pizzę.",
+     "translit": "ПО-тэм мо-ЖЭ-мы пуйщьчь на ПИ-цэ",
+     "ru": "Потом можем пойти на пиццу."
+    }
+   ],
+   "own": "Составь 3 предложения: пригласи кого-то из своих знакомых туда, куда вы правда могли бы пойти (кино, кофе, прогулка, матч), и ответь за него — один раз «да», один раз «нет».",
+   "discover": {
+    "examples": [
+     {
+      "pl": "Idziemy do kina.",
+      "translit": "и-ДЖЕ-мы до КИ-на",
+      "ru": "Идём в кино."
+     },
+     {
+      "pl": "Idziemy na film.",
+      "translit": "и-ДЖЕ-мы на фильм",
+      "ru": "Идём на фильм."
+     },
+     {
+      "pl": "Idę do restauracji.",
+      "translit": "И-дэ до рэс-таў-РАЦ-ьи",
+      "ru": "Иду в ресторан."
+     },
+     {
+      "pl": "Idę na pizzę.",
+      "translit": "И-дэ на ПИ-цэ",
+      "ru": "Иду на пиццу."
+     },
+     {
+      "pl": "Idziemy do parku na spacer.",
+      "translit": "и-ДЖЕ-мы до ПАР-ку на СПА-цэр",
+      "ru": "Идём в парк на прогулку."
+     }
+    ],
+    "question": "Когда говорят do, а когда na? И одинаково ли меняется слово после них?",
+    "answer": "do — в место, здание (кино, ресторан, парк), после него родительный падеж: do kina, do parku. na — на событие, занятие, еду (фильм, пицца, прогулка), после него винительный: na film, na pizzę."
+   },
+   "rules": [
+    2,
+    4
+   ],
+   "practice": [
+    "tb-12-a3",
+    "wb-12-3",
+    "wb-12-6"
+   ],
+   "task": {
+    "title": "Пригласи Томека и ответь на его приглашения",
+    "brief": "Ты встречаешь польского приятеля Томека. Пригласи его куда-нибудь на выходных (в кино, на кофе, на концерт). Он тоже позовёт тебя — один раз согласись, один раз вежливо откажись и скажи почему.",
+    "bot_role": "Ты — Томек, приятель ученика. Сначала отреагируй на его приглашение (согласись). Потом сам по очереди пригласи его в два места: на матч в субботу и в театр в воскресенье. На согласие и отказ реагируй естественно и коротко.",
+    "goal": "пригласить Томека, принять одно его приглашение и вежливо отказаться от другого с причиной",
+    "targets": [
+     "Masz ochotę pójść…?",
+     "Może pójdziemy…?",
+     "Chętnie!",
+     "Świetny pomysł!",
+     "Niestety, nie mogę.",
+     "Nie mam czasu."
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Cześć! Co słychać? Masz jakieś plany na weekend?",
+     "translit": "чещьчь! цо СЎЫ-хачь? маш Я-кещь ПЛЯ-ны на ЎИ-кэнт?",
+     "ru": "Привет! Как дела? Есть планы на выходные?"
+    }
+   }
+  },
+  {
+   "id": "2",
+   "title": "Во сколько? Официальное время",
+   "can_do": [
+    "спросить и сказать, который час",
+    "сказать, во сколько что-то начинается: o osiemnastej trzydzieści",
+    "договориться о времени встречи"
+   ],
+   "probe": {
+    "task": "Спроси меня, во сколько фильм, и скажи, что ты можешь в семь вечера (в 19:00).",
+    "sample": "O której jest film? Mogę o dziewiętnastej.",
+    "sample_translit": "о КТУ-рэй ест фильм? МО-гэ о дже-вьент-НАС-тэй",
+    "sample_ru": "Во сколько фильм? Я могу в девятнадцать."
+   },
+   "dialog": {
+    "title": "В кассе кинотеатра",
+    "pl": "— Dzień dobry. O której jest film „Zimna wojna”?\n— Dzisiaj o szesnastej i o dziewiętnastej trzydzieści.\n— A która jest teraz godzina?\n— Jest piętnasta czterdzieści.\n— To poproszę dwa bilety na szesnastą.\n— Proszę. Trzydzieści złotych.\n— A o której kończy się film?\n— O osiemnastej.\n— Dziękuję!",
+    "translit": "— джень ДОБ-ры. о КТУ-рэй ест фильм ЖИМ-на ВОЙ-на?\n— джи-ЩАЙ о шэс-НАС-тэй и о дже-вьент-НАС-тэй тшы-ДЖЕЩЬ-чи.\n— а КТУ-ра ест ТЭ-раз го-ДЖИ-на?\n— ест пьент-НАС-та чтэр-ДЖЕЩЬ-чи.\n— то по-ПРО-шэ два би-ЛЕ-ты на шэс-НАС-тон.\n— ПРО-шэ. тшы-ДЖЕЩЬ-чи ЗЎО-тых.\n— а о КТУ-рэй КОНЬ-чы ще фильм?\n— о о-щем-НАС-тэй.\n— джень-КУ-е!",
+    "ru": "— Здравствуйте. Во сколько фильм «Холодная война»?\n— Сегодня в шестнадцать и в девятнадцать тридцать.\n— А сколько сейчас времени?\n— Пятнадцать сорок.\n— Тогда, пожалуйста, два билета на шестнадцать.\n— Пожалуйста. Тридцать злотых.\n— А во сколько фильм заканчивается?\n— В восемнадцать.\n— Спасибо!",
+    "questions": [
+     {
+      "q": "O której jest pierwszy film?",
+      "ru": "Во сколько первый сеанс?",
+      "answer": "o szesnastej",
+      "options": [
+       "o szesnastej",
+       "o piętnastej",
+       "o osiemnastej"
+      ]
+     },
+     {
+      "q": "Która jest teraz godzina?",
+      "ru": "Сколько сейчас времени?",
+      "answer": "piętnasta czterdzieści",
+      "options": [
+       "piętnasta czterdzieści",
+       "szesnasta",
+       "czternasta piętnaście"
+      ]
+     },
+     {
+      "q": "O której kończy się film?",
+      "ru": "Во сколько заканчивается фильм?",
+      "answer": "o osiemnastej",
+      "options": [
+       "o osiemnastej",
+       "o dziewiętnastej trzydzieści",
+       "o siedemnastej"
+      ]
+     }
+    ]
+   },
+   "chunks": [
+    {
+     "pl": "Która jest godzina?",
+     "translit": "КТУ-ра ест го-ДЖИ-на",
+     "ru": "Который час?"
+    },
+    {
+     "pl": "Jest piętnasta czterdzieści.",
+     "translit": "ест пьент-НАС-та чтэр-ДЖЕЩЬ-чи",
+     "ru": "Сейчас пятнадцать сорок."
+    },
+    {
+     "pl": "O której jest film?",
+     "translit": "о КТУ-рэй ест фильм",
+     "ru": "Во сколько фильм?"
+    },
+    {
+     "pl": "o szesnastej",
+     "translit": "о шэс-НАС-тэй",
+     "ru": "в шестнадцать (в 16:00)"
+    },
+    {
+     "pl": "o dziewiętnastej trzydzieści",
+     "translit": "о дже-вьент-НАС-тэй тшы-ДЖЕЩЬ-чи",
+     "ru": "в девятнадцать тридцать"
+    },
+    {
+     "pl": "O której się spotkamy?",
+     "translit": "о КТУ-рэй ще спот-КА-мы",
+     "ru": "Во сколько встретимся?"
+    },
+    {
+     "pl": "od dziewiątej do siedemnastej",
+     "translit": "од дже-ВЬЁН-тэй до ще-дэм-НАС-тэй",
+     "ru": "с девяти до семнадцати"
+    },
+    {
+     "pl": "O której kończy się film?",
+     "translit": "о КТУ-рэй КОНЬ-чы ще фильм",
+     "ru": "Во сколько заканчивается фильм?"
+    },
+    {
+     "pl": "bilet na szesnastą",
+     "translit": "БИ-лет на шэс-НАС-тон",
+     "ru": "билет на шестнадцать (часов)"
+    }
+   ],
+   "own": "Составь 3 предложения о своём расписании: во сколько у тебя что-то начинается, с какого по какое время ты занят.",
+   "discover": {
+    "examples": [
+     {
+      "pl": "Jest pierwsza.",
+      "translit": "ест ПЬЕРФ-ша",
+      "ru": "Сейчас час."
+     },
+     {
+      "pl": "Lekcja jest o pierwszej.",
+      "translit": "ЛЕК-цья ест о ПЬЕРФ-шэй",
+      "ru": "Урок в час."
+     },
+     {
+      "pl": "Jest ósma.",
+      "translit": "ест УС-ма",
+      "ru": "Сейчас восемь."
+     },
+     {
+      "pl": "Wstaję o ósmej.",
+      "translit": "ФСТА-е о УС-мэй",
+      "ru": "Я встаю в восемь."
+     }
+    ],
+    "question": "Чем отличается ответ на «Который час?» от ответа на «Во сколько?»",
+    "answer": "«Который час?» — порядковое числительное женского рода на -a: pierwsza, ósma (потому что godzina — она). «Во сколько?» — o + то же слово с окончанием -ej: o pierwszej, o ósmej."
+   },
+   "rules": [
+    0
+   ],
+   "practice": [
+    "tb-12-b6",
+    "wb-12-9a"
+   ],
+   "task": {
+    "title": "Найдите общее время",
+    "brief": "Вы с Томеком хотите в субботу в кино. Твоя суббота: работа с 9:00 до 14:00, в 18:00 ужин с семьёй. Узнай у Томека сеансы, выберите подходящий обоим и договоритесь, во сколько встречаетесь.",
+    "bot_role": "Ты — Томек. Сеансы в субботу: 11:30, 15:15 и 18:45. Ты сам занят с 12:00 до 14:30 (курс). Время называй официально (o piętnastej piętnaście). Не предлагай решение сразу: отвечай на вопросы и спрашивай, когда ученик свободен. Подходит только сеанс 15:15; встретиться надо на 15–30 минут раньше.",
+    "goal": "выбрать сеанс 15:15 и назначить время встречи",
+    "targets": [
+     "O której jest film?",
+     "O której się spotkamy?",
+     "o piętnastej piętnaście",
+     "od dziewiątej do czternastej",
+     "o osiemnastej"
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Cześć! Idziemy w sobotę do kina? O której masz czas?",
+     "translit": "чещьчь! и-ДЖЕ-мы ф со-БО-тэ до КИ-на? о КТУ-рэй маш час?",
+     "ru": "Привет! Идём в субботу в кино? Во сколько ты свободен?"
+    }
+   }
+  },
+  {
+   "id": "3",
+   "title": "Половина, четверть и дни недели",
+   "can_do": [
+    "понять и сказать время по-разговорному: o wpół do ósmej, za piętnaście druga",
+    "назвать день: w poniedziałek, we wtorek, w środę",
+    "составить с кем-то план на неделю"
+   ],
+   "probe": {
+    "task": "Скажи: «Встретимся в среду в половине восьмого».",
+    "sample": "Spotkamy się w środę o wpół do ósmej.",
+    "sample_translit": "спот-КА-мы ще ф ЩЬРО-дэ о фпуў до УС-мэй",
+    "sample_ru": "Встретимся в среду в половине восьмого."
+   },
+   "dialog": {
+    "title": "Когда у тебя есть время?",
+    "pl": "— Ola, kiedy masz czas w tym tygodniu?\n— W poniedziałek i we wtorek pracuję do późna. A w środę mam kurs.\n— A w czwartek?\n— W czwartek mogę, ale dopiero po szóstej.\n— Dobrze. To może w czwartek o wpół do siódmej?\n— Hmm, lepiej kwadrans po siódmej.\n— OK. A gdzie?\n— Przed kinem. Film jest za piętnaście ósma.\n— Świetnie. Do czwartku!",
+    "translit": "— О-ля, КЕ-ды маш час ф тым ты-ГОД-ню?\n— ф по-не-ДЖЯ-ўэк и вэ ФТО-рэк пра-ЦУ-е до ПУЖЬ-на. а ф ЩЬРО-дэ мам курс.\n— а ф ЧФАР-тэк?\n— ф ЧФАР-тэк МО-гэ, А-ле до-ПЬЕ-ро по ШУС-тэй.\n— ДОБ-жэ. то МО-же ф ЧФАР-тэк о фпуў до ЩЮД-мэй?\n— хм, ЛЕ-пей КФАД-ранс по ЩЮД-мэй.\n— о-КЕЙ. а гдже?\n— пшэт КИ-нэм. фильм ест за пьент-НАЩЬ-че УС-ма.\n— ЩЬВЕТ-не. до ЧФАРТ-ку!",
+    "ru": "— Оля, когда у тебя есть время на этой неделе?\n— В понедельник и во вторник я работаю допоздна. А в среду у меня курсы.\n— А в четверг?\n— В четверг могу, но только после шести.\n— Хорошо. Тогда, может, в четверг в половине седьмого?\n— Хм, лучше в четверть восьмого.\n— Ок. А где?\n— Перед кинотеатром. Фильм без пятнадцати восемь.\n— Отлично. До четверга!",
+    "questions": [
+     {
+      "q": "Kiedy Ola pracuje do późna?",
+      "ru": "Когда Оля работает допоздна?",
+      "answer": "w poniedziałek i we wtorek",
+      "options": [
+       "w poniedziałek i we wtorek",
+       "w środę",
+       "w czwartek"
+      ]
+     },
+     {
+      "q": "O której się spotkają?",
+      "ru": "Во сколько они встретятся?",
+      "answer": "kwadrans po siódmej",
+      "options": [
+       "kwadrans po siódmej",
+       "o wpół do siódmej",
+       "za piętnaście ósma"
+      ]
+     },
+     {
+      "q": "O której jest film?",
+      "ru": "Во сколько фильм?",
+      "answer": "za piętnaście ósma",
+      "options": [
+       "za piętnaście ósma",
+       "kwadrans po siódmej",
+       "o ósmej"
+      ]
+     }
+    ]
+   },
+   "chunks": [
+    {
+     "pl": "w poniedziałek, we wtorek",
+     "translit": "ф по-не-ДЖЯ-ўэк, вэ ФТО-рэк",
+     "ru": "в понедельник, во вторник"
+    },
+    {
+     "pl": "w środę, w czwartek",
+     "translit": "ф ЩЬРО-дэ, ф ЧФАР-тэк",
+     "ru": "в среду, в четверг"
+    },
+    {
+     "pl": "w piątek, w sobotę, w niedzielę",
+     "translit": "ф ПЬЁН-тэк, ф со-БО-тэ, в не-ДЖЕ-лэ",
+     "ru": "в пятницу, в субботу, в воскресенье"
+    },
+    {
+     "pl": "Kiedy masz czas?",
+     "translit": "КЕ-ды маш час",
+     "ru": "Когда у тебя есть время?"
+    },
+    {
+     "pl": "o wpół do siódmej",
+     "translit": "о фпуў до ЩЮД-мэй",
+     "ru": "в половине седьмого (в 6:30)",
+     "note": "называют следующий час"
+    },
+    {
+     "pl": "kwadrans po siódmej",
+     "translit": "КФАД-ранс по ЩЮД-мэй",
+     "ru": "четверть восьмого (7:15)"
+    },
+    {
+     "pl": "za piętnaście ósma",
+     "translit": "за пьент-НАЩЬ-че УС-ма",
+     "ru": "без пятнадцати восемь (7:45)"
+    },
+    {
+     "pl": "dopiero po szóstej",
+     "translit": "до-ПЬЕ-ро по ШУС-тэй",
+     "ru": "только после шести"
+    },
+    {
+     "pl": "w tym tygodniu",
+     "translit": "ф тым ты-ГОД-ню",
+     "ru": "на этой неделе"
+    },
+    {
+     "pl": "Do czwartku!",
+     "translit": "до ЧФАРТ-ку",
+     "ru": "До четверга!"
+    }
+   ],
+   "own": "Составь 3 предложения о своей неделе: в какой день и во сколько (по-разговорному: wpół do…, kwadrans po…, za piętnaście…) ты что-то делаешь.",
+   "discover": {
+    "examples": [
+     {
+      "pl": "kwadrans po pierwszej",
+      "translit": "КФАД-ранс по ПЬЕРФ-шэй",
+      "ru": "четверть второго (1:15)"
+     },
+     {
+      "pl": "wpół do drugiej",
+      "translit": "фпуў до ДРУ-гей",
+      "ru": "половина второго (1:30)"
+     },
+     {
+      "pl": "za kwadrans druga",
+      "translit": "за КФАД-ранс ДРУ-га",
+      "ru": "без четверти два (1:45)"
+     }
+    ],
+    "question": "После каких слов час оканчивается на -ej, а после какого — на -a? И какой час называют в «wpół do»?",
+    "answer": "После po и wpół do — -ej: po pierwszej, wpół do drugiej. После za — -a: za kwadrans druga. В wpół do называют следующий час: wpół do drugiej — «половина второго», 1:30."
+   },
+   "rules": [
+    1,
+    3
+   ],
+   "practice": [
+    "wb-12-8",
+    "tb-12-b7",
+    "tb-12-c1"
+   ],
+   "task": {
+    "title": "План на неделю",
+    "brief": "Вы с Олей планируете неделю. Договоритесь о трёх делах в три разных дня: кино, выставка и ужин. Для каждого назовите день и время — по-разговорному (wpół do…, kwadrans po…, za piętnaście…).",
+    "bot_role": "Ты — Оля. Ты занята: в понедельник весь вечер, в среду до 18:00, в пятницу после 20:00. Соглашайся, иногда отказывайся из-за занятости и предлагай другой день или время. Время называй по-разговорному (o wpół do ósmej, kwadrans po szóstej).",
+    "goal": "договориться о трёх делах: у каждого — день и время",
+    "targets": [
+     "w poniedziałek / we wtorek / w środę…",
+     "o wpół do…",
+     "kwadrans po…",
+     "za piętnaście…",
+     "Kiedy masz czas?",
+     "Do czwartku!"
+    ],
+    "min_targets": 4,
+    "opening": {
+     "pl": "Cześć! To co robimy w tym tygodniu? Kiedy masz czas?",
+     "translit": "чещьчь! то цо ро-БИ-мы ф тым ты-ГОД-ню? КЕ-ды маш час?",
+     "ru": "Привет! Ну что делаем на этой неделе? Когда у тебя есть время?"
+    }
+   }
+  },
+  {
+   "id": "4",
+   "title": "Мой день",
+   "can_do": [
+    "рассказать о своём обычном дне: когда встаёшь, что делаешь утром, днём и вечером",
+    "спросить другого о его дне",
+    "связать рассказ словами najpierw, potem, wieczorem"
+   ],
+   "probe": {
+    "task": "Расскажи в 2–3 предложениях, что ты делаешь утром.",
+    "sample": "Wstaję o siódmej, biorę prysznic i jem śniadanie.",
+    "sample_translit": "ФСТА-е о ЩЮД-мэй, БЕ-рэ ПРЫШ-ниц и ем щьня-ДА-не",
+    "sample_ru": "Я встаю в семь, принимаю душ и завтракаю."
+   },
+   "dialog": {
+    "title": "Обычный день Павла",
+    "pl": "— Paweł, o której zwykle wstajesz?\n— Wstaję wcześnie, o wpół do siódmej. Najpierw biorę prysznic i myję zęby, potem jem śniadanie.\n— A o której zaczynasz pracę?\n— O dziewiątej. Jeżdżę do pracy tramwajem.\n— Co robisz po pracy?\n— Wracam do domu o szóstej. Wieczorem gotuję kolację i oglądam serial.\n— O której chodzisz spać?\n— Zwykle o jedenastej. A w weekend — bardzo późno!",
+    "translit": "— ПА-вэў, о КТУ-рэй ЗВЫК-ле ФСТА-ешь?\n— ФСТА-е ФЧЭЩЬ-не, о фпуў до ЩЮД-мэй. НАЙ-пьерф БЕ-рэ ПРЫШ-ниц и МЫ-е ЗЭН-бы, ПО-тэм ем щьня-ДА-не.\n— а о КТУ-рэй за-ЧЫ-наш ПРА-цэ?\n— о дже-ВЬЁН-тэй. ЕЖЬ-джэ до ПРА-цы трам-ВА-ем.\n— цо РО-бишь по ПРА-цы?\n— ВРА-цам до ДО-му о ШУС-тэй. ве-ЧО-рэм го-ТУ-е ко-ЛЯ-цьэ и ог-ЛЁН-дам СЭ-рьял.\n— о КТУ-рэй ХО-джишь спачь?\n— ЗВЫК-ле о е-дэ-НАС-тэй. а в ЎИ-кэнт — БАР-дзо ПУЖЬ-но!",
+    "ru": "— Павел, во сколько ты обычно встаёшь?\n— Я встаю рано, в половине седьмого. Сначала принимаю душ и чищу зубы, потом завтракаю.\n— А во сколько начинаешь работу?\n— В девять. На работу езжу на трамвае.\n— Что делаешь после работы?\n— Возвращаюсь домой в шесть. Вечером готовлю ужин и смотрю сериал.\n— Во сколько ложишься спать?\n— Обычно в одиннадцать. А на выходных — очень поздно!",
+    "questions": [
+     {
+      "q": "O której Paweł wstaje?",
+      "ru": "Во сколько Павел встаёт?",
+      "answer": "o wpół do siódmej",
+      "options": [
+       "o wpół do siódmej",
+       "o siódmej",
+       "o dziewiątej"
+      ]
+     },
+     {
+      "q": "Jak Paweł jeździ do pracy?",
+      "ru": "Как Павел ездит на работу?",
+      "answer": "tramwajem",
+      "options": [
+       "tramwajem",
+       "autobusem",
+       "samochodem"
+      ]
+     },
+     {
+      "q": "Co Paweł robi wieczorem?",
+      "ru": "Что Павел делает вечером?",
+      "answer": "gotuje kolację i ogląda serial",
+      "options": [
+       "gotuje kolację i ogląda serial",
+       "idzie do kina",
+       "pracuje"
+      ]
+     }
+    ]
+   },
+   "chunks": [
+    {
+     "pl": "Wstaję o siódmej.",
+     "translit": "ФСТА-е о ЩЮД-мэй",
+     "ru": "Я встаю в семь."
+    },
+    {
+     "pl": "Biorę prysznic.",
+     "translit": "БЕ-рэ ПРЫШ-ниц",
+     "ru": "Я принимаю душ."
+    },
+    {
+     "pl": "Myję zęby.",
+     "translit": "МЫ-е ЗЭН-бы",
+     "ru": "Я чищу зубы."
+    },
+    {
+     "pl": "Jem śniadanie.",
+     "translit": "ем щьня-ДА-не",
+     "ru": "Я завтракаю."
+    },
+    {
+     "pl": "Jeżdżę do pracy tramwajem.",
+     "translit": "ЕЖЬ-джэ до ПРА-цы трам-ВА-ем",
+     "ru": "Я езжу на работу на трамвае."
+    },
+    {
+     "pl": "Zaczynam pracę o dziewiątej.",
+     "translit": "за-ЧЫ-нам ПРА-цэ о дже-ВЬЁН-тэй",
+     "ru": "Я начинаю работу в девять."
+    },
+    {
+     "pl": "Wracam do domu.",
+     "translit": "ВРА-цам до ДО-му",
+     "ru": "Я возвращаюсь домой."
+    },
+    {
+     "pl": "Chodzę spać o jedenastej.",
+     "translit": "ХО-дзэ спачь о е-дэ-НАС-тэй",
+     "ru": "Я ложусь спать в одиннадцать."
+    },
+    {
+     "pl": "najpierw… potem…",
+     "translit": "НАЙ-пьерф… ПО-тэм…",
+     "ru": "сначала… потом…"
+    },
+    {
+     "pl": "O której wstajesz?",
+     "translit": "о КТУ-рэй ФСТА-ешь",
+     "ru": "Во сколько ты встаёшь?"
+    }
+   ],
+   "own": "Составь 3–4 предложения о своём обычном дне: утро, день и вечер — с временем.",
+   "discover": {
+    "examples": [
+     {
+      "pl": "wstawać → wstaję, wstajesz",
+      "translit": "ФСТА-вачь → ФСТА-е, ФСТА-ешь",
+      "ru": "вставать → встаю, встаёшь"
+     },
+     {
+      "pl": "brać → biorę, bierzesz",
+      "translit": "брачь → БЕ-рэ, БЕ-жэшь",
+      "ru": "брать → беру, берёшь"
+     },
+     {
+      "pl": "myć → myję, myjesz",
+      "translit": "мычь → МЫ-е, МЫ-ешь",
+      "ru": "мыть → мою, моешь"
+     },
+     {
+      "pl": "jeździć → jeżdżę, jeździsz",
+      "translit": "ЕЖЬ-джичь → ЕЖЬ-джэ, ЕЖЬ-джишь",
+      "ru": "ездить → езжу, ездишь"
+     }
+    ],
+    "question": "Что происходит с этими глаголами в настоящем времени по сравнению с инфинитивом?",
+    "answer": "У них меняется основа, поэтому формы надо запомнить: wstawać теряет -wa- (wstaję), brać → bior- / bierz- (biorę, bierzesz), myć получает j (myję), jeździć: только в «я» — jeżdżę, дальше jeździsz."
+   },
+   "extra_rules": [
+    {
+     "title": "Глаголы распорядка дня: wstaję, biorę, myję, jeżdżę",
+     "explanation": "Самые частые глаголы «своего дня» спрягаются с изменением основы. Выучи пары «я — ты»: по ним строятся остальные формы (on — как ty без -sz, oni — как ja, но с -ą).",
+     "table": [
+      {
+       "when": "wstawać (вставать)",
+       "form": "wstaję, wstajesz, wstaje, wstajemy, wstajecie, wstają",
+       "example": "Wstaję o siódmej."
+      },
+      {
+       "when": "brać (брать)",
+       "form": "biorę, bierzesz, bierze, bierzemy, bierzecie, biorą",
+       "example": "Biorę prysznic."
+      },
+      {
+       "when": "myć (мыть)",
+       "form": "myję, myjesz, myje, myjemy, myjecie, myją",
+       "example": "Myję zęby."
+      },
+      {
+       "when": "jeździć (ездить)",
+       "form": "jeżdżę, jeździsz, jeździ, jeździmy, jeździcie, jeżdżą",
+       "example": "Jeżdżę do pracy tramwajem."
+      },
+      {
+       "when": "chodzić (ходить)",
+       "form": "chodzę, chodzisz, chodzi, chodzimy, chodzicie, chodzą",
+       "example": "Chodzę spać o jedenastej."
+      },
+      {
+       "when": "wracać, zaczynać (-am, -asz)",
+       "form": "wracam, wracasz; zaczynam, zaczynasz",
+       "example": "Wracam do domu o szóstej."
+      }
+     ],
+     "exceptions": [
+      "brać: в ja и oni — bior-, в остальных — bierz-: biorę, но bierzesz",
+      "jeździć / chodzić — регулярно (каждый день); jechać / iść — сейчас, один раз: Dziś jadę taksówką.",
+      "Транспорт — творительный без предлога: tramwajem, autobusem, samochodem"
+     ],
+     "examples": [
+      {
+       "pl": "Najpierw biorę prysznic, potem jem śniadanie.",
+       "translit": "НАЙ-пьерф БЕ-рэ ПРЫШ-ниц, ПО-тэм ем щьня-ДА-не",
+       "ru": "Сначала я принимаю душ, потом завтракаю."
+      },
+      {
+       "pl": "O której wstajesz w weekend?",
+       "translit": "о КТУ-рэй ФСТА-ешь в ЎИ-кэнт",
+       "ru": "Во сколько ты встаёшь на выходных?"
+      },
+      {
+       "pl": "Oni jeżdżą do pracy autobusem.",
+       "translit": "О-ни ЕЖЬ-джон до ПРА-цы аў-то-БУ-сэм",
+       "ru": "Они ездят на работу на автобусе."
+      }
+     ]
+    }
+   ],
+   "practice": [
+    "tb-12-e1",
+    "wb-12-12",
+    "wb-12-11"
+   ],
+   "task": {
+    "title": "Расскажи о своём дне и расспроси Каролину",
+    "brief": "Ты знакомишься с Каролиной, и вы сравниваете свои дни. Расскажи о своём обычном дне (утро, работа или учёба, вечер — с временем) и задай Каролине минимум два вопроса о её дне.",
+    "bot_role": "Ты — Каролина, студентка. Встаёшь в 8:00, занятия с 10:00 до 15:00, в 18:30 ходишь на йогу, спать ложишься около полуночи. Спрашивай ученика о его дне (во сколько встаёт, что делает после работы, во сколько ложится), на его вопросы отвечай коротко.",
+    "goal": "рассказать о своём дне с временем и задать два вопроса о дне Каролины",
+    "targets": [
+     "Wstaję o…",
+     "Biorę prysznic.",
+     "Jem śniadanie.",
+     "Wracam do domu.",
+     "Chodzę spać o…",
+     "O której wstajesz?",
+     "najpierw… potem…"
+    ],
+    "min_targets": 4,
+    "opening": {
+     "pl": "Cześć! Jestem Karolina. Jak wygląda twój dzień? O której zwykle wstajesz?",
+     "translit": "чещьчь! ЕС-тэм ка-ро-ЛИ-на. як вы-ГЛЁН-да твуй джень? о КТУ-рэй ЗВЫК-ле ФСТА-ешь?",
+     "ru": "Привет! Я Каролина. Как проходит твой день? Во сколько ты обычно встаёшь?"
+    }
+   }
+  },
+  {
+   "id": "5",
+   "final": true,
+   "title": "Итог юнита 12",
+   "can_do": [
+    "пригласить, согласиться и отказаться",
+    "назвать время официально и по-разговорному",
+    "назвать день недели",
+    "рассказать о своём дне"
+   ],
+   "text": 2,
+   "task": {
+    "title": "Договорись о встрече — от начала до конца",
+    "brief": "Позвони Томеку и договорись о встрече на этой неделе: куда пойти, в какой день, во сколько и где встречаетесь. У тебя заняты вечера понедельника и среды. Если его вариант не подходит — вежливо откажись и предложи другой.",
+    "bot_role": "Ты — Томек. Ты свободен во вторник после 18:00 и в четверг после 19:30, в пятницу не можешь. Сначала сам предложи понедельник (ученик занят и должен отказаться). Потом договоритесь на вторник или четверг: куда идёте, день, время (называй по-разговорному), место встречи.",
+    "goal": "договориться: куда идёте, в какой день, во сколько и где встречаетесь",
+    "targets": [
+     "Masz ochotę pójść…?",
+     "Może pójdziemy…?",
+     "Niestety, nie mogę.",
+     "O której się spotkamy?",
+     "we wtorek / w czwartek",
+     "o wpół do… / kwadrans po…",
+     "Świetny pomysł!"
+    ],
+    "min_targets": 4,
+    "opening": {
+     "pl": "Halo? Cześć, tu Tomek! Co słychać?",
+     "translit": "ХА-лё? чещьчь, ту ТО-мэк! цо СЎЫ-хачь?",
+     "ru": "Алло? Привет, это Томек! Как дела?"
+    }
+   },
+   "test": [
+    {
+     "q": "Idziemy ___ kina.",
+     "answer": "do",
+     "ru": "Идём в кино.",
+     "grammar": "место → do + род. п."
+    },
+    {
+     "q": "Idziemy ___ koncert.",
+     "answer": "na",
+     "ru": "Идём на концерт.",
+     "grammar": "событие → na + вин. п."
+    },
+    {
+     "q": "Masz ochotę ___ kawę?",
+     "answer": "na",
+     "ru": "Хочешь кофе?"
+    },
+    {
+     "q": "Może pójdziemy ___ teatru?",
+     "answer": "do",
+     "ru": "Может, пойдём в театр?"
+    },
+    {
+     "q": "Idę do ___ (restauracja).",
+     "answer": "restauracji",
+     "ru": "Я иду в ресторан.",
+     "grammar": "do + род. п., ж. р.: -i"
+    },
+    {
+     "q": "Film jest ___ osiemnastej.",
+     "answer": "o",
+     "ru": "Фильм в восемнадцать."
+    },
+    {
+     "q": "Która godzina? — Jest ___ (13:00).",
+     "answer": "trzynasta",
+     "ru": "Который час? — Тринадцать."
+    },
+    {
+     "q": "Lekcja jest o ___ (9:00).",
+     "answer": "dziewiątej",
+     "ru": "Урок в девять."
+    },
+    {
+     "q": "Pracuję od ósmej ___ szesnastej.",
+     "answer": "do",
+     "ru": "Я работаю с восьми до шестнадцати."
+    },
+    {
+     "q": "Spotkamy się o wpół do ___ (6:30).",
+     "answer": "siódmej",
+     "ru": "Встретимся в половине седьмого.",
+     "grammar": "wpół do + следующий час, -ej"
+    },
+    {
+     "q": "Jest kwadrans po ___ (3:15).",
+     "answer": "trzeciej",
+     "ru": "Сейчас четверть четвёртого.",
+     "grammar": "po + -ej"
+    },
+    {
+     "q": "Jest za dziesięć ___ (4:50).",
+     "answer": "piąta",
+     "ru": "Сейчас без десяти пять.",
+     "grammar": "za + час на -a"
+    },
+    {
+     "q": "___ wtorek mam kurs.",
+     "answer": "We",
+     "ru": "Во вторник у меня курсы.",
+     "grammar": "we wtorek"
+    },
+    {
+     "q": "W ___ (środa) idę do kina.",
+     "answer": "środę",
+     "ru": "В среду я иду в кино.",
+     "grammar": "w + вин. п.: -ę"
+    },
+    {
+     "q": "W ___ (sobota) śpię długo.",
+     "answer": "sobotę",
+     "ru": "В субботу я долго сплю."
+    },
+    {
+     "q": "Rano (ja) ___ (brać) prysznic.",
+     "answer": "biorę",
+     "ru": "Утром я принимаю душ."
+    },
+    {
+     "q": "Zwykle (ja) ___ (wstawać) o siódmej.",
+     "answer": "wstaję",
+     "ru": "Обычно я встаю в семь."
+    },
+    {
+     "q": "Niestety, nie ___ (móc, ja), nie mam czasu.",
+     "answer": "mogę",
+     "ru": "К сожалению, не могу, у меня нет времени."
+    },
+    {
+     "q": "Codziennie (ja) ___ (jeździć) do pracy tramwajem.",
+     "answer": "jeżdżę",
+     "ru": "Каждый день я езжу на работу на трамвае."
+    },
+    {
+     "q": "O której (ty) ___ (wracać) do domu?",
+     "answer": "wracasz",
+     "ru": "Во сколько ты возвращаешься домой?"
+    }
+   ]
+  }
+ ]
+}

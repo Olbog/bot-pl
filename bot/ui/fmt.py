@@ -111,6 +111,7 @@ HELP = (
     "/phr — 💬 полезные выражения: с транскрипцией, переводом и правилом; карточки, тест, набор для разговора\n"
     "/tw — 🗣 скороговорки и песенки: текст, транскрипция, аудио медленно и в обычном темпе, отметки ⚪🟡✅\n"
     "/read — 📚 чтение: легенды по абзацам с переводом и аудио, слова абзаца в ⭐ словарь, вопросы к главе\n"
+    "/lesson — 🎓 урок по юниту: разминка, образец, фразы, правило, упражнения из книги, ролевая игра, дневник ошибок\n"
     "/learn — 📜 тексты наизусть: по юнитам и по своей теме; рассказать голосом или текстом — наизусть или пересказом\n"
     "/review — 🔁 повторение юнитов: правила (и вопросы по ним), сложные упражнения, лексика, упражнения от Gemini\n"
     "/set — 🎯 наборы слов: прогресс, новый набор, 📚 архив, отметить освоенные\n"
@@ -198,7 +199,8 @@ def status_line(mode: str, topic: str | None, active: dict | None, done: int = 0
 def main_menu(status: str) -> tuple[str, list[list[tuple[str, str]]]]:
     return (f"🏠 <b>Главное меню</b>\nСейчас: {status}\n\n<i>Можно просто писать или говорить — "
             "разговор продолжается.</i>",
-            [[("💬 Новый разговор", "go:new"), ("🏋️ Упражнения", "go:ex")],
+            [[("🎓 Урок по юниту", "go:lesson")],
+             [("💬 Новый разговор", "go:new"), ("🏋️ Упражнения", "go:ex")],
              [("🎯 Наборы слов", "go:set"), ("📋 Итог", "go:itog")],
              [("⭐ Словарь", "go:dict"), ("📖 Слова учебника", "go:words")],
              [("💬 Полезные выражения", "go:phr"), ("📚 Чтение", "go:read")],
@@ -1173,7 +1175,8 @@ def ex_results(ex: dict, results: list[dict], head: str | None = None, foot: str
     return "\n".join(lines)
 
 
-def ex_result_buttons(ex_id: int, left: int, wrong: int = 0, fresh: int = 0) -> list[list[tuple[str, str]]]:
+def ex_result_buttons(ex_id: int, left: int, wrong: int = 0, fresh: int = 0,
+                      lesson: str | None = None) -> list[list[tuple[str, str]]]:
     """wrong — сколько пунктов ещё с ошибкой: «▶️ Продолжить» — ответить на них ещё раз, как в упражнениях из книги.
     fresh — карточки / тест юнита без ошибок: сколько слов юнита ещё ни разу не отвечено верно («🆕 Новые слова»)."""
     rows = [[(f"▶️ Продолжить (осталось {wrong})", f"x:fx:{ex_id}")]] if wrong else []
@@ -1181,6 +1184,8 @@ def ex_result_buttons(ex_id: int, left: int, wrong: int = 0, fresh: int = 0) -> 
         rows.append([(f"🆕 Новые слова (ещё {fresh})", f"x:nw:{ex_id}")])
     rows += [[("📖 Правила по ошибкам", f"x:rr:{ex_id}"), ("🙅 Оспорить", f"x:dp:{ex_id}")],
              [("⭐ В словарь", f"dX:e:{ex_id}"), ("🔊 Правильные ответы", f"x:aa:{ex_id}")]]
+    if lesson:   # 🎓 упражнение урока: n — дальше по шагам, h — отдельная работа над ошибками (назад к уроку)
+        return rows + [[("🎓 Дальше по уроку", "ls:n") if lesson == "n" else ("🎓 К уроку", "ls:h")]]
     if left > 0:
         rows.append([(f"➡️ Следующее (осталось {left})", "x:next"), ("⏹ Закончить", "x:stop")])
         rows.append([("🔁 Повторить серию", f"x:rp:{ex_id}")])
@@ -1399,6 +1404,8 @@ def page_row(unit: dict, x: dict) -> list[list[tuple[str, str]]]:
 
 def list_button(unit: dict) -> tuple[str, str]:
     """«📋 Все упражнения» юнита; в 🔁 повторении — назад к очереди сложных упражнений."""
+    if unit.get("les"):
+        return ("🎓 К уроку", "ls:c")
     return ("🏋️ К повторению", "rv:e") if unit.get("rev") else ("📋 Все упражнения", f"bx:l:{unit['unit']}")
 
 
@@ -1414,8 +1421,10 @@ def bex_result_buttons(unit: dict, x: dict, done: dict, wins: int = 0,
     if ok < len(x["items"]):
         rows.append([(f"▶️ Продолжить (осталось {len(x['items']) - ok})", f"bx:o:{u}|{x['id']}")])
     i = next((k for k, y in enumerate(exs) if y["id"] == x["id"]), -1)
-    nxt = None if unit.get("rev") else next((y for y in exs[i + 1:] if bex_icon(y, done) != "✅"), None)
-    if unit.get("rev"):   # 🔁 повторение: дальше — по очереди сложных упражнений
+    nxt = None if unit.get("rev") or unit.get("les") else next((y for y in exs[i + 1:] if bex_icon(y, done) != "✅"), None)
+    if unit.get("les"):   # 🎓 урок: дальше — следующий шаг урока
+        rows.append([("🎓 Дальше по уроку", "ls:n")])
+    elif unit.get("rev"):   # 🔁 повторение: дальше — по очереди сложных упражнений
         rows.append([("➡️ Следующее в повторении", "rv:n")])
     elif nxt:
         rows.append([(f"➡️ {bex_name(nxt)}"[:60], f"bx:o:{u}|{nxt['id']}")])

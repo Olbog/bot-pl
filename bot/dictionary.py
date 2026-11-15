@@ -152,14 +152,16 @@ class DictionaryMixin:
             rest = [{"pl": str(w.get("pl") or "").strip(), "translit": str(w.get("translit") or "").strip(),
                      "ru": str(w.get("ru") or "").strip(), "norm": False} for w in words]
             return f"📋 Итог за {fmt.PERIODS[arg][0]}", errs, rest
-        if kind in ("t", "m"):   # 🗣 скороговорка / 📜 текст наизусть: ошибки попытки
-            corrs = self.db.corrections_by(user_id, "tw_attempt" if kind == "t" else "mt_attempt", arg)
+        if kind in ("t", "m", "l"):   # 🗣 скороговорка / 📜 текст наизусть / 🎓 урок: ошибки попытки
+            corrs = self.db.corrections_by(user_id, {"t": "tw_attempt", "m": "mt_attempt", "l": "ls_attempt"}[kind], arg)
             errs = [{"pl": str(c.get("correct") or "").strip(), "translit": str(c.get("translit") or "").strip(),
                      "ru": str(c.get("ru") or "").strip(), "norm": True} for c in corrs if not c["_disputed"]]
             if kind == "m":
                 key = arg.rpartition("@")[0]
                 self._src_unit = key.rpartition("#")[0] if "#" in key else ""
-            return ("🗣 Скороговорка" if kind == "t" else "📜 Текст наизусть"), errs, []
+            if kind == "l":
+                self._src_unit = arg.partition("#")[0]
+            return {"t": "🗣 Скороговорка", "m": "📜 Текст наизусть", "l": "🎓 Урок"}[kind], errs, []
         return None
 
     async def offer_source(self, chat_id: int, user_id: int, src: str) -> None:
@@ -232,6 +234,8 @@ class DictionaryMixin:
         """Юнит для кнопки «📘 тема юнита»: откуда слова (упражнение юнита) или последний юнит, с которым работал."""
         for uid in ([offer["unit"]] if offer.get("unit") else []) + self.db.recent_units(user_id):
             u = textbook.get_unit(uid)
+            if u and u.get("les"):   # 🎓 урок → сам юнит
+                u = textbook.get_unit(u["base"])
             if u and u.get("rev"):   # 🔁 повторение → сам юнит (несколько юнитов — последний из них)
                 u = textbook.get_unit(u.get("base") or (u.get("units_list") or [""])[-1])
             if u and not u.get("phrases") and not u.get("reading"):

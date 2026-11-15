@@ -279,7 +279,8 @@ class ExerciseRunMixin:
             todo = exercises.needs_model(results, EX_EXPLAIN_ALL and not cards)  # карточки: объясняем только ошибки
         if todo:
             prompt = check_prompt([(r["n"], items[r["n"] - 1], r["user"], r["unsure"], r.get("note", "")) for r in todo],
-                                  self.cfg.level, voice=bool(voice), topics=saved.get("topics"), cards=cards)
+                                  self.cfg.level, voice=bool(voice), topics=saved.get("topics"), cards=cards,
+                                  free=bool(ex.get("free")), task=str(ex.get("task") or ""))
             if voice and self.ignore_block(user_id):
                 prompt = self.ignore_block(user_id) + "\n\n" + prompt
             data = await self.ask(chat_id, prompt, CHECK_SCHEMA, CHECK_HINT,
@@ -322,10 +323,12 @@ class ExerciseRunMixin:
             await self.tg.edit_markup(chat_id, saved["tg_msg_id"])  # кнопка «Закончить без проверки» больше не нужна
         self.ex_record(user_id, saved, results)
         self.db.set_pending(user_id, {"step": "ex_review", "ex": ex})
+        if ex.get("lesson"):   # 🎓 урок: ошибки — в дневник юнита, дальше — следующий шаг
+            self.lesson_after_ex(user_id, ex, saved, results)
         await self.tg.send_message(chat_id, fmt.ex_results(saved, results),
                                    fmt.ex_result_buttons(saved["id"], ex.get("left", 0),
                                                          sum(r["final"] == "wrong" for r in results),
-                                                         self.ex_fresh_left(user_id, saved)))
+                                                         self.ex_fresh_left(user_id, saved), lesson=ex.get("lesson")))
 
     # ---------- ▶️ Продолжить: ответить ещё раз на пункты с ошибкой (как в упражнениях из книги) ----------
 
@@ -382,7 +385,8 @@ class ExerciseRunMixin:
                 + ("🎉 <b>Теперь всё верно!</b>" if not left else f"<i>Всего верно {ok_all} из {len(merged)}.</i>"))
         text = fmt.ex_results(saved, results, head=head) if results else head
         await self.tg.send_message(chat_id, text, fmt.ex_result_buttons(saved["id"], ex.get("left", 0), left,
-                                                                       self.ex_fresh_left(user_id, saved)))
+                                                                       self.ex_fresh_left(user_id, saved),
+                                                                       lesson=ex.get("lesson")))
 
     # ---------- 🆕 Новые слова: та же серия карточек / теста юнита, только ещё не отвеченные верно слова ----------
 
@@ -446,7 +450,7 @@ class ExerciseRunMixin:
         wrong = []
         for r in results:
             it = saved["items"][r["n"] - 1]
-            if r["final"] == "wrong":
+            if r["final"] == "wrong" and not it.get("_nopool"):   # _nopool — вопросы на понимание: не ошибка языка
                 original = r.get("heard") or r.get("user") or "—"
                 why = r.get("explanation") or it.get("grammar", "")
                 if r.get("logic_wrong"):  # ответ верный, ошибка в рассуждении

@@ -273,7 +273,7 @@ class MemorizeMixin:
     def mt_scope(self, user_id: int) -> list[str]:
         """Краткое содержание пройденных юнитов: учебник последнего юнита, с которым работал, — от первого до него.
         Ничего не делал — первые три юнита первого учебника с текстами."""
-        recent = [u for u in (textbook.get_unit(x) for x in self.db.recent_units(user_id, 20)) if u and not u.get("rev")]
+        recent = [u for u in (textbook.get_unit(x) for x in self.db.recent_units(user_id, 20)) if u and not u.get("rev") and not u.get("les")]
         if recent:
             units = textbook.load_units(book=recent[0]["book"])
             ids = [x["unit"] for x in units]
