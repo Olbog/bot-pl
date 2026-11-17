@@ -1,0 +1,776 @@
+{
+ "unit": "13",
+ "lessons": [
+  {
+   "id": "1",
+   "title": "Где ты был? Wczoraj, tydzień temu",
+   "can_do": [
+    "сказать, где ты был: byłem / byłam w kinie, na siłowni",
+    "спросить другого: Gdzie byłeś? Gdzie byłaś?",
+    "сказать когда: wczoraj, przedwczoraj, tydzień temu, w zeszłym tygodniu"
+   ],
+   "probe": {
+    "task": "Скажи, где ты был вчера вечером (если ты мужчина — byłem, женщина — byłam).",
+    "sample": "Wczoraj wieczorem byłem w kinie.",
+    "sample_translit": "ФЧО-рай ве-ЧО-рэм БЫ-ўэм ф КИ-не",
+    "sample_ru": "Вчера вечером я был в кино."
+   },
+   "dialog": {
+    "title": "Где вы были?",
+    "pl": "— Cześć, Ola! Gdzie byłaś wczoraj? Nie było cię na kursie.\n— Byłam u lekarza. A potem byłam w domu.\n— A w weekend?\n— W sobotę byłam z Kasią na wystawie, a w niedzielę byłyśmy w kinie. A ty? Gdzie byłeś?\n— Ja byłem w Gdańsku. Tydzień temu też tam byłem.\n— Znowu? I jak było?\n— Było świetnie! Ale w niedzielę było brzydko i padał deszcz.",
+    "translit": "— чещьчь, О-ля! гдже БЫ-ўащь ФЧО-рай? не БЫ-ўо чэ на КУР-ще.\n— БЫ-ўам у ле-КА-жа. а ПО-тэм БЫ-ўам в ДО-му.\n— а в ЎИ-кэнт?\n— ф со-БО-тэ БЫ-ўам с КА-щон на выс-ТА-ве, а в не-ДЖЕ-лэ БЫ-ўыщь-мы ф КИ-не. а ты? гдже БЫ-ўэщь?\n— я БЫ-ўэм ф ГДАНЬ-ску. ТЫ-джень ТЭ-му тэж там БЫ-ўэм.\n— ЗНО-ву? и як БЫ-ўо?\n— БЫ-ўо ЩЬВЕТ-не! А-ле в не-ДЖЕ-лэ БЫ-ўо БЖЫТ-ко и ПА-даў дэшч.",
+    "ru": "— Привет, Оля! Где ты была вчера? Тебя не было на курсе.\n— Я была у врача. А потом была дома.\n— А на выходных?\n— В субботу я была с Касей на выставке, а в воскресенье мы были в кино. А ты? Где ты был?\n— Я был в Гданьске. Неделю назад я тоже там был.\n— Опять? И как было?\n— Было отлично! Но в воскресенье была плохая погода и шёл дождь.",
+    "questions": [
+     {
+      "q": "Gdzie Ola była wczoraj?",
+      "ru": "Где Оля была вчера?",
+      "answer": "u lekarza",
+      "options": [
+       "u lekarza",
+       "na kursie",
+       "w kinie"
+      ]
+     },
+     {
+      "q": "Gdzie Ola i Kasia były w niedzielę?",
+      "ru": "Где Оля и Кася были в воскресенье?",
+      "answer": "w kinie",
+      "options": [
+       "w kinie",
+       "na wystawie",
+       "w Gdańsku"
+      ]
+     },
+     {
+      "q": "Jaka była pogoda w niedzielę w Gdańsku?",
+      "ru": "Какая была погода в воскресенье в Гданьске?",
+      "answer": "brzydka, padał deszcz",
+      "options": [
+       "brzydka, padał deszcz",
+       "ładna",
+       "bardzo gorąca"
+      ]
+     }
+    ]
+   },
+   "chunks": [
+    {
+     "pl": "Gdzie byłeś? / Gdzie byłaś?",
+     "translit": "гдже БЫ-ўэщь / гдже БЫ-ўащь",
+     "ru": "Где ты был? / Где ты была?"
+    },
+    {
+     "pl": "Byłem w kinie. / Byłam w kinie.",
+     "translit": "БЫ-ўэм ф КИ-не / БЫ-ўам ф КИ-не",
+     "ru": "Я был в кино. / Я была в кино."
+    },
+    {
+     "pl": "Byłem w domu.",
+     "translit": "БЫ-ўэм в ДО-му",
+     "ru": "Я был дома."
+    },
+    {
+     "pl": "Byliśmy na siłowni.",
+     "translit": "БЫ-лищь-мы на щи-ЎОВ-ни",
+     "ru": "Мы были в тренажёрном зале."
+    },
+    {
+     "pl": "wczoraj, przedwczoraj",
+     "translit": "ФЧО-рай, пшэт-ФЧО-рай",
+     "ru": "вчера, позавчера"
+    },
+    {
+     "pl": "tydzień temu",
+     "translit": "ТЫ-джень ТЭ-му",
+     "ru": "неделю назад"
+    },
+    {
+     "pl": "w zeszłym tygodniu",
+     "translit": "в ЗЭШ-ўым ты-ГОД-ню",
+     "ru": "на прошлой неделе"
+    },
+    {
+     "pl": "Jak było? — Było świetnie!",
+     "translit": "як БЫ-ўо — БЫ-ўо ЩЬВЕТ-не",
+     "ru": "Как было? — Было отлично!"
+    },
+    {
+     "pl": "Wczoraj było brzydko.",
+     "translit": "ФЧО-рай БЫ-ўо БЖЫТ-ко",
+     "ru": "Вчера была плохая погода."
+    },
+    {
+     "pl": "Nie było cię w pracy.",
+     "translit": "не БЫ-ўо чэ ф ПРА-цы",
+     "ru": "Тебя не было на работе."
+    }
+   ],
+   "own": "Составь 3 предложения о себе: где ты был(а) вчера, на выходных и неделю назад — и как там было.",
+   "discover": {
+    "examples": [
+     {
+      "pl": "On był w kinie.",
+      "translit": "он быў ф КИ-не",
+      "ru": "Он был в кино."
+     },
+     {
+      "pl": "Ona była w kinie.",
+      "translit": "О-на БЫ-ўа ф КИ-не",
+      "ru": "Она была в кино."
+     },
+     {
+      "pl": "Oni byli w kinie.",
+      "translit": "О-ни БЫ-ли ф КИ-не",
+      "ru": "Они были в кино (есть мужчины)."
+     },
+     {
+      "pl": "One były w kinie.",
+      "translit": "О-нэ БЫ-ўы ф КИ-не",
+      "ru": "Они были в кино (только женщины)."
+     }
+    ],
+    "question": "Чем отличаются формы? И почему у «они» две разные формы?",
+    "answer": "Как в русском: был (он) — -ł, была (она) — -ła. Во множественном числе в польском две формы: byli — если в группе есть хоть один мужчина, były — если только женщины (или вещи, животные)."
+   },
+   "rules": [
+    1,
+    5
+   ],
+   "practice": [
+    "tb-13-a3",
+    "wb-13-4",
+    "wb-13-6"
+   ],
+   "task": {
+    "title": "Где ты был? Расспроси Томека",
+    "brief": "Ты встречаешь Томека после выходных. Расскажи, где ты был(а) в субботу и воскресенье и как было, и расспроси его: где он был и как ему понравилось.",
+    "bot_role": "Ты — Томек. В субботу ты был в Кракове у друзей (было весело), а в воскресенье был дома, потому что было холодно и шёл дождь. Спроси ученика, где он был на выходных и как было. На его вопросы отвечай коротко, в прошедшем времени.",
+    "goal": "рассказать, где ты был(а) в субботу и воскресенье, и узнать, где был Томек",
+    "targets": [
+     "Gdzie byłeś?",
+     "Byłem / Byłam w…",
+     "w sobotę / w niedzielę",
+     "Jak było?",
+     "Było świetnie!",
+     "Było brzydko."
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Cześć! Jak weekend? Gdzie byłeś?",
+     "translit": "чещьчь! як ЎИ-кэнт? гдже БЫ-ўэщь?",
+     "ru": "Привет! Как выходные? Где ты был?"
+    }
+   }
+  },
+  {
+   "id": "2",
+   "title": "Что ты делал? -łem / -łam, -li / -ły",
+   "can_do": [
+    "рассказать, что ты делал: oglądałem film, gotowałam obiad",
+    "спросить: Co robiłeś w weekend?",
+    "сказать о группе: robiliśmy zdjęcia, one tańczyły"
+   ],
+   "probe": {
+    "task": "Расскажи в 2–3 предложениях, что ты делал(а) в прошлые выходные.",
+    "sample": "W sobotę sprzątałem mieszkanie, a w niedzielę oglądałem film.",
+    "sample_translit": "ф со-БО-тэ спшон-ТА-ўэм мьеш-КА-не, а в не-ДЖЕ-лэ ог-лён-ДА-ўэм фильм",
+    "sample_ru": "В субботу я убирал квартиру, а в воскресенье смотрел фильм."
+   },
+   "dialog": {
+    "title": "Что вы делали на выходных?",
+    "pl": "— Co robiłeś w weekend?\n— W sobotę pracowałem, a wieczorem grałem z kolegami w karty. A ty?\n— Ja w sobotę gotowałam obiad dla rodziców, a potem oglądaliśmy razem stare zdjęcia.\n— Fajnie! A w niedzielę?\n— Spacerowałam z siostrą po Starym Mieście. Rozmawiałyśmy cały dzień.\n— A ja spałem do południa i czytałem książkę.",
+    "translit": "— цо ро-БИ-ўэщь в ЎИ-кэнт?\n— ф со-БО-тэ пра-цо-ВА-ўэм, а ве-ЧО-рэм ГРА-ўэм с ко-ле-ГА-ми ф КАР-ты. а ты?\n— я ф со-БО-тэ го-то-ВА-ўам О-бьят для ро-ДЖИ-цуф, а ПО-тэм ог-лён-ДА-лищь-мы РА-зэм СТА-рэ ЗДЬЕН-ча.\n— ФАЙ-не! а в не-ДЖЕ-лэ?\n— спа-цэ-ро-ВА-ўам з ЩЁСТ-рон по СТА-рым МЬЕС-чье. роз-ма-ВЯ-ўыщь-мы ЦА-ўы джень.\n— а я СПА-ўэм до по-ЎУД-ня и чы-ТА-ўэм КЩЁНЖ-кэ.",
+    "ru": "— Что ты делал на выходных?\n— В субботу я работал, а вечером играл с друзьями в карты. А ты?\n— Я в субботу готовила обед для родителей, а потом мы вместе смотрели старые фотографии.\n— Классно! А в воскресенье?\n— Я гуляла с сестрой по Старому городу. Мы разговаривали весь день.\n— А я спал до полудня и читал книгу.",
+    "questions": [
+     {
+      "q": "Co on robił w sobotę wieczorem?",
+      "ru": "Что он делал в субботу вечером?",
+      "answer": "grał w karty",
+      "options": [
+       "grał w karty",
+       "pracował",
+       "czytał książkę"
+      ]
+     },
+     {
+      "q": "Dla kogo ona gotowała obiad?",
+      "ru": "Для кого она готовила обед?",
+      "answer": "dla rodziców",
+      "options": [
+       "dla rodziców",
+       "dla siostry",
+       "dla kolegów"
+      ]
+     },
+     {
+      "q": "Co on robił w niedzielę?",
+      "ru": "Что он делал в воскресенье?",
+      "answer": "spał do południa i czytał",
+      "options": [
+       "spał do południa i czytał",
+       "spacerował z siostrą",
+       "oglądał zdjęcia"
+      ]
+     }
+    ]
+   },
+   "chunks": [
+    {
+     "pl": "Co robiłeś w weekend? / Co robiłaś w weekend?",
+     "translit": "цо ро-БИ-ўэщь в ЎИ-кэнт / цо ро-БИ-ўащь в ЎИ-кэнт",
+     "ru": "Что ты делал / делала на выходных?"
+    },
+    {
+     "pl": "Pracowałem. / Pracowałam.",
+     "translit": "пра-цо-ВА-ўэм / пра-цо-ВА-ўам",
+     "ru": "Я работал. / Я работала."
+    },
+    {
+     "pl": "Oglądałem film.",
+     "translit": "ог-лён-ДА-ўэм фильм",
+     "ru": "Я смотрел фильм."
+    },
+    {
+     "pl": "Gotowałam obiad.",
+     "translit": "го-то-ВА-ўам О-бьят",
+     "ru": "Я готовила обед."
+    },
+    {
+     "pl": "Spałem do południa.",
+     "translit": "СПА-ўэм до по-ЎУД-ня",
+     "ru": "Я спал до полудня."
+    },
+    {
+     "pl": "Spotkałem się z kolegami.",
+     "translit": "спот-КА-ўэм щэ с ко-ле-ГА-ми",
+     "ru": "Я встретился с друзьями."
+    },
+    {
+     "pl": "Robiliśmy zdjęcia.",
+     "translit": "ро-БИ-лищь-мы ЗДЬЕН-ча",
+     "ru": "Мы фотографировали (есть мужчины)."
+    },
+    {
+     "pl": "Rozmawiałyśmy cały dzień.",
+     "translit": "роз-ма-ВЯ-ўыщь-мы ЦА-ўы джень",
+     "ru": "Мы (девушки) разговаривали весь день."
+    },
+    {
+     "pl": "Cały weekend sprzątałem.",
+     "translit": "ЦА-ўы ЎИ-кэнт спшон-ТА-ўэм",
+     "ru": "Все выходные я убирался."
+    },
+    {
+     "pl": "Spacerowaliśmy po mieście.",
+     "translit": "спа-цэ-ро-ВА-лищь-мы по МЬЕЩЬ-че",
+     "ru": "Мы гуляли по городу."
+    }
+   ],
+   "own": "Составь 3–4 предложения о том, что ты делал(а) вчера: утром, днём и вечером. Хотя бы одно — про себя и кого-то вместе (my).",
+   "discover": {
+    "examples": [
+     {
+      "pl": "robić → robiłem, robiłam",
+      "translit": "РО-бичь → ро-БИ-ўэм, ро-БИ-ўам",
+      "ru": "делать → я делал, я делала"
+     },
+     {
+      "pl": "czytać → czytałeś, czytałaś",
+      "translit": "ЧЫ-тачь → чы-ТА-ўэщь, чы-ТА-ўащь",
+      "ru": "читать → ты читал, ты читала"
+     },
+     {
+      "pl": "grać → graliśmy, grałyśmy",
+      "translit": "грачь → ГРА-лищь-мы, ГРА-ўыщь-мы",
+      "ru": "играть → мы играли (м.), мы играли (ж.)"
+     }
+    ],
+    "question": "Как из инфинитива получается прошедшее время? Какие окончания у «я», «ты» и «мы»?",
+    "answer": "Убираем -ć и добавляем -ł- и окончание: ja -łem (м.) / -łam (ж.), ty -łeś / -łaś, my -liśmy (есть мужчины) / -łyśmy (только женщины). Перед -li «ł» превращается в «l»: robili, czytaliśmy."
+   },
+   "rules": [
+    0,
+    2
+   ],
+   "practice": [
+    "tb-13-a6",
+    "wb-13-2",
+    "wb-13-3a"
+   ],
+   "task": {
+    "title": "Опрос: как прошли твои выходные",
+    "brief": "Каролина пишет статью «Как поляки проводят выходные» и берёт у тебя интервью. Расскажи подробно, что ты делал(а) в субботу и воскресенье — минимум 4 разных дела, — и спроси её, что делала она.",
+    "bot_role": "Ты — Каролина, журналистка. Задавай ученику вопросы по очереди: что он делал в субботу утром, днём, вечером, что в воскресенье, с кем. Если ученик спросит о твоих выходных — ты с подругой гуляла по горам и фотографировала (spacerowałyśmy, robiłyśmy zdjęcia).",
+    "goal": "назвать минимум 4 дела в прошедшем времени и спросить Каролину о её выходных",
+    "targets": [
+     "Pracowałem / Pracowałam.",
+     "Oglądałem / Oglądałam…",
+     "Spotkałem się z…",
+     "Robiliśmy…",
+     "Co robiłaś w weekend?",
+     "cały weekend"
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Dzień dobry! Mam kilka pytań. Co robiłeś w sobotę rano?",
+     "translit": "джень ДОБ-ры! мам КИЛЬ-ка ПЫ-тань. цо ро-БИ-ўэщь ф со-БО-тэ РА-но?",
+     "ru": "Здравствуй! У меня несколько вопросов. Что ты делал в субботу утром?"
+    }
+   }
+  },
+  {
+   "id": "3",
+   "title": "Хотел, должен был, не знал: miał — mieli",
+   "can_do": [
+    "сказать, что ты хотел, должен был, не знал: chciałem, musiałem, nie wiedziałem",
+    "объяснить, почему не пришёл: nie miałem czasu, musiałem pracować",
+    "правильно сказать о группе: mieli, chcieli, musieli"
+   ],
+   "probe": {
+    "task": "Объясни, почему ты вчера не пришёл на встречу: у тебя не было времени, ты должен был работать.",
+    "sample": "Przepraszam, nie miałem czasu, musiałem pracować.",
+    "sample_translit": "пше-ПРА-шам, не МЯ-ўэм ЧА-су, му-ЩЯ-ўэм пра-ЦО-вачь",
+    "sample_ru": "Извини, у меня не было времени, я должен был работать."
+   },
+   "dialog": {
+    "title": "Почему ты не пришёл?",
+    "pl": "— Marek, dlaczego nie byłeś wczoraj na imprezie?\n— Przepraszam! Chciałem przyjść, ale musiałem długo pracować.\n— Szkoda. Ania i Kasia też chciały cię zobaczyć.\n— Naprawdę? Nie wiedziałem, że one tam były.\n— Tak! I miały dla ciebie prezent. Wszyscy mieli świetny humor.\n— Oj, wstyd mi. Następnym razem na pewno przyjdę!",
+    "translit": "— МА-рэк, дла-ЧЭ-го не БЫ-ўэщь ФЧО-рай на им-ПРЭ-же?\n— пше-ПРА-шам! ХЧЯ-ўэм ПШЫЙЩЬЧЬ, А-ле му-ЩЯ-ўэм ДЎУ-го пра-ЦО-вачь.\n— ШКО-да. А-ня и КА-ща тэж ХЧЯ-ўы чэ зо-БА-чычь.\n— на-ПРАВ-дэ? не ве-ДЖЯ-ўэм, жэ О-нэ там БЫ-ўы.\n— так! и МЯ-ўы для ЧЕ-бе ПРЭ-зэнт. ФШЫСЬ-цы МЕ-ли ЩЬВЕТ-ны ХУ-мор.\n— ой, фстыт ми. нас-ТЭМП-ным РА-зэм на ПЭФ-но ПШЫЙ-дэ!",
+    "ru": "— Марек, почему тебя вчера не было на вечеринке?\n— Извини! Я хотел прийти, но должен был долго работать.\n— Жаль. Аня и Кася тоже хотели тебя увидеть.\n— Правда? Я не знал, что они там были.\n— Да! И у них был для тебя подарок. У всех было отличное настроение.\n— Ой, мне стыдно. В следующий раз точно приду!",
+    "questions": [
+     {
+      "q": "Dlaczego Marek nie był na imprezie?",
+      "ru": "Почему Марека не было на вечеринке?",
+      "answer": "musiał długo pracować",
+      "options": [
+       "musiał długo pracować",
+       "był chory",
+       "nie chciał przyjść"
+      ]
+     },
+     {
+      "q": "Kto chciał zobaczyć Marka?",
+      "ru": "Кто хотел увидеть Марека?",
+      "answer": "Ania i Kasia",
+      "options": [
+       "Ania i Kasia",
+       "jego szef",
+       "nikt"
+      ]
+     },
+     {
+      "q": "Co miały dziewczyny dla Marka?",
+      "ru": "Что было у девушек для Марека?",
+      "answer": "prezent",
+      "options": [
+       "prezent",
+       "tort",
+       "bilety"
+      ]
+     }
+    ]
+   },
+   "chunks": [
+    {
+     "pl": "Chciałem przyjść, ale…",
+     "translit": "ХЧЯ-ўэм ПШЫЙЩЬЧЬ, А-ле",
+     "ru": "Я хотел прийти, но…"
+    },
+    {
+     "pl": "Musiałem pracować. / Musiałam pracować.",
+     "translit": "му-ЩЯ-ўэм пра-ЦО-вачь / му-ЩЯ-ўам пра-ЦО-вачь",
+     "ru": "Я должен был работать. / Я должна была работать."
+    },
+    {
+     "pl": "Nie miałem czasu.",
+     "translit": "не МЯ-ўэм ЧА-су",
+     "ru": "У меня не было времени."
+    },
+    {
+     "pl": "Nie wiedziałem, że…",
+     "translit": "не ве-ДЖЯ-ўэм, жэ",
+     "ru": "Я не знал, что…"
+    },
+    {
+     "pl": "Widziałaś ten film?",
+     "translit": "ви-ДЖЯ-ўащь тэн фильм",
+     "ru": "Ты видела этот фильм?"
+    },
+    {
+     "pl": "Nie rozumiałem, co mówił.",
+     "translit": "не ро-зу-МЯ-ўэм, цо МУ-виў",
+     "ru": "Я не понимал, что он говорил."
+    },
+    {
+     "pl": "Oni mieli test.",
+     "translit": "О-ни МЕ-ли тэст",
+     "ru": "У них был тест (есть мужчины)."
+    },
+    {
+     "pl": "One chciały cię zobaczyć.",
+     "translit": "О-нэ ХЧЯ-ўы чэ зо-БА-чычь",
+     "ru": "Они (девушки) хотели тебя увидеть."
+    },
+    {
+     "pl": "Musieliśmy wracać pieszo.",
+     "translit": "му-ЩЕ-лищь-мы ВРА-цачь ПЕ-шо",
+     "ru": "Нам пришлось возвращаться пешком."
+    },
+    {
+     "pl": "Wstyd mi.",
+     "translit": "фстыт ми",
+     "ru": "Мне стыдно."
+    }
+   ],
+   "own": "Составь 3 предложения-оправдания: что ты хотел(а) сделать на прошлой неделе, но не смог(ла) — почему (nie miałem czasu, musiałem…, nie wiedziałem…).",
+   "discover": {
+    "examples": [
+     {
+      "pl": "mieć → miał, miała, miały",
+      "translit": "мечь → мяў, МЯ-ўа, МЯ-ўы",
+      "ru": "иметь → имел, имела, имели (ж.)"
+     },
+     {
+      "pl": "mieć → mieli, mieliśmy",
+      "translit": "мечь → МЕ-ли, МЕ-лищь-мы",
+      "ru": "иметь → имели (м.), мы имели (м.)"
+     },
+     {
+      "pl": "chcieć → chciał, chcieli",
+      "translit": "хчечь → хчяў, ХЧЕ-ли",
+      "ru": "хотеть → хотел, хотели (м.)"
+     },
+     {
+      "pl": "wiedzieć → wiedziałem, wiedzieli",
+      "translit": "ВЕ-джечь → ве-ДЖЯ-ўэм, ве-ДЖЕ-ли",
+      "ru": "знать → я знал, они знали (м.)"
+     }
+    ],
+    "question": "У глаголов на -eć в прошедшем то «a», то «e». Когда какая буква?",
+    "answer": "Почти везде «a»: miał, miała, miało, miały, miałem, miałyśmy. И только в мужско-личной форме множественного числа (oni, my и wy с мужчинами) — «e»: mieli, mieliśmy, mieliście, chcieli, wiedzieli."
+   },
+   "rules": [
+    3
+   ],
+   "practice": [
+    "tb-13-b2",
+    "wb-13-9",
+    "wb-13-8"
+   ],
+   "task": {
+    "title": "Извинись перед Олей",
+    "brief": "Ты обещал(а) прийти к Оле на день рождения в субботу, но не пришёл / не пришла. Позвони ей, извинись и объясни, почему: что ты хотел(а), что должен(на) был(а) сделать, чего не знал(а). Узнай, как прошёл праздник.",
+    "bot_role": "Ты — Оля, немного обижена. Спрашивай, почему ученик не пришёл. Принимай извинения, если причина звучит убедительно. Расскажи, что гости долго ждали, Марек и Томек хотели его увидеть, у всех было хорошее настроение (используй chcieli, mieli).",
+    "goal": "извиниться, объяснить причину двумя-тремя глаголами (chciał, musiał, nie wiedział, nie miał) и узнать, как прошёл праздник",
+    "targets": [
+     "Przepraszam!",
+     "Chciałem / Chciałam przyjść, ale…",
+     "Musiałem / Musiałam…",
+     "Nie miałem / Nie miałam czasu.",
+     "Nie wiedziałem / Nie wiedziałam, że…",
+     "Wstyd mi."
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Halo? No, nareszcie dzwonisz! Dlaczego nie było cię w sobotę?",
+     "translit": "ХА-лё? но, на-РЭЩЬ-че ДЗВО-нишь! дла-ЧЭ-го не БЫ-ўо чэ ф со-БО-тэ?",
+     "ru": "Алло? Ну, наконец-то звонишь! Почему тебя не было в субботу?"
+    }
+   }
+  },
+  {
+   "id": "4",
+   "title": "Поездка: jadłem, poszedłem, poszliśmy",
+   "can_do": [
+    "рассказать о поездке: куда пошёл, что ел, что видел",
+    "правильно сказать jadłem / jadłam, jedli / jadły",
+    "различать poszedłem (пошёл один раз) и chodziłem (ходил регулярно)"
+   ],
+   "probe": {
+    "task": "Расскажи в 2–3 предложениях, куда ты пошёл вчера и что ты там ел.",
+    "sample": "Wczoraj poszedłem do restauracji i jadłem pierogi.",
+    "sample_translit": "ФЧО-рай по-ШЭД-ўэм до рэс-таў-РАЦ-ьи и ЯД-ўэм пе-РО-ги",
+    "sample_ru": "Вчера я пошёл в ресторан и ел пироги (вареники)."
+   },
+   "dialog": {
+    "title": "Выходные в Закопане",
+    "pl": "— I jak było w Zakopanem?\n— Wspaniale! W sobotę rano poszliśmy w góry. Było pięknie!\n— A co jedliście?\n— Ja jadłem oscypki i kwaśnicę, a Ola jadła pierogi. Wieczorem poszliśmy do karczmy.\n— A Kasia i Ania?\n— One poszły na zakupy na Krupówki i kupiły pamiątki.\n— Też chcę tam pojechać! Kiedy byłem mały, często jeździłem do Zakopanego.",
+    "translit": "— и як БЫ-ўо в за-ко-ПА-нэм?\n— фспа-НЯ-ле! ф со-БО-тэ РА-но ПОШ-лищь-мы в ГУ-ры. БЫ-ўо ПЬЕНК-не!\n— а цо ЕД-лищь-че?\n— я ЯД-ўэм ос-ЦЫП-ки и кфащь-НИ-цэ, а О-ля ЯД-ўа пе-РО-ги. ве-ЧО-рэм ПОШ-лищь-мы до КАРЧ-мы.\n— а КА-ща и А-ня?\n— О-нэ ПОШ-ўы на за-КУ-пы на кру-ПУФ-ки и ку-ПИ-ўы па-МЬЁНТ-ки.\n— тэж хцэ там по-Е-хачь! КЕ-ды БЫ-ўэм МА-ўы, ЧЕНС-то ежь-ДЖИ-ўэм до за-ко-па-НЭ-го.",
+    "ru": "— И как было в Закопане?\n— Замечательно! В субботу утром мы пошли в горы. Было красиво!\n— А что вы ели?\n— Я ел оскыпки и квасьницу, а Оля ела вареники. Вечером мы пошли в корчму.\n— А Кася и Аня?\n— Они пошли за покупками на Крупувки и купили сувениры.\n— Тоже хочу туда поехать! Когда я был маленьким, я часто ездил в Закопане.",
+    "questions": [
+     {
+      "q": "Gdzie poszli w sobotę rano?",
+      "ru": "Куда они пошли в субботу утром?",
+      "answer": "w góry",
+      "options": [
+       "w góry",
+       "do karczmy",
+       "na zakupy"
+      ]
+     },
+     {
+      "q": "Co jadła Ola?",
+      "ru": "Что ела Оля?",
+      "answer": "pierogi",
+      "options": [
+       "pierogi",
+       "oscypki",
+       "kwaśnicę"
+      ]
+     },
+     {
+      "q": "Co zrobiły Kasia i Ania?",
+      "ru": "Что сделали Кася и Аня?",
+      "answer": "poszły na zakupy",
+      "options": [
+       "poszły na zakupy",
+       "poszły w góry",
+       "jadły w karczmie"
+      ]
+     }
+    ]
+   },
+   "chunks": [
+    {
+     "pl": "Jadłem / Jadłam pierogi.",
+     "translit": "ЯД-ўэм / ЯД-ўам пе-РО-ги",
+     "ru": "Я ел / ела вареники."
+    },
+    {
+     "pl": "Co jedliście?",
+     "translit": "цо ЕД-лищь-че",
+     "ru": "Что вы ели?"
+    },
+    {
+     "pl": "Jadłaś już obiad?",
+     "translit": "ЯД-ўащь юж О-бьят",
+     "ru": "Ты уже обедала?"
+    },
+    {
+     "pl": "Poszedłem / Poszłam do kina.",
+     "translit": "по-ШЭД-ўэм / ПОШ-ўам до КИ-на",
+     "ru": "Я пошёл / пошла в кино."
+    },
+    {
+     "pl": "Poszliśmy w góry.",
+     "translit": "ПОШ-лищь-мы в ГУ-ры",
+     "ru": "Мы пошли в горы."
+    },
+    {
+     "pl": "One poszły na zakupy.",
+     "translit": "О-нэ ПОШ-ўы на за-КУ-пы",
+     "ru": "Они (девушки) пошли за покупками."
+    },
+    {
+     "pl": "Kiedy byłem mały, często chodziłem do kina.",
+     "translit": "КЕ-ды БЫ-ўэм МА-ўы, ЧЕНС-то хо-ДЖИ-ўэм до КИ-на",
+     "ru": "Когда я был маленьким, я часто ходил в кино."
+    },
+    {
+     "pl": "Kiedy szedłem do domu, padał deszcz.",
+     "translit": "КЕ-ды ШЭД-ўэм до ДО-му, ПА-даў дэшч",
+     "ru": "Когда я шёл домой, шёл дождь."
+    },
+    {
+     "pl": "Było pięknie!",
+     "translit": "БЫ-ўо ПЬЕНК-не",
+     "ru": "Было красиво!"
+    },
+    {
+     "pl": "najpierw… potem… wieczorem…",
+     "translit": "НАЙ-пьерф… ПО-тэм… ве-ЧО-рэм…",
+     "ru": "сначала… потом… вечером…"
+    }
+   ],
+   "own": "Составь 3–4 предложения о какой-нибудь своей поездке или прогулке: куда ты пошёл(шла) / поехал(а), что ел(а), как было. Используй najpierw, potem.",
+   "discover": {
+    "examples": [
+     {
+      "pl": "Wczoraj poszedłem do kina.",
+      "translit": "ФЧО-рай по-ШЭД-ўэм до КИ-на",
+      "ru": "Вчера я пошёл в кино."
+     },
+     {
+      "pl": "Kiedy szedłem do kina, padał deszcz.",
+      "translit": "КЕ-ды ШЭД-ўэм до КИ-на, ПА-даў дэшч",
+      "ru": "Когда я шёл в кино, шёл дождь."
+     },
+     {
+      "pl": "Często chodziłem do kina.",
+      "translit": "ЧЕНС-то хо-ДЖИ-ўэм до КИ-на",
+      "ru": "Я часто ходил в кино."
+     }
+    ],
+    "question": "Все три глагола — про «идти». Чем отличаются poszedłem, szedłem и chodziłem?",
+    "answer": "poszedłem — действие совершилось один раз («пошёл»); szedłem — процесс в момент, когда что-то произошло («шёл»); chodziłem — регулярно, много раз («ходил»). Формы pójść и iść неправильные: poszedłem / poszłam, szedłem / szłam — их надо запомнить."
+   },
+   "rules": [
+    4
+   ],
+   "practice": [
+    "tb-13-c2",
+    "tb-13-c3",
+    "wb-13-10"
+   ],
+   "task": {
+    "title": "Расскажи о поездке",
+    "brief": "Ты недавно ездил(а) в Закопане (или в любое другое место). Анджела расспрашивает. Расскажи: куда вы пошли, что ели, что видели, как было — используй najpierw, potem.",
+    "bot_role": "Ты — Анджела, любопытная подруга. Задавай вопросы по одному: куда ученик ездил, с кем, куда пошли в первый день, что ели, что купили, как погода. Реагируй с интересом. Если спросят, ты в Закопане никогда не была.",
+    "goal": "рассказать о поездке: минимум одно poszedłem / poszliśmy, одно jadłem / jedliśmy и оценку (było…)",
+    "targets": [
+     "Poszedłem / Poszłam…",
+     "Poszliśmy…",
+     "Jadłem / Jadłam…",
+     "Było pięknie / świetnie!",
+     "najpierw… potem…",
+     "Kiedy byłem…"
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Cześć! Słyszałam, że byłeś w Zakopanem! Opowiadaj!",
+     "translit": "чещьчь! сўы-ША-ўам, жэ БЫ-ўэщь в за-ко-ПА-нэм! о-по-ВЯ-дай!",
+     "ru": "Привет! Я слышала, ты был в Закопане! Рассказывай!"
+    }
+   }
+  },
+  {
+   "id": "5",
+   "final": true,
+   "title": "Итог юнита 13",
+   "can_do": [
+    "рассказать, где ты был и что делал",
+    "использовать формы прошедшего для м. и ж. рода и для групп (-li / -ły)",
+    "объяснить, что ты хотел или должен был сделать",
+    "рассказать о поездке: куда пошёл, что ел"
+   ],
+   "text": 1,
+   "task": {
+    "title": "Моя прошлая неделя",
+    "brief": "Встреча с Каролиной после долгого перерыва. Расскажи о своей прошлой неделе: где ты был(а), что делал(а), куда пошёл(шла), что ел(а), чего не успел(а) и почему. Задай ей вопрос о её неделе.",
+    "bot_role": "Ты — Каролина. Задавай вопросы о неделе ученика: где был, что делал в выходные, ходил ли куда-то, что интересного ел, почему не позвонил. На вопросы о себе отвечай: ты была у бабушки в деревне, вы вместе готовили и ходили в лес (byłam, gotowałyśmy, chodziłyśmy).",
+    "goal": "рассказать о прошлой неделе: минимум 5 разных глаголов в прошедшем (być, -łem / -łam, miał / chciał / musiał, jadł / poszedł) и задать вопрос Каролине",
+    "targets": [
+     "Byłem / Byłam…",
+     "Robiłem / Robiłam…",
+     "Musiałem / Musiałam…",
+     "Chciałem / Chciałam…",
+     "Poszedłem / Poszłam…",
+     "Jadłem / Jadłam…",
+     "w zeszłym tygodniu / tydzień temu"
+    ],
+    "min_targets": 4,
+    "opening": {
+     "pl": "O, cześć! Dawno cię nie widziałam! Co robiłeś w zeszłym tygodniu?",
+     "translit": "о, чещьчь! ДАВ-но чэ не ви-ДЖЯ-ўам! цо ро-БИ-ўэщь в ЗЭШ-ўым ты-ГОД-ню?",
+     "ru": "О, привет! Давно тебя не видела! Что ты делал на прошлой неделе?"
+    }
+   },
+   "test": [
+    {
+     "q": "Gdzie (ty, m.) ___ wczoraj?",
+     "answer": "byłeś",
+     "ru": "Где ты был вчера?"
+    },
+    {
+     "q": "Wczoraj (ja, ż.) ___ w kinie.",
+     "answer": "byłam",
+     "ru": "Вчера я была в кино."
+    },
+    {
+     "q": "Karol i Ola ___ na koncercie.",
+     "answer": "byli",
+     "ru": "Кароль и Оля были на концерте.",
+     "grammar": "есть мужчина → byli"
+    },
+    {
+     "q": "Mami i Angela ___ na wystawie.",
+     "answer": "były",
+     "ru": "Мами и Анджела были на выставке.",
+     "grammar": "только женщины → były"
+    },
+    {
+     "q": "Wczoraj ___ ładnie, a dzisiaj pada deszcz.",
+     "answer": "było",
+     "ru": "Вчера было хорошо, а сегодня идёт дождь."
+    },
+    {
+     "q": "Nie ___ cię w pracy.",
+     "answer": "było",
+     "ru": "Тебя не было на работе."
+    },
+    {
+     "q": "Co (ty, m.) ___ (robić) w weekend?",
+     "answer": "robiłeś",
+     "ru": "Что ты делал на выходных?"
+    },
+    {
+     "q": "W sobotę (ja, m.) ___ (pracować).",
+     "answer": "pracowałem",
+     "ru": "В субботу я работал."
+    },
+    {
+     "q": "Wieczorem (ja, ż.) ___ (oglądać) film.",
+     "answer": "oglądałam",
+     "ru": "Вечером я смотрела фильм."
+    },
+    {
+     "q": "W niedzielę (my, m.) ___ (grać) w piłkę.",
+     "answer": "graliśmy",
+     "ru": "В воскресенье мы играли в мяч."
+    },
+    {
+     "q": "Dziewczyny ___ (tańczyć) całą noc.",
+     "answer": "tańczyły",
+     "ru": "Девушки танцевали всю ночь."
+    },
+    {
+     "q": "Nie (ja, m.) ___ (mieć) czasu.",
+     "answer": "miałem",
+     "ru": "У меня не было времени."
+    },
+    {
+     "q": "Oni ___ (mieć) wczoraj test.",
+     "answer": "mieli",
+     "ru": "У них вчера был тест.",
+     "grammar": "-eć, oni: e → mieli"
+    },
+    {
+     "q": "(ja, m.) ___ (chcieć) przyjść, ale nie mogłem.",
+     "answer": "Chciałem",
+     "ru": "Я хотел прийти, но не мог."
+    },
+    {
+     "q": "(my, m.) ___ (musieć) wracać pieszo.",
+     "answer": "Musieliśmy",
+     "ru": "Нам пришлось возвращаться пешком."
+    },
+    {
+     "q": "Nie (ja, ż.) ___ (wiedzieć), że on jest z Francji.",
+     "answer": "wiedziałam",
+     "ru": "Я не знала, что он из Франции."
+    },
+    {
+     "q": "(ty, ż.) ___ (jeść) już obiad?",
+     "answer": "Jadłaś",
+     "ru": "Ты уже обедала?"
+    },
+    {
+     "q": "Oni ___ (jeść) pizzę.",
+     "answer": "jedli",
+     "ru": "Они ели пиццу.",
+     "grammar": "jeść, oni: jedli"
+    },
+    {
+     "q": "Wczoraj (ja, m.) ___ (pójść) do kina.",
+     "answer": "poszedłem",
+     "ru": "Вчера я пошёл в кино."
+    },
+    {
+     "q": "Dwa dni ___ byłem w Krakowie.",
+     "answer": "temu",
+     "ru": "Два дня назад я был в Кракове."
+    }
+   ]
+  }
+ ]
+}

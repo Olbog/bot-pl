@@ -3413,7 +3413,7 @@ def test_real_lesson_plans_are_valid():
     """🎓 Планы уроков: упражнения и правила существуют, у вопросов 3 варианта, кнопки и тексты в лимитах Telegram."""
     tb.UNITS_DIR = REAL_TEXTBOOK
     units = tb.lesson_units()
-    assert {u["unit"] for u in units} >= {"kpk:11", "kpk:12"}
+    assert {u["unit"] for u in units} >= {"kpk:11", "kpk:12", "kpk:13"}
     for u in units:
         plan = tb.lessons(u["unit"])
         ids = {x["id"] for x in u["exercises"]}
