@@ -9,12 +9,22 @@ def _ids(raw: str) -> set[int]:
     return {int(x) for x in raw.replace(" ", "").split(",") if x}
 
 
+def _admins(raw_admins: str, raw_allowed: str) -> set[int]:
+    """📊 Кому доступен /usage: ADMIN_USER_IDS, а если пусто — первый ID из ALLOWED_USER_IDS."""
+    ids = _ids(raw_admins)
+    if ids:
+        return ids
+    first = [x for x in raw_allowed.replace(" ", "").split(",") if x][:1]
+    return {int(first[0])} if first else set()
+
+
 @dataclass(frozen=True)
 class Config:
     telegram_token: str
     worker_url: str
     proxy_token: str
     allowed_ids: set[int] = field(default_factory=set)
+    admin_ids: set[int] = field(default_factory=set)
     models: tuple[str, ...] = ()
     show_model: bool = True
     thinking_level: str = "medium"
@@ -36,6 +46,7 @@ def load() -> Config:
         worker_url=os.environ["WORKER_URL"].rstrip("/"),
         proxy_token=os.environ["PROXY_TOKEN"],
         allowed_ids=_ids(os.environ.get("ALLOWED_USER_IDS", "")),
+        admin_ids=_admins(os.environ.get("ADMIN_USER_IDS", ""), os.environ.get("ALLOWED_USER_IDS", "")),
         models=tuple(m for m in os.environ.get("GEMINI_MODELS", "").replace(" ", "").split(",") if m),
         show_model=os.environ.get("SHOW_MODEL", "1").strip().lower() not in ("0", "false", "no", ""),
         thinking_level=os.environ.get("GEMINI_THINKING_LEVEL", "medium"),

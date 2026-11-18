@@ -3604,3 +3604,58 @@ def test_lesson_final_test_result_and_errors_work():
     run(app.handle(msg(text=" ".join(f"{i} {it['answer']}" for i, it in enumerate(ex["items"], 1)))))
     run(app.on_callback(cb("ls:n")))
     assert "Юнит пройден" in app.tg.sent[-1] and ls_state(app)["passed"]
+
+
+# ---------- 📊 расход токенов ----------
+
+def test_usage_counts_tokens_per_user_section_and_admin_report():
+    """📊 Каждый ответ Gemini пишет токены (пользователь, раздел бота, модель); /usage — только админу."""
+    usage = {"promptTokenCount": 1200, "candidatesTokenCount": 300, "thoughtsTokenCount": 500,
+             "totalTokenCount": 2000, "promptTokensDetails": [{"modality": "TEXT", "tokenCount": 1000},
+                                                              {"modality": "AUDIO", "tokenCount": 200}]}
+
+    def handler(req):
+        return httpx.Response(200, json={**gemini_response(TURN_JSON), "usageMetadata": usage})
+
+    g = Gemini("https://w", "t", ["m"], "", "A1", client=httpx.AsyncClient(transport=httpx.MockTransport(handler)))
+    cfg = Config(telegram_token="x", worker_url="w", proxy_token="p", allowed_ids={42, 7}, admin_ids={42})
+
+    async def tts(text, voice, rate):
+        return b"OGG"
+
+    app = App(cfg, FakeTG(), g, DB(":memory:"), tts=tts, clock=Clock())
+    upd = {"update_id": 1, "message": {"chat": {"id": 7}, "from": {"id": 7, "first_name": "Ola"}, "text": "hej"}}
+    run(app.dispatch(upd))
+    rows = app.db.usage_rows(0)
+    assert len(rows) == 1
+    r = rows[0]
+    assert (r["user_id"], r["model"], r["module"], r["func"]) == (7, "m", "conversation", "converse")
+    assert (r["prompt"], r["output"], r["thoughts"], r["total"], r["audio"]) == (1200, 300, 500, 2000, 200)
+    assert app.db.tg_user_names() == {7: "Ola"}
+
+    # не админ — нет доступа
+    run(app.dispatch({"update_id": 2, "message": {"chat": {"id": 7}, "from": {"id": 7}, "text": "/usage"}}))
+    assert "Нет доступа" in app.tg.sent[-1]
+    # админ — люди: сегодня / 7 / 30 дней
+    run(app.dispatch({"update_id": 3, "message": {"chat": {"id": 42}, "from": {"id": 42}, "text": "/usage"}}))
+    text = app.tg.sent[-1]
+    assert "Ola" in text and "2.0k (1 запр.)" in text and "🎙 10%" in text and "🧠 25%" in text
+    # разделы, часы, дни, модели, фильтр по пользователю — кнопками
+    for view in "sdho":
+        run(app.usage_callback(42, 42, 1, f"w:{view}:7"))
+        t = app.tg.edits[-1][0]
+        assert "Ola" in t and "Пока пусто" not in t
+    assert "💬 Разговор" in app.tg.edits[0][0]
+    run(app.usage_callback(42, 42, 1, "t:s:42"))
+    assert "Пока пусто" in app.tg.edits[-1][0]
+    assert run(app.usage_callback(7, 7, 1, "w:u:a")) == "Нет доступа"
+
+
+def test_usage_admin_defaults_to_first_allowed_id(monkeypatch):
+    from bot.core import config as cfg_mod
+    for k, v in {"TELEGRAM_TOKEN": "x", "WORKER_URL": "w", "PROXY_TOKEN": "p", "ALLOWED_USER_IDS": "555, 42",
+                 "ADMIN_USER_IDS": ""}.items():
+        monkeypatch.setenv(k, v)
+    assert cfg_mod.load().admin_ids == {555}
+    monkeypatch.setenv("ADMIN_USER_IDS", "42")
+    assert cfg_mod.load().admin_ids == {42}

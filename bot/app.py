@@ -10,7 +10,7 @@ from .core import training
 from .core.db import DB
 from .core.telegram import Telegram
 from .core.tts import synthesize
-from .ai.gemini import Gemini, GeminiError, GeminiExhausted, GeminiOverloaded
+from .ai.gemini import CURRENT_USER, Gemini, GeminiError, GeminiExhausted, GeminiOverloaded
 from .ai.prompt import own_words_prompt, topic_words_prompt
 from .ui import fmt
 from .settings import RULE_FACTOR
@@ -29,11 +29,12 @@ from .zvuki import ZvukiMixin
 from .review import ReviewMixin
 from .memorize import MemorizeMixin
 from .lesson import LessonMixin
+from .usage import UsageMixin
 
 
 class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
           ExerciseMenuMixin, ExerciseRunMixin, BookMixin, BookExMixin, ReadingMixin,
-          ZvukiMixin, ReviewMixin, MemorizeMixin, LessonMixin):
+          ZvukiMixin, ReviewMixin, MemorizeMixin, LessonMixin, UsageMixin):
     """Бот целиком: ядро здесь, остальное — в модулях-миксинах."""
     def __init__(self, cfg: cfg_mod.Config, tg: Telegram, gemini: Gemini, db: DB, tts=synthesize,
                  clock=time.time):
@@ -43,6 +44,9 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
         self.rule_criteria = training.scaled(self.criteria, RULE_FACTOR)
         self.export_dir = Path(cfg.db_path).parent / "exports"
         self.busy: set[int] = set()  # пользователи, чей запрос сейчас обрабатывается
+        self._usage_named: set[int] = set()   # 📊 чьё имя уже записано за этот запуск
+        if hasattr(gemini, "on_usage"):
+            gemini.on_usage = self.db.usage_add   # 📊 каждый ответ Gemini → таблица ai_usage
 
     def criteria_for(self, item) -> training.Criteria:
         return self.rule_criteria if training.kind_of(item) == "rule" else self.criteria
@@ -256,6 +260,9 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             note = await self.tw_callback(chat_id, user_id, message_id, data[3:])
             await self.tg.answer_callback(cq["id"], note)
             return
+        if data.startswith("us:"):  # 📊 расход токенов (только админ)
+            await self.tg.answer_callback(cq["id"], await self.usage_callback(chat_id, user_id, message_id, data[3:]))
+            return
         if data.startswith("nav:"):
             await self.tg.answer_callback(cq["id"], await self.nav(chat_id, user_id, message_id, pending, data[4:]))
             return
@@ -409,6 +416,8 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
             await self.mt_menu(chat_id, user_id)
         elif cmd == "/review":
             await self.review_menu(chat_id, user_id)
+        elif cmd == "/usage":
+            await self.usage_menu(chat_id, user_id)
         elif cmd == "/export":
             await self.send_export(chat_id, user_id, "a")
         elif cmd == "/cancel":
@@ -480,7 +489,10 @@ class App(ConversationMixin, SetsMixin, DictionaryMixin, ReportsMixin,
                                                         "и пришли это сообщение снова.")
             return
         self.busy.add(user_id)
+        CURRENT_USER.set(user_id or 0)   # 📊 токены Gemini этого обновления — на этого пользователя
         try:
+            if user_id in self.cfg.allowed_ids:
+                self.usage_note_user(src.get("from") or {})
             if "message" in upd:
                 await self.handle(upd["message"])
             elif "callback_query" in upd:

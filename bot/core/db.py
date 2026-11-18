@@ -215,6 +215,24 @@ CREATE TABLE IF NOT EXISTS memo_texts (      -- 📜 свои тексты на�
     data TEXT NOT NULL,
     created_at REAL NOT NULL
 );
+CREATE TABLE IF NOT EXISTS ai_usage (          -- 📊 расход токенов Gemini: каждый успешный ответ модели
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,                -- 0 — фоновая задача бота
+    ts REAL NOT NULL,
+    model TEXT NOT NULL,
+    module TEXT NOT NULL DEFAULT '',         -- откуда запрос: lesson, conversation, run…
+    func TEXT NOT NULL DEFAULT '',
+    prompt INTEGER NOT NULL DEFAULT 0,
+    output INTEGER NOT NULL DEFAULT 0,
+    thoughts INTEGER NOT NULL DEFAULT 0,
+    total INTEGER NOT NULL DEFAULT 0,
+    audio INTEGER NOT NULL DEFAULT 0         -- из prompt — токены голоса
+);
+CREATE INDEX IF NOT EXISTS ai_usage_ts ON ai_usage(ts);
+CREATE TABLE IF NOT EXISTS tg_users (          -- 📊 имя пользователя Telegram для отчёта /usage
+    user_id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL DEFAULT ''
+);
 CREATE TABLE IF NOT EXISTS user_state (
     user_id INTEGER PRIMARY KEY,
     mode TEXT NOT NULL DEFAULT 'free',       -- 'free' | 'set'
@@ -286,6 +304,27 @@ class DB:
         if two_level:  # прошлый прогресс по учебнику засчитываем как «узнаю», «знаю» копится заново
             self.conn.execute("UPDATE book_stats SET test_streak = streak, "
                               "last_ok = CASE WHEN streak = 0 AND wrong > 0 THEN 0 ELSE 1 END")
+
+    # ---------- 📊 расход токенов ----------
+
+    def usage_add(self, user_id: int, model: str, module: str, func: str, u: dict) -> None:
+        self.conn.execute(
+            "INSERT INTO ai_usage(user_id, ts, model, module, func, prompt, output, thoughts, total, audio) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (int(user_id or 0), self.clock(), model, module, func, u.get("prompt", 0), u.get("out", 0),
+             u.get("thoughts", 0), u.get("total", 0), u.get("audio", 0)))
+        self.conn.commit()
+
+    def usage_rows(self, since: float) -> list[sqlite3.Row]:
+        return self.conn.execute("SELECT * FROM ai_usage WHERE ts >= ? ORDER BY ts", (since,)).fetchall()
+
+    def tg_user_set(self, user_id: int, name: str) -> None:
+        self.conn.execute("INSERT INTO tg_users(user_id, name) VALUES (?, ?) "
+                          "ON CONFLICT(user_id) DO UPDATE SET name = excluded.name", (user_id, name))
+        self.conn.commit()
+
+    def tg_user_names(self) -> dict[int, str]:
+        return {r["user_id"]: r["name"] for r in self.conn.execute("SELECT user_id, name FROM tg_users")}
 
     def current_session(self, user_id: int) -> int:
         row = self.conn.execute(

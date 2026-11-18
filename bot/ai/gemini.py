@@ -7,9 +7,11 @@
   - перегрузка/таймаут -> на короткое время.
 """
 import base64
+import contextvars
 import json
 import logging
 import re
+import sys
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
@@ -20,6 +22,37 @@ import httpx
 from .prompt import RESPONSE_SCHEMA, json_format_hint, system_prompt
 
 log = logging.getLogger(__name__)
+
+# 📊 учёт токенов: чей запрос (ставится в App.dispatch, у фоновых задач — 0) и откуда он пришёл
+CURRENT_USER: contextvars.ContextVar[int] = contextvars.ContextVar("gemini_user", default=0)
+_SKIP_CALLERS = {"ask", "ask_json", "reply", "_run", "_caller"}
+
+
+def _caller() -> tuple[str, str]:
+    """(модуль, функция) кода бота, который обратился к Gemini: «lesson», «ls_talk». Стек корутин виден, пока
+    функция выполняется, поэтому вызывать до первого await."""
+    f = sys._getframe(1)
+    while f is not None:
+        mod = f.f_globals.get("__name__", "")
+        name = f.f_code.co_name
+        if mod != __name__ and name not in _SKIP_CALLERS:
+            return mod.rsplit(".", 1)[-1], name
+        f = f.f_back
+    return "", ""
+
+
+def usage_of(data: dict) -> dict | None:
+    """Токены из ответа Gemini (usageMetadata): запрос, ответ, обдумывание, всего; аудио — был ли голос."""
+    u = data.get("usageMetadata") if isinstance(data, dict) else None
+    if not isinstance(u, dict):
+        return None
+    prompt = int(u.get("promptTokenCount") or 0)
+    out = int(u.get("candidatesTokenCount") or 0)
+    thoughts = int(u.get("thoughtsTokenCount") or 0)
+    total = int(u.get("totalTokenCount") or 0) or prompt + out + thoughts
+    audio = sum(int(d.get("tokenCount") or 0) for d in u.get("promptTokensDetails") or []
+                if isinstance(d, dict) and d.get("modality") == "AUDIO")
+    return {"prompt": prompt, "out": out, "thoughts": thoughts, "total": total, "audio": audio}
 
 DEFAULT_MODELS = [
     "gemini-3.8-flash",
@@ -200,6 +233,7 @@ class Gemini:
         self.client = client or httpx.AsyncClient(timeout=120)
         self.clock = clock
         self.blocked: dict[str, tuple[float, str]] = {}  # модель -> (до какого времени, причина)
+        self.on_usage = None   # 📊 (user_id, model, module, func, usage) — App пишет в базу
 
     # ---------- проверка цепочки при запуске ----------
 
@@ -260,6 +294,18 @@ class Gemini:
             resp = await self.client.post(url, headers=self.headers, json=self._body(model, req, False))
         return resp
 
+    def _count(self, model: str, resp: httpx.Response, req: dict) -> None:
+        """📊 Записать расход токенов (в том числе ответ, который потом не разобрался — токены всё равно потрачены)."""
+        if not self.on_usage:
+            return
+        try:
+            u = usage_of(resp.json())
+            if u:
+                mod, func = req.get("caller") or ("", "")
+                self.on_usage(CURRENT_USER.get(), model, mod, func, u)
+        except Exception:
+            log.exception("Учёт токенов")
+
     def _block(self, model: str, seconds: float, reason: str) -> None:
         self.blocked[model] = (self.clock() + seconds, reason)
         log.warning("Модель %s пропускается %s: %s", model, _human(seconds), reason)
@@ -275,7 +321,7 @@ class Gemini:
                     audio: bytes | None = None, extra_system: str = "") -> Turn:
         system = self.system + ("\n\n" + extra_system if extra_system else "")
         req = {"system": system, "schema": RESPONSE_SCHEMA, "hint": json_format_hint(),
-               "history": history, "text": text, "audio": audio}
+               "history": history, "text": text, "audio": audio, "caller": _caller()}
         return await self._run(req, parse_turn)
 
     async def ask_json(self, prompt: str, schema: dict, hint: str, audio: bytes | None = None,
@@ -283,7 +329,8 @@ class Gemini:
         """Разовый запрос с JSON-ответом (составить набор, упражнение, проверить ответы…).
         thinking — своё «обдумывание» для этого запроса (например «low» для лёгких задач), иначе из .env."""
         req = {"system": "Ты помогаешь русскоязычному ученику учить польский. Отвечай строго в заданном JSON-формате.",
-               "schema": schema, "hint": hint, "history": [], "text": prompt, "audio": audio, "thinking": thinking}
+               "schema": schema, "hint": hint, "history": [], "text": prompt, "audio": audio, "thinking": thinking,
+               "caller": _caller()}
         return await self._run(req, parse_json)
 
     async def _run(self, req: dict, parse):
@@ -299,6 +346,7 @@ class Gemini:
                 continue
 
             if resp.status_code == 200:
+                self._count(model, resp, req)
                 try:
                     result = parse(resp.json(), model)
                 except GeminiError as e:
