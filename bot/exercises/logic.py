@@ -3,8 +3,8 @@ import re
 import unicodedata
 
 LETTERS = "abcdefgh"   # варианты ответа; больше четырёх — в упражнениях «соедини» из книги
-UNSURE_RE = re.compile(r"(?<![A-Za-zА-Яа-яЁё])НУ(?![A-Za-zА-Яа-яЁё])")
-UNSURE_MARKERS = False   # НУ / ? — «не уверен». Выключено: объясняются все пункты, кроме помеченных «!»
+UNSURE_MARK = "?"   # «не уверен» — разобрать подробно: «3a?», «3 kupuje?», «3 kupuje (?)», кнопка «3 ?»
+UNSURE_MAX_WORDS = 3   # «?» в конце ответа длиннее — это вопросительное предложение, а не отметка
 SURE_MARK = "!"   # «уверен» — пункт можно не объяснять
 NOTE_RE = re.compile(r"\(([^()]*)\)")   # уточнение или вопрос к пункту — в скобках
 NOTE_TOKEN_RE = re.compile(r"⟦(\d+)⟧")
@@ -54,14 +54,17 @@ def _hide_notes(text: str) -> tuple[str, list[str]]:
 
 
 def _one(raw: str, notes: list[str]) -> dict:
-    """Ответ на пункт: вне скобок — ответ и маркер «!» (уверен); в скобках — уточнение."""
-    note = "; ".join(notes[int(k)] for k in NOTE_TOKEN_RE.findall(raw) if notes[int(k)])
-    raw = NOTE_TOKEN_RE.sub(" ", raw)
-    unsure = UNSURE_MARKERS and (bool(UNSURE_RE.search(raw)) or raw.rstrip().endswith("?"))
+    """Ответ на пункт: вне скобок — ответ и маркеры «!» (уверен, не объяснять) / «?» (не уверен, разобрать
+    подробно); в скобках — уточнение, «(?)» — тоже «не уверен»."""
+    mine = [notes[int(k)] for k in NOTE_TOKEN_RE.findall(raw) if notes[int(k)]]
+    unsure = any(x.startswith(UNSURE_MARK) for x in mine)                       # «(?)», «(? почему не …)»
+    mine = [x.lstrip(UNSURE_MARK).strip() if x.startswith(UNSURE_MARK) else x for x in mine]
+    note = "; ".join(x for x in mine if x)
+    raw = NOTE_TOKEN_RE.sub(" ", raw).strip()
+    if raw.endswith(UNSURE_MARK) and len(raw.rstrip(UNSURE_MARK + "! ").split()) <= UNSURE_MAX_WORDS:
+        unsure, raw = True, raw.rstrip(UNSURE_MARK + " ")
     sure = SURE_MARK in raw and not unsure
     ans = raw.replace(SURE_MARK, " ")
-    if UNSURE_MARKERS:
-        ans = UNSURE_RE.sub(" ", ans).strip().rstrip("?")
     return {"answer": re.sub(r"\s+", " ", ans).strip(), "unsure": unsure, "sure": sure, "note": note}
 
 
@@ -202,6 +205,18 @@ def quick_check(items: list[dict], answers: dict[int, dict], fmt: str) -> list[d
             res["note"] = a["note"]
         out.append(res)
     return out
+
+
+def toggle_mark(sure: list, unsure: list, n: int, mark: str) -> tuple[list, list]:
+    """Кнопка «n !» / «n ?»: включить или снять отметку; «уверен» и «не уверен» взаимоисключающие."""
+    sure, unsure = set(sure or []), set(unsure or [])
+    on, off = (sure, unsure) if mark == SURE_MARK else (unsure, sure)
+    if n in on:
+        on.discard(n)
+    else:
+        on.add(n)
+        off.discard(n)
+    return sorted(sure), sorted(unsure)
 
 
 def needs_model(results: list[dict], explain_all: bool = True) -> list[dict]:

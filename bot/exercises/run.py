@@ -176,7 +176,7 @@ class ExerciseRunMixin:
         self.db.set_pending(user_id, {"step": "ex_answer", "ex": ex})
 
     async def ex_quiz_tap(self, chat_id: int, user_id: int, pending: dict | None, data: str) -> str | None:
-        """x:a:<ex>:<n>:<a|b|c|!> — выбрать вариант / «уверен»; x:go:<ex> — проверить. Возвращает всплывашку."""
+        """x:a:<ex>:<n>:<a|b|c|!|?> — выбрать вариант / «уверен» / «не уверен»; x:go:<ex> — проверить."""
         ex = dict((pending or {}).get("ex") or {})
         parts = data.split(":")
         ex_id = int(parts[2])
@@ -190,15 +190,15 @@ class ExerciseRunMixin:
             picked = len(quiz["pick"])
             if picked < total:
                 return f"Отмечено {picked} из {total} — выбери остальные"
-            answers = {int(n): {"answer": L, "unsure": False, "sure": int(n) in quiz["sure"],
+            answers = {int(n): {"answer": L, "unsure": int(n) in quiz.get("unsure", []), "sure": int(n) in quiz["sure"],
                                 "note": quiz["notes"].get(n, "")} for n, L in quiz["pick"].items()}
             await self.ex_check(chat_id, user_id, ex, None, None, answers=answers)
             return None
         n, choice = int(parts[3]), parts[4]
         if not 1 <= n <= len(saved["items"]) or (only and n not in only):
             return None
-        if choice == "!":
-            quiz["sure"] = sorted(set(quiz["sure"]) ^ {n})
+        if choice in "!?":
+            quiz["sure"], quiz["unsure"] = exercises.toggle_mark(quiz["sure"], quiz.get("unsure", []), n, choice)
         elif quiz["pick"].get(str(n)) == choice:
             return None  # то же самое — ничего не меняем
         else:
@@ -206,7 +206,7 @@ class ExerciseRunMixin:
         self.db.set_pending(user_id, {"step": "ex_answer", "ex": {**ex, "quiz": quiz}})
         if quiz.get("msg"):
             await self.tg.edit_markup(chat_id, quiz["msg"], fmt.ex_quiz_keyboard(saved, quiz["pick"], quiz["sure"],
-                                                                                 only=only))
+                                                                                 only=only, unsure=quiz.get("unsure")))
         return None
 
     async def ex_quiz_notes(self, chat_id: int, user_id: int, ex: dict, notes: dict[int, str]) -> None:
@@ -221,7 +221,8 @@ class ExerciseRunMixin:
             await self.tg.edit_message(chat_id, quiz["msg"],
                                        fmt.ex_message(saved, quiz.get("idx", 1), ex.get("total", 1), False,
                                                       quiz=True, notes=quiz["notes"], only=quiz.get("only")),
-                                       fmt.ex_quiz_keyboard(saved, quiz["pick"], quiz["sure"], only=quiz.get("only")))
+                                       fmt.ex_quiz_keyboard(saved, quiz["pick"], quiz["sure"], only=quiz.get("only"),
+                                                            unsure=quiz.get("unsure")))
         await self.tg.send_message(chat_id, "💭 Уточнение к пункту " + ", ".join(str(n) for n in notes)
                                    + " добавлено — уйдёт на проверку вместе с ответами.")
 
@@ -239,7 +240,8 @@ class ExerciseRunMixin:
             answers = exercises.parse_answers(text or "", len(items))
             if quiz:  # ответ текстом поверх нажатых кнопок: чего нет в тексте — берём из кнопок
                 for n, L in quiz["pick"].items():
-                    answers.setdefault(int(n), {"answer": L, "unsure": False, "sure": int(n) in quiz["sure"],
+                    answers.setdefault(int(n), {"answer": L, "unsure": int(n) in quiz.get("unsure", []),
+                                                "sure": int(n) in quiz["sure"],
                                                 "note": quiz["notes"].get(n, "")})
                 for n, note in quiz["notes"].items():
                     if int(n) in answers and not answers[int(n)].get("note"):
@@ -320,7 +322,8 @@ class ExerciseRunMixin:
         self.db.ex_save_results(saved["id"], results)
         if quiz and saved.get("tg_msg_id"):  # выбор остаётся виден, «Проверить» и «Закончить» убираем
             await self.tg.edit_markup(chat_id, saved["tg_msg_id"],
-                                      fmt.ex_quiz_keyboard(saved, quiz["pick"], quiz["sure"], check=False))
+                                      fmt.ex_quiz_keyboard(saved, quiz["pick"], quiz["sure"], check=False,
+                                                           unsure=quiz.get("unsure")))
         elif saved.get("tg_msg_id"):
             await self.tg.edit_markup(chat_id, saved["tg_msg_id"])  # кнопка «Закончить без проверки» больше не нужна
         self.ex_record(user_id, saved, results)

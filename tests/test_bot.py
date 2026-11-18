@@ -1170,7 +1170,14 @@ from bot.exercises import logic as exm  # noqa: E402
 def test_parse_answers_and_markers():
     a = exm.parse_answers("1 piję 2 lubi? 3 kupuje НУ 4. nie mam czasu", 10)
     assert a[1] == {"answer": "piję", "unsure": False, "sure": False, "note": ""}
-    assert a[2]["answer"] == "lubi?" and not a[2]["unsure"]       # НУ и ? пока не маркеры
+    assert a[2] == {"answer": "lubi", "unsure": True, "sure": False, "note": ""}   # «?» после ответа — не уверен
+    g = exm.parse_answers("1 kupuje (?) 2a? 3 lubi (? почему не lubią) 4 Czy masz brata w Polsce? 5 b!", 5)
+    assert g[1] == {"answer": "kupuje", "unsure": True, "sure": False, "note": ""}
+    assert g[2]["answer"] == "a" and g[2]["unsure"]
+    assert g[3] == {"answer": "lubi", "unsure": True, "sure": False, "note": "почему не lubią"}
+    assert g[4]["answer"] == "Czy masz brata w Polsce?" and not g[4]["unsure"]   # вопросительное предложение
+    assert g[5]["sure"] and not g[5]["unsure"]
+    assert exm.toggle_mark([1], [], 1, "?") == ([], [1]) and exm.toggle_mark([], [1], 1, "?") == ([], [])
     assert a[4]["answer"] == "nie mam czasu"
     c = exm.parse_answers("piję\nlubi\nkupuje", 3)                 # без номеров, по строкам
     assert c[2]["answer"] == "lubi"
@@ -1737,7 +1744,7 @@ def test_quiz_buttons_pick_notes_and_check():
     assert "Упражнение 1/1" in app.tg.sent[-1] and "a) " in app.tg.sent[-1]       # одно сообщение
     kb = app.tg.buttons[-1]
     assert kb[0] == [("1 a", f"x:a:{ex_id}:1:a"), ("1 b", f"x:a:{ex_id}:1:b"), ("1 c", f"x:a:{ex_id}:1:c"),
-                     ("1 !", f"x:a:{ex_id}:1:!")]
+                     ("1 !", f"x:a:{ex_id}:1:!"), ("1 ?", f"x:a:{ex_id}:1:?")]
     assert len(kb) == 13 and "Проверить (0/10)" in str(kb[10]) and kb[11] == [("🔊 Озвучить задание", f"x:au:{ex_id}")]
     saved = app.db.ex_get(ex_id)
     run(app.on_callback(cb(f"x:go:{ex_id}")))
@@ -1751,14 +1758,22 @@ def test_quiz_buttons_pick_notes_and_check():
     assert f"✅2{right[1]}" in str(app.tg.markups[-1][1]) and "Проверить (10/10)" in str(app.tg.markups[-1][1])
     run(app.on_callback(cb(f"x:a:{ex_id}:3:!")))                 # уверен — не объяснять
     assert "❗3" in str(app.tg.markups[-1][1])
+    run(app.on_callback(cb(f"x:a:{ex_id}:5:?")))                 # не уверен — разобрать подробно
+    assert "❓5" in str(app.tg.markups[-1][1])
+    run(app.on_callback(cb(f"x:a:{ex_id}:5:!")))                 # «!» и «?» взаимоисключающие
+    assert "❗5" in str(app.tg.markups[-1][1]) and "❓5" not in str(app.tg.markups[-1][1])
+    run(app.on_callback(cb(f"x:a:{ex_id}:5:?")))
+    assert "❓5" in str(app.tg.markups[-1][1]) and "❗5" not in str(app.tg.markups[-1][1])
     run(app.handle(msg(text="4 (почему тут винительный?)")))     # уточнение текстом до проверки
     assert "Уточнение к пункту 4" in app.tg.sent[-1] and "💭 <i>почему тут винительный?</i>" in app.tg.edits[-1][0]
     n_before = len(gem.prompts)
     run(app.on_callback(cb(f"x:go:{ex_id}")))
     res = app.db.ex_get(ex_id)["results"]
-    assert res and all(r["final"] == "ok" for r in res)
+    assert res and all(r["final"] == ("unsure" if r["n"] == 5 else "ok") for r in res)
     p = gem.prompts[-1]
     assert len(gem.prompts) == n_before + 1 and "уточнение ученика: «почему тут винительный?»" in p
+    assert "УЧЕНИК НЕ УВЕРЕН" in next(l for l in p.splitlines() if l.startswith("5. Задание"))
+    assert "❓✅ 5." in app.tg.sent[-1]
     assert "\n3. Задание" not in p                               # «!» — без объяснения
     assert "10 из 10" in app.tg.sent[-1]
     assert "Проверить" not in str(app.tg.markups[-1][1]) and "✅1" in str(app.tg.markups[-1][1])   # выбор виден
@@ -2253,9 +2268,10 @@ def test_book_exercise_buttons_tf_and_match():
     assert app.tg.toasts[-1].startswith("Ничего не отмечено")
     run(app.on_callback(cb("bx:a:1:a")))
     assert ("✅1P", "bx:a:1:a") in app.tg.markups[-1][1][0]
-    run(app.on_callback(cb("bx:a:1:!")))
+    run(app.on_callback(cb("bx:a:1:?")))                             # не уверен — разобрать подробно
+    assert ("❓1", "bx:a:1:?") in app.tg.markups[-1][1][0]
     run(app.on_callback(cb("bx:go")))                                # проверяем только отмеченный пункт 1
-    assert "1 из 1" in app.tg.sent[-1] and "верно 1 из 2" in app.tg.sent[-1]
+    assert "1 из 1" in app.tg.sent[-1] and "верно 1 из 2" in app.tg.sent[-1] and "❓✅ 1." in app.tg.sent[-1]
     run(app.on_callback(cb("bx:a:2:b")))
     assert "закрыто" in app.tg.toasts[-1]                            # старые кнопки после проверки
     run(app.on_callback(cb("bx:o:kpk:2|wb-2-1")))

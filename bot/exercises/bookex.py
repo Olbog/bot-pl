@@ -258,7 +258,7 @@ class BookExMixin:
         return len(self.db.bex_done(user_id, unit["unit"]).get(x["id"]) or [])
 
     async def bex_tap(self, chat_id: int, user_id: int, pending: dict | None, action: str) -> tuple[str | None, bool]:
-        """bx:a:<n>:<буква|!> — выбор; bx:h:<n> — подсказка; bx:go — проверить. Возвращает (всплывашка, окно)."""
+        """bx:a:<n>:<буква|!|?> — выбор / уверен / не уверен; bx:h:<n> — подсказка; bx:go — проверить."""
         got = self.bex_get(pending)
         if not got:
             return "Это упражнение уже закрыто — открой его заново из списка", False
@@ -272,15 +272,15 @@ class BookExMixin:
         if parts[0] == "go":
             if not pend["pick"]:
                 return "Ничего не отмечено — выбери ответы кнопками", False
-            answers = {int(n): {"answer": L, "unsure": False, "sure": int(n) in pend["sure"],
+            answers = {int(n): {"answer": L, "unsure": int(n) in pend.get("unsure", []), "sure": int(n) in pend["sure"],
                                 "note": pend["notes"].get(n, "")} for n, L in pend["pick"].items()}
             await self.bex_check(chat_id, user_id, pend, unit, x, answers)
             return None, False
         n, choice = int(parts[1]), parts[2]
         if not 1 <= n <= len(x["items"]):
             return None, False
-        if choice == "!":
-            pend["sure"] = sorted(set(pend["sure"]) ^ {n})
+        if choice in "!?":
+            pend["sure"], pend["unsure"] = logic.toggle_mark(pend["sure"], pend.get("unsure", []), n, choice)
         elif pend["pick"].get(str(n)) == choice:
             pend["pick"].pop(str(n))   # повторное нажатие снимает выбор
         else:
@@ -289,7 +289,8 @@ class BookExMixin:
         if pend.get("msg"):
             done = self.db.bex_results(user_id, unit["unit"])
             await self.tg.edit_markup(chat_id, pend["msg"], fmt.bex_keyboard(unit, x, done, pend["pick"], pend["sure"],
-                                                                          self.bex_wins(user_id, unit, x)))
+                                                                          self.bex_wins(user_id, unit, x),
+                                                                          unsure=pend.get("unsure")))
         return None, False
 
     async def bex_text(self, chat_id: int, user_id: int, pending: dict, text: str, voice: dict | None) -> None:
@@ -329,7 +330,8 @@ class BookExMixin:
             if choice and not a["answer"] and str(n) in pending["pick"]:
                 a["answer"] = pending["pick"][str(n)]   # «2 (почему?)» — уточнение к нажатому ответу
         for n, L in pending["pick"].items():
-            answers.setdefault(int(n), {"answer": L, "unsure": False, "sure": int(n) in pending["sure"],
+            answers.setdefault(int(n), {"answer": L, "unsure": int(n) in pending.get("unsure", []),
+                                        "sure": int(n) in pending["sure"],
                                         "note": pending["notes"].get(n, "")})
         if not any(a["answer"] or a.get("skip") or a.get("done") for a in answers.values()):
             await self.tg.send_message(chat_id, "Не нашёл ответов. Пиши с номерами пунктов: «1 jestem 3 mam».")

@@ -837,7 +837,8 @@ EX_KINDS = {
 def ex_menu() -> tuple[str, list[list[tuple[str, str]]]]:
     return ("🏋️ <b>Упражнения</b> — что тренируем?\n\n"
             "<i>В каждом упражнении 10 пунктов. Отвечаешь одним сообщением: «1 piję 2 lubi 3 kupuje». "
-            "Каждый пункт бот объясняет; уверен — поставь ! («3 kupuje!»), и этот пункт объяснять не будет. "
+            "Каждый пункт бот объясняет; уверен — поставь ! («3 kupuje!»), и этот пункт объяснять не будет; "
+            "не уверен — ? («3 kupuje?» или «3 kupuje (?)») — разберу подробно. "
             "Уточнение или вопрос к пункту — в скобках: «2 lubi (3 л. ед. ч., почему не lubią?)» — "
             "бот проверит и рассуждение.</i>",
             [[(EX_KINDS["words"], "x:k:words"), (EX_KINDS["voice"], "x:k:voice")],
@@ -1103,17 +1104,18 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool, quiz: bool = False,
                      "до следующего предложения.</i>")
     elif quiz:
         lines.append("<i>Жми ответ кнопками ниже: строка «1 a · 1 b · 1 c» — пункт 1 (выбор можно менять), "
-                     "«1 !» — уверен, не объяснять. Уточнение или вопрос — текстом: «2 (почему не …?)». "
+                     "«1 !» — уверен, не объяснять; «1 ?» — не уверен, разобрать подробно. Уточнение или вопрос — текстом: "
+                     "«2 (почему не …?)». "
                      "Когда отмечены все — «📨 Проверить». Можно и текстом: 1b 2a 3c …</i>")
     elif ex["items"] and ex["items"][0].get("card") and not ex["items"][0].get("options"):
         lines.append("<i>Ответ одним сообщением: 1 перевод 2 перевод … · уточнение — в скобках · "
-                     "уверен — !</i>")
+                     "уверен — !, не уверен — ?</i>")
     elif ex["items"] and ex["items"][0].get("options"):
         lines.append("<i>Ответ одним сообщением: 1b 2a 3c … · уточнение или вопрос — в скобках: «2a (винительный)» · "
-                     "уверен, не объяснять — !: «3c!»</i>")
+                     "уверен, не объяснять — !: «3c!» · не уверен, разобрать подробно — ?: «2a?» или «2a (?)»</i>")
     else:
         lines.append("<i>Ответ одним сообщением: 1 piję 2 lubi … · уточнение или вопрос — в скобках: "
-                     "«1 piję (ja → -ę)» · уверен, не объяснять — !: «2 lubi!»</i>")
+                     "«1 piję (ja → -ę)» · уверен, не объяснять — !: «2 lubi!» · не уверен — ?: «3 mam?» или «3 mam (?)»</i>")
     if not voice:
         lines.append("<i>" + "🎙 Можно и голосом: номер и ответ — «один — jestem, три — mam», «не знаю» — пропуск, «уточнение …» — вопрос к пункту." + "</i>")
     lines.append("<i>Ответ засчитается этому упражнению. Можно и через «Ответить» на это сообщение.</i>")
@@ -1128,8 +1130,9 @@ def ex_message(ex: dict, idx: int, total: int, voice: bool, quiz: bool = False,
 # ---------- интерактивный тест: одно сообщение, под ним кнопки a / b / c по строке на пункт ----------
 
 def ex_quiz_keyboard(ex: dict, pick: dict, sure: list, check: bool = True,
-                     only: list[int] | None = None) -> list[list[tuple[str, str]]]:
-    """Строка на пункт: «1 a» «1 b» «1 c» «1 !»; выбранное — ✅, «уверен» — ❗. Внизу «📨 Проверить (N/10)».
+                     only: list[int] | None = None, unsure: list | None = None) -> list[list[tuple[str, str]]]:
+    """Строка на пункт: «1 a» «1 b» «1 c» «1 !» «1 ?»; выбранное — ✅, «уверен» — ❗, «не уверен» — ❓.
+    Внизу «📨 Проверить (N/10)».
     only — исправление ошибок: строки только для этих пунктов."""
     rows = []
     for n, it in enumerate(ex["items"], 1):
@@ -1139,6 +1142,7 @@ def ex_quiz_keyboard(ex: dict, pick: dict, sure: list, check: bool = True,
         row = [((f"✅{n}{L}" if chosen == L else f"{n} {L}"), f"x:a:{ex['id']}:{n}:{L}")
                for L in "abcd"[:len(it.get("options") or [])]]
         row.append((f"❗{n}" if n in sure else f"{n} !", f"x:a:{ex['id']}:{n}:!"))
+        row.append((f"❓{n}" if n in (unsure or []) else f"{n} ?", f"x:a:{ex['id']}:{n}:?"))
         rows.append(row)
     if check:
         total = len(only) if only else len(ex["items"])
@@ -1181,7 +1185,8 @@ def ex_results(ex: dict, results: list[dict], head: str | None = None, foot: str
         it = ex["items"][r["n"] - 1]
         right = it.get("answer", "")
         user = r.get("heard") or r.get("user") or "—"
-        icon = "❓✅" if r["final"] == "unsure" else "✋" if r.get("manual") else STATUS_ICON[r["final"]]
+        unsure_ok = r["final"] == "unsure" or (r["final"] == "ok" and r.get("unsure"))   # верно, но «?»
+        icon = "❓✅" if unsure_ok else "✋" if r.get("manual") else STATUS_ICON[r["final"]]
         if r.get("logic_wrong"):
             head = f"❌ {r['n']}. <b>{e(user)}</b> ✓ ответ верный, ошибка в рассуждении"
         elif r["final"] == "wrong":
@@ -1351,15 +1356,16 @@ def bex_message(unit: dict, x: dict, done: dict, notes: dict | None = None, wins
     elif x.get("type") in CHOICE_TYPES:
         opts = "P / N" if x.get("type") == "tf" else "a / b / c"
         lines.append(f"<i>Жми ответы кнопками ({opts}) — можно не все: проверю отмеченные, остальное — потом, "
-                     "прогресс сохраняется. «n !» — уверен, не объяснять. Можно и текстом: «1b 3a», "
-                     "уточнение — в скобках: «2a (почему?)».</i>")
+                     "прогресс сохраняется. «n !» — уверен, не объяснять; «n ?» — не уверен, разобрать подробно. "
+                     "Можно и текстом: «1b 3a?», уточнение — в скобках: «2a (почему?)».</i>")
     elif x.get("type") == "free":
         lines.append("<i>Ответь своими словами: «1 … 2 …» — можно на один пункт, остальные потом. "
                      "Вопрос — в скобках.</i>")
     else:
         lines.append("<i>Ответ одним сообщением, номера — в любом порядке: «1 jestem 3 mam». Не знаешь — «4-», "
                      "несколько подряд — «4-8-». Пропущенные пункты до последнего номера — тоже ошибка. "
-                     "Пункты после него — потом, прогресс сохраняется. Уточнение — в скобках, уверен — «!».</i>")
+                     "Пункты после него — потом, прогресс сохраняется. Уточнение — в скобках, уверен — «!», "
+                     "не уверен — «?» после ответа или «(?)».</i>")
     if not complete:
         lines.append("<i>" + "🎙 Можно и голосом: номер и ответ — «один — jestem, три — mam», «не знаю» — пропуск, «уточнение …» — вопрос к пункту." + "</i>")
         lines.append("<i>Засчитать пункт вручную (описка, спорный ответ) — «5+», несколько подряд — «4+8+»; "
@@ -1367,17 +1373,20 @@ def bex_message(unit: dict, x: dict, done: dict, notes: dict | None = None, wins
     left = [n for n in range(1, len(x["items"]) + 1) if not (done.get((x["id"], n)) or {}).get("ok")]
     if len(left) == 1 and len(x["items"]) > 1:
         lines.append(f"<i>✍️ Остался пункт {left[0]} — можно ответить без номера.</i>")
-    lines.append("<i>📖 Полное правило — кнопкой ниже (ко всему упражнению или к пункту) или в ответе «3?» "
+    lines.append("<i>📖 Полное правило — кнопкой ниже (ко всему упражнению или к пункту) или в ответе «3?» — только номер, без ответа "
                  "(голосом — «три — правило»).</i>")
     if answered and not complete:
         lines.append("<i>✅ — уже верно; ✋ — засчитано вручную; ❌ — была ошибка, можно ответить ещё раз.</i>")
     return "\n".join(lines)
 
 
-def bex_keyboard(unit: dict, x: dict, done: dict, pick: dict, sure: list, wins: int = 0) -> list[list[tuple[str, str]]]:
+def bex_keyboard(unit: dict, x: dict, done: dict, pick: dict, sure: list, wins: int = 0,
+                 unsure: list | None = None) -> list[list[tuple[str, str]]]:
     rows: list[list[tuple[str, str]]] = []
     todo = [n for n in range(1, len(x["items"]) + 1) if not (done.get((x["id"], n)) or {}).get("ok")]
     if x.get("type") in CHOICE_TYPES:
+        # «?» — если влезает в лимит Telegram (100 кнопок на сообщение); иначе «не уверен» — текстом «3a?»
+        with_q = sum(len(book_options(x, x["items"][n - 1])) + 2 for n in todo) <= 85
         for n in todo:
             opts = book_options(x, x["items"][n - 1])
             row = []
@@ -1386,6 +1395,8 @@ def bex_keyboard(unit: dict, x: dict, done: dict, pick: dict, sure: list, wins: 
                 row.append(((f"✅{n}{label}" if pick.get(str(n)) == L else f"{n} {label}"), f"bx:a:{n}:{L}"))
             if len(row) < 8:
                 row.append((f"❗{n}" if n in sure else f"{n} !", f"bx:a:{n}:!"))
+            if with_q and len(row) < 8:
+                row.append((f"❓{n}" if n in (unsure or []) else f"{n} ?", f"bx:a:{n}:?"))
             rows.append(row)
     hints = [(f"💡{n}", f"bx:h:{n}") for n in todo if x["items"][n - 1].get("hint")]
     rows += [hints[i:i + 6] for i in range(0, len(hints), 6)]
