@@ -3632,236 +3632,372 @@
   ],
   "rules": [
    {
-    "title": "Который час? Официально",
-    "explanation": "Час — порядковое числительное женского рода (godzina — она): Jest pierwsza. «Во сколько?» — o + предложный: o pierwszej, o drugiej. Официально — 24 часа и минуты числом: o trzynastej piętnaście.",
+    "title": "Который час? Во сколько? Официально",
+    "points": [
+     "Час — это **godzina** (она), поэтому его называют **порядковым числительным женского рода**.",
+     "Который час? — форма на **-a**: Jest druga. Во сколько? — **o + форма на -ej**: o drugiej.",
+     "Официально — **24 часа**, минуты говорят обычным числом: o trzynastej piętnaście (13:15)."
+    ],
     "table": [
      {
-      "when": "сколько времени?",
-      "form": "Która (jest) godzina? — Jest druga.",
-      "example": "Jest dziewiąta. (9:00)"
+      "when": "Вопросы",
+      "lines": [
+       "Która (jest) godzina? — Jest druga. — Который час? — Два.",
+       "O której (godzinie)? — O ósmej. — Во сколько? — В восемь."
+      ]
      },
      {
-      "when": "во сколько?",
-      "form": "O której (godzinie)? — o + -ej",
-      "example": "o pierwszej, o trzeciej, o ósmej"
+      "when": "1–4 — особые, запомнить (который → во сколько)",
+      "lines": [
+       "1 — pierwsza → o pierwszej",
+       "2 — druga → o drugiej",
+       "3 — trzecia → o trzeciej",
+       "4 — czwarta → o czwartej"
+      ]
      },
      {
-      "when": "1–12",
-      "form": "pierwsza, druga, trzecia, czwarta, piąta, szósta, siódma, ósma, dziewiąta, dziesiąta, jedenasta, dwunasta",
-      "example": "o dwunastej"
+      "when": "5–10 — от обычного числа",
+      "lines": [
+       "5 — piąta → o piątej",
+       "6 — szósta → o szóstej",
+       "7 — siódma → o siódmej",
+       "8 — ósma → o ósmej",
+       "9 — dziewiąta → o dziewiątej",
+       "10 — dziesiąta → o dziesiątej"
+      ]
      },
      {
-      "when": "13–24",
-      "form": "trzynasta … dwudziesta czwarta",
-      "example": "o dwudziestej (20:00)"
+      "when": "11–19 — на -nasta",
+      "lines": [
+       "11 — jedenasta → o jedenastej",
+       "12 — dwunasta → o dwunastej",
+       "13 — trzynasta → o trzynastej",
+       "14 — czternasta → o czternastej",
+       "15 — piętnasta → o piętnastej",
+       "16 — szesnasta → o szesnastej",
+       "17 — siedemnasta → o siedemnastej",
+       "18 — osiemnasta → o osiemnastej",
+       "19 — dziewiętnasta → o dziewiętnastej"
+      ]
      },
      {
-      "when": "с минутами",
-      "form": "час + минуты числом",
-      "example": "o siedemnastej trzydzieści (17:30)"
+      "when": "20–24 — dwudziesta + 1–4",
+      "lines": [
+       "20 — dwudziesta → o dwudziestej",
+       "21 — dwudziesta pierwsza → o dwudziestej pierwszej",
+       "22 — dwudziesta druga → o dwudziestej drugiej",
+       "23 — dwudziesta trzecia → o dwudziestej trzeciej",
+       "24 — dwudziesta czwarta → o dwudziestej czwartej"
+      ]
+     },
+     {
+      "when": "С минутами — минуты числом, не меняются",
+      "lines": [
+       "o siedemnastej trzydzieści — в 17:30",
+       "o dziewiątej czterdzieści pięć — в 9:45"
+      ]
+     },
+     {
+      "when": "С … до …",
+      "lines": [
+       "od + час на -ej + do + час на -ej: od dziewiątej do siedemnastej — с 9 до 17"
+      ]
      }
     ],
     "exceptions": [
-     "o + час: окончание -ej (o drugiej, o trzeciej) — как прилагательное женского рода",
-     "od … do … — с родительным, та же форма: od dziewiątej do siedemnastej"
+     "1–4 — от других корней, как русские «первый, второй, третий, четвёртый».",
+     "siódma (7), ósma (8), szósta (6) — с **ó**: siedem → siódma, osiem → ósma, sześć → szósta.",
+     "piąta (5), dziewiąta (9), dziesiąta (10) — **ą** вместо ę: pięć → piąta.",
+     "dwunasta (12) — не «dwanasta»; dwudziesta (20) — не «dwadziesta».",
+     "czternasta (14) — без o: не «czteronasta»; piętnasta (15), dziewiętnasta (19) — **ę + t**.",
+     "trzecia (3) → o trzeci**ej** — после i окончание -ej пишется так же."
     ],
     "examples": [
      {
       "pl": "O której masz lekcję? — O dziesiątej.",
-      "translit": "о КТУ-рэй маш ЛЕК-цьэ — о дже-ЩЁН-тэй",
       "ru": "Во сколько у тебя урок? — В десять."
      },
      {
       "pl": "Pracuję od dziewiątej do siedemnastej.",
-      "translit": "пра-ЦУ-е од дже-ВЬЁН-тэй до ще-дэм-НАС-тэй",
       "ru": "Я работаю с девяти до семнадцати."
      },
      {
       "pl": "Film jest o dwudziestej piętnaście.",
-      "translit": "фильм ест о дву-ДЖЕС-тэй пьент-НАЩЬ-че",
       "ru": "Фильм в двадцать пятнадцать."
+     },
+     {
+      "pl": "Jest czternasta. Spotkanie jest o szesnastej.",
+      "ru": "Сейчас четырнадцать. Встреча в шестнадцать."
+     },
+     {
+      "pl": "Pociąg jest o dwudziestej pierwszej.",
+      "ru": "Поезд в двадцать один."
      }
     ]
    },
    {
     "title": "Неофициально: po, za, wpół do",
-    "explanation": "В разговоре — 12 часов и слова po (после), za (без), wpół do (половина следующего часа). Час после po и wpół do — в предложном / родительном (-ej), после za — в именительном (-a).",
+    "points": [
+     "В разговоре — **12 часов** и слова **po** (после), **za** (без), **wpół do** (половина следующего часа).",
+     "После **po** и **wpół do** час — на **-ej**, после **za** — на **-a**."
+    ],
     "table": [
      {
-      "when": "15 после",
-      "form": "kwadrans / piętnaście po + -ej",
-      "example": "kwadrans po pierwszej (1:15)"
+      "when": "… минут после",
+      "lines": [
+       "kwadrans po pierwszej — 1:15 (четверть второго)",
+       "dziesięć po ósmej — 8:10"
+      ]
      },
      {
-      "when": "без 15",
-      "form": "za kwadrans / za piętnaście + -a",
-      "example": "za piętnaście druga (1:45)"
+      "when": "Без … минут",
+      "lines": [
+       "za kwadrans druga — 1:45 (без четверти два)",
+       "za pięć dwunasta — 11:55"
+      ]
      },
      {
-      "when": "половина",
-      "form": "wpół do + следующий час, -ej",
-      "example": "wpół do drugiej (1:30)"
+      "when": "Половина",
+      "lines": [
+       "wpół do drugiej — 1:30 (половина второго)",
+       "wpół do ósmej — 7:30"
+      ]
      },
      {
-      "when": "во сколько?",
-      "form": "o + то же выражение",
-      "example": "o wpół do ósmej (в 7:30)"
+      "when": "Во сколько?",
+      "lines": [
+       "o + то же выражение: o wpół do ósmej — в 7:30",
+       "o kwadrans po trzeciej — в 3:15"
+      ]
      }
     ],
     "exceptions": [
-     "wpół do drugiej — это 1:30, а не 2:30: «половина второго», как в русском",
-     "za piętnaście druga — «без пятнадцати два»: час в именительном (druga, не drugiej)"
+     "wpół do drugiej — это **1:30**, а не 2:30: «половина второго», как в русском.",
+     "za piętnaście **druga** — час на -a (не drugiej): «без пятнадцати два».",
+     "kwadrans — четверть часа (15 минут)."
     ],
     "examples": [
      {
       "pl": "Jest kwadrans po trzeciej.",
-      "translit": "ест КФАД-ранс по ТШЭ-чей",
       "ru": "Сейчас пятнадцать минут четвёртого."
      },
      {
       "pl": "Spotkamy się o wpół do siódmej.",
-      "translit": "спот-КА-мы щэ о фпуў до ЩЮД-мэй",
       "ru": "Встретимся в половине седьмого."
      },
      {
       "pl": "Jest za pięć dwunasta.",
-      "translit": "ест за пеньчь дву-НАС-та",
       "ru": "Без пяти двенадцать."
+     },
+     {
+      "pl": "Lekcja jest o dziesięć po dziewiątej.",
+      "ru": "Урок в девять десять."
+     },
+     {
+      "pl": "Wracam o wpół do szóstej.",
+      "ru": "Я возвращаюсь в половине шестого."
      }
     ]
    },
    {
     "title": "Куда пойти? do + род. п. или na + вин. п.",
-    "explanation": "Pójść / iść do + родительный — в место, здание (do kina, do teatru, do parku). Na + винительный — на событие или занятие (na film, na koncert, na kawę, na spacer).",
+    "points": [
+     "**do + родительный** — в место, здание: do kina, do teatru, do parku.",
+     "**na + винительный** — на событие или занятие: na film, na koncert, na kawę, na spacer."
+    ],
     "table": [
      {
-      "when": "место, здание",
-      "form": "do + род. п.",
-      "example": "do kina, do teatru, do restauracji, do parku, do muzeum"
+      "when": "Место, здание: do + род. п.",
+      "lines": [
+       "do kina, do teatru, do restauracji, do parku, do muzeum"
+      ]
      },
      {
-      "when": "к человеку",
-      "form": "do + род. п.",
-      "example": "do mojego brata, do koleżanki"
+      "when": "К человеку: do + род. п.",
+      "lines": [
+       "do mojego brata — к моему брату",
+       "do koleżanki — к подруге"
+      ]
      },
      {
-      "when": "событие, занятие, еда",
-      "form": "na + вин. п.",
-      "example": "na film, na koncert, na mecz, na spacer, na zakupy, na pizzę, na kawę"
+      "when": "Событие, занятие, еда: na + вин. п.",
+      "lines": [
+       "na film, na koncert, na mecz",
+       "na spacer, na zakupy",
+       "na pizzę, na kawę"
+      ]
      },
      {
-      "when": "оба вместе",
-      "form": "do … na …",
-      "example": "Idziemy do kina na nowy film."
+      "when": "Оба вместе",
+      "lines": [
+       "Idziemy do kina na nowy film. — Идём в кино на новый фильм."
+      ]
      }
     ],
     "exceptions": [
-     "na + место-«площадка»: na pocztę, na dworzec, na uniwersytet, na basen",
-     "Gdzie? — w kinie (предл.), Dokąd? — do kina (род.)"
+     "**na** + места-«площадки»: na pocztę (почта), na dworzec (вокзал), na uniwersytet, na basen (бассейн).",
+     "Gdzie? — **w kinie** (предл.), Dokąd? — **do kina** (род.)."
     ],
     "examples": [
      {
       "pl": "Masz ochotę pójść do teatru?",
-      "translit": "маш о-ХО-тэ пуйщьчь до тэ-А-тру",
       "ru": "Хочешь пойти в театр?"
      },
      {
       "pl": "Idziemy na kawę i na lody.",
-      "translit": "и-ДЖЕ-мы на КА-вэ и на ЛЁ-ды",
       "ru": "Идём на кофе и мороженое."
+     },
+     {
+      "pl": "Jutro idę do lekarza.",
+      "ru": "Завтра я иду к врачу."
+     },
+     {
+      "pl": "Idziesz na koncert?",
+      "ru": "Ты идёшь на концерт?"
+     },
+     {
+      "pl": "Muszę iść na pocztę.",
+      "ru": "Мне нужно на почту."
      }
     ]
    },
    {
     "title": "Дни недели: w poniedziałek, we wtorek…",
-    "explanation": "«В какой день?» — w + винительный. У женского рода -a → -ę: w środę, w sobotę, w niedzielę. Перед wtorek — we.",
+    "points": [
+     "«В какой день?» — **w + винительный**.",
+     "У женского рода -a → **-ę**: w środę, w sobotę, w niedzielę.",
+     "Перед wtorek — **we**."
+    ],
     "table": [
      {
       "when": "пн, вт",
-      "form": "w poniedziałek, we wtorek",
-      "example": "we wtorek mam kurs"
+      "lines": [
+       "w poniedziałek",
+       "we wtorek"
+      ]
      },
      {
       "when": "ср",
-      "form": "w środę",
-      "example": "w środę idę do kina"
+      "lines": [
+       "w środę (środa)"
+      ]
      },
      {
       "when": "чт, пт",
-      "form": "w czwartek, w piątek",
-      "example": "w piątek wieczorem"
+      "lines": [
+       "w czwartek",
+       "w piątek"
+      ]
      },
      {
       "when": "сб, вс",
-      "form": "w sobotę, w niedzielę",
-      "example": "w niedzielę rano"
+      "lines": [
+       "w sobotę (sobota)",
+       "w niedzielę (niedziela)"
+      ]
      },
      {
       "when": "выходные",
-      "form": "w weekend",
-      "example": "Co robisz w weekend?"
+      "lines": [
+       "w weekend"
+      ]
      }
     ],
     "exceptions": [
-     "we wtorek (не «w wtorek») — w + w трудно сказать",
-     "Сами дни пишутся с маленькой буквы: poniedziałek, sobota"
+     "**we** wtorek (не «w wtorek») — w + w трудно произнести.",
+     "Дни пишутся с маленькой буквы: poniedziałek, sobota."
     ],
     "examples": [
      {
       "pl": "Co robisz w poniedziałek o ósmej?",
-      "translit": "цо РО-бишь ф по-не-ДЖЯ-ўэк о УС-мэй",
       "ru": "Что ты делаешь в понедельник в восемь?"
      },
      {
       "pl": "We wtorek i w środę pracuję.",
-      "translit": "вэ ФТО-рэк и ф ЩЬРО-дэ пра-ЦУ-е",
       "ru": "Во вторник и в среду я работаю."
+     },
+     {
+      "pl": "W sobotę idę do kina.",
+      "ru": "В субботу я иду в кино."
+     },
+     {
+      "pl": "W niedzielę rano śpię długo.",
+      "ru": "В воскресенье утром я долго сплю."
+     },
+     {
+      "pl": "Co robisz w weekend?",
+      "ru": "Что ты делаешь на выходных?"
      }
     ]
    },
    {
     "title": "Приглашение: предложить, согласиться, отказаться",
-    "explanation": "Предложить — Masz ochotę…? / Może pójdziemy…? Согласиться — Chętnie! / Świetny pomysł! Отказаться вежливо — Niestety, nie mogę / nie mam czasu + причина.",
+    "points": [
+     "Предложить — **Masz ochotę…? / Może pójdziemy…?**",
+     "Согласиться — **Chętnie! / Świetny pomysł!**",
+     "Отказаться вежливо — **Niestety, nie mogę** + причина."
+    ],
     "table": [
      {
-      "when": "предложить (ty)",
-      "form": "Masz ochotę pójść na…? / Może pójdziemy do…?",
-      "example": "Masz ochotę na kawę?"
+      "when": "Предложить (ty)",
+      "lines": [
+       "Masz ochotę pójść na…? — Хочешь пойти на…?",
+       "Może pójdziemy do…? — Может, пойдём в…?"
+      ]
      },
      {
-      "when": "предложить (pan / pani)",
-      "form": "Ma pan / pani ochotę…?",
-      "example": "Ma pani ochotę pójść na koncert?"
+      "when": "Предложить (pan / pani)",
+      "lines": [
+       "Ma pan / pani ochotę…? — Ma pani ochotę pójść na koncert?"
+      ]
      },
      {
-      "when": "да",
-      "form": "Chętnie! / Świetny pomysł! / Jasne! / Dlaczego nie?",
-      "example": "Chętnie, dziękuję!"
+      "when": "Да",
+      "lines": [
+       "Chętnie! — С удовольствием!",
+       "Świetny pomysł! — Отличная идея!",
+       "Jasne! / Dlaczego nie?"
+      ]
      },
      {
-      "when": "нет",
-      "form": "Niestety, nie mogę. / Nie mam czasu. / Dzięki, ale…",
-      "example": "Niestety, w piątek nie mogę, bo pracuję."
+      "when": "Нет",
+      "lines": [
+       "Niestety, nie mogę. — К сожалению, не могу.",
+       "Nie mam czasu. — Нет времени.",
+       "Dzięki, ale… — Спасибо, но…"
+      ]
      },
      {
-      "when": "где и когда",
-      "form": "Gdzie / O której się spotkamy?",
-      "example": "Spotkajmy się przed kinem o siódmej."
+      "when": "Где и когда",
+      "lines": [
+       "Gdzie / O której się spotkamy? — Где / во сколько встретимся?",
+       "Spotkajmy się przed kinem o siódmej. — Встретимся у кино в семь."
+      ]
      }
     ],
     "exceptions": [
-     "mieć ochotę na + вин. п. (na kawę) или + инфинитив (pójść)"
+     "mieć ochotę **na** + вин. п. (na kawę) или + инфинитив (pójść)."
     ],
     "examples": [
      {
       "pl": "Może pójdziemy jutro do kina?",
-      "translit": "МО-же пуй-ДЖЕ-мы ЮТ-ро до КИ-на",
       "ru": "Может, пойдём завтра в кино?"
      },
      {
       "pl": "Niestety, nie mam czasu.",
-      "translit": "не-СТЭ-ты, не мам ЧА-су",
       "ru": "К сожалению, у меня нет времени."
+     },
+     {
+      "pl": "Masz ochotę na kawę? — Chętnie!",
+      "ru": "Хочешь кофе? — С удовольствием!"
+     },
+     {
+      "pl": "Niestety, w piątek nie mogę, bo pracuję.",
+      "ru": "К сожалению, в пятницу не могу — работаю."
+     },
+     {
+      "pl": "O której się spotkamy?",
+      "ru": "Во сколько встретимся?"
      }
     ]
    }

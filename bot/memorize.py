@@ -18,6 +18,7 @@ from .core import rules, textbook
 from .ai.prompt import (MT_CHECK_HINT, MT_CHECK_SCHEMA, MT_TEXT_HINT, MT_TEXT_SCHEMA, RULES_HINT, RULES_SCHEMA,
                         mt_check_prompt, mt_text_prompt, rules_for_errors_prompt)
 from .ui import fmt
+from .core.readability import tr
 from .settings import VOICE_MIN_SEC
 from .zvuki import RATES, STATUS, STATUS_NAME
 
@@ -131,7 +132,8 @@ class MemorizeMixin:
     def mt_card(self, t: dict, status: int, mode: str, nxt: str | None) -> tuple[str, list]:
         text = (f"📜 <b>{escape(t['where'])}</b>\n<b>{escape(t['title'])}</b>\n\n"
                 f"<b>{escape(t['pl'])}</b>\n\n"
-                f"🔤 <tg-spoiler>{escape(t.get('translit', ''))}</tg-spoiler>\n\n"
+                + (f"🔤 <tg-spoiler>{escape(tr(t['pl'], t.get('translit', '')))}</tg-spoiler>\n\n"
+                   if tr(t["pl"], t.get("translit", "")) else "") +
                 f"🇷🇺 <tg-spoiler>{escape(t.get('ru', ''))}</tg-spoiler>\n\n"
                 f"Отметка: {STATUS[status]} {MT_STATUS[status]}\n\n"
                 "<i>Выучи и расскажи — голосовым или текстом. 🎯 Наизусть — сравню с текстом; "

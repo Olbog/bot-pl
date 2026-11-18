@@ -566,110 +566,217 @@
   "rules": [
    {
     "title": "Числа 0–19",
-    "explanation": "0–10 учим как слова, 11–19 = основа + -naście. Ударение — на предпоследний слог.",
+    "points": [
+     "0–10 учим как слова, 11–19 = основа + **-naście**.",
+     "Ударение — на предпоследний слог."
+    ],
     "table": [
      {
       "when": "0–5",
-      "form": "zero, jeden, dwa, trzy, cztery, pięć",
-      "example": "ЗЭ-ро, Е-дэн, два, тшы, ЧТЭ-ры, пеньчь"
+      "lines": [
+       "0 — zero",
+       "1 — jeden",
+       "2 — dwa",
+       "3 — trzy [тшы]",
+       "4 — cztery",
+       "5 — pięć [пеньчь]"
+      ]
      },
      {
       "when": "6–10",
-      "form": "sześć, siedem, osiem, dziewięć, dziesięć",
-      "example": "шэщьчь, ЩЕ-дэм, О-щем, ДЖЕ-веньчь, ДЖЕ-щеньчь"
+      "lines": [
+       "6 — sześć [шэщьчь]",
+       "7 — siedem",
+       "8 — osiem",
+       "9 — dziewięć",
+       "10 — dziesięć"
+      ]
      },
      {
-      "when": "11–19",
-      "form": "jedenaście … dziewiętnaście",
-      "example": "czternaście, piętnaście, szesnaście — с упрощением"
+      "when": "11–15",
+      "lines": [
+       "11 — jedenaście",
+       "12 — dwanaście",
+       "13 — trzynaście",
+       "14 — czternaście",
+       "15 — piętnaście"
+      ]
+     },
+     {
+      "when": "16–19",
+      "lines": [
+       "16 — szesnaście",
+       "17 — siedemnaście",
+       "18 — osiemnaście",
+       "19 — dziewiętnaście"
+      ]
      }
     ],
     "exceptions": [
-     "piętnaście (не pięćnaście), szesnaście (не sześćnaście), czternaście (не czteronaście)"
+     "piętnaście (15) — не «pięćnaście».",
+     "szesnaście (16) — не «sześćnaście».",
+     "czternaście (14) — не «czteronaście».",
+     "dziewiętnaście (19) — ę + t: dziewię**t**naście."
     ],
     "examples": [
      {
       "pl": "Mam szesnaście złotych.",
-      "translit": "мам шэс-НАЩЬ-че ЗЎО-тых",
       "ru": "У меня шестнадцать злотых."
+     },
+     {
+      "pl": "Autobus numer jedenaście.",
+      "ru": "Автобус номер одиннадцать."
+     },
+     {
+      "pl": "Pokój numer czternaście.",
+      "ru": "Комната номер четырнадцать."
+     },
+     {
+      "pl": "Ona ma dziewiętnaście lat.",
+      "ru": "Ей девятнадцать лет."
+     },
+     {
+      "pl": "Zero, jeden, dwa…",
+      "ru": "Ноль, один, два…"
      }
     ]
    },
    {
     "title": "Десятки, сотни, тысяча",
-    "explanation": "20–40 оканчиваются на -dzieści, 50–90 — на -dziesiąt; 200 — dwieście, 300–400 — -sta, 500–900 — -set.",
+    "points": [
+     "20–40 — на **-dzieści**, 50–90 — на **-dziesiąt**.",
+     "200 — **dwieście**, 300–400 — **-sta**, 500–900 — **-set**, 1000 — **tysiąc**."
+    ],
     "table": [
      {
-      "when": "20 / 30 / 40",
-      "form": "dwadzieścia / trzydzieści / czterdzieści",
-      "example": "два-ДЖЕЩЬ-ча, тшы-ДЖЕЩЬ-чи"
+      "when": "20–40",
+      "lines": [
+       "20 — dwadzieścia",
+       "30 — trzydzieści",
+       "40 — czterdzieści"
+      ]
      },
      {
       "when": "50–90",
-      "form": "pięćdziesiąt … dziewięćdziesiąt",
-      "example": "пеньч-ДЖЕ-щёнт"
+      "lines": [
+       "50 — pięćdziesiąt",
+       "60 — sześćdziesiąt",
+       "70 — siedemdziesiąt",
+       "80 — osiemdziesiąt",
+       "90 — dziewięćdziesiąt"
+      ]
      },
      {
-      "when": "100 / 200 / 300 / 400",
-      "form": "sto / dwieście / trzysta / czterysta",
-      "example": "сто, ДВЕЩЬ-че"
+      "when": "100–400",
+      "lines": [
+       "100 — sto",
+       "200 — dwieście",
+       "300 — trzysta",
+       "400 — czterysta"
+      ]
      },
      {
       "when": "500–900",
-      "form": "pięćset … dziewięćset",
-      "example": "ПЕНЬЧЬ-сэт"
+      "lines": [
+       "500 — pięćset",
+       "600 — sześćset",
+       "700 — siedemset",
+       "800 — osiemset",
+       "900 — dziewięćset"
+      ]
      },
      {
       "when": "1000",
-      "form": "tysiąc",
-      "example": "ТЫ-щёнц"
+      "lines": [
+       "tysiąc [ТЫ-щёнц]"
+      ]
      }
     ],
     "exceptions": [
-     "czternaście (14) ≠ czterdzieści (40) ≠ czterysta (400)"
+     "czternaście (14) ≠ czterdzieści (40) ≠ czterysta (400).",
+     "dwieście (200) — особая форма, не «dwasta»."
     ],
     "examples": [
      {
       "pl": "Sto dwadzieścia pięć.",
-      "translit": "сто два-ДЖЕЩЬ-ча пеньчь",
       "ru": "Сто двадцать пять."
      },
      {
       "pl": "Tysiąc złotych to dużo.",
-      "translit": "ТЫ-щёнц ЗЎО-тых то ДУ-жо",
       "ru": "Тысяча злотых — это много."
+     },
+     {
+      "pl": "Trzysta czterdzieści osiem.",
+      "ru": "Триста сорок восемь."
+     },
+     {
+      "pl": "Mam sześćdziesiąt lat.",
+      "ru": "Мне шестьдесят лет."
+     },
+     {
+      "pl": "To kosztuje pięćset złotych.",
+      "ru": "Это стоит пятьсот злотых."
      }
     ]
    },
    {
     "title": "Цифры как слова: jedynka, dwójka, trójka…",
-    "explanation": "Названия цифр — существительные ж. р. Так называют номера трамваев и автобусов, оценки в школе.",
+    "points": [
+     "Названия цифр — **существительные ж. р.**",
+     "Так называют номера трамваев и автобусов, оценки в школе."
+    ],
     "table": [
      {
       "when": "1–3",
-      "form": "jedynka, dwójka, trójka",
-      "example": "е-ДЫН-ка, ДВУЙ-ка, ТРУЙ-ка"
+      "lines": [
+       "1 — jedynka",
+       "2 — dwójka",
+       "3 — trójka"
+      ]
      },
      {
       "when": "4–6",
-      "form": "czwórka, piątka, szóstka",
-      "example": "ЧВУР-ка, ПЬЁНТ-ка, ШУСТ-ка"
+      "lines": [
+       "4 — czwórka",
+       "5 — piątka",
+       "6 — szóstka"
+      ]
      },
      {
       "when": "7–10",
-      "form": "siódemka, ósemka, dziewiątka, dziesiątka",
-      "example": "щю-ДЭМ-ка, у-СЭМ-ка"
+      "lines": [
+       "7 — siódemka",
+       "8 — ósemka",
+       "9 — dziewiątka",
+       "10 — dziesiątka"
+      ]
      }
     ],
     "exceptions": [
-     "Jadę szóstką — еду на шестёрке (творительный)",
-     "В Польше оценки 1–6, piątka и szóstka — лучшие"
+     "Jadę **szóstką** — еду на шестёрке (творительный, -ą).",
+     "В Польше оценки 1–6: piątka (5) и szóstka (6) — лучшие.",
+     "dwójka (2), trójka (3), czwórka (4), siódemka (7), ósemka (8) — с ó."
     ],
     "examples": [
      {
       "pl": "Mam piątkę z polskiego!",
-      "translit": "мам ПЬЁНТ-кэ с поль-СКЕ-го",
       "ru": "У меня пятёрка по польскому!"
+     },
+     {
+      "pl": "Jadę szóstką do centrum.",
+      "ru": "Я еду на шестёрке в центр."
+     },
+     {
+      "pl": "Czekam na ósemkę.",
+      "ru": "Я жду восьмёрку (трамвай)."
+     },
+     {
+      "pl": "Dostałem jedynkę.",
+      "ru": "Я получил единицу."
+     },
+     {
+      "pl": "Mieszkamy pod trójką.",
+      "ru": "Мы живём в квартире номер три."
      }
     ]
    }

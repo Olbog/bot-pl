@@ -3595,285 +3595,393 @@
   "rules": [
    {
     "title": "Прошедшее время: основа + ł + окончание",
-    "explanation": "Убираем -ć у инфинитива и добавляем -ł- и окончание лица и рода. Форма зависит от рода: я-мужчина и я-женщина говорят по-разному, как в русском «делал / делала».",
+    "points": [
+     "Убираем **-ć** у инфинитива, добавляем **-ł-** и окончание лица и рода.",
+     "Форма зависит от рода, как в русском «делал / делала»."
+    ],
     "table": [
      {
       "when": "ja",
-      "form": "-łem (м.) / -łam (ж.)",
-      "example": "robiłem / robiłam"
+      "lines": [
+       "-łem (м.) / -łam (ж.): robiłem / robiłam"
+      ]
      },
      {
       "when": "ty",
-      "form": "-łeś / -łaś",
-      "example": "robiłeś / robiłaś"
+      "lines": [
+       "-łeś / -łaś: robiłeś / robiłaś"
+      ]
      },
      {
       "when": "on / ona / ono",
-      "form": "-ł / -ła / -ło",
-      "example": "robił / robiła / robiło"
+      "lines": [
+       "-ł / -ła / -ło: robił / robiła / robiło"
+      ]
      },
      {
       "when": "my",
-      "form": "-liśmy (есть мужчины) / -łyśmy",
-      "example": "robiliśmy / robiłyśmy"
+      "lines": [
+       "-liśmy (есть мужчины) / -łyśmy (только женщины): robiliśmy / robiłyśmy"
+      ]
      },
      {
       "when": "wy",
-      "form": "-liście / -łyście",
-      "example": "robiliście / robiłyście"
+      "lines": [
+       "-liście / -łyście: robiliście / robiłyście"
+      ]
      },
      {
       "when": "oni / one",
-      "form": "-li / -ły",
-      "example": "robili / robiły"
+      "lines": [
+       "-li / -ły: robili / robiły"
+      ]
      }
     ],
     "exceptions": [
-     "Ударение в my и wy — на третий слог с конца: ro-BI-liś-my → ро-БИ-лищь-мы (в разговоре часто и на предпоследний)",
-     "Возвратное się — отдельно: spotkałem się, uczyła się"
+     "Ударение в my и wy — на третий слог с конца: robiliśmy [ро-БИ-лищь-мы].",
+     "Возвратное **się** — отдельно: spotkałem się, uczyła się."
     ],
     "examples": [
      {
       "pl": "Wczoraj robiłem zakupy.",
-      "translit": "ФЧО-рай ро-БИ-ўэм за-КУ-пы",
       "ru": "Вчера я делал покупки."
      },
      {
       "pl": "Co robiłaś w weekend?",
-      "translit": "цо ро-БИ-ўащь в ЎИ-кэнт",
       "ru": "Что ты делала на выходных?"
      },
      {
       "pl": "Oglądałyśmy polski film.",
-      "translit": "ог-лён-ДА-ўыщь-мы ПОЛЬ-ски фильм",
       "ru": "Мы (девушки) смотрели польский фильм."
+     },
+     {
+      "pl": "Pracowaliśmy do wieczora.",
+      "ru": "Мы работали до вечера."
+     },
+     {
+      "pl": "Tom grał w piłkę.",
+      "ru": "Том играл в мяч."
      }
     ]
    },
    {
     "title": "być в прошедшем и безличное «było»",
-    "explanation": "być: byłem, byłeś, był, była, było, byliśmy, byliście, byli, były. Погода и впечатления — безличное było: było ładnie, było świetnie. «Кого-то не было» — nie było + родительный.",
+    "points": [
+     "być: byłem, byłeś, był, była, było, byliśmy, byliście, byli, były.",
+     "Погода и впечатления — безличное **było**: było ładnie, było świetnie.",
+     "«Кого-то не было» — **nie było + родительный**."
+    ],
     "table": [
      {
       "when": "я / ты",
-      "form": "byłem, byłam / byłeś, byłaś",
-      "example": "Gdzie byłaś? — Byłam w kinie."
+      "lines": [
+       "byłem, byłam / byłeś, byłaś: Gdzie byłaś? — Byłam w kinie."
+      ]
      },
      {
       "when": "он / она / оно",
-      "form": "był / była / było",
-      "example": "Javier był w górach."
+      "lines": [
+       "był / była / było: Javier był w górach."
+      ]
      },
      {
       "when": "мы / вы",
-      "form": "byliśmy, byłyśmy / byliście, byłyście",
-      "example": "Byliśmy na treningu."
+      "lines": [
+       "byliśmy, byłyśmy / byliście, byłyście: Byliśmy na treningu."
+      ]
      },
      {
       "when": "они",
-      "form": "byli / były",
-      "example": "One były na meczu."
+      "lines": [
+       "byli / były: One były na meczu."
+      ]
      },
      {
-      "when": "безлично",
-      "form": "było + наречие",
-      "example": "Wczoraj było brzydko. Było świetnie!"
+      "when": "Безлично",
+      "lines": [
+       "było + наречие: Wczoraj było brzydko. Było świetnie!"
+      ]
      },
      {
-      "when": "кого-то не было",
-      "form": "nie było + род. п.",
-      "example": "Nie było cię w szkole."
+      "when": "Кого-то не было",
+      "lines": [
+       "nie było + род. п.: Nie było cię w szkole."
+      ]
      }
     ],
     "exceptions": [
-     "Сегодня — jest ładnie, вчера — było ładnie (не «była»)"
+     "Сегодня — jest ładnie, вчера — **było** ładnie (не «była»)."
     ],
     "examples": [
      {
       "pl": "Byłeś już tu kiedyś?",
-      "translit": "БЫ-ўэщь юж ту КЕ-дыщь",
       "ru": "Ты уже был здесь когда-нибудь?"
      },
      {
       "pl": "Nie było cię w piątek w szkole.",
-      "translit": "не БЫ-ўо чэ ф ПЬЁН-тэк ф ШКО-ле",
       "ru": "Тебя не было в пятницу в школе."
+     },
+     {
+      "pl": "Jak było na wakacjach? — Było super!",
+      "ru": "Как было в отпуске? — Было супер!"
+     },
+     {
+      "pl": "Byłyśmy w muzeum.",
+      "ru": "Мы (девушки) были в музее."
+     },
+     {
+      "pl": "Wczoraj było zimno.",
+      "ru": "Вчера было холодно."
      }
     ]
    },
    {
     "title": "oni или one: -li или -ły?",
-    "explanation": "Во мн. ч. две формы. -li — «мужско-личная»: если в группе есть хоть один мужчина. -ły — все остальные: только женщины, дети, животные, вещи.",
+    "points": [
+     "Во мн. ч. две формы.",
+     "**-li** — если в группе есть **хоть один мужчина**.",
+     "**-ły** — все остальные: только женщины, дети, животные, вещи."
+    ],
     "table": [
      {
-      "when": "есть мужчина",
-      "form": "oni + -li",
-      "example": "Karol i Karolina byli w szkole."
+      "when": "Есть мужчина",
+      "lines": [
+       "oni + -li: Karol i Karolina byli w szkole."
+      ]
      },
      {
-      "when": "только женщины",
-      "form": "one + -ły",
-      "example": "Mami i Angela były w kinie."
+      "when": "Только женщины",
+      "lines": [
+       "one + -ły: Mami i Angela były w kinie."
+      ]
      },
      {
-      "when": "вещи, животные",
-      "form": "one + -ły",
-      "example": "Banany były zielone."
+      "when": "Вещи, животные",
+      "lines": [
+       "one + -ły: Banany były zielone."
+      ]
      },
      {
       "when": "my / wy",
-      "form": "-liśmy, -liście / -łyśmy, -łyście",
-      "example": "Byłyście na wakacjach? (девушкам)"
+      "lines": [
+       "-liśmy, -liście / -łyśmy, -łyście: Byłyście na wakacjach? (девушкам)"
+      ]
      }
     ],
     "exceptions": [
-     "Перед -li согласная смягчается в произношении: byli — БЫ-ли, robili — ро-БИ-ли"
+     "Перед -li **ł → l**: był → byli, robił → robili."
     ],
     "examples": [
      {
       "pl": "Oni mieszkali w Krakowie.",
-      "translit": "О-ни мьеш-КА-ли ф кра-КО-ве",
       "ru": "Они жили в Кракове."
      },
      {
       "pl": "One ćwiczyły jogę.",
-      "translit": "О-нэ чьфи-ЧЫ-ўы Ё-гэ",
       "ru": "Они (женщины) занимались йогой."
+     },
+     {
+      "pl": "Dzieci bawiły się w parku.",
+      "ru": "Дети играли в парке."
+     },
+     {
+      "pl": "Tom i Ola tańczyli całą noc.",
+      "ru": "Том и Оля танцевали всю ночь."
+     },
+     {
+      "pl": "Psy szczekały.",
+      "ru": "Собаки лаяли."
      }
     ]
    },
    {
     "title": "Глаголы на -eć: miał — mieli",
-    "explanation": "У глаголов на -eć (mieć, chcieć, musieć, wiedzieć, widzieć, rozumieć, woleć, siedzieć, umieć) в прошедшем — «a», и только в мужско-личном мн. ч. — «e».",
+    "points": [
+     "У глаголов на **-eć** (mieć, chcieć, musieć, wiedzieć, widzieć, rozumieć, woleć, siedzieć, umieć) в прошедшем — **a**.",
+     "Только в мужско-личном мн. ч. — **e**: mieli, chcieli."
+    ],
     "table": [
      {
-      "when": "ja / ty / on / ona / ono",
-      "form": "-ał-: miałem, miałaś, miał, miała, miało",
-      "example": "chciałem, wiedziała"
+      "when": "ja / ty / on / ona / ono → -ał-",
+      "lines": [
+       "miałem, miałaś, miał, miała, miało",
+       "chciałem, wiedziała"
+      ]
      },
      {
-      "when": "one, my / wy (ж.)",
-      "form": "-ał-: miały, miałyśmy, miałyście",
-      "example": "Mami i Angela miały test."
+      "when": "one, my / wy (ж.) → -ał-",
+      "lines": [
+       "miały, miałyśmy, miałyście: Mami i Angela miały test."
+      ]
      },
      {
-      "when": "oni, my / wy (м.)",
-      "form": "-el-: mieli, mieliśmy, mieliście",
-      "example": "musieliśmy, rozumieli, chcieli"
-     },
-     {
-      "when": "słyszeć",
-      "form": "słyszał / słyszeli",
-      "example": "Słyszałaś, co mówiłam?"
+      "when": "oni, my / wy (м.) → -el-",
+      "lines": [
+       "mieli, mieliśmy, mieliście",
+       "musieliśmy, rozumieli, chcieli"
+      ]
      }
     ],
     "exceptions": [
-     "Как в русском «имел» нет — смотри на окончание: -ał / -ała / -ały, но -eli",
-     "wiedzieć → wiedział, widzieć → widział: дз → дж (ВЕ-джяў)"
+     "Смотри на окончание: **-ał / -ała / -ały**, но **-eli**.",
+     "wiedzieć → wiedział, widzieć → widział: dz → dzi (дж)."
     ],
     "examples": [
      {
       "pl": "Mieliśmy wczoraj test.",
-      "translit": "МЕ-лищь-мы ФЧО-рай тэст",
       "ru": "У нас вчера был тест."
      },
      {
       "pl": "Nie wiedziałam, że on jest z Francji.",
-      "translit": "не ве-ДЖЯ-ўам, жэ он ест з ФРАН-цьи",
       "ru": "Я не знала, что он из Франции."
      },
      {
       "pl": "Chciałem dobrze!",
-      "translit": "ХЧЯ-ўэм ДОБ-жэ",
       "ru": "Я хотел как лучше!"
+     },
+     {
+      "pl": "Musieli wracać pieszo.",
+      "ru": "Им пришлось возвращаться пешком."
+     },
+     {
+      "pl": "Widziałeś ten film?",
+      "ru": "Ты видел этот фильм?"
      }
     ]
    },
    {
     "title": "Неправильные: jeść, iść / pójść",
-    "explanation": "jeść и iść / pójść в прошедшем меняют основу — формы надо выучить. iść — «шёл» (процесс), pójść — «пошёл» (действие совершилось), chodzić — «ходил» (регулярно).",
+    "points": [
+     "jeść и iść / pójść в прошедшем **меняют основу** — формы надо выучить.",
+     "iść — «шёл» (процесс), pójść — «пошёл» (совершилось), chodzić — «ходил» (регулярно)."
+    ],
     "table": [
      {
-      "when": "jeść",
-      "form": "jadłem / jadłam, jadł / jadła, jedli / jadły",
-      "example": "Jadłaś już obiad?"
+      "when": "jeść — есть",
+      "lines": [
+       "jadłem / jadłam, jadł / jadła",
+       "jedliśmy / jadłyśmy, jedli / jadły"
+      ]
      },
      {
-      "when": "iść",
-      "form": "szedłem / szłam, szedł / szła, szli / szły",
-      "example": "Kiedy szedłem do kina, padał deszcz."
+      "when": "iść — идти",
+      "lines": [
+       "szedłem / szłam, szedł / szła",
+       "szliśmy / szłyśmy, szli / szły"
+      ]
      },
      {
-      "when": "pójść",
-      "form": "poszedłem / poszłam, poszedł / poszła, poszli / poszły",
-      "example": "Poszliśmy z tatą na mecz."
+      "when": "pójść — пойти",
+      "lines": [
+       "poszedłem / poszłam, poszedł / poszła",
+       "poszliśmy / poszłyśmy, poszli / poszły"
+      ]
      },
      {
-      "when": "chodzić",
-      "form": "chodziłem, chodził, chodzili",
-      "example": "Rzadko chodziłem do kina."
+      "when": "chodzić — ходить",
+      "lines": [
+       "chodziłem, chodził, chodzili"
+      ]
      }
     ],
     "exceptions": [
-     "jedli и poszli — мужско-личные: «e» и «li»; jadły, poszły — женщины и вещи",
-     "my: jedliśmy / jadłyśmy, poszliśmy / poszłyśmy"
+     "**jedli**, **poszli** — мужско-личные: e и -li; jadły, poszły — женщины и вещи.",
+     "szedł → **szła** (без e): e выпадает в женском роде."
     ],
     "examples": [
      {
       "pl": "Mama ugotowała obiad, ale ja już jadłam.",
-      "translit": "МА-ма у-го-то-ВА-ўа О-бьят, А-ле я юж ЯД-ўам",
       "ru": "Мама приготовила обед, но я уже поела."
      },
      {
       "pl": "Angela i Mami poszły do restauracji.",
-      "translit": "ан-ГЕ-ля и МА-ми ПОШ-ўы до рэс-таў-РАЦ-ьи",
       "ru": "Анджела и Мами пошли в ресторан."
+     },
+     {
+      "pl": "Kiedy szedłem do kina, padał deszcz.",
+      "ru": "Когда я шёл в кино, шёл дождь."
+     },
+     {
+      "pl": "Poszliśmy z tatą na mecz.",
+      "ru": "Мы с папой пошли на матч."
+     },
+     {
+      "pl": "Co jedliście na obiad?",
+      "ru": "Что вы ели на обед?"
      }
     ]
    },
    {
     "title": "Когда? temu, w zeszłym…",
-    "explanation": "Срок + temu — «назад»; w zeszłym (w ostatnim) + предложный — «на прошлой / в прошлом»; w zeszły + винительный — с днём недели.",
+    "points": [
+     "Срок + **temu** — «назад».",
+     "**w zeszłym** + предложный — «на прошлой / в прошлом».",
+     "С днём недели — **w zeszły / zeszłą** + винительный."
+    ],
     "table": [
      {
-      "when": "назад",
-      "form": "срок + temu",
-      "example": "tydzień temu, dwa dni temu, pół roku temu, pięć lat temu"
+      "when": "Назад",
+      "lines": [
+       "tydzień temu — неделю назад",
+       "dwa dni temu — два дня назад",
+       "pół roku temu — полгода назад",
+       "pięć lat temu — пять лет назад"
+      ]
      },
      {
-      "when": "в прошлом …",
-      "form": "w zeszłym tygodniu / miesiącu / roku",
-      "example": "W zeszłym roku byłem w Polsce."
+      "when": "В прошлом …",
+      "lines": [
+       "w zeszłym tygodniu — на прошлой неделе",
+       "w zeszłym miesiącu — в прошлом месяце",
+       "w zeszłym roku — в прошлом году"
+      ]
      },
      {
-      "when": "в прошлый день недели",
-      "form": "w zeszły piątek, w zeszłą sobotę",
-      "example": "W zeszły czwartek ćwiczyli."
+      "when": "В прошлый день недели",
+      "lines": [
+       "w zeszły piątek — в прошлую пятницу",
+       "w zeszłą sobotę — в прошлую субботу"
+      ]
      },
      {
-      "when": "вчера / позавчера",
-      "form": "wczoraj, przedwczoraj",
-      "example": "Przedwczoraj byłam u dentysty."
+      "when": "Вчера / позавчера",
+      "lines": [
+       "wczoraj, przedwczoraj"
+      ]
      },
      {
-      "when": "весь",
-      "form": "cały tydzień, całą noc, cały czas",
-      "example": "Grał w karty całą noc."
+      "when": "Весь",
+      "lines": [
+       "cały tydzień — всю неделю",
+       "całą noc — всю ночь",
+       "cały czas — всё время"
+      ]
      }
     ],
     "exceptions": [
-     "2–4 недели — tygodnie temu, 5+ — tygodni temu (как lata / lat)"
+     "2–4 недели — **tygodnie** temu, 5+ — **tygodni** temu (как lata / lat).",
+     "w zeszł**y** piątek (м. р.), но w zeszł**ą** sobotę (ж. р.)."
     ],
     "examples": [
      {
       "pl": "Byłam w kinie tydzień temu.",
-      "translit": "БЫ-ўам ф КИ-не ТЫ-джень ТЭ-му",
       "ru": "Я была в кино неделю назад."
      },
      {
       "pl": "W zeszłym tygodniu dużo pracowałem.",
-      "translit": "в ЗЭШ-ўым ты-ГОД-ню ДУ-жо пра-цо-ВА-ўэм",
       "ru": "На прошлой неделе я много работал."
+     },
+     {
+      "pl": "Przedwczoraj byłam u dentysty.",
+      "ru": "Позавчера я была у стоматолога."
+     },
+     {
+      "pl": "Grał w karty całą noc.",
+      "ru": "Он играл в карты всю ночь."
+     },
+     {
+      "pl": "Trzy tygodnie temu byliśmy w Gdańsku.",
+      "ru": "Три недели назад мы были в Гданьске."
      }
     ]
    }

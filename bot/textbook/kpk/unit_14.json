@@ -2545,318 +2545,421 @@
   "rules": [
    {
     "title": "iść или chodzić: сейчас или регулярно",
-    "explanation": "Пешком — два глагола. iść — одно движение сейчас или один раз (teraz, dziś, zaraz, jutro). chodzić — регулярно, обычно, вообще (zawsze, zwykle, często, codziennie, nigdy) и «любить ходить». Как в русском «идти — ходить».",
+    "points": [
+     "Пешком — **два глагола**, как в русском «идти — ходить».",
+     "**iść** — сейчас или один раз (teraz, dziś, zaraz, jutro).",
+     "**chodzić** — регулярно, обычно, вообще (zawsze, często, codziennie, nigdy)."
+    ],
     "table": [
      {
-      "when": "сейчас / один раз",
-      "form": "iść: idę, idziesz, idzie, idziemy, idziecie, idą",
-      "example": "Teraz idę do sklepu."
+      "when": "iść — сейчас / один раз",
+      "lines": [
+       "idę, idziesz, idzie",
+       "idziemy, idziecie, idą"
+      ]
      },
      {
-      "when": "регулярно",
-      "form": "chodzić: chodzę, chodzisz, chodzi, chodzimy, chodzicie, chodzą",
-      "example": "Często chodzę do kina."
+      "when": "chodzić — регулярно",
+      "lines": [
+       "chodzę, chodzisz, chodzi",
+       "chodzimy, chodzicie, chodzą"
+      ]
      },
      {
-      "when": "подсказки iść",
-      "form": "teraz, dziś, zaraz, jutro, w tym roku",
-      "example": "Dziś idzie na 6:00."
+      "when": "Подсказки для iść",
+      "lines": [
+       "teraz, dziś, zaraz, jutro, w tym roku"
+      ]
      },
      {
-      "when": "подсказки chodzić",
-      "form": "zawsze, zwykle, często, codziennie, raz w tygodniu, nigdy",
-      "example": "Codziennie chodzi do pracy."
+      "when": "Подсказки для chodzić",
+      "lines": [
+       "zawsze, zwykle, często, codziennie, raz w tygodniu, nigdy"
+      ]
      },
      {
-      "when": "после lubić, móc…",
-      "form": "lubię chodzić — вообще; mogę iść — сейчас",
-      "example": "Lubimy chodzić do restauracji."
+      "when": "После lubić, móc",
+      "lines": [
+       "lubię chodzić — вообще",
+       "mogę iść — сейчас"
+      ]
      }
     ],
     "exceptions": [
-     "iść неправильный: idę, но oni idą; chodzić: ja chodzę (dz → dz, без смены)",
+     "iść неправильный: **idę**, но oni **idą**.",
      "iść spać — «идти спать» (сейчас): Idziesz spać?",
      "chodzić do szkoły — «учиться в школе» (регулярно): Córka chodzi już do szkoły."
     ],
     "examples": [
      {
       "pl": "Zwykle chodzę na wykłady, ale dziś idę na quiz.",
-      "translit": "ЗВЫК-ле ХО-дзэ на вык-ЎА-ды, А-ле джищь И-дэ на квиз",
       "ru": "Обычно я хожу на лекции, но сегодня иду на викторину."
      },
      {
       "pl": "Jak często chodzisz do babci?",
-      "translit": "як ЧЭНС-то ХО-джишь до БАП-чи",
       "ru": "Как часто ты ходишь к бабушке?"
      },
      {
       "pl": "Przepraszam, nie mogę rozmawiać, idę do sklepu.",
-      "translit": "пше-ПРА-шам, не МО-гэ ро-ЗМА-вячь, И-дэ до СКЛЕ-пу",
       "ru": "Извините, не могу говорить, я иду в магазин."
+     },
+     {
+      "pl": "Lubimy chodzić do restauracji.",
+      "ru": "Мы любим ходить в рестораны."
+     },
+     {
+      "pl": "Zaraz idę!",
+      "ru": "Сейчас иду!"
      }
     ]
    },
    {
     "title": "jechać или jeździć: на транспорте",
-    "explanation": "На транспорте — тоже пара. jechać — сейчас или один раз, jeździć — регулярно. Та же логика, что iść / chodzić. Пешком (pieszo) — только iść / chodzić; на велосипеде, лыжах, лифте — jechać / jeździć.",
+    "points": [
+     "На транспорте — тоже пара: **jechać** — сейчас / один раз, **jeździć** — регулярно.",
+     "Пешком (pieszo) — только iść / chodzić; велосипед, лыжи, лифт — jechać / jeździć."
+    ],
     "table": [
      {
-      "when": "сейчас / один раз",
-      "form": "jechać: jadę, jedziesz, jedzie, jedziemy, jedziecie, jadą",
-      "example": "Teraz jadę taksówką."
+      "when": "jechać — сейчас / один раз",
+      "lines": [
+       "jadę, jedziesz, jedzie",
+       "jedziemy, jedziecie, jadą"
+      ]
      },
      {
-      "when": "регулярно",
-      "form": "jeździć: jeżdżę, jeździsz, jeździ, jeździmy, jeździcie, jeżdżą",
-      "example": "Zwykle jeżdżę rowerem."
-     },
-     {
-      "when": "ja / oni",
-      "form": "jadę, jadą — с -a-; остальные с -e-: jedziesz",
-      "example": "Jutro jadą do Zakopanego."
-     },
-     {
-      "when": "чередование",
-      "form": "jeździć: ja jeżdżę, oni jeżdżą (ź → ż, dź → dż)",
-      "example": "Państwo Maj jeżdżą do Hiszpanii."
+      "when": "jeździć — регулярно",
+      "lines": [
+       "jeżdżę, jeździsz, jeździ",
+       "jeździmy, jeździcie, jeżdżą"
+      ]
      }
     ],
     "exceptions": [
-     "Пешком нельзя «jechać»: Zawsze chodzę do szkoły pieszo",
-     "jeździć na nartach / na rowerze — кататься (регулярно, вообще)",
-     "lecieć samolotem — лететь (не jechać)"
+     "jechać: ja **jadę**, oni **jadą** — с a; остальные с e: jedziesz.",
+     "jeździć: ja **jeżdżę**, oni **jeżdżą** — ź → ż, dź → dż.",
+     "Пешком нельзя «jechać»: Zawsze **chodzę** do szkoły pieszo.",
+     "Самолётом — **lecieć** (лететь), не jechać."
     ],
     "examples": [
      {
       "pl": "Codziennie jeżdżę rowerem, ale dziś jadę tramwajem.",
-      "translit": "цо-ДЖЕН-не ЕЖ-джэ ро-ВЭ-рэм, А-ле джищь Я-дэ трам-ВА-ем",
       "ru": "Каждый день я езжу на велосипеде, но сегодня еду на трамвае."
      },
      {
       "pl": "Jedziecie z nami do Zakopanego?",
-      "translit": "е-ДЖЕ-че з НА-ми до за-ко-ПА-нэ-го",
       "ru": "Вы едете с нами в Закопане?"
      },
      {
       "pl": "On teraz jedzie samochodem.",
-      "translit": "он ТЭ-раз Е-дже са-мо-ХО-дэм",
       "ru": "Он сейчас едет на машине."
+     },
+     {
+      "pl": "Państwo Maj jeżdżą do Hiszpanii co roku.",
+      "ru": "Супруги Май ездят в Испанию каждый год."
+     },
+     {
+      "pl": "Lubisz jeździć na nartach?",
+      "ru": "Ты любишь кататься на лыжах?"
      }
     ]
    },
    {
     "title": "Czym? Транспорт в творительном падеже",
-    "explanation": "«На чём?» по-польски — творительный падеж без предлога: jechać autobusem (не «na autobusie»). Окончания — как у творительного после z (юнит 9): м. и ср. род -em, ж. род -ą.",
+    "points": [
+     "«На чём?» — **творительный без предлога**: jechać autobusem (не «na autobusie»).",
+     "Окончания — как после z (юнит 8): м. и ср. р. **-em**, ж. р. **-ą**."
+    ],
     "table": [
      {
-      "when": "м. р.",
-      "form": "-em",
-      "example": "autobusem, tramwajem, rowerem, samochodem"
+      "when": "м. р. → -em",
+      "lines": [
+       "autobus → autobusem",
+       "tramwaj → tramwajem",
+       "rower → rowerem",
+       "samochód → samochodem"
+      ]
      },
      {
-      "when": "м. р. на -k, -g",
-      "form": "-iem",
-      "example": "pociągiem, statkiem"
+      "when": "м. р. на -k, -g → -iem",
+      "lines": [
+       "pociąg → pociągiem (поезд)",
+       "statek → statkiem (корабль)"
+      ]
      },
      {
-      "when": "ср. р.",
-      "form": "-em",
-      "example": "metrem"
+      "when": "ср. р. → -em",
+      "lines": [
+       "metro → metrem"
+      ]
      },
      {
-      "when": "ж. р. -a",
-      "form": "-ą",
-      "example": "taksówką, windą, dorożką"
+      "when": "ж. р. -a → -ą",
+      "lines": [
+       "taksówka → taksówką",
+       "winda → windą (лифт)",
+       "dorożka → dorożką (пролётка)"
+      ]
      },
      {
-      "when": "вопрос",
-      "form": "Czym? + jechać / jeździć",
-      "example": "Czym jeździsz do pracy? — Autobusem."
+      "when": "Вопрос",
+      "lines": [
+       "Czym jeździsz do pracy? — Autobusem."
+      ]
      }
     ],
     "exceptions": [
-     "samochód → samochodem: ó → o (как stół → stołem)",
-     "пешком — pieszo, не творительный",
-     "в русском «на + предложный», в польском — без предлога: jadę metrem"
+     "samochód → samoch**o**dem: ó → o, как stół → stołem.",
+     "statek → statkiem: e выпадает.",
+     "Пешком — **pieszo**, не творительный."
     ],
     "examples": [
      {
       "pl": "Czym jeździsz do szkoły? — Samochodem.",
-      "translit": "чым ЕЖЬ-джишь до ШКО-ўы — са-мо-ХО-дэм",
       "ru": "На чём ты ездишь в школу? — На машине."
      },
      {
       "pl": "Turyści jeżdżą dorożką po Rynku.",
-      "translit": "ту-РЫЩЬ-чи ЕЖ-джон до-РОШ-кон по РЫН-ку",
       "ru": "Туристы катаются на пролётке по Рынку."
      },
      {
       "pl": "Z Krakowa do Warszawy jadę pociągiem.",
-      "translit": "с кра-КО-ва до вар-ША-вы Я-дэ по-ЧЁН-гем",
       "ru": "Из Кракова в Варшаву я еду на поезде."
+     },
+     {
+      "pl": "Jedziemy taksówką.",
+      "ru": "Мы едем на такси."
+     },
+     {
+      "pl": "Mieszkam wysoko, więc jeżdżę windą.",
+      "ru": "Я живу высоко, поэтому езжу на лифте."
      }
     ]
    },
    {
     "title": "Кого? mnie, cię, go, ją… (винительный местоимений)",
-    "explanation": "Винительный падеж нужен после глаголов «кого? что?»: lubić, kochać, mieć, znać, widzieć, zapraszać, pamiętać — и после предлога na (czekać na). У ty и on по 2–3 формы: короткая — обычно, длинная — с ударением (в начале фразы, «только его»), форма на n- — после предлога.",
+    "points": [
+     "Винительный — после глаголов «кого? что?»: lubić, kochać, znać, widzieć, zapraszać, pamiętać — и после **na** (czekać na).",
+     "У ty и on 2–3 формы: **короткая** — обычно, **длинная** — с ударением, **на n-** — после предлога."
+    ],
     "table": [
      {
-      "when": "ja / ty",
-      "form": "mnie / cię (ciebie)",
-      "example": "Kocham cię. Czekam na ciebie."
+      "when": "ja",
+      "lines": [
+       "mnie: Pytałeś mnie? — Ты меня спрашивал?"
+      ]
+     },
+     {
+      "when": "ty",
+      "lines": [
+       "cię: Kocham cię.",
+       "ciebie — после предлога и с ударением: Czekam na ciebie."
+      ]
      },
      {
       "when": "on",
-      "form": "go (jego, po przyimku niego)",
-      "example": "Lubię go. Lubię tylko jego! Czekam na niego."
+      "lines": [
+       "go: Lubię go.",
+       "jego — с ударением: Lubię tylko jego!",
+       "niego — после предлога: Czekam na niego."
+      ]
      },
      {
       "when": "ona",
-      "form": "ją (po przyimku nią)",
-      "example": "Zaprosiłam ją. Patrzył na nią."
+      "lines": [
+       "ją: Zaprosiłam ją.",
+       "nią — после предлога: Patrzył na nią."
+      ]
      },
      {
       "when": "ono / one",
-      "form": "je (po przyimku nie)",
-      "example": "Kocham je (dziecko). Czekam na nie."
+      "lines": [
+       "je: Kocham je (dziecko).",
+       "nie — после предлога: Czekam na nie."
+      ]
      },
      {
       "when": "my / wy",
-      "form": "nas / was",
-      "example": "Babcia zaprosiła nas. Przepraszam was."
+      "lines": [
+       "nas / was: Babcia zaprosiła nas. Przepraszam was."
+      ]
      },
      {
-      "when": "oni",
-      "form": "ich (po przyimku nich)",
-      "example": "Pamiętam ich. Czekamy na nich."
+      "when": "oni (мужчины)",
+      "lines": [
+       "ich: Pamiętam ich.",
+       "nich — после предлога: Czekamy na nich."
+      ]
      }
     ],
     "exceptions": [
-     "после предлога — n-: na niego, na nią, na nich, na nie; mnie, nas, was не меняются",
-     "существительное → местоимение по роду: program → go, książka → ją, piwo → je, gazety → je, studenci → ich",
-     "go не ставят в начало фразы: Jego kocham! (не «Go kocham»)"
+     "После предлога — **n-**: na niego, na nią, na nich, na nie; mnie, nas, was не меняются.",
+     "Слово → местоимение по роду: program → **go**, książka → **ją**, piwo → **je**, gazety → **je**, studenci → **ich**.",
+     "go не ставят в начало фразы: **Jego** kocham! (не «Go kocham»)."
     ],
     "examples": [
      {
       "pl": "Lubię Angelę i Mami. — Lubię je.",
-      "translit": "ЛЮ-бье ан-ГЭ-лэ и МА-ми — ЛЮ-бье е",
       "ru": "Мне нравятся Анджела и Мами. — Они мне нравятся."
      },
      {
       "pl": "Czekam na Piotra. — Czekam na niego.",
-      "translit": "ЧЕ-кам на ПЬОТ-ра — ЧЕ-кам на НЕ-го",
       "ru": "Я жду Петра. — Я жду его."
      },
      {
       "pl": "Ile mogę na was czekać!",
-      "translit": "И-ле МО-гэ на вас ЧЕ-качь",
       "ru": "Сколько мне вас ждать!"
+     },
+     {
+      "pl": "Zapraszam cię do kina.",
+      "ru": "Приглашаю тебя в кино."
+     },
+     {
+      "pl": "Widzę ich tam, za pomnikiem.",
+      "ru": "Я вижу их там, за памятником."
      }
     ]
    },
    {
     "title": "Как пройти? Дорога в городе",
-    "explanation": "Спросить дорогу: Przepraszam, jak dojść do + родительный? / Gdzie jest…? Ответ: Proszę + инфинитив (iść, skręcić, przejść). Где объект: jest po prawej / lewej stronie, na rogu, naprzeciwko + родительный.",
+    "points": [
+     "Спросить: **Przepraszam, jak dojść do + родительный?** / Gdzie jest…?",
+     "Ответить: **Proszę + инфинитив** (iść, skręcić, przejść).",
+     "Где объект: **jest** po prawej / lewej stronie, na rogu, naprzeciwko + родительный."
+    ],
     "table": [
      {
-      "when": "вопрос",
-      "form": "Jak dojść do + род. п.?",
-      "example": "Jak dojść do kościoła? do apteki?"
+      "when": "Вопрос",
+      "lines": [
+       "Jak dojść do kościoła? — Как пройти к костёлу?",
+       "Gdzie jest apteka? — Где аптека?"
+      ]
      },
      {
-      "when": "skręcić",
-      "form": "w prawo, w lewo, w ulicę + вин. п.",
-      "example": "Proszę skręcić w lewo / w ulicę Bracką."
+      "when": "skręcić — повернуть",
+      "lines": [
+       "w prawo / w lewo — направо / налево",
+       "w ulicę Bracką — на улицу Брацкую (вин. п.)"
+      ]
      },
      {
-      "when": "iść",
-      "form": "prosto, cały czas prosto, tą ulicą",
-      "example": "Proszę iść cały czas prosto."
+      "when": "iść — идти",
+      "lines": [
+       "prosto — прямо",
+       "cały czas prosto — всё время прямо",
+       "tą ulicą — по этой улице"
+      ]
      },
      {
-      "when": "przejść",
-      "form": "przez + вин. п.",
-      "example": "Proszę przejść przez skrzyżowanie."
+      "when": "przejść — перейти",
+      "lines": [
+       "przez + вин. п.: przez ulicę, przez skrzyżowanie"
+      ]
      },
      {
-      "when": "jest",
-      "form": "po prawej / lewej stronie, na wprost, na rogu, naprzeciwko + род. п.",
-      "example": "Naprzeciwko księgarni jest apteka."
+      "when": "jest — находится",
+      "lines": [
+       "po prawej / lewej stronie — справа / слева",
+       "na wprost — прямо впереди",
+       "na rogu — на углу",
+       "naprzeciwko + род. п.: naprzeciwko księgarni — напротив книжного"
+      ]
      },
      {
-      "when": "далеко / близко",
-      "form": "To daleko. To blisko. To niedaleko.",
-      "example": "To niedaleko, może pani iść pieszo."
+      "when": "Далеко / близко",
+      "lines": [
+       "To daleko. To blisko. To niedaleko."
+      ]
      }
     ],
     "exceptions": [
-     "po prawej stronie — где (jest), w prawo — куда (skręcić): не путать",
-     "naprzeciwko и do — с родительным: naprzeciwko księgarni, do apteki",
-     "na pierwszym skrzyżowaniu — «на первом перекрёстке» (предложный)"
+     "**po prawej stronie** — где (jest), **w prawo** — куда (skręcić): не путать.",
+     "naprzeciwko и do — с **родительным**: naprzeciwko księgarni, do apteki.",
+     "na pierwszym skrzyżowaniu — «на первом перекрёстке» (предложный)."
     ],
     "examples": [
      {
       "pl": "Przepraszam, jak dojść do apteki?",
-      "translit": "пше-ПРА-шам, як дойщьчь до ап-ТЭ-ки",
       "ru": "Извините, как пройти к аптеке?"
      },
      {
       "pl": "Proszę iść prosto, a potem skręcić w lewo.",
-      "translit": "ПРО-шэ ищьчь ПРОС-то, а ПО-тэм СКРЭН-чичь в ЛЕ-во",
       "ru": "Идите прямо, а потом поверните налево."
      },
      {
       "pl": "Kościół jest po prawej stronie, na rogu.",
-      "translit": "КОЩЬ-чуў ест по ПРА-вэй СТРО-не, на РО-гу",
       "ru": "Костёл справа, на углу."
+     },
+     {
+      "pl": "Proszę przejść przez skrzyżowanie.",
+      "ru": "Перейдите через перекрёсток.",
+      "translit": "ПРО-шэ пшэйщьчь пшэс скшы-жо-ВА-не"
+     },
+     {
+      "pl": "Apteka jest naprzeciwko księgarni.",
+      "ru": "Аптека напротив книжного магазина."
      }
     ]
    },
    {
     "title": "Где? na górze, w środku: наречия места",
-    "explanation": "Неизменяемые слова «где?»: na górze — наверху, na dole — внизу, w środku — внутри, na zewnątrz — снаружи, na wprost — прямо впереди. Предлог za (за) — с творительным: za pomnikiem.",
+    "points": [
+     "Неизменяемые слова «где?»: **na górze, na dole, w środku, na zewnątrz, na wprost**.",
+     "**za** (за, позади) — с творительным: za pomnikiem."
+    ],
     "table": [
      {
-      "when": "верх / низ",
-      "form": "na górze / na dole",
-      "example": "Krzyż jest na górze."
+      "when": "Верх / низ",
+      "lines": [
+       "na górze — наверху",
+       "na dole — внизу"
+      ]
      },
      {
-      "when": "внутри / снаружи",
-      "form": "w środku / na zewnątrz",
-      "example": "Zamawiamy w środku, siedzimy na zewnątrz."
+      "when": "Внутри / снаружи",
+      "lines": [
+       "w środku — внутри",
+       "na zewnątrz — снаружи [на ЗЭВ-нонтш]"
+      ]
      },
      {
-      "when": "впереди",
-      "form": "na wprost",
-      "example": "Na wprost jest pomnik."
+      "when": "Впереди",
+      "lines": [
+       "na wprost — прямо впереди"
+      ]
      },
      {
-      "when": "позади",
-      "form": "za + твор. п.",
-      "example": "Za pomnikiem są Sukiennice."
+      "when": "Позади: za + твор. п.",
+      "lines": [
+       "za pomnikiem — за памятником",
+       "za wieżą — за башней"
+      ]
      }
     ],
     "exceptions": [
-     "na górze — где; w górę / na górę — куда (idziesz schodami na górę)",
-     "na zewnątrz читается «на ЗЭВ-нонтш»"
+     "na górze — **где**; w górę / na górę — **куда**: idziesz schodami na górę.",
+     "za + творительный, как z: pomnik → za pomnikiem, wieża → za wieżą."
     ],
     "examples": [
      {
       "pl": "Kto stoi na górze, kto na dole?",
-      "translit": "кто СТО-и на ГУ-жэ, кто на ДО-ле",
       "ru": "Кто стоит наверху, кто внизу?"
      },
      {
-      "pl": "Javier chce w środku.",
-      "translit": "ХА-вьер хцэ ф ЩЬРОТ-ку",
-      "ru": "Хавьер хочет внутри."
+      "pl": "Zamawiamy w środku, siedzimy na zewnątrz.",
+      "ru": "Заказываем внутри, сидим снаружи."
      },
      {
       "pl": "Widzę ich tam, za pomnikiem.",
-      "translit": "ВИ-дзэ их там, за пом-НИ-кем",
       "ru": "Вижу их там, за памятником."
+     },
+     {
+      "pl": "Na wprost jest ratusz.",
+      "ru": "Прямо впереди ратуша."
+     },
+     {
+      "pl": "Krzyż jest na górze.",
+      "ru": "Крест наверху."
      }
     ]
    }

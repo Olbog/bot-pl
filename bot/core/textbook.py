@@ -30,6 +30,8 @@ import random
 import re
 from pathlib import Path
 
+from .readability import tr
+
 UNITS_DIR = Path(__file__).resolve().parent.parent / "textbook"  # bot/textbook/<книга>/unit_NN.json
 PHRASES_BOOK = "phr"     # 💬 полезные выражения: «книга» вне учебников (standalone в book.json)
 DEFAULT_BOOK = "kpk"     # старые ключи юнитов без книги («8») — это Krok po kroku
@@ -280,7 +282,8 @@ def pick_words(unit: dict, stats: dict, n: int, direction: str,
 
 def card_item(w: dict, d: str) -> dict:
     """Карточка: d=pl — дано польское, пишешь русский; d=ru — наоборот."""
-    pl_line = w["pl"] + (f" [{w['translit']}]" if w.get("translit") else "")
+    t = tr(w["pl"], w.get("translit", ""))
+    pl_line = w["pl"] + (f" [{t}]" if t else "")
     if d == "pl":
         q, answer, accepted = pl_line, w["ru"], list(w.get("ru_alt") or [])
     else:

@@ -3393,211 +3393,307 @@
   "rules": [
    {
     "title": "Спряжение -ę / -isz и -ę / -ysz",
-    "explanation": "Вторая группа: глаголы на -ić / -eć (mówić, lubić, myśleć) и -yć (uczyć, kończyć, tańczyć). Окончания: -ę, -isz (-ysz), -i (-y), -imy (-ymy), -icie (-ycie), -ą. -y пишется после cz, sz, rz, ż.",
+    "points": [
+     "Вторая группа: глаголы на **-ić / -eć** (mówić, lubić, myśleć) и **-yć** (uczyć, kończyć, tańczyć).",
+     "Окончания: **-ę, -isz, -i, -imy, -icie, -ą**.",
+     "После cz, sz, rz, ż вместо i пишется **y**: uczysz, tańczy."
+    ],
     "table": [
      {
-      "when": "ja",
-      "form": "-ę",
-      "example": "mówię, lubię, myślę; uczę, tańczę"
+      "when": "ja → -ę",
+      "lines": [
+       "mówię, lubię, myślę",
+       "uczę, tańczę"
+      ]
      },
      {
-      "when": "ty",
-      "form": "-isz / -ysz",
-      "example": "mówisz, lubisz; uczysz, tańczysz"
+      "when": "ty → -isz / -ysz",
+      "lines": [
+       "mówisz, lubisz",
+       "uczysz, tańczysz"
+      ]
      },
      {
-      "when": "on / ona / pan / pani",
-      "form": "-i / -y",
-      "example": "mówi, lubi; uczy, tańczy"
+      "when": "on / ona / pan / pani → -i / -y",
+      "lines": [
+       "mówi, lubi",
+       "uczy, tańczy"
+      ]
      },
      {
-      "when": "my",
-      "form": "-imy / -ymy",
-      "example": "mówimy, myślimy; uczymy, kończymy"
+      "when": "my → -imy / -ymy",
+      "lines": [
+       "mówimy, myślimy",
+       "uczymy, kończymy"
+      ]
      },
      {
-      "when": "wy",
-      "form": "-icie / -ycie",
-      "example": "mówicie; uczycie"
+      "when": "wy → -icie / -ycie",
+      "lines": [
+       "mówicie",
+       "uczycie"
+      ]
      },
      {
-      "when": "oni / one / państwo",
-      "form": "-ą",
-      "example": "mówią, lubią, myślą; uczą, tańczą"
+      "when": "oni / one / państwo → -ą",
+      "lines": [
+       "mówią, lubią, myślą",
+       "uczą, tańczą"
+      ]
      }
     ],
     "exceptions": [
-     "У lubić, mówić в ja и oni появляется смягчение: lubię, lubią — ЛЮ-бье, ЛЮ-бьон",
-     "myśleć: myślę, myślisz, myśli — как -ić, хотя инфинитив на -eć"
+     "У lubić, mówić в ja и oni слышно смягчение: lubię [ЛЮ-бье], lubią [ЛЮ-бьон].",
+     "myśleć спрягается как -ić: myślę, myślisz, myśli — хотя инфинитив на -eć."
     ],
     "examples": [
      {
       "pl": "Mówisz po polsku?",
-      "translit": "МУ-вишь по ПОЛЬ-ску",
       "ru": "Ты говоришь по-польски?"
      },
      {
       "pl": "Uczymy się języka polskiego.",
-      "translit": "у-ЧЫ-мы ще ен-ЗЫ-ка поль-СКЕ-го",
       "ru": "Мы учим польский язык."
      },
      {
       "pl": "Oni świetnie tańczą.",
-      "translit": "О-ни ЩЬВЕТ-не ТАНЬ-чон",
       "ru": "Они отлично танцуют."
+     },
+     {
+      "pl": "Lubię kawę, a ty?",
+      "ru": "Я люблю кофе, а ты?"
+     },
+     {
+      "pl": "Kiedy kończysz pracę?",
+      "ru": "Когда ты заканчиваешь работу?"
      }
     ]
    },
    {
     "title": "Языки: mówić po polsku, znać polski",
-    "explanation": "На каком языке говоришь — po + прилагательное на -u: po polsku, po angielsku. Знать / учить язык — прилагательное без po: znam polski, uczę się polskiego.",
+    "points": [
+     "На каком языке говоришь — **po + -u**: po polsku, po angielsku.",
+     "Знать язык — **znać polski** (без po).",
+     "Учить язык — **uczyć się polskiego** (родительный)."
+    ],
     "table": [
      {
-      "when": "говорить / понимать на …",
-      "form": "po …-sku / -cku",
-      "example": "po polsku, po rosyjsku, po niemiecku, po holendersku"
+      "when": "Говорить / понимать: po + …-sku / -cku",
+      "lines": [
+       "po polsku — по-польски",
+       "po rosyjsku — по-русски",
+       "po niemiecku — по-немецки",
+       "po angielsku — по-английски",
+       "po francusku, po włosku — по-французски, по-итальянски"
+      ]
      },
      {
-      "when": "знать язык",
-      "form": "znać + polski, angielski",
-      "example": "Znam angielski i trochę polski."
+      "when": "Знать язык",
+      "lines": [
+       "Znam angielski i trochę polski. — Я знаю английский и немного польский."
+      ]
      },
      {
-      "when": "учить язык",
-      "form": "uczyć się + polskiego",
-      "example": "Uczę się polskiego."
+      "when": "Учить язык",
+      "lines": [
+       "Uczę się polskiego. — Я учу польский."
+      ]
      }
     ],
     "exceptions": [
-     "Нельзя «mówię polski» — правильно mówię po polsku",
-     "po francusku, po włosku — с теми же правилами"
+     "Нельзя «mówię polski» — правильно **mówię po polsku**.",
+     "Прилагательные языков пишутся с маленькой буквы: polski, angielski."
     ],
     "examples": [
      {
       "pl": "Mówię po rosyjsku i po angielsku.",
-      "translit": "МУ-вье по ро-СЫЙ-ску и по ан-ГЕЛЬ-ску",
       "ru": "Я говорю по-русски и по-английски."
      },
      {
       "pl": "On dobrze zna polski.",
-      "translit": "он ДОБ-жэ зна ПОЛЬ-ски",
       "ru": "Он хорошо знает польский."
+     },
+     {
+      "pl": "Uczę się niemieckiego.",
+      "ru": "Я учу немецкий."
+     },
+     {
+      "pl": "Rozumiesz po polsku?",
+      "ru": "Ты понимаешь по-польски?"
+     },
+     {
+      "pl": "Ona mówi po francusku bardzo dobrze.",
+      "ru": "Она очень хорошо говорит по-французски."
      }
     ]
    },
    {
     "title": "Описание человека: прилагательное по роду",
-    "explanation": "Jaki on jest? Jaka ona jest? Прилагательное характера и внешности — -y / -a / -e, после k, g — -i / -a / -ie. Антонимы удобно учить парами.",
+    "points": [
+     "**Jaki on jest? Jaka ona jest?** — прилагательное по роду: **-y / -a / -e**, после k, g — **-i / -a / -ie**.",
+     "Антонимы удобно учить парами."
+    ],
     "table": [
      {
-      "when": "внешность",
-      "form": "wysoki ≠ niski, szczupły ≠ gruby, młody ≠ stary",
-      "example": "On jest wysoki, ona jest niska."
+      "when": "Внешность",
+      "lines": [
+       "wysoki ≠ niski — высокий ≠ низкий",
+       "szczupły ≠ gruby — стройный ≠ полный",
+       "młody ≠ stary — молодой ≠ старый"
+      ]
      },
      {
-      "when": "характер",
-      "form": "miły ≠ niemiły, spokojny ≠ nerwowy, wesoły ≠ smutny",
-      "example": "Ona jest wesoła."
+      "when": "Характер",
+      "lines": [
+       "miły ≠ niemiły — приятный ≠ неприятный",
+       "spokojny ≠ nerwowy — спокойный ≠ нервный",
+       "wesoły ≠ smutny — весёлый ≠ грустный"
+      ]
      },
      {
-      "when": "интернационализмы",
-      "form": "aktywny, ambitny, energiczny, kreatywny",
-      "example": "Ania jest ambitna."
+      "when": "Интернационализмы",
+      "lines": [
+       "aktywny, ambitny, energiczny, kreatywny"
+      ]
      }
     ],
     "exceptions": [
-     "Dziecko — ср. р.: dziecko jest wesołe, utalentowane",
-     "Ładny / przystojny: ładna kobieta, но przystojny mężczyzna (о мужчине обычно przystojny)"
+     "dziecko — ср. р.: dziecko jest **wesołe**, utalentowane.",
+     "ładna kobieta — красивая женщина, но о мужчине обычно **przystojny** mężczyzna."
     ],
     "examples": [
      {
       "pl": "Jaki on jest? — Jest wysoki i szczupły.",
-      "translit": "Я-ки он ест — ест вы-СО-ки и ШЧУП-ўы",
       "ru": "Какой он? — Высокий и стройный."
      },
      {
       "pl": "Ona jest miła, ale nerwowa.",
-      "translit": "О-на ест МИ-ўа, А-ле нэр-ВО-ва",
       "ru": "Она милая, но нервная."
+     },
+     {
+      "pl": "Ania jest ambitna i kreatywna.",
+      "ru": "Аня целеустремлённая и креативная."
+     },
+     {
+      "pl": "Mój brat jest spokojny.",
+      "ru": "Мой брат спокойный."
+     },
+     {
+      "pl": "To dziecko jest bardzo wesołe.",
+      "ru": "Этот ребёнок очень весёлый."
      }
     ]
    },
    {
     "title": "Связки: i, ale, bo, ani… ani",
-    "explanation": "i — и (добавляет), ale — но (противопоставляет), bo — потому что (причина), ani… ani — ни… ни (только с отрицанием nie).",
+    "points": [
+     "**i** — и (добавляет), **ale** — но (противопоставляет), **bo** — потому что (причина).",
+     "**ani… ani** — ни… ни, только вместе с **nie** при глаголе."
+    ],
     "table": [
      {
       "when": "и",
-      "form": "i",
-      "example": "Jest młoda i wysoka."
+      "lines": [
+       "i: Jest młoda i wysoka. — Она молодая и высокая."
+      ]
      },
      {
       "when": "но",
-      "form": "ale",
-      "example": "Jest stary, ale energiczny."
+      "lines": [
+       "ale: Jest stary, ale energiczny. — Он старый, но энергичный."
+      ]
      },
      {
       "when": "потому что",
-      "form": "bo",
-      "example": "Jest zmęczony, bo dużo pracuje."
+      "lines": [
+       "bo: Jest zmęczony, bo dużo pracuje. — Он устал, потому что много работает."
+      ]
      },
      {
       "when": "ни… ни",
-      "form": "nie… ani… ani…",
-      "example": "Nie jest ani wysoka, ani niska."
+      "lines": [
+       "nie… ani… ani…: Nie jest ani wysoka, ani niska. — Она ни высокая, ни низкая."
+      ]
      }
     ],
     "exceptions": [
-     "Перед ale и bo ставится запятая, перед i — нет",
-     "С ani обязательно nie при глаголе: Nie jest ani gruby, ani szczupły"
+     "Перед **ale** и **bo** — запятая, перед **i** — нет.",
+     "С ani обязательно **nie** при глаголе: Nie jest ani gruby, ani szczupły."
     ],
     "examples": [
      {
       "pl": "Ona nie jest ani szczupła, ani wysoka, ale jest bardzo ładna.",
-      "translit": "О-на не ест А-ни ШЧУП-ўа, А-ни вы-СО-ка, А-ле ест БАР-дзо ЎАД-на",
       "ru": "Она ни стройная, ни высокая, но очень красивая."
      },
      {
       "pl": "Lubię go, bo jest wesoły.",
-      "translit": "ЛЮ-бье го, бо ест вэ-СО-ўы",
       "ru": "Он мне нравится, потому что весёлый."
+     },
+     {
+      "pl": "Mam brata i siostrę.",
+      "ru": "У меня есть брат и сестра."
+     },
+     {
+      "pl": "Jestem zmęczony, ale szczęśliwy.",
+      "ru": "Я устал, но счастлив."
+     },
+     {
+      "pl": "Nie lubię ani kawy, ani herbaty.",
+      "ru": "Я не люблю ни кофе, ни чай."
      }
     ]
    },
    {
     "title": "Мнение: Myślę, że… / Nie wiem, czy… / Jestem pewny, że…",
-    "explanation": "Że — «что» в придаточном (утверждение), czy — «ли» (когда не знаешь ответа да / нет).",
+    "points": [
+     "**że** — «что» в придаточном (утверждение).",
+     "**czy** — «ли», когда не знаешь ответа «да / нет».",
+     "Перед że и czy — **запятая**."
+    ],
     "table": [
      {
-      "when": "я думаю, что…",
-      "form": "Myślę, że…",
-      "example": "Myślę, że on jest sympatyczny."
+      "when": "Я думаю, что…",
+      "lines": [
+       "Myślę, że… — Myślę, że on jest sympatyczny."
+      ]
      },
      {
-      "when": "я не знаю, …ли",
-      "form": "Nie wiem, czy…",
-      "example": "Nie wiem, czy ona jest z Polski."
+      "when": "Я не знаю, …ли",
+      "lines": [
+       "Nie wiem, czy… — Nie wiem, czy ona jest z Polski."
+      ]
      },
      {
-      "when": "я уверен(а), что…",
-      "form": "Jestem pewny / pewna, że…",
-      "example": "Jestem pewna, że to dobry pomysł."
+      "when": "Я уверен(а), что…",
+      "lines": [
+       "Jestem pewny / pewna, że… — Jestem pewna, że to dobry pomysł."
+      ]
      }
     ],
     "exceptions": [
-     "pewny — мужчина говорит, pewna — женщина",
-     "Перед że и czy — запятая"
+     "**pewny** — говорит мужчина, **pewna** — женщина.",
+     "Не путать: Nie wiem, **czy** (ли) — и Wiem, **że** (что)."
     ],
     "examples": [
      {
       "pl": "Myślę, że on jest bardzo ambitny.",
-      "translit": "МЫЩЬ-ле, жэ он ест БАР-дзо ам-БИТ-ны",
       "ru": "Я думаю, что он очень амбициозный."
      },
      {
       "pl": "Nie wiem, czy ona mówi po angielsku.",
-      "translit": "не вьем, чы О-на МУ-ви по ан-ГЕЛЬ-ску",
       "ru": "Я не знаю, говорит ли она по-английски."
+     },
+     {
+      "pl": "Jestem pewny, że to prawda.",
+      "ru": "Я уверен, что это правда."
+     },
+     {
+      "pl": "Wiem, że jesteś zmęczona.",
+      "ru": "Я знаю, что ты устала."
+     },
+     {
+      "pl": "Nie wiem, czy mam czas.",
+      "ru": "Не знаю, есть ли у меня время."
      }
     ]
    }

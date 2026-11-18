@@ -322,67 +322,6 @@
      "ru": "Привет! Идём в субботу в кино? Во сколько ты свободен?"
     }
    },
-   "extra_rules": [
-    {
-     "title": "Порядковые 1–24: «который час» и «во сколько»",
-     "explanation": "Час — это godzina (она), поэтому называем его порядковым числительным женского рода, как прилагательное: «Который час?» — на -a (pierwsza, ósma), «Во сколько?» — o + форма на -ej (o pierwszej, o ósmej), как dobra → o dobrej. Основа почти всегда видна из обычного числа: pięć → piąta, osiem → ósma, trzynaście → trzynasta.",
-     "table": [
-      {
-       "when": "1–4: особые, запомнить",
-       "form": "pierwsza, druga, trzecia, czwarta → o pierwszej, o drugiej, o trzeciej, o czwartej",
-       "example": "Jest druga. Lekcja jest o czwartej."
-      },
-      {
-       "when": "5–10: от числа",
-       "form": "piąta, szósta, siódma, ósma, dziewiąta, dziesiąta → o piątej, o szóstej, o siódmej…",
-       "example": "pięć → piąta, sześć → szósta, siedem → siódma"
-      },
-      {
-       "when": "11–19: -nasta",
-       "form": "jedenasta, dwunasta, trzynasta, czternasta, piętnasta, szesnasta, siedemnasta, osiemnasta, dziewiętnasta → o jedenastej … o dziewiętnastej",
-       "example": "o trzynastej, o osiemnastej"
-      },
-      {
-       "when": "20",
-       "form": "dwudziesta → o dwudziestej",
-       "example": "Film jest o dwudziestej."
-      },
-      {
-       "when": "21–24: обе части",
-       "form": "dwudziesta pierwsza … dwudziesta czwarta → o dwudziestej pierwszej…",
-       "example": "o dwudziestej drugiej"
-      },
-      {
-       "when": "минуты — числом, не меняются",
-       "form": "час + минуты",
-       "example": "o siedemnastej trzydzieści (17:30)"
-      }
-     ],
-     "exceptions": [
-      "1–4 — от других корней, как русские «первый, второй, третий, четвёртый»",
-      "siódma, ósma — с ó: siedem → siódma, osiem → ósma",
-      "trzecia → o trzeciej: после «i» окончание -ej пишется так же: trzeciej",
-      "dwunasta (12), а не «dwanasta»; dwudziesta (20), а не «dwadziesta»"
-     ],
-     "examples": [
-      {
-       "pl": "Jest czternasta. Film jest o szesnastej.",
-       "translit": "ест чтэр-НАС-та. фильм ест о шэс-НАС-тэй",
-       "ru": "Сейчас четырнадцать. Фильм в шестнадцать."
-      },
-      {
-       "pl": "Pracuję od ósmej do szesnastej.",
-       "translit": "пра-ЦУ-е од УС-мэй до шэс-НАС-тэй",
-       "ru": "Я работаю с восьми до шестнадцати."
-      },
-      {
-       "pl": "Pociąg jest o dwudziestej pierwszej.",
-       "translit": "ПО-чёнк ест о дву-ДЖЕС-тэй ПЬЕРФ-шэй",
-       "ru": "Поезд в двадцать один."
-      }
-     ]
-    }
-   ],
    "build": {
     "title": "По правилу: который час и во сколько",
     "intro": "Построй форму часа сам — по таблице выше: «который час» — на -a, «во сколько» — o + -ej.",
@@ -783,59 +722,80 @@
    "extra_rules": [
     {
      "title": "Глаголы распорядка дня: wstaję, biorę, myję, jeżdżę",
-     "explanation": "Самые частые глаголы «своего дня» спрягаются с изменением основы. Выучи пары «я — ты»: по ним строятся остальные формы (on — как ty без -sz, oni — как ja, но с -ą).",
+     "points": [
+      "Самые частые глаголы «своего дня» спрягаются **с изменением основы**.",
+      "Выучи пары **ja — ty**: on — как ty без -sz, oni — как ja, но на **-ą**."
+     ],
      "table": [
       {
-       "when": "wstawać (вставать)",
-       "form": "wstaję, wstajesz, wstaje, wstajemy, wstajecie, wstają",
-       "example": "Wstaję o siódmej."
+       "when": "wstawać — вставать",
+       "lines": [
+        "wstaję, wstajesz, wstaje",
+        "wstajemy, wstajecie, wstają"
+       ]
       },
       {
-       "when": "brać (брать)",
-       "form": "biorę, bierzesz, bierze, bierzemy, bierzecie, biorą",
-       "example": "Biorę prysznic."
+       "when": "brać — брать",
+       "lines": [
+        "biorę, bierzesz, bierze",
+        "bierzemy, bierzecie, biorą"
+       ]
       },
       {
-       "when": "myć (мыть)",
-       "form": "myję, myjesz, myje, myjemy, myjecie, myją",
-       "example": "Myję zęby."
+       "when": "myć — мыть",
+       "lines": [
+        "myję, myjesz, myje",
+        "myjemy, myjecie, myją"
+       ]
       },
       {
-       "when": "jeździć (ездить)",
-       "form": "jeżdżę, jeździsz, jeździ, jeździmy, jeździcie, jeżdżą",
-       "example": "Jeżdżę do pracy tramwajem."
+       "when": "jeździć — ездить",
+       "lines": [
+        "jeżdżę, jeździsz, jeździ",
+        "jeździmy, jeździcie, jeżdżą"
+       ]
       },
       {
-       "when": "chodzić (ходить)",
-       "form": "chodzę, chodzisz, chodzi, chodzimy, chodzicie, chodzą",
-       "example": "Chodzę spać o jedenastej."
+       "when": "chodzić — ходить",
+       "lines": [
+        "chodzę, chodzisz, chodzi",
+        "chodzimy, chodzicie, chodzą"
+       ]
       },
       {
        "when": "wracać, zaczynać (-am, -asz)",
-       "form": "wracam, wracasz; zaczynam, zaczynasz",
-       "example": "Wracam do domu o szóstej."
+       "lines": [
+        "wracam, wracasz — возвращаюсь",
+        "zaczynam, zaczynasz — начинаю"
+       ]
       }
      ],
      "exceptions": [
-      "brać: в ja и oni — bior-, в остальных — bierz-: biorę, но bierzesz",
-      "jeździć / chodzić — регулярно (каждый день); jechać / iść — сейчас, один раз: Dziś jadę taksówką.",
-      "Транспорт — творительный без предлога: tramwajem, autobusem, samochodem"
+      "brać: в ja и oni — **bior-**, в остальных — **bierz-**: biorę, но bierzesz.",
+      "wstawać → **wstaję** (не «wstawam»): -awać → -aję.",
+      "jeździć / chodzić — регулярно; jechać / iść — сейчас, один раз: Dziś jadę taksówką.",
+      "Транспорт — творительный без предлога: tramwajem, autobusem, samochodem."
      ],
      "examples": [
       {
        "pl": "Najpierw biorę prysznic, potem jem śniadanie.",
-       "translit": "НАЙ-пьерф БЕ-рэ ПРЫШ-ниц, ПО-тэм ем щьня-ДА-не",
        "ru": "Сначала я принимаю душ, потом завтракаю."
       },
       {
        "pl": "O której wstajesz w weekend?",
-       "translit": "о КТУ-рэй ФСТА-ешь в ЎИ-кэнт",
        "ru": "Во сколько ты встаёшь на выходных?"
       },
       {
        "pl": "Oni jeżdżą do pracy autobusem.",
-       "translit": "О-ни ЕЖЬ-джон до ПРА-цы аў-то-БУ-сэм",
        "ru": "Они ездят на работу на автобусе."
+      },
+      {
+       "pl": "Myję zęby i idę spać.",
+       "ru": "Чищу зубы и иду спать."
+      },
+      {
+       "pl": "Wracam do domu o szóstej.",
+       "ru": "Я возвращаюсь домой в шесть."
       }
      ]
     }

@@ -813,7 +813,7 @@ def test_rule_button_explains():
     run(app.handle(msg(text="x")))
     rid = app.tg.buttons[0][0][0][1]
     run(app.on_callback(cb(rid)))
-    assert "📖 <b>Родительный после отрицания</b>" in app.tg.sent[-1] and "ЦУ-кру" in app.tg.sent[-1]
+    assert "📖 <b>Родительный после отрицания</b>" in app.tg.sent[-1] and "ЦУ-кру" not in app.tg.sent[-1]   # лёгкое слово — без транскрипции
     assert "w sklep" in app.gemini.prompts[-1]
 
 
@@ -835,11 +835,11 @@ def test_star_offer_menu_errors_bot_own_and_topics():
     run(app.on_callback(cb(did)))                              # меню — сразу, без запроса к модели
     menu = app.tg.sent[-1]
     assert len(app.gemini.prompts) == n and "🧩 <b>Мои ошибки</b>" in menu
-    assert "<b>w sklepie</b> [в СКЛЕ-пе] — в магазине" in menu and "Дальше <b>«✅ Готово»</b>" in menu
+    assert "<b>w sklepie</b> — в магазине" in menu and "СКЛЕ-пе" not in menu and "Дальше <b>«✅ Готово»</b>" in menu
     assert "💬 Подобрать из ответа" in str(app.tg.buttons[-1]) and f"dn:own:{mid}" in str(app.tg.buttons[-1])
     assert "📂 Тема" not in str(app.tg.buttons[-1])            # тема — после «Готово», одним шагом
     run(app.on_callback(cb(f"dg:{mid}", mid=50)))              # 💬 подобрать из ответа: «low», с темой
-    assert app.gemini.thinkings[-1] == "low" and "najbardziej lubię</b> [най-бар-ДЗЕЙ ЛЮ-бе]" in app.tg.edits[-1][0]
+    assert app.gemini.thinkings[-1] == "low" and "najbardziej lubię</b> —" in app.tg.edits[-1][0]
     assert "💬 Подобрать" not in str(app.tg.edits[-1][1])
     run(app.on_callback(cb(f"ds:{mid}:e0", mid=50)))
     run(app.on_callback(cb(f"ds:{mid}:b0", mid=50)))
@@ -984,7 +984,7 @@ def test_dict_screen_move_topic_keeps_progress_and_delete():
     app.db.add_use(it["word_id"], 42, "pracuję", True, "2026-10-20")
     run(app.handle(msg(text="/dict")))
     text, rows = app.tg.sent[-1], app.tg.buttons[-1]
-    assert "всего 2, тем: 2" in text and "🗂 <b>Работа</b>" in text and "pracować</b> [пра-ЦО-вачь] — работать" in text
+    assert "всего 2, тем: 2" in text and "🗂 <b>Работа</b>" in text and "pracować</b> — работать" in text
     assert ("🗂 Работа (1)", f"dt:{it['topic_id']}") in rows[0]
     run(app.on_callback(cb(f"dt:{it['topic_id']}", mid=9)))   # тема: слова и наборы
     assert "⭐ Работа 1" in app.tg.edits[-1][0] and ("🏋️ Упражнение", f"dy:{old_set}") in app.tg.edits[-1][1][1]
@@ -1005,7 +1005,7 @@ def test_dict_screen_move_topic_keeps_progress_and_delete():
     assert not app.db.dict_has(42, "pracować") and app.db.word(it["word_id"]) is None
     run(app.on_callback(cb("i:dict")))                         # 📄 файлом — по темам
     assert "■ Связки" in app.tg.docs[-1][1]
-    assert "[ ] tak jak mówię [так як МУ-ве] — как я говорю   (⭐ Связки 1)" in app.tg.docs[-1][1]
+    assert "[ ] tak jak mówię — как я говорю   (⭐ Связки 1)" in app.tg.docs[-1][1]
 
 
 def test_dict_exercise_from_topic_set():
@@ -1483,7 +1483,7 @@ def test_verb_line_and_conj_type():
     assert verbs_mod.verb_line({"verb_inf": ""}) == ""
     line = verbs_mod.verb_line({"verb_inf": "płacić", "verb_translit": "ПЛА-чичь", "verb_ru": "платить",
                                 "verb_conj": "-ę / -isz / -ysz", "verb_forms": "płacę, płacisz, płacą"})
-    assert line == ("🔤 <b>płacić</b> [ПЛА-чичь] — платить · спряжение -ę / -isz / -ysz: "
+    assert line == ("🔤 <b>płacić</b> — платить · спряжение -ę / -isz / -ysz: "
                     "płacę, płacisz, płacą")
 
 
@@ -1493,7 +1493,7 @@ def test_verb_shown_in_turn_and_exercise_results():
     t = {**TURN_JSON, "corrections": [{**TURN_JSON["corrections"][0], **verb}]}
     app = make_app(gem=FakeGemini(turn=t))
     run(app.handle(msg(text="x")))
-    assert "🔤 <b>piec</b> [ПЕЦ] — печь · спряжение -ę / -esz: piekę, pieczesz, pieką" in "\n".join(app.tg.sent)
+    assert "🔤 <b>piec</b> — печь · спряжение -ę / -esz: piekę, pieczesz, pieką" in "\n".join(app.tg.sent)
     from bot.ai import prompt as pr
     assert "verb_conj" in pr.system_prompt("A1") and "verb_conj" in pr.ex_prompt("grammar", "gap", "A1", "", [])
     ex = {"id": 1, "title": "t", "items": [{"answer": "piekę", "grammar": "глагол", **verb}, {"answer": "kot"}]}
@@ -1815,7 +1815,7 @@ def test_textbook_pick_and_cards():
     picked = tb.pick_words(unit, stats, 3, "pl")
     assert picked[0][0]["pl"] == "siostra"                       # с ошибкой — первым
     c = tb.card_item(unit["words"][2], "pl")
-    assert c["q"] == "rodzeństwo [ро-ДЗЕНЬ-ство]" and c["answer"] == "братья и сёстры" and "брат и сестра" in c["accepted"]
+    assert c["q"] == "rodzeństwo" and c["answer"] == "братья и сёстры" and "брат и сестра" in c["accepted"]
     r = tb.card_item(unit["words"][0], "ru")
     assert r["q"] == "брат" and r["answer"] == "brat"
 
@@ -1836,7 +1836,7 @@ def test_book_cards_flow_stats_not_in_pool():
     assert len(gem.prompts) == n_prompts                         # карточки — без Gemini
     ex = app.db.ex_get(app.db.get_state(42)["pending"]["ex"]["ex_id"])
     text = app.tg.sent[-1]
-    assert "rodzeństwo [ро-ДЗЕНЬ-ство]" in text and "братья и сёстры" not in text   # перевод не подсказан
+    assert "rodzeństwo" in text and "ДЗЕНЬ" not in text and "братья и сёстры" not in text   # перевод не подсказан
     ans = " ".join(f"{i} {'неверно' if it['lemma'] == 'siostra' else it['answer']}"
                    for i, it in enumerate(ex["items"], 1))
     run(app.handle(msg(text=ans)))
@@ -2022,7 +2022,7 @@ def test_words_list_hidden_file_voice():
     assert "Слова юнита" in app.tg.sent[-1] and "wd:u:kpk:2" in str(app.tg.buttons[-1])
     run(app.on_callback(cb("wd:u:2")))
     t = app.tg.sent[-1]
-    assert "rodzeństwo</b> [ро-ДЗЕНЬ-ство] — братья и сёстры" in t and "знаю 1 · узнаю 1 · из 3" in t
+    assert "rodzeństwo</b> — братья и сёстры" in t and "знаю 1 · узнаю 1 · из 3" in t
     assert "✅ 2. <b>siostra</b>" in t and "🟡 1. <b>brat</b>" in t
     assert "wd:h:kpk:2" in str(app.tg.buttons[-1]) and "wd:v:kpk:2" in str(app.tg.buttons[-1])
     run(app.on_callback(cb("wd:h:2")))
@@ -2032,7 +2032,7 @@ def test_words_list_hidden_file_voice():
     assert app.tg.toasts[-1] == "3. rodzeństwo — братья и сёстры · сущ., ср. р."
     run(app.on_callback(cb("wd:f:2")))
     name, content, _ = app.tg.docs[-1]
-    assert name == "kpk_2_slova.txt" and "1. brat [БРАТ] — брат (сущ., м. р.)" in content
+    assert name == "kpk_2_slova.txt" and "1. brat — брат (сущ., м. р.)" in content
     run(app.on_callback(cb("wd:v:2")))
     assert app.tg.voices[-1] == "OGG:brat ... siostra ... rodzeństwo.".encode()
     run(app.handle(msg(text="/menu")))
@@ -2481,8 +2481,19 @@ def test_rule_with_table_and_exceptions_and_own_topic_kept():
                                                  {"when": "ср. р.", "form": "-a", "example": "ciasto → ciasta"}],
                                        "exceptions": ["dziecko → dzieci"],
                                        "examples": [{"pl": "Dwa stoliki.", "translit": "два сто-ЛИ-ки", "ru": "Два столика."}]}]})
-    assert "📋 <b>Таблица</b>" in text and "м. р. после k, g → <b>-i</b>: stolik → stoliki" in text
-    assert "⚠️ <b>Исключения и особые группы</b>\n▫️ dziecko → dzieci" in text
+    # старый формат (explanation, form / example) — тоже по блокам
+    assert "💡 <b>Суть</b>\n• Как образуется." in text
+    assert "📋 <b>Формы</b>\n\n<b>м. р. после k, g</b>\n   <b>-i</b>: stolik → stoliki" in text
+    assert "⚠️ <b>Запомни</b>\n• dziecko → dzieci" in text
+    assert "<blockquote expandable><b>Dwa stoliki.</b>\nДва столика.</blockquote>" in text   # лёгкая фраза
+    # новый формат: суть пунктами, строки таблицы, **жирное**, без транскрипции
+    text = f.rules_message({"rules": [{"title": "Час", "points": ["godzina — она → **-a**", "во сколько: **o + -ej**"],
+                                       "table": [{"when": "1–4", "lines": ["pierwsza → o **pierwszej** — 1, в час"]}],
+                                       "exceptions": ["siódma (7) — с ó"],
+                                       "examples": [{"pl": "Jest druga.", "ru": "Сейчас два."}]}]})
+    assert "• godzina — она → <b>-a</b>\n• во сколько: <b>o + -ej</b>" in text
+    assert "<b>1–4</b>\n   pierwsza → o <b>pierwszej</b> — 1, в час" in text
+    assert "<b>Jest druga.</b>\nСейчас два." in text and "[" not in text
     assert "ЦЕЛИКОМ" in rules_by_name_prompt(["x"], {}, "A1") and "exceptions" in rules_by_name_prompt(["x"], {}, "A1")
     app = make_app()
     ex_flow(app, "x:k:grammar", "x:f:gap", "x:t:own")
@@ -3046,13 +3057,13 @@ def test_star_from_generated_exercise_keeps_case_form():
     run(app.handle(msg(text="Мой набор")))
     it = app.db.dict_find(42, "kawę")
     assert it["form_pl"] == "B." and it["form_ru"] == "вин." and it["topic"] == "Мой набор"
-    assert "<b>kawę</b> (B.) [тр-kawę] — пер-kawę (вин.)" in app.tg.sent[-1]
+    assert "<b>kawę</b> (B.) — пер-kawę (вин.)" in app.tg.sent[-1]
     assert app.db.word(it["word_id"])["ru"] == "пер-kawę (вин.)"   # в наборе — с пометкой падежа
     app.db.dict_add(42, "kota", "КО-та", "кота", "Животные")
     run(app.on_callback(cb(f"ds:{key}:b0")))                    # дубль «kota»: где лежит, куда перенести
     assert "Тема: Животные" in app.tg.sent[-1] and any(d.startswith("dm:") for r in app.tg.buttons[-1] for _, d in r)
     run(app.on_callback(cb("i:dict")))
-    assert "kawę (B.) [тр-kawę] — пер-kawę (вин.)" in app.tg.docs[-1][1]
+    assert "kawę (B.) — пер-kawę (вин.)" in app.tg.docs[-1][1]
 
 
 def fmt_buttons_ex(ex_id):
@@ -3071,7 +3082,7 @@ def test_star_from_itog_and_tongue_twister():
         {"kind": "pronunciation", "original": "sosą", "correct": "szosą", "translit": "ШО-сон", "ru": "по шоссе",
          "tw": "t01", "tw_attempt": "t01:5"}])
     run(app.on_callback(cb("dX:t:t01:5")))
-    assert "🗣 Скороговорка" in app.tg.sent[-1] and "☑️ <b>szosą</b> [ШО-сон] — по шоссе" in app.tg.sent[-1]
+    assert "🗣 Скороговорка" in app.tg.sent[-1] and "☑️ <b>szosą</b> — по шоссе" in app.tg.sent[-1]
 
 
 REAL_TEXTBOOK = Path(__file__).resolve().parent.parent / "bot" / "textbook"
@@ -3291,7 +3302,7 @@ def test_memorize_unit_text_exact_voice_errors_dispute_dictionary():
     assert "ml:o:kpk:1#1" in str(app.tg.edits[-1][1])
     run(app.on_callback(cb("ml:o:kpk:1#1")))
     card = app.tg.sent[-1]
-    assert "Первый день в школе" in card and "<tg-spoiler>джень ДОБ-ры" in card and "Здравствуйте" in card
+    assert "Первый день в школе" in card and "джень ДОБ-ры" not in card and "Здравствуйте" in card
     assert app.tg.voices[-1].startswith(b"OGG:Dzie\xc5\x84 dobry!")
     assert ("✅ 🎯 Наизусть", "ml:g:kpk:1#1:e") in app.tg.buttons[-1][1]
     assert app.db.get_state(42)["pending"]["step"] == "mt"
@@ -3456,12 +3467,15 @@ def test_lesson_full_flow_steps_diary_task_and_wrap():
     assert "Правило урока" in app.tg.sent[-1] and "Куда пойти? do" in app.tg.sent[-1]
     assert "ls:ask:u2" in str(app.tg.buttons[-1]) and app.db.get_state(42)["pending"]["mode"] == "probe"
     run(app.on_callback(cb("ls:ra")))
-    assert "Правила юнита 12" in app.tg.sent[-1] and "ls:ri:x2.0" in str(app.tg.buttons[-1])   # + правило урока 2
-    run(app.on_callback(cb("ls:ri:x2.0")))
-    assert "Порядковые 1–24" in app.tg.sent[-1]
-    run(app.on_callback(cb("ls:ask:x2.0")))
+    assert "Правила юнита 12" in app.tg.sent[-1] and "ls:ri:x4.0" in str(app.tg.buttons[-1])   # + правило урока 4
+    assert "ls:ri:x2.0" not in str(app.tg.buttons[-1])                             # 12-2: без дубля
+    run(app.on_callback(cb("ls:ri:u0")))
+    assert "Который час? Во сколько?" in app.tg.sent[-1] and "12 — dwunasta → o dwunastej" in app.tg.sent[-1]
+    assert "💡 <b>Суть</b>" in app.tg.sent[-1] and "<blockquote expandable>" in app.tg.sent[-1]
+    run(app.on_callback(cb("ls:ask:u0")))
     run(app.handle(msg(text="почему dwunasta?")))
-    assert "Порядковые 1–24" in gem.prompts[-1] and "🧑‍🏫" in app.tg.sent[-1]
+    assert "Который час? Во сколько?" in gem.prompts[-1] and "dwunasta → o dwunastej" in gem.prompts[-1]
+    assert "🧑‍🏫" in app.tg.sent[-1]
     run(app.on_callback(cb("ls:qx")))
     assert app.db.get_state(42)["pending"] == {"step": "ls_in", "mode": "probe"}
     run(app.on_callback(cb("ls:n")))
@@ -3545,8 +3559,9 @@ def test_lesson_full_flow_steps_diary_task_and_wrap():
     assert "Заметки учителя об этом ученике (что он путает): путает do и na" in gem.prompts[-1]
     for _ in range(3):                                                             # образец, вопросы, найди правило
         run(app.on_callback(cb("ls:n")))
-    run(app.on_callback(cb("ls:n")))                                               # правило: выжимка + полная таблица
-    assert "Порядковые 1–24" in app.tg.sent[-1] and "o dwudziestej" in app.tg.sent[-1]
+    run(app.on_callback(cb("ls:n")))                                               # правило: полная таблица 1–24, одно
+    assert "Который час? Во сколько?" in app.tg.sent[-1] and "o dwudziestej czwartej" in app.tg.sent[-1]
+    assert app.tg.sent[-1].count("📖 <b>") == 1
     run(app.on_callback(cb("ls:n")))
     ex = ex_now(app)
     assert "По правилу" in ex["title"] and ex["items"][0]["answer"] == "trzynasta" and "🛠 По правилу" in app.tg.sent[-2]
@@ -3659,3 +3674,31 @@ def test_usage_admin_defaults_to_first_allowed_id(monkeypatch):
     assert cfg_mod.load().admin_ids == {555}
     monkeypatch.setenv("ADMIN_USER_IDS", "42")
     assert cfg_mod.load().admin_ids == {42}
+
+
+def test_real_rules_v2_format():
+    """📖 Готовые правила KpK: суть пунктами, формы блоками, 3–5 примеров; одно правило — одно сообщение Telegram."""
+    from bot.core.telegram import split_html
+    from bot.ui import fmt as f
+    for path in sorted((REAL_TEXTBOOK / "kpk").glob("unit_*.json")):
+        d = json.loads(path.read_text(encoding="utf-8"))
+        for r in d["review"]["rules"]:
+            assert r["points"] and r["table"] and all(t["lines"] for t in r["table"]), (path.name, r["title"])
+            assert 3 <= len(r["examples"]) <= 5, (path.name, r["title"])
+            text = f.rules_message({"rules": [r]})
+            assert len(split_html(text)) == 1 and text.count("<blockquote") == text.count("</blockquote>") == 1
+
+
+def test_translit_only_for_hard_words():
+    """🔤 Транскрипция — только у трудных для чтения слов: шипящие подряд, длинные, заимствования; длинный текст — нет."""
+    from bot.core.readability import hard, tr
+    from bot.ui import fmt as f
+    assert not hard("Dzień dobry") and not hard("przepraszam") and not hard("cześć") and not hard("rodzeństwo")
+    assert hard("chrząszcz") and hard("jeszcze") and hard("Szczebrzeszynie") and hard("przyjeżdżać")
+    assert hard("skrzyżowanie") and hard("dziewiętnaście") and hard("weekend") and hard("quiz")
+    assert not hard("W Szczebrzeszynie chrząszcz brzmi w trzcinie i jeszcze dalej coś tam mówi bardzo długo dziś")
+    assert tr("chrząszcz", "ХШОНЩЧ") == "ХШОНЩЧ" and tr("kawa", "КА-ва") == ""
+    # исправление произношения — транскрипция всегда (это и есть «как читать»)
+    assert f.ctr({"kind": "pronunciation", "correct": "kawa", "translit": "КА-ва"}) == "КА-ва"
+    assert f.ctr({"kind": "grammar", "correct": "kawę", "translit": "КА-вэ"}) == ""
+    assert f.dict_line({"pl": "chrząszcz", "translit": "ХШОНЩЧ", "ru": "жук"}).count("[ХШОНЩЧ]") == 1

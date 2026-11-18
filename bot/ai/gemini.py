@@ -19,7 +19,7 @@ from zoneinfo import ZoneInfo
 
 import httpx
 
-from .prompt import RESPONSE_SCHEMA, json_format_hint, system_prompt
+from .prompt import RESPONSE_SCHEMA, TRANSLIT_RULE, json_format_hint, system_prompt
 
 log = logging.getLogger(__name__)
 
@@ -328,7 +328,8 @@ class Gemini:
                        thinking: str | None = None) -> dict:
         """Разовый запрос с JSON-ответом (составить набор, упражнение, проверить ответы…).
         thinking — своё «обдумывание» для этого запроса (например «low» для лёгких задач), иначе из .env."""
-        req = {"system": "Ты помогаешь русскоязычному ученику учить польский. Отвечай строго в заданном JSON-формате.",
+        req = {"system": "Ты помогаешь русскоязычному ученику учить польский. Отвечай строго в заданном JSON-формате. "
+                         "Правило транскрипции: " + TRANSLIT_RULE,
                "schema": schema, "hint": hint, "history": [], "text": prompt, "audio": audio, "thinking": thinking,
                "caller": _caller()}
         return await self._run(req, parse_json)

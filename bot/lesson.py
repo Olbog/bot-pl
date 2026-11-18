@@ -34,6 +34,7 @@ from .ai.prompt import (DISC_HINT, DISC_SCHEMA, NOTES_HINT, NOTES_SCHEMA, QA_HIN
 from .exercises import speech
 from .exercises import logic as exercises
 from .ui import fmt
+from .core.readability import tr
 from .common import log
 from .settings import VOICE_MIN_SEC
 
@@ -77,8 +78,10 @@ def _card(pl: str, ru: str, translit: str = "", **extra) -> dict:
 
 
 def _spoiler(pl: str, translit: str, ru: str) -> str:
-    return (f"<b>{escape(pl)}</b>\n\n🔤 <tg-spoiler>{escape(translit)}</tg-spoiler>\n\n"
-            f"🇷🇺 <tg-spoiler>{escape(ru)}</tg-spoiler>")
+    """Реплика: текст, перевод под спойлером; транскрипция — только у коротких фраз с трудными словами."""
+    t = tr(pl, translit)
+    return (f"<b>{escape(pl)}</b>\n\n" + (f"🔤 <tg-spoiler>{escape(t)}</tg-spoiler>\n\n" if t else "")
+            + f"🇷🇺 <tg-spoiler>{escape(ru)}</tg-spoiler>")
 
 
 def _corr_lines(corrs: list[dict]) -> list[str]:
@@ -86,8 +89,8 @@ def _corr_lines(corrs: list[dict]) -> list[str]:
     for c in corrs:
         icon = fmt.KIND_ICON.get(str(c.get("kind", "")).lower(), "•")
         line = f"{icon} {escape(str(c.get('original', '')))} → <b>{escape(str(c.get('correct', '')))}</b>"
-        if c.get("translit"):
-            line += f" [{escape(c['translit'])}]"
+        if fmt.ctr(c):
+            line += f" [{escape(fmt.ctr(c))}]"
         if c.get("ru"):
             line += f" — {escape(c['ru'])}"
         if c.get("why"):
@@ -360,7 +363,7 @@ class LessonMixin:
                  "Это готовые куски речи — учи их целиком, как одно слово. Послушай аудио и повтори каждую фразу вслух "
                  "дважды. Потом «Дальше» — проверю, что запомнилось.", ""]
         for i, c in enumerate(chunks, 1):
-            lines.append(f"{i}. <b>{escape(c['pl'])}</b> [{escape(c.get('translit', ''))}] — {escape(c['ru'])}"
+            lines.append(f"{i}. <b>{escape(c['pl'])}</b>{fmt._br(c)} — {escape(c['ru'])}"
                          + (f"\n    <i>{escape(c['note'])}</i>" if c.get("note") else ""))
         await self.tg.send_message(chat_id, "\n".join(lines), NAV)
         await self.ls_voice(chat_id, self.ls_speech(lesson)[1 if (lesson.get("dialog") or {}).get("pl") else 0][0],
@@ -390,7 +393,7 @@ class LessonMixin:
         d = lesson.get("discover")
         if not d:
             return False
-        ex = "\n".join(f"• <b>{escape(x['pl'])}</b> [{escape(x.get('translit', ''))}] — {escape(x['ru'])}"
+        ex = "\n".join(f"• <b>{escape(x['pl'])}</b>{fmt._br(x)} — {escape(x['ru'])}"
                        for x in d["examples"])
         self.db.set_pending(user_id, {"step": "ls_in", "mode": "disc"})
         await self.tg.send_message(
@@ -649,7 +652,7 @@ class LessonMixin:
                  f"<i>✅ закрыта ({DIARY_NEED} верных подряд) · ◐ один верный · ❌ открыта; ×N — сколько раз ошибся</i>", ""]
         for x in errs:
             icon = "✅" if x["streak"] >= DIARY_NEED else "◐" if x["streak"] else "❌"
-            lines.append(f"{icon} <b>{escape(x['pl'])}</b>" + (f" [{escape(x['translit'])}]" if x.get("translit") else "")
+            lines.append(f"{icon} <b>{escape(x['pl'])}</b>" + fmt._br(x)
                          + (f" — {escape(x['ru'])}" if x.get("ru") else "")
                          + (f" ×{x['wrong']}" if x["wrong"] > 1 else "") + f" <i>(урок {escape(x['lesson'] or '—')})</i>"
                          + (f"\n    <i>было: {escape(x['said'])}</i>" if x.get("said") else ""))
@@ -746,9 +749,9 @@ class LessonMixin:
             out.append("👍 Тебя бы поняли." if data.get("ok") else "Пока не совсем — этому и научимся.")
             sample = str(data.get("better_pl") or "").strip() or p.get("sample", "")
             if sample:
-                tr = str(data.get("better_translit") or "").strip() or p.get("sample_translit", "")
+                t = tr(sample, str(data.get("better_translit") or "").strip() or p.get("sample_translit", ""))
                 ru = str(data.get("better_ru") or "").strip() or p.get("sample_ru", "")
-                out.append(f"✔️ <b>Можно так:</b> {escape(sample)}" + (f"\n[{escape(tr)}]" if tr else "")
+                out.append(f"✔️ <b>Можно так:</b> {escape(sample)}" + (f"\n[{escape(t)}]" if t else "")
                            + (f"\n— {escape(ru)}" if ru else ""))
             if corrs:
                 out.append("👀 <b>На что обратить внимание</b> <i>(в ошибки не записываю)</i>\n" + "\n".join(_corr_lines(corrs[:3])))
@@ -761,7 +764,8 @@ class LessonMixin:
                 better = str(data.get("better_pl") or "").strip()
                 if better:
                     out.append(f"✔️ <b>Правильно:</b> {escape(better)}"
-                               + (f"\n[{escape(str(data.get('better_translit') or ''))}]" if data.get("better_translit") else "")
+                               + (f"\n[{escape(tr(better, data.get('better_translit')))}]"
+                                  if tr(better, data.get("better_translit")) else "")
                                + (f"\n— {escape(str(data.get('better_ru') or ''))}" if data.get("better_ru") else ""))
             else:
                 out.append("✅ Без ошибок")

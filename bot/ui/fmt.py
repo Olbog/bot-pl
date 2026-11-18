@@ -6,6 +6,7 @@ from ..ai.gemini import Turn
 from ..core.config import local_dt
 
 from ..core.rules import group
+from ..core.readability import tr
 from ..core.verbs import verb_line
 from ..core.textbook import topic_parts
 from ..exercises.logic import CHOICE_TYPES, LETTERS, book_options, book_pages, items_mask
@@ -28,8 +29,8 @@ def turn_message(t: Turn, from_voice: bool, show_model: bool = False, target_lin
         for c in t.corrections:
             icon = KIND_ICON.get(str(c.get("kind", "")).lower(), "•")
             line = f"{icon} {e(c.get('original', ''))} → <b>{e(c.get('correct', ''))}</b>"
-            if c.get("translit"):
-                line += f" [{e(c['translit'])}]"
+            if ctr(c):
+                line += f" [{e(ctr(c))}]"
             if c.get("ru"):
                 line += f" — {e(c['ru'])}"
             if c.get("why"):
@@ -43,7 +44,7 @@ def turn_message(t: Turn, from_voice: bool, show_model: bool = False, target_lin
     if t.corrections or differs:
         if t.corrected_pl:
             block = f"✔️ <b>Правильно:</b> {e(t.corrected_pl)}"
-            if t.corrected_translit:
+            if tr(t.corrected_pl, t.corrected_translit):
                 block += f"\n[{e(t.corrected_translit)}]"
             if t.corrected_ru:
                 block += f"\n— {e(t.corrected_ru)}"
@@ -54,11 +55,11 @@ def turn_message(t: Turn, from_voice: bool, show_model: bool = False, target_lin
     if t.new_words:
         lines = ["🆕 <b>Новые слова</b>"]
         for w in t.new_words:
-            lines.append(f"• {e(w.get('ru', ''))} → <b>{e(w.get('pl', ''))}</b> [{e(w.get('translit', ''))}]")
+            lines.append(f"• {e(w.get('ru', ''))} → <b>{e(w.get('pl', ''))}</b>{_br(w)}")
         out.append("\n".join(lines))
 
     reply = f"💬 <b>{e(t.reply_pl)}</b>"
-    if t.reply_translit:
+    if tr(t.reply_pl, t.reply_translit):
         reply += f"\n[{e(t.reply_translit)}]"
     if t.reply_ru:
         reply += f"\n— {e(t.reply_ru)}"
@@ -82,15 +83,15 @@ def summary_message(words: list[dict], corrections: list[dict], turns: int) -> s
         if key in seen:
             continue
         seen.add(key)
-        wl.append(f"• <b>{e(w['pl'])}</b> [{e(w['translit'])}] — {e(w['ru'])}")
+        wl.append(f"• <b>{e(w['pl'])}</b>{_br(w)} — {e(w['ru'])}")
     out.append("🆕 <b>Новые слова</b>\n" + ("\n".join(wl) if wl else "—"))
 
     if corrections:
         cl = []
         for c in corrections:
             line = f"• {e(c.get('original', ''))} → <b>{e(c.get('correct', ''))}</b>"
-            if c.get("translit"):
-                line += f" [{e(c['translit'])}]"
+            if ctr(c):
+                line += f" [{e(ctr(c))}]"
             if c.get("why"):
                 line += f" — <i>{e(c['why'])}</i>"
             cl.append(line)
@@ -142,8 +143,7 @@ def word_line(w, st: WordStats, c: Criteria) -> str:
         line = f"{icon} 📐 <b>{e(w['pl'])}</b>"
     else:
         line = f"{icon} <b>{e(w['pl'])}</b>"
-        if w["translit"]:
-            line += f" [{e(w['translit'])}]"
+        line += _br(w)
         line += f" — {e(w['ru'])}"
     if w["mastered_at"] is None:
         line += (f"\n     {progress_bar(st.streak, c.streak)} {num(st.streak)}/{c.streak}"
@@ -260,8 +260,7 @@ def preview_message(p: dict) -> str:
     off = set(p.get("off", []))
     for i, w in enumerate(p["words"]):
         mark = "❌" if i in off else "•"
-        tr = f" [{e(w.get('translit', ''))}]" if w.get("translit") else ""
-        txt = f"{mark} <b>{e(w['pl'])}</b>{tr} — {e(w.get('ru', ''))}"
+        txt = f"{mark} <b>{e(w['pl'])}</b>{_br(w)} — {e(w.get('ru', ''))}"
         lines.append(f"<s>{txt}</s>" if i in off else txt)
     lines += ["", "<i>Нажми на слово, чтобы убрать или вернуть его.</i>"]
     return "\n".join(lines)
@@ -305,29 +304,56 @@ def target_line(uses: list[tuple[str, str, bool]]) -> str:
 
 # ---------- правила ----------
 
+def rich(text) -> str:
+    """Текст правила: экранирование + **жирное** → <b>…</b> (в правилах Claude так выделяет формы и окончания)."""
+    return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", e(str(text or "")))
+
+
+def rule_rows(r: dict) -> list[tuple[str, list[str]]]:
+    """Строки таблицы правила: (заголовок, строки). Новый формат — {when, lines}; старый — {when, form, example}."""
+    out = []
+    for t in r.get("table") or []:
+        if not isinstance(t, dict):
+            continue
+        lines = [str(x) for x in t.get("lines") or [] if str(x).strip()]
+        if not lines and t.get("form"):
+            lines = [f"**{t['form']}**" + (f": {t['example']}" if t.get("example") else "")]
+        if lines:
+            out.append((str(t.get("when", "")), lines))
+    return out
+
+
 def rules_message(data: dict, header: str = "📖") -> str:
+    """Правило блоками: 💡 суть пунктами, 📋 формы (каждая строка таблицы — заголовок и строки под ним),
+    ⚠️ запомни, ✏️ примеры — свёрнутой цитатой (раскрываются нажатием). Транскрипция — только где она есть."""
     blocks = []
     for r in data.get("rules") or []:
         if not isinstance(r, dict):
             continue
-        lines = [f"{header} <b>{e(r.get('title', ''))}</b>", e(r.get("explanation", ""))]
-        rows = [t for t in r.get("table") or [] if isinstance(t, dict) and t.get("form")]
+        parts = [f"{header} <b>{rich(r.get('title', ''))}</b>"]
+        points = [str(x) for x in r.get("points") or [] if str(x).strip()]
+        if not points and str(r.get("explanation", "")).strip():
+            points = [str(r["explanation"])]
+        if points:
+            parts.append("💡 <b>Суть</b>\n" + "\n".join(f"• {rich(x)}" for x in points))
+        rows = rule_rows(r)
         if rows:
-            lines.append("📋 <b>Таблица</b>")
-            for t in rows:
-                ex = f": {e(str(t.get('example', '')))}" if t.get("example") else ""
-                lines.append(f"▫️ {e(str(t.get('when', '')))} → <b>{e(str(t['form']))}</b>{ex}")
+            parts.append("📋 <b>Формы</b>")
+            parts += [(f"<b>{rich(w)}</b>\n" if w else "") + "\n".join(f"   {rich(x)}" for x in lines)
+                      for w, lines in rows]
         exc = [str(x) for x in r.get("exceptions") or [] if str(x).strip()]
         if exc:
-            lines.append("⚠️ <b>Исключения и особые группы</b>")
-            lines += [f"▫️ {e(x)}" for x in exc]
-        if rows or exc:
-            lines.append("✏️ <b>Примеры</b>")
-        for ex in r.get("examples") or []:
-            if isinstance(ex, dict):
-                lines.append(f"• <b>{e(ex.get('pl', ''))}</b> [{e(ex.get('translit', ''))}] — {e(ex.get('ru', ''))}")
-        blocks.append("\n".join(lines))
-    return "\n\n".join(blocks) or "Не получилось объяснить правило, попробуй ещё раз."
+            parts.append("⚠️ <b>Запомни</b>\n" + "\n".join(f"• {rich(x)}" for x in exc))
+        exs = []
+        for x in r.get("examples") or []:
+            if isinstance(x, dict) and x.get("pl"):
+                t = tr(x["pl"], x.get("translit", ""))
+                exs.append(f"<b>{e(x['pl'])}</b>{f' <i>[{e(t)}]</i>' if t else ''}\n{e(x.get('ru', ''))}")
+        if exs:
+            parts.append("✏️ <b>Примеры</b> <i>(нажми, чтобы раскрыть)</i>\n<blockquote expandable>"
+                         + "\n".join(exs) + "</blockquote>")
+        blocks.append("\n\n".join(parts))
+    return "\n\n➖➖➖\n\n".join(blocks) or "Не получилось объяснить правило, попробуй ещё раз."
 
 
 def reply_buttons(msg_id: int, has_corrections: bool, has_set_words: bool = False) -> list[list[tuple[str, str]]]:
@@ -418,12 +444,27 @@ def _offer_items(offer: dict) -> list[tuple[str, dict]]:
             + [(f"o{i}", it) for i, it in enumerate(offer.get("own") or [])])
 
 
+def _br(w, html: bool = True) -> str:
+    """« [транскрипция]» — только у трудных для чтения слов (core.readability), иначе пусто."""
+    t = tr(_get(w, "pl") if not isinstance(w, dict) else w.get("pl", ""),
+           _get(w, "translit") if not isinstance(w, dict) else w.get("translit", ""))
+    return f" [{e(t) if html else t}]" if t else ""
+
+
+def ctr(c) -> str:
+    """Транскрипция исправления: у ошибки произношения — всегда (это и есть «как читать»), иначе — если трудно."""
+    t = str(c.get("translit") or "").strip()
+    if str(c.get("kind", "")).lower() == "pronunciation":
+        return t
+    return tr(c.get("correct", ""), t)
+
+
 def _get(it, key: str) -> str:
     return (it[key] if key in it.keys() else "") or ""
 
 
 def _tr(it) -> str:
-    t = _get(it, "translit")
+    t = tr(_get(it, "pl"), _get(it, "translit"))
     return f" [{e(t)}]" if t else ""
 
 
@@ -585,7 +626,7 @@ def dict_export(items: list) -> str:
             out += ["", f"■ {cur}"]
         out.append(f"   {'[x]' if it['mastered_at'] is not None else '[ ]'} {it['pl']}"
                    + (f" ({it['form_pl']})" if it["form_pl"] else "")
-                   + (f" [{it['translit']}]" if it["translit"] else "") + f" — {it['ru']}"
+                   + _br(it, html=False) + f" — {it['ru']}"
                    + (f" ({it['form_ru']})" if it["form_ru"] else "")
                    + (f"   ({it['set_title']})" if it["set_title"] else ""))
     return "\n".join(out) + "\n\n[x] — освоено. Сменить тему слова: /dict → тема → слово → 📂.\n"
@@ -725,8 +766,8 @@ def export_text(title: str, corrections: list[dict], words: list[dict], dict_ite
         out.append(f"■ {rule} — ×{n}")
         for c in ex:
             line = f"   {c.get('original', '')} → {c.get('correct', '')}"
-            if c.get("translit"):
-                line += f" [{c['translit']}]"
+            if ctr(c):
+                line += f" [{ctr(c)}]"
             if c.get("ru"):
                 line += f" — {c['ru']}"
             if c.get("_at"):
@@ -743,10 +784,10 @@ def export_text(title: str, corrections: list[dict], words: list[dict], dict_ite
             seen.add(w["pl"].lower())
             uniq.append(w)
     out.append(f"СЛОВА, СКАЗАННЫЕ ПО-РУССКИ — {len(uniq)}")
-    out += [f"   {w['pl']} [{w.get('translit', '')}] — {w['ru']}" for w in uniq] or ["   нет"]
+    out += [f"   {w['pl']}{_br(w, html=False)} — {w['ru']}" for w in uniq] or ["   нет"]
     out.append("")
     out.append(f"СЛОВАРЬ ⭐ — {len(dict_items)}")
-    out += [f"   {d['pl']} [{d['translit']}] — {d['ru']}" for d in dict_items] or ["   пусто"]
+    out += [f"   {d['pl']}{_br(d, html=False)} — {d['ru']}" for d in dict_items] or ["   пусто"]
     return "\n".join(out) + "\n"
 
 
@@ -939,10 +980,10 @@ WORDS_CHUNK = 25   # «🙈 Скрыть перевод»: слов в одно�
 
 def _word_line(n: int, w: dict, mark: str, with_ru: bool = True) -> str:
     """mark: ✅ знаю / 🟡 узнаю / пусто. 🔗 сочетание — с отступом под своим словом."""
-    tr = f" [{e(w['translit'])}]" if w.get("translit") else ""
+    t = _br(w)
     pre = "      🔗 " if w.get("of") else ""
     wb = " 📒" if w.get("src") == "wb" else ""
-    head = f"{pre}{mark + ' ' if mark else ''}{n}. <b>{e(w['pl'])}</b>{tr}{wb}"
+    head = f"{pre}{mark + ' ' if mark else ''}{n}. <b>{e(w['pl'])}</b>{t}{wb}"
     if not with_ru:
         return head
     pos = f" · <i>{e(w['pos'])}</i>" if w.get("pos") and not w.get("of") else ""
@@ -1023,7 +1064,7 @@ def words_file(unit: dict) -> str:
             lines += ["", f"=== {grp} ==="]
         pre = "    + " if w.get("of") else ""
         wb = " [тетрадь]" if w.get("src") == "wb" else ""
-        lines.append(f"{pre}{n}. {w['pl']} [{w.get('translit', '')}] — {w['ru']}"
+        lines.append(f"{pre}{n}. {w['pl']}{_br(w, html=False)} — {w['ru']}"
                      + (f" ({w['pos']})" if w.get("pos") and not w.get("of") else "") + wb
                      + (f"\n      правило: {w['rule']}" if w.get("rule") else ""))
     return "\n".join(lines) + "\n"
@@ -1156,7 +1197,7 @@ def ex_results(ex: dict, results: list[dict], head: str | None = None, foot: str
             lines.append(f"    {verb_line(it)}")
         if r["final"] != "ok" or r.get("explanation"):  # верный ответ с «!» — без разбора
             if it.get("full_pl"):
-                lines.append(f"    {e(it['full_pl'])}" + (f" [{e(it['translit'])}]" if it.get("translit") else "")
+                lines.append(f"    {e(it['full_pl'])}" + _br({"pl": it["full_pl"], "translit": it.get("translit")})
                              + (f" — {e(it['ru'])}" if it.get("ru") else ""))
             if r.get("explanation"):
                 lines.append(f"    {e(r['explanation'])}")
@@ -1620,7 +1661,7 @@ def review_answer(rule: dict, answer: str, examples: list) -> str:
     exs = [x for x in examples if isinstance(x, dict) and x.get("pl")]
     if exs:
         lines += ["", "✏️ <b>Примеры</b>"]
-        lines += [f"• <b>{e(x['pl'])}</b>" + (f" [{e(x.get('translit', ''))}]" if x.get("translit") else "")
+        lines += [f"• <b>{e(x['pl'])}</b>" + _br(x)
                   + (f" — {e(x.get('ru', ''))}" if x.get("ru") else "") for x in exs]
     lines += ["", "<i>Ещё вопрос — просто напиши или скажи.</i>"]
     return "\n".join(lines)
@@ -1674,8 +1715,8 @@ def mt_result(t: dict, mode: str, heard: str, voice: bool, corrs: list[dict], di
         for c in corrs:
             icon = KIND_ICON.get(str(c.get("kind", "")).lower(), "•")
             line = f"{icon} {e(c.get('original', ''))} → <b>{e(c.get('correct', ''))}</b>"
-            if c.get("translit"):
-                line += f" [{e(c['translit'])}]"
+            if ctr(c):
+                line += f" [{e(ctr(c))}]"
             if c.get("ru"):
                 line += f" — {e(c['ru'])}"
             if c.get("why"):
@@ -1695,7 +1736,7 @@ def mt_result(t: dict, mode: str, heard: str, voice: bool, corrs: list[dict], di
         out.append(what + "\n" + "\n".join(f"• {e(m)}" for m in missed))
     if corrected.get("pl") and corrs:
         block = f"✔️ <b>Правильно:</b> {e(corrected['pl'])}"
-        if corrected.get("translit"):
+        if tr(corrected["pl"], corrected.get("translit")):
             block += f"\n[{e(corrected['translit'])}]"
         if corrected.get("ru"):
             block += f"\n— {e(corrected['ru'])}"

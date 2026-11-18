@@ -1,6 +1,8 @@
 """Глагол в разборе: инфинитив, перевод, тип спряжения, основные формы."""
 from html import escape as e
 
+from .readability import tr
+
 IRREGULAR_CONJ = "неправильный"
 CONJ_TYPES = ["-am / -asz", "-ę / -isz / -ysz", "-uję / -ujesz", "-ę / -esz", "-em / -esz", IRREGULAR_CONJ]
 # Для этих глаголов тип спряжения ставит код, а не модель.
@@ -8,8 +10,8 @@ CONJ_TYPES = ["-am / -asz", "-ę / -isz / -ysz", "-uję / -ujesz", "-ę / -esz",
 IRREGULAR = {"być", "mieć", "iść", "jeść", "chcieć", "móc", "wiedzieć", "dać", "wziąć",
              "pomóc", "przyjść", "wyjść", "pójść", "zjeść", "powiedzieć"}
 
-PROMPT_RULE = ("если речь о глаголе — verb_inf: инфинитив; verb_translit: его транскрипция русскими буквами, "
-               "ударный слог заглавными; verb_ru: перевод инфинитива; verb_conj: тип спряжения — СТРОГО одно из: "
+PROMPT_RULE = ("если речь о глаголе — verb_inf: инфинитив; verb_translit: пустая строка (транскрипция "
+               "только для трудного для чтения инфинитива); verb_ru: перевод инфинитива; verb_conj: тип спряжения — СТРОГО одно из: "
                + ", ".join(f"«{c}»" for c in CONJ_TYPES) + "; verb_forms: формы ja, ty, oni через запятую "
                "(например: płacę, płacisz, płacą). Если это не глагол — все verb_* пустые строки.")
 
@@ -44,8 +46,9 @@ def verb_line(d: dict) -> str:
     if not inf:
         return ""
     line = f"🔤 <b>{e(inf)}</b>"
-    if d.get("verb_translit"):
-        line += f" [{e(str(d['verb_translit']))}]"
+    t = tr(inf, d.get("verb_translit"))
+    if t:
+        line += f" [{e(t)}]"
     if d.get("verb_ru"):
         line += f" — {e(str(d['verb_ru']))}"
     conj = conj_type(inf, str(d.get("verb_conj") or ""))
