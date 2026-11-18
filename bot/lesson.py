@@ -37,12 +37,13 @@ from .ui import fmt
 from .common import log
 from .settings import VOICE_MIN_SEC
 
-STEPS = ["warmup", "probe", "dialog", "compr", "chunks", "recall", "own", "disc", "rule", "practice", "drill", "task",
-         "wrap"]
+STEPS = ["warmup", "probe", "dialog", "compr", "disc", "rule", "build", "practice", "chunks", "recall", "own", "drill",
+         "task", "wrap"]   # сначала понять правило и применить его, потом — устойчивые фразы, которые правилом не вывести
 FINAL = ["warmup", "text", "task", "test", "result"]
 STEP_NAME = {"warmup": "🔁 Разминка", "probe": "🎯 Проба", "dialog": "👂 Образец", "compr": "❓ Понял ли я",
              "chunks": "🧩 Фразы", "recall": "🧠 Вспомнить фразы", "own": "✍️ Свои предложения",
-             "disc": "🔎 Найди правило", "rule": "📖 Правило", "practice": "📝 Упражнения из книги",
+             "disc": "🔎 Найди правило", "rule": "📖 Правило", "build": "🛠 По правилу",
+             "practice": "📝 Упражнения из книги",
              "drill": "🎯 Добивка", "task": "🎭 Задача", "wrap": "🏁 Итог урока", "text": "📜 Текст наизусть",
              "test": "📝 Тест по юниту", "result": "🏆 Итог юнита"}
 DIARY_NEED = 2        # столько раз подряд верно — ошибка в дневнике закрыта
@@ -53,13 +54,26 @@ PASS_TEST = 85        # юнит пройден: тест не ниже, %
 PASS_OPEN = 3         # … и открытых ошибок в дневнике не больше
 QA_HISTORY = 8
 CHUNK_RATE = "-20%"   # фразы — помедленнее
-NAV = [[("➡️ Дальше", "ls:n")], [("❓ Вопрос учителю", "ls:ask"), ("⏸ Пауза", "ls:h")]]
+NAV = [[("➡️ Дальше", "ls:n")], [("📖 Правило", "ls:rl"), ("❓ Вопрос", "ls:ask"), ("⏸ Пауза", "ls:h")]]
+HELP_ROW = [("📖 Правило", "ls:rl"), ("❓ Вопрос учителю", "ls:ask")]   # под упражнениями урока
+
+
+def _variants(pl: str) -> list[str]:
+    """Что ещё засчитать: «Byłem w kinie. / Byłam w kinie.» — любую половину; «Nie wiedziałem, że…» — без «…»."""
+    parts = [x.strip() for x in pl.split(" / ")] if " / " in pl else []
+    out = []
+    for x in parts + [pl]:
+        y = x.rstrip("…").rstrip(" ,").strip()
+        for v in (x, y):
+            if v and v != pl and v not in out:
+                out.append(v)
+    return out
 
 
 def _card(pl: str, ru: str, translit: str = "", **extra) -> dict:
     """Карточка RU → PL для движка упражнений."""
-    return {"q": ru, "answer": pl, "accepted": [], "options": [], "full_pl": pl, "translit": translit, "ru": ru,
-            "grammar": "", "rule": "", "lemma": pl, "dir": "ru", "card": True, **extra}
+    return {"q": ru, "answer": pl, "accepted": _variants(pl), "options": [], "full_pl": pl, "translit": translit,
+            "ru": ru, "grammar": "", "rule": "", "lemma": pl, "dir": "ru", "card": True, **extra}
 
 
 def _spoiler(pl: str, translit: str, ru: str) -> str:
@@ -398,6 +412,21 @@ class LessonMixin:
             return False
         await self.tg.send_message(chat_id, self.ls_head(unit, plan, st, lesson, steps) + "\n\n"
                                    + fmt.rules_message({"rules": sel}), NAV)
+        return True
+
+    async def ls_build(self, chat_id, user_id, unit, plan, st, lesson, steps) -> bool:
+        """🛠 Тренировка по правилу: сам строишь формы (пишет Claude в плане — build {intro, items})."""
+        b = lesson.get("build")
+        if not b or not b.get("items"):
+            return False
+        items = [{"q": t["q"], "answer": t["answer"], "accepted": list(t.get("accepted") or []), "options": [],
+                  "full_pl": t.get("full_pl") or speech.fill(t["q"], t["answer"]), "translit": t.get("translit", ""),
+                  "ru": t["ru"], "grammar": t.get("grammar", ""), "rule": rules.normalize(t.get("rule")), "lemma": ""}
+                 for t in b["items"]]
+        await self.tg.send_message(chat_id, self.ls_head(unit, plan, st, lesson, steps) + "\n\n"
+                                   + escape(b.get("intro") or "Теперь построй формы сам — по правилу выше. "
+                                            "Правило под рукой — кнопка «📖 Правило»."))
+        await self.ls_ex(chat_id, user_id, unit, b.get("title") or "По правилу: построй форму", items)
         return True
 
     async def ls_practice(self, chat_id, user_id, unit, plan, st, lesson, steps) -> bool:
@@ -823,9 +852,58 @@ class LessonMixin:
 
     # ---------- ❓ вопрос учителю ----------
 
-    async def ls_ask_start(self, chat_id: int, user_id: int, pending: dict | None) -> None:
+    # ---------- 📖 правила: в любой момент урока ----------
+
+    def ls_all_rules(self, unit: dict, plan: list) -> list[tuple[str, dict]]:
+        """Все правила юнита: выжимка (u0, u1…) + правила отдельных уроков (x<урок>.<n>)."""
+        out = [(f"u{i}", r) for i, r in enumerate((unit.get("review") or {}).get("rules") or [])]
+        for x in plan:
+            out += [(f"x{x['id']}.{j}", r) for j, r in enumerate(x.get("extra_rules") or [])]
+        return out
+
+    def ls_rule_by(self, user_id: int, key: str) -> dict | None:
+        ctx = self.ls_ctx(user_id)
+        return dict(self.ls_all_rules(ctx[0], ctx[1])).get(key) if ctx else None
+
+    async def ls_rules_show(self, chat_id: int, user_id: int, key: str | None = None) -> None:
+        """ls:rl — правила текущего урока (нет урока — список всех); ls:ri:<ключ> — одно правило. Шаг не меняется."""
+        ctx = self.ls_ctx(user_id)
+        if not ctx:
+            await self.tg.send_message(chat_id, "Правил не нашлось — открой урок: /lesson")
+            return
+        unit, plan, st, lesson, steps = ctx
+        if key:
+            r = dict(self.ls_all_rules(unit, plan)).get(key)
+            sel = [(key, r)] if r else []
+        else:
+            keys = {id(r): k for k, r in self.ls_all_rules(unit, plan)}
+            sel = [(keys.get(id(r), ""), r) for r in self.ls_rules(unit, lesson)] if lesson else []
+        if not sel:
+            await self.ls_rules_list(chat_id, user_id)
+            return
+        rows = [[(f"❓ Спросить: {r.get('title', '')}"[:60], f"ls:ask:{k}")] for k, r in sel if k]
+        rows.append([("📚 Все правила юнита", "ls:ra"), ("↩️ К уроку", "ls:qx")])
+        head = "📖 <b>Правило урока</b>\n\n" if not key else ""
+        await self.tg.send_message(chat_id, head + fmt.rules_message({"rules": [r for _, r in sel]}), rows)
+
+    async def ls_rules_list(self, chat_id: int, user_id: int) -> None:
+        ctx = self.ls_ctx(user_id)
+        if not ctx:
+            return
+        unit, plan = ctx[0], ctx[1]
+        rows = [[(f"📖 {r.get('title', '')}"[:60], f"ls:ri:{k}")] for k, r in self.ls_all_rules(unit, plan)]
+        rows.append([("❓ Вопрос учителю", "ls:ask"), ("↩️ К уроку", "ls:qx")])
+        await self.tg.send_message(chat_id, f"📚 <b>Правила юнита {escape(unit['num'])}</b> — какое открыть?", rows)
+
+    async def ls_ask_start(self, chat_id: int, user_id: int, pending: dict | None, rule_key: str = "") -> None:
         prev = pending if pending and pending.get("step") != "ls_q" else (pending or {}).get("prev")
-        self.db.set_pending(user_id, {"step": "ls_q", "hist": [], "prev": prev})
+        self.db.set_pending(user_id, {"step": "ls_q", "hist": [], "prev": prev, "rule": rule_key})
+        r = self.ls_rule_by(user_id, rule_key) if rule_key else None
+        if r:
+            await self.tg.send_message(chat_id, f"❓ <b>{escape(r.get('title', ''))}</b>\n\nСпрашивай про это правило — "
+                                                "текстом или голосом. Можно несколько вопросов подряд.",
+                                       [[("↩️ Вернуться к уроку", "ls:qx")]])
+            return
         await self.tg.send_message(chat_id, "❓ Спрашивай — текстом или голосом, по-русски: про правило, фразу, разницу "
                                             "между словами. Можно несколько вопросов подряд.",
                                    [[("↩️ Вернуться к уроку", "ls:qx")]])
@@ -841,7 +919,8 @@ class LessonMixin:
             return
         sel = self.ls_rules(unit, lesson) if lesson else []
         chunks = "; ".join(f"{c['pl']} — {c['ru']}" for c in (lesson or {}).get("chunks") or [])
-        rule = sel[0] if len(sel) == 1 else {
+        picked = self.ls_rule_by(user_id, pending.get("rule") or "") if pending.get("rule") else None
+        rule = picked or sel[0] if picked or len(sel) == 1 else {
             "title": (lesson or {}).get("title", unit["title"]),
             "explanation": " ".join(f"{r.get('title', '')}: {r.get('explanation', '')}" for r in sel)
                            + (f" Фразы урока: {chunks}" if chunks else "")}
@@ -887,7 +966,13 @@ class LessonMixin:
                 return "Игра уже закончена"
             await self.ls_talk_finish(chat_id, user_id, pending)
         elif kind == "ask":
-            await self.ls_ask_start(chat_id, user_id, pending)
+            await self.ls_ask_start(chat_id, user_id, pending, rest)
+        elif kind == "rl":
+            await self.ls_rules_show(chat_id, user_id)
+        elif kind == "ra":
+            await self.ls_rules_list(chat_id, user_id)
+        elif kind == "ri":
+            await self.ls_rules_show(chat_id, user_id, rest)
         elif kind == "qx":
             prev = (pending or {}).get("prev") if (pending or {}).get("step") == "ls_q" else None
             self.db.set_pending(user_id, prev)

@@ -1,0 +1,1030 @@
+{
+ "unit": "14",
+ "lessons": [
+  {
+   "id": "1",
+   "title": "Город: что где? na wprost, na górze, za pomnikiem",
+   "can_do": [
+    "назвать объекты в городе: rzeka, pomnik, wieża, kościół, ratusz, zamek",
+    "сказать, где что находится: po prawej stronie, na wprost, na rogu",
+    "описать место: na górze, na dole, w środku, na zewnątrz, za pomnikiem"
+   ],
+   "probe": {
+    "task": "Опиши в 1–2 предложениях, что есть рядом с твоим домом (Obok mojego domu jest… / Na rogu jest…).",
+    "sample": "Na rogu jest przystanek, a po lewej stronie jest mały kościół.",
+    "sample_translit": "на РО-гу ест пшыс-ТА-нэк, а по ЛЕ-вэй СТРО-не ест МА-ўы КОЩЬ-чуў",
+    "sample_ru": "На углу остановка, а слева маленький костёл."
+   },
+   "dialog": {
+    "title": "Экскурсия по Старому городу",
+    "pl": "— Dzień dobry państwu! Jesteśmy na Rynku. Na wprost jest ratusz, a raczej wieża ratuszowa.\n— A co jest za wieżą?\n— Za wieżą są Sukiennice. W środku jest muzeum i sklepy.\n— A ten kościół po prawej stronie?\n— To kościół Mariacki. Na górze jest trębacz. Słyszycie? Gra hejnał.\n— A gdzie jest przystanek?\n— Na rogu, po lewej stronie. Ale Wawel jest blisko, idziemy pieszo.",
+    "translit": "— джень ДОБ-ры ПАНЬСТ-ву! ес-ТЭЩЬ-мы на РЫН-ку. на фпрост ест РА-туш, а РА-чэй ВЕ-жа ра-ту-шо-ВА.\n— а цо ест за ВЕ-жон?\n— за ВЕ-жон сон су-ке-НИ-цэ. ф ЩЬРОТ-ку ест му-ЗЭ-ум и СКЛЕ-пы.\n— а тэн КОЩЬ-чуў по ПРА-вэй СТРО-не?\n— то КОЩЬ-чуў ма-РЬЯЦ-ки. на ГУ-жэ ест ТРЭМ-бач. сўы-ШЫ-че? гра ХЭЙ-наў.\n— а гдже ест пшыс-ТА-нэк?\n— на РО-гу, по ЛЕ-вэй СТРО-не. А-ле ВА-вэль ест БЛИС-ко, и-ДЖЕ-мы ПЕ-шо.",
+    "ru": "— Здравствуйте! Мы на Рынке. Прямо впереди ратуша, точнее, ратушная башня.\n— А что за башней?\n— За башней Суконные ряды. Внутри музей и магазины.\n— А этот костёл справа?\n— Это Мариацкий костёл. Наверху трубач. Слышите? Играет хейнал.\n— А где остановка?\n— На углу, слева. Но Вавель близко, идём пешком.",
+    "questions": [
+     {
+      "q": "Co jest na wprost?",
+      "ru": "Что прямо впереди?",
+      "answer": "wieża ratuszowa",
+      "options": [
+       "wieża ratuszowa",
+       "kościół Mariacki",
+       "przystanek"
+      ]
+     },
+     {
+      "q": "Co jest w środku Sukiennic?",
+      "ru": "Что внутри Суконных рядов?",
+      "answer": "muzeum i sklepy",
+      "options": [
+       "muzeum i sklepy",
+       "trębacz",
+       "zamek"
+      ]
+     },
+     {
+      "q": "Gdzie jest przystanek?",
+      "ru": "Где остановка?",
+      "answer": "na rogu, po lewej stronie",
+      "options": [
+       "na rogu, po lewej stronie",
+       "za wieżą",
+       "na Wawelu"
+      ]
+     }
+    ]
+   },
+   "discover": {
+    "examples": [
+     {
+      "pl": "Krzyż jest na górze, a drzwi na dole.",
+      "translit": "кшыш ест на ГУ-жэ, а джви на ДО-ле",
+      "ru": "Крест наверху, а двери внизу."
+     },
+     {
+      "pl": "Zamawiamy w środku, siedzimy na zewnątrz.",
+      "translit": "за-ма-ВЯ-мы ф ЩЬРОТ-ку, ще-ДЖИ-мы на ЗЭВ-нонтш",
+      "ru": "Заказываем внутри, сидим снаружи."
+     },
+     {
+      "pl": "Za pomnikiem są Sukiennice.",
+      "translit": "за пом-НИ-кем сон су-ке-НИ-цэ",
+      "ru": "За памятником Суконные ряды."
+     },
+     {
+      "pl": "Za wieżą jest kawiarnia.",
+      "translit": "за ВЕ-жон ест ка-ВЯР-ня",
+      "ru": "За башней кафе."
+     }
+    ],
+    "question": "Меняются ли na górze, w środku? А что происходит со словом после za?",
+    "answer": "na górze, na dole, w środku, na zewnątrz, na wprost — готовые выражения, не меняются. После za (за, позади) — творительный падеж, как после z: pomnik → za pomnikiem (-em), wieża → za wieżą (-ą)."
+   },
+   "rules": [
+    5
+   ],
+   "build": {
+    "title": "По правилу: za + творительный, где?",
+    "intro": "Построй сам: za + творительный (м. и ср. р. -em, на -k / -g -iem, ж. р. -ą) и пары «где?».",
+    "items": [
+     {
+      "q": "Sukiennice są za ___ (pomnik).",
+      "answer": "pomnikiem",
+      "ru": "Суконные ряды за памятником."
+     },
+     {
+      "q": "Kawiarnia jest za ___ (wieża).",
+      "answer": "wieżą",
+      "ru": "Кафе за башней."
+     },
+     {
+      "q": "Park jest za ___ (zamek).",
+      "answer": "zamkiem",
+      "ru": "Парк за замком.",
+      "grammar": "на -k → -iem"
+     },
+     {
+      "q": "Przystanek jest za ___ (kościół).",
+      "answer": "kościołem",
+      "ru": "Остановка за костёлом.",
+      "grammar": "ó → o: kościół → kościołem"
+     },
+     {
+      "q": "Rzeka jest za ___ (katedra).",
+      "answer": "katedrą",
+      "ru": "Река за собором."
+     },
+     {
+      "q": "Pub jest za ___ (ratusz).",
+      "answer": "ratuszem",
+      "ru": "Паб за ратушей."
+     },
+     {
+      "q": "Krzyż jest na górze, a drzwi na ___.",
+      "answer": "dole",
+      "ru": "Крест наверху, а двери внизу."
+     },
+     {
+      "q": "Zamawiamy w środku, a siedzimy na ___.",
+      "answer": "zewnątrz",
+      "ru": "Заказываем внутри, а сидим снаружи."
+     },
+     {
+      "q": "Kościół jest po prawej stronie, a pomnik po ___ stronie.",
+      "answer": "lewej",
+      "ru": "Костёл справа, а памятник слева."
+     }
+    ]
+   },
+   "practice": [
+    "tb-14-b2",
+    "wb-14-5",
+    "wb-14-6"
+   ],
+   "chunks": [
+    {
+     "pl": "Co to jest?",
+     "translit": "цо то ест",
+     "ru": "Что это?"
+    },
+    {
+     "pl": "Jesteśmy na Rynku.",
+     "translit": "ес-ТЭЩЬ-мы на РЫН-ку",
+     "ru": "Мы на Рынке."
+    },
+    {
+     "pl": "Na wprost jest pomnik.",
+     "translit": "на фпрост ест ПОМ-ник",
+     "ru": "Прямо впереди памятник."
+    },
+    {
+     "pl": "Po prawej stronie jest kościół.",
+     "translit": "по ПРА-вэй СТРО-не ест КОЩЬ-чуў",
+     "ru": "Справа костёл."
+    },
+    {
+     "pl": "Po lewej stronie jest ulica Grodzka.",
+     "translit": "по ЛЕ-вэй СТРО-не ест у-ЛИ-ца ГРОЦ-ка",
+     "ru": "Слева улица Гродская."
+    },
+    {
+     "pl": "Na rogu możemy kupić precle.",
+     "translit": "на РО-гу мо-ЖЭ-мы КУ-пичь ПРЭЦ-ле",
+     "ru": "На углу можно купить крендели."
+    },
+    {
+     "pl": "To blisko. / To daleko.",
+     "translit": "то БЛИС-ко / то да-ЛЕ-ко",
+     "ru": "Это близко. / Это далеко."
+    },
+    {
+     "pl": "Ten kościół ma dwie wieże.",
+     "translit": "тэн КОЩЬ-чуў ма две ВЕ-жэ",
+     "ru": "У этого костёла две башни."
+    },
+    {
+     "pl": "Trębacz gra hejnał.",
+     "translit": "ТРЭМ-бач гра ХЭЙ-наў",
+     "ru": "Трубач играет хейнал."
+    },
+    {
+     "pl": "Kto stoi na górze, kto na dole?",
+     "translit": "кто СТО-и на ГУ-жэ, кто на ДО-ле",
+     "ru": "Кто стоит наверху, кто внизу?"
+    }
+   ],
+   "own": "Опиши 3–4 предложениями площадь или улицу в твоём городе: что на ней есть и где (na wprost, po prawej / lewej stronie, na rogu, za…).",
+   "task": {
+    "title": "Ты — гид",
+    "brief": "Мами впервые в твоём городе. Покажи ей главную площадь: назови 3–4 объекта (памятник, костёл, ратуша, кафе…) и скажи, где каждый находится. Ответь на её вопросы.",
+    "bot_role": "Ты — Мами, туристка из Японии, первый раз в городе ученика. Спрашивай: Co to jest? A co jest po prawej stronie? Gdzie jest przystanek? Co jest w środku? Радуйся и задавай уточняющие вопросы, коротко, просто.",
+    "goal": "назвать минимум 3 объекта и сказать, где каждый (po prawej / lewej stronie, na wprost, na rogu, za…)",
+    "targets": [
+     "Na wprost jest…",
+     "Po prawej stronie jest…",
+     "Po lewej stronie jest…",
+     "na rogu",
+     "za pomnikiem / za kościołem",
+     "w środku"
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Cześć! Jestem tu pierwszy raz. Co to jest, na wprost?",
+     "translit": "чещьчь! ЕС-тэм ту ПЬЕРФ-шы рас. цо то ест, на фпрост?",
+     "ru": "Привет! Я здесь первый раз. Что это, прямо впереди?"
+    }
+   }
+  },
+  {
+   "id": "2",
+   "title": "Как пройти? Jak dojść do…?",
+   "can_do": [
+    "спросить дорогу: Przepraszam, jak dojść do…? Gdzie jest…?",
+    "объяснить дорогу: Proszę iść prosto, skręcić w lewo, przejść przez…",
+    "различать «где» и «куда»: po prawej stronie — w prawo"
+   ],
+   "probe": {
+    "task": "Спроси по-польски у прохожего, как пройти к остановке.",
+    "sample": "Przepraszam, jak dojść do przystanku?",
+    "sample_translit": "пше-ПРА-шам, як дойщьчь до пшыс-ТАН-ку",
+    "sample_ru": "Извините, как пройти к остановке?"
+   },
+   "dialog": {
+    "title": "Где аптека?",
+    "pl": "— Przepraszam, jak dojść do apteki?\n— Do apteki? Proszę iść prosto tą ulicą, a potem skręcić w lewo na pierwszym skrzyżowaniu.\n— W lewo, dobrze. A potem?\n— Potem proszę przejść przez ulicę. Po prawej stronie jest duża księgarnia. Apteka jest naprzeciwko księgarni.\n— To daleko?\n— Nie, to niedaleko. Pięć minut pieszo.\n— Dziękuję bardzo!",
+    "translit": "— пше-ПРА-шам, як дойщьчь до ап-ТЭ-ки?\n— до ап-ТЭ-ки? ПРО-шэ ищьчь ПРОС-то тон у-ЛИ-цон, а ПО-тэм СКРЭН-чичь в ЛЕ-во на ПЬЕРФ-шым скшы-жо-ВА-ню.\n— в ЛЕ-во, ДОБ-жэ. а ПО-тэм?\n— ПО-тэм ПРО-шэ пшэйщьчь пшэс у-ЛИ-цэ. по ПРА-вэй СТРО-не ест ДУ-жа кщен-ГАР-ня. ап-ТЭ-ка ест на-пшэ-ЧИФ-ко кщен-ГАР-ни.\n— то да-ЛЕ-ко?\n— не, то не-да-ЛЕ-ко. пеньчь МИ-нут ПЕ-шо.\n— джень-КУ-е БАР-дзо!",
+    "ru": "— Извините, как пройти к аптеке?\n— К аптеке? Идите прямо по этой улице, а потом поверните налево на первом перекрёстке.\n— Налево, хорошо. А потом?\n— Потом перейдите через улицу. Справа большой книжный магазин. Аптека напротив книжного.\n— Это далеко?\n— Нет, недалеко. Пять минут пешком.\n— Большое спасибо!",
+    "questions": [
+     {
+      "q": "Gdzie trzeba skręcić w lewo?",
+      "ru": "Где надо повернуть налево?",
+      "answer": "na pierwszym skrzyżowaniu",
+      "options": [
+       "na pierwszym skrzyżowaniu",
+       "przy księgarni",
+       "na rogu"
+      ]
+     },
+     {
+      "q": "Gdzie jest apteka?",
+      "ru": "Где аптека?",
+      "answer": "naprzeciwko księgarni",
+      "options": [
+       "naprzeciwko księgarni",
+       "po lewej stronie",
+       "za skrzyżowaniem"
+      ]
+     },
+     {
+      "q": "Czy to daleko?",
+      "ru": "Это далеко?",
+      "answer": "nie, pięć minut pieszo",
+      "options": [
+       "nie, pięć minut pieszo",
+       "tak, trzeba jechać tramwajem",
+       "tak, pół godziny"
+      ]
+     }
+    ]
+   },
+   "discover": {
+    "examples": [
+     {
+      "pl": "Apteka jest po prawej stronie.",
+      "translit": "ап-ТЭ-ка ест по ПРА-вэй СТРО-не",
+      "ru": "Аптека справа."
+     },
+     {
+      "pl": "Proszę skręcić w prawo.",
+      "translit": "ПРО-шэ СКРЭН-чичь ф ПРА-во",
+      "ru": "Поверните направо."
+     },
+     {
+      "pl": "Jak dojść do apteki?",
+      "translit": "як дойщьчь до ап-ТЭ-ки",
+      "ru": "Как пройти к аптеке?"
+     },
+     {
+      "pl": "Apteka jest naprzeciwko księgarni.",
+      "translit": "ап-ТЭ-ка ест на-пшэ-ЧИФ-ко кщен-ГАР-ни",
+      "ru": "Аптека напротив книжного."
+     }
+    ],
+    "question": "Почему в одном случае po prawej stronie, а в другом w prawo? И что происходит со словом после do и naprzeciwko?",
+    "answer": "po prawej stronie — где (с jest: объект находится справа), w prawo — куда (с skręcić: поворот направо). После do и naprzeciwko — родительный падеж: apteka → do apteki, księgarnia → naprzeciwko księgarni, kościół → do kościoła."
+   },
+   "rules": [
+    4
+   ],
+   "build": {
+    "title": "По правилу: do + родительный, где и куда",
+    "intro": "Построй сам: do / naprzeciwko + родительный (ж. р. -a → -i / -y, м. р. → -a / -u) и «где» / «куда».",
+    "items": [
+     {
+      "q": "Jak dojść do ___ (apteka)?",
+      "answer": "apteki",
+      "ru": "Как пройти к аптеке?",
+      "grammar": "ж. р.: -ka → -ki"
+     },
+     {
+      "q": "Jak dojść do ___ (katedra)?",
+      "answer": "katedry",
+      "ru": "Как пройти к собору?",
+      "grammar": "ж. р.: -ra → -ry"
+     },
+     {
+      "q": "Jak dojść do ___ (kościół)?",
+      "answer": "kościoła",
+      "ru": "Как пройти к костёлу?",
+      "grammar": "м. р. → -a, ó → o"
+     },
+     {
+      "q": "Jak dojść do ___ (ratusz)?",
+      "answer": "ratusza",
+      "ru": "Как пройти к ратуше?"
+     },
+     {
+      "q": "Jak dojść do ___ (Rynek)?",
+      "answer": "Rynku",
+      "ru": "Как пройти к Рынку?",
+      "grammar": "Rynek → Rynku (-u, e выпадает)"
+     },
+     {
+      "q": "Apteka jest naprzeciwko ___ (księgarnia).",
+      "answer": "księgarni",
+      "ru": "Аптека напротив книжного.",
+      "grammar": "-nia → -ni"
+     },
+     {
+      "q": "Proszę skręcić ___ (направо).",
+      "answer": "w prawo",
+      "ru": "Поверните направо.",
+      "grammar": "куда → w prawo"
+     },
+     {
+      "q": "Kościół jest po ___ stronie (справа).",
+      "answer": "prawej",
+      "ru": "Костёл справа.",
+      "grammar": "где → po prawej stronie"
+     },
+     {
+      "q": "Proszę przejść ___ skrzyżowanie.",
+      "answer": "przez",
+      "ru": "Перейдите через перекрёсток."
+     }
+    ]
+   },
+   "practice": [
+    "tb-14-b6a",
+    "wb-14-7",
+    "wb-14-8b"
+   ],
+   "chunks": [
+    {
+     "pl": "Przepraszam, jak dojść do…?",
+     "translit": "пше-ПРА-шам, як дойщьчь до",
+     "ru": "Извините, как пройти к…?"
+    },
+    {
+     "pl": "Przepraszam, gdzie jest…?",
+     "translit": "пше-ПРА-шам, гдже ест",
+     "ru": "Извините, где…?"
+    },
+    {
+     "pl": "Proszę iść prosto.",
+     "translit": "ПРО-шэ ищьчь ПРОС-то",
+     "ru": "Идите прямо."
+    },
+    {
+     "pl": "Proszę iść cały czas prosto.",
+     "translit": "ПРО-шэ ищьчь ЦА-ўы час ПРОС-то",
+     "ru": "Идите всё время прямо."
+    },
+    {
+     "pl": "Proszę skręcić w lewo.",
+     "translit": "ПРО-шэ СКРЭН-чичь в ЛЕ-во",
+     "ru": "Поверните налево."
+    },
+    {
+     "pl": "na pierwszym skrzyżowaniu",
+     "translit": "на ПЬЕРФ-шым скшы-жо-ВА-ню",
+     "ru": "на первом перекрёстке"
+    },
+    {
+     "pl": "po drugiej stronie ulicy",
+     "translit": "по ДРУ-гей СТРО-не у-ЛИ-цы",
+     "ru": "на другой стороне улицы"
+    },
+    {
+     "pl": "To niedaleko, pięć minut pieszo.",
+     "translit": "то не-да-ЛЕ-ко, пеньчь МИ-нут ПЕ-шо",
+     "ru": "Это недалеко, пять минут пешком."
+    },
+    {
+     "pl": "Niestety, nie wiem.",
+     "translit": "не-СТЭ-ты, не вьем",
+     "ru": "К сожалению, не знаю."
+    },
+    {
+     "pl": "Dziękuję bardzo! — Proszę bardzo.",
+     "translit": "джень-КУ-е БАР-дзо — ПРО-шэ БАР-дзо",
+     "ru": "Большое спасибо! — Пожалуйста."
+    }
+   ],
+   "own": "Напиши 3–4 предложения: как дойти от твоего дома до ближайшего магазина или остановки (Proszę iść…, skręcić…, … jest po … stronie).",
+   "task": {
+    "title": "Турист спрашивает дорогу",
+    "brief": "К тебе на улице подходит турист и спрашивает, как пройти к костёлу. Объясни дорогу: минимум 3 шага (iść prosto, skręcić, przejść przez…) и где костёл в конце. Ответь на его уточняющие вопросы.",
+    "bot_role": "Ты — турист в польском городе, плохо ориентируешься. Спроси: Przepraszam, jak dojść do kościoła? Потом переспрашивай: W prawo czy w lewo? To daleko? Po której stronie? Говори просто, вежливо, благодари в конце.",
+    "goal": "объяснить дорогу из 3 шагов и сказать, где объект",
+    "targets": [
+     "Proszę iść prosto.",
+     "Proszę skręcić w lewo / w prawo.",
+     "przejść przez…",
+     "po prawej / lewej stronie",
+     "na rogu / naprzeciwko",
+     "To niedaleko."
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Przepraszam, jak dojść do kościoła Mariackiego?",
+     "translit": "пше-ПРА-шам, як дойщьчь до кощь-ЧЁ-ўа ма-рьяц-КЕ-го",
+     "ru": "Извините, как пройти к Мариацкому костёлу?"
+    }
+   }
+  },
+  {
+   "id": "3",
+   "title": "Иду или хожу? iść / chodzić, jechać / jeździć, czym?",
+   "can_do": [
+    "сказать, куда идёшь сейчас и куда ходишь обычно: idę — chodzę",
+    "сказать, на чём едешь: jadę tramwajem, jeżdżę rowerem",
+    "спросить: Czym jeździsz do pracy?"
+   ],
+   "probe": {
+    "task": "Скажи, на чём ты обычно ездишь на работу или учёбу и как едешь сегодня.",
+    "sample": "Zwykle jeżdżę do pracy autobusem, ale dziś idę pieszo.",
+    "sample_translit": "ЗВЫК-ле ЕЖ-джэ до ПРА-цы аў-то-БУ-сэм, А-ле джищь И-дэ ПЕ-шо",
+    "sample_ru": "Обычно я езжу на работу на автобусе, но сегодня иду пешком."
+   },
+   "dialog": {
+    "title": "Куда ты идёшь?",
+    "pl": "— Cześć, Javier! Dokąd idziesz?\n— Idę na basen. Chodzę tam dwa razy w tygodniu.\n— Pieszo? To daleko!\n— Nie, zwykle jeżdżę rowerem, ale dziś pada deszcz, więc jadę tramwajem. A ty?\n— Ja jadę do Nowej Huty. Jutro jedziemy z Karoliną do Zakopanego.\n— Czym jedziecie?\n— Autobusem. Pociągiem jeździmy rzadko, bo to długo.",
+    "translit": "— чещьчь, ХА-вьер! ДО-конт И-джешь?\n— И-дэ на БА-сэн. ХО-дзэ там два РА-зы ф ты-ГОД-ню.\n— ПЕ-шо? то да-ЛЕ-ко!\n— не, ЗВЫК-ле ЕЖ-джэ ро-ВЭ-рэм, А-ле джищь ПА-да дэщч, вьенц Я-дэ трам-ВА-ем. а ты?\n— я Я-дэ до НО-вэй ХУ-ты. ЮТ-ро е-ДЖЕ-мы с ка-ро-ЛИ-нон до за-ко-ПА-нэ-го.\n— чым е-ДЖЕ-че?\n— аў-то-БУ-сэм. по-ЧЁН-гем ежь-ДЖИ-мы ЖАТ-ко, бо то ДЎУ-го.",
+    "ru": "— Привет, Хавьер! Куда идёшь?\n— Иду в бассейн. Я хожу туда два раза в неделю.\n— Пешком? Это далеко!\n— Нет, обычно я езжу на велосипеде, но сегодня дождь, поэтому еду на трамвае. А ты?\n— Я еду в Новую Гуту. Завтра мы с Каролиной едем в Закопане.\n— На чём едете?\n— На автобусе. На поезде мы ездим редко, потому что это долго.",
+    "questions": [
+     {
+      "q": "Jak często Javier chodzi na basen?",
+      "ru": "Как часто Хавьер ходит в бассейн?",
+      "answer": "dwa razy w tygodniu",
+      "options": [
+       "dwa razy w tygodniu",
+       "codziennie",
+       "raz w miesiącu"
+      ]
+     },
+     {
+      "q": "Czym Javier jedzie dziś?",
+      "ru": "На чём Хавьер едет сегодня?",
+      "answer": "tramwajem",
+      "options": [
+       "tramwajem",
+       "rowerem",
+       "autobusem"
+      ]
+     },
+     {
+      "q": "Czym jadą do Zakopanego?",
+      "ru": "На чём едут в Закопане?",
+      "answer": "autobusem",
+      "options": [
+       "autobusem",
+       "pociągiem",
+       "samochodem"
+      ]
+     }
+    ]
+   },
+   "discover": {
+    "examples": [
+     {
+      "pl": "Teraz idę na basen.",
+      "translit": "ТЭ-раз И-дэ на БА-сэн",
+      "ru": "Сейчас я иду в бассейн."
+     },
+     {
+      "pl": "Chodzę na basen dwa razy w tygodniu.",
+      "translit": "ХО-дзэ на БА-сэн два РА-зы ф ты-ГОД-ню",
+      "ru": "Я хожу в бассейн два раза в неделю."
+     },
+     {
+      "pl": "Dziś jadę tramwajem.",
+      "translit": "джищь Я-дэ трам-ВА-ем",
+      "ru": "Сегодня я еду на трамвае."
+     },
+     {
+      "pl": "Zwykle jeżdżę rowerem.",
+      "translit": "ЗВЫК-ле ЕЖ-джэ ро-ВЭ-рэм",
+      "ru": "Обычно я езжу на велосипеде."
+     }
+    ],
+    "question": "Когда idę, а когда chodzę? Чем jadę отличается от idę? И в каком падеже tramwajem, rowerem?",
+    "answer": "iść / jechać — сейчас или один раз (teraz, dziś, jutro), chodzić / jeździć — регулярно (zwykle, często, dwa razy w tygodniu). iść / chodzić — пешком, jechać / jeździć — на транспорте. «На чём» — творительный без предлога: tramwaj → tramwajem, taksówka → taksówką."
+   },
+   "rules": [
+    0,
+    1,
+    2
+   ],
+   "build": {
+    "title": "По правилу: iść / chodzić, jechać / jeździć, czym?",
+    "intro": "Построй сам: сейчас — iść / jechać, регулярно — chodzić / jeździć; транспорт — творительный (-em, -iem, -ą).",
+    "items": [
+     {
+      "q": "Teraz (ja) ___ do sklepu.",
+      "answer": "idę",
+      "ru": "Сейчас я иду в магазин.",
+      "grammar": "teraz, пешком → iść"
+     },
+     {
+      "q": "Zwykle (ja) ___ do pracy pieszo.",
+      "answer": "chodzę",
+      "ru": "Обычно я хожу на работу пешком.",
+      "grammar": "zwykle → chodzić"
+     },
+     {
+      "q": "Dziś (my) ___ do kina.",
+      "answer": "idziemy",
+      "ru": "Сегодня мы идём в кино."
+     },
+     {
+      "q": "Oni często ___ na koncerty.",
+      "answer": "chodzą",
+      "ru": "Они часто ходят на концерты."
+     },
+     {
+      "q": "Jutro (ja) ___ do Warszawy.",
+      "answer": "jadę",
+      "ru": "Завтра я еду в Варшаву.",
+      "grammar": "jutro, транспорт → jechać"
+     },
+     {
+      "q": "Codziennie (ja) ___ do pracy rowerem.",
+      "answer": "jeżdżę",
+      "ru": "Каждый день я езжу на работу на велосипеде.",
+      "grammar": "codziennie → jeździć; ja jeżdżę"
+     },
+     {
+      "q": "Gdzie ___ (wy) na wakacje w tym roku?",
+      "answer": "jedziecie",
+      "ru": "Куда вы едете в отпуск в этом году?"
+     },
+     {
+      "q": "Państwo Maj zwykle ___ do Hiszpanii.",
+      "answer": "jeżdżą",
+      "ru": "Супруги Май обычно ездят в Испанию."
+     },
+     {
+      "q": "Jadę do pracy ___ (tramwaj).",
+      "answer": "tramwajem",
+      "ru": "Я еду на работу на трамвае.",
+      "grammar": "м. р. → -em"
+     },
+     {
+      "q": "Jedziemy ___ (taksówka).",
+      "answer": "taksówką",
+      "ru": "Мы едем на такси.",
+      "grammar": "ж. р. → -ą"
+     },
+     {
+      "q": "Jeżdżę do Warszawy ___ (pociąg).",
+      "answer": "pociągiem",
+      "ru": "Я езжу в Варшаву на поезде.",
+      "grammar": "на -g → -iem"
+     },
+     {
+      "q": "Mieszkam na dziesiątym piętrze, jeżdżę ___ (winda).",
+      "answer": "windą",
+      "ru": "Я живу на десятом этаже, езжу на лифте."
+     }
+    ]
+   },
+   "practice": [
+    "tb-14-a3",
+    "tb-14-a5",
+    "wb-14-3"
+   ],
+   "chunks": [
+    {
+     "pl": "Dokąd idziesz?",
+     "translit": "ДО-конт И-джешь",
+     "ru": "Куда ты идёшь?"
+    },
+    {
+     "pl": "Czym jeździsz do pracy?",
+     "translit": "чым ЕЖЬ-джишь до ПРА-цы",
+     "ru": "На чём ты ездишь на работу?"
+    },
+    {
+     "pl": "Czym jedziesz?",
+     "translit": "чым Е-джешь",
+     "ru": "На чём ты едешь?"
+    },
+    {
+     "pl": "pieszo",
+     "translit": "ПЕ-шо",
+     "ru": "пешком"
+    },
+    {
+     "pl": "dwa razy w tygodniu",
+     "translit": "два РА-зы ф ты-ГОД-ню",
+     "ru": "два раза в неделю"
+    },
+    {
+     "pl": "Pada deszcz, więc…",
+     "translit": "ПА-да дэщч, вьенц",
+     "ru": "Идёт дождь, поэтому…"
+    },
+    {
+     "pl": "Zaraz idę!",
+     "translit": "ЗА-рас И-дэ",
+     "ru": "Сейчас иду!"
+    },
+    {
+     "pl": "Idziesz spać?",
+     "translit": "И-джешь спачь",
+     "ru": "Ты идёшь спать?"
+    },
+    {
+     "pl": "To długo.",
+     "translit": "то ДЎУ-го",
+     "ru": "Это долго."
+    }
+   ],
+   "own": "Напиши 3–4 предложения: куда и на чём ты ездишь / ходишь регулярно и куда идёшь или едешь сегодня (zwykle…, ale dziś…).",
+   "task": {
+    "title": "Опрос: как ты передвигаешься по городу",
+    "brief": "Анджела делает опрос «Транспорт в городе». Расскажи, на чём и куда ты ездишь и ходишь обычно (работа, магазин, спорт), и куда идёшь или едешь сегодня. Спроси её, на чём ездит она.",
+    "bot_role": "Ты — Анджела, проводишь опрос. Задавай по очереди: Czym jeździsz do pracy? Jak często chodzisz na zakupy? Dokąd idziesz dzisiaj? Если ученик спросит о тебе — ты обычно ездишь на велосипеде, а зимой на трамвае (jeżdżę rowerem, zimą tramwajem). Если ученик путает jadę / jeżdżę, мягко переспроси: Teraz czy zwykle?",
+    "goal": "рассказать минимум о 2 регулярных поездках и 1 сегодняшней, с видом транспорта, и спросить Анджелу",
+    "targets": [
+     "Zwykle jeżdżę…",
+     "Codziennie chodzę…",
+     "Dziś idę / jadę…",
+     "autobusem / tramwajem / rowerem",
+     "pieszo",
+     "Czym jeździsz…?"
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Cześć! Robię ankietę. Czym jeździsz do pracy albo do szkoły?",
+     "translit": "чещьчь! РО-бье ан-КЕ-тэ. чым ЕЖЬ-джишь до ПРА-цы АЛЬ-бо до ШКО-ўы?",
+     "ru": "Привет! Я провожу опрос. На чём ты ездишь на работу или в школу?"
+    }
+   }
+  },
+  {
+   "id": "4",
+   "title": "Кого? mnie, cię, go, ją… Czekam na ciebie",
+   "can_do": [
+    "заменить человека или вещь местоимением: Lubię go. Mam ją.",
+    "сказать, кого ждёшь: Czekam na ciebie / na niego / na nich",
+    "пригласить и ответить: Zapraszam cię do kina."
+   ],
+   "probe": {
+    "task": "Скажи по-польски другу: «Я жду тебя у памятника».",
+    "sample": "Czekam na ciebie przy pomniku.",
+    "sample_translit": "ЧЕ-кам на ЧЕ-бе пшы пом-НИ-ку",
+    "sample_ru": "Я жду тебя у памятника."
+   },
+   "dialog": {
+    "title": "Мы идём в паб",
+    "pl": "— Halo, Mami? Gdzie jesteś? Czekam na ciebie pod ratuszem!\n— Przepraszam, już idę! A gdzie jest Karolina? Zaprosiłaś ją?\n— Tak, zaprosiłam ją, ale musi się uczyć.\n— A Tom i Uwe? Czekamy na nich?\n— Nie, oni czekają na nas w pubie. Widzisz Javiera?\n— Tak, widzę go! Jest tam, za pomnikiem.\n— Super, to idziemy!",
+    "translit": "— ХА-лё, МА-ми? гдже ЕС-тэщь? ЧЕ-кам на ЧЕ-бе пот ра-ту-ШЭМ!\n— пше-ПРА-шам, юж И-дэ! а гдже ест ка-ро-ЛИ-на? за-про-ЩИ-ўащь йон?\n— так, за-про-ЩИ-ўам йон, А-ле МУ-си щэ У-чычь.\n— а том и У-вэ? че-КА-мы на них?\n— не, О-ни че-КА-ён на нас ф ПА-бе. ВИ-джишь ха-ВЬЕ-ра?\n— так, ВИ-дзэ го! ест там, за пом-НИ-кем.\n— СУ-пэр, то и-ДЖЕ-мы!",
+    "ru": "— Алло, Мами? Где ты? Я жду тебя у ратуши!\n— Извини, уже иду! А где Каролина? Ты её пригласила?\n— Да, я её пригласила, но ей надо учиться.\n— А Том и Уве? Мы их ждём?\n— Нет, они ждут нас в пабе. Ты видишь Хавьера?\n— Да, вижу его! Он там, за памятником.\n— Супер, тогда идём!",
+    "questions": [
+     {
+      "q": "Gdzie Angela czeka na Mami?",
+      "ru": "Где Анджела ждёт Мами?",
+      "answer": "pod ratuszem",
+      "options": [
+       "pod ratuszem",
+       "w pubie",
+       "za pomnikiem"
+      ]
+     },
+     {
+      "q": "Dlaczego Karolina nie idzie?",
+      "ru": "Почему Каролина не идёт?",
+      "answer": "musi się uczyć",
+      "options": [
+       "musi się uczyć",
+       "jest chora",
+       "jest w pubie"
+      ]
+     },
+     {
+      "q": "Kto czeka w pubie?",
+      "ru": "Кто ждёт в пабе?",
+      "answer": "Tom i Uwe",
+      "options": [
+       "Tom i Uwe",
+       "Javier",
+       "Karolina"
+      ]
+     }
+    ]
+   },
+   "discover": {
+    "examples": [
+     {
+      "pl": "Lubię Javiera. → Lubię go.",
+      "translit": "ЛЮ-бье ха-ВЬЕ-ра → ЛЮ-бье го",
+      "ru": "Мне нравится Хавьер. → Он мне нравится."
+     },
+     {
+      "pl": "Czekam na Javiera. → Czekam na niego.",
+      "translit": "ЧЕ-кам на ха-ВЬЕ-ра → ЧЕ-кам на НЕ-го",
+      "ru": "Я жду Хавьера. → Я жду его."
+     },
+     {
+      "pl": "Zaprosiłam Karolinę. → Zaprosiłam ją.",
+      "translit": "за-про-ЩИ-ўам ка-ро-ЛИ-нэ → за-про-ЩИ-ўам йон",
+      "ru": "Я пригласила Каролину. → Я её пригласила."
+     },
+     {
+      "pl": "Kocham cię. — Czekam na ciebie.",
+      "translit": "КО-хам чэ — ЧЕ-кам на ЧЕ-бе",
+      "ru": "Я тебя люблю. — Я жду тебя."
+     }
+    ],
+    "question": "Почему go, но na niego? Почему cię, но na ciebie?",
+    "answer": "Это винительный падеж местоимений (кого?). После предлога (na, o, za…) у on, ona, oni, one появляется n-: go → niego, ją → nią, ich → nich, je → nie; у ty — длинная форма ciebie. Без предлога — короткие: go, ją, ich, cię. mnie, nas, was не меняются."
+   },
+   "rules": [
+    3
+   ],
+   "build": {
+    "title": "По правилу: местоимения в винительном",
+    "intro": "Построй сам: кого? — mnie, cię, go, ją, je, nas, was, ich; после предлога — ciebie, niego, nią, nie, nich.",
+    "items": [
+     {
+      "q": "Kocham ___ (ty).",
+      "answer": "cię",
+      "ru": "Я тебя люблю."
+     },
+     {
+      "q": "Czekam na ___ (ty).",
+      "answer": "ciebie",
+      "ru": "Я жду тебя.",
+      "grammar": "после na → ciebie"
+     },
+     {
+      "q": "Lubię ___ (on).",
+      "answer": "go",
+      "ru": "Он мне нравится."
+     },
+     {
+      "q": "Czekamy na ___ (on).",
+      "answer": "niego",
+      "ru": "Мы ждём его.",
+      "grammar": "после na → niego"
+     },
+     {
+      "q": "Zaprosiłam ___ (ona).",
+      "answer": "ją",
+      "ru": "Я её пригласила."
+     },
+     {
+      "q": "Patrzę na ___ (ona).",
+      "answer": "nią",
+      "ru": "Я смотрю на неё.",
+      "grammar": "после na → nią"
+     },
+     {
+      "q": "Widzę ___ (oni).",
+      "answer": "ich",
+      "ru": "Я их вижу."
+     },
+     {
+      "q": "Czekamy na ___ (oni).",
+      "answer": "nich",
+      "ru": "Мы ждём их.",
+      "grammar": "после na → nich"
+     },
+     {
+      "q": "Babcia zaprosiła ___ (my).",
+      "answer": "nas",
+      "ru": "Бабушка пригласила нас."
+     },
+     {
+      "q": "Mam książkę. → Mam ___.",
+      "answer": "ją",
+      "ru": "У меня есть книга. → Она у меня есть.",
+      "grammar": "książka — ж. р. → ją"
+     },
+     {
+      "q": "Oglądam ten program. → Oglądam ___.",
+      "answer": "go",
+      "ru": "Я смотрю эту программу. → Смотрю её.",
+      "grammar": "program — м. р. → go"
+     },
+     {
+      "q": "Piję piwo. → Piję ___.",
+      "answer": "je",
+      "ru": "Я пью пиво. → Я его пью.",
+      "grammar": "piwo — ср. р. → je"
+     }
+    ]
+   },
+   "practice": [
+    "tb-14-c3",
+    "tb-14-c4",
+    "wb-14-10"
+   ],
+   "chunks": [
+    {
+     "pl": "Czekam na ciebie.",
+     "translit": "ЧЕ-кам на ЧЕ-бе",
+     "ru": "Я жду тебя."
+    },
+    {
+     "pl": "Już idę!",
+     "translit": "юж И-дэ",
+     "ru": "Уже иду!"
+    },
+    {
+     "pl": "Zapraszam cię do kina.",
+     "translit": "за-ПРА-шам чэ до КИ-на",
+     "ru": "Приглашаю тебя в кино."
+    },
+    {
+     "pl": "Ile mogę na was czekać!",
+     "translit": "И-ле МО-гэ на вас ЧЕ-качь",
+     "ru": "Сколько мне вас ждать!"
+    },
+    {
+     "pl": "Czekamy na nich pięć minut.",
+     "translit": "че-КА-мы на них пеньчь МИ-нут",
+     "ru": "Ждём их пять минут."
+    },
+    {
+     "pl": "Widzisz go?",
+     "translit": "ВИ-джишь го",
+     "ru": "Ты его видишь?"
+    },
+    {
+     "pl": "Kocham cię.",
+     "translit": "КО-хам чэ",
+     "ru": "Я тебя люблю."
+    },
+    {
+     "pl": "Pytałeś mnie?",
+     "translit": "пы-ТА-ўэщь мне",
+     "ru": "Ты меня спрашивал?"
+    },
+    {
+     "pl": "Bardzo was przepraszam.",
+     "translit": "БАР-дзо вас пшэ-ПРА-шам",
+     "ru": "Очень извиняюсь перед вами."
+    }
+   ],
+   "own": "Напиши 3–4 предложения о друзьях или семье с местоимениями: кого ты любишь, кого часто видишь, на кого ждёшь (Lubię go…, Czekam na nią…, Często ich widzę…).",
+   "task": {
+    "title": "Встреча перед пабом",
+    "brief": "Ты пришёл(шла) на встречу с друзьями, но никого нет. Звонишь Анджеле: скажи, где ты ждёшь, спроси про Хавьера, Каролину и Тома с Уве — ждёте ли вы их, пригласила ли она их. Используй местоимения (go, ją, ich, na niego, na nich).",
+    "bot_role": "Ты — Анджела, опаздываешь. Отвечай на звонок ученика: ты уже рядом. Хавьер едет на велосипеде (czekaj na niego), Каролина не придёт, Том и Уве уже в пабе. Отвечай коротко и тоже используй местоимения. Если ученик ошибается в форме (na go), переспроси: Na niego?",
+    "goal": "сказать, где ждёшь, и спросить минимум о 2 друзьях, используя местоимения в винительном",
+    "targets": [
+     "Czekam na ciebie…",
+     "Czekamy na niego?",
+     "Zaprosiłaś ją?",
+     "Czekamy na nich?",
+     "Widzisz go?",
+     "Już idę!"
+    ],
+    "min_targets": 3,
+    "opening": {
+     "pl": "Halo! Przepraszam, spóźnię się! Gdzie jesteś?",
+     "translit": "ХА-лё! пше-ПРА-шам, СПУЖЬ-не щэ! гдже ЕС-тэщь?",
+     "ru": "Алло! Извини, я опоздаю! Где ты?"
+    }
+   }
+  },
+  {
+   "id": "5",
+   "final": true,
+   "title": "Итог юнита 14",
+   "can_do": [
+    "описать, что где в городе",
+    "спросить и объяснить дорогу",
+    "сказать, куда идёшь или едешь сейчас и куда ходишь / ездишь регулярно, и на чём",
+    "заменять людей и вещи местоимениями: go, ją, ich, na niego"
+   ],
+   "text": 2,
+   "task": {
+    "title": "Встреча в Кракове",
+    "brief": "Ты договариваешься с Мами о встрече в центре. Объясни, как дойти от остановки до кафе (минимум 3 шага), скажи, на чём ты сам едешь, и спроси, на чём едет она. Договоритесь, кто кого где ждёт.",
+    "bot_role": "Ты — Мами. Ты не знаешь, где кафе. Спрашивай: Jak dojść? Czym jedziesz? Czekasz na mnie w środku czy na zewnątrz? Ты едешь трамваем (jadę tramwajem), обычно ездишь велосипедом. Отвечай коротко.",
+    "goal": "объяснить дорогу (3 шага), назвать транспорт, различить jadę / jeżdżę и использовать местоимение (na ciebie / na mnie)",
+    "targets": [
+     "Proszę iść prosto…",
+     "skręcić w lewo / w prawo",
+     "po prawej / lewej stronie",
+     "Jadę tramwajem / autobusem",
+     "Zwykle jeżdżę…",
+     "Czekam na ciebie…",
+     "na rogu / naprzeciwko"
+    ],
+    "min_targets": 4,
+    "opening": {
+     "pl": "Cześć! Gdzie się spotykamy? Nie znam tej kawiarni. Jak tam dojść?",
+     "translit": "чещьчь! гдже щэ спо-ты-КА-мы? не знам тэй ка-ВЯР-ни. як там дойщьчь?",
+     "ru": "Привет! Где встречаемся? Я не знаю этого кафе. Как туда дойти?"
+    }
+   },
+   "test": [
+    {
+     "q": "Wisła to ___.",
+     "answer": "rzeka",
+     "ru": "Висла — это река."
+    },
+    {
+     "q": "Warszawa to ___ Polski.",
+     "answer": "stolica",
+     "ru": "Варшава — столица Польши."
+    },
+    {
+     "q": "Tam, gdzie czekamy na tramwaj, to ___.",
+     "answer": "przystanek",
+     "ru": "Место, где ждём трамвай, — остановка."
+    },
+    {
+     "q": "Sukiennice są za ___ (pomnik).",
+     "answer": "pomnikiem",
+     "ru": "Суконные ряды за памятником."
+    },
+    {
+     "q": "Krzyż jest na górze, a drzwi na ___.",
+     "answer": "dole",
+     "ru": "Крест наверху, а двери внизу."
+    },
+    {
+     "q": "Przepraszam, jak ___ do apteki?",
+     "answer": "dojść",
+     "ru": "Извините, как пройти к аптеке?"
+    },
+    {
+     "q": "Jak dojść do ___ (katedra)?",
+     "answer": "katedry",
+     "ru": "Как пройти к собору?"
+    },
+    {
+     "q": "Proszę ___ w lewo.",
+     "answer": "skręcić",
+     "ru": "Поверните налево."
+    },
+    {
+     "q": "Kościół jest po prawej ___.",
+     "answer": "stronie",
+     "ru": "Костёл справа."
+    },
+    {
+     "q": "Apteka jest ___ księgarni.",
+     "answer": "naprzeciwko",
+     "ru": "Аптека напротив книжного."
+    },
+    {
+     "q": "Teraz (ja) ___ do sklepu.",
+     "answer": "idę",
+     "ru": "Сейчас я иду в магазин."
+    },
+    {
+     "q": "Jak często ___ (ty) na basen?",
+     "answer": "chodzisz",
+     "ru": "Как часто ты ходишь в бассейн?"
+    },
+    {
+     "q": "Jutro (my) ___ do Zakopanego.",
+     "answer": "jedziemy",
+     "ru": "Завтра мы едем в Закопане."
+    },
+    {
+     "q": "Codziennie (ja) ___ do pracy autobusem.",
+     "answer": "jeżdżę",
+     "ru": "Каждый день я езжу на работу на автобусе."
+    },
+    {
+     "q": "Jadę do centrum ___ (taksówka).",
+     "answer": "taksówką",
+     "ru": "Я еду в центр на такси."
+    },
+    {
+     "q": "Jeździmy do Warszawy ___ (pociąg).",
+     "answer": "pociągiem",
+     "ru": "Мы ездим в Варшаву на поезде."
+    },
+    {
+     "q": "Kocham ___ (ty).",
+     "answer": "cię",
+     "ru": "Я тебя люблю."
+    },
+    {
+     "q": "Czekam na ___ (on).",
+     "answer": "niego",
+     "ru": "Я жду его.",
+     "grammar": "после предлога → niego"
+    },
+    {
+     "q": "Zaprosiłam ___ (ona).",
+     "answer": "ją",
+     "ru": "Я её пригласила."
+    },
+    {
+     "q": "Czekamy na ___ (oni) pięć minut.",
+     "answer": "nich",
+     "ru": "Ждём их пять минут."
+    }
+   ]
+  }
+ ]
+}

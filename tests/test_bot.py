@@ -3413,7 +3413,7 @@ def test_real_lesson_plans_are_valid():
     """🎓 Планы уроков: упражнения и правила существуют, у вопросов 3 варианта, кнопки и тексты в лимитах Telegram."""
     tb.UNITS_DIR = REAL_TEXTBOOK
     units = tb.lesson_units()
-    assert {u["unit"] for u in units} >= {"kpk:11", "kpk:12", "kpk:13"}
+    assert {u["unit"] for u in units} >= {"kpk:11", "kpk:12", "kpk:13", "kpk:14"}
     for u in units:
         plan = tb.lessons(u["unit"])
         ids = {x["id"] for x in u["exercises"]}
@@ -3428,14 +3428,17 @@ def test_real_lesson_plans_are_valid():
                 assert q["answer"] in q["options"] and len(set(q["options"])) == 3
             for t in x.get("test") or []:
                 assert "___" in t["q"] and t["answer"] and t["ru"]
+            for t in (x.get("build") or {}).get("items") or []:
+                assert "___" in t["q"] and t["answer"] and t["ru"]
             if not x.get("final"):
                 assert x["probe"]["sample"] and x["dialog"]["pl"] and 8 <= len(x["chunks"]) <= 12 and x["discover"]["answer"]
                 assert len(x["dialog"]["pl"]) + len(x["dialog"]["translit"]) + len(x["dialog"]["ru"]) < 3500
 
 
 def test_lesson_full_flow_steps_diary_task_and_wrap():
-    """🎓 Урок 1 юнита 12 целиком: проба → образец → вопросы → фразы → свои предложения → правило → упражнения из книги
-    (отдельный прогресс) → добивка → ролевая игра с разбором после → итог; ошибки — в дневник и общий пул."""
+    """🎓 Урок 1 юнита 12 целиком, порядок «сначала правило»: проба → образец → вопросы → найди правило → правило →
+    упражнения из книги (отдельный прогресс) → фразы → вспомнить → свои предложения → добивка → ролевая игра с разбором
+    после → итог; ошибки — в дневник и общий пул; «📖 Правило» — в любой момент, шаг не теряется."""
     app = ls_app()
     gem = app.gemini
     run(app.handle(msg(text="/lesson")))
@@ -3443,38 +3446,37 @@ def test_lesson_full_flow_steps_diary_task_and_wrap():
     run(app.on_callback(cb("ls:u:kpk:12", mid=3)))
     assert "Урок 1.</b> Приглашаем и отвечаем" in app.tg.edits[-1][0] and "ls:s:kpk:12|1" in str(app.tg.edits[-1][1])
     run(app.on_callback(cb("ls:s:kpk:12|1")))
-    assert "🎯 Проба" in app.tg.sent[-1] and "шаг 2/13" in app.tg.sent[-1]      # разминки нет: первый урок, дневник пуст
+    assert "🎯 Проба" in app.tg.sent[-1] and "шаг 2/14" in app.tg.sent[-1]      # разминки нет: первый урок, дневник пуст
+    assert ("📖 Правило", "ls:rl") in app.tg.buttons[-1][1]
     assert app.db.get_state(42)["pending"] == {"step": "ls_in", "mode": "probe"}
     run(app.handle(msg(text="chcesz kino jutro?")))
     assert "ПРОБА" in gem.prompts[-1] and "Можно так" in app.tg.sent[-1] and "в ошибки не записываю" in app.tg.sent[-1]
     assert app.db.corrections_since(42, 0) == [] and app.db.lesson_errs(42, "kpk:12") == []   # проба — не ошибка
+    run(app.on_callback(cb("ls:rl")))                                              # 📖 правило — шаг не меняется
+    assert "Правило урока" in app.tg.sent[-1] and "Куда пойти? do" in app.tg.sent[-1]
+    assert "ls:ask:u2" in str(app.tg.buttons[-1]) and app.db.get_state(42)["pending"]["mode"] == "probe"
+    run(app.on_callback(cb("ls:ra")))
+    assert "Правила юнита 12" in app.tg.sent[-1] and "ls:ri:x2.0" in str(app.tg.buttons[-1])   # + правило урока 2
+    run(app.on_callback(cb("ls:ri:x2.0")))
+    assert "Порядковые 1–24" in app.tg.sent[-1]
+    run(app.on_callback(cb("ls:ask:x2.0")))
+    run(app.handle(msg(text="почему dwunasta?")))
+    assert "Порядковые 1–24" in gem.prompts[-1] and "🧑‍🏫" in app.tg.sent[-1]
+    run(app.on_callback(cb("ls:qx")))
+    assert app.db.get_state(42)["pending"] == {"step": "ls_in", "mode": "probe"}
     run(app.on_callback(cb("ls:n")))
     assert "👂 Образец" in app.tg.sent[-1] and "Masz ochotę pójść ze mną?" in app.tg.sent[-1]
     assert app.tg.voices[-1].startswith(b"OGG:")
     run(app.on_callback(cb("ls:n")))                                               # вопросы на понимание — тест кнопками
     ex = ex_now(app)
-    assert ex["fmt"] == "test" and len(ex["items"]) == 3 and "ls:n" not in str(app.tg.buttons[-1])
+    assert ex["fmt"] == "test" and len(ex["items"]) == 3 and ("📖 Правило", "ls:rl") in app.tg.buttons[-1][-1]
     for i, it in enumerate(ex["items"], 1):
         L = "abcd"[it["options"].index(it["answer"])]
         run(app.on_callback(cb(f"x:a:{ex['id']}:{i}:{L if i > 1 else 'abc'.replace(L, '')[0]}")))
     run(app.on_callback(cb(f"x:go:{ex['id']}")))
     assert "2 из 3" in app.tg.sent[-1] and ("🎓 Дальше по уроку", "ls:n") in app.tg.buttons[-1][-1]
     assert app.db.corrections_since(42, 0) == [] and app.db.lesson_errs(42, "kpk:12") == []   # понимание — не в ошибки
-    run(app.on_callback(cb("ls:n")))
-    assert "🧩 Фразы" in app.tg.sent[-1] and "Świetny pomysł!" in app.tg.sent[-1]
-    run(app.on_callback(cb("ls:n")))                                               # вспомнить фразы: карточки RU → PL
-    ex = ex_now(app)
-    assert len(ex["items"]) == 10 and all(it["card"] for it in ex["items"])
-    gem.check_verdict = {}
-    run(app.handle(msg(text=" ".join(f"{i} {'zzz' if i == 1 else it['answer']}" for i, it in enumerate(ex["items"], 1)))))
-    diary = app.db.lesson_errs(42, "kpk:12")
-    assert [d["pl"] for d in diary] == [ex["items"][0]["answer"].rstrip(".?!")] or diary[0]["pl"] in ex["items"][0]["answer"]
-    run(app.on_callback(cb("ls:n")))
-    assert "✍️ Свои предложения" in app.tg.sent[-1]
-    run(app.handle(msg(text="Masz ochotę pójść do kino? Chętnie!")))
-    assert "do kino → <b>do kina</b>" in app.tg.sent[-1] and "ls:D:kpk:12#1@" in str(app.tg.buttons[-1])
-    assert len(app.db.lesson_errs(42, "kpk:12")) == 2 and app.db.corrections_by(42, "ls", "kpk:12")
-    run(app.on_callback(cb("ls:n")))
+    run(app.on_callback(cb("ls:n")))                                               # сначала правило: найди сам
     assert "🔎 Найди правило" in app.tg.sent[-1] and "Idziemy na film." in app.tg.sent[-1]
     run(app.handle(msg(text="do это место, na это событие")))
     assert "📖 Правило" in app.tg.sent[-1] and "Куда пойти? do + род. п. или na + вин. п." in app.tg.sent[-1]
@@ -3482,16 +3484,29 @@ def test_lesson_full_flow_steps_diary_task_and_wrap():
     run(app.on_callback(cb("ls:n")))                                               # упражнение из книги, прогресс отдельный
     pend = app.db.get_state(42)["pending"]
     assert pend["step"] == "bex" and pend["unit"] == "les:kpk:12" and pend["ex"] == "tb-12-a3"
+    assert ("📚 Правила урока", "ls:rl") in [b for r in app.tg.buttons[-1] for b in r]
     run(app.handle(msg(text="1 do spektakl 2 do kina")))
     assert ("🎓 Дальше по уроку", "ls:n") in [b for r in app.tg.buttons[-1] for b in r]
     assert app.db.bex_results(42, "kpk:12") == {} and app.db.bex_results(42, "les:kpk:12")
-    assert ls_state(app)["cur"]["redo"]
-    n_diary = len(app.db.lesson_errs(42, "kpk:12"))
-    assert n_diary >= 3
+    assert ls_state(app)["cur"]["redo"] and app.db.lesson_errs(42, "kpk:12")
     run(app.on_callback(cb("ls:n")))
     assert app.db.get_state(42)["pending"]["ex"] == "wb-12-3"
     run(app.on_callback(cb("ls:n")))
     assert app.db.get_state(42)["pending"]["ex"] == "wb-12-6"
+    run(app.on_callback(cb("ls:n")))                                               # фразы — после правила
+    assert "🧩 Фразы" in app.tg.sent[-1] and "Świetny pomysł!" in app.tg.sent[-1]
+    run(app.on_callback(cb("ls:n")))                                               # вспомнить фразы: карточки RU → PL
+    ex = ex_now(app)
+    assert len(ex["items"]) == 10 and all(it["card"] for it in ex["items"])
+    n_diary = len(app.db.lesson_errs(42, "kpk:12"))
+    gem.check_verdict = {}
+    run(app.handle(msg(text=" ".join(f"{i} {'zzz' if i == 1 else it['answer']}" for i, it in enumerate(ex["items"], 1)))))
+    assert len(app.db.lesson_errs(42, "kpk:12")) == n_diary + 1
+    run(app.on_callback(cb("ls:n")))
+    assert "✍️ Свои предложения" in app.tg.sent[-1]
+    run(app.handle(msg(text="Masz ochotę pójść do kino? Chętnie!")))
+    assert "do kino → <b>do kina</b>" in app.tg.sent[-1] and "ls:D:kpk:12#1@" in str(app.tg.buttons[-1])
+    assert app.db.corrections_by(42, "ls", "kpk:12")
     run(app.on_callback(cb("ls:n")))                                               # добивка от Gemini на свежие ошибки
     ex = ex_now(app)
     assert ex["cfg"]["kind"] == "grammar" and ex["cfg"]["lesson"] == "n" and any("В отработке было ошибок" in m for m in app.tg.sent[-4:])
@@ -3517,7 +3532,7 @@ def test_lesson_full_flow_steps_diary_task_and_wrap():
     assert "ls:s:kpk:12|2" in str(app.tg.buttons[-1])
     st = ls_state(app)
     assert "1" in st["done"] and st["notes"] == "путает do и na"
-    # урок 2 начинается с разминки: ошибки из дневника + фразы урока 1; заметки учителя идут в запросы
+    # урок 2: разминка (дневник + фразы урока 1) → … → 🛠 тренировка по правилу сразу после правила
     run(app.on_callback(cb("ls:s:kpk:12|2")))
     ex = ex_now(app)
     assert "Разминка" in ex["title"] and any(it.get("_diary") for it in ex["items"])
@@ -3528,16 +3543,26 @@ def test_lesson_full_flow_steps_diary_task_and_wrap():
     run(app.on_callback(cb("ls:n")))
     run(app.handle(msg(text="O której film?")))
     assert "Заметки учителя об этом ученике (что он путает): путает do и na" in gem.prompts[-1]
-    run(app.on_callback(cb("ls:ask")))                                             # вопрос учителю и возврат к шагу
-    assert app.db.get_state(42)["pending"]["step"] == "ls_q"
-    run(app.handle(msg(text="почему o szesnastej?")))
-    assert "🧑‍🏫" in app.tg.sent[-1]
-    run(app.on_callback(cb("ls:qx")))
-    assert app.db.get_state(42)["pending"] == {"step": "ls_in", "mode": "probe"}
+    for _ in range(3):                                                             # образец, вопросы, найди правило
+        run(app.on_callback(cb("ls:n")))
+    run(app.on_callback(cb("ls:n")))                                               # правило: выжимка + полная таблица
+    assert "Порядковые 1–24" in app.tg.sent[-1] and "o dwudziestej" in app.tg.sent[-1]
+    run(app.on_callback(cb("ls:n")))
+    ex = ex_now(app)
+    assert "По правилу" in ex["title"] and ex["items"][0]["answer"] == "trzynasta" and "🛠 По правилу" in app.tg.sent[-2]
     run(app.on_callback(cb("ls:h")))                                               # пауза → юнит: где остановился
     assert "▶️ Продолжить: урок 2" in str(app.tg.buttons[-1]) and "📓 Дневник ошибок: открыто" in app.tg.sent[-1]
     run(app.on_callback(cb("ls:d")))
     assert "Дневник ошибок · KpK 12" in app.tg.sent[-1] and "do kina" in app.tg.sent[-1]
+
+
+def test_lesson_recall_card_accepts_one_variant():
+    from bot.lesson import _card
+    from bot.exercises.logic import quick_check
+    c = _card("Byłem w kinie. / Byłam w kinie.", "Я был / была в кино.")
+    assert quick_check([c], {1: {"answer": "Byłam w kinie", "unsure": False}}, "gap")[0]["status"] == "ok"
+    c = _card("Nie wiedziałem, że…", "Я не знал, что…")
+    assert quick_check([c], {1: {"answer": "Nie wiedziałem, że", "unsure": False}}, "gap")[0]["status"] == "ok"
 
 
 def test_lesson_final_test_result_and_errors_work():

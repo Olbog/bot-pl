@@ -382,35 +382,29 @@
      "ru": "Чья это фотография?"
     },
     {
-     "pl": "To jest mój telefon.",
-     "translit": "то ест муй тэ-ЛЕ-фон",
-     "ru": "Это мой телефон."
+     "pl": "To twoje? — Nie, nie moje.",
+     "translit": "то ТФО-е — не, не МО-е",
+     "ru": "Это твоё? — Нет, не моё."
     },
     {
-     "pl": "To nie jest moje.",
-     "translit": "то не ест МО-е",
-     "ru": "Это не моё."
+     "pl": "To chyba jego.",
+     "translit": "то ХЫ-ба Е-го",
+     "ru": "Это, наверное, его."
     },
     {
-     "pl": "jego brat, jej siostra",
-     "translit": "Е-го брат, ей ЩЁСТ-ра",
-     "ru": "его брат, её сестра",
-     "note": "jego, jej не меняются"
+     "pl": "Gdzie jest moja torba?",
+     "translit": "гдже ест МО-я ТОР-ба",
+     "ru": "Где моя сумка?"
     },
     {
-     "pl": "nasz dom, nasza rodzina",
-     "translit": "наш дом, НА-ша ро-ДЖИ-на",
-     "ru": "наш дом, наша семья"
+     "pl": "Czyje to są klucze? — Nasze.",
+     "translit": "ЧЫ-е то сон КЛЮ-чэ — НА-шэ",
+     "ru": "Чьи это ключи? — Наши."
     },
     {
-     "pl": "wasz syn, wasze dziecko",
-     "translit": "ваш сын, ВА-шэ ДЖЕЦ-ко",
-     "ru": "ваш сын, ваш ребёнок"
-    },
-    {
-     "pl": "ich dzieci",
-     "translit": "их ДЖЕ-чи",
-     "ru": "их дети"
+     "pl": "Nie wiem, czyje to jest.",
+     "translit": "не вьем, ЧЫ-е то ест",
+     "ru": "Не знаю, чьё это."
     }
    ],
    "own": "Составь 3 предложения о вещах и людях вокруг тебя: чьи они (мой, её, наш, их…).",
@@ -440,7 +434,6 @@
     1
    ],
    "practice": [
-    "tb-11-b3",
     "tb-11-b4",
     "wb-11-8"
    ],
@@ -463,6 +456,65 @@
      "translit": "ХА-лё? чещьчь! цо СЎЫ-хачь по им-ПРЭ-же?",
      "ru": "Алло? Привет! Как дела после вечеринки?"
     }
+   },
+   "build": {
+    "title": "По правилу: чей?",
+    "intro": "Построй сам: mój / moja / moje — по роду вещи; jego, jej, ich — не меняются.",
+    "items": [
+     {
+      "q": "To jest ___ (ja) brat.",
+      "answer": "mój",
+      "ru": "Это мой брат."
+     },
+     {
+      "q": "To jest ___ (ty) siostra.",
+      "answer": "twoja",
+      "ru": "Это твоя сестра."
+     },
+     {
+      "q": "To jest ___ (my) dom.",
+      "answer": "nasz",
+      "ru": "Это наш дом."
+     },
+     {
+      "q": "To jest ___ (wy) dziecko.",
+      "answer": "wasze",
+      "ru": "Это ваш ребёнок.",
+      "grammar": "dziecko — ср. р."
+     },
+     {
+      "q": "To są ___ (ja) rodzice.",
+      "answer": "moi",
+      "ru": "Это мои родители.",
+      "grammar": "мн. ч., мужчины: moi"
+     },
+     {
+      "q": "To jest Adam, a to ___ żona.",
+      "answer": "jego",
+      "ru": "Это Адам, а это его жена."
+     },
+     {
+      "q": "To jest Ewa, a to ___ syn.",
+      "answer": "jej",
+      "ru": "Это Эва, а это её сын."
+     },
+     {
+      "q": "Tom i Mami mają samochód. To ___ samochód.",
+      "answer": "ich",
+      "ru": "У Тома и Мами машина. Это их машина."
+     },
+     {
+      "q": "___ to jest torba?",
+      "answer": "Czyja",
+      "ru": "Чья это сумка?"
+     },
+     {
+      "q": "___ to jest pióro?",
+      "answer": "Czyje",
+      "ru": "Чья это ручка?",
+      "grammar": "pióro — ср. р."
+     }
+    ]
    }
   },
   {

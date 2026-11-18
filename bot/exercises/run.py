@@ -96,7 +96,8 @@ class ExerciseRunMixin:
             await self.ex_send_quiz(chat_id, user_id, ex, saved, idx)
             return
         sent = await self.tg.send_message(chat_id, fmt.ex_message(saved, idx, ex["total"], kind == "voice"),
-                                          fmt.ex_hint_rows(saved) + [[("✖️ Закончить без проверки", "nav:c:ex_answer")]])
+                                          fmt.ex_hint_rows(saved) + ([fmt.LESSON_HELP] if ex.get("lesson") else [])
+                                          + [[("✖️ Закончить без проверки", "nav:c:ex_answer")]])
         if sent and sent.get("message_id"):
             self.db.ex_set_tg_msg(ex_id, sent["message_id"])
 
@@ -166,7 +167,8 @@ class ExerciseRunMixin:
     async def ex_send_quiz(self, chat_id: int, user_id: int, ex: dict, saved: dict, idx: int) -> None:
         """Одно сообщение с упражнением, под ним кнопки a / b / c по строке на пункт. Выбор хранится в pending."""
         sent = await self.tg.send_message(chat_id, fmt.ex_message(saved, idx, ex["total"], False, quiz=True),
-                                          fmt.ex_quiz_keyboard(saved, {}, []))
+                                          fmt.ex_quiz_keyboard(saved, {}, [])
+                                          + ([fmt.LESSON_HELP] if ex.get("lesson") else []))
         msg = (sent or {}).get("message_id")
         if msg:
             self.db.ex_set_tg_msg(saved["id"], msg)

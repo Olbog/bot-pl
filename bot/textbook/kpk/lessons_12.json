@@ -228,9 +228,9 @@
      "ru": "Который час?"
     },
     {
-     "pl": "Jest piętnasta czterdzieści.",
-     "translit": "ест пьент-НАС-та чтэр-ДЖЕЩЬ-чи",
-     "ru": "Сейчас пятнадцать сорок."
+     "pl": "Przepraszam, która godzina?",
+     "translit": "пше-ПРА-шам, КТУ-ра го-ДЖИ-на",
+     "ru": "Извините, который час?"
     },
     {
      "pl": "O której jest film?",
@@ -238,24 +238,14 @@
      "ru": "Во сколько фильм?"
     },
     {
-     "pl": "o szesnastej",
-     "translit": "о шэс-НАС-тэй",
-     "ru": "в шестнадцать (в 16:00)"
-    },
-    {
-     "pl": "o dziewiętnastej trzydzieści",
-     "translit": "о дже-вьент-НАС-тэй тшы-ДЖЕЩЬ-чи",
-     "ru": "в девятнадцать тридцать"
-    },
-    {
      "pl": "O której się spotkamy?",
      "translit": "о КТУ-рэй ще спот-КА-мы",
      "ru": "Во сколько встретимся?"
     },
     {
-     "pl": "od dziewiątej do siedemnastej",
-     "translit": "од дже-ВЬЁН-тэй до ще-дэм-НАС-тэй",
-     "ru": "с девяти до семнадцати"
+     "pl": "Do której pracujesz?",
+     "translit": "до КТУ-рэй пра-ЦУ-ешь",
+     "ru": "До скольки ты работаешь?"
     },
     {
      "pl": "O której kończy się film?",
@@ -263,9 +253,19 @@
      "ru": "Во сколько заканчивается фильм?"
     },
     {
-     "pl": "bilet na szesnastą",
-     "translit": "БИ-лет на шэс-НАС-тон",
-     "ru": "билет на шестнадцать (часов)"
+     "pl": "Mam czas po szesnastej.",
+     "translit": "мам час по шэс-НАС-тэй",
+     "ru": "У меня есть время после шестнадцати."
+    },
+    {
+     "pl": "Jest już późno!",
+     "translit": "ест юж ПУЖЬ-но",
+     "ru": "Уже поздно!"
+    },
+    {
+     "pl": "Czy to pasuje? — Tak, pasuje.",
+     "translit": "чы то па-СУ-е — так, па-СУ-е",
+     "ru": "Это подходит? — Да, подходит."
     }
    ],
    "own": "Составь 3 предложения о своём расписании: во сколько у тебя что-то начинается, с какого по какое время ты занят.",
@@ -310,9 +310,10 @@
     "targets": [
      "O której jest film?",
      "O której się spotkamy?",
-     "o piętnastej piętnaście",
-     "od dziewiątej do czternastej",
-     "o osiemnastej"
+     "Do której pracujesz?",
+     "Mam czas po…",
+     "Czy to pasuje?",
+     "o (час) — o piętnastej…"
     ],
     "min_targets": 3,
     "opening": {
@@ -320,6 +321,123 @@
      "translit": "чещьчь! и-ДЖЕ-мы ф со-БО-тэ до КИ-на? о КТУ-рэй маш час?",
      "ru": "Привет! Идём в субботу в кино? Во сколько ты свободен?"
     }
+   },
+   "extra_rules": [
+    {
+     "title": "Порядковые 1–24: «который час» и «во сколько»",
+     "explanation": "Час — это godzina (она), поэтому называем его порядковым числительным женского рода, как прилагательное: «Который час?» — на -a (pierwsza, ósma), «Во сколько?» — o + форма на -ej (o pierwszej, o ósmej), как dobra → o dobrej. Основа почти всегда видна из обычного числа: pięć → piąta, osiem → ósma, trzynaście → trzynasta.",
+     "table": [
+      {
+       "when": "1–4: особые, запомнить",
+       "form": "pierwsza, druga, trzecia, czwarta → o pierwszej, o drugiej, o trzeciej, o czwartej",
+       "example": "Jest druga. Lekcja jest o czwartej."
+      },
+      {
+       "when": "5–10: от числа",
+       "form": "piąta, szósta, siódma, ósma, dziewiąta, dziesiąta → o piątej, o szóstej, o siódmej…",
+       "example": "pięć → piąta, sześć → szósta, siedem → siódma"
+      },
+      {
+       "when": "11–19: -nasta",
+       "form": "jedenasta, dwunasta, trzynasta, czternasta, piętnasta, szesnasta, siedemnasta, osiemnasta, dziewiętnasta → o jedenastej … o dziewiętnastej",
+       "example": "o trzynastej, o osiemnastej"
+      },
+      {
+       "when": "20",
+       "form": "dwudziesta → o dwudziestej",
+       "example": "Film jest o dwudziestej."
+      },
+      {
+       "when": "21–24: обе части",
+       "form": "dwudziesta pierwsza … dwudziesta czwarta → o dwudziestej pierwszej…",
+       "example": "o dwudziestej drugiej"
+      },
+      {
+       "when": "минуты — числом, не меняются",
+       "form": "час + минуты",
+       "example": "o siedemnastej trzydzieści (17:30)"
+      }
+     ],
+     "exceptions": [
+      "1–4 — от других корней, как русские «первый, второй, третий, четвёртый»",
+      "siódma, ósma — с ó: siedem → siódma, osiem → ósma",
+      "trzecia → o trzeciej: после «i» окончание -ej пишется так же: trzeciej",
+      "dwunasta (12), а не «dwanasta»; dwudziesta (20), а не «dwadziesta»"
+     ],
+     "examples": [
+      {
+       "pl": "Jest czternasta. Film jest o szesnastej.",
+       "translit": "ест чтэр-НАС-та. фильм ест о шэс-НАС-тэй",
+       "ru": "Сейчас четырнадцать. Фильм в шестнадцать."
+      },
+      {
+       "pl": "Pracuję od ósmej do szesnastej.",
+       "translit": "пра-ЦУ-е од УС-мэй до шэс-НАС-тэй",
+       "ru": "Я работаю с восьми до шестнадцати."
+      },
+      {
+       "pl": "Pociąg jest o dwudziestej pierwszej.",
+       "translit": "ПО-чёнк ест о дву-ДЖЕС-тэй ПЬЕРФ-шэй",
+       "ru": "Поезд в двадцать один."
+      }
+     ]
+    }
+   ],
+   "build": {
+    "title": "По правилу: который час и во сколько",
+    "intro": "Построй форму часа сам — по таблице выше: «который час» — на -a, «во сколько» — o + -ej.",
+    "items": [
+     {
+      "q": "Która godzina? — Jest ___ (13:00).",
+      "answer": "trzynasta",
+      "ru": "Который час? — Тринадцать."
+     },
+     {
+      "q": "Lekcja jest o ___ (8:00).",
+      "answer": "ósmej",
+      "ru": "Урок в восемь."
+     },
+     {
+      "q": "Film jest o ___ (20:00).",
+      "answer": "dwudziestej",
+      "ru": "Фильм в двадцать."
+     },
+     {
+      "q": "Jest ___ (3:00).",
+      "answer": "trzecia",
+      "ru": "Сейчас три."
+     },
+     {
+      "q": "Pracuję od ___ (9:00) do ___ (17:00).",
+      "answer": "dziewiątej, siedemnastej",
+      "ru": "Я работаю с девяти до семнадцати."
+     },
+     {
+      "q": "Pociąg jest o ___ (21:00).",
+      "answer": "dwudziestej pierwszej",
+      "ru": "Поезд в двадцать один."
+     },
+     {
+      "q": "Jest ___ (12:00).",
+      "answer": "dwunasta",
+      "ru": "Сейчас двенадцать."
+     },
+     {
+      "q": "Spotkamy się o ___ (14:30).",
+      "answer": "czternastej trzydzieści",
+      "ru": "Встретимся в четырнадцать тридцать."
+     },
+     {
+      "q": "Koncert jest o ___ (19:15).",
+      "answer": "dziewiętnastej piętnaście",
+      "ru": "Концерт в девятнадцать пятнадцать."
+     },
+     {
+      "q": "Jest ___ (16:45).",
+      "answer": "szesnasta czterdzieści pięć",
+      "ru": "Сейчас шестнадцать сорок пять."
+     }
+    ]
    }
   },
   {
@@ -376,50 +494,44 @@
    },
    "chunks": [
     {
-     "pl": "w poniedziałek, we wtorek",
-     "translit": "ф по-не-ДЖЯ-ўэк, вэ ФТО-рэк",
-     "ru": "в понедельник, во вторник"
-    },
-    {
-     "pl": "w środę, w czwartek",
-     "translit": "ф ЩЬРО-дэ, ф ЧФАР-тэк",
-     "ru": "в среду, в четверг"
-    },
-    {
-     "pl": "w piątek, w sobotę, w niedzielę",
-     "translit": "ф ПЬЁН-тэк, ф со-БО-тэ, в не-ДЖЕ-лэ",
-     "ru": "в пятницу, в субботу, в воскресенье"
-    },
-    {
      "pl": "Kiedy masz czas?",
      "translit": "КЕ-ды маш час",
      "ru": "Когда у тебя есть время?"
     },
     {
-     "pl": "o wpół do siódmej",
-     "translit": "о фпуў до ЩЮД-мэй",
-     "ru": "в половине седьмого (в 6:30)",
-     "note": "называют следующий час"
+     "pl": "W tym tygodniu nie mogę.",
+     "translit": "ф тым ты-ГОД-ню не МО-гэ",
+     "ru": "На этой неделе я не могу."
     },
     {
-     "pl": "kwadrans po siódmej",
-     "translit": "КФАД-ранс по ЩЮД-мэй",
-     "ru": "четверть восьмого (7:15)"
+     "pl": "A może w przyszłym tygodniu?",
+     "translit": "а МО-же ф ПШЫШ-ўым ты-ГОД-ню",
+     "ru": "А может, на следующей неделе?"
     },
     {
-     "pl": "za piętnaście ósma",
-     "translit": "за пьент-НАЩЬ-че УС-ма",
-     "ru": "без пятнадцати восемь (7:45)"
+     "pl": "Mogę dopiero po szóstej.",
+     "translit": "МО-гэ до-ПЬЕ-ро по ШУС-тэй",
+     "ru": "Я могу только после шести."
     },
     {
-     "pl": "dopiero po szóstej",
-     "translit": "до-ПЬЕ-ро по ШУС-тэй",
-     "ru": "только после шести"
+     "pl": "Lepiej w czwartek.",
+     "translit": "ЛЕ-пей ф ЧФАР-тэк",
+     "ru": "Лучше в четверг."
     },
     {
-     "pl": "w tym tygodniu",
-     "translit": "ф тым ты-ГОД-ню",
-     "ru": "на этой неделе"
+     "pl": "Pasuje ci?",
+     "translit": "па-СУ-е чи",
+     "ru": "Тебе подходит?"
+    },
+    {
+     "pl": "Mam wolny wieczór.",
+     "translit": "мам ВОЛЬ-ны ВЕ-чур",
+     "ru": "У меня свободный вечер."
+    },
+    {
+     "pl": "Jesteśmy umówieni!",
+     "translit": "ес-ТЭЩЬ-мы у-му-ВЕ-ни",
+     "ru": "Договорились!"
     },
     {
      "pl": "Do czwartku!",
@@ -464,12 +576,12 @@
     "bot_role": "Ты — Оля. Ты занята: в понедельник весь вечер, в среду до 18:00, в пятницу после 20:00. Соглашайся, иногда отказывайся из-за занятости и предлагай другой день или время. Время называй по-разговорному (o wpół do ósmej, kwadrans po szóstej).",
     "goal": "договориться о трёх делах: у каждого — день и время",
     "targets": [
-     "w poniedziałek / we wtorek / w środę…",
-     "o wpół do…",
-     "kwadrans po…",
-     "za piętnaście…",
      "Kiedy masz czas?",
-     "Do czwartku!"
+     "Lepiej w…",
+     "Pasuje ci?",
+     "o wpół do… / kwadrans po… / za…",
+     "w poniedziałek / we wtorek…",
+     "Jesteśmy umówieni!"
     ],
     "min_targets": 4,
     "opening": {
@@ -477,6 +589,64 @@
      "translit": "чещьчь! то цо ро-БИ-мы ф тым ты-ГОД-ню? КЕ-ды маш час?",
      "ru": "Привет! Ну что делаем на этой неделе? Когда у тебя есть время?"
     }
+   },
+   "build": {
+    "title": "По правилу: время и дни недели",
+    "intro": "Построй сам: время по-разговорному (po, za, wpół do) и день недели (w + винительный).",
+    "items": [
+     {
+      "q": "Jest wpół do ___ (5:30).",
+      "answer": "szóstej",
+      "ru": "Сейчас половина шестого.",
+      "grammar": "wpół do + следующий час"
+     },
+     {
+      "q": "Jest kwadrans po ___ (8:15).",
+      "answer": "ósmej",
+      "ru": "Сейчас четверть девятого."
+     },
+     {
+      "q": "Jest za kwadrans ___ (9:45).",
+      "answer": "dziesiąta",
+      "ru": "Сейчас без четверти десять.",
+      "grammar": "za + час на -a"
+     },
+     {
+      "q": "Spotkamy się o wpół do ___ (7:30).",
+      "answer": "ósmej",
+      "ru": "Встретимся в половине восьмого."
+     },
+     {
+      "q": "Jest za pięć ___ (11:55).",
+      "answer": "dwunasta",
+      "ru": "Сейчас без пяти двенадцать."
+     },
+     {
+      "q": "Film jest dziesięć po ___ (6:10).",
+      "answer": "szóstej",
+      "ru": "Фильм в десять минут седьмого."
+     },
+     {
+      "q": "___ wtorek mam kurs.",
+      "answer": "We",
+      "ru": "Во вторник у меня курсы."
+     },
+     {
+      "q": "W ___ (środa) idę do kina.",
+      "answer": "środę",
+      "ru": "В среду я иду в кино."
+     },
+     {
+      "q": "W ___ (niedziela) śpię długo.",
+      "answer": "niedzielę",
+      "ru": "В воскресенье я долго сплю."
+     },
+     {
+      "q": "W ___ (sobota) mam wolny wieczór.",
+      "answer": "sobotę",
+      "ru": "В субботу у меня свободный вечер."
+     }
+    ]
    }
   },
   {

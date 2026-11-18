@@ -1175,6 +1175,9 @@ def ex_results(ex: dict, results: list[dict], head: str | None = None, foot: str
     return "\n".join(lines)
 
 
+LESSON_HELP = [("📖 Правило", "ls:rl"), ("❓ Вопрос учителю", "ls:ask")]   # 🎓 под упражнениями урока
+
+
 def ex_result_buttons(ex_id: int, left: int, wrong: int = 0, fresh: int = 0,
                       lesson: str | None = None) -> list[list[tuple[str, str]]]:
     """wrong — сколько пунктов ещё с ошибкой: «▶️ Продолжить» — ответить на них ещё раз, как в упражнениях из книги.
@@ -1185,7 +1188,7 @@ def ex_result_buttons(ex_id: int, left: int, wrong: int = 0, fresh: int = 0,
     rows += [[("📖 Правила по ошибкам", f"x:rr:{ex_id}"), ("🙅 Оспорить", f"x:dp:{ex_id}")],
              [("⭐ В словарь", f"dX:e:{ex_id}"), ("🔊 Правильные ответы", f"x:aa:{ex_id}")]]
     if lesson:   # 🎓 упражнение урока: n — дальше по шагам, h — отдельная работа над ошибками (назад к уроку)
-        return rows + [[("🎓 Дальше по уроку", "ls:n") if lesson == "n" else ("🎓 К уроку", "ls:h")]]
+        return rows + [LESSON_HELP, [("🎓 Дальше по уроку", "ls:n") if lesson == "n" else ("🎓 К уроку", "ls:h")]]
     if left > 0:
         rows.append([(f"➡️ Следующее (осталось {left})", "x:next"), ("⏹ Закончить", "x:stop")])
         rows.append([("🔁 Повторить серию", f"x:rp:{ex_id}")])
@@ -1353,6 +1356,8 @@ def bex_keyboard(unit: dict, x: dict, done: dict, pick: dict, sure: list, wins: 
     rows += page_row(unit, x)
     rows += bex_speak_row(unit, x, "s")
     rows.append([("📖 Правило", f"bx:R:{unit['unit']}|{x['id']}"), list_button(unit)])
+    if unit.get("les"):
+        rows.append([("📚 Правила урока", "ls:rl"), ("❓ Вопрос учителю", "ls:ask")])
     return rows
 
 
@@ -1430,6 +1435,8 @@ def bex_result_buttons(unit: dict, x: dict, done: dict, wins: int = 0,
         rows.append([(f"➡️ {bex_name(nxt)}"[:60], f"bx:o:{u}|{nxt['id']}")])
     rows += again_rows(unit, x, done, wins)
     rows.append([("📖 Правило", f"bx:R:{u}|{x['id']}"), list_button(unit)])
+    if unit.get("les"):
+        rows.append([("📚 Правила урока", "ls:rl"), ("❓ Вопрос учителю", "ls:ask")])
     if x.get("type") != "free":
         rows += bex_speak_row(unit, x, "S")
     if x.get("type") not in ("tf", "free"):
